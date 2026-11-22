@@ -17,7 +17,7 @@ image, clipped to the curve**, a plain gallery with no controls.
 - **t** — temporary set. The final set can be `f` without renaming the geometry.
 - **exp** — export, not a working page.
 - **c** — curve (as opposed to a terminal or an ornament).
-- **serial** — four digits, allocated once in `plates.json`, never reused. A
+- **serial** — four digits, allocated once in `old-plates.json`, never reused. A
   re-export keeps the name, so a LibreOffice link survives.
 
 ## The image
@@ -41,7 +41,7 @@ square.
 
 ## Adding a plate
 
-1. Add a row to `plates.json` with a fresh serial. The plates draw the saved
+1. Add a row to `old-plates.json` with a fresh serial. The plates draw the saved
    curves from `workbench/real-curves.json`, so a row is `"kind": "seed"` plus
    the curve's `"name"`:
 
@@ -60,7 +60,7 @@ square.
 3. Run:
 
 ```sh
-node scripts/plates_export.mjs
+node scripts/old_plates_export.mjs
 ```
 
 It writes `svg/<id>.svg`, `plates/<id>.png` and `render.html`, prints the
@@ -78,7 +78,7 @@ instruction rather than an error. The Astro gallery lists every star the moment
 the file exists; a star whose PNG has not been exported yet says so on its card.
 
 The section below it, **Simple framed symmetric central figures**, is the pair
-in `plates.json` (cross and leaf). The 27 single curves from `plates.json` follow. The lab's picker offers the
+in `old-plates.json` (cross and leaf). The 27 single curves from `old-plates.json` follow. The lab's picker offers the
 full 88-curve set, including the 60 found curves; starring one promotes it to
 the top section.
 
@@ -99,12 +99,13 @@ the top section.
 
 | path | what it is |
 |---|---|
-| `plates.json` | the manifest: id, source, offset share, note |
+| `old-plates.json` | the manifest: id, source, offset share, note |
+| `kept.json` | the print manifest of the kept set: 194 curves, plates order, provenance, and the print/web/figure paths; regenerate with `node scripts/book_kept.mjs` |
 | `plates/*.png` | the images, 300 dpi |
 | `svg/*.svg` | the same plates as SVG |
 | `render.html` | the page the screenshots are taken from (generated) |
 
 The gallery is not a generated file. It is `app/src/pages/book.astro`, reading
-`plates.json` and `workbench/starred.json` on each request and serving the PNGs
+`old-plates.json` and `workbench/starred.json` on each request and serving the PNGs
 through `/api/plate/<id>`. `workbench/plate_compose.js` writes every caption
 once, for both the exporter and the page.

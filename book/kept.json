@@ -1,0 +1,3695 @@
+{
+ "format": "curve-lab kept set 1",
+ "generated": "2026-11-22T03:55:25.422Z",
+ "rule": "kept when rated 2 or more, or a variant of a kept parent",
+ "count": 194,
+ "missing": [],
+ "rows": [
+  {
+   "uid": "c-0022",
+   "name": "wave3",
+   "stars": 10,
+   "family": "wave3",
+   "provenance": "Chosen at 10/10 · x(t) = −24t + 230t² − 3196/3t³ + 2664t⁴ − 18288/5t⁵ + 2592t⁶ − 5184/7t⁷; y(t) = −10t + 46t² − 72t³ + 36t⁴ · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0022-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0022.svg",
+    "webPng": "app/public/plates-web/c-0022-1600-grey.png",
+    "figurePng": "app/public/figures/c-0022.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0028",
+   "name": "lace-2-eight-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −48t + 740t² − 18676/3t³ + 32422t⁴ − 557036/5t⁵ + 260640t⁶ − 2929728/7t⁷ + 454656t⁸ − 319488t⁹ + 131072t¹⁰ − 262144/11t¹¹; y(t) = −14t + 120t² − 1516/3t³ + 1242t⁴ − 1904t⁵ + 5488/3t⁶ − 1024t⁷ + 256t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0028-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0028.svg",
+    "webPng": "app/public/plates-web/c-0028-1600-grey.png",
+    "figurePng": "app/public/figures/c-0028.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0029",
+   "name": "lace-balloon-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −120t + 2314t² − 69172/3t³ + 134432t⁴ − 2488544/5t⁵ + 1224224t⁶ − 14232640/7t⁷ + 2257920t⁸ − 1607680t⁹ + 663552t¹⁰ − 1327104/11t¹¹; y(t) = −22t + 166t² − 512/3t³ − 1360t⁴ + 4960t⁵ − 21088/3t⁶ + 4608t⁷ − 1152t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0029-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0029.svg",
+    "webPng": "app/public/plates-web/c-0029-1600-grey.png",
+    "figurePng": "app/public/figures/c-0029.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0030",
+   "name": "lace-1of10-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −80t + 1388t² − 38260/3t³ + 70638t⁴ − 1265436/5t⁵ + 1827776/3t⁶ − 6982784/7t⁷ + 1097600t⁸ − 6995200/9t⁹ + 320000t¹⁰ − 640000/11t¹¹; y(t) = −18t + 136t² − 964/3t³ − 26t⁴ + 1344t⁵ − 6944/3t⁶ + 1600t⁷ − 400t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0030-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0030.svg",
+    "webPng": "app/public/plates-web/c-0030-1600-grey.png",
+    "figurePng": "app/public/figures/c-0030.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0034",
+   "name": "wave-1of10-5",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −80t + 1710t² − 62380/3t³ + 164440t⁴ − 906832t⁵ + 10914592/3t⁶ − 10893120t⁷ + 24673920t⁸ − 127351040/3t⁹ + 55183872t¹⁰ − 586834944/11t¹¹ + 111564800/3t¹² − 229683200/13t¹³ + 5120000t¹⁴ − 2048000/3t¹⁵; y(t) = −18t + 190t² − 2920/3t³ + 2860t⁴ − 5088t⁵ + 16288/3t⁶ − 3200t⁷ + 800t⁸ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0034-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0034.svg",
+    "webPng": "app/public/plates-web/c-0034-1600-grey.png",
+    "figurePng": "app/public/figures/c-0034.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0043",
+   "name": "lace-1of9-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −63t + 1032t² − 9083t³ + 97703/2t⁴ − 171633t⁵ + 407750t⁶ − 661684t⁷ + 723816t⁸ − 510768t⁹ + 209952t¹⁰ − 419904/11t¹¹; y(t) = −16t + 129t² − 442t³ + 761t⁴ − 648t⁵ + 216t⁶ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0043-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0043.svg",
+    "webPng": "app/public/plates-web/c-0043-1600-grey.png",
+    "figurePng": "app/public/figures/c-0043.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0046",
+   "name": "wave-1of14-3",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −168t + 3566t² − 114796/3t³ + 232936t⁴ − 4427024/5t⁵ + 2214720t⁶ − 26030208/7t⁷ + 4158336t⁸ − 2972928t⁹ + 1229312t¹⁰ − 2458624/11t¹¹; y(t) = −26t + 222t² − 760/3t³ − 1788t⁴ + 6688t⁵ − 28640/3t⁶ + 6272t⁷ − 1568t⁸ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0046-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0046.svg",
+    "webPng": "app/public/plates-web/c-0046-1600-grey.png",
+    "figurePng": "app/public/figures/c-0046.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0057",
+   "name": "lace-1of12-1of3-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −435t + 9307t² − 292894/3t³ + 594709t⁴ − 2291428t⁵ + 5829570t⁶ − 69574788/7t⁷ + 11244096t⁸ − 8097408t⁹ + 3359232t¹⁰ − 6718464/11t¹¹; y(t) = −308t + 3567t² − 19016t³ + 56953t⁴ − 102294t⁵ + 109698t⁶ − 64800t⁷ + 16200t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0057-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0057.svg",
+    "webPng": "app/public/plates-web/c-0057-1600-grey.png",
+    "figurePng": "app/public/figures/c-0057.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0058",
+   "name": "lace-1of10-1of4-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −693t + 13230t² − 134868t³ + 827808t⁴ − 16286176/5t⁵ + 25438816/3t⁶ − 103214144/7t⁷ + 16921600t⁸ − 110643200/9t⁹ + 5120000t¹⁰ − 10240000/11t¹¹; y(t) = −324t + 3960t² − 24328t³ + 83604t⁴ − 166368t⁵ + 189856t⁶ − 115200t⁷ + 28800t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0058-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0058.svg",
+    "webPng": "app/public/plates-web/c-0058-1600-grey.png",
+    "figurePng": "app/public/figures/c-0058.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0059",
+   "name": "lace-1of10-3-2",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −72t + 1338t² − 12636t³ + 70512t⁴ − 1265184/5t⁵ + 1827776/3t⁶ − 6982784/7t⁷ + 1097600t⁸ − 6995200/9t⁹ + 320000t¹⁰ − 640000/11t¹¹; y(t) = −54t + 606t² − 10064/3t³ + 10504t⁴ − 19552t⁵ + 64352/3t⁶ − 12800t⁷ + 3200t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0059-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0059.svg",
+    "webPng": "app/public/plates-web/c-0059-1600-grey.png",
+    "figurePng": "app/public/figures/c-0059.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0060",
+   "name": "lace-arch-x-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −600t + 10070t² − 285244/3t³ + 560232t⁴ − 2161872t⁵ + 5583168t⁶ − 67775616/7t⁷ + 11104128t⁸ − 8066304t⁹ + 3359232t¹⁰ − 6718464/11t¹¹; y(t) = −250t + 2950t² − 18360t³ + 64908t⁴ − 132192t⁵ + 152928t⁶ − 93312t⁷ + 23328t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0060-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0060.svg",
+    "webPng": "app/public/plates-web/c-0060-1600-grey.png",
+    "figurePng": "app/public/figures/c-0060.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0061",
+   "name": "lace-1of6-1of5-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −391t + 6153t² − 54542t³ + 305071t⁴ − 5651052/5t⁵ + 2830022t⁶ − 33598444/7t⁷ + 5423400t⁸ − 3905200t⁹ + 1620000t¹⁰ − 3240000/11t¹¹; y(t) = −120t + 1107t² − 5388t³ + 15279t⁴ − 26442t⁵ + 27714t⁶ − 16200t⁷ + 4050t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0061-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0061.svg",
+    "webPng": "app/public/plates-web/c-0061-1600-grey.png",
+    "figurePng": "app/public/figures/c-0061.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0062",
+   "name": "lace-1of10-1of3-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −299t + 5526t² − 161581/3t³ + 626151/2t⁴ − 5837461/5t⁵ + 2904422t⁶ − 34150444/7t⁷ + 5466600t⁸ − 3914800t⁹ + 1620000t¹⁰ − 3240000/11t¹¹; y(t) = −180t + 2233t² − 13850t³ + 47485t⁴ − 94032t⁵ + 106944t⁶ − 64800t⁷ + 16200t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0062-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0062.svg",
+    "webPng": "app/public/plates-web/c-0062-1600-grey.png",
+    "figurePng": "app/public/figures/c-0062.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0063",
+   "name": "lace-1of12-1of4-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −1040t + 22067t² − 725749/3t³ + 3125903/2t⁴ − 6372483t⁵ + 16993280t⁶ − 210147328/7t⁷ + 34799616t⁸ − 25427968t⁹ + 10616832t¹⁰ − 21233664/11t¹¹; y(t) = −462t + 5543t² − 93142/3t³ + 96537t⁴ − 177856t⁵ + 581056/3t⁶ − 115200t⁷ + 28800t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0063-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0063.svg",
+    "webPng": "app/public/plates-web/c-0063-1600-grey.png",
+    "figurePng": "app/public/figures/c-0063.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0064",
+   "name": "wave-1of10-1of5-1",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −1247t + 24917t² − 799834/3t³ + 1726875t⁴ − 7144500t⁵ + 58111250/3t⁶ − 242907500/7t⁷ + 40625000t⁸ − 268750000/9t⁹ + 12500000t¹⁰ − 25000000/11t¹¹; y(t) = −504t + 5779t² − 97900/3t³ + 102775t⁴ − 191250t⁵ + 628750/3t⁶ − 125000t⁷ + 31250t⁸ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0064-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0064.svg",
+    "webPng": "app/public/plates-web/c-0064-1600-grey.png",
+    "figurePng": "app/public/figures/c-0064.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0065",
+   "name": "lace-1of8-1of3-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −187t + 3018t² − 79781/3t³ + 288979/2t⁴ − 2577053/5t⁵ + 1244354t⁶ − 14337412/7t⁷ + 2264832t⁸ − 1609216t⁹ + 663552t¹⁰ − 1327104/11t¹¹; y(t) = −84t + 881t² − 14350/3t³ + 14973t⁴ − 28000t⁵ + 92512/3t⁶ − 18432t⁷ + 4608t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0065-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0065.svg",
+    "webPng": "app/public/plates-web/c-0065-1600-grey.png",
+    "figurePng": "app/public/figures/c-0065.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0066",
+   "name": "lace-1of8-1of5-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −735t + 13461t² − 132734t³ + 805801t⁴ − 15890012/5t⁵ + 8331522t⁶ − 102141444/7t⁷ + 16838400t⁸ − 12275200t⁹ + 5120000t¹⁰ − 10240000/11t¹¹; y(t) = −392t + 4109t² − 22084t³ + 67667t⁴ − 123950t⁵ + 134650t⁶ − 80000t⁷ + 20000t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0066-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0066.svg",
+    "webPng": "app/public/plates-web/c-0066-1600-grey.png",
+    "figurePng": "app/public/figures/c-0066.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0067",
+   "name": "lace-1of8-1of4-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −425t + 7202t² − 200644/3t³ + 384192t⁴ − 7218048/5t⁵ + 10921472/3t⁶ − 43369472/7t⁷ + 7012352t⁸ − 45481984/9t⁹ + 2097152t¹⁰ − 4194304/11t¹¹; y(t) = −168t + 1720t² − 27232/3t³ + 27664t⁴ − 50688t⁵ + 165376/3t⁶ − 32768t⁷ + 8192t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0067-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0067.svg",
+    "webPng": "app/public/plates-web/c-0067-1600-grey.png",
+    "figurePng": "app/public/figures/c-0067.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0068",
+   "name": "wave-1of8-1of6-1",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −1176t + 22295t² − 230863t³ + 2942815/2t⁴ − 6053683t⁵ + 16401440t⁶ − 205867072/7t⁷ + 34467840t⁸ − 25354240t⁹ + 10616832t¹⁰ − 21233664/11t¹¹; y(t) = −490t + 5369t² − 90130/3t³ + 94535t⁴ − 176056t⁵ + 579256/3t⁶ − 115200t⁷ + 28800t⁸ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0068-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0068.svg",
+    "webPng": "app/public/plates-web/c-0068-1600-grey.png",
+    "figurePng": "app/public/figures/c-0068.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0069",
+   "name": "lace-1of8-2of5-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −1715t + 26831t² − 687742/3t³ + 1211121t⁴ − 21078252/5t⁵ + 29914886/3t⁶ − 113067524/7t⁷ + 17657600t⁸ − 112115200/9t⁹ + 5120000t¹⁰ − 10240000/11t¹¹; y(t) = −588t + 5551t² − 80128/3t³ + 75313t⁴ − 130350t⁵ + 410350/3t⁶ − 80000t⁷ + 20000t⁸ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0069-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0069.svg",
+    "webPng": "app/public/plates-web/c-0069-1600-grey.png",
+    "figurePng": "app/public/figures/c-0069.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0071",
+   "name": "wave-1of10-1of4-3",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −680t + 16187t² − 212663t³ + 3615983/2t⁴ − 10684323t⁵ + 137071040/3t⁶ − 1013678208/7t⁷ + 344546176t⁸ − 5559448832/9t⁹ + 830218752t¹⁰ − 823512064t¹¹ + 1754316800/3t¹² − 3654451200/13t¹³ + 81920000t¹⁴ − 32768000/3t¹⁵; y(t) = −378t + 4917t² − 102098/3t³ + 144003t⁴ − 397264t⁵ + 2197664/3t⁶ − 898400t⁷ + 704600t⁸ − 320000t⁹ + 64000t¹⁰ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0071-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0071.svg",
+    "webPng": "app/public/plates-web/c-0071-1600-grey.png",
+    "figurePng": "app/public/figures/c-0071.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0072",
+   "name": "lace-1of12-2x1of3-1",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −1887t + 46465t² − 1913833/3t³ + 11197787/2t⁴ − 169007576/5t⁵ + 146667024t⁶ − 3287422098/7t⁷ + 2251451619/2t⁸ − 2029386393t⁹ + 13693345002/5t¹⁰ − 29970674244/11t¹¹ + 1938696768t¹² − 12131026560/13t¹³ + 272097792t¹⁴ − 181398528/5t¹⁵; y(t) = −616t + 8520t² − 60358t³ + 516631/2t⁴ − 717336t⁵ + 1328319t⁶ − 1633446t⁷ + 2566323/2t⁸ − 583200t⁹ + 116640t¹⁰ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0072-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0072.svg",
+    "webPng": "app/public/plates-web/c-0072-1600-grey.png",
+    "figurePng": "app/public/figures/c-0072.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0073",
+   "name": "wave-1of10-1of3-3",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −315t + 6954t² − 87319t³ + 1422267/2t⁴ − 20165709/5t⁵ + 49830110/3t⁶ − 356461268/7t⁷ + 117761456t⁸ − 1855775392/9t⁹ + 271929152t¹⁰ − 265844864t¹¹ + 186825600t¹² − 89222400t¹³ + 25920000t¹⁴ − 3456000t¹⁵; y(t) = −108t + 1455t² − 31522/3t³ + 46379t⁴ − 132848t⁵ + 757696/3t⁶ − 316768t⁷ + 251992t⁸ − 115200t⁹ + 23040t¹⁰ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0073-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0073.svg",
+    "webPng": "app/public/plates-web/c-0073-1600-grey.png",
+    "figurePng": "app/public/figures/c-0073.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0074",
+   "name": "lace-1of12-1of3-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −468t + 11354t² − 152271t³ + 2600575/2t⁴ − 7633129t⁵ + 32244806t⁶ − 705245164/7t⁷ + 236342376t⁸ − 418321712t⁹ + 2780752032/5t¹⁰ − 6016182336/11t¹¹ + 385938432t¹² − 2402224128/13t¹³ + 53747712t¹⁴ − 35831808/5t¹⁵; y(t) = −176t + 2428t² − 51464/3t³ + 73324t⁴ − 1018048/5t⁵ + 1131776/3t⁶ − 464256t⁷ + 364896t⁸ − 165888t⁹ + 165888/5t¹⁰ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0074-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0074.svg",
+    "webPng": "app/public/plates-web/c-0074-1600-grey.png",
+    "figurePng": "app/public/figures/c-0074.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0075",
+   "name": "wave-1of12-1of4-3",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −1040t + 26423t² − 1107757/3t³ + 6584031/2t⁴ − 100769151/5t⁵ + 265452128/3t⁶ − 2002263104/7t⁷ + 690784256t⁸ − 11272081408/9t⁹ + 8487288832/5t¹⁰ − 1694007296t¹¹ + 1207959552t¹² − 7568621568/13t¹³ + 169869312t¹⁴ − 113246208/5t¹⁵; y(t) = −462t + 6467t² − 139334/3t³ + 200765t⁴ − 561288t⁵ + 3131912/3t⁶ − 1287424t⁷ + 1013056t⁸ − 460800t⁹ + 92160t¹⁰ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0075-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0075.svg",
+    "webPng": "app/public/plates-web/c-0075-1600-grey.png",
+    "figurePng": "app/public/figures/c-0075.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0077",
+   "name": "wave-1of10-2x1of3-1",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −1247t + 28481t² − 1100713/3t³ + 6141275/2t⁴ − 89504304/5t⁵ + 75682124t⁶ − 1663606522/7t⁷ + 1122694119/2t⁸ − 1000772561t⁹ + 1339385382t¹⁰ − 14569343964/11t¹¹ + 938514600t¹² − 5857369200/13t¹³ + 131220000t¹⁴ − 17496000t¹⁵; y(t) = −504t + 6472t² − 132614/3t³ + 370473/2t⁴ − 507656t⁵ + 2796131/3t⁶ − 1139850t⁷ + 1784925/2t⁸ − 405000t⁹ + 81000t¹⁰ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0077-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0077.svg",
+    "webPng": "app/public/plates-web/c-0077-1600-grey.png",
+    "figurePng": "app/public/figures/c-0077.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0078",
+   "name": "wave-1of12-1of5-3",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −1887t + 48885t² − 709910t³ + 6600415t⁴ − 42058492t⁵ + 191375334t⁶ − 4465290540/7t⁷ + 1580281320t⁸ − 2924792880t⁹ + 4028390432t¹⁰ − 4069087424t¹¹ + 2926310400t¹² − 1417881600t¹³ + 414720000t¹⁴ − 55296000t¹⁵; y(t) = −616t + 8905t² − 66380t³ + 295645t⁴ − 845206t⁵ + 1597502t⁶ − 1991800t⁷ + 1577950t⁸ − 720000t⁹ + 144000t¹⁰ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0078-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0078.svg",
+    "webPng": "app/public/plates-web/c-0078-1600-grey.png",
+    "figurePng": "app/public/figures/c-0078.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0084",
+   "name": "lace-1of10-1of5-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −1260t + 30126t² − 410820t³ + 3639965t⁴ − 22367708t⁵ + 297123166/3t⁶ − 2263935444/7t⁷ + 788910000t⁸ − 4329740000/3t⁹ + 1970760000t¹⁰ − 1978320000t¹¹ + 4250000000/3t¹² − 8900000000/13t¹³ + 200000000t¹⁴ − 80000000/3t¹⁵; y(t) = −432t + 5946t² − 131534/3t³ + 196464t⁴ − 568450t⁵ + 3263450/3t⁶ − 1370000t⁷ + 1092500t⁸ − 500000t⁹ + 100000t¹⁰ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0084-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0084.svg",
+    "webPng": "app/public/plates-web/c-0084-1600-grey.png",
+    "figurePng": "app/public/figures/c-0084.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0085",
+   "name": "lace-1of8-1of6-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −1189t + 27154t² − 360252t³ + 3137640t⁴ − 19093200t⁵ + 84126528t⁶ − 1919070336/7t⁷ + 668410752t⁸ − 1223146752t⁹ + 8355891712/5t¹⁰ − 18464736256/11t¹¹ + 1202651136t¹² − 7558004736/13t¹³ + 169869312t¹⁴ − 113246208/5t¹⁵; y(t) = −420t + 5952t² − 46520t³ + 222204t⁴ − 3401472/5t⁵ + 1360832t⁶ − 1768320t⁷ + 1437408t⁸ − 663552t⁹ + 663552/5t¹⁰ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0085-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0085.svg",
+    "webPng": "app/public/plates-web/c-0085-1600-grey.png",
+    "figurePng": "app/public/figures/c-0085.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0087",
+   "name": "wide-knot-x20",
+   "stars": 10,
+   "family": "wide",
+   "provenance": "Chosen at 10/10 · x(t) = −65t + 1306t² − 37700/3t³ + 70440t⁴ − 253008t⁵ + 1827776/3t⁶ − 6982784/7t⁷ + 1097600t⁸ − 6995200/9t⁹ + 320000t¹⁰ − 640000/11t¹¹; y(t) = −72t + 796t² − 4328t³ + 13364t⁴ − 24640t⁵ + 26880t⁶ − 16000t⁷ + 4000t⁸ · wide family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0087-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0087.svg",
+    "webPng": "app/public/plates-web/c-0087-1600-grey.png",
+    "figurePng": "app/public/figures/c-0087.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0173",
+   "name": "wave-1of4-1of3-0",
+   "stars": 10,
+   "family": "wave",
+   "provenance": "Chosen at 10/10 · x(t) = −35t + 352t² − 5909/3t³ + 13701/2t⁴ − 76917/5t⁵ + 22320t⁶ − 141408/7t⁷ + 10368t⁸ − 2304t⁹; y(t) = 12t − 71t² + 222t³ − 406t⁴ + 2252/5t⁵ − 288t⁶ + 576/7t⁷ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0173-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0173.svg",
+    "webPng": "app/public/plates-web/c-0173-1600-grey.png",
+    "figurePng": "app/public/figures/c-0173.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0210",
+   "name": "lace-3of8-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −200t + 2130t² − 40900/3t³ + 57248t⁴ − 823264/5t⁵ + 1003616/3t⁶ − 3383360/7t⁷ + 487424t⁸ − 2940928/9t⁹ + 131072t¹⁰ − 262144/11t¹¹; y(t) = −150t + 1310t² − 18448/3t³ + 17256t⁴ − 29920t⁵ + 94432/3t⁶ − 18432t⁷ + 4608t⁸ · lace family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0210-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0210.svg",
+    "webPng": "app/public/plates-web/c-0210-1600-grey.png",
+    "figurePng": "app/public/figures/c-0210.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0231",
+   "name": "lace-1of8-1of5-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −759t + 16592t² − 634513/3t³ + 3547447/2t⁴ − 52150469/5t⁵ + 133855570/3t⁶ − 992999148/7t⁷ + 338958696t⁸ − 1831143824/3t⁹ + 823633952t¹⁰ − 9016176704/11t¹¹ + 1750323200/3t¹² − 3651788800/13t¹³ + 81920000t¹⁴ − 32768000/3t¹⁵; y(t) = −280t + 4003t² − 31558t³ + 151891t⁴ − 467824t⁵ + 939904t⁶ − 1224928t⁷ + 997432t⁸ − 460800t⁹ + 92160t¹⁰ · lace family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0231-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0231.svg",
+    "webPng": "app/public/plates-web/c-0231-1600-grey.png",
+    "figurePng": "app/public/figures/c-0231.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0236",
+   "name": "lace-1of8-1of4-3",
+   "stars": 10,
+   "family": "lace",
+   "provenance": "Chosen at 10/10 · x(t) = −416t + 8850t² − 326212/3t³ + 876448t⁴ − 4962400t⁵ + 61574752/3t⁶ − 443761728/7t⁷ + 147858432t⁸ − 783202304/3t⁹ + 1734254592/5t¹⁰ − 3752607744/11t¹¹ + 722468864/3t¹² − 115343360t¹³ + 33554432t¹⁴ − 67108864/15t¹⁵; y(t) = −210t + 2906t² − 66512/3t³ + 103592t⁴ − 1557792/5t⁵ + 1845152/3t⁶ − 792064t⁷ + 640384t⁸ − 294912t⁹ + 294912/5t¹⁰ · lace family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0236-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0236.svg",
+    "webPng": "app/public/plates-web/c-0236-1600-grey.png",
+    "figurePng": "app/public/figures/c-0236.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0273",
+   "name": "double-1-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-1 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0273-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0273.svg",
+    "webPng": "app/public/plates-web/c-0273-1600-grey.png",
+    "figurePng": "app/public/figures/c-0273.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0274",
+   "name": "double-1-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-1 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0274-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0274.svg",
+    "webPng": "app/public/plates-web/c-0274-1600-grey.png",
+    "figurePng": "app/public/figures/c-0274.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0275",
+   "name": "double-10-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-10 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0275-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0275.svg",
+    "webPng": "app/public/plates-web/c-0275-1600-grey.png",
+    "figurePng": "app/public/figures/c-0275.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0276",
+   "name": "double-10-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-10 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0276-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0276.svg",
+    "webPng": "app/public/plates-web/c-0276-1600-grey.png",
+    "figurePng": "app/public/figures/c-0276.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0277",
+   "name": "double-11-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-11 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0277-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0277.svg",
+    "webPng": "app/public/plates-web/c-0277-1600-grey.png",
+    "figurePng": "app/public/figures/c-0277.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0278",
+   "name": "double-11-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-11 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0278-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0278.svg",
+    "webPng": "app/public/plates-web/c-0278-1600-grey.png",
+    "figurePng": "app/public/figures/c-0278.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0279",
+   "name": "double-12-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-12 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0279-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0279.svg",
+    "webPng": "app/public/plates-web/c-0279-1600-grey.png",
+    "figurePng": "app/public/figures/c-0279.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0280",
+   "name": "double-12-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-12 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0280-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0280.svg",
+    "webPng": "app/public/plates-web/c-0280-1600-grey.png",
+    "figurePng": "app/public/figures/c-0280.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0281",
+   "name": "double-13-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-13 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0281-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0281.svg",
+    "webPng": "app/public/plates-web/c-0281-1600-grey.png",
+    "figurePng": "app/public/figures/c-0281.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0282",
+   "name": "double-13-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-13 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0282-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0282.svg",
+    "webPng": "app/public/plates-web/c-0282-1600-grey.png",
+    "figurePng": "app/public/figures/c-0282.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0283",
+   "name": "double-14-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-14 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0283-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0283.svg",
+    "webPng": "app/public/plates-web/c-0283-1600-grey.png",
+    "figurePng": "app/public/figures/c-0283.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0284",
+   "name": "double-14-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-14 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0284-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0284.svg",
+    "webPng": "app/public/plates-web/c-0284-1600-grey.png",
+    "figurePng": "app/public/figures/c-0284.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0285",
+   "name": "double-15-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-15 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0285-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0285.svg",
+    "webPng": "app/public/plates-web/c-0285-1600-grey.png",
+    "figurePng": "app/public/figures/c-0285.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0286",
+   "name": "double-15-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-15 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0286-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0286.svg",
+    "webPng": "app/public/plates-web/c-0286-1600-grey.png",
+    "figurePng": "app/public/figures/c-0286.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0287",
+   "name": "double-16-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-16 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0287-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0287.svg",
+    "webPng": "app/public/plates-web/c-0287-1600-grey.png",
+    "figurePng": "app/public/figures/c-0287.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0288",
+   "name": "double-16-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-16 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0288-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0288.svg",
+    "webPng": "app/public/plates-web/c-0288-1600-grey.png",
+    "figurePng": "app/public/figures/c-0288.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0289",
+   "name": "double-17-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-17 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0289-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0289.svg",
+    "webPng": "app/public/plates-web/c-0289-1600-grey.png",
+    "figurePng": "app/public/figures/c-0289.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0290",
+   "name": "double-17-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-17 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0290-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0290.svg",
+    "webPng": "app/public/plates-web/c-0290-1600-grey.png",
+    "figurePng": "app/public/figures/c-0290.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0291",
+   "name": "double-18-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-18 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0291-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0291.svg",
+    "webPng": "app/public/plates-web/c-0291-1600-grey.png",
+    "figurePng": "app/public/figures/c-0291.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0292",
+   "name": "double-18-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-18 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0292-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0292.svg",
+    "webPng": "app/public/plates-web/c-0292-1600-grey.png",
+    "figurePng": "app/public/figures/c-0292.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0293",
+   "name": "double-19-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-19 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0293-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0293.svg",
+    "webPng": "app/public/plates-web/c-0293-1600-grey.png",
+    "figurePng": "app/public/figures/c-0293.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0294",
+   "name": "double-19-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-19 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0294-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0294.svg",
+    "webPng": "app/public/plates-web/c-0294-1600-grey.png",
+    "figurePng": "app/public/figures/c-0294.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0295",
+   "name": "double-2-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-2 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0295-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0295.svg",
+    "webPng": "app/public/plates-web/c-0295-1600-grey.png",
+    "figurePng": "app/public/figures/c-0295.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0296",
+   "name": "double-2-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-2 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0296-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0296.svg",
+    "webPng": "app/public/plates-web/c-0296-1600-grey.png",
+    "figurePng": "app/public/figures/c-0296.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0297",
+   "name": "double-20-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-20 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0297-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0297.svg",
+    "webPng": "app/public/plates-web/c-0297-1600-grey.png",
+    "figurePng": "app/public/figures/c-0297.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0298",
+   "name": "double-20-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-20 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0298-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0298.svg",
+    "webPng": "app/public/plates-web/c-0298-1600-grey.png",
+    "figurePng": "app/public/figures/c-0298.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0299",
+   "name": "double-21-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-21 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0299-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0299.svg",
+    "webPng": "app/public/plates-web/c-0299-1600-grey.png",
+    "figurePng": "app/public/figures/c-0299.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0300",
+   "name": "double-21-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-21 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0300-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0300.svg",
+    "webPng": "app/public/plates-web/c-0300-1600-grey.png",
+    "figurePng": "app/public/figures/c-0300.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0301",
+   "name": "double-22-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-22 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0301-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0301.svg",
+    "webPng": "app/public/plates-web/c-0301-1600-grey.png",
+    "figurePng": "app/public/figures/c-0301.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0302",
+   "name": "double-22-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-22 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0302-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0302.svg",
+    "webPng": "app/public/plates-web/c-0302-1600-grey.png",
+    "figurePng": "app/public/figures/c-0302.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0303",
+   "name": "double-23-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-23 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0303-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0303.svg",
+    "webPng": "app/public/plates-web/c-0303-1600-grey.png",
+    "figurePng": "app/public/figures/c-0303.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0304",
+   "name": "double-23-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-23 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0304-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0304.svg",
+    "webPng": "app/public/plates-web/c-0304-1600-grey.png",
+    "figurePng": "app/public/figures/c-0304.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0305",
+   "name": "double-24-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-24 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0305-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0305.svg",
+    "webPng": "app/public/plates-web/c-0305-1600-grey.png",
+    "figurePng": "app/public/figures/c-0305.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0306",
+   "name": "double-24-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-24 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0306-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0306.svg",
+    "webPng": "app/public/plates-web/c-0306-1600-grey.png",
+    "figurePng": "app/public/figures/c-0306.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0307",
+   "name": "double-25-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-25 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0307-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0307.svg",
+    "webPng": "app/public/plates-web/c-0307-1600-grey.png",
+    "figurePng": "app/public/figures/c-0307.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0308",
+   "name": "double-25-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-25 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0308-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0308.svg",
+    "webPng": "app/public/plates-web/c-0308-1600-grey.png",
+    "figurePng": "app/public/figures/c-0308.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0309",
+   "name": "double-26-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-26 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0309-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0309.svg",
+    "webPng": "app/public/plates-web/c-0309-1600-grey.png",
+    "figurePng": "app/public/figures/c-0309.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0310",
+   "name": "double-26-se-2",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-26 (SE-2), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0310-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0310.svg",
+    "webPng": "app/public/plates-web/c-0310-1600-grey.png",
+    "figurePng": "app/public/figures/c-0310.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0311",
+   "name": "double-27-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-27 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0311-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0311.svg",
+    "webPng": "app/public/plates-web/c-0311-1600-grey.png",
+    "figurePng": "app/public/figures/c-0311.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0312",
+   "name": "double-27-se-2",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-27 (SE-2), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0312-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0312.svg",
+    "webPng": "app/public/plates-web/c-0312-1600-grey.png",
+    "figurePng": "app/public/figures/c-0312.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0313",
+   "name": "double-28-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-28 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0313-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0313.svg",
+    "webPng": "app/public/plates-web/c-0313-1600-grey.png",
+    "figurePng": "app/public/figures/c-0313.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0314",
+   "name": "double-28-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-28 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0314-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0314.svg",
+    "webPng": "app/public/plates-web/c-0314-1600-grey.png",
+    "figurePng": "app/public/figures/c-0314.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0315",
+   "name": "double-3-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-3 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0315-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0315.svg",
+    "webPng": "app/public/plates-web/c-0315-1600-grey.png",
+    "figurePng": "app/public/figures/c-0315.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0316",
+   "name": "double-3-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-3 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t).",
+   "files": {
+    "printPng": "book/print/c-0316-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0316.svg",
+    "webPng": "app/public/plates-web/c-0316-1600-grey.png",
+    "figurePng": "app/public/figures/c-0316.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0317",
+   "name": "double-4-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-4 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0317-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0317.svg",
+    "webPng": "app/public/plates-web/c-0317-1600-grey.png",
+    "figurePng": "app/public/figures/c-0317.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0318",
+   "name": "double-4-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-4 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0318-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0318.svg",
+    "webPng": "app/public/plates-web/c-0318-1600-grey.png",
+    "figurePng": "app/public/figures/c-0318.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0319",
+   "name": "double-5-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-5 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0319-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0319.svg",
+    "webPng": "app/public/plates-web/c-0319-1600-grey.png",
+    "figurePng": "app/public/figures/c-0319.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0320",
+   "name": "double-5-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-5 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0320-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0320.svg",
+    "webPng": "app/public/plates-web/c-0320-1600-grey.png",
+    "figurePng": "app/public/figures/c-0320.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0321",
+   "name": "double-6-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-6 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0321-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0321.svg",
+    "webPng": "app/public/plates-web/c-0321-1600-grey.png",
+    "figurePng": "app/public/figures/c-0321.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0322",
+   "name": "double-6-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-6 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0322-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0322.svg",
+    "webPng": "app/public/plates-web/c-0322-1600-grey.png",
+    "figurePng": "app/public/figures/c-0322.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0323",
+   "name": "double-7-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-7 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0323-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0323.svg",
+    "webPng": "app/public/plates-web/c-0323-1600-grey.png",
+    "figurePng": "app/public/figures/c-0323.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0324",
+   "name": "double-7-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-7 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t).",
+   "files": {
+    "printPng": "book/print/c-0324-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0324.svg",
+    "webPng": "app/public/plates-web/c-0324-1600-grey.png",
+    "figurePng": "app/public/figures/c-0324.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0325",
+   "name": "double-8-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-8 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0325-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0325.svg",
+    "webPng": "app/public/plates-web/c-0325-1600-grey.png",
+    "figurePng": "app/public/figures/c-0325.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0326",
+   "name": "double-8-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-8 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t).",
+   "files": {
+    "printPng": "book/print/c-0326-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0326.svg",
+    "webPng": "app/public/plates-web/c-0326-1600-grey.png",
+    "figurePng": "app/public/figures/c-0326.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0327",
+   "name": "double-9-nw-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-9 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0327-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0327.svg",
+    "webPng": "app/public/plates-web/c-0327-1600-grey.png",
+    "figurePng": "app/public/figures/c-0327.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0328",
+   "name": "double-9-se-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · DW: the mirrored half of wonk-9 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t).",
+   "files": {
+    "printPng": "book/print/c-0328-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0328.svg",
+    "webPng": "app/public/plates-web/c-0328-1600-grey.png",
+    "figurePng": "app/public/figures/c-0328.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0333",
+   "name": "cubic-radius-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0333-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0333.svg",
+    "webPng": "app/public/plates-web/c-0333-1600-grey.png",
+    "figurePng": "app/public/figures/c-0333.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0334",
+   "name": "quintic-balloons",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the cubic-and-quintic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0334-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0334.svg",
+    "webPng": "app/public/plates-web/c-0334-1600-grey.png",
+    "figurePng": "app/public/figures/c-0334.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0335",
+   "name": "6-balloon-every-term",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the every-term middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0335-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0335.svg",
+    "webPng": "app/public/plates-web/c-0335-1600-grey.png",
+    "figurePng": "app/public/figures/c-0335.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0336",
+   "name": "quintic-double",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quintic-all-four middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0336-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0336.svg",
+    "webPng": "app/public/plates-web/c-0336-1600-grey.png",
+    "figurePng": "app/public/figures/c-0336.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0337",
+   "name": "quintic-radius",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quintic-central middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0337-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0337.svg",
+    "webPng": "app/public/plates-web/c-0337-1600-grey.png",
+    "figurePng": "app/public/figures/c-0337.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0338",
+   "name": "1of2-butterfly",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0338-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0338.svg",
+    "webPng": "app/public/plates-web/c-0338-1600-grey.png",
+    "figurePng": "app/public/figures/c-0338.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0340",
+   "name": "incomplete-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the every-term middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0340-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0340.svg",
+    "webPng": "app/public/plates-web/c-0340-1600-grey.png",
+    "figurePng": "app/public/figures/c-0340.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0346",
+   "name": "2-petals",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0346-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0346.svg",
+    "webPng": "app/public/plates-web/c-0346-1600-grey.png",
+    "figurePng": "app/public/figures/c-0346.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0349",
+   "name": "side-top-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0349-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0349.svg",
+    "webPng": "app/public/plates-web/c-0349-1600-grey.png",
+    "figurePng": "app/public/figures/c-0349.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0350",
+   "name": "flourish-3",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the every-term middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0350-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0350.svg",
+    "webPng": "app/public/plates-web/c-0350-1600-grey.png",
+    "figurePng": "app/public/figures/c-0350.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0351",
+   "name": "flourish-1",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0351-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0351.svg",
+    "webPng": "app/public/plates-web/c-0351-1600-grey.png",
+    "figurePng": "app/public/figures/c-0351.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0355",
+   "name": "2-petals-2",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0355-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0355.svg",
+    "webPng": "app/public/plates-web/c-0355-1600-grey.png",
+    "figurePng": "app/public/figures/c-0355.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0360",
+   "name": "flourish-2",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0360-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0360.svg",
+    "webPng": "app/public/plates-web/c-0360-1600-grey.png",
+    "figurePng": "app/public/figures/c-0360.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0364",
+   "name": "2-petals-3",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0364-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0364.svg",
+    "webPng": "app/public/plates-web/c-0364-1600-grey.png",
+    "figurePng": "app/public/figures/c-0364.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0366",
+   "name": "1of2-butterfly-2",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0366-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0366.svg",
+    "webPng": "app/public/plates-web/c-0366-1600-grey.png",
+    "figurePng": "app/public/figures/c-0366.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0367",
+   "name": "flourish-5",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the every-term middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0367-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0367.svg",
+    "webPng": "app/public/plates-web/c-0367-1600-grey.png",
+    "figurePng": "app/public/figures/c-0367.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0373",
+   "name": "2-petals-4",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0373-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0373.svg",
+    "webPng": "app/public/plates-web/c-0373-1600-grey.png",
+    "figurePng": "app/public/figures/c-0373.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0380",
+   "name": "flourish-7",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the every-term middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0380-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0380.svg",
+    "webPng": "app/public/plates-web/c-0380-1600-grey.png",
+    "figurePng": "app/public/figures/c-0380.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0383",
+   "name": "top-4",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quintic-central middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0383-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0383.svg",
+    "webPng": "app/public/plates-web/c-0383-1600-grey.png",
+    "figurePng": "app/public/figures/c-0383.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0386",
+   "name": "2-petals-5",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0386-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0386.svg",
+    "webPng": "app/public/plates-web/c-0386-1600-grey.png",
+    "figurePng": "app/public/figures/c-0386.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0390",
+   "name": "flourish-8",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the every-term middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0390-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0390.svg",
+    "webPng": "app/public/plates-web/c-0390-1600-grey.png",
+    "figurePng": "app/public/figures/c-0390.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0396",
+   "name": "2-petals-6",
+   "stars": 10,
+   "family": "hybrid",
+   "provenance": "Chosen at 10/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0396-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0396.svg",
+    "webPng": "app/public/plates-web/c-0396-1600-grey.png",
+    "figurePng": "app/public/figures/c-0396.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0035",
+   "name": "lace-1of12-5",
+   "stars": 9,
+   "family": "lace",
+   "provenance": "Chosen at 9/10 · x(t) = −120t + 2798t² − 109036/3t³ + 301480t⁴ − 1720144t⁵ + 7074624t⁶ − 21576576t⁷ + 49556352t⁸ − 86158592t⁹ + 564439552/5t¹⁰ − 1207419904/11t¹¹ + 76824576t¹² − 475693056/13t¹³ + 10616832t¹⁴ − 7077888/5t¹⁵; y(t) = −22t + 210t² − 1928/3t³ − 516t⁴ + 44512/5t⁵ − 81568/3t⁶ + 42880t⁷ − 38368t⁸ + 18432t⁹ − 18432/5t¹⁰ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0035-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0035.svg",
+    "webPng": "app/public/plates-web/c-0035-1600-grey.png",
+    "figurePng": "app/public/figures/c-0035.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0056",
+   "name": "wave-1of12-4",
+   "stars": 9,
+   "family": "wave",
+   "provenance": "Chosen at 9/10 · x(t) = −120t + 2552t² − 88144/3t³ + 208240t⁴ − 983264t⁵ + 9725312/3t⁶ − 7652608t⁷ + 13046912t⁸ − 143653120/9t⁹ + 13676544t¹⁰ − 85745664/11t¹¹ + 2654208t¹² − 5308416/13t¹³; y(t) = 22t − 232t² + 1040t³ − 2480t⁴ + 3296t⁵ − 2304t⁶ + 4608/7t⁷ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0056-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0056.svg",
+    "webPng": "app/public/plates-web/c-0056-1600-grey.png",
+    "figurePng": "app/public/figures/c-0056.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0086",
+   "name": "lace-1of8-1of3-3",
+   "stars": 9,
+   "family": "lace",
+   "provenance": "Chosen at 9/10 · x(t) = −187t + 3802t² − 133541/3t³ + 686231/2t⁴ − 1865473t⁵ + 7438374t⁶ − 155714988/7t⁷ + 50466792t⁸ − 87075888t⁹ + 567800992/5t¹⁰ − 110108864t¹¹ + 76935168t¹² − 475914240/13t¹³ + 10616832t¹⁴ − 7077888/5t¹⁵; y(t) = −84t + 1049t² − 21734/3t³ + 31085t⁴ − 436968/5t⁵ + 492296/3t⁶ − 204160t⁷ + 161632t⁸ − 73728t⁹ + 73728/5t¹⁰ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0086-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0086.svg",
+    "webPng": "app/public/plates-web/c-0086-1600-grey.png",
+    "figurePng": "app/public/figures/c-0086.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0161",
+   "name": "wave-1of4-1of3-3",
+   "stars": 9,
+   "family": "wave",
+   "provenance": "Chosen at 9/10 · x(t) = −35t + 568t² − 16565/3t³ + 73323/2t⁴ − 882777/5t⁵ + 1912562/3t⁶ − 12307628/7t⁷ + 3735272t⁸ − 55030192/9t⁹ + 38257312/5t¹⁰ − 79088704/11t¹¹ + 4912128t¹² − 2304000t¹³ + 663552t¹⁴ − 442368/5t¹⁵; y(t) = −12t + 107t² − 554t³ + 1855t⁴ − 21124/5t⁵ + 6676t⁶ − 7280t⁷ + 5276t⁸ − 2304t⁹ + 2304/5t¹⁰ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0161-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0161.svg",
+    "webPng": "app/public/plates-web/c-0161-1600-grey.png",
+    "figurePng": "app/public/figures/c-0161.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0163",
+   "name": "lace-1of8-2",
+   "stars": 9,
+   "family": "lace",
+   "provenance": "Chosen at 9/10 · x(t) = −48t + 645t² − 13337/3t³ + 35599/2t⁴ − 43779t⁵ + 201728/3t⁶ − 440320/7t⁷ + 32768t⁸ − 65536/9t⁹; y(t) = 14t − 85t² + 166t³ − 36t⁴ − 1208/5t⁵ + 256t⁶ − 512/7t⁷ · lace family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0163-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0163.svg",
+    "webPng": "app/public/plates-web/c-0163-1600-grey.png",
+    "figurePng": "app/public/figures/c-0163.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0217",
+   "name": "wave-middle-5-2",
+   "stars": 9,
+   "family": "wave",
+   "provenance": "Chosen at 9/10 · x(t) = 3t − 8t² − 21t³ + 399/2t⁴ − 3279/5t⁵ + 1344t⁶ − 1920t⁷ + 1920t⁸ − 1280t⁹ + 512t¹⁰ − 1024/11t¹¹; y(t) = −4t + 29t² − 358/3t³ + 305t⁴ − 496t⁵ + 1504/3t⁶ − 288t⁷ + 72t⁸ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0217-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0217.svg",
+    "webPng": "app/public/plates-web/c-0217-1600-grey.png",
+    "figurePng": "app/public/figures/c-0217.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0263",
+   "name": "bezier-loop-1",
+   "stars": 9,
+   "family": "bezier",
+   "provenance": "Chosen at 9/10 · x(t) = 27900t − 121500t² + 186900t³ − 81000t⁴ − 70200t⁵ + 80460t⁶ − 115200/7t⁷ − 11430t⁸ + 7740t⁹ − 1728t¹⁰ + 1296/11t¹¹; y(t) = −432000t + 736200t² − 448800t³ − 173700t⁴ + 360000t⁵ − 121200t⁶ − 328320/7t⁷ + 43740t⁸ − 11360t⁹ + 1080t¹⁰ · bezier family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0263-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0263.svg",
+    "webPng": "app/public/plates-web/c-0263-1600-grey.png",
+    "figurePng": "app/public/figures/c-0263.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0264",
+   "name": "bezier-loop-2",
+   "stars": 9,
+   "family": "bezier",
+   "provenance": "Chosen at 9/10 · x(t) = −23625t + 26400t² − 17900t³ + 1200t⁴ + 13760t⁵ − 13400t⁶ + 42200/7t⁷ − 1350t⁸ + 100t⁹; y(t) = 46800t − 27000t² − 114100/3t³ + 45750t⁴ − 5420t⁵ − 11000t⁶ + 34200/7t⁷ − 600t⁸ · bezier family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0264-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0264.svg",
+    "webPng": "app/public/plates-web/c-0264-1600-grey.png",
+    "figurePng": "app/public/figures/c-0264.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0265",
+   "name": "bezier-loop-3",
+   "stars": 9,
+   "family": "bezier",
+   "provenance": "Chosen at 9/10 · x(t) = 660960t − 1943100t² + 3314700t³ − 3599640t⁴ + 2569392t⁵ − 1215108t⁶ + 385920t⁷ − 87480t⁸ + 15680t⁹ − 1944t¹⁰ + 1296/11t¹¹; y(t) = 310248t − 590940t² + 363360t³ + 378900t⁴ − 874512t⁵ + 730068t⁶ − 2330640/7t⁷ + 87480t⁸ − 13320t⁹ + 1080t¹⁰ · bezier family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0265-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0265.svg",
+    "webPng": "app/public/plates-web/c-0265-1600-grey.png",
+    "figurePng": "app/public/figures/c-0265.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0266",
+   "name": "bezier-loop-4",
+   "stars": 9,
+   "family": "bezier",
+   "provenance": "Chosen at 9/10 · x(t) = 53856t − 52920t² − 71760t³ + 239580t⁴ − 244944t⁵ + 94008t⁶ + 120240/7t⁷ − 28440t⁸ + 10320t⁹ − 1728t¹⁰ + 1296/11t¹¹; y(t) = −14040t − 78840t² + 181440t³ − 75060t⁴ − 155664t⁵ + 233640t⁶ − 990720/7t⁷ + 44460t⁸ − 7040t⁹ + 432t¹⁰ · bezier family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0266-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0266.svg",
+    "webPng": "app/public/plates-web/c-0266-1600-grey.png",
+    "figurePng": "app/public/figures/c-0266.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0267",
+   "name": "bezier-loop-5",
+   "stars": 9,
+   "family": "bezier",
+   "provenance": "Chosen at 9/10 · x(t) = −296676t + 820800t² − 1210320t³ + 1054080t⁴ − 575712t⁵ + 213984t⁶ − 432000/7t⁷ + 13140t⁸ − 460t⁹ − 648t¹⁰ + 1296/11t¹¹; y(t) = −191520t + 241920t² − 4320t³ − 253080t⁴ + 226008t⁵ − 57960t⁶ − 172080/7t⁷ + 20340t⁸ − 5040t⁹ + 432t¹⁰ · bezier family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0267-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0267.svg",
+    "webPng": "app/public/plates-web/c-0267-1600-grey.png",
+    "figurePng": "app/public/figures/c-0267.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0268",
+   "name": "bezier-loop-6",
+   "stars": 9,
+   "family": "bezier",
+   "provenance": "Chosen at 9/10 · x(t) = 44352t − 223560t² + 565920t³ − 793620t⁴ + 686376t⁵ − 406308t⁶ + 1276560/7t⁷ − 62910t⁸ + 14660t⁹ − 1944t¹⁰ + 1296/11t¹¹; y(t) = 47736t − 272880t² + 812760t³ − 1385460t⁴ + 1426968t⁵ − 912324t⁶ + 2547360/7t⁷ − 89460t⁸ + 12960t⁹ − 864t¹⁰ · bezier family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0268-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0268.svg",
+    "webPng": "app/public/plates-web/c-0268-1600-grey.png",
+    "figurePng": "app/public/figures/c-0268.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0014",
+   "name": "wave-coarse",
+   "stars": 8,
+   "family": "wave",
+   "provenance": "Chosen at 8/10 · x(t) = −15t + 132t² − 563t³ + 2675/2t⁴ − 1785t⁵ + 1250t⁶ − 2500/7t⁷; y(t) = −8t + 33t² − 50t³ + 25t⁴ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0014-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0014.svg",
+    "webPng": "app/public/plates-web/c-0014-1600-grey.png",
+    "figurePng": "app/public/figures/c-0014.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0212",
+   "name": "wave-1of3-3of8-1",
+   "stars": 8,
+   "family": "wave",
+   "provenance": "Chosen at 8/10 · x(t) = −851t + 9515t² − 185254/3t³ + 262585t⁴ − 772716t⁵ + 1609250t⁶ − 16615492/7t⁷ + 2430720t⁸ − 1646080t⁹ + 663552t¹⁰ − 1327104/11t¹¹; y(t) = −420t + 3011t² − 36760/3t³ + 31005t⁴ − 50014t⁵ + 150814/3t⁶ − 28800t⁷ + 7200t⁸ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0212-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0212.svg",
+    "webPng": "app/public/plates-web/c-0212-1600-grey.png",
+    "figurePng": "app/public/figures/c-0212.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0269",
+   "name": "mobile-k3-equal",
+   "stars": 8,
+   "family": "mobile-k3",
+   "provenance": "Chosen at 8/10 · polyline through 901 stations, (2, 0) to (0.5, -0.866) · mobile-k3 family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0269-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0269.svg",
+    "webPng": "app/public/plates-web/c-0269-1600-grey.png",
+    "figurePng": "app/public/figures/c-0269.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0359",
+   "name": "double-bounce",
+   "stars": 8,
+   "family": "hybrid",
+   "provenance": "Chosen at 8/10 · each station is multiplied by P, the cubic-and-quintic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0359-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0359.svg",
+    "webPng": "app/public/plates-web/c-0359-1600-grey.png",
+    "figurePng": "app/public/figures/c-0359.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0369",
+   "name": "quintic-butterfly-2",
+   "stars": 8,
+   "family": "hybrid",
+   "provenance": "Chosen at 8/10 · each station is multiplied by P, the quintic-central middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0369-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0369.svg",
+    "webPng": "app/public/plates-web/c-0369-1600-grey.png",
+    "figurePng": "app/public/figures/c-0369.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0389",
+   "name": "top-3",
+   "stars": 8,
+   "family": "hybrid",
+   "provenance": "Chosen at 8/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0389-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0389.svg",
+    "webPng": "app/public/plates-web/c-0389-1600-grey.png",
+    "figurePng": "app/public/figures/c-0389.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0392",
+   "name": "double-top",
+   "stars": 8,
+   "family": "hybrid",
+   "provenance": "Chosen at 8/10 · each station is multiplied by P, the quintic-central middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0392-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0392.svg",
+    "webPng": "app/public/plates-web/c-0392-1600-grey.png",
+    "figurePng": "app/public/figures/c-0392.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0053",
+   "name": "wave-1of3-2of5-0",
+   "stars": 7,
+   "family": "wave",
+   "provenance": "Chosen at 7/10 · x(t) = −143t + 1246t² − 18704/3t³ + 19806t⁴ − 207237/5t⁵ + 57150t⁶ − 350550/7t⁷ + 50625/2t⁸ − 5625t⁹; y(t) = 24t − 128t² + 374t³ − 658t⁴ + 3566/5t⁵ − 450t⁶ + 900/7t⁷ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0053-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0053.svg",
+    "webPng": "app/public/plates-web/c-0053-1600-grey.png",
+    "figurePng": "app/public/figures/c-0053.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0172",
+   "name": "wave-1of12-2",
+   "stars": 7,
+   "family": "wave",
+   "provenance": "Chosen at 7/10 · x(t) = −120t + 2067t² − 17383t³ + 156303/2t⁴ − 1029519/5t⁵ + 329472t⁶ − 2207232/7t⁷ + 165888t⁸ − 36864t⁹; y(t) = 22t − 199t² + 642t³ − 1052t⁴ + 4984/5t⁵ − 576t⁶ + 1152/7t⁷ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0172-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0172.svg",
+    "webPng": "app/public/plates-web/c-0172-1600-grey.png",
+    "figurePng": "app/public/figures/c-0172.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0270",
+   "name": "lens-56-783-785",
+   "stars": 7,
+   "family": "lens",
+   "provenance": "Chosen at 7/10 · polyline through 89 stations, (0.9924, 0.0713) to (0.9924, 0.0712) · lens family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0270-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0270.svg",
+    "webPng": "app/public/plates-web/c-0270-1600-grey.png",
+    "figurePng": "app/public/figures/c-0270.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0271",
+   "name": "four-fold-56-783-785",
+   "stars": 7,
+   "family": "four-fold",
+   "provenance": "Chosen at 7/10 · polyline through 89 stations, (0.9924, 0.0004) to (0.9924, 0.0004) · four-fold family · saved as new.",
+   "files": {
+    "printPng": "book/print/c-0271-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0271.svg",
+    "webPng": "app/public/plates-web/c-0271-1600-grey.png",
+    "figurePng": "app/public/figures/c-0271.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0329",
+   "name": "swan-hybrid-7",
+   "stars": 7,
+   "family": "hybrid",
+   "provenance": "Chosen at 7/10 · P tints the curve; the shape is set by p and q alone.",
+   "files": {
+    "printPng": "book/print/c-0329-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0329.svg",
+    "webPng": "app/public/plates-web/c-0329-1600-grey.png",
+    "figurePng": "app/public/figures/c-0329.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0382",
+   "name": "top-5",
+   "stars": 7,
+   "family": "hybrid",
+   "provenance": "Chosen at 7/10 · each station is multiplied by P, the quintic-all-four middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0382-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0382.svg",
+    "webPng": "app/public/plates-web/c-0382-1600-grey.png",
+    "figurePng": "app/public/figures/c-0382.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0165",
+   "name": "wave-1of5-1of4-0",
+   "stars": 6,
+   "family": "wave",
+   "provenance": "Chosen at 6/10 · x(t) = −143t + 1670t² − 32257/3t³ + 84517/2t⁴ − 522517/5t⁵ + 486800/3t⁶ − 1071200/7t⁷ + 80000t⁸ − 160000/9t⁹; y(t) = 24t − 115t² + 158t³ + 278t⁴ − 4556/5t⁵ + 800t⁶ − 1600/7t⁷ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0165-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0165.svg",
+    "webPng": "app/public/plates-web/c-0165-1600-grey.png",
+    "figurePng": "app/public/figures/c-0165.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0001",
+   "name": "amper",
+   "stars": 5,
+   "family": "amper",
+   "provenance": "Chosen at 5/10 · x(t) = −12t + 78t² − 611/3t³ + 232t⁴ − 546/5t⁵ + 50/3t⁶ − 3/7t⁷; y(t) = 16t − 64t² + 356/3t³ − 121t⁴ + 48t⁵ + 10/3t⁶ − 4/7t⁷ · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0001-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0001.svg",
+    "webPng": "app/public/plates-web/c-0001-1600-grey.png",
+    "figurePng": "app/public/figures/c-0001.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0001a",
+   "name": "amper-thin",
+   "stars": 0,
+   "family": "amper",
+   "provenance": "Variant of c-0001 (amper, 5/10) · width 1% · bow plus 2.5 minus 0.1 · turn 0°.",
+   "files": {
+    "printPng": "book/print/c-0001a-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0001a.svg",
+    "webPng": "app/public/plates-web/c-0001a-1600-grey.png",
+    "figurePng": "app/public/figures/c-0001a.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0041",
+   "name": "wave-1of3-5",
+   "stars": 5,
+   "family": "wave",
+   "provenance": "Chosen at 5/10 · x(t) = −3t + 56t² − 1549/3t³ + 6407/2t⁴ − 72377/5t⁵ + 49386t⁶ − 129612t⁷ + 263856t⁸ − 416672t⁹ + 2531392/5t¹⁰ − 5113216/11t¹¹ + 312192t¹² − 1882368/13t¹³ + 41472t¹⁴ − 27648/5t¹⁵; y(t) = −4t + 33t² − 482/3t³ + 513t⁴ − 5636/5t⁵ + 5204/3t⁶ − 1856t⁷ + 1328t⁸ − 576t⁹ + 576/5t¹⁰ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0041-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0041.svg",
+    "webPng": "app/public/plates-web/c-0041-1600-grey.png",
+    "figurePng": "app/public/figures/c-0041.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0091",
+   "name": "loop-t1of2-3of4",
+   "stars": 5,
+   "family": "loop",
+   "provenance": "Chosen at 5/10 · polyline through 321 stations, (0.922081, -0.547081) to (-0.547081, 0.922081) · loop family · saved as finder.",
+   "files": {
+    "printPng": "book/print/c-0091-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0091.svg",
+    "webPng": "app/public/plates-web/c-0091-1600-grey.png",
+    "figurePng": "app/public/figures/c-0091.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0092",
+   "name": "loop-t1of3-2of3",
+   "stars": 5,
+   "family": "loop",
+   "provenance": "Chosen at 5/10 · polyline through 321 stations, (0.934744, -0.045855) to (-0.045855, 0.934744) · loop family · saved as finder.",
+   "files": {
+    "printPng": "book/print/c-0092-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0092.svg",
+    "webPng": "app/public/plates-web/c-0092-1600-grey.png",
+    "figurePng": "app/public/figures/c-0092.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0093",
+   "name": "loop-t1of4-3of4",
+   "stars": 5,
+   "family": "loop",
+   "provenance": "Chosen at 5/10 · polyline through 321 stations, (0.815805, -0.065805) to (-0.065805, 0.815805) · loop family · saved as finder.",
+   "files": {
+    "printPng": "book/print/c-0093-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0093.svg",
+    "webPng": "app/public/plates-web/c-0093-1600-grey.png",
+    "figurePng": "app/public/figures/c-0093.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0094",
+   "name": "cross-45deg-t1of4",
+   "stars": 5,
+   "family": "cross",
+   "provenance": "Chosen at 5/10 · polyline through 321 stations, (4.129326, -3.379326) to (-3.379326, 4.129326) · cross family · saved as finder.",
+   "files": {
+    "printPng": "book/print/c-0094-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0094.svg",
+    "webPng": "app/public/plates-web/c-0094-1600-grey.png",
+    "figurePng": "app/public/figures/c-0094.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0101",
+   "name": "cross-2of5-4of5",
+   "stars": 5,
+   "family": "cross",
+   "provenance": "Chosen at 5/10 · polyline through 321 stations, (1.842686, 0.557314) to (0.557314, 1.842686) · cross family · saved as finder.",
+   "files": {
+    "printPng": "book/print/c-0101-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0101.svg",
+    "webPng": "app/public/plates-web/c-0101-1600-grey.png",
+    "figurePng": "app/public/figures/c-0101.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0134",
+   "name": "mobile-exact-1-1of2-1of5-1-2-5",
+   "stars": 5,
+   "family": "mobile-exact",
+   "provenance": "Chosen at 5/10 · polyline through 721 stations, (0.32, -1.26) to (-1.12, 0.66) · mobile-exact family · saved as finder.",
+   "files": {
+    "printPng": "book/print/c-0134-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0134.svg",
+    "webPng": "app/public/plates-web/c-0134-1600-grey.png",
+    "figurePng": "app/public/figures/c-0134.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0213",
+   "name": "wave-1of3-3-2",
+   "stars": 5,
+   "family": "wave",
+   "provenance": "Chosen at 5/10 · x(t) = −3t + 40t² − 785/3t³ + 2183/2t⁴ − 3153t⁵ + 6470t⁶ − 66028/7t⁷ + 9576t⁸ − 6448t⁹ + 2592t¹⁰ − 5184/11t¹¹; y(t) = 4t − 25t² + 86t³ − 176t⁴ + 1072/5t⁵ − 144t⁶ + 288/7t⁷ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0213-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0213.svg",
+    "webPng": "app/public/plates-web/c-0213-1600-grey.png",
+    "figurePng": "app/public/figures/c-0213.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0358",
+   "name": "side-top-2",
+   "stars": 5,
+   "family": "hybrid",
+   "provenance": "Chosen at 5/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0358-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0358.svg",
+    "webPng": "app/public/plates-web/c-0358-1600-grey.png",
+    "figurePng": "app/public/figures/c-0358.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0368",
+   "name": "side-bounce",
+   "stars": 5,
+   "family": "hybrid",
+   "provenance": "Chosen at 5/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0368-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0368.svg",
+    "webPng": "app/public/plates-web/c-0368-1600-grey.png",
+    "figurePng": "app/public/figures/c-0368.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0003",
+   "name": "swan",
+   "stars": 4,
+   "family": "swan",
+   "provenance": "Chosen at 4/10 · x(t) = 225t² − 975t³ + 2525/2t⁴ − 605t⁵ + 500/3t⁶ − 900/7t⁷ + 275/4t⁸ − 100/9t⁹; y(t) = 50t − 275t² + 350t³ − 250t⁴ + 30t⁵ − 100/3t⁶ + 150t⁷ − 275/4t⁸ + 50/9t⁹ − 10t¹⁰ + 50/11t¹¹ · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0003-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0003.svg",
+    "webPng": "app/public/plates-web/c-0003-1600-grey.png",
+    "figurePng": "app/public/figures/c-0003.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0010",
+   "name": "m-arch",
+   "stars": 4,
+   "family": "m",
+   "provenance": "Chosen at 4/10 · x(t) = −8t + 48t² − 352/3t³ + 128t⁴ − 256/5t⁵; y(t) = 6t − 16t² + 32/3t³ · m family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0010-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0010.svg",
+    "webPng": "app/public/plates-web/c-0010-1600-grey.png",
+    "figurePng": "app/public/figures/c-0010.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0027",
+   "name": "new-symmetric",
+   "stars": 4,
+   "family": "new",
+   "provenance": "Chosen at 4/10 · x(t) = 4t² − 8t³ + 8t⁴ − 16/5t⁵; y(t) = 2t − 4t² + 8/3t³ · new family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0027-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0027.svg",
+    "webPng": "app/public/plates-web/c-0027-1600-grey.png",
+    "figurePng": "app/public/figures/c-0027.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0176",
+   "name": "wave-1of6-1of4-0",
+   "stars": 4,
+   "family": "wave",
+   "provenance": "Chosen at 4/10 · x(t) = −224t + 2819t² − 58261/3t³ + 160911/2t⁴ − 1034127/5t⁵ + 329472t⁶ − 2207232/7t⁷ + 165888t⁸ − 36864t⁹; y(t) = 30t − 203t² + 1934/3t³ − 1052t⁴ + 4984/5t⁵ − 576t⁶ + 1152/7t⁷ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0176-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0176.svg",
+    "webPng": "app/public/plates-web/c-0176-1600-grey.png",
+    "figurePng": "app/public/figures/c-0176.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0178",
+   "name": "wave-1of8-1of3-2",
+   "stars": 4,
+   "family": "wave",
+   "provenance": "Chosen at 4/10 · x(t) = −195t + 3459t² − 105446/3t³ + 230882t⁴ − 1042344t⁵ + 10044620/3t⁶ − 54511144/7t⁷ + 13166600t⁸ − 144307216/9t⁹ + 13704192t¹⁰ − 85800960/11t¹¹ + 2654208t¹² − 5308416/13t¹³; y(t) = 28t − 233t² + 884t³ − 1575t⁴ + 3362/5t⁵ + 2108t⁶ − 25720/7t⁷ + 2304t⁸ − 512t⁹ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0178-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0178.svg",
+    "webPng": "app/public/plates-web/c-0178-1600-grey.png",
+    "figurePng": "app/public/figures/c-0178.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0391",
+   "name": "top-1",
+   "stars": 4,
+   "family": "hybrid",
+   "provenance": "Chosen at 4/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0391-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0391.svg",
+    "webPng": "app/public/plates-web/c-0391-1600-grey.png",
+    "figurePng": "app/public/figures/c-0391.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0002",
+   "name": "euler-hook",
+   "stars": 3,
+   "family": "euler",
+   "provenance": "Chosen at 3/10 · x(t) = −363/25t + 2178/25t² − 3146/15t³ + 23353/100t⁴ − 13794/125t⁵ + 1936/75t⁶ − 1089/100t⁷ + 2057/400t⁸ − 121/150t⁹; y(t) = 484/25t − 1694/25t² + 2904/25t³ − 121t⁴ + 6897/125t⁵ − 1331/150t⁶ + 2904/175t⁷ − 3267/400t⁸ + 121/225t⁹ − 121/250t¹⁰ + 11/50t¹¹ · euler family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0002-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0002.svg",
+    "webPng": "app/public/plates-web/c-0002-1600-grey.png",
+    "figurePng": "app/public/figures/c-0002.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0004",
+   "name": "gosling",
+   "stars": 3,
+   "family": "gosling",
+   "provenance": "Chosen at 3/10 · x(t) = 9t² − 39t³ + 101/2t⁴ − 121/5t⁵ + 20/3t⁶ − 7/4t⁸ + 4/9t⁹; y(t) = 2t − 11t² + 14t³ − 10t⁴ + 6/5t⁵ − 2/7t⁷ + 11/4t⁸ + 2/9t⁹ + 2/5t¹⁰ + 2/11t¹¹ · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0004-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0004.svg",
+    "webPng": "app/public/plates-web/c-0004-1600-grey.png",
+    "figurePng": "app/public/figures/c-0004.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0005",
+   "name": "double-tap",
+   "stars": 3,
+   "family": "double",
+   "provenance": "Chosen at 3/10 · x(t) = −12t + 84t² − 724/3t³ + 288t⁴ − 692/5t⁵ + 20t⁶ − 48/7t⁷ + 2t⁸ + 16/9t⁹ + 16/11t¹¹; y(t) = 16t − 72t² + 400/3t³ − 94t⁴ + 24/5t⁵ + 20t⁶ − 200/7t⁷ + 24t⁸ − 16/9t⁹ · double family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0005-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0005.svg",
+    "webPng": "app/public/plates-web/c-0005-1600-grey.png",
+    "figurePng": "app/public/figures/c-0005.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0006",
+   "name": "curlicue",
+   "stars": 3,
+   "family": "curlicue",
+   "provenance": "Chosen at 3/10 · x(t) = 75t + 1200t² − 61550/3t³ + 188325/2t⁴ − 176585t⁵ + 164000/3t⁶ + 359225t⁷ − 2822825/4t⁸ + 5542550/9t⁹ − 271480t¹⁰ + 540600/11t¹¹; y(t) = −100t + 1900t² − 2900/3t³ − 72350t⁴ + 397020t⁵ − 3082225/3t⁶ + 10919800/7t⁷ − 5876325/4t⁸ + 7635550/9t⁹ − 276660t¹⁰ + 39250t¹¹ · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0006-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0006.svg",
+    "webPng": "app/public/plates-web/c-0006-1600-grey.png",
+    "figurePng": "app/public/figures/c-0006.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0007",
+   "name": "grass",
+   "stars": 3,
+   "family": "grass",
+   "provenance": "Chosen at 3/10 · x(t) = 675/4t² − 2175/4t³ + 7575/8t⁴ − 4565/4t⁵ + 125t⁶ − 1125/7t⁷ + 825/16t⁸ − 25/9t⁹; y(t) = 225/2t − 825/4t² + 2725/6t³ − 375/2t⁴ + 495/2t⁵ − 25t⁶ + 2725/14t⁷ − 825/16t⁸ + 25/2t⁹ − 15/2t¹⁰ + 25/22t¹¹ · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0007-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0007.svg",
+    "webPng": "app/public/plates-web/c-0007-1600-grey.png",
+    "figurePng": "app/public/figures/c-0007.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0012",
+   "name": "m-coarse",
+   "stars": 3,
+   "family": "m",
+   "provenance": "Chosen at 3/10 · x(t) = −35t + 139t² − 256t³ + 230t⁴ − 80t⁵; y(t) = −12t + 17t² + 2t³ − 10t⁴ · m family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0012-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0012.svg",
+    "webPng": "app/public/plates-web/c-0012-1600-grey.png",
+    "figurePng": "app/public/figures/c-0012.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0013",
+   "name": "bowl-coarse",
+   "stars": 3,
+   "family": "bowl",
+   "provenance": "Chosen at 3/10 · x(t) = −8t + 16t² − 8t³; y(t) = −6t + 2t² + 10/3t³ · bowl family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0013-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0013.svg",
+    "webPng": "app/public/plates-web/c-0013-1600-grey.png",
+    "figurePng": "app/public/figures/c-0013.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0016",
+   "name": "catenary-fit",
+   "stars": 3,
+   "family": "catenary",
+   "provenance": "Chosen at 3/10 · x(t) = 300017842224211735125163769761551/100000000000000000000000000000000t + 1123545565981819297192515873/20000000000000000000000000000000t² − 20838255727714145979156358577/150000000000000000000000000000000t³ + 43769589961595004239196456473/50000000000000000000000000000000t⁴ − 6944614826273736435239461839077/2500000000000000000000000000000000t⁵ + 5773307446170264166648201989539/1000000000000000000000000000000000t⁶ − 28538610138931221554347895896903/3500000000000000000000000000000000t⁷ + 129563919922434276704240593192519/16000000000000000000000000000000000t⁸ − 105235929997487362769730488993303/18000000000000000000000000000000000t⁹ + 61981573068719587645757196624231/20000000000000000000000000000000000t¹⁰ − 67501893135843685883172863490251/55000000000000000000000000000000000t¹¹ + 3060143795910335233578501733263/8000000000000000000000000000000000t¹² − 25858947803132923321245389033677/260000000000000000000000000000000000t¹³ + 138229339753318229224562201763/8000000000000000000000000000000000t¹⁴ − 222761723270768612177060763481/96000000000000000000000000000000000t¹⁵; y(t) = −12775962616822429479/2000000000000000000t + 1058604448398009922336974709174251/100000000000000000000000000000000t² − 479084397500909692270351831153489/50000000000000000000000000000000t³ + 1587731105458682778150537313708279/200000000000000000000000000000000t⁴ − 5385548587666350311906606264931051/1250000000000000000000000000000000t⁵ + 1186826970780260440448808452310703/500000000000000000000000000000000t⁶ − 3187605676940184829335213439187523/3500000000000000000000000000000000t⁷ + 1473016306444798753848589375649957/4000000000000000000000000000000000t⁸ − 9369557515732516764658205165137897/90000000000000000000000000000000000t⁹ + 157808193192126381557038832620423/5000000000000000000000000000000000t¹⁰ − 86374475092994519201696270497019/13750000000000000000000000000000000t¹¹ + 16854722494857193785737560804079/12000000000000000000000000000000000t¹² − 106960711189953033/650000000000000000000t¹³ + 471976401179941/20000000000000000000t¹⁴ · catenary family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0016-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0016.svg",
+    "webPng": "app/public/plates-web/c-0016-1600-grey.png",
+    "figurePng": "app/public/figures/c-0016.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0017",
+   "name": "euler-fit",
+   "stars": 3,
+   "family": "euler",
+   "provenance": "Chosen at 3/10 · x(t) = 25075018712532789393039612127969/25000000000000000000000000000000t − 52327972443386437180582422866941/500000000000000000000000000000000t² + 35008006860375879432224276575083049/30000000000000000000000000000000000t³ − 60564835538379475260325995320097/10000000000000000000000000000000t⁴ + 3316223714402833578027605995384733/250000000000000000000000000000000t⁵ − 64170572749028479299940004775503/2000000000000000000000000000000t⁶ + 10608161365680256786508743187100321/175000000000000000000000000000000t⁷ − 384562150298609462631622950208801/2500000000000000000000000000000t⁸ + 16894321861291836294366762217949753/45000000000000000000000000000000t⁹ − 841344096590325495697970699475251/1250000000000000000000000000000t¹⁰ + 1534901995692280817316915649771031/1718750000000000000000000000000t¹¹ − 1607224909164006496642164046632641/2000000000000000000000000000000t¹² + 1389960262128666214380261112815149/3250000000000000000000000000000t¹³ − 79313101972185106831/700000000000000000t¹⁴ + 151673795833963022381051239837351/15000000000000000000000000000000t¹⁵; y(t) = −15022488755622189/1250000000000000000t² + 326734553568346599196001376361/150000000000000000000000000000t³ − 25075624922871894278819702507673/100000000000000000000000000000000t⁴ + 831364061141265303471987930835793/625000000000000000000000000000000t⁵ − 2760475333249561178614350336860363/300000000000000000000000000000000t⁶ + 4385911649759457999531404338947169/175000000000000000000000000000000t⁷ − 435762511305923589633512795282457/10000000000000000000000000000000t⁸ − 2043087310109286938135790453863683/150000000000000000000000000000000t⁹ + 8602492075508991612116153104121/50000000000000000000000000000t¹⁰ − 2067090055068069233712459489373477/5500000000000000000000000000000t¹¹ + 308414736820178039767990193961091/600000000000000000000000000000t¹² − 68789379523578519476919386805349/162500000000000000000000000000t¹³ + 63971188559754847041/350000000000000000t¹⁴ − 3929183625363399977088080458867/125000000000000000000000000000t¹⁵ · euler family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0017-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0017.svg",
+    "webPng": "app/public/plates-web/c-0017-1600-grey.png",
+    "figurePng": "app/public/figures/c-0017.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0018",
+   "name": "logspiral-fit",
+   "stars": 3,
+   "family": "logspiral",
+   "provenance": "Chosen at 3/10 · x(t) = 20836505737569089688409290473649/6250000000000000000000000000000t − 7989694134307095874380363096669/100000000000000000000000000000t² − 330113537564803967523598220237/1600000000000000000000000000t³ + 2003792603612878517204407970457451/2500000000000000000000000000000t⁴ + 2185992008714375936451985033553851/5000000000000000000000000000000t⁵ + 40958597220410332654234001207793/4000000000000000000000000000t⁶ − 641906083330348039933676927256223/15625000000000000000000000000t⁷ + 70066817785252275148537103731891147/1000000000000000000000000000000t⁸ − 4834229118816133156296369259632331/22500000000000000000000000000t⁹ + 14652120045438705863874402086056241/25000000000000000000000000000t¹⁰ − 28277590250805157448252957019867929/34375000000000000000000000000t¹¹ + 1459623217586360920352689069311249/2500000000000000000000000000t¹² − 1223123443945159441006003097137711/6500000000000000000000000000t¹³ + 18468544888900913064306132084953/1750000000000000000000000000t¹⁴ + 9379797839897309419671274979537/1875000000000000000000000000t¹⁵; y(t) = 15509081950207469667/1250000000000000000t + 229212424224212733507/5000000000000000000t² − 270174992751152090474603881320457/750000000000000000000000000000t³ − 155981843066039615751834097355967/400000000000000000000000000000t⁴ − 101977092475385266994165510096461/250000000000000000000000000000t⁵ + 1625103628782202976516571789450169/300000000000000000000000000000t⁶ + 1169921240833574824328672984626319/87500000000000000000000000000t⁷ − 4202255114159229358849983407243459/125000000000000000000000000000t⁸ − 537661079963679789072229513898071/45000000000000000000000000000t⁹ − 742864167340041070806476482928159/12500000000000000000000000000t¹⁰ + 27529017642424548803144265637571393/68750000000000000000000000000t¹¹ − 1179728554189569189675743672448973/1875000000000000000000000000t¹² + 56356290884288109259295371042977/125000000000000000000000000t¹³ − 8517530247313639644419563499821/54687500000000000000000000t¹⁴ + 16384992585096031468981429871549/781250000000000000000000000t¹⁵ · logspiral family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0018-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0018.svg",
+    "webPng": "app/public/plates-web/c-0018-1600-grey.png",
+    "figurePng": "app/public/figures/c-0018.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0025",
+   "name": "twin-cusp",
+   "stars": 3,
+   "family": "twin",
+   "provenance": "Chosen at 3/10 · x(t) = −60t + 864t² − 7056t³ + 38880t⁴ − 152604t⁵ + 438858t⁶ − 6552981/7t⁷ + 5924583/4t⁸ − 1716795t⁹ + 1417176t¹⁰ − 8680203/11t¹¹ + 531441/2t¹² − 531441/13t¹³; y(t) = 32t − 216t² + 792t³ − 1701t⁴ + 10692/5t⁵ − 1458t⁶ + 2916/7t⁷ · twin family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0025-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0025.svg",
+    "webPng": "app/public/plates-web/c-0025-1600-grey.png",
+    "figurePng": "app/public/figures/c-0025.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0031",
+   "name": "wave-1of3-3",
+   "stars": 3,
+   "family": "wave",
+   "provenance": "Chosen at 3/10 · x(t) = −3t + 41t² − 262t³ + 1091t⁴ − 15764/5t⁵ + 6470t⁶ − 66028/7t⁷ + 9576t⁸ − 6448t⁹ + 2592t¹⁰ − 5184/11t¹¹; y(t) = −4t + 23t² − 220/3t³ + 143t⁴ − 178t⁵ + 430/3t⁶ − 72t⁷ + 18t⁸ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0031-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0031.svg",
+    "webPng": "app/public/plates-web/c-0031-1600-grey.png",
+    "figurePng": "app/public/figures/c-0031.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0047",
+   "name": "lace-1of8-1of3-0",
+   "stars": 3,
+   "family": "lace",
+   "provenance": "Chosen at 3/10 · x(t) = −195t + 2678t² − 57949/3t³ + 162609/2t⁴ − 208893t⁵ + 331200t⁶ − 2210688/7t⁷ + 165888t⁸ − 36864t⁹; y(t) = 28t − 135t² − 106/3t³ + 1340t⁴ − 2840t⁵ + 2304t⁶ − 4608/7t⁷ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0047-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0047.svg",
+    "webPng": "app/public/plates-web/c-0047-1600-grey.png",
+    "figurePng": "app/public/figures/c-0047.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0048",
+   "name": "lace-1of10-2",
+   "stars": 3,
+   "family": "lace",
+   "provenance": "Chosen at 3/10 · x(t) = −80t + 1228t² − 28136/3t³ + 40040t⁴ − 102416t⁵ + 483200/3t⁶ − 1068800/7t⁷ + 80000t⁸ − 160000/9t⁹; y(t) = 18t − 100t² − 88/3t³ + 944t⁴ − 9888/5t⁵ + 1600t⁶ − 3200/7t⁷ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0048-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0048.svg",
+    "webPng": "app/public/plates-web/c-0048-1600-grey.png",
+    "figurePng": "app/public/figures/c-0048.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0177",
+   "name": "wave-1of8-1of4-0",
+   "stars": 3,
+   "family": "wave",
+   "provenance": "Chosen at 3/10 · x(t) = −440t + 6386t² − 148192/3t³ + 223358t⁴ − 3051772/5t⁵ + 3031040/3t⁶ − 6914048/7t⁷ + 524288t⁸ − 1048576/9t⁹; y(t) = 42t − 262t² + 452t³ + 608t⁴ − 11456/5t⁵ + 2048t⁶ − 4096/7t⁷ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0177-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0177.svg",
+    "webPng": "app/public/plates-web/c-0177-1600-grey.png",
+    "figurePng": "app/public/figures/c-0177.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0220",
+   "name": "wave-1of4-1of3-3-2",
+   "stars": 3,
+   "family": "wave",
+   "provenance": "Chosen at 3/10 · x(t) = −35t + 568t² − 5523t³ + 73327/2t⁴ − 882781/5t⁵ + 1912562/3t⁶ − 12307628/7t⁷ + 3735272t⁸ − 55030192/9t⁹ + 38257312/5t¹⁰ − 79088704/11t¹¹ + 4912128t¹² − 2304000t¹³ + 663552t¹⁴ − 442368/5t¹⁵; y(t) = 12t − 107t² + 546t³ − 1760t⁴ + 18608/5t⁵ − 5168t⁶ + 31840/7t⁷ − 2304t⁸ + 512t⁹ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0220-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0220.svg",
+    "webPng": "app/public/plates-web/c-0220-1600-grey.png",
+    "figurePng": "app/public/figures/c-0220.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0261",
+   "name": "loop-7-mid-2",
+   "stars": 3,
+   "family": "loop",
+   "provenance": "Chosen at 3/10 · x(t) = −35t + 438t² − 8557/3t³ + 21989/2t⁴ − 26389t⁵ + 119756/3t⁶ − 37016t⁷ + 19208t⁸ − 38416/9t⁹; y(t) = 12t − 73t² + 538/3t³ − 196t⁴ + 392/5t⁵ · loop family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0261-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0261.svg",
+    "webPng": "app/public/plates-web/c-0261-1600-grey.png",
+    "figurePng": "app/public/figures/c-0261.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0377",
+   "name": "side-top-hat",
+   "stars": 3,
+   "family": "hybrid",
+   "provenance": "Chosen at 3/10 · each station is multiplied by P, the cubic-and-quintic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0377-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0377.svg",
+    "webPng": "app/public/plates-web/c-0377-1600-grey.png",
+    "figurePng": "app/public/figures/c-0377.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0379",
+   "name": "star-trek-1",
+   "stars": 3,
+   "family": "hybrid",
+   "provenance": "Chosen at 3/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0379-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0379.svg",
+    "webPng": "app/public/plates-web/c-0379-1600-grey.png",
+    "figurePng": "app/public/figures/c-0379.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0008",
+   "name": "u-bowl",
+   "stars": 2,
+   "family": "u",
+   "provenance": "Chosen at 2/10 · x(t) = 2t² − 4/3t³; y(t) = −2t + 2t² · u family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0008-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0008.svg",
+    "webPng": "app/public/plates-web/c-0008-1600-grey.png",
+    "figurePng": "app/public/figures/c-0008.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0009",
+   "name": "v-sharp",
+   "stars": 2,
+   "family": "v",
+   "provenance": "Chosen at 2/10 · x(t) = 6t² − 20t³ + 40t⁴ − 48t⁵ + 32t⁶ − 64/7t⁷; y(t) = −2t + 6t² − 8t³ + 4t⁴ · v family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0009-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0009.svg",
+    "webPng": "app/public/plates-web/c-0009-1600-grey.png",
+    "figurePng": "app/public/figures/c-0009.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0011",
+   "name": "gumdrop",
+   "stars": 2,
+   "family": "gumdrop",
+   "provenance": "Chosen at 2/10 · x(t) = −96t + 1372t² − 32272/3t³ + 53888t⁴ − 907246/5t⁵ + 420390t⁶ − 4705451/7t⁷ + 2915999/4t⁸ − 1535759/3t⁹ + 1049756/5t¹⁰ − 419897/11t¹¹ − 1/2t¹² + 5/13t¹³ − 2/7t¹⁴ + 1/5t¹⁵ − 1/8t¹⁶ + 1/17t¹⁷; y(t) = −40t + 264t² − 802t³ + 1119t⁴ − 1776/5t⁵ − 892t⁶ + 1320t⁷ − 1155t⁸ + 3080/3t⁹ − 922t¹⁰ + 8946/11t¹¹ − 633t¹² + 4536/13t¹³ − 648/7t¹⁴ · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0011-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0011.svg",
+    "webPng": "app/public/plates-web/c-0011-1600-grey.png",
+    "figurePng": "app/public/figures/c-0011.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0015",
+   "name": "involute-fit",
+   "stars": 2,
+   "family": "involute",
+   "provenance": "Chosen at 2/10 · x(t) = 3444986966598250565572539495351/9765625000000000000000000000000t + 17627994012869426631378016922363/781250000000000000000000000000t² + 175285537004067136472788469203783/468750000000000000000000000000t³ − 1266346129853717705438873502997151/312500000000000000000000000000t⁴ + 935074587351528740859853653748249147/62500000000000000000000000000000t⁵ − 672939053751608046759108267006271499/15000000000000000000000000000000t⁶ + 2755423298274983811596665334271155443/21875000000000000000000000000000t⁷ − 85703018147212314823705443803853517/312500000000000000000000000000t⁸ + 5519558499299933902227594282794756693/12000000000000000000000000000000t⁹ − 625142611445023293194333184047574263/1000000000000000000000000000000t¹⁰ + 7322956384541472500107063454414457587/11000000000000000000000000000000t¹¹ − 203098103658224566426113739833551647/400000000000000000000000000000t¹² + 3280760909641295392384796026980168231/13000000000000000000000000000000t¹³ − 50684079315758921921909038820084847/700000000000000000000000000000t¹⁴ + 454163353770960653848898822289013/50000000000000000000000000000t¹⁵; y(t) = −689933707332335170729691598403/15625000000000000000000000000000t + 1601511299539784214613513395983/625000000000000000000000000000t² + 389876490241164649485442651602869/1875000000000000000000000000000t³ + 60863433128644968802444684265633/62500000000000000000000000000t⁴ − 116725325807498569237303384946699431/12500000000000000000000000000000t⁵ + 16462944866951259705834558131155411/600000000000000000000000000000t⁶ − 9165253653260851370866195791250773/156250000000000000000000000000t⁷ + 100077729918078635099566052186055681/1000000000000000000000000000000t⁸ − 7784279733910477904105702794244071/75000000000000000000000000000t⁹ + 2117153623787970329583500908664713/50000000000000000000000000000t¹⁰ + 178853673484823784099768920611117/13750000000000000000000000000t¹¹ − 195768792776976616062366136069013/20000000000000000000000000000t¹² − 29122173729554825657112636871431/3250000000000000000000000000t¹³ + 58370583795114957246843735571229/7000000000000000000000000000t¹⁴ − 1383695334161942890687324429373/750000000000000000000000000t¹⁵ · involute family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0015-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0015.svg",
+    "webPng": "app/public/plates-web/c-0015-1600-grey.png",
+    "figurePng": "app/public/figures/c-0015.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0019",
+   "name": "knot-6",
+   "stars": 2,
+   "family": "knot",
+   "provenance": "Chosen at 2/10 · x(t) = −5t + 22t² − 20/3t³ − 22t⁴ + 1/5t⁵ + 20/3t⁶ + 12/7t⁷; y(t) = −12t + 6t² + 58/3t³ − 1t⁴ − 16t⁵ − 10/3t⁶ + 16/7t⁷ · knot family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0019-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0019.svg",
+    "webPng": "app/public/plates-web/c-0019-1600-grey.png",
+    "figurePng": "app/public/figures/c-0019.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0020",
+   "name": "knot-7",
+   "stars": 2,
+   "family": "knot",
+   "provenance": "Chosen at 2/10 · x(t) = 3t − 14t² + 46/3t³ − 2t⁴ + 51/5t⁵ − 34/3t⁶ − 24/7t⁷ − 1t⁸ + 4/9t⁹; y(t) = 4t − 2t² − 32/3t³ + 4t⁴ + 56/5t⁵ − 2/3t⁶ + 12/7t⁷ − 3t⁸ · knot family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0020-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0020.svg",
+    "webPng": "app/public/plates-web/c-0020-1600-grey.png",
+    "figurePng": "app/public/figures/c-0020.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0021",
+   "name": "inflect-2",
+   "stars": 2,
+   "family": "inflect",
+   "provenance": "Chosen at 2/10 · x(t) = −6t³ + 18t⁴ − 15t⁵ − 2t⁶ + 36/7t⁷; y(t) = −18t + 36t² − 26t³ − 6t⁴ + 76/5t⁵ − 4t⁶ · inflect family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0021-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0021.svg",
+    "webPng": "app/public/plates-web/c-0021-1600-grey.png",
+    "figurePng": "app/public/figures/c-0021.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0023",
+   "name": "cusp5-x3",
+   "stars": 2,
+   "family": "cusp5",
+   "provenance": "Chosen at 2/10 · x(t) = −8t + 90t² − 540t³ + 2160t⁴ − 6048t⁵ + 12096t⁶ − 17280t⁷ + 17280t⁸ − 11520t⁹ + 4608t¹⁰ − 9216/11t¹¹; y(t) = −6t + 30t² − 80t³ + 120t⁴ − 96t⁵ + 32t⁶ · cusp5 family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0023-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0023.svg",
+    "webPng": "app/public/plates-web/c-0023-1600-grey.png",
+    "figurePng": "app/public/figures/c-0023.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0024",
+   "name": "cusp7-deep",
+   "stars": 2,
+   "family": "cusp7",
+   "provenance": "Chosen at 2/10 · x(t) = −15t + 224t² − 5824/3t³ + 11648t⁴ − 256256/5t⁵ + 512512/3t⁶ − 439296t⁷ + 878592t⁸ − 4100096/3t⁹ + 8200192/5t¹⁰ − 1490944t¹¹ + 2981888/3t¹² − 458752t¹³ + 131072t¹⁴ − 262144/15t¹⁵; y(t) = −8t + 56t² − 224t³ + 560t⁴ − 896t⁵ + 896t⁶ − 512t⁷ + 128t⁸ · cusp7 family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0024-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0024.svg",
+    "webPng": "app/public/plates-web/c-0024-1600-grey.png",
+    "figurePng": "app/public/figures/c-0024.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0026",
+   "name": "w-arch",
+   "stars": 2,
+   "family": "w",
+   "provenance": "Chosen at 2/10 · x(t) = −8t + 48t² − 352/3t³ + 128t⁴ − 256/5t⁵; y(t) = −6t + 16t² − 32/3t³ · w family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0026-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0026.svg",
+    "webPng": "app/public/plates-web/c-0026-1600-grey.png",
+    "figurePng": "app/public/figures/c-0026.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0033",
+   "name": "wave-middle-5",
+   "stars": 2,
+   "family": "wave",
+   "provenance": "Chosen at 2/10 · x(t) = 9t² − 59t³ + 479/2t⁴ − 3359/5t⁵ + 1344t⁶ − 1920t⁷ + 1920t⁸ − 1280t⁹ + 512t¹⁰ − 1024/11t¹¹; y(t) = −2t + 11t² − 34t³ + 65t⁴ − 80t⁵ + 64t⁶ − 32t⁷ + 8t⁸ · wave family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0033-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0033.svg",
+    "webPng": "app/public/plates-web/c-0033-1600-grey.png",
+    "figurePng": "app/public/figures/c-0033.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0055",
+   "name": "lace-1of10-4",
+   "stars": 2,
+   "family": "lace",
+   "provenance": "Chosen at 2/10 · x(t) = −80t + 1546t² − 49664/3t³ + 111670t⁴ − 2548716/5t⁵ + 4923776/3t⁶ − 3809536t⁷ + 6416768t⁸ − 70049536/9t⁹ + 6630400t¹⁰ − 41420800/11t¹¹ + 1280000t¹² − 2560000/13t¹³; y(t) = 18t − 190t² + 2956/3t³ − 3032t⁴ + 29904/5t⁵ − 23264/3t⁶ + 45376/7t⁷ − 3200t⁸ + 6400/9t⁹ · lace family · found in the finder.",
+   "files": {
+    "printPng": "book/print/c-0055-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0055.svg",
+    "webPng": "app/public/plates-web/c-0055-1600-grey.png",
+    "figurePng": "app/public/figures/c-0055.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0158",
+   "name": "wave-1of3-2of5-3",
+   "stars": 2,
+   "family": "wave",
+   "provenance": "Chosen at 2/10 · x(t) = −143t + 2116t² − 57296/3t³ + 119136t⁴ − 2714649/5t⁵ + 5602160/3t⁶ − 34556258/7t⁷ + 20227447/2t⁸ − 144525577/9t⁹ + 19600262t¹⁰ − 18060884t¹¹ + 12162600t¹² − 73465200/13t¹³ + 1620000t¹⁴ − 216000t¹⁵; y(t) = −24t + 128t² − 230t³ − 662t⁴ + 4702t⁵ − 12170t⁶ + 17728t⁷ − 15232t⁸ + 7200t⁹ − 1440t¹⁰ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0158-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0158.svg",
+    "webPng": "app/public/plates-web/c-0158-1600-grey.png",
+    "figurePng": "app/public/figures/c-0158.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0179",
+   "name": "wave-1of8-4",
+   "stars": 2,
+   "family": "wave",
+   "provenance": "Chosen at 2/10 · x(t) = −48t + 838t² − 24808/3t³ + 52590t⁴ − 1150556/5t⁵ + 718464t⁶ − 1630464t⁷ + 2701440t⁸ − 3238144t⁹ + 2736128t¹⁰ − 17006592/11t¹¹ + 524288t¹² − 1048576/13t¹³; y(t) = 14t − 134t² + 1996/3t³ − 2000t⁴ + 19456/5t⁵ − 15008/3t⁶ + 4160t⁷ − 2048t⁸ + 4096/9t⁹ · wave family · saved as B.",
+   "files": {
+    "printPng": "book/print/c-0179-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0179.svg",
+    "webPng": "app/public/plates-web/c-0179-1600-grey.png",
+    "figurePng": "app/public/figures/c-0179.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0341",
+   "name": "bounce",
+   "stars": 2,
+   "family": "hybrid",
+   "provenance": "Chosen at 2/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0341-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0341.svg",
+    "webPng": "app/public/plates-web/c-0341-1600-grey.png",
+    "figurePng": "app/public/figures/c-0341.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0342",
+   "name": "wild-butterfly",
+   "stars": 2,
+   "family": "hybrid",
+   "provenance": "Chosen at 2/10 · each station is multiplied by P, the quintic-all-four middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0342-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0342.svg",
+    "webPng": "app/public/plates-web/c-0342-1600-grey.png",
+    "figurePng": "app/public/figures/c-0342.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0376",
+   "name": "side-top-3",
+   "stars": 2,
+   "family": "hybrid",
+   "provenance": "Chosen at 2/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0376-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0376.svg",
+    "webPng": "app/public/plates-web/c-0376-1600-grey.png",
+    "figurePng": "app/public/figures/c-0376.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0378",
+   "name": "star-trek-2",
+   "stars": 2,
+   "family": "hybrid",
+   "provenance": "Chosen at 2/10 · each station is multiplied by P, the cubic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0378-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0378.svg",
+    "webPng": "app/public/plates-web/c-0378-1600-grey.png",
+    "figurePng": "app/public/figures/c-0378.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  },
+  {
+   "uid": "c-0381",
+   "name": "side-bounce-2",
+   "stars": 2,
+   "family": "hybrid",
+   "provenance": "Chosen at 2/10 · each station is multiplied by P, the quadratic middle terms of (x + y)^n.",
+   "files": {
+    "printPng": "book/print/c-0381-3000-grey-300dpi.png",
+    "printSvg": "book/print/c-0381.svg",
+    "webPng": "app/public/plates-web/c-0381-1600-grey.png",
+    "figurePng": "app/public/figures/c-0381.png"
+   },
+   "present": {
+    "printPng": true,
+    "printSvg": true,
+    "webPng": true,
+    "figurePng": true
+   }
+  }
+ ]
+}
