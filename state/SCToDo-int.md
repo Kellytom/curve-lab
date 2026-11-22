@@ -40,9 +40,15 @@ numeric check, not a hope.
   the full measure() rule — parity 15 checks, 0 mismatches against the Python
   results on three real pieces (straight pair, curved pair, mirror) via
   `app/scripts/parity-clearance.mjs`.
-- Next row: `piece.py` → `app/src/lib/piece.ts` (the builder the clearance
-  numbers come from), then `model.py` (Design/Segment) so the port can build
-  pieces itself. `Proves:` the parity script prints zero mismatches.
+- ~~`piece.py` → `app/src/lib/piece.ts`~~ **LANDED 2026-11-21**: Trace/Group/
+  Piece with the validations, mirrorSpans, and the pre-built-spans path of
+  build_piece (rails via the parallel fitter, terminals/caps, the mirror
+  groups) — parity **4 pieces, 0 mismatches** (`app/scripts/parity-piece.mjs`).
+  The desk-reality gap is flagged: the Python Trace forbids width on spans
+  while build_piece's pre-built path and the tune desk's records use it.
+- Next row: `model.py` → `app/src/lib/model.ts` (Design/Segment), then
+  `svg.py` — with model.py the port can hold records end to end.
+  `Proves:` the parity script prints zero mismatches.
 - The NURBS-analysis row: **the rails' fit source becomes the exact analytic
   normal** — `X = x·w2 − d·y′` over `w2`, built from the speed rows with no
   backend and no square root in the storage. The rails then sit as close to
@@ -64,6 +70,13 @@ reader pages. Suited to me because it is style-disciplined plain English.
 check` green — but only when the operator says a page is final.
 
 ### 3 · Math & geometry analysis (support role, not lead)
+
+**The smart answer to the degree-11 choke point landed 2026-11-21:**
+`state/SC-NOTES-constructions.md` — the name IS the recipe (verified on all 31
+lace curves: curve = 2·speed+1, speed = 2·pairs + stack), and the NURBS-ready
+siblings are already in the catalogue: 7 of the 12 over-ceiling laces have an
+in-catalogue sibling at speed degree ≤ 5; the other 5 are one recipe call away.
+The task is selection, not reduction.
 
 I am strongest at the *measurement and search* side: calibrated counters, the
 family sweeps, the literature map (`RESEARCH-int.md`, the sin-cos note), and

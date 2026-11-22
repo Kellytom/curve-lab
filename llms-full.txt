@@ -4294,6 +4294,7 @@ doubled when the trace name already carries it. The TypeScript port follows
 with a width builds two rails, two caps (round start, point end) and the
 spine, the fit is under tolerance, and the cap name is not double-prefixed.
 | 48 | 2026-11-21 | every browser check failed with `net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4321/` while `curl localhost:4321` answered; a fresh `npm --prefix app run dev` bound Astro's `localhost` (IPv6 ::1) only, so every documented 127.0.0.1 link and every check using it was refused | `tests/test_regressions.py` (`test_the_dev_server_answers_on_ipv4_loopback`: the dev script names 127.0.0.1) | the dev server's host is explicit, and it is the address the links and checks use |
+| 49 | 2026-11-21 | `/ph-nth-sandbox/` threw `Cannot read properties of undefined (reading 'length')`, intermittently, in the framed gallery: a saved record can be a **pair** with the name on its primary, so the pair entered the list with no name and the numberer called `uidOf(undefined)` | `scripts/check-pages.mjs` (every route records a `pageerror`, and `/ph-nth-sandbox/` is in its list; the fix was also probed with a seeded nameless pair) | saved records are flattened to their primary before they reach the gallery, and a nameless record is dropped rather than counted |
 
 
 <!-- source: state/DATA-int.md -->
