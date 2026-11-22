@@ -969,3 +969,23 @@ the rule.
 - **The migration is per family, never a silent switch.** The 212 PH rows need their speed or
   family parameter; the finder paths their generator parameter. Until a family's rule exists,
   the plates and the tune page keep the character width rail, labelled as the reference.
+
+## No parallel curves as a general side curve — 2026-11-21
+
+The operator: "NO PARALLEL CURVES AS A GENERAL RULE. PARALLEL CURVES LOOK TOO MECHANICAL,
+EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
+
+- **The side curve is the per-construction partner.** A parallel offset is not the general
+  route: it is too mechanical, and at high curvature it is where an offset is least valid
+  (the normal changes fastest, and the edge wobbles or folds).
+- **Exceptions:** scrollwork, and a short list of select cases the operator will name. Only
+  there may a parallel rail stay.
+- **The character/width rails are legacy on the general set.** The plates and the tune page
+  keep them only as a labelled reference until each family's partner rule lands. Nothing is
+  stripped from the curated book plates silently; the migration is per family.
+- **The standard tools, not hand-rolled geometry:** d3's centripetal Catmull-Rom for the drawn
+  curve; the repository's Levien parallel-Bézier port (`app/src/lib/parallel-bezier.ts`,
+  `curve_lab/parallel_bezier.py`) for the scrollwork/fitted exception. The overlapping-dot
+  stroke is a thin drawing layer; the geometry is the construction.
+- **The sandbox is the rule's home:** `/workbench/side-curves.html` has no parallel curve. The
+  spine, the partner, the parameter and formula per family, and the measured gap.
