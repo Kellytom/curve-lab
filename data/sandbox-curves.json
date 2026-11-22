@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 155,
+ "count": 160,
  "rows": [
   {
    "name": "c-0001",
@@ -109,6 +109,151 @@
    },
    "tune": true,
    "savedAt": "2026-11-21T00:27:38.702Z"
+  },
+  {
+   "name": "c-0011-s5",
+   "curveName": "gumdrop-speed5",
+   "base_uid": "c-0011",
+   "speedX": [
+    2.001999,
+    0.863882,
+    0.539567,
+    -4.9886,
+    8.70807,
+    -5.122211
+   ],
+   "speedY": [
+    -10,
+    137.000004,
+    -675.000041,
+    1530.000121,
+    -1620.000142,
+    648.000057
+   ],
+   "kind": "rows",
+   "variant": "speed-fit",
+   "source": "reduction-speed-fit",
+   "candidate": true,
+   "origin": "speed-fit",
+   "miss": 0.001622,
+   "note": "speed-space re-fit at degree 5 · miss 0.001622 curve units on size 4.7457 · position degree 11, rails 9",
+   "savedAt": "2026-11-22T13:47:13.636Z"
+  },
+  {
+   "name": "c-0015-s5",
+   "curveName": "involute-fit-speed5",
+   "base_uid": "c-0015",
+   "speedX": [
+    -0.950155,
+    -25.102228,
+    76.979346,
+    100.904967,
+    -284.731998,
+    132.930262
+   ],
+   "speedY": [
+    -0.379654,
+    3.278713,
+    -164.198021,
+    426.118553,
+    -325.754062,
+    70.292925
+   ],
+   "kind": "rows",
+   "variant": "speed-fit",
+   "source": "reduction-speed-fit",
+   "candidate": true,
+   "origin": "speed-fit",
+   "miss": 0.040755,
+   "note": "speed-space re-fit at degree 5 · miss 0.040755 curve units on size 20.1168 · position degree 11, rails 9",
+   "savedAt": "2026-11-22T13:47:14.027Z"
+  },
+  {
+   "name": "c-0016-s5",
+   "curveName": "catenary-fit-speed5",
+   "base_uid": "c-0016",
+   "speedX": [
+    2.242474,
+    -2.13524,
+    2.510452,
+    -0.750244,
+    0.375121,
+    0
+   ],
+   "speedY": [
+    -1.424298,
+    3.363646,
+    -1.601129,
+    1.254521,
+    -0.280647,
+    0.112335
+   ],
+   "kind": "rows",
+   "variant": "speed-fit",
+   "source": "reduction-speed-fit",
+   "candidate": true,
+   "origin": "speed-fit",
+   "miss": 0.000005,
+   "note": "speed-space re-fit at degree 5 · miss 0.000005 curve units on size 3.291 · position degree 11, rails 9",
+   "savedAt": "2026-11-22T13:47:13.041Z"
+  },
+  {
+   "name": "c-0017-s5",
+   "curveName": "euler-fit-speed5",
+   "base_uid": "c-0017",
+   "speedX": [
+    0.996507,
+    0.176637,
+    -2.092271,
+    9.541987,
+    -23.890486,
+    14.274962
+   ],
+   "speedY": [
+    -0.018273,
+    0.701744,
+    -3.127588,
+    20.923537,
+    -27.968562,
+    9.463982
+   ],
+   "kind": "rows",
+   "variant": "speed-fit",
+   "source": "reduction-speed-fit",
+   "candidate": true,
+   "origin": "speed-fit",
+   "miss": 0.001182,
+   "note": "speed-space re-fit at degree 5 · miss 0.001182 curve units on size 0.5285 · position degree 11, rails 9",
+   "savedAt": "2026-11-22T13:47:13.356Z"
+  },
+  {
+   "name": "c-0018-s5",
+   "curveName": "logspiral-fit-speed5",
+   "base_uid": "c-0018",
+   "speedX": [
+    1.784706,
+    21.268911,
+    -292.244086,
+    550.21172,
+    -188.100958,
+    -79.61029
+   ],
+   "speedY": [
+    2.981838,
+    -7.233057,
+    243.052122,
+    -1088.531637,
+    1410.989635,
+    -550.53778
+   ],
+   "kind": "rows",
+   "variant": "speed-fit",
+   "source": "reduction-speed-fit",
+   "candidate": true,
+   "origin": "speed-fit",
+   "miss": 0.392942,
+   "note": "speed-space re-fit at degree 5 · miss 0.392942 curve units on size 41.3245 · position degree 11, rails 9",
+   "savedAt": "2026-11-22T13:47:14.487Z"
   },
   {
    "name": "double-1-NW-1",
