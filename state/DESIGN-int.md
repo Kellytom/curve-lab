@@ -886,16 +886,16 @@ hairline whenever one side was tight. What stands is the operator's own explanat
   gap), `widthPlus`, `widthMinus`, `buckles` and a `buckleNote` naming the cut side;
   `/tune/<uid>` prints it, and draws the wide side a second time at 1.5× in amber as a guide.
 
-## The unsaved preset is a measured 2 % gap — 2026-11-22
+## The unsaved preset is a measured 1 % gap — 2026-11-22
 
-- **A curve with no saved width is drawn at a 2 % gap**, plus 2.5, minus 0.1, bow. A saved
+- **A curve with no saved width is drawn at a 1 % gap**, plus 2.5, minus 0.1, bow. A saved
   width always wins; those are the operator's own curves.
 - **The number is measured, not chosen.** The operator, after reviewing the set: "the more or
   less correct ones for a starting set of variables are: c-0022 to c-0043 ... the last one
   c-0001a is good", then "half are too thin and half are too thick ... you should have
   algorithms to figure that out already and fix it before i even see it. right? check the
   thickness". The reference curves measure a drawn gap of **1.9 %** (`c-0001a`) and **2.3 %**
-  (`c-0161`) of the curve's own size, so the preset solves for **2 %**.
+  (`c-0161`) of the curve's own size, so the preset solves for **2 %**; the operator then asked to "reduce the width to 1% on the ones i have not edited", so the target is **1 %**.
 - **The solve is per run.** The bow is small near the curve's ends, so a run there would draw
   thin at a curve-wide base. Each run solves its own base: `base = target / median(bow
   factor)`, then the run is recut at that base so it cannot fold. A run that cannot carry the

@@ -8,12 +8,10 @@
 import P from "../../workbench/plate_math.js";
 
 // The preset is a **measured gap**, not a fixed width. The operator, 2026-11-22: "half are
-// too thin and half are too thick ... you should have algorithms to figure that out already
-// and fix it before i even see it. right? check the thickness". The good references are
-// c-0001a (drawn gap 1.9 % of the curve's size) and c-0161 (2.3 %), so the preset solves the
-// width that puts the drawn median gap at 2 % of the curve's own size. A saved width still
-// wins: those are the operator's own curves.
-export const TARGET_GAP_PERCENT = 2;
+// too thin and half are too thick ... check the thickness", then "reduce the width to 1% on
+// the ones i have not edited". So the preset solves the width that puts the drawn gap at
+// 1 % of the curve's own size; a curve with a saved width keeps its own number.
+export const TARGET_GAP_PERCENT = 1;
 export const DEFAULTS = { plus: 2.5, minus: 0.1, profile: "bow" };
 
 // The median of the bow factor over the curve, so a solved base width lands at the target

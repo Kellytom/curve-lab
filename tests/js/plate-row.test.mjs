@@ -67,16 +67,15 @@ test("plus = minus = 0 is the only case that is a parallel offset", () => {
 });
 
 test("the preset solves for the drawn gap, not a fixed width", () => {
-  // The operator, 2026-11-22: "half are too thin and half are too thick ... you should have
-  // algorithms to figure that out already and fix it before i even see it. right? check the
-  // thickness". The good references are c-0001a (1.9 % drawn gap) and c-0161 (2.3 %), so the
-  // preset solves the base width that puts the drawn median gap at 2 % of the curve's size.
-  assert.equal(TARGET_GAP_PERCENT, 2);
+  // The operator, 2026-11-22: "half are too thin and half are too thick ... check the
+  // thickness", then "reduce the width to 1% on the ones i have not edited". The preset
+  // solves the base width that puts the drawn gap at 1 % of the curve's own size.
+  assert.equal(TARGET_GAP_PERCENT, 1);
   assert.equal(DEFAULTS.plus, 2.5);
   assert.equal(DEFAULTS.minus, 0.1);
   const row = rowFor(record);
-  assert.ok(row.width.percent > 0.9 && row.width.percent < 1.2,
-    `the 2 % target is about 1.07 % of base width, got ${row.width.percent}`);
+  assert.ok(row.width.percent > 0.4 && row.width.percent < 0.7,
+    `the 1 % target is about 0.54 % of base width, got ${row.width.percent}`);
 
   // behaviour: measure the drawn gap on a row curve whose guard does not bind (c-0010)
   const registry = JSON.parse(readFileSync(new URL("../../workbench/curve-registry.json", import.meta.url)));
@@ -91,8 +90,8 @@ test("the preset solves for the drawn gap, not a fixed width", () => {
   const gaps = rails.slice(0, 2).flatMap((rail) =>
     spine.map((p, i) => Math.hypot(rail[i][0] - p[0], rail[i][1] - p[1]))).sort((a, b) => a - b);
   const median = gaps[Math.floor(gaps.length / 2)] / size * 100;
-  assert.ok(Math.abs(median - TARGET_GAP_PERCENT) < 0.5,
-    `the drawn median gap is ${median.toFixed(2)} %, not the 2 % target`);
+  assert.ok(Math.abs(median - TARGET_GAP_PERCENT) < 0.4,
+    `the drawn median gap is ${median.toFixed(2)} %, not the 1 % target`);
 
   assert.equal(rowFor(record, { desk: { widthPct: 6 } }).width.percent, 6,
     "a saved row always keeps its own width");

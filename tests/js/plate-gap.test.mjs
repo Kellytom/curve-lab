@@ -42,7 +42,7 @@ const measure = (record, row) => {
   return { gap: (gaps[Math.floor(gaps.length / 2)] / size) * 100, group, spineOnly: false };
 };
 
-test("no preset plate is a slab: the gap never exceeds the 2 % target", () => {
+test("no preset plate is a slab: the gap never exceeds the 1 % target", () => {
   const slabs = [];
   for (const record of registry.curves) {
     const desk = deskOf.get(record.uid) || deskOf.get((record.aliases || [])[0]) || {};
@@ -85,13 +85,17 @@ test("a tight turn pulls the inside to the spine and keeps the outside wide", ()
   assert.ok(Number.isFinite(group.fold) && group.fold <= 0.9 + 1e-6, `folds: ${group.fold}`);
 });
 
-test("the target gap is the one the operator's good curves measure", () => {
-  assert.ok(TARGET_GAP_PERCENT >= 1.5 && TARGET_GAP_PERCENT <= 2.5);
-  for (const uid of ["c-0001a", "c-0161"]) {
-    const record = registry.curves.find((row) => row.uid === uid);
-    const row = rowFor(record, { note: noteOf.get(uid) || {}, desk: deskOf.get(uid) || {} });
-    const { gap } = measure(record, row);
-    assert.ok(gap > 0 && Math.abs(gap - TARGET_GAP_PERCENT) < 0.7,
-      `${uid} draws ${gap.toFixed(2)} %, the target is ${TARGET_GAP_PERCENT} %`);
-  }
+test("the preset draws the 1 % target, a saved curve keeps its own width", () => {
+  assert.equal(TARGET_GAP_PERCENT, 1);
+  const record = registry.curves.find((row) => row.uid === "c-0161");
+  const preset = rowFor(record, { note: noteOf.get("c-0161") || {}, desk: deskOf.get("c-0161") || {} });
+  assert.equal(preset.width.source, "preset");
+  const { gap } = measure(record, preset);
+  assert.ok(gap > 0.8 && gap < 1.3, `c-0161 draws ${gap.toFixed(2)} %, the target is 1 %`);
+
+  // the operator's own curves are untouched
+  const saved = registry.curves.find((row) => row.uid === "c-0001a");
+  const savedRow = rowFor(saved, { note: noteOf.get("c-0001a") || {}, desk: deskOf.get("c-0001a") || {} });
+  assert.notEqual(savedRow.width.source, "preset", "a saved curve is not normalised");
+  assert.equal(savedRow.width.percent, 1);
 });
