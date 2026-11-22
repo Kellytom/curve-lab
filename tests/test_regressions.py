@@ -170,6 +170,35 @@ class TestRegressions(unittest.TestCase):
 
 
 
+class OrnamentWriterTest(unittest.TestCase):
+    """2026-11-22, the operator: "i cant see how many curves to do because the page
+    keeps refreshing constantly."
+
+    The launch agent re-ran `npm run dev` every ten seconds; it failed on Node 22, but
+    its `predev` step still ran the ornament writer, which deleted the folder and rewrote
+    all 371 SVGs each time. The dev server watches that folder, so every open page reloaded
+    on the same ten-second beat. The writer now leaves an unchanged file alone, inode and
+    mtime included, and prunes only files whose curve has left the registry.
+    """
+
+    def test_an_unchanged_ornament_is_not_rewritten(self):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "write-if-changed.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+
+    def test_the_ornament_writer_does_not_wipe_its_folder(self):
+        source = (ROOT / "scripts" / "marginalia.mjs").read_text()
+        self.assertNotIn("rmSync(OUT", source,
+                         "wiping the folder rewrites every ornament and reloads every page")
+        self.assertIn('from "./lib/write-if-changed.mjs"', source,
+                      "the writer must use the tested write-if-changed rule")
+
+
 class SpanWidthTraceTest(unittest.TestCase):
     """The desk records name their traces with the layer baked in ("ink/a") and
     carry a width; the constructor refused that combination ("a cubic span trace

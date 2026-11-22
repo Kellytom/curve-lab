@@ -10,8 +10,9 @@
 // test know the set without drawing it. Model y is up; the SVG flip happens here.
 
 import { createRequire } from "node:module";
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import path from "node:path";
+import { writeIfChanged } from "./lib/write-if-changed.mjs";
 
 const require = createRequire(import.meta.url);
 const P = require("../workbench/plate_math.js");
@@ -28,7 +29,6 @@ try {
   const exported = JSON.parse(readFileSync(path.join(ROOT, "data", "curves.json"), "utf8"));
   for (const row of exported.rows || []) starsOf.set(row.uid, row.stars ?? null);
 } catch { /* the manifest falls back to the seed's importance */ }
-rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 mkdirSync(path.dirname(MANIFEST), { recursive: true });
 
@@ -40,6 +40,16 @@ const spineOf = (record) => {
   const [x0, y0, x1, y1] = P.bbox(record.path);
   const size = Math.hypot(x1 - x0, y1 - y0) || 1;
   return P.refinePath(record.path, size / 500);
+};
+
+// Write only when the bytes change. The dev server watches this folder, and the launch
+// agent re-runs `npm run dev` on a loop, so an unconditional write reloaded every page
+// every ten seconds (2026-11-22, the operator: "the page keeps refreshing constantly").
+// The rule lives in scripts/lib/write-if-changed.mjs with its own test.
+let written = 0;
+let unchanged = 0;
+const write = (file, text) => {
+  if (writeIfChanged(file, text)) written += 1; else unchanged += 1;
 };
 
 const manifest = [];
@@ -65,7 +75,7 @@ for (const record of registry.curves) {
     `role="presentation" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" ` +
     `stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linecap="round" ` +
     `stroke-dasharray="0.02 1.35"/></svg>\n`;
-  writeFileSync(path.join(OUT, `${record.uid}.svg`), svg);
+  write(path.join(OUT, `${record.uid}.svg`), svg);
   manifest.push({
     uid: record.uid,
     name: record.name,
@@ -78,7 +88,7 @@ for (const record of registry.curves) {
   drawn += 1;
 }
 
-writeFileSync(MANIFEST, `${JSON.stringify({
+write(MANIFEST, `${JSON.stringify({
   format: "curve-lab.marginalia/1",
   note: "One soft-stroke ornament per curve (overlapping dots, no Béziers). Displayed at a quarter of the text width; " +
     "the SVGs are generated and gitignored, the manifest is the record.",
@@ -86,5 +96,13 @@ writeFileSync(MANIFEST, `${JSON.stringify({
   count: manifest.length,
   curves: manifest,
 }, null, 1)}\n`);
-console.log(`${drawn} ornaments written to app/public/ornaments; manifest at ` +
+console.log(`${drawn} ornaments checked; ${written} written, ${unchanged} unchanged; manifest at ` +
   `${path.relative(ROOT, MANIFEST)} · scale ${SCALE}`);
+
+// A curve that left the registry leaves its ornament behind unless it is removed here.
+const keep = new Set(manifest.map((row) => `${row.uid}.svg`));
+let removed = 0;
+for (const file of readdirSync(OUT)) {
+  if (file.endsWith(".svg") && !keep.has(file)) { rmSync(path.join(OUT, file)); removed += 1; }
+}
+if (removed) console.log(`${removed} stale ornament(s) removed`);

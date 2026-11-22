@@ -63,15 +63,16 @@ test("plus = minus = 0 is the only case that is a parallel offset", () => {
   assert.ok(flat(plus) && flat(minus), "zero character must be a true parallel offset");
 });
 
-test("the first two curves set the preset: 1 % width, plus 2.5, minus 0.1", () => {
+test("the preset is 4 % width, plus 2.5, minus 0.1 (doubled again for the review)", () => {
   // The operator, 2026-11-21: "6% is way too much, look at the first two curves i did for a
-  // better preset level." c-0001 and c-0001a are 1 % / 2.5 / 0.1; 6 % was the old guard's
-  // asked width and 1.5 % the first correction.
-  assert.equal(DEFAULTS.widthPercent, 1);
+  // better preset level." The first two are 1 % / 2.5 / 0.1; on 2026-11-22 the operator asked
+  // twice to double the visible gap ("for c-22 and following at least double so i can see it
+  // better"), so the untouched preset is 4 %.
+  assert.equal(DEFAULTS.widthPercent, 4);
   assert.equal(DEFAULTS.plus, 2.5);
   assert.equal(DEFAULTS.minus, 0.1);
-  assert.equal(rowFor(record).width.percent, 1);
-  assert.equal(rowFor(record, { desk: { widthPct: 4 } }).width.percent, 4,
+  assert.equal(rowFor(record).width.percent, 4);
+  assert.equal(rowFor(record, { desk: { widthPct: 6 } }).width.percent, 6,
     "a saved row always keeps its own width");
 });
 

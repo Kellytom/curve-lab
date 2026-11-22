@@ -31,9 +31,13 @@ test("plus changes the rail at the same width", () => {
 });
 
 test("minus changes the other side, not this one", () => {
-  const a = base(); const b = base();
-  b.character.minus = 6;
-  assert.deepEqual(railOf(a), railOf(b), "the + rail must ignore minus");
+  // The + rail is built from plus alone. The width, though, is the largest that clears the
+  // fold on BOTH sides (register 51), so 1 % is used here: at the base 6 % the
+  // guard binds and a larger minus narrows the whole band, which is the guard working, not
+  // this rail reading minus.
+  const a = { ...base(), width: { percent: 1 } };
+  const b = { ...base(), width: { percent: 1 }, character: { ...base().character, minus: 6 } };
+  assert.deepEqual(railOf(a), railOf(b), "the + rail's own law reads plus, not minus");
 });
 
 test("the profile changes the rail", () => {
