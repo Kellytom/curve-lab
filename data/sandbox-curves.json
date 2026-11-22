@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 154,
+ "count": 155,
  "rows": [
   {
    "name": "c-0001",
@@ -43,6 +43,47 @@
    "spine": "c-0002",
    "tune": true,
    "savedAt": "2026-11-21T08:02:07.503Z"
+  },
+  {
+   "name": "c-0002a",
+   "curveName": "euler-hook-end-edited",
+   "base_uid": "c-0002",
+   "speedX": [
+    2.2,
+    -4.4,
+    6.6,
+    1.1,
+    1.1,
+    -0.1
+   ],
+   "speedY": [
+    4.4,
+    -22,
+    22,
+    -2.2,
+    1.1,
+    -1.1
+   ],
+   "kind": "rows",
+   "variant": "inkscape",
+   "source": "inkscape-roundtrip",
+   "transform": {
+    "degrees": 0,
+    "matrix": [
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "exact": true
+   },
+   "candidate": true,
+   "origin": "inkscape-roundtrip",
+   "savedAt": "2026-11-22T07:27:59.859Z"
   },
   {
    "name": "c-0003",
