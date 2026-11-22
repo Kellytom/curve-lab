@@ -228,8 +228,22 @@ function plateSvg(record) {
     const r = Math.max(3, 0.01 * LONG_SIDE);
     return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="#b03a2e"/>`;
   }).join("");
+  // where the curve begins and ends, so a turn is readable at a glance
+  const [startX, startY] = px(segments[0].spine[0]);
+  const endSpine = segments[segments.length - 1].spine;
+  const [endX, endY] = px(endSpine[endSpine.length - 1]);
+  const marker = Math.max(4, 0.014 * LONG_SIDE);
+  // A closed curve starts and ends at the same point: show the start as a blue disc inside a
+  // green ring, so both are readable instead of one dot hiding the other.
+  const coincident = Math.hypot(endX - startX, endY - startY) < marker * 1.5;
+  const endLines = coincident
+    ? `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${(marker * 1.7).toFixed(1)}" ` +
+      `fill="none" stroke="#1e7a3c" stroke-width="${(marker * 0.55).toFixed(1)}"/>` +
+      `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#1f5fbf"/>`
+    : `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#1f5fbf"/>` +
+      `<circle cx="${endX.toFixed(1)}" cy="${endY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#1e7a3c"/>`;
   const body = singleTone
-    ? [bands, railLines, spineLeft, dotLines].join("")
+    ? [bands, railLines, spineLeft, dotLines, endLines].join("")
     : [
         bands,
         railLines,
@@ -237,6 +251,7 @@ function plateSvg(record) {
         `<clipPath id="right"><rect x="${axis}" y="0" width="${(pxW - Number(axis)).toFixed(2)}" height="${pxH}"/></clipPath>`,
         `<g clip-path="url(#right)">${spineRight}</g>`,
         dotLines,
+        endLines,
       ].join("");
   const railCount = segments.reduce((n, segment) => n + segment.rails.length, 0);
   return { svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${pxW}" height="${pxH}" viewBox="0 0 ${pxW} ${pxH}">${body}</svg>`,
