@@ -1,12 +1,7 @@
 ```text
-Read state/HANDOFF-int.md (the 2026-11-22 section) and docs/SIDE-CURVES.md.
-You are balancing the side offsets by moving the starting point of the curves.
-For each curve, when the offset curves' start and end gaps differ by (dx, dy), move the
-curve's starting point by (dx/2, dy/2) so the start and end gaps match. Keep the two sides at
-one strength (the average of the saved plus/minus) and the profile zero at the ends.
-Proves: the offset gaps are equal on both sides and equal at the start and end; a curve whose
-gaps differ before the shift has equal gaps after; `tests/js/plate-offset.test.mjs` covers the
-shift; regenerate the plate set once with the finished law, not in a loop.
+Read state/HANDOFF-int.md. Read app/src/content/docs/docs/handover.md only for durable detail.
+You are balancing the side offsets by moving each curve's starting point by half its endpoint difference (dx/2, dy/2).
+Proves: tests/js/plate-offset.test.mjs gains the shift case and passes; the start and end gaps are equal on the trial curve; the plate set is regenerated once with the law.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-22, commit 3ceba869.
+Source: state/HANDOFF-int.md, 2026-11-22, commit a41d2e78.
