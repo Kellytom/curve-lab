@@ -57,7 +57,10 @@ test("an asymmetric row draws two different sides, not one parallel pair", () =>
 });
 
 test("plus = minus = 0 is the only case that is a parallel offset", () => {
-  const row = rowFor(record, { desk: { widthPct: 6, plus: 0, minus: 0, profile: "bow" } });
+  // 0.5 % is used here so the per-station fold cap does not bite on this curve: the cap is
+  // a ceiling on the inside of a turn (2026-11-22), so at a width the curve cannot carry even
+  // a zero-character band is cut.
+  const row = rowFor(record, { desk: { widthPct: 0.5, plus: 0, minus: 0, profile: "bow" } });
   const { plus, minus } = offsets(row);
   const flat = (s) => Math.abs(s.max - s.min) < 1e-9;
   assert.ok(flat(plus) && flat(minus), "zero character must be a true parallel offset");

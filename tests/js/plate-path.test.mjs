@@ -52,11 +52,14 @@ test("the two rails sit on opposite sides and never cross the spine", () => {
     }
     assert.equal(crossed, 0, "a rail crossed to the other side of the spine");
   }
-  // equal character on both sides: the midpoint of the two rails is the spine
-  const worst = spine.reduce((most, point, i) => Math.max(most,
-    Math.hypot((plusRail[i][0] + minusRail[i][0]) / 2 - point[0],
-      (plusRail[i][1] + minusRail[i][1]) / 2 - point[1])), 0);
-  assert.ok(worst < 1e-9, `the two rails are not a band: midpoint miss ${worst}`);
+  // Amended 2026-11-22: the band is no longer symmetric. The operator: "the curve on the
+  // inner side should be close to the spine, the curve on the outside can be wider." So the
+  // midpoint is deliberately not the spine; what must hold is that neither rail crosses it,
+  // and that the inside is never wider than the outside where the cap bites.
+  const biggest = (rail) => spine.reduce((most, point, i) => Math.max(most,
+    Math.hypot(rail[i][0] - point[0], rail[i][1] - point[1])), 0);
+  assert.ok(Math.abs(biggest(plusRail) - biggest(minusRail)) > 1e-6,
+    "a tight curve must draw one side thinner than the other");
 });
 
 test("the band edge never jumps and is not a sawtooth", () => {

@@ -860,23 +860,31 @@ curve in /plates ... all with UIDs".
   `distance × peak ≤ 0.9`; the used width is the largest safe width, so the band never narrows
   as the slider rises. Halving made it jump (`c-0002`: 2.2 % → 1.15 % at the next step).
 
-## A band is never broken; it is cut to the safe width — 2026-11-22
+## A band is never broken; the inside of a turn is cut, the outside stays wide — 2026-11-22
 
-Tried and withdrawn the same day. The operator first asked to "break the band at each sharp
-turn", then corrected it: **"it breaks too many places. just keep the side curves with tight
-thin, but as thick as reasonable until they start to buckle, and i will manually adjust. you
-can make a note if there are buckles in the curve for the tuner."**
+Tried and withdrawn the same day: breaking the band at every sharp turn ("it breaks too many
+places"). Tried and withdrawn too: one width for both sides, which made the whole band a
+hairline whenever one side was tight. What stands is the operator's own explanation:
 
-- **One continuous band per curve.** No run splitting, no taper, no caps at a break. The
-  record was never touched either way: a row curve keeps its speed pair, a stored curve its
-  path.
-- **The width is `min(the preset gap, the largest width that does not fold)`.** Where the
-  geometry is tight, the band is simply thin — the operator adjusts it by hand.
-- **A thin band is still drawn.** The old 0.2 % floor that turned a tight curve into a bare
-  spine is gone; only infinite curvature (no safe width at all) leaves a spine.
-- **The tuner is told when it was cut.** `group()` and `pathGroup()` return
-  `asked`, `width`, `buckles` and a `buckleNote` ("buckles above 0.04 % — asked 1.01 %, cut so
-  the band cannot fold"); `/tune/<uid>` prints it beside the band width.
+> "figure out which side is buckling and make that thin, and the outer rail can be wider ...
+> the curves look like they all curve faster or slower in one direction only, so the curve on
+> the inner side should be close to the spine, the curve on the outside can be wider."
+
+- **The geometry decides the side.** At each station the signed curvature says which normal
+  side holds the centre of curvature; that rail is the inside. Only it can fold: its offset
+  runs toward the centre. The outside rail moves away and cannot.
+- **The cut is per station, as a ceiling on the same law.**
+  `distance = min(base × (1 + strength × profile), 0.9 / κ)` on the inside; the outside keeps
+  `base × (1 + strength × profile)`. No new construction, no break, no taper.
+- **The ceiling is continuous.** The per-station distances are smoothed along the arc at
+  0.25 per unit length (`pinchCap`), the same rule the path rail uses (register 45), so the
+  edge does not step where the sampled curvature does.
+- **A saved width can only lower the plate.** The plate draws
+  `min(saved width, preset width)`, so an over-wide saved curve like `c-0006` (8 %, plus 6)
+  lands on the measured preset; the desk keeps the saved number.
+- **The tuner is told.** `group()` and `pathGroup()` return `width` (the narrowest drawn
+  gap), `widthPlus`, `widthMinus`, `buckles` and a `buckleNote` naming the cut side;
+  `/tune/<uid>` prints it, and draws the wide side a second time at 1.5× in amber as a guide.
 
 ## The unsaved preset is a measured 2 % gap — 2026-11-22
 

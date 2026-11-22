@@ -16,7 +16,7 @@ import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
 import { turn, frame as frameFor } from "./lib/plate-frame.mjs";
-import { rowFor as plateRow, symmetricStrength } from "./lib/plate-row.mjs";
+import { rowFor as plateRow, symmetricStrength, presetWidthPercent } from "./lib/plate-row.mjs";
 
 // d3 does the geometry: the extents and the line generator. It is a dependency the app
 // already carries (app/node_modules), so the plate uses the same library as the pages.
@@ -131,6 +131,9 @@ function plateSvg(record) {
   // the same on both sides, not thin on the right and wide on the left").
   const strength = symmetricStrength(row.character.plus, row.character.minus);
   const character = { ...row.character, plus: strength, minus: strength };
+  // The plate never draws wider than the measured preset gap. A saved width can only lower
+  // it (operator, 2026-11-22: "c-0006 is too wide"); the desk keeps the saved number.
+  const widthPercent = Math.min(row.width.percent, presetWidthPercent(row.character));
   // A preset curve is normalised to the measured target gap; a saved width is used as asked.
   // A plate draws one or more segments. Usually it is one; a curve that turns tighter than
   // the asked width gets the band lifted across the turn and started again after it
@@ -143,7 +146,7 @@ function plateSvg(record) {
   // to the largest width that does not fold, and the tuning page names the cut.
   if (Array.isArray(record.path) && record.path.length > 2) {
     const group = PLATE.pathGroup(record.path, {
-      widthPercent: row.width.percent, plus: strength, minus: strength,
+      widthPercent, plus: strength, minus: strength,
       profile: row.character.profile,
     });
     if (group && group.paths.length) {
@@ -153,7 +156,7 @@ function plateSvg(record) {
     }
   } else {
     let group = null;
-    try { group = PLATE.group ? PLATE.group({ ...row, character }) : null; } catch { group = null; }
+    try { group = PLATE.group ? PLATE.group({ ...row, width: { percent: widthPercent }, character }) : null; } catch { group = null; }
     if (group && group.paths && group.paths.length > 1) {
       segments = [{ spine: group.paths[0], rails: group.paths.slice(1) }];
     } else {

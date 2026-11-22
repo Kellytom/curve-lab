@@ -109,6 +109,56 @@
     return worst;
   }
 
+  // Curvature and its side, station by station: { kappa, side }, where side = +1 means the
+  // centre of curvature is on the + normal side (so the + rail is the inside there).
+  function curvatureStations(u, v, samples) {
+    const u2 = multiply(u, u), v2 = multiply(v, v), uv = multiply(u, v);
+    const x1 = add(u2, scalePoly(v2, -1));
+    const y1 = scalePoly(uv, 2);
+    const x2 = scalePoly(add(multiply(u, derivative(u)), scalePoly(multiply(v, derivative(v)), -1)), 2);
+    const y2 = scalePoly(add(multiply(derivative(u), v), multiply(u, derivative(v))), 2);
+    return samples.map((sample) => {
+      const t = sample.t;
+      const a = value(x1, t), b = value(y1, t);
+      const speed = Math.hypot(a, b);
+      if (speed < 1e-12) return { kappa: Infinity, side: 0 };
+      const cross = a * value(y2, t) - b * value(x2, t);
+      return { kappa: Math.abs(cross) / speed ** 3, side: Math.sign(cross) };
+    });
+  }
+
+  // Which side folds is a geometric question, not a width question: only the rail on the
+  // inside of a turn can fold, because it runs toward the centre of curvature. The outside
+  // rail moves away from the centre and cannot. The operator, 2026-11-22: "figure out which
+  // side is buckling and make that thin, and the outer rail can be wider ... the curve on
+  // the inner side should be close to the spine, the curve on the outside can be wider."
+  //
+  // The inner side at a station is the sign of the signed curvature: the unit normal used by
+  // the rails is the tangent turned +90°, and a positive cross product puts the centre of
+  // curvature on that side. So `side = +1` measures only the stations where the + rail is
+  // inside, and `side = -1` only those where the - rail is inside.
+  function curvatureWorstSide(u, v, side, strength, profileName, samples = 400) {
+    const u2 = multiply(u, u), v2 = multiply(v, v), uv = multiply(u, v);
+    const x1 = add(u2, scalePoly(v2, -1));
+    const y1 = scalePoly(uv, 2);
+    const x2 = scalePoly(add(multiply(u, derivative(u)), scalePoly(multiply(v, derivative(v)), -1)), 2);
+    const y2 = scalePoly(add(multiply(derivative(u), v), multiply(u, derivative(v))), 2);
+    const clamped = Math.max(-0.95, Math.min(4, Number(strength) || 0));
+    let worst = 0;
+    for (let i = 0; i <= samples; i += 1) {
+      const t = i / samples;
+      const a = value(x1, t), b = value(y1, t);
+      const speed = Math.hypot(a, b);
+      if (speed < 1e-12) return Infinity;
+      const cross = a * value(y2, t) - b * value(x2, t);
+      if (Math.sign(cross) !== side) continue;
+      const curvature = Math.abs(cross) / speed ** 3;
+      const factor = Math.abs(1 + clamped * profileAt(profileName, t));
+      worst = Math.max(worst, curvature * factor);
+    }
+    return worst;
+  }
+
   function integrate(start, u, v, steps, eps = 0, bump = null) {
     let x = start[0], y = start[1];
     const points = [[x, y]];
@@ -185,29 +235,62 @@
     // Halving made the band jump DOWN as the slider went up: on c-0002, 2.2 % became 1.15 %
     // at the next step, and again at 4.6 % (2026-11-21). This is the same rule —
     // distance × peak ≤ FOLD_LIMIT — solved directly, so the band moves with the slider.
-    const worst = curvatureWorst(u, v, plus, minus, profileName);
-    const safePercent = worst === 0
-      ? Infinity
-      : Number.isFinite(worst) && worst > 0
-        ? Math.floor((FOLD_LIMIT / worst) * 10000 / size) / 100
-        : 0;
-    width = Math.min(width, safePercent);
-    // A thin band is still a band: the operator, 2026-11-22, "just keep the side curves with
-    // tight thin, but as thick as reasonable until they start to buckle, and i will manually
-    // adjust". Only a curve whose curvature is infinite (width 0) is drawn as a spine.
-    let distance = width > 0 ? (width / 100) * size : 0;
-    const spinePoints = samples.map((s) => [s.x, s.y]);
+    // The inner side of a turn is the one that folds; the outer side moves away from the
+    // centre of curvature and cannot. So the band is cut per station: each rail keeps the
+    // asked width, except where it is on the inside of a tight turn, where it stops at the
+    // largest safe distance and hugs the spine. No break, no second construction — the same
+    // character law with a ceiling (operator, 2026-11-22: "the curve on the inner side should
+    // be close to the spine, the curve on the outside can be wider").
+    const stations = curvatureStations(u, v, samples);
+    const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
+    const base = (askedPercent / 100) * size;
+    const safeAt = (i) => (stations[i].kappa > 0 && Number.isFinite(stations[i].kappa)
+      ? FOLD_LIMIT / stations[i].kappa
+      : (stations[i].kappa === Infinity ? 0 : Infinity));
+    let wasCut = false;
+    const arc = [0];
+    for (let i = 1; i < samples.length; i += 1) {
+      arc.push(arc[i - 1] + Math.hypot(samples[i].x - samples[i - 1].x, samples[i].y - samples[i - 1].y));
+    }
+    const railFor = (sign, strength) => {
+      const room = samples.map((s, i) => {
+        const factor = 1 + clamp(strength) * profileAt(profileName, s.t);
+        const want = base * factor;
+        if (stations[i].side !== sign) return want;
+        if (safeAt(i) < want) { wasCut = true; return safeAt(i); }
+        return want;
+      });
+      // Row curvature is analytic and smooth, so the ceiling needs no smoothing here: a
+      // slope limit would drag a short tight bend's thin width along the whole curve.
+      return samples.map((s, i) => [s.x + sign * room[i] * s.nx, s.y + sign * room[i] * s.ny]);
+    };
     const rails = [];
     let note;
-    if (distance > 0) {
-      rails.push(sideRail(samples, distance, 1, plus, profileName, shear, samples.length - 1));
-      rails.push(sideRail(samples, distance, -1, minus, profileName, shear, samples.length - 1));
-      note = `character rails · width ${width}% · ${profileName} ${plus}/${minus}`;
+    const drawn = [];
+    const railPlus = railFor(1, plus);
+    const railMinus = railFor(-1, minus);
+    const gapPlus = railPlus.map((p, i) => Math.hypot(p[0] - samples[i].x, p[1] - samples[i].y));
+    const gapMinus = railMinus.map((p, i) => Math.hypot(p[0] - samples[i].x, p[1] - samples[i].y));
+    if (Math.max(...gapPlus) > 1e-12 || Math.max(...gapMinus) > 1e-12) {
+      rails.push(railPlus, railMinus);
+      drawn.push(...gapPlus, ...gapMinus);
+      const biggest = Math.max(...drawn) / size * 100;
+      const smallest = Math.min(...drawn) / size * 100;
+      note = `character rails · ${smallest.toFixed(2)}% to ${biggest.toFixed(2)}% of the size` +
+        ` · ${profileName} ${plus}/${minus}`;
     } else {
-      width = 0;
-      distance = 0;
       note = "the rail has no safe width at all (infinite curvature) · spine only";
     }
+    width = rails.length ? Math.min(...drawn) / size * 100 : 0;
+    const foldAt = (d, i, side) => {
+      const kappa = stations[i].kappa;
+      if (Number.isNaN(kappa)) return 0;
+      if (!Number.isFinite(kappa)) return d > 0 ? Infinity : 0;
+      return stations[i].side === side ? d * kappa : 0;
+    };
+    const worstPlus = Math.max(...gapPlus.map((d, i) => foldAt(d, i, 1)));
+    const worstMinus = Math.max(...gapMinus.map((d, i) => foldAt(d, i, -1)));
+    const spinePoints = samples.map((s) => [s.x, s.y]);
     const paths = [spinePoints, ...rails];
     if (rails.length) {
       rails.forEach((r) => {
@@ -215,14 +298,22 @@
         paths.push([spinePoints[spinePoints.length - 1], r[r.length - 1]]);
       });
     }
-    // The tuner's note: the band was asked for more width than the curve can carry.
-    const buckles = askedPercent > 0 && width < askedPercent - 1e-9;
+    // The tuner's note: how far the inside had to come in.
+    const widest = rails.length ? Math.max(...drawn) / size * 100 : 0;
+    const buckles = rails.length > 0 && wasCut;
     const buckleNote = buckles
-      ? `buckles above ${width}% — asked ${askedPercent}%, cut so the band cannot fold`
+      ? `the band would buckle above that — the inside is cut to ${width.toFixed(2)}%, ` +
+        `the outside is ${widest.toFixed(2)}%`
       : null;
     return { name: row.name, paths, spine: spinePoints, width, asked: askedPercent,
+             widthPlus: rails.length ? Math.max(...gapPlus) / size * 100 : 0,
+             widthMinus: rails.length ? Math.max(...gapMinus) / size * 100 : 0,
              buckles, buckleNote, profileName,
-             plus, minus, distance, fold: distance * worst, note };
+             plus, minus,
+             fold: (() => {
+               const value = Math.max(worstPlus, worstMinus);
+               return Number.isFinite(value) ? value : 0;
+             })(), note };
   }
 
   const rotate = (points, deg) => {
@@ -255,7 +346,8 @@
                              spinePath[spinePath.length - 1][1] - spinePath[0][1]);
     return { name: raw.name, paths, spine: spinePath, chord,
              startLeg: legOf(spinePath), endLeg: endLegOf(spinePath),
-             width: raw.width, asked: raw.asked, buckles: raw.buckles,
+             width: raw.width, asked: raw.asked, widthPlus: raw.widthPlus,
+             widthMinus: raw.widthMinus, fold: raw.fold, buckles: raw.buckles,
              buckleNote: raw.buckleNote, profileName: raw.profileName, note: raw.note };
   }
 
@@ -498,38 +590,60 @@
     // pinch cap was tried and reverted (docs/SIDE-CURVES.md, section 2): it is a second
     // construction, and at the same saved number it drew a band about four times too wide.
     const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
-    const strengths = [clamp(plus), clamp(minus)];
-    const curvature = walk.map((p, i) => {
+    // Per side, as on a row curve: only the inside of a turn can fold.
+    const signed = walk.map((p, i) => {
       const a = tangents[Math.max(0, i - 1)];
       const b = tangents[Math.min(walk.length - 1, i + 1)];
       const step = arc[Math.min(walk.length - 1, i + 1)] - arc[Math.max(0, i - 1)];
-      const turn = Math.abs(Math.atan2(a[0] * b[1] - a[1] * b[0], a[0] * b[0] + a[1] * b[1]));
-      return turn > 1e-12 && step > 1e-12 ? turn / step : 0;
+      const turn = Math.atan2(a[0] * b[1] - a[1] * b[0], a[0] * b[0] + a[1] * b[1]);
+      return {
+        curvature: step > 1e-12 ? Math.abs(turn) / step : 0,
+        side: Math.sign(turn),
+      };
     });
-    let worst = 0;
-    walk.forEach((p, i) => {
-      const bow = profileAt(profile, arc[i] / total);
-      const factor = Math.max(...strengths.map((strength) => Math.abs(1 + strength * bow)), 1e-9);
-      worst = Math.max(worst, factor * curvature[i]);
-    });
-    const safeBase = worst === 0 ? Infinity : (Number.isFinite(worst) ? FOLD_LIMIT / worst : 0);
-    const usedBase = Math.min(base, safeBase);
-    const usedPercent = (usedBase / size) * 100;
-    const railFor = (side, strength) => walk.map((p, i) => {
-      const [tx, ty] = tangents[i];
-      const want = usedBase * (1 + clamp(strength) * profileAt(profile, arc[i] / total));
-      const d = side * want;
-      return [p[0] - ty * d, p[1] + tx * d];
-    });
+    // Per station, as on a row curve: the inside of a turn is capped at the local safe
+    // distance, the outside keeps the asked width.
+    let wasCut = false;
+    const railFor = (side, strength) => {
+      const room = walk.map((p, i) => {
+        const factor = 1 + clamp(strength) * profileAt(profile, arc[i] / total);
+        const want = base * factor;
+        if (signed[i].side !== side || !(signed[i].curvature > 0)) return want;
+        const safe = FOLD_LIMIT / signed[i].curvature;
+        if (safe < want) { wasCut = true; return safe; }
+        return want;
+      });
+      // The sampled curvature is noisy, so the path band keeps the continuous ceiling
+      // (register 45) — at a slope of 1 per unit arc, so a tight bend does not drag the
+      // whole curve thin.
+      const distance = pinchCap(room, arc, 0.4);
+      return walk.map((p, i) => {
+        const [tx, ty] = tangents[i];
+        const d = side * distance[i];
+        return [p[0] - ty * d, p[1] + tx * d];
+      });
+    };
+    const railPlus = railFor(1, plus);
+    const railMinus = railFor(-1, minus);
+    const gapOf = (rail) => rail.map((p, i) => Math.hypot(p[0] - walk[i][0], p[1] - walk[i][1]));
+    const gapPlus = gapOf(railPlus);
+    const gapMinus = gapOf(railMinus);
+    const drawnGaps = [...gapPlus, ...gapMinus];
+    const usedPercentPlus = (Math.max(...gapPlus) / size) * 100;
+    const usedPercentMinus = (Math.max(...gapMinus) / size) * 100;
+    const usedPercent = (Math.min(...drawnGaps) / size) * 100;
 
-    const paths = [walk, railFor(1, plus), railFor(-1, minus)];
-    const note = `path rails · width ${usedPercent.toFixed(2)}% of ${widthPercent}% · ${profile} ${plus}/${minus}` +
-      ` · ${walk.length} points from ${stored.length} stored · fold ${(usedBase * worst).toFixed(2)}`;
-    const buckles = widthPercent > 0 && usedPercent < widthPercent - 1e-9;
+    const paths = [walk, railPlus, railMinus];
+    const widest = (Math.max(...drawnGaps) / size) * 100;
+    const note = `path rails · ${usedPercent.toFixed(2)}% to ${widest.toFixed(2)}% of the size` +
+      ` · ${profile} ${plus}/${minus} · ${walk.length} points from ${stored.length} stored`;
+    const buckles = wasCut;
     const buckleNote = buckles
-      ? `buckles above ${usedPercent.toFixed(2)}% — asked ${widthPercent}%, cut so the band cannot fold`
+      ? `the band would buckle above that — the inside is cut to ${usedPercent.toFixed(2)}%, ` +
+        `the outside is ${widest.toFixed(2)}%`
       : null;
     return { paths, bbox: bbox(paths.flat()), width: usedPercent, asked: widthPercent,
+             widthPlus: usedPercentPlus, widthMinus: usedPercentMinus,
              buckles, buckleNote, note };
   }
 

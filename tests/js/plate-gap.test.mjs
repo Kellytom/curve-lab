@@ -69,6 +69,22 @@ test("a band that would buckle is cut, never folded", () => {
   }
 });
 
+test("a tight turn pulls the inside to the spine and keeps the outside wide", () => {
+  // The operator, 2026-11-22: "figure out which side is buckling and make that thin, and the
+  // outer rail can be wider ... the curve on the inner side should be close to the spine".
+  const record = registry.curves.find((row) => row.uid === "c-0046");
+  const row = rowFor(record, { note: noteOf.get("c-0046") || {}, desk: deskOf.get("c-0046") || {} });
+  const { group } = measure(record, row);
+  assert.equal(group.buckles, true);
+  const [spine, first, second] = group.paths;
+  const gaps = (rail) => spine.map((p, i) => Math.hypot(rail[i][0] - p[0], rail[i][1] - p[1]));
+  const widest = Math.max(...gaps(first), ...gaps(second));
+  const narrowest = Math.min(...gaps(first), ...gaps(second));
+  assert.ok(widest / narrowest > 4,
+    `the band is not asymmetric enough: ${(narrowest / widest).toFixed(2)}`);
+  assert.ok(Number.isFinite(group.fold) && group.fold <= 0.9 + 1e-6, `folds: ${group.fold}`);
+});
+
 test("the target gap is the one the operator's good curves measure", () => {
   assert.ok(TARGET_GAP_PERCENT >= 1.5 && TARGET_GAP_PERCENT <= 2.5);
   for (const uid of ["c-0001a", "c-0161"]) {

@@ -46,7 +46,22 @@ function turn(paths, degrees) {
   return paths.map((line) => line.map(([x, y]) => [x * c - y * s, x * s + y * c]));
 }
 
-export function bandSvg(paths, box) {
+// The wide side at a different width, as a guide in another colour. The operator,
+// 2026-11-22: "add a second curve different width on the wide side a different color so i
+// can see it". It is a view only: nothing is saved and the plate never draws it.
+export function widerGuide(paths, factor = 1.5) {
+  if (paths.length < 3) return null;
+  const [spine, first, second] = paths;
+  const mean = (rail) => spine.reduce((sum, p, i) =>
+    sum + Math.hypot(rail[i][0] - p[0], rail[i][1] - p[1]), 0) / spine.length;
+  const rail = mean(first) >= mean(second) ? first : second;
+  return spine.map((p, i) => [
+    p[0] + factor * (rail[i][0] - p[0]),
+    p[1] + factor * (rail[i][1] - p[1]),
+  ]);
+}
+
+export function bandSvg(paths, box, guide = null) {
   const [spine, plusRail, minusRail] = paths;
   if (paths.length < 3) {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${box.W} ${box.H}">
@@ -61,6 +76,7 @@ export function bandSvg(paths, box) {
     <path d="M${box.toPath(plusRail)}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
     <path d="M${box.toPath(minusRail)}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
     <path d="M${box.toPath(spine)}" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
+    ${guide ? `<path d="M${box.toPath(guide)}" fill="none" stroke="#b26a00" stroke-width="1.6" stroke-dasharray="7 5"/>` : ""}
   </svg>`;
 }
 
@@ -151,8 +167,11 @@ export function render(preview, readoutEl, curve, values) {
     readoutEl.textContent = "no drawable points for this curve at these values";
     return false;
   }
-  preview.innerHTML = bandSvg(turned, box);
-  readoutEl.textContent = readout(drawn, values, turned);
+  const guide = widerGuide(turned);
+  preview.innerHTML = bandSvg(turned, box, guide);
+  readoutEl.textContent = readout(drawn, values, turned) +
+    (guide ? " The amber dashed line is the wide side at 1.5× the drawn width: a guide to " +
+      "judge how far it could go, not a saved value." : "");
   return true;
 }
 
