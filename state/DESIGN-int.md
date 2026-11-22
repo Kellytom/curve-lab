@@ -991,5 +991,9 @@ EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
   draws the spine and its two per-construction partners — a smaller construction on the right
   (parameter − d_R) and a larger one on the left (parameter + d_L) — closed at each end by one
   cap line through the spine endpoint, with a 3 pt colour legend, the parameter and formula per
-  family, and the measured gap. d3's centripetal Catmull-Rom draws the curves; the overlapping
-  dots are only the stroke.
+  family, and the measured gap. d3's centripetal Catmull-Rom draws the curves; the scales, axes
+  and cap lines are d3's too (the library is served at `/api/d3js` from the installed bundle);
+  the overlapping dots are only the stroke.
+- **The row family's parameter is the speed scale.** The 212 row curves are PH in the speed
+  pair (u, v); scaling the speed by (1 ∓ d) scales the position by (1 ∓ d)² about the origin —
+  the same construction, one parameter, no offset. `c-0001` is the sandbox's worked row.
