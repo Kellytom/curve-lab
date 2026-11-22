@@ -1,0 +1,74 @@
+---
+// The curves the collection is missing: the named classical curves the generators already
+// know, and the crossing x inflection cells with no curve at all.
+// Spec: state/SPEC-extra-curves-int.md. Data: app/src/data/extra-curves.json.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import gaps from "../data/extra-curves.json";
+
+const { missingNamed, emptyCells, familiesWithoutRating, count } = gaps;
+const cellsByCrossings = new Map();
+for (const cell of emptyCells) {
+  if (!cellsByCrossings.has(cell.crossings)) cellsByCrossings.set(cell.crossings, []);
+  cellsByCrossings.get(cell.crossings).push(cell.inflections);
+}
+---
+
+<BaseLayout title="extra curves" pageTitle="Extra curves">
+  <p class="lead">What the collection of {count.curves} curves does not have. Two lists:
+    named classical curves whose equations are already written in the generators, and the
+    crossing × inflection cells with no curve at all. Nothing here is created; this page is
+    the shopping list.</p>
+
+  <h2>Named classical curves not in the collection · {count.missingNamed}</h2>
+  <p class="note">Each equation already exists in <code>scripts/generators.py</code>, so a
+    record is data entry and a figure, not new mathematics. The <em>shape</em> line is the
+    generator's own one-line description.</p>
+  <div class="gaps">
+    {missingNamed.map((curve) => (
+      <article class="gap">
+        <h3>{curve.key}</h3>
+        <p class="eq"><code>{curve.eq}</code></p>
+        <p class="shape">{curve.tail}</p>
+        <p class="tag">degree {curve.deg || "—"}</p>
+      </article>
+    ))}
+  </div>
+
+  <h2>The empty crossing × inflection cells · {count.emptyCells}</h2>
+  <p class="note">A crossing is a <b>crossing pair</b> (two parameters that pass through the
+    same place); an inflection is a station where the turn changes direction. Each row lists
+    the inflection counts that have no curve at that many crossings.</p>
+  <table class="cells">
+    <thead>
+      <tr><th>crossing pairs</th><th>inflections with no curve</th></tr>
+    </thead>
+    <tbody>
+      {[...cellsByCrossings.entries()].sort((a, b) => a[0] - b[0]).map(([crossings, list]) => (
+        <tr><td>{crossings}</td><td>{list.sort((a, b) => a - b).join(", ")}</td></tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Families with no curve rated 2/10 or more</h2>
+  <p class="note">These exist in the collection but have never been chosen; a family that is
+    never chosen is a family the operator has not yet seen at its best.</p>
+  <ul class="families">
+    {familiesWithoutRating.map((row) => (
+      <li><b>{row.family}</b> · {row.curves} curve(s)</li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style is:global>
+  .lead { font-size: 17px; line-height: 1.6; color: #3c352c; max-width: 70ch; }
+  .note { font-size: 14px; line-height: 1.6; color: #6b5d49; max-width: 70ch; }
+  .gaps { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin: 14px 0 28px; }
+  .gap { margin: 0; padding: 10px 12px; background: #fffef9; border: 1px solid #eee3d3; }
+  .gap h3 { margin: 0 0 6px; font-size: 15px; }
+  .gap .eq { margin: 0 0 6px; font-size: 13px; line-height: 1.5; word-break: break-word; }
+  .gap .shape { margin: 0; font-size: 12px; line-height: 1.5; color: #5a4a36; }
+  .gap .tag { margin: 6px 0 0; font: 11px/1.4 ui-monospace, Menlo, monospace; color: #8a6a1f; }
+  .cells { border-collapse: collapse; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 10px 0 26px; }
+  .cells th, .cells td { padding: 4px 14px 4px 0; text-align: left; border-bottom: 1px solid #eee3d3; }
+  .families { columns: 2; font-size: 14px; line-height: 1.7; }
+</style>
