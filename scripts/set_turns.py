@@ -43,6 +43,8 @@ def matrix_for(degrees):
 def main(argv):
     if not argv:
         raise SystemExit(__doc__)
+    delta_mode = "--delta" in argv
+    argv = [a for a in argv if a != "--delta"]
     plan = []
     for spec in argv:
         rng, degrees = spec.split("=")
@@ -55,11 +57,13 @@ def main(argv):
         uid = row.get("uid", "")
         for start, end, degrees in plan:
             if start <= uid <= end:
-                matrix, exact = matrix_for(degrees)
-                if row.get("transform", {}).get("degrees") == degrees:
+                current = int((row.get("transform") or {}).get("degrees", 0) or 0)
+                target = degrees + current if delta_mode else degrees
+                if row.get("transform", {}).get("degrees") == target:
                     continue
-                row["transform"] = {"degrees": degrees, "matrix": matrix, "exact": exact}
-                changed.append((uid, degrees))
+                matrix, exact = matrix_for(target)
+                row["transform"] = {"degrees": target, "matrix": matrix, "exact": exact}
+                changed.append((uid, target))
                 break
     if not changed:
         print("nothing to change")

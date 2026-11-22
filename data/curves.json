@@ -21488,7 +21488,7 @@
     "uid": "c-0333",
     "name": "cubic-radius-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21504,9 +21504,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"-√2/2\",\"-√2/2\"]],\"exact\":false}",
     "note": "each station is multiplied by P, the cubic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.584Z"
+    "updatedAt": "2026-11-22T21:17:05.505Z"
    },
    "set": null,
    "metric": null
@@ -21532,7 +21532,7 @@
     "uid": "c-0334",
     "name": "quintic-balloons",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21548,9 +21548,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"-√2/2\",\"-√2/2\"]],\"exact\":false}",
     "note": "each station is multiplied by P, the cubic-and-quintic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.588Z"
+    "updatedAt": "2026-11-22T21:17:05.509Z"
    },
    "set": null,
    "metric": null
@@ -21576,7 +21576,7 @@
     "uid": "c-0335",
     "name": "6-balloon-every-term",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21592,9 +21592,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"-√2/2\",\"-√2/2\"]],\"exact\":false}",
     "note": "each station is multiplied by P, the every-term middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.593Z"
+    "updatedAt": "2026-11-22T21:17:05.511Z"
    },
    "set": null,
    "metric": null
@@ -21620,7 +21620,7 @@
     "uid": "c-0336",
     "name": "quintic-double",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21636,9 +21636,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"-√2/2\",\"-√2/2\"]],\"exact\":false}",
     "note": "each station is multiplied by P, the quintic-all-four middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.598Z"
+    "updatedAt": "2026-11-22T21:17:05.514Z"
    },
    "set": null,
    "metric": null
@@ -21664,7 +21664,7 @@
     "uid": "c-0337",
     "name": "quintic-radius",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21680,9 +21680,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"-√2/2\",\"-√2/2\"]],\"exact\":false}",
     "note": "each station is multiplied by P, the quintic-central middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.603Z"
+    "updatedAt": "2026-11-22T21:17:05.516Z"
    },
    "set": null,
    "metric": null
@@ -21708,7 +21708,7 @@
     "uid": "c-0338",
     "name": "hybrid-1of2-butterfly",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21724,9 +21724,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the cubic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-22T01:57:15.782Z"
+    "updatedAt": "2026-11-22T21:17:05.519Z"
    },
    "set": null,
    "metric": null
@@ -21752,7 +21752,7 @@
     "uid": "c-0339",
     "name": "cubic-quintic",
     "importance": 1,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21768,9 +21768,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the cubic-and-quintic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.615Z"
+    "updatedAt": "2026-11-22T21:17:05.522Z"
    },
    "set": null,
    "metric": null
@@ -21796,7 +21796,7 @@
     "uid": "c-0340",
     "name": "incomplete-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21812,9 +21812,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the every-term middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.618Z"
+    "updatedAt": "2026-11-22T21:17:05.525Z"
    },
    "set": null,
    "metric": null
@@ -21840,7 +21840,7 @@
     "uid": "c-0341",
     "name": "bounce",
     "importance": 2,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21856,9 +21856,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the quadratic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.621Z"
+    "updatedAt": "2026-11-22T21:17:05.528Z"
    },
    "set": null,
    "metric": null
@@ -21884,7 +21884,7 @@
     "uid": "c-0342",
     "name": "wild-butterfly",
     "importance": 2,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21900,9 +21900,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the quintic-all-four middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.625Z"
+    "updatedAt": "2026-11-22T21:17:05.530Z"
    },
    "set": null,
    "metric": null
@@ -21928,7 +21928,7 @@
     "uid": "c-0346",
     "name": "hybrid-2-petals",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21944,9 +21944,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the quadratic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-22T02:02:20.934Z"
+    "updatedAt": "2026-11-22T21:17:05.533Z"
    },
    "set": null,
    "metric": null
@@ -21972,7 +21972,7 @@
     "uid": "c-0349",
     "name": "side-top-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21988,9 +21988,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the cubic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.656Z"
+    "updatedAt": "2026-11-22T21:17:05.535Z"
    },
    "set": null,
    "metric": null
@@ -22016,7 +22016,7 @@
     "uid": "c-0350",
     "name": "flourish-3",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -22032,9 +22032,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the every-term middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.660Z"
+    "updatedAt": "2026-11-22T21:17:05.539Z"
    },
    "set": null,
    "metric": null
@@ -22060,7 +22060,7 @@
     "uid": "c-0351",
     "name": "flourish-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -22076,9 +22076,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the quadratic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.665Z"
+    "updatedAt": "2026-11-22T21:17:05.542Z"
    },
    "set": null,
    "metric": null
@@ -22104,7 +22104,7 @@
     "uid": "c-0355",
     "name": "hybrid-2-petals-2",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -22120,9 +22120,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the quadratic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-22T02:28:45.971Z"
+    "updatedAt": "2026-11-22T21:17:05.545Z"
    },
    "set": null,
    "metric": null
@@ -22148,7 +22148,7 @@
     "uid": "c-0358",
     "name": "side-top-2",
     "importance": 5,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -22164,9 +22164,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the cubic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.697Z"
+    "updatedAt": "2026-11-22T21:17:05.547Z"
    },
    "set": null,
    "metric": null
@@ -22192,7 +22192,7 @@
     "uid": "c-0359",
     "name": "double-bounce",
     "importance": 8,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -22208,9 +22208,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the cubic-and-quintic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.702Z"
+    "updatedAt": "2026-11-22T21:17:05.549Z"
    },
    "set": null,
    "metric": null
@@ -22236,7 +22236,7 @@
     "uid": "c-0360",
     "name": "flourish-2",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -22252,9 +22252,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the quadratic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.705Z"
+    "updatedAt": "2026-11-22T21:17:05.551Z"
    },
    "set": null,
    "metric": null
@@ -22280,7 +22280,7 @@
     "uid": "c-0364",
     "name": "hybrid-2-petals-3",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -22296,9 +22296,9 @@
     "stationRule": null,
     "algorithm": "hybrid",
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-90,\"matrix\":[[\"0\",\"1\"],[\"-1\",\"0\"]],\"exact\":true}",
     "note": "each station is multiplied by P, the quadratic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-22T02:33:07.920Z"
+    "updatedAt": "2026-11-22T21:17:05.554Z"
    },
    "set": null,
    "metric": null
