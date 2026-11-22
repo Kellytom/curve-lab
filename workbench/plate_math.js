@@ -517,7 +517,110 @@
     return { paths, bbox: bbox(paths.flat()), width: usedPercent, note };
   }
 
+  // ---- the band may break at a sharp turn (display only) ---------------------
+  //
+  // Operator, 2026-11-22: "break the band at each sharp turn". A constant-width band
+  // folds where the curve turns tighter than the width; the drawing lifts the band across
+  // that stretch and starts it again after, at the asked width. The equation is untouched:
+  // the record stays the continuous speed pair (or path), and the break is derived from the
+  // curvature at render time. It is stored nowhere and is not part of the curve.
+  function curvatureProfile(u, v, samples) {
+    const u2 = multiply(u, u), v2 = multiply(v, v), uv = multiply(u, v);
+    const x1 = add(u2, scalePoly(v2, -1));
+    const y1 = scalePoly(uv, 2);
+    const x2 = scalePoly(add(multiply(u, derivative(u)), scalePoly(multiply(v, derivative(v)), -1)), 2);
+    const y2 = scalePoly(add(multiply(derivative(u), v), multiply(u, derivative(v))), 2);
+    return samples.map((s) => {
+      const a = value(x1, s.t), b = value(y1, s.t);
+      const speed = Math.hypot(a, b);
+      if (speed < 1e-12) return Infinity;
+      return Math.abs(a * value(y2, s.t) - b * value(x2, s.t)) / speed ** 3;
+    });
+  }
+
+  // Where the asked width and its bow fit, the band is drawn; where they would fold, the pen
+  // lifts. A run shorter than 4 % of the curve is not a band, and a curve with no run at all
+  // returns null so the caller keeps the uniform guard it had.
+  function splitGroup(row, options) {
+    const opts = options || {};
+    const u = row.speedX, v = row.speedY;
+    if (!Array.isArray(u) || !Array.isArray(v)) return null;
+    const samples = spine(u, v, opts.samples || 1400);
+    const points = samples.map((s) => [s.x, s.y]);
+    const [x0, y0, x1, y1] = bbox(points);
+    const size = Math.hypot(x1 - x0, y1 - y0) || 1;
+    const character = row.character || {};
+    const widthPercent = Number((row.width || {}).percent ?? DEFAULT_WIDTH);
+    const plus = Number(character.plus ?? DEFAULT_PLUS);
+    const minus = Number(character.minus ?? DEFAULT_MINUS);
+    const profile = ["bow", "s", "taper"].includes(character.profile) ? character.profile : DEFAULT_PROFILE;
+    const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
+    const strengths = [clamp(plus), clamp(minus)];
+    const base = (widthPercent / 100) * size;
+    // If the curve can carry a continuous band at some visible width, that band is better
+    // than a broken one: the break is the answer only where the uniform guard would refuse
+    // (operator, 2026-11-22: the spines get the band broken at each sharp turn).
+    const worst = curvatureWorst(u, v, plus, minus, profile);
+    const safePercent = worst === 0
+      ? Infinity
+      : Number.isFinite(worst) && worst > 0
+        ? Math.floor((FOLD_LIMIT / worst) * 10000 / size) / 100
+        : 0;
+    if (safePercent >= WIDTH_FLOOR) return null;
+    const safe = curvatureProfile(u, v, samples)
+      .map((k) => (Number.isFinite(k) && k > 0 ? FOLD_LIMIT / k : Infinity));
+    // 2 % margin so a spike between two samples cannot fold the drawn rail
+    const fits = samples.map((s, i) => {
+      const factor = Math.max(...strengths.map((k) => Math.abs(1 + k * profileAt(profile, s.t))), 1e-9);
+      return safe[i] >= base * factor * 1.02;
+    });
+    const minRun = Math.max(3, Math.round(samples.length * 0.04));
+    const runs = [];
+    let i = 0;
+    while (i < samples.length) {
+      if (!fits[i]) { i += 1; continue; }
+      let j = i;
+      while (j + 1 < samples.length && fits[j + 1]) j += 1;
+      if (j - i + 1 >= minRun) runs.push([i, j]);
+      i = j + 1;
+    }
+    if (!runs.length) return null;
+    const segments = runs.map(([a, b]) => {
+      const part = samples.slice(a, b + 1);
+      const spinePart = part.map((s) => [s.x, s.y]);
+      // The band closes onto the spine at each break, over about an eighth of the run, so the
+      // lifted pen leaves a tapered end rather than a straight slash across the band. The
+      // curve's own ends are not breaks: there the band keeps its base gap.
+      const ramp = Math.max(6, Math.round(part.length * 0.08));
+      const taperStart = a > 0;
+      const taperEnd = b < samples.length - 1;
+      const edgeAt = (i) => Math.min(1,
+        taperStart ? i / ramp : 1,
+        taperEnd ? (part.length - 1 - i) / ramp : 1,
+      );
+      const railFor = (sign, strength) => part.map((s, i) => {
+        const d = base * (1 + clamp(strength) * profileAt(profile, s.t)) * edgeAt(i);
+        return [s.x + sign * d * s.nx, s.y + sign * d * s.ny];
+      });
+      const right = railFor(1, plus);
+      const left = railFor(-1, minus);
+      const last = spinePart.length - 1;
+      return {
+        spine: spinePart,
+        rails: [right, left,
+          [spinePart[0], right[0]], [spinePart[last], right[last]],
+          [spinePart[0], left[0]], [spinePart[last], left[last]]],
+        t: part.map((s) => s.t),
+        from: part[0].t,
+        to: part[part.length - 1].t,
+      };
+    });
+    const note = `band broken at ${segments.length} run(s) · ${widthPercent}% ${profile} ${plus}/${minus}`;
+    return { name: row.name, segments, width: widthPercent, profileName: profile, note };
+  }
+
   return { value, spine, curvaturePeak, curvatureWorst, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
+           splitGroup, curvatureProfile,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };
 });

@@ -124,39 +124,47 @@ function halves(points) {
 function plateSvg(record) {
   const row = rowFor(record, extra);
   const degrees = Number(record.transform?.degrees || 0);
-  let spine;
-  let rails = [];
   // The offset curves: one character law, the two sides the same strength (the average of
   // the saved pair), the profile zero at both ends so the start and end gaps are the base.
   // No scaling of the drawn curve (2026-11-21, the operator: "the offset curves should look
   // the same on both sides, not thin on the right and wide on the left").
   const strength = symmetricStrength(row.character.plus, row.character.minus);
   const character = { ...row.character, plus: strength, minus: strength };
+  // A plate draws one or more segments. Usually it is one; a curve that turns tighter than
+  // the asked width gets the band lifted across the turn and started again after it
+  // (operator, 2026-11-22: "break the band at each sharp turn"). That is a display choice,
+  // computed from the equation here; nothing about the break is stored.
+  let segments = [];
   if (Array.isArray(record.path) && record.path.length > 2) {
     const group = PLATE.pathGroup(record.path, {
       widthPercent: row.width.percent, plus: strength, minus: strength,
       profile: row.character.profile,
     });
     if (group && group.paths.length) {
-      spine = group.paths[0];
-      rails = group.paths.slice(1);
+      segments = [{ spine: group.paths[0], rails: group.paths.slice(1) }];
     } else {
-      spine = record.path.map(([x, y]) => [x, y]);
+      segments = [{ spine: record.path.map(([x, y]) => [x, y]), rails: [] }];
     }
   } else {
-    let group = null;
-    try { group = PLATE.group ? PLATE.group({ ...row, character }) : null; } catch { group = null; }
-    if (group && group.paths && group.paths.length) {
-      spine = group.paths[0];
-      rails = group.paths.slice(1);
+    const split = PLATE.splitGroup ? PLATE.splitGroup({ ...row, character }) : null;
+    if (split && split.segments.length) {
+      segments = split.segments.map(({ spine, rails }) => ({ spine, rails }));
     } else {
-      spine = PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]);
+      let group = null;
+      try { group = PLATE.group ? PLATE.group({ ...row, character }) : null; } catch { group = null; }
+      if (group && group.paths && group.paths.length) {
+        segments = [{ spine: group.paths[0], rails: group.paths.slice(1) }];
+      } else {
+        segments = [{ spine: PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]), rails: [] }];
+      }
     }
   }
-  spine = turn(spine, degrees);
-  rails = rails.map((rail) => turn(rail, degrees));
+  segments = segments.map((segment) => ({
+    spine: turn(segment.spine, degrees),
+    rails: segment.rails.map((rail) => turn(rail, degrees)),
+  }));
 
-  const all = [...spine, ...rails.flat()];
+  const all = segments.flatMap((segment) => [...segment.spine, ...segment.rails.flat()]);
   const [x0, x1] = d3.extent(all, (p) => p[0]);
   const [y0, y1] = d3.extent(all, (p) => p[1]);
   const w = x1 - x0 || 1, h = y1 - y0 || 1;
@@ -184,27 +192,28 @@ function plateSvg(record) {
   const axis = px([axisX, 0])[0].toFixed(2);
   // the bands: between each rail and the spine, filled. The right rail's band is the dark
   // grey, the left rail's the light one; the spine and the rails are then stroked on top.
-  const band = (rail, fill) => (rail && rail.length > 2)
-    ? `<path d="${gen([...spine, ...[...rail].reverse()])}Z" fill="${fill}" stroke="none"/>`
+  const band = (segment, rail, fill) => (rail && rail.length > 2)
+    ? `<path d="${gen([...segment.spine, ...[...rail].reverse()])}Z" fill="${fill}" stroke="none"/>`
     : "";
-  const bands = rails.length >= 2
-    ? band(rails[0], LIGHT_BAND) + band(rails[1], DARK_BAND)
-    : "";
+  const bands = segments.map((segment) => segment.rails.length >= 2
+    ? band(segment, segment.rails[0], LIGHT_BAND) + band(segment, segment.rails[1], DARK_BAND)
+    : "").join("");
+  const railLines = segments.map((segment) =>
+    segment.rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)).join("")).join("");
+  const spineLeft = segments.map((segment) => line(segment.spine, LEFT, stroke)).join("");
+  const spineRight = segments.map((segment) => line(segment.spine, RIGHT, stroke)).join("");
   const body = singleTone
-    ? [
-        bands,
-        ...rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)),
-        line(spine, LEFT, stroke),
-      ].join("")
+    ? [bands, railLines, spineLeft].join("")
     : [
         bands,
-        ...rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)),
-        line(spine, LEFT, stroke),
+        railLines,
+        spineLeft,
         `<clipPath id="right"><rect x="${axis}" y="0" width="${(pxW - Number(axis)).toFixed(2)}" height="${pxH}"/></clipPath>`,
-        `<g clip-path="url(#right)">${line(spine, RIGHT, stroke)}</g>`,
+        `<g clip-path="url(#right)">${spineRight}</g>`,
       ].join("");
+  const railCount = segments.reduce((n, segment) => n + segment.rails.length, 0);
   return { svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${pxW}" height="${pxH}" viewBox="0 0 ${pxW} ${pxH}">${body}</svg>`,
-    pxW, pxH, degrees, rails: rails.length };
+    pxW, pxH, degrees, rails: railCount, segments: segments.length };
 }
 
 const records = registry.curves.filter((record) => {
