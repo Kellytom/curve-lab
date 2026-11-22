@@ -144,10 +144,13 @@ DeepSeek2's page). What is known:
    bow station by station (`c-0001` 1 % → 0.7 %, fold 0.89; register 51). Commits `468361a2` and
    `c96dda7f`. The whole set is re-rendered. Do not overwrite `scripts/lib/plate-row.mjs`,
    `workbench/plate_math.js` or their tests without reading those two registers.
-5. **The split is in `state/PLAN-int.md`.** You have the side-offset curves, the bordered
-   illumination variants C/D and the reduction; DeepSeek1 has the figures sheet (now 50 a page),
-   the plate preset, and the curation surfaces. The operator's latest priority is the degree
-   work and the side curves/offsets.
+5. **The split is in `state/PLAN-int.md`.** The operator, 2026-11-21: "deep1 will do the side
+   curves (rails, offsets, whatever) and deep2 will continue working on nurbs and curve flow
+   from here to inkscape and back." DeepSeek1 owns **all** the side curves, including the rail
+   law, the fold guard, the preset, the partners, the plates and the scrollwork exceptions.
+   You own the **NURBS reduction and the Inkscape round-trip**: `app/src/lib/reduction/`,
+   the chebyshev/parallel-bezier code, the `/reduce/` desk. The plain-number formatter and its
+   test in the tree are yours; read `docs/SIDE-CURVES.md` before touching a side curve.
 6. **The gate.** `scripts/gate.py --status` (dev :4321 and built :4322, database, git),
    `--fast` 3 s, `--commit`, `--pages [--changed] [--read-only] [--url 4322]`, `--full`.
    The page checks print every failure in one pass (`app/scripts/check-all.mjs`). Use the built

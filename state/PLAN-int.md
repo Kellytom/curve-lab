@@ -16,15 +16,24 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
-## Split — the side-offset curves are DeepSeek2's (2026-11-21)
+## Split — DeepSeek1 owns the side curves, DeepSeek2 the NURBS flow (2026-11-21)
 
-The operator: "coordinate with deep2: don't collide with code about the side offset curves."
-DeepSeek2 has the side-offset curves and the bordered illumination variants **C** (corner rule)
-and **D** (C plus the tangent seam and proportion): `illuminations.astro`, `bordered.js`, the
-plate offset/width code and the C/D renders. DeepSeek1 takes the figures sheet (pagination,
-the index), the plate **preset** (the default character row) and the review/curation surfaces;
-the offset algorithm and the C/D renders stay with DeepSeek2. Say which file you are in; do not revert or
-rewrite the other's uncommitted edit.
+The operator: "deep1 will do the side curves (rails, offsets, whatever) and deep2 will
+continue working on nurbs and curve flow from here to inkscape and back."
+
+- **DeepSeek1:** the side curves — the per-construction partners (row speed scale, mobile
+  arm, double half radius, hybrid weight), the character rail law and its fold guard, the
+  tune page, the sandbox and the partner preview, the side curves on the plates, and the
+  scrollwork/select exceptions. `workbench/plate_math.js`, `scripts/lib/plate-row.mjs`,
+  `scripts/lib/plate-partner.mjs`, `scripts/print_plates.mjs`, `scripts/side_curves.mjs`,
+  `scripts/partner_preview.mjs`.
+- **DeepSeek2:** the NURBS work and the curve flow from here to Inkscape and back — the
+  reduction, `app/src/lib/reduction/`, the chebyshev/parallel-bezier code, and the
+  `/reduce/` desk. The plain-number formatter and its test in the tree are theirs.
+
+Neither reserves files; the rule is the operator's latest words and the registers. Read
+`docs/SIDE-CURVES.md` before changing a rail or the preset.
+
 
 ## Current (2026-11-21, late) — the review desk, Marginalia, the partners
 
