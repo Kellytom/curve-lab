@@ -74,7 +74,9 @@ const curves = registry.curves.map((record) => {
     source: record.source || null,
     stars: row.stars ?? null,
     geometry,
-    formula: row.formula || null,
+    formula: row.formula
+      ? { plain: row.formula.plain, rational: row.formula.rational, parameter: row.formula.parameter }
+      : null,
     measured: {
       grid: metric.grid ?? null,
       bend: fraction(metric.bend),

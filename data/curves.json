@@ -41,8 +41,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.638Z"
+    "note": "amper (c-0001) is an exact parametric curve from the amper family. Its speed is u = [2,-5,6,1,0,0] and v = [4,-22,22,-2,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/105, bend 4.163 (arc over chord), 1 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.691Z"
    },
    "set": null,
    "metric": {
@@ -155,8 +155,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.643Z"
+    "note": "euler-hook (c-0002) is an exact parametric curve from the euler family. Its speed is u = [2.2,-4.4,6.6,1.1,1.1,-1.1] and v = [4.4,-22,22,-2.2,1.1,-1.1]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/126000, bend 1.763 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.694Z"
    },
    "set": null,
    "metric": {
@@ -225,8 +225,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.646Z"
+    "note": "swan (c-0003) is an exact parametric curve from the swan family. Its speed is u = [5,-5,5,5,5,-5] and v = [5,-50,50,-5,5,-5]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2772, bend 1.376 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.698Z"
    },
    "set": null,
    "metric": {
@@ -295,8 +295,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.648Z"
+    "note": "gosling (c-0004) is an exact parametric curve from the gosling family. Its speed is u = [1,-1,1,1,1,1] and v = [1,-10,10,-1,1,1]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/13860, bend 2.259 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.701Z"
    },
    "set": null,
    "metric": {
@@ -365,8 +365,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.651Z"
+    "note": "double-tap (c-0005) is an exact parametric curve from the double family. Its speed is u = [2,-6,2,2,0,4] and v = [4,-24,24,-2,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 2.045 (arc over chord), 1 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.704Z"
    },
    "set": null,
    "metric": {
@@ -435,8 +435,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.654Z"
+    "note": "curlicue (c-0006) is an exact parametric curve from the curlicue family. Its speed is u = [10,20,-660,1930,-2090,785] and v = [-5,200,-875,1445,-1030,275]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2772, bend 2.272 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.709Z"
    },
    "set": null,
    "metric": {
@@ -505,8 +505,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.658Z"
+    "note": "grass (c-0007) is an exact parametric curve from the grass family. Its speed is u = [7.5,-2.5,7.5,2.5,7.5,-2.5] and v = [7.5,-25,75,-2.5,7.5,-2.5]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/11088, bend 1.029 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.713Z"
    },
    "set": null,
    "metric": {
@@ -575,8 +575,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.661Z"
+    "note": "u-bowl (c-0008) is an exact parametric curve from the u family. Its speed is u = [1,0,0,0,0,0] and v = [-1,2,0,0,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3, bend 2.000 (arc over chord), 0 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.716Z"
    },
    "set": null,
    "metric": {
@@ -645,8 +645,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.663Z"
+    "note": "v-sharp (c-0009) is an exact parametric curve from the v family. Its speed is u = [1,0,0,0,0,0] and v = [-1,6,-12,8,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/7, bend 1.333 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.720Z"
    },
    "set": null,
    "metric": {
@@ -715,8 +715,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.665Z"
+    "note": "m-arch (c-0010) is an exact parametric curve from the m family. Its speed is u = [1,0,0,0,0,0] and v = [3,-16,16,0,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/15, bend 2.967 (arc over chord), 1 inflection(s), 4 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.725Z"
    },
    "set": null,
    "metric": {
@@ -785,8 +785,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.667Z"
+    "note": "gumdrop (c-0011) is an exact parametric curve from the gumdrop family. Its speed is u = [2,1,-1,1,-1,1,-1,1,-1,0] and v = [-10,137,-675,1530,-1620,648,0,0,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2042040, bend 9.080 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.727Z"
    },
    "set": null,
    "metric": {
@@ -855,8 +855,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.670Z"
+    "note": "m-coarse (c-0012) is an exact parametric curve from the m family. Its speed is u = [1,1] and v = [-6,23,-20]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1, bend 1.849 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.730Z"
    },
    "set": null,
    "metric": {
@@ -925,8 +925,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.674Z"
+    "note": "bowl-coarse (c-0013) is an exact parametric curve from the bowl family. Its speed is u = [1,1] and v = [-3,5]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3, bend 7.000 (arc over chord), 0 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.733Z"
    },
    "set": null,
    "metric": {
@@ -995,8 +995,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.678Z"
+    "note": "wave-coarse (c-0014) is an exact parametric curve from the wave family. Its speed is u = [1,0] and v = [-4,33,-75,50]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/14, bend 4.111 (arc over chord), 2 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.736Z"
    },
    "set": null,
    "metric": {
@@ -1065,8 +1065,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.680Z"
+    "note": "involute-fit (c-0015) is an exact parametric curve from the involute family. Its speed is u = [0.5950991831971996,37.50190114068441,-207.76990049751242,519.4994994994995,-1241.3886010362694,1888.7415990730012,-1368.1424,370.998699609883] and v = [-0.03709949409780776,6.643799472295514,92.48529411764706,-203.47830474268414,6.5754985754985755,105.87780040733197,19.794299876084263,-37.29650092081031]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/60060000000000000, bend 4.610 (arc over chord), 0 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.747Z"
    },
    "set": null,
    "metric": {
@@ -1135,8 +1135,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.683Z"
+    "note": "catenary-fit (c-0016) is an exact parametric curve from the catenary family. Its speed is u = [2.2425,-2.1364092276830493,2.5226993865030676,-0.8003992015968064,0.47019867549668876,-0.084,0.028,0] and v = [-1.4242990654205607,3.3637274549098195,-1.6022988505747127,1.2612994350282485,-0.29979879275653926,0.14040114613180515,-0.02050113895216401,0.0058997050147492625]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090000000000000, bend 1.420 (arc over chord), 0 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.752Z"
    },
    "set": null,
    "metric": {
@@ -1205,8 +1205,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.685Z"
+    "note": "euler-fit (c-0017) is an exact parametric curve from the euler family. Its speed is u = [1.0014992503748126,-0.10449927431059507,1.7424,-11.952102803738319,35.66120218579235,-72.021101992966,62.66,-17.98569969356486] and v = [0,-0.012,3.26120218579235,-0.1396011396011396,-2.511111111111111,11.764598540145986,-25.47,13.107692307692307]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/180180000000000000, bend 3.348 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.755Z"
    },
    "set": null,
    "metric": {
@@ -1275,8 +1275,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.687Z"
+    "note": "logspiral-fit (c-0018) is an exact parametric curve from the logspiral family. Its speed is u = [2.8443983402489628,-9.906801007556675,-68.987,-28.752302968270214,208.72610096670246,549.4016,-1086.0084985835695,446.34950071326676] and v = [2.181,23.713,-54.482300884955755,133.22429906542055,-1136.2483994878362,2274.9751972942504,-1585.1450980392158,352.40529801324504]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090000000000000, bend 4.123 (arc over chord), 0 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.759Z"
    },
    "set": null,
    "metric": {
@@ -1345,8 +1345,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.689Z"
+    "note": "knot-6 (c-0019) is an exact parametric curve from the knot family. Its speed is u = [-2,-2,3,4] and v = [3,-6,-4,2]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/105, bend 1.690 (arc over chord), 0 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.763Z"
    },
    "set": null,
    "metric": {
@@ -1415,8 +1415,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.692Z"
+    "note": "knot-7 (c-0020) is an exact parametric curve from the knot family. Its speed is u = [2,-6,2,-2,2] and v = [1,2,-3,-6,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/315, bend 1.151 (arc over chord), 0 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.766Z"
    },
    "set": null,
    "metric": {
@@ -1485,8 +1485,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.695Z"
+    "note": "inflect-2 (c-0021) is an exact parametric curve from the inflect family. Its speed is u = [3,-6,-1,6] and v = [-3,6,-2,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/35, bend 1.335 (arc over chord), 2 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.769Z"
    },
    "set": null,
    "metric": {
@@ -1555,8 +1555,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.697Z"
+    "note": "wave3 (c-0022) is an exact parametric curve from the wave3 family. Its speed is u = [1,0,0,0,0,0] and v = [-5,46,-108,72,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/105, bend 2.329 (arc over chord), 2 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.771Z"
    },
    "set": null,
    "metric": {
@@ -1625,8 +1625,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.699Z"
+    "note": "cusp5-x3 (c-0023) is an exact parametric curve from the cusp5 family. Its speed is u = [1,0,0,0,0,0] and v = [-3,30,-120,240,-240,96]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/11, bend 10.000 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.774Z"
    },
    "set": null,
    "metric": {
@@ -1695,8 +1695,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.701Z"
+    "note": "cusp7-deep (c-0024) is an exact parametric curve from the cusp7 family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-4,56,-336,1120,-2240,2688,-1792,512]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/15, bend 31.000 (arc over chord), 1 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.776Z"
    },
    "set": null,
    "metric": {
@@ -1765,8 +1765,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.703Z"
+    "note": "twin-cusp (c-0025) is an exact parametric curve from the twin family. Its speed is u = [2,0,0,0,0,0,0] and v = [8,-108,594,-1701,2673,-2187,729]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/20020, bend 2.091 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.781Z"
    },
    "set": null,
    "metric": {
@@ -1835,8 +1835,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.705Z"
+    "note": "w-arch (c-0026) is an exact parametric curve from the w family. Its speed is u = [1,0,0,0,0,0] and v = [-3,16,-16,0,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/15, bend 2.967 (arc over chord), 1 inflection(s), 4 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.785Z"
    },
    "set": null,
    "metric": {
@@ -1905,8 +1905,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.708Z"
+    "note": "new-symmetric (c-0027) is an exact parametric curve from the new family. Its speed is u = [1] and v = [1,-4,4]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/15, bend 1.152 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.788Z"
    },
    "set": null,
    "metric": {
@@ -1975,8 +1975,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.710Z"
+    "note": "lace-2-eight-3 (c-0028) is an exact parametric curve from the lace family. Its speed is u = [1,-2,2,0,0,0] and v = [-7,106,-532,1208,-1280,512]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 1.393 (arc over chord), 3 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.790Z"
    },
    "set": null,
    "metric": {
@@ -2045,8 +2045,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.712Z"
+    "note": "lace-balloon-3 (c-0029) is an exact parametric curve from the lace family. Its speed is u = [1,4,-4,0,0,0] and v = [-11,210,-1140,2680,-2880,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 2.353 (arc over chord), 3 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.792Z"
    },
    "set": null,
    "metric": {
@@ -2115,8 +2115,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.715Z"
+    "note": "lace-1of10-3 (c-0030) is an exact parametric curve from the lace family. Its speed is u = [1,2,-2,0,0,0] and v = [-9,154,-808,1872,-2000,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 2.333 (arc over chord), 3 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.795Z"
    },
    "set": null,
    "metric": {
@@ -2185,8 +2185,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.717Z"
+    "note": "wave-1of3-3 (c-0031) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0] and v = [-2,21,-87,178,-180,72]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 2.934 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.798Z"
    },
    "set": null,
    "metric": {
@@ -2255,8 +2255,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.719Z"
+    "note": "wave-1of4-3 (c-0032) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0,0] and v = [-3,34,-148,312,-320,128]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6930, bend 3.153 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.800Z"
    },
    "set": null,
    "metric": {
@@ -2325,8 +2325,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.722Z"
+    "note": "wave-middle-5 (c-0033) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0] and v = [-1,10,-40,80,-80,32]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/110, bend 1.299 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.803Z"
    },
    "set": null,
    "metric": {
@@ -2395,8 +2395,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.724Z"
+    "note": "wave-1of10-5 (c-0034) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-9,190,-1460,5720,-12720,16288,-11200,3200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/429, bend 1.833 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.805Z"
    },
    "set": null,
    "metric": {
@@ -2465,8 +2465,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.727Z"
+    "note": "lace-1of12-5 (c-0035) is an exact parametric curve from the lace family. Its speed is u = [1,4,-4,0,0,0,0,0] and v = [-11,254,-2024,8080,-18160,23392,-16128,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2145, bend 4.034 (arc over chord), 3 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.808Z"
    },
    "set": null,
    "metric": {
@@ -2535,8 +2535,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.729Z"
+    "note": "wave-1of8-5 (c-0036) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0,0] and v = [-7,134,-984,3760,-8240,10464,-7168,2048]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2145, bend 1.516 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.810Z"
    },
    "set": null,
    "metric": {
@@ -2605,8 +2605,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.731Z"
+    "note": "wave-1of6-5 (c-0037) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-5,86,-596,2200,-4720,5920,-4032,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2145, bend 7.327 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.814Z"
    },
    "set": null,
    "metric": {
@@ -2675,8 +2675,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.733Z"
+    "note": "wave-1of5-5 (c-0038) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0,0,0] and v = [-4,65,-435,1570,-3320,4128,-2800,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2145, bend 7.968 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.817Z"
    },
    "set": null,
    "metric": {
@@ -2745,8 +2745,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.736Z"
+    "note": "wave-2x1of3-3 (c-0039) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0,0] and v = [-4,60,-381,1328,-2745,3366,-2268,648]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 2.784 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.819Z"
    },
    "set": null,
    "metric": {
@@ -2815,8 +2815,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.738Z"
+    "note": "wave-1of4-5 (c-0040) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-3,46,-296,1040,-2160,2656,-1792,512]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2145, bend 3.369 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.821Z"
    },
    "set": null,
    "metric": {
@@ -2885,8 +2885,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.741Z"
+    "note": "wave-1of3-5 (c-0041) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0,0] and v = [-2,29,-179,610,-1240,1504,-1008,288]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/4290, bend 3.444 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.824Z"
    },
    "set": null,
    "metric": {
@@ -2955,8 +2955,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.744Z"
+    "note": "wave-middle-7 (c-0042) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0,0] and v = [-1,14,-84,280,-560,672,-448,128]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/15, bend 1.333 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.826Z"
    },
    "set": null,
    "metric": {
@@ -3025,8 +3025,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.746Z"
+    "note": "lace-1of9-3 (c-0043) is an exact parametric curve from the lace family. Its speed is u = [1,0,0,0,0,0] and v = [-8,129,-663,1522,-1620,648]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/22, bend 1.772 (arc over chord), 3 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 9 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.829Z"
    },
    "set": null,
    "metric": {
@@ -3095,8 +3095,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.748Z"
+    "note": "wave-1of7-3 (c-0044) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0] and v = [-6,85,-415,930,-980,392]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 1.928 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.831Z"
    },
    "set": null,
    "metric": {
@@ -3165,8 +3165,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.750Z"
+    "note": "wave-2of7-3 (c-0045) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0,0] and v = [-10,109,-463,962,-980,392]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/770, bend 1.559 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.833Z"
    },
    "set": null,
    "metric": {
@@ -3235,8 +3235,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.752Z"
+    "note": "wave-1of14-3 (c-0046) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0] and v = [-13,274,-1528,3632,-3920,1568]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 1.671 (arc over chord), 3 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.836Z"
    },
    "set": null,
    "metric": {
@@ -3305,8 +3305,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.755Z"
+    "note": "lace-1of8-1of3-0 (c-0047) is an exact parametric curve from the lace family. Its speed is u = [1,4,-4,0,0] and v = [14,-191,767,-1152,576]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/42, bend 1.475 (arc over chord), 3 inflection(s), 4 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.839Z"
    },
    "set": null,
    "metric": {
@@ -3375,8 +3375,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.757Z"
+    "note": "lace-1of10-2 (c-0048) is an exact parametric curve from the lace family. Its speed is u = [1,4,-4,0,0] and v = [9,-136,536,-800,400]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/315, bend 2.271 (arc over chord), 3 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.841Z"
    },
    "set": null,
    "metric": {
@@ -3445,8 +3445,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.760Z"
+    "note": "wave-1of3-2 (c-0049) is an exact parametric curve from the wave family. Its speed is u = [0,2,-2,0,0] and v = [2,-17,53,-72,36]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/210, bend 1.846 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.843Z"
    },
    "set": null,
    "metric": {
@@ -3515,8 +3515,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.762Z"
+    "note": "wave-2of5-2 (c-0050) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [6,-49,149,-200,100]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.098 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.847Z"
    },
    "set": null,
    "metric": {
@@ -3585,8 +3585,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.764Z"
+    "note": "wave-3of8-2 (c-0051) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0] and v = [15,-124,380,-512,256]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.082 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.850Z"
    },
    "set": null,
    "metric": {
@@ -3655,8 +3655,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.766Z"
+    "note": "wave-middle-4 (c-0052) is an exact parametric curve from the wave family. Its speed is u = [0,1,-1,0,0] and v = [1,-8,24,-32,16]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.743 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.852Z"
    },
    "set": null,
    "metric": {
@@ -3725,8 +3725,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.769Z"
+    "note": "wave-1of3-2of5-0 (c-0053) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [12,-104,329,-450,225]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/210, bend 1.030 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.855Z"
    },
    "set": null,
    "metric": {
@@ -3795,8 +3795,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.771Z"
+    "note": "wave-2x1of6-0 (c-0054) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0] and v = [25,-360,1656,-2592,1296]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/105, bend 1.019 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.857Z"
    },
    "set": null,
    "metric": {
@@ -3865,8 +3865,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.774Z"
+    "note": "lace-1of10-4 (c-0055) is an exact parametric curve from the lace family. Its speed is u = [1,-2,2,0,0,0,0] and v = [9,-172,1116,-3488,5744,-4800,1600]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.239 (arc over chord), 3 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.859Z"
    },
    "set": null,
    "metric": {
@@ -3935,8 +3935,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.776Z"
+    "note": "wave-1of12-4 (c-0056) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0,0] and v = [11,-232,1560,-4960,8240,-6912,2304]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/9009, bend 1.442 (arc over chord), 3 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.861Z"
    },
    "set": null,
    "metric": {
@@ -4005,8 +4005,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.779Z"
+    "note": "lace-1of12-1of3-1 (c-0057) is an exact parametric curve from the lace family. Its speed is u = [7,-25,25,0,0,0] and v = [-22,431,-2457,5958,-6480,2592]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/231, bend 2.740 (arc over chord), 4 inflection(s), 7 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 11 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.864Z"
    },
    "set": null,
    "metric": {
@@ -4075,8 +4075,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.781Z"
+    "note": "lace-1of10-1of4-1 (c-0058) is an exact parametric curve from the lace family. Its speed is u = [6,-36,36,0,0,0] and v = [-27,498,-2932,7288,-8000,3200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 1.504 (arc over chord), 2 inflection(s), 7 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.867Z"
    },
    "set": null,
    "metric": {
@@ -4145,8 +4145,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.783Z"
+    "note": "lace-1of10-3-2 (c-0059) is an exact parametric curve from the lace family. Its speed is u = [3,-16,16,0,0,0] and v = [-9,154,-808,1872,-2000,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 2.033 (arc over chord), 1 inflection(s), 11 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 9 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.870Z"
    },
    "set": null,
    "metric": {
@@ -4215,8 +4215,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.785Z"
+    "note": "lace-arch-x-1 (c-0060) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0] and v = [-25,410,-2376,5904,-6480,2592]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/231, bend 1.593 (arc over chord), 2 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.872Z"
    },
    "set": null,
    "metric": {
@@ -4285,8 +4285,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.787Z"
+    "note": "lace-1of6-1of5-1 (c-0061) is an exact parametric curve from the lace family. Its speed is u = [3,-9,9,0,0,0] and v = [-20,309,-1707,4138,-4500,1800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/385, bend 1.263 (arc over chord), 4 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 9 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.874Z"
    },
    "set": null,
    "metric": {
@@ -4355,8 +4355,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.790Z"
+    "note": "lace-1of10-1of3-1 (c-0062) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0] and v = [-18,317,-1743,4162,-4500,1800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 2.965 (arc over chord), 2 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.876Z"
    },
    "set": null,
    "metric": {
@@ -4425,8 +4425,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.793Z"
+    "note": "lace-1of12-1of4-1 (c-0063) is an exact parametric curve from the lace family. Its speed is u = [7,-25,25,0,0,0] and v = [-33,674,-4128,10432,-11520,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/462, bend 1.564 (arc over chord), 4 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.879Z"
    },
    "set": null,
    "metric": {
@@ -4495,8 +4495,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.795Z"
+    "note": "wave-1of10-1of5-1 (c-0064) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0] and v = [-36,697,-4375,11250,-12500,5000]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/693, bend 1.387 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.881Z"
    },
    "set": null,
    "metric": {
@@ -4565,8 +4565,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.797Z"
+    "note": "lace-1of8-1of3-1 (c-0065) is an exact parametric curve from the lace family. Its speed is u = [3,-16,16,0,0,0] and v = [-14,219,-1149,2686,-2880,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 1.330 (arc over chord), 2 inflection(s), 7 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.884Z"
    },
    "set": null,
    "metric": {
@@ -4635,8 +4635,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.799Z"
+    "note": "lace-1of8-1of5-1 (c-0066) is an exact parametric curve from the lace family. Its speed is u = [7,-25,25,0,0,0] and v = [-28,487,-2893,7262,-8000,3200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/385, bend 1.734 (arc over chord), 4 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.886Z"
    },
    "set": null,
    "metric": {
@@ -4705,8 +4705,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.801Z"
+    "note": "lace-1of8-1of4-1 (c-0067) is an exact parametric curve from the lace family. Its speed is u = [4,-16,16,0,0,0] and v = [-21,346,-1936,4704,-5120,2048]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 1.316 (arc over chord), 3 inflection(s), 8 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 8 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.889Z"
    },
    "set": null,
    "metric": {
@@ -4775,8 +4775,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.804Z"
+    "note": "wave-1of8-1of6-1 (c-0068) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0] and v = [-35,642,-4020,10360,-11520,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/462, bend 1.369 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.892Z"
    },
    "set": null,
    "metric": {
@@ -4845,8 +4845,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.806Z"
+    "note": "lace-1of8-2of5-1 (c-0069) is an exact parametric curve from the lace family. Its speed is u = [7,-25,25,0,0,0] and v = [-42,643,-3277,7518,-8000,3200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 1.258 (arc over chord), 4 inflection(s), 7 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.894Z"
    },
    "set": null,
    "metric": {
@@ -4915,8 +4915,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.809Z"
+    "note": "wave-5of12-3 (c-0070) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0] and v = [-35,354,-1428,2872,-2880,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/462, bend 1.234 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.897Z"
    },
    "set": null,
    "metric": {
@@ -4985,8 +4985,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.811Z"
+    "note": "wave-1of10-1of4-3 (c-0071) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-27,606,-5032,21008,-48880,64352,-44800,12800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1638, bend 2.348 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.899Z"
    },
    "set": null,
    "metric": {
@@ -5055,8 +5055,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.813Z"
+    "note": "lace-1of12-2x1of3-1 (c-0072) is an exact parametric curve from the lace family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-44,1060,-8991,37908,-88695,117126,-81648,23328]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.385 (arc over chord), 6 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 11 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.902Z"
    },
    "set": null,
    "metric": {
@@ -5125,8 +5125,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.815Z"
+    "note": "wave-1of10-1of3-3 (c-0073) is an exact parametric curve from the wave family. Its speed is u = [3,-16,16,0,0,0,0,0] and v = [-18,389,-3083,12402,-28120,36448,-25200,7200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.262 (arc over chord), 3 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.904Z"
    },
    "set": null,
    "metric": {
@@ -5195,8 +5195,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.817Z"
+    "note": "lace-1of12-1of3-3 (c-0074) is an exact parametric curve from the lace family. Its speed is u = [4,-16,16,0,0,0,0,0] and v = [-22,519,-4269,17510,-40140,52344,-36288,10368]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.423 (arc over chord), 5 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 8 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.906Z"
    },
    "set": null,
    "metric": {
@@ -5265,8 +5265,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.820Z"
+    "note": "wave-1of12-1of4-3 (c-0075) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-33,806,-6956,29640,-69760,92416,-64512,18432]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/8190, bend 1.830 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.908Z"
    },
    "set": null,
    "metric": {
@@ -5335,8 +5335,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.823Z"
+    "note": "wave-1of6-2of5-3 (c-0076) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-30,521,-3647,13578,-29320,36928,-25200,7200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/9009, bend 1.649 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.910Z"
    },
    "set": null,
    "metric": {
@@ -5405,8 +5405,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.826Z"
+    "note": "wave-1of10-2x1of3-1 (c-0077) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-36,796,-6501,26864,-62145,81558,-56700,16200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.573 (arc over chord), 6 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.913Z"
    },
    "set": null,
    "metric": {
@@ -5475,8 +5475,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.829Z"
+    "note": "wave-1of12-1of5-3 (c-0078) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-44,1115,-10085,44470,-107020,143608,-100800,28800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/7, bend 1.414 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.915Z"
    },
    "set": null,
    "metric": {
@@ -5545,8 +5545,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.831Z"
+    "note": "wave-2x1of6-1of3-1 (c-0079) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-50,1045,-8667,36882,-87480,116640,-81648,23328]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/15015, bend 1.238 (arc over chord), 6 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.917Z"
    },
    "set": null,
    "metric": {
@@ -5615,8 +5615,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.833Z"
+    "note": "wave-2x1of5-1of4-1 (c-0080) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-48,952,-7643,32012,-75375,100150,-70000,20000]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.244 (arc over chord), 6 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.920Z"
    },
    "set": null,
    "metric": {
@@ -5685,8 +5685,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.835Z"
+    "note": "wave-1of6-2x1of4-1 (c-0081) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-45,894,-7148,29768,-69760,92416,-64512,18432]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.284 (arc over chord), 6 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.922Z"
    },
    "set": null,
    "metric": {
@@ -5755,8 +5755,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.838Z"
+    "note": "wave-1of8-1of4-1of3-1 (c-0082) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-42,881,-7175,29946,-70000,92512,-64512,18432]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6435, bend 1.362 (arc over chord), 6 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.925Z"
    },
    "set": null,
    "metric": {
@@ -5825,8 +5825,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.841Z"
+    "note": "wave-1of8-2of5-3 (c-0083) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-42,811,-6017,23198,-51180,65272,-44800,12800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3003, bend 1.330 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.926Z"
    },
    "set": null,
    "metric": {
@@ -5895,8 +5895,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.843Z"
+    "note": "lace-1of10-1of5-3 (c-0084) is an exact parametric curve from the lace family. Its speed is u = [6,-25,25,0,0,0,0,0] and v = [-36,841,-7307,31538,-75000,100000,-70000,20000]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/273, bend 1.325 (arc over chord), 3 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.929Z"
    },
    "set": null,
    "metric": {
@@ -5965,8 +5965,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.846Z"
+    "note": "lace-1of8-1of6-3 (c-0085) is an exact parametric curve from the lace family. Its speed is u = [6,-36,36,0,0,0,0,0] and v = [-35,782,-6728,29008,-69040,92128,-64512,18432]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/5005, bend 1.343 (arc over chord), 3 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.931Z"
    },
    "set": null,
    "metric": {
@@ -6035,8 +6035,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.848Z"
+    "note": "lace-1of8-1of3-3 (c-0086) is an exact parametric curve from the lace family. Its speed is u = [3,-16,16,0,0,0,0,0] and v = [-14,275,-2081,8158,-18220,23416,-16128,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2730, bend 1.418 (arc over chord), 3 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.933Z"
    },
    "set": null,
    "metric": {
@@ -6105,8 +6105,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.850Z"
+    "note": "wide-knot-x20 (c-0087) is an exact parametric curve from the wide family. Its speed is u = [4,-20,20,0,0,0] and v = [-9,154,-808,1872,-2000,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/693, bend 3.908 (arc over chord), 1 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.936Z"
    },
    "set": null,
    "metric": {
@@ -6175,8 +6175,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.852Z"
+    "note": "ph-3-4-5-rotated-mirror-slope-minus3of4 (c-0088) is a stored outline from the ph-symmetric family. It is stored as 401 points, made by the ph-symmetric construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.938Z"
    },
    "set": null,
    "metric": {
@@ -6245,8 +6245,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.855Z"
+    "note": "bend45-t1of2 (c-0089) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.940Z"
    },
    "set": null,
    "metric": {
@@ -6315,8 +6315,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.857Z"
+    "note": "bend45-b-1-t1of2 (c-0090) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.942Z"
    },
    "set": null,
    "metric": {
@@ -6385,8 +6385,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":-70.68,\"matrix\":[[0.330844,0.943686],[-0.943686,0.330844]],\"exact\":false}",
-    "note": null,
-    "updatedAt": "2026-11-22T21:00:48.500Z"
+    "note": "loop-t1of2-3of4 (c-0091) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it -70.68° (the 45° diagonal carries √2, so the turn is not exact). The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.944Z"
    },
    "set": null,
    "metric": {
@@ -6455,8 +6455,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":-48.86,\"matrix\":[[0.657901,0.753104],[-0.753104,0.657901]],\"exact\":false}",
-    "note": null,
-    "updatedAt": "2026-11-22T21:00:48.504Z"
+    "note": "loop-t1of3-2of3 (c-0092) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it -48.86° (the 45° diagonal carries √2, so the turn is not exact). The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.946Z"
    },
    "set": null,
    "metric": {
@@ -6525,8 +6525,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":-49.08,\"matrix\":[[0.655005,0.755625],[-0.755625,0.655005]],\"exact\":false}",
-    "note": null,
-    "updatedAt": "2026-11-22T21:00:48.506Z"
+    "note": "loop-t1of4-3of4 (c-0093) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it -49.08° (the 45° diagonal carries √2, so the turn is not exact). The outside rail crosses itself 6 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.949Z"
    },
    "set": null,
    "metric": {
@@ -6595,8 +6595,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.867Z"
+    "note": "cross-45deg-t1of4 (c-0094) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 6 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.951Z"
    },
    "set": null,
    "metric": {
@@ -6665,8 +6665,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.869Z"
+    "note": "term-a-plus-1 (c-0095) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.954Z"
    },
    "set": null,
    "metric": {
@@ -6735,8 +6735,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.872Z"
+    "note": "term-c-minus1 (c-0096) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.956Z"
    },
    "set": null,
    "metric": {
@@ -6805,8 +6805,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.875Z"
+    "note": "term-e-plus-1 (c-0097) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.958Z"
    },
    "set": null,
    "metric": {
@@ -6875,8 +6875,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.877Z"
+    "note": "term-a-c-e-mixed (c-0098) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.960Z"
    },
    "set": null,
    "metric": {
@@ -6945,8 +6945,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.879Z"
+    "note": "line-q-0 (c-0099) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.963Z"
    },
    "set": null,
    "metric": {
@@ -7015,8 +7015,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.881Z"
+    "note": "term-c-10-middle (c-0100) is a stored outline from the septic family. It is stored as 321 points, made by the septic construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:35.965Z"
    },
    "set": null,
    "metric": {
@@ -7085,8 +7085,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.884Z"
+    "note": "cross-2of5-4of5 (c-0101) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.967Z"
    },
    "set": null,
    "metric": {
@@ -7155,8 +7155,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.886Z"
+    "note": "cross-1of5-4of5 (c-0102) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.969Z"
    },
    "set": null,
    "metric": {
@@ -7225,8 +7225,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.889Z"
+    "note": "cross-1of3-3of4 (c-0103) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.972Z"
    },
    "set": null,
    "metric": {
@@ -7295,8 +7295,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.891Z"
+    "note": "cross-1of4-3of4 (c-0104) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 6 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.978Z"
    },
    "set": null,
    "metric": {
@@ -7365,8 +7365,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.894Z"
+    "note": "cross-1of2-3of4 (c-0105) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.980Z"
    },
    "set": null,
    "metric": {
@@ -7435,8 +7435,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.896Z"
+    "note": "cross-1of3-2of3 (c-0106) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.982Z"
    },
    "set": null,
    "metric": {
@@ -7505,8 +7505,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.898Z"
+    "note": "cross-1of5-3of5 (c-0107) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.985Z"
    },
    "set": null,
    "metric": {
@@ -7575,8 +7575,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.901Z"
+    "note": "cross-2of5-3of5 (c-0108) is a stored outline from the solved-crossings family. It is stored as 321 points, made by the solved-crossings construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.987Z"
    },
    "set": null,
    "metric": {
@@ -7645,8 +7645,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.903Z"
+    "note": "weighted-balance-exp-balance-t1of4 (c-0109) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.989Z"
    },
    "set": null,
    "metric": {
@@ -7715,8 +7715,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.905Z"
+    "note": "weighted-balance-exp-balance-t1of2 (c-0110) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.991Z"
    },
    "set": null,
    "metric": {
@@ -7785,8 +7785,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.908Z"
+    "note": "weighted-balance-exp-balance-t3of4 (c-0111) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.994Z"
    },
    "set": null,
    "metric": {
@@ -7855,8 +7855,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.911Z"
+    "note": "weighted-balance-parabola-balance-t1of4 (c-0112) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.997Z"
    },
    "set": null,
    "metric": {
@@ -7925,8 +7925,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.913Z"
+    "note": "weighted-balance-parabola-balance-t1of2 (c-0113) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:35.998Z"
    },
    "set": null,
    "metric": {
@@ -7995,8 +7995,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.915Z"
+    "note": "weighted-balance-parabola-balance-t3of4 (c-0114) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.002Z"
    },
    "set": null,
    "metric": {
@@ -8065,8 +8065,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.918Z"
+    "note": "weighted-balance-flat-balance-t1of4 (c-0115) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.007Z"
    },
    "set": null,
    "metric": {
@@ -8135,8 +8135,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.920Z"
+    "note": "weighted-balance-flat-balance-t1of2 (c-0116) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.010Z"
    },
    "set": null,
    "metric": {
@@ -8205,8 +8205,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.922Z"
+    "note": "weighted-balance-flat-balance-t3of4 (c-0117) is a stored outline from the weighted-balance family. It is stored as 321 points, made by the weighted-balance construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.013Z"
    },
    "set": null,
    "metric": {
@@ -8275,8 +8275,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.925Z"
+    "note": "bounded-3-4-5-gentle (c-0118) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.015Z"
    },
    "set": null,
    "metric": {
@@ -8345,8 +8345,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.928Z"
+    "note": "bounded-3-4-5-crossed (c-0119) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.017Z"
    },
    "set": null,
    "metric": {
@@ -8415,8 +8415,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.930Z"
+    "note": "bounded-5-12-13-gentle (c-0120) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.020Z"
    },
    "set": null,
    "metric": {
@@ -8485,8 +8485,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.932Z"
+    "note": "bounded-5-12-13-crossed (c-0121) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.022Z"
    },
    "set": null,
    "metric": {
@@ -8555,8 +8555,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.934Z"
+    "note": "bounded-8-15-17-crossed (c-0122) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.024Z"
    },
    "set": null,
    "metric": {
@@ -8625,8 +8625,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.936Z"
+    "note": "bounded-3-4-5-tight (c-0123) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.026Z"
    },
    "set": null,
    "metric": {
@@ -8695,8 +8695,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.938Z"
+    "note": "bounded-limacon-1-plus-2cos (c-0124) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.029Z"
    },
    "set": null,
    "metric": {
@@ -8765,8 +8765,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.941Z"
+    "note": "bounded-limacon-1-plus-3cos (c-0125) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.033Z"
    },
    "set": null,
    "metric": {
@@ -8835,8 +8835,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.944Z"
+    "note": "bounded-limacon-2-plus-3cos (c-0126) is a stored outline from the bounded family. It is stored as 701 points, made by the bounded construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.036Z"
    },
    "set": null,
    "metric": {
@@ -8905,8 +8905,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.946Z"
+    "note": "mobile-two-vanes-1-1of2 (c-0127) is a stored outline from the mobile family. It is stored as 601 points, made by the mobile construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.038Z"
    },
    "set": null,
    "metric": {
@@ -8975,8 +8975,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.948Z"
+    "note": "mobile-two-vanes-1-1of3 (c-0128) is a stored outline from the mobile family. It is stored as 601 points, made by the mobile construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.041Z"
    },
    "set": null,
    "metric": {
@@ -9045,8 +9045,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.951Z"
+    "note": "mobile-three-vanes-1-1of2-1of4 (c-0129) is a stored outline from the mobile family. It is stored as 601 points, made by the mobile construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.044Z"
    },
    "set": null,
    "metric": {
@@ -9115,8 +9115,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.953Z"
+    "note": "mobile-three-vanes-big-small (c-0130) is a stored outline from the mobile family. It is stored as 601 points, made by the mobile construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.046Z"
    },
    "set": null,
    "metric": {
@@ -9185,8 +9185,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.955Z"
+    "note": "mobile-exact-one-vane-3-4-5 (c-0131) is a stored outline from the mobile-exact family. It is stored as 721 points, made by the mobile-exact construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.051Z"
    },
    "set": null,
    "metric": {
@@ -9255,8 +9255,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.957Z"
+    "note": "mobile-exact-3-4-5-plus-half-2-turns (c-0132) is a stored outline from the mobile-exact family. It is stored as 721 points, made by the mobile-exact construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.053Z"
    },
    "set": null,
    "metric": {
@@ -9325,8 +9325,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.960Z"
+    "note": "mobile-exact-3-4-5-plus-third-3-turns (c-0133) is a stored outline from the mobile-exact family. It is stored as 721 points, made by the mobile-exact construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.056Z"
    },
    "set": null,
    "metric": {
@@ -9395,8 +9395,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.963Z"
+    "note": "mobile-exact-1-1of2-1of5-1-2-5 (c-0134) is a stored outline from the mobile-exact family. It is stored as 721 points, made by the mobile-exact construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.058Z"
    },
    "set": null,
    "metric": {
@@ -9465,8 +9465,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.965Z"
+    "note": "mobile-arcs-arc-0-to-1of2 (c-0135) is a stored outline from the mobile-arcs family. It is stored as 481 points, made by the mobile-arcs construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.060Z"
    },
    "set": null,
    "metric": {
@@ -9535,8 +9535,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.967Z"
+    "note": "mobile-arcs-arc-minus1of2-to-1of2 (c-0136) is a stored outline from the mobile-arcs family. It is stored as 481 points, made by the mobile-arcs construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.064Z"
    },
    "set": null,
    "metric": {
@@ -9605,8 +9605,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.969Z"
+    "note": "mobile-arcs-arc-0-to-1 (c-0137) is a stored outline from the mobile-arcs family. It is stored as 481 points, made by the mobile-arcs construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.066Z"
    },
    "set": null,
    "metric": {
@@ -9675,8 +9675,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.972Z"
+    "note": "mobile-arcs-arc-minus1-to-1 (c-0138) is a stored outline from the mobile-arcs family. It is stored as 481 points, made by the mobile-arcs construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.069Z"
    },
    "set": null,
    "metric": {
@@ -9745,8 +9745,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.974Z"
+    "note": "rose-k-2-a-1-b-1 (c-0139) is a stored outline from the roses-rational family. It is stored as 721 points, made by the roses-rational construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.073Z"
    },
    "set": null,
    "metric": {
@@ -9815,8 +9815,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.977Z"
+    "note": "rose-k-2-a-1-b-minus1 (c-0140) is a stored outline from the roses-rational family. It is stored as 721 points, made by the roses-rational construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.075Z"
    },
    "set": null,
    "metric": {
@@ -9885,8 +9885,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.979Z"
+    "note": "rose-k-3-a-1-b-1 (c-0141) is a stored outline from the roses-rational family. It is stored as 721 points, made by the roses-rational construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.076Z"
    },
    "set": null,
    "metric": {
@@ -9955,8 +9955,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.981Z"
+    "note": "rose-k-4-a-1-b-1 (c-0142) is a stored outline from the roses-rational family. It is stored as 721 points, made by the roses-rational construction; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.079Z"
    },
    "set": null,
    "metric": {
@@ -10025,8 +10025,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.983Z"
+    "note": "graphs-y-x-2-as-t2-cover (c-0143) is a stored outline from the graphs family. It is stored as 241 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.081Z"
    },
    "set": null,
    "metric": {
@@ -10095,8 +10095,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.986Z"
+    "note": "wave-1of5-1of3-1 (c-0144) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0] and v = [-8,102,-483,1072,-1125,450]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/770, bend 1.585 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.083Z"
    },
    "set": null,
    "metric": {
@@ -10165,8 +10165,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.988Z"
+    "note": "wave-2x1of4-1 (c-0145) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0,0] and v = [-9,114,-544,1216,-1280,512]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6930, bend 1.634 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.085Z"
    },
    "set": null,
    "metric": {
@@ -10235,8 +10235,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.990Z"
+    "note": "wave-1of4-1of3-1 (c-0146) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0] and v = [-6,71,-321,694,-720,288]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 1.696 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.088Z"
    },
    "set": null,
    "metric": {
@@ -10305,8 +10305,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.993Z"
+    "note": "wave-1of6-1of3-1 (c-0147) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0,0] and v = [-10,137,-675,1530,-1620,648]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 1.791 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.091Z"
    },
    "set": null,
    "metric": {
@@ -10375,8 +10375,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.995Z"
+    "note": "wave-2of5-3 (c-0148) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0] and v = [-6,61,-247,498,-500,200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1386, bend 1.904 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.094Z"
    },
    "set": null,
    "metric": {
@@ -10445,8 +10445,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:17.998Z"
+    "note": "wave-1of6-3 (c-0149) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0] and v = [-5,66,-312,688,-720,288]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 2.475 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.097Z"
    },
    "set": null,
    "metric": {
@@ -10515,8 +10515,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.000Z"
+    "note": "wave-2x1of3-1 (c-0150) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0] and v = [-4,44,-189,396,-405,162]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/462, bend 2.108 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.099Z"
    },
    "set": null,
    "metric": {
@@ -10585,8 +10585,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.002Z"
+    "note": "wave-1of5-3 (c-0151) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0] and v = [-4,49,-223,482,-500,200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 2.367 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.102Z"
    },
    "set": null,
    "metric": {
@@ -10655,8 +10655,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.005Z"
+    "note": "wave-1of5-1of4-1 (c-0152) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0] and v = [-12,163,-817,1878,-2000,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6930, bend 1.884 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.105Z"
    },
    "set": null,
    "metric": {
@@ -10725,8 +10725,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.009Z"
+    "note": "wave-1of5-1of3-3 (c-0153) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0,0,0,0] and v = [-8,134,-923,3412,-7345,9238,-6300,1800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 2.284 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.107Z"
    },
    "set": null,
    "metric": {
@@ -10795,8 +10795,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.012Z"
+    "note": "wave-1of5-1of4-3 (c-0154) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0,0] and v = [-12,211,-1517,5798,-12780,16312,-11200,3200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 2.243 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.110Z"
    },
    "set": null,
    "metric": {
@@ -10865,8 +10865,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.016Z"
+    "note": "wave-1of4-2x1of3-1 (c-0155) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0,0] and v = [-12,196,-1335,4916,-10575,13302,-9072,2592]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 2.090 (arc over chord), 6 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.114Z"
    },
    "set": null,
    "metric": {
@@ -10935,8 +10935,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.033Z"
+    "note": "wave-2x1of4-3 (c-0156) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-9,150,-1036,3848,-8320,10496,-7168,2048]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.577 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.116Z"
    },
    "set": null,
    "metric": {
@@ -11005,8 +11005,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.044Z"
+    "note": "wave-1of6-1of3-3 (c-0157) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0,0,0,0] and v = [-10,177,-1263,4778,-10440,13248,-9072,2592]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1365, bend 1.728 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.120Z"
    },
    "set": null,
    "metric": {
@@ -11075,8 +11075,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.047Z"
+    "note": "wave-1of3-2of5-3 (c-0158) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0,0] and v = [-12,176,-1097,3768,-7705,9382,-6300,1800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/8190, bend 1.916 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.122Z"
    },
    "set": null,
    "metric": {
@@ -11145,8 +11145,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.050Z"
+    "note": "wave-3x1of3-1 (c-0159) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0,0,0] and v = [-8,124,-810,2889,-6075,7533,-5103,1458]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/60060, bend 1.448 (arc over chord), 2 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.125Z"
    },
    "set": null,
    "metric": {
@@ -11215,8 +11215,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.052Z"
+    "note": "wave-2of5-5 (c-0160) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0,0] and v = [-6,85,-515,1730,-3480,4192,-2800,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/4290, bend 1.491 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.127Z"
    },
    "set": null,
    "metric": {
@@ -11285,8 +11285,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.056Z"
+    "note": "wave-1of4-1of3-3 (c-0161) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0,0] and v = [-6,95,-629,2262,-4780,5944,-4032,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6930, bend 1.572 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.130Z"
    },
    "set": null,
    "metric": {
@@ -11355,8 +11355,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.063Z"
+    "note": "wave-1of6-2 (c-0162) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [5,-56,200,-288,144]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/105, bend 1.374 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.133Z"
    },
    "set": null,
    "metric": {
@@ -11425,8 +11425,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.067Z"
+    "note": "lace-1of8-2 (c-0163) is an exact parametric curve from the lace family. Its speed is u = [1,1,-1,0,0] and v = [7,-92,348,-512,256]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 2.264 (arc over chord), 3 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.136Z"
    },
    "set": null,
    "metric": {
@@ -11495,8 +11495,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.076Z"
+    "note": "wave-1of6-1of3-0 (c-0164) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [10,-117,441,-648,324]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/210, bend 1.078 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.138Z"
    },
    "set": null,
    "metric": {
@@ -11565,8 +11565,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.083Z"
+    "note": "wave-1of5-1of4-0 (c-0165) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0] and v = [12,-139,539,-800,400]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.206 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.140Z"
    },
    "set": null,
    "metric": {
@@ -11635,8 +11635,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.098Z"
+    "note": "wave-1of4-2of5-0 (c-0166) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0] and v = [18,-171,571,-800,400]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.176 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.143Z"
    },
    "set": null,
    "metric": {
@@ -11705,8 +11705,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.102Z"
+    "note": "wave-1of4-2 (c-0167) is an exact parametric curve from the wave family. Its speed is u = [0,4,-4,0,0] and v = [3,-28,92,-128,64]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/63, bend 3.836 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.145Z"
    },
    "set": null,
    "metric": {
@@ -11775,8 +11775,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.106Z"
+    "note": "wave-2x1of4-0 (c-0168) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [9,-96,352,-512,256]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/315, bend 1.064 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.147Z"
    },
    "set": null,
    "metric": {
@@ -11845,8 +11845,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.109Z"
+    "note": "wave-1of5-1of3-0 (c-0169) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [8,-86,311,-450,225]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/210, bend 1.100 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.150Z"
    },
    "set": null,
    "metric": {
@@ -11915,8 +11915,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.112Z"
+    "note": "wave-1of5-2 (c-0170) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [4,-41,141,-200,100]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.406 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.152Z"
    },
    "set": null,
    "metric": {
@@ -11985,8 +11985,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.115Z"
+    "note": "wave-2x1of3-0 (c-0171) is an exact parametric curve from the wave family. Its speed is u = [0,4,-4,0,0] and v = [4,-36,117,-162,81]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/210, bend 1.925 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.156Z"
    },
    "set": null,
    "metric": {
@@ -12055,8 +12055,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.117Z"
+    "note": "wave-1of12-2 (c-0172) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0] and v = [11,-188,764,-1152,576]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/70, bend 1.114 (arc over chord), 3 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.158Z"
    },
    "set": null,
    "metric": {
@@ -12125,8 +12125,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.120Z"
+    "note": "wave-1of4-1of3-0 (c-0173) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0] and v = [6,-59,203,-288,144]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/210, bend 1.142 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.162Z"
    },
    "set": null,
    "metric": {
@@ -12195,8 +12195,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.122Z"
+    "note": "wave-1of6-1of5-0 (c-0174) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0] and v = [20,-269,1169,-1800,900]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/105, bend 1.025 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.165Z"
    },
    "set": null,
    "metric": {
@@ -12265,8 +12265,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.125Z"
+    "note": "wave-2x1of5-0 (c-0175) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0] and v = [16,-200,825,-1250,625]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/630, bend 1.026 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.167Z"
    },
    "set": null,
    "metric": {
@@ -12335,8 +12335,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.127Z"
+    "note": "wave-1of6-1of4-0 (c-0176) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0] and v = [15,-188,764,-1152,576]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/210, bend 1.038 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.169Z"
    },
    "set": null,
    "metric": {
@@ -12405,8 +12405,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.130Z"
+    "note": "wave-1of8-1of4-0 (c-0177) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0] and v = [21,-304,1328,-2048,1024]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/315, bend 1.046 (arc over chord), 3 inflection(s), 4 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.172Z"
    },
    "set": null,
    "metric": {
@@ -12475,8 +12475,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.132Z"
+    "note": "wave-1of8-1of3-2 (c-0178) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0,0,0] and v = [14,-247,1587,-4984,8252,-6912,2304]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.286 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.174Z"
    },
    "set": null,
    "metric": {
@@ -12545,8 +12545,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.134Z"
+    "note": "wave-1of8-4 (c-0179) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0] and v = [7,-120,744,-2272,3696,-3072,1024]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6435, bend 1.314 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.176Z"
    },
    "set": null,
    "metric": {
@@ -12615,8 +12615,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.136Z"
+    "note": "wave-1of6-1of3-2 (c-0180) is an exact parametric curve from the wave family. Its speed is u = [1,-1,1,0,0,0,0] and v = [10,-157,949,-2880,4680,-3888,1296]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/5005, bend 1.198 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.180Z"
    },
    "set": null,
    "metric": {
@@ -12685,8 +12685,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.139Z"
+    "note": "wave-1of4-2of5-2 (c-0181) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0] and v = [18,-243,1327,-3768,5884,-4800,1600]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.255 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.182Z"
    },
    "set": null,
    "metric": {
@@ -12755,8 +12755,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.143Z"
+    "note": "wave-1of3-2of5-2 (c-0182) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0] and v = [12,-152,793,-2182,3341,-2700,900]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.564 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.185Z"
    },
    "set": null,
    "metric": {
@@ -12825,8 +12825,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.145Z"
+    "note": "wave-1of5-1of3-2 (c-0183) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0,0,0] and v = [8,-118,687,-2038,3269,-2700,900]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.689 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.187Z"
    },
    "set": null,
    "metric": {
@@ -12895,8 +12895,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.148Z"
+    "note": "wave-1of5-2x1of3-0 (c-0184) is an exact parametric curve from the wave family. Its speed is u = [1,1,-1,0,0,0,0] and v = [16,-244,1468,-4473,7299,-6075,2025]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/60060, bend 1.162 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.189Z"
    },
    "set": null,
    "metric": {
@@ -12965,8 +12965,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.150Z"
+    "note": "wave-2x1of4-1of3-0 (c-0185) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0] and v = [18,-273,1649,-5056,8288,-6912,2304]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/8190, bend 1.302 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.192Z"
    },
    "set": null,
    "metric": {
@@ -13035,8 +13035,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.152Z"
+    "note": "wave-1of4-2x1of3-0 (c-0186) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0,0,0] and v = [12,-172,991,-2934,4707,-3888,1296]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.381 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.194Z"
    },
    "set": null,
    "metric": {
@@ -13105,8 +13105,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.155Z"
+    "note": "wave-1of6-4 (c-0187) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0,0] and v = [5,-76,444,-1312,2096,-1728,576]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 2.289 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.197Z"
    },
    "set": null,
    "metric": {
@@ -13175,8 +13175,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.158Z"
+    "note": "wave-1of3-4 (c-0188) is an exact parametric curve from the wave family. Its speed is u = [0,2,-2,0,0,0,0] and v = [2,-25,129,-352,536,-432,144]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 2.505 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.199Z"
    },
    "set": null,
    "metric": {
@@ -13245,8 +13245,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.161Z"
+    "note": "wave-1of5-4 (c-0189) is an exact parametric curve from the wave family. Its speed is u = [0,4,-4,0,0,0,0] and v = [4,-57,321,-928,1464,-1200,400]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 3.105 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.201Z"
    },
    "set": null,
    "metric": {
@@ -13315,8 +13315,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.163Z"
+    "note": "wave-3x1of3-0 (c-0190) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0] and v = [8,-108,594,-1701,2673,-2187,729]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/60060, bend 2.586 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.203Z"
    },
    "set": null,
    "metric": {
@@ -13385,8 +13385,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.165Z"
+    "note": "wave-1of4-4 (c-0191) is an exact parametric curve from the wave family. Its speed is u = [0,4,-4,0,0,0,0] and v = [3,-40,216,-608,944,-768,256]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 7.103 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.206Z"
    },
    "set": null,
    "metric": {
@@ -13455,8 +13455,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.167Z"
+    "note": "wave-3of8-4 (c-0192) is an exact parametric curve from the wave family. Its speed is u = [1,0,0,0,0,0,0] and v = [15,-184,936,-2528,3824,-3072,1024]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.089 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.208Z"
    },
    "set": null,
    "metric": {
@@ -13525,8 +13525,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.171Z"
+    "note": "wave-2of5-4 (c-0193) is an exact parametric curve from the wave family. Its speed is u = [1,-2,2,0,0,0,0] and v = [6,-73,369,-992,1496,-1200,400]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.177 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.210Z"
    },
    "set": null,
    "metric": {
@@ -13595,8 +13595,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.174Z"
+    "note": "wave-1of6-1of5-2 (c-0194) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0] and v = [20,-349,2325,-7552,12776,-10800,3600]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.280 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.213Z"
    },
    "set": null,
    "metric": {
@@ -13665,8 +13665,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.176Z"
+    "note": "wave-1of6-1of4-2 (c-0195) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0,0,0] and v = [15,-248,1576,-4960,8240,-6912,2304]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.288 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.216Z"
    },
    "set": null,
    "metric": {
@@ -13735,8 +13735,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.179Z"
+    "note": "wave-1of5-1of4-2 (c-0196) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0,0,0] and v = [12,-187,1143,-3512,5756,-4800,1600]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.429 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.218Z"
    },
    "set": null,
    "metric": {
@@ -13805,8 +13805,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.181Z"
+    "note": "wave-2x1of5-2 (c-0197) is an exact parametric curve from the wave family. Its speed is u = [1,4,-4,0,0,0,0] and v = [16,-264,1689,-5350,8925,-7500,2500]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.433 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.222Z"
    },
    "set": null,
    "metric": {
@@ -13875,8 +13875,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.183Z"
+    "note": "wave-2x1of4-2 (c-0198) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0,0,0] and v = [9,-132,772,-2304,3712,-3072,1024]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.745 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.225Z"
    },
    "set": null,
    "metric": {
@@ -13945,8 +13945,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.186Z"
+    "note": "wave-1of4-1of3-2 (c-0199) is an exact parametric curve from the wave family. Its speed is u = [1,2,-2,0,0,0,0] and v = [6,-83,463,-1336,2108,-1728,576]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 2.494 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.227Z"
    },
    "set": null,
    "metric": {
@@ -14015,8 +14015,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.189Z"
+    "note": "wave-2x1of3-2 (c-0200) is an exact parametric curve from the wave family. Its speed is u = [0,4,-4,0,0,0,0] and v = [4,-52,277,-774,1197,-972,324]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 2.636 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.229Z"
    },
    "set": null,
    "metric": {
@@ -14085,8 +14085,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.192Z"
+    "note": "wave-middle-6 (c-0201) is an exact parametric curve from the wave family. Its speed is u = [0,1,-1,0,0,0,0] and v = [1,-12,60,-160,240,-192,64]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/8190, bend 2.377 (arc over chord), 1 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.231Z"
    },
    "set": null,
    "metric": {
@@ -14155,8 +14155,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.194Z"
+    "note": "wave-1of5-1of3-1-2 (c-0202) is an exact parametric curve from the wave family. Its speed is u = [5,-36,36,0,0,0] and v = [-8,102,-483,1072,-1125,450]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/770, bend 3.338 (arc over chord), 6 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.233Z"
    },
    "set": null,
    "metric": {
@@ -14225,8 +14225,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.197Z"
+    "note": "wave-1of6-1of3-1-2 (c-0203) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0] and v = [-10,137,-675,1530,-1620,648]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/462, bend 1.057 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 6 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.236Z"
    },
    "set": null,
    "metric": {
@@ -14295,8 +14295,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.199Z"
+    "note": "lace-2x1of5-1 (c-0204) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0] and v = [-16,232,-1225,2900,-3125,1250]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 3.196 (arc over chord), 6 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.239Z"
    },
    "set": null,
    "metric": {
@@ -14365,8 +14365,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.202Z"
+    "note": "wave-1of6-1of4-1 (c-0205) is an exact parametric curve from the wave family. Its speed is u = [5,-36,36,0,0,0] and v = [-15,218,-1140,2680,-2880,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 4.048 (arc over chord), 2 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.247Z"
    },
    "set": null,
    "metric": {
@@ -14435,8 +14435,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.205Z"
+    "note": "lace-1of6-2of5-1 (c-0206) is an exact parametric curve from the lace family. Its speed is u = [6,-36,36,0,0,0] and v = [-30,401,-1923,4282,-4500,1800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 1.280 (arc over chord), 2 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.249Z"
    },
    "set": null,
    "metric": {
@@ -14505,8 +14505,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.208Z"
+    "note": "lace-1of5-2of5-1 (c-0207) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0] and v = [-24,298,-1375,3000,-3125,1250]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6930, bend 1.503 (arc over chord), 6 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.252Z"
    },
    "set": null,
    "metric": {
@@ -14575,8 +14575,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.210Z"
+    "note": "wave-1of4-2of5-1 (c-0208) is an exact parametric curve from the wave family. Its speed is u = [5,-36,36,0,0,0] and v = [-18,207,-913,1942,-2000,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6930, bend 1.969 (arc over chord), 6 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.254Z"
    },
    "set": null,
    "metric": {
@@ -14645,8 +14645,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.212Z"
+    "note": "lace-3of10-3 (c-0209) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0] and v = [-21,226,-952,1968,-2000,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 1.572 (arc over chord), 5 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.257Z"
    },
    "set": null,
    "metric": {
@@ -14715,8 +14715,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T21:22:25.219Z"
+    "note": "lace-3of8-3 (c-0210) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0] and v = [-15,154,-628,1272,-1280,512]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 2.407 (arc over chord), 5 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.259Z"
    },
    "set": null,
    "metric": {
@@ -14785,8 +14785,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.216Z"
+    "note": "lace-1of3-2of5-1 (c-0211) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0] and v = [-12,128,-537,1108,-1125,450]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 5.119 (arc over chord), 6 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.261Z"
    },
    "set": null,
    "metric": {
@@ -14855,8 +14855,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.219Z"
+    "note": "wave-1of3-3of8-1 (c-0212) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0] and v = [-30,323,-1365,2830,-2880,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/231, bend 1.360 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.264Z"
    },
    "set": null,
    "metric": {
@@ -14925,8 +14925,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.221Z"
+    "note": "wave-1of3-3-2 (c-0213) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0] and v = [-2,21,-87,178,-180,72]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2310, bend 1.248 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.267Z"
    },
    "set": null,
    "metric": {
@@ -14995,8 +14995,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.224Z"
+    "note": "wave-1of4-3-2 (c-0214) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0] and v = [-3,34,-148,312,-320,128]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/3465, bend 1.252 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.269Z"
    },
    "set": null,
    "metric": {
@@ -15065,8 +15065,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.226Z"
+    "note": "wave-3of10-1of3-1 (c-0215) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0] and v = [-42,473,-2067,4378,-4500,1800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 1.178 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.271Z"
    },
    "set": null,
    "metric": {
@@ -15135,8 +15135,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.228Z"
+    "note": "wave-2x2of5-1 (c-0216) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0] and v = [-36,372,-1525,3100,-3125,1250]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1386, bend 1.225 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.274Z"
    },
    "set": null,
    "metric": {
@@ -15205,8 +15205,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.231Z"
+    "note": "wave-middle-5-2 (c-0217) is an exact parametric curve from the wave family. Its speed is u = [2,-9,9,0,0,0] and v = [-1,10,-40,80,-80,32]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/330, bend 1.299 (arc over chord), 3 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.276Z"
    },
    "set": null,
    "metric": {
@@ -15275,8 +15275,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.233Z"
+    "note": "wave-1of8-5-2 (c-0218) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0,0,0] and v = [-7,134,-984,3760,-8240,10464,-7168,2048]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.198 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.278Z"
    },
    "set": null,
    "metric": {
@@ -15345,8 +15345,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.235Z"
+    "note": "wave-1of6-1of3-3-2 (c-0219) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0,0,0] and v = [-10,177,-1263,4778,-10440,13248,-9072,2592]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2730, bend 1.075 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.280Z"
    },
    "set": null,
    "metric": {
@@ -15415,8 +15415,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.237Z"
+    "note": "wave-1of4-1of3-3-2 (c-0220) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0,0,0] and v = [-6,95,-629,2262,-4780,5944,-4032,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6930, bend 1.148 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.282Z"
    },
    "set": null,
    "metric": {
@@ -15485,8 +15485,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.240Z"
+    "note": "lace-1of4-1of3-2of5-1 (c-0221) is an exact parametric curve from the lace family. Its speed is u = [6,-36,36,0,0,0,0,0] and v = [-36,576,-3851,13964,-29695,37078,-25200,7200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.213 (arc over chord), 8 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.284Z"
    },
    "set": null,
    "metric": {
@@ -15555,8 +15555,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.243Z"
+    "note": "lace-2x1of5-1of3-1 (c-0222) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-32,608,-4682,18913,-43375,56725,-39375,11250]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/60060, bend 1.401 (arc over chord), 8 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.287Z"
    },
    "set": null,
    "metric": {
@@ -15625,8 +15625,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.245Z"
+    "note": "lace-2x1of3-2of5-1 (c-0223) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-24,364,-2334,8201,-17055,20997,-14175,4050]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/60060, bend 1.607 (arc over chord), 8 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.290Z"
    },
    "set": null,
    "metric": {
@@ -15695,8 +15695,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.247Z"
+    "note": "lace-1of5-1of4-1of3-1 (c-0224) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-24,434,-3209,12576,-28255,36502,-25200,7200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.784 (arc over chord), 8 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.292Z"
    },
    "set": null,
    "metric": {
@@ -15765,8 +15765,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.249Z"
+    "note": "lace-1of5-2of5-3 (c-0225) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-24,394,-2663,9692,-20625,25750,-17500,5000]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.686 (arc over chord), 7 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.294Z"
    },
    "set": null,
    "metric": {
@@ -15835,8 +15835,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.251Z"
+    "note": "lace-3x1of4-1 (c-0226) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-27,486,-3600,14176,-32000,41472,-28672,8192]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.567 (arc over chord), 6 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.296Z"
    },
    "set": null,
    "metric": {
@@ -15905,8 +15905,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.253Z"
+    "note": "wave-1of6-1of4-3 (c-0227) is an exact parametric curve from the wave family. Its speed is u = [3,-16,16,0,0,0,0,0] and v = [-15,278,-2072,8112,-18160,23392,-16128,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/4095, bend 1.324 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.298Z"
    },
    "set": null,
    "metric": {
@@ -15975,8 +15975,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.256Z"
+    "note": "lace-3of10-5 (c-0228) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-21,310,-1940,6680,-13680,16672,-11200,3200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2145, bend 1.839 (arc over chord), 5 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.301Z"
    },
    "set": null,
    "metric": {
@@ -16045,8 +16045,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.259Z"
+    "note": "wave-1of6-1of4-1of3-1 (c-0229) is an exact parametric curve from the wave family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-30,571,-4377,17582,-40140,52344,-36288,10368]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.473 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.303Z"
    },
    "set": null,
    "metric": {
@@ -16115,8 +16115,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.261Z"
+    "note": "lace-1of8-2x1of3-1 (c-0230) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-28,564,-4395,17684,-40275,52398,-36288,10368]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/10010, bend 1.619 (arc over chord), 4 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.306Z"
    },
    "set": null,
    "metric": {
@@ -16185,8 +16185,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.263Z"
+    "note": "lace-1of8-1of5-3 (c-0231) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-28,599,-4953,20782,-48620,64248,-44800,12800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.669 (arc over chord), 3 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.308Z"
    },
    "set": null,
    "metric": {
@@ -16255,8 +16255,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.266Z"
+    "note": "wave-2x1of6-3 (c-0232) is an exact parametric curve from the wave family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-25,510,-4116,17048,-39600,52128,-36288,10368]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/5005, bend 1.843 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.310Z"
    },
    "set": null,
    "metric": {
@@ -16325,8 +16325,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.268Z"
+    "note": "lace-2x1of4-1of3-1 (c-0233) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-18,309,-2195,8354,-18400,23488,-16128,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 2.794 (arc over chord), 8 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.313Z"
    },
    "set": null,
    "metric": {
@@ -16395,8 +16395,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.270Z"
+    "note": "lace-1of4-2of5-3 (c-0234) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-18,279,-1813,6422,-13420,16568,-11200,3200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 2.477 (arc over chord), 7 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.316Z"
    },
    "set": null,
    "metric": {
@@ -16465,8 +16465,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.273Z"
+    "note": "wave-1of6-2x1of3-1 (c-0235) is an exact parametric curve from the wave family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-20,364,-2673,10368,-23085,29646,-20412,5832]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 2.397 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.319Z"
    },
    "set": null,
    "metric": {
@@ -16535,8 +16535,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.276Z"
+    "note": "lace-1of8-1of4-3 (c-0236) is an exact parametric curve from the lace family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-21,430,-3404,13832,-31680,41344,-28672,8192]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1155, bend 2.493 (arc over chord), 3 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.321Z"
    },
    "set": null,
    "metric": {
@@ -16605,8 +16605,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.278Z"
+    "note": "wave-1of6-1of5-3 (c-0237) is an exact parametric curve from the wave family. Its speed is u = [5,-36,36,0,0,0,0,0] and v = [-20,389,-3023,12202,-27880,36352,-25200,7200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/2730, bend 2.575 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.323Z"
    },
    "set": null,
    "metric": {
@@ -16675,8 +16675,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.280Z"
+    "note": "lace-1of3-3of8-3 (c-0238) is an exact parametric curve from the lace family. Its speed is u = [6,-36,36,0,0,0,0,0] and v = [-30,443,-2777,9582,-19660,23992,-16128,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/8190, bend 1.291 (arc over chord), 7 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.325Z"
    },
    "set": null,
    "metric": {
@@ -16745,8 +16745,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.282Z"
+    "note": "lace-1of5-2x1of4-1 (c-0239) is an exact parametric curve from the lace family. Its speed is u = [6,-36,36,0,0,0,0,0] and v = [-36,681,-5251,21314,-49120,64448,-44800,12800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90090, bend 1.260 (arc over chord), 4 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.327Z"
    },
    "set": null,
    "metric": {
@@ -16815,8 +16815,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.284Z"
+    "note": "wave-3of8-5 (c-0240) is an exact parametric curve from the wave family. Its speed is u = [3,-9,9,0,0,0,0,0] and v = [-15,214,-1304,4400,-8880,10720,-7168,2048]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/4290, bend 1.450 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.330Z"
    },
    "set": null,
    "metric": {
@@ -16885,8 +16885,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.286Z"
+    "note": "wave-1of4-3of8-3 (c-0241) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-45,702,-4588,16328,-34240,42368,-28672,8192]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/8190, bend 1.212 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.332Z"
    },
    "set": null,
    "metric": {
@@ -16955,8 +16955,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.288Z"
+    "note": "wave-3of10-1of3-3 (c-0242) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-42,641,-4127,14538,-30280,37312,-25200,7200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/9009, bend 1.241 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.334Z"
    },
    "set": null,
    "metric": {
@@ -17025,8 +17025,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.291Z"
+    "note": "wave-2x2of5-3 (c-0243) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-36,516,-3157,10688,-21625,26150,-17500,5000]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/18018, bend 1.316 (arc over chord), 5 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.337Z"
    },
    "set": null,
    "metric": {
@@ -17095,8 +17095,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.294Z"
+    "note": "wave-1of6-1of5-1of3-1 (c-0244) is an exact parametric curve from the wave family. Its speed is u = [6,-25,25,0,0,0,0,0] and v = [-40,798,-6375,26420,-61605,81342,-56700,16200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6006, bend 1.208 (arc over chord), 4 inflection(s), 7 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 9 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.340Z"
    },
    "set": null,
    "metric": {
@@ -17165,8 +17165,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.296Z"
+    "note": "lace-1of5-2x1of3-1 (c-0245) is an exact parametric curve from the lace family. Its speed is u = [3,-16,16,0,0,0,0,0] and v = [-16,276,-1956,7409,-16245,20673,-14175,4050]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/60060, bend 1.255 (arc over chord), 4 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.342Z"
    },
    "set": null,
    "metric": {
@@ -17235,8 +17235,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.298Z"
+    "note": "wave-2x1of5-3 (c-0246) is an exact parametric curve from the wave family. Its speed is u = [3,-16,16,0,0,0,0,0] and v = [-16,296,-2217,8728,-19625,25350,-17500,5000]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.277 (arc over chord), 3 inflection(s), 3 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.344Z"
    },
    "set": null,
    "metric": {
@@ -17305,8 +17305,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.300Z"
+    "note": "wave-5of12-5 (c-0247) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-35,494,-2984,10000,-20080,24160,-16128,4608]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/1430, bend 1.331 (arc over chord), 3 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.347Z"
    },
    "set": null,
    "metric": {
@@ -17375,8 +17375,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.302Z"
+    "note": "wave-1of5-1of3-2of5-1 (c-0248) is an exact parametric curve from the wave family. Its speed is u = [7,-25,25,0,0,0,0,0] and v = [-48,812,-5648,21057,-45625,57625,-39375,11250]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/180180, bend 1.203 (arc over chord), 6 inflection(s), 1 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.349Z"
    },
    "set": null,
    "metric": {
@@ -17445,8 +17445,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.304Z"
+    "note": "wave-1of6-5-2 (c-0249) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0,0,0] and v = [-5,86,-596,2200,-4720,5920,-4032,1152]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/15015, bend 1.265 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.351Z"
    },
    "set": null,
    "metric": {
@@ -17515,8 +17515,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.307Z"
+    "note": "wave-1of5-5-2 (c-0250) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0,0,0] and v = [-4,65,-435,1570,-3320,4128,-2800,800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/18018, bend 1.317 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.353Z"
    },
    "set": null,
    "metric": {
@@ -17585,8 +17585,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.310Z"
+    "note": "wave-1of4-5-2 (c-0251) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0,0,0] and v = [-3,46,-296,1040,-2160,2656,-1792,512]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/45045, bend 1.372 (arc over chord), 3 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.356Z"
    },
    "set": null,
    "metric": {
@@ -17655,8 +17655,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.312Z"
+    "note": "wave-2x1of3-3-2 (c-0252) is an exact parametric curve from the wave family. Its speed is u = [-1,2,0,0,0,0,0,0] and v = [-4,60,-381,1328,-2745,3366,-2268,648]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/30030, bend 1.252 (arc over chord), 5 inflection(s), 0 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.359Z"
    },
    "set": null,
    "metric": {
@@ -17725,8 +17725,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.314Z"
+    "note": "loop-12-13-15-mid-1 (c-0253) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-1848,83614,-1387533,10226552,-33116895,51575958,-38329200,10951200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/6, bend 1.000 (arc over chord), 6 inflection(s), 6 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.361Z"
    },
    "set": null,
    "metric": {
@@ -17795,8 +17795,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.316Z"
+    "note": "loop-12-15-18-mid-1 (c-0254) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-2618,131479,-2384613,18773622,-62517420,98490168,-73483200,20995200]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/66, bend 1.000 (arc over chord), 6 inflection(s), 2 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 9 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.363Z"
    },
    "set": null,
    "metric": {
@@ -17865,8 +17865,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.319Z"
+    "note": "loop-13-15-17-mid-1 (c-0255) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-2688,134984,-2461298,19538337,-65308495,103047973,-76924575,21978450]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/36, bend 1.000 (arc over chord), 6 inflection(s), 6 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.366Z"
    },
    "set": null,
    "metric": {
@@ -17935,8 +17935,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.323Z"
+    "note": "loop-3-5-11-mid-1 (c-0256) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-80,1988,-18140,81505,-199405,270337,-190575,54450]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/12012, bend 1.009 (arc over chord), 6 inflection(s), 15 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 11 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.373Z"
    },
    "set": null,
    "metric": {
@@ -18005,8 +18005,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.327Z"
+    "note": "loop-3-7-11-mid-3 (c-0257) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0,0,0] and v = [-120,3692,-45046,290233,-1109739,2651165,-4000199,3704242,-1920996,426888]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/19399380, bend 1.005 (arc over chord), 7 inflection(s), 15 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 7 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.376Z"
    },
    "set": null,
    "metric": {
@@ -18075,8 +18075,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.329Z"
+    "note": "loop-3-8-13-mid-1 (c-0258) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-168,4994,-53165,263424,-682675,954478,-681408,194688]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90, bend 1.002 (arc over chord), 6 inflection(s), 7 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 8 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.379Z"
    },
    "set": null,
    "metric": {
@@ -18145,8 +18145,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.331Z"
+    "note": "loop-5-12-mid-3 (c-0259) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0] and v = [-44,1115,-10085,44470,-107020,143608,-100800,28800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/42, bend 1.030 (arc over chord), 5 inflection(s), 7 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 6 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.381Z"
    },
    "set": null,
    "metric": {
@@ -18215,8 +18215,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.333Z"
+    "note": "loop-5-8-12-mid-5 (c-0260) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0,0,0,0,0,0,0] and v = [-308,11853,-188487,1649658,-8932104,31775616,-76510896,125629344,-138652416,98395648,-40550400,7372800]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/74364290, bend 1.001 (arc over chord), 7 inflection(s), 19 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 6 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.383Z"
    },
    "set": null,
    "metric": {
@@ -18285,8 +18285,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.335Z"
+    "note": "loop-7-mid-2 (c-0261) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0] and v = [6,-73,269,-392,196]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/90, bend 2.040 (arc over chord), 3 inflection(s), 8 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.386Z"
    },
    "set": null,
    "metric": {
@@ -18355,8 +18355,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.338Z"
+    "note": "loop-8-11-mid-1 (c-0262) is an exact parametric curve from the loop family. Its speed is u = [1,0,0,0,0,0] and v = [-70,1627,-12205,33950,-38720,15488]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/42, bend 1.003 (arc over chord), 4 inflection(s), 9 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.389Z"
    },
    "set": null,
    "metric": {
@@ -18425,8 +18425,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.341Z"
+    "note": "bezier-loop-1 (c-0263) is an exact parametric curve from the bezier family. Its speed is u = [480,-900,180,480,-240,36,0,0] and v = [-450,690,60,-420,150,0,0,0]; the position is the integral of (u²−v², 2uv). No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.391Z"
    },
    "set": null,
    "metric": null
@@ -18469,8 +18469,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.343Z"
+    "note": "bezier-loop-2 (c-0264) is an exact parametric curve from the bezier family. Its speed is u = [-120,40,270,-180,30,0,0,0] and v = [-195,160,90,-80,0,0,0,0]; the position is the integral of (u²−v², 2uv). No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.393Z"
    },
    "set": null,
    "metric": null
@@ -18513,8 +18513,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.345Z"
+    "note": "bezier-loop-3 (c-0265) is an exact parametric curve from the bezier family. Its speed is u = [-834,2370,-2520,1260,-270,36,0,0] and v = [-186,180,420,-540,150,0,0,0]; the position is the integral of (u²−v², 2uv). No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.396Z"
    },
    "set": null,
    "metric": null
@@ -18557,8 +18557,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.348Z"
+    "note": "bezier-loop-4 (c-0266) is an exact parametric curve from the bezier family. Its speed is u = [234,-180,-360,540,-240,36,0,0] and v = [-30,-360,840,-480,60,0,0,0]; the position is the integral of (u²−v², 2uv). No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.399Z"
    },
    "set": null,
    "metric": null
@@ -18601,8 +18601,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.350Z"
+    "note": "bezier-loop-5 (c-0267) is an exact parametric curve from the bezier family. Its speed is u = [-168,0,360,-120,-90,36,0,0] and v = [570,-1440,1260,-480,60,0,0,0]; the position is the integral of (u²−v², 2uv). No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.401Z"
    },
    "set": null,
    "metric": null
@@ -18645,8 +18645,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.352Z"
+    "note": "bezier-loop-6 (c-0268) is an exact parametric curve from the bezier family. Its speed is u = [-234,1230,-1740,1020,-270,36,0,0] and v = [-102,630,-1140,720,-120,0,0,0]; the position is the integral of (u²−v², 2uv). No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.405Z"
    },
    "set": null,
    "metric": null
@@ -18689,8 +18689,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.355Z"
+    "note": "mobile-k3-equal (c-0269) is a stored outline from the mobile-k3 family. It is stored as 901 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.408Z"
    },
    "set": null,
    "metric": null
@@ -18733,8 +18733,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.358Z"
+    "note": "lens-56-783-785 (c-0270) is a stored outline from the lens family. It is stored as 89 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.410Z"
    },
    "set": null,
    "metric": null
@@ -18777,8 +18777,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.361Z"
+    "note": "four-fold-56-783-785 (c-0271) is a stored outline from the four-fold family. It is stored as 89 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly.",
+    "updatedAt": "2026-11-22T22:32:36.414Z"
    },
    "set": null,
    "metric": null
@@ -18821,8 +18821,8 @@
     "algorithm": null,
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
-    "note": null,
-    "updatedAt": "2026-11-22T20:48:18.363Z"
+    "note": "lace-2-eight-3-circle-parameter (c-0272) is a stored outline from the lace family. It is stored as 61 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
+    "updatedAt": "2026-11-22T22:32:36.416Z"
    },
    "set": null,
    "metric": null
