@@ -56,6 +56,12 @@ numeric check, not a hope.
   numbers are measured against the exact source instead of the backend's
   offset evaluation. `Proves:` the rail fit's `error_max` against the exact
   source is at or under the current fit's, on the same curves.
+- The reducer and its Python twin agree (2026-11-21): the over-ceiling curves
+  genuinely carry their degree — c-0260's proven bound stays at 1.08e+2 at 64
+  pieces; c-0072's explodes. The sibling map is the answer for them
+  (`state/SC-NOTES-constructions.md`); the reducer serves the mild cases.
+  `Proves:` the twin runs the identical algorithm in Fraction
+  (`reduction/parity/reduce_reference.py`) and prints the same verdicts.
 - Then `piece.py`, `junction.py`, `svg.py`, each with its own parity check.
 - `state/PORT-int.md` is the boundary record — update it per row.
 - `Proves:` per row: the parity script plus `npm --prefix app test`.
