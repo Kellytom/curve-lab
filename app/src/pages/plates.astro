@@ -44,8 +44,8 @@ const done = rows.filter((row) => row.exported).length;
     {registry.curves.length} records chosen (2 stars or more; a new curve joins its parent) ·
     order: {order === "stars"
       ? <><b>stars</b>, a variant beside its parent · <a href="/plates/?order=uid">uid</a></>
-      : <><a href="/plates/">stars</a> · <b>uid</b></>} · generator
-    <code>scripts/print_plates.mjs</code></p>
+      : <><a href="/plates/">stars</a> · <b>uid</b></>} · <a href="/review/">review the
+    set</a> · generator <code>scripts/print_plates.mjs</code></p>
 
   <div class="plates-grid">
     {rows.map((row) => (

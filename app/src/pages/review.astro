@@ -1,0 +1,102 @@
+---
+// The review desk: the whole collection with its plate, a checkbox and a bulk star setter,
+// so approval is a selection and one click rather than a page per curve.
+// Spec: state/SPEC-review-int.md. The write is POST /api/curve-stars.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadRegistry } from "../lib/registry.ts";
+import { isKept, provenanceFor, starsLabel } from "../lib/provenance.js";
+
+const registry = await loadRegistry();
+const byUid = new Map(registry.curves.map((curve) => [curve.uid, curve]));
+const kept = registry.curves.filter((curve) => isKept(curve, byUid));
+const unrated = registry.curves.filter((curve) => Number(curve.stars || 0) < 2);
+const q = Astro.url.searchParams;
+const scope = ["plates", "unrated", "all"].includes(q.get("scope")) ? q.get("scope") : "plates";
+const chosen = scope === "plates" ? kept : scope === "unrated" ? unrated : registry.curves;
+const rows = chosen
+  .slice()
+  .sort((a, b) => (Number(b.stars || 0) - Number(a.stars || 0)) || a.uid.localeCompare(b.uid))
+  .map((curve) => ({
+    uid: curve.uid,
+    name: curve.name,
+    stars: Number(curve.stars || 0),
+    plate: `/plates-web/${curve.uid}-1600-grey.png`,
+    provenance: provenanceFor(curve, byUid),
+  }));
+const scopes = [
+  ["plates", "the plates", kept.length],
+  ["unrated", "unrated (under 2)", unrated.length],
+  ["all", "every curve", registry.curves.length],
+];
+---
+
+<BaseLayout title="the review desk" pageTitle="The review desk">
+  <p class="lead">Every curve with its plate and its provenance. Select any number, set the
+    stars once, and the plates page follows. <b>2 and above</b> is on the plates; <b>1</b> and
+    <b>none</b> are off it. The exact curve is never changed; only the rating.</p>
+
+  <p class="scopes">
+    {scopes.map(([key, label, count]) => (
+      <a href={`/review/?scope=${key}`} class:list={[{ on: scope === key }]}>{label} · {count}</a>
+    ))}
+  </p>
+
+  <div class="review-bar" id="review-bar">
+    <strong id="review-count">0 selected</strong>
+    <button type="button" data-stars="10">approve 10</button>
+    <button type="button" data-stars="5">stars 5</button>
+    <button type="button" data-stars="2">stars 2</button>
+    <button type="button" data-stars="1">demote 1</button>
+    <button type="button" data-stars="0">clear</button>
+    <label class="review-set">set
+      <input id="review-stars" type="number" min="0" max="10" step="1" value="2" />
+      <button type="button" id="review-apply">apply</button>
+    </label>
+    <label class="review-all"><input type="checkbox" id="review-all" /> select all</label>
+    <span id="review-status" role="status" aria-live="polite"></span>
+  </div>
+
+  <div class="review-grid">
+    {rows.map((row) => (
+      <article class="review-card" data-stars={row.stars}>
+        <label class="review-pick"><input type="checkbox" class="pick" value={row.uid} />
+          <code>{row.uid}</code></label>
+        <a href={`/tune/${row.uid}`} title="open the tuning page">
+          <img src={row.plate} alt={row.name} loading="lazy" />
+        </a>
+        <p class="review-name">{row.name}</p>
+        <p class="review-stars" data-label>{starsLabel(row.stars)}</p>
+        <p class="review-prov">{row.provenance}</p>
+      </article>
+    ))}
+  </div>
+  <p class="review-foot">{rows.length} curves in this view · a bulk write reports its count;
+    reload to re-filter after a change.</p>
+</BaseLayout>
+
+<script>
+  import "../scripts/review.js";
+</script>
+
+<style is:global>
+  .scopes { display: flex; gap: 18px; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 0 0 16px; }
+  .scopes a { color: #7a6a55; text-decoration: none; }
+  .scopes a.on { color: #26221c; font-weight: 600; }
+  .review-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center;
+    gap: 8px 12px; padding: 10px 12px; margin: 0 0 18px; background: #fffef9;
+    border: 1px solid #e6dccb; font: 13px/1.5 ui-monospace, Menlo, monospace; }
+  .review-bar button { margin: 0; padding: 4px 10px; font-size: 12px; }
+  .review-bar .review-set { display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+  .review-bar .review-set input { width: 4rem; margin: 0; padding: 2px 4px; font-size: 12px; }
+  .review-bar .review-all { display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+  #review-status { color: #7a6a55; }
+  .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+  .review-card { margin: 0; padding: 10px; background: #fffef9; border: 1px solid #eee3d3; }
+  .review-card img { display: block; width: 100%; height: 220px; object-fit: contain; background: #fff; }
+  .review-pick { display: flex; align-items: center; gap: 8px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  .review-pick input { margin: 0; }
+  .review-name { margin: 6px 0 0; font-size: 14px; }
+  .review-stars { margin: 0; font: 12px/1.5 ui-monospace, Menlo, monospace; color: #8a6a1f; }
+  .review-prov { margin: 4px 0 0; font-size: 12px; line-height: 1.5; color: #5a4a36; }
+  .review-foot { margin: 18px 0 0; font: 12px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; }
+</style>
