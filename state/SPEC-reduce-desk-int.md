@@ -28,17 +28,26 @@ much?* — and refuses to answer when its own checks fail.
   the number to judge by is always the miss in units. The word "dial" is
   retired (operator, 2026-11-21): it gave no exact meaning.
 
-## The layout
+## The layout (operator, 2026-11-22: images side by side)
 
 1. Verdict block first: YES — reducible / NO — over the bar / REFUSED.
-2. The graph: the exact curve in black, the reduced form in green dashed,
-   through the same 241 stations, JSXGraph. A wide band is stated as a band
-   (aspect > 20), and the y axis is stretched to fill the frame with that
-   said.
-3. The numbers table: degrees, gates, pieces, bound (units and share),
-   measured miss, bar, both bounding boxes, desk status.
+2. **Two figures side by side, each its own image:**
+   - left, the exact curve (black) with its own facts underneath: position
+     degree per axis, rail degree and gate, curve ceiling, size, bbox, shape;
+   - right, the reduced form (green dashed) with its own facts underneath:
+     degree per piece, pieces and span count, the proven bound (units and
+     share), the measured miss, its bbox, the desk status.
+   - Both boards share ONE bounding box and equal widths (`min-width: 0`,
+     fixed table layout), so the comparison is at the same scale; the page
+     says so under the figures.
+   - Each figure carries its label inside the board (house figure rule).
+3. **Links under each figure:** the exact side links to the print plate
+   (SVG and PNG) and the tune desk; the reduced side links to the index,
+   the problem gallery and the neighbouring desks (prev/next).
 4. What this means, in the operator's terms: the spans count, the rail
    gate's verdict, and whether the fix is truncation or a sibling.
+5. A wide band is stated as a band (aspect > 20), and each board stretches
+   the y axis to fill its frame with that said.
 
 ## The rules, each with its check
 

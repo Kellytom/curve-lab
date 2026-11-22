@@ -1,16 +1,14 @@
 ---
-// The reduction desk: one curve, exact against reduced, with a PROVEN bound.
+// The reduction desk: the exact curve and the reduced form SIDE BY SIDE, each
+// drawn as its own figure with its own facts underneath and its own links.
 //
-// Every number in the table comes from exact BigInt-fraction arithmetic
-// (`measure.ts` for the position polynomials, `reduction/chebyshev.ts` for
-// the truncation bound — the same basis change the Python core does, pinned
-// by tests/chebyshev.test.mjs). Only the DRAWING samples run through float64,
-// and the page says so. The bound is a guarantee, not a fit: the sum of the
-// discarded Chebyshev coefficients' absolute values is never smaller than
-// the worst miss on the piece.
+// Every number comes from exact BigInt-fraction arithmetic (measure.ts for
+// the polynomials, reduction/chebyshev.ts for the truncation bound — pinned
+// by tests/chebyshev.test.mjs). Only the drawing samples run through
+// float64, and the page says so. The bound is a guarantee, not a fit.
 //
-// The desk refuses its verdict if its own checks fail: measured miss over
-// the bound, or a reduced curve that collapsed to a line.
+// The desk refuses its verdict if its own checks fail: the measured miss
+// over the bound, or a reduced curve collapsed to a line.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { curvePolynomials, evaluate, fr } from "../../lib/measure.ts";
@@ -48,20 +46,20 @@ const name: string = curve?.name ?? uid;
 
 // ── the exact position polynomials, straight from the speed recipes ─────────
 const { x, y } = curvePolynomials(curve!.speedX, curve!.speedY);
-const speedRows = curve!.speedX.map(Number);
 const speedDeg = (() => {
-  const trim = [...curve!.speedY.map(Number)];
-  while (trim.length && trim[trim.length - 1] === 0) trim.pop();
-  const tx = [...curve!.speedX.map(Number)];
-  while (tx.length && tx[tx.length - 1] === 0) tx.pop();
-  return Math.max(tx.length - 1, trim.length - 1);
+  const trimOf = (row: Array<number | string>) => {
+    const r = row.map(Number);
+    while (r.length && r[r.length - 1] === 0) r.pop();
+    return r.length;
+  };
+  return Math.max(trimOf(curve!.speedX), trimOf(curve!.speedY)) - 1;
 })();
 const railDeg = 2 * speedDeg - 1;
 const positionDegree = Math.max(x.length - 1, y.length - 1);
-const CEILING = 11; // four-point cubic spans
-const KEEP = 11; // the reduced form's degree per piece
-const DIAL = 0.0005; // 0.05 % of the curve's own size
-const N = 240; // drawing stations
+const CEILING = 11;
+const KEEP = 11;
+const DIAL = 0.0005;
+const N = 240;
 
 // ── exact samples and the exact bounding box ────────────────────────────────
 const exactX: number[] = [];
@@ -82,10 +80,9 @@ const exactAspect = (xMax - xMin) / (yMax - yMin || 1e-12);
 // ── the proven bound ladder: pieces 1, 2, 4 … 16, exact each time ───────────
 const MAX_PIECES = 16;
 let pieces = 1;
-let bound = F(0n); // max over pieces of (tailX + tailY), exact
+let bound = F(0n);
 let met = false;
-const pieceMid = (p: number, of: number) =>
-  F(BigInt(2 * p + 1), BigInt(2 * of));
+const pieceMid = (p: number, of: number) => F(BigInt(2 * p + 1), BigInt(2 * of));
 const pieceHalf = (of: number) => F(1n, BigInt(2 * of));
 
 while (pieces <= MAX_PIECES) {
@@ -139,11 +136,9 @@ for (let k = 0; k <= N; k += 1) {
     Math.hypot(exactX[k] - reducedX[k], exactY[k] - reducedY[k]),
   );
 }
-const actualShare = actualMiss / size;
 const missOverBound = actualMiss > num(bound) + 1e-9;
 const reducedFlat =
-  Math.abs(rMaxY - rMinY) < 0.001 * (yMax - yMin) &&
-  yMax - yMin > 0.01 * size;
+  Math.abs(rMaxY - rMinY) < 0.001 * (yMax - yMin) && yMax - yMin > 0.01 * size;
 const refused = missOverBound || reducedFlat;
 
 const verdict = refused
@@ -156,15 +151,17 @@ const verdict = refused
 
 const pct = (v: number): string => `${plainNumber(v * 100)} %`;
 const fmtPct = (v: number): string => (v < 1e-10 ? "≈ 0" : pct(v));
+// both figures share one bounding box, so the side-by-side comparison is at
+// the same scale — the point of putting them next to each other
+const padX = (xMax - xMin) * 0.06 || 1;
+const padY = (yMax - yMin) * 0.10 || 1;
 const payload = JSON.stringify({
   exactX, exactY, reducedX, reducedY,
-  xMin, xMax, yMin, yMax,
+  bbox: [xMin - padX, yMax + padY, xMax + padX, yMin - padY],
 });
 ---
 
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<title>{name} · the reduction desk</title></head><body>
+<html lang="en"><head><meta charset="utf-8"><title>{name} · the reduction desk</title></head><body>
 <div class="reduce-desk">
   <p class="reduce-crumb"><a href="/reduce/">← the reduction index</a></p>
 
@@ -187,97 +184,61 @@ const payload = JSON.stringify({
     </p>
   </section>
 
-  <section class="reduce-panel">
-    <h2 class="reduce-h2">The graph</h2>
-    <p class="reduce-note">
-      The exact curve in black; the reduced degree-{KEEP} form in green dashed,
-      through the same {N + 1} stations. Where they coincide you see only
-      black. The drawing between stations is approximate.
-      {
-        exactAspect > 20
-          ? ` The exact curve is a wide band — ${plainNumber(xMax - xMin)} wide by ${plainNumber(yMax - yMin)} tall. The board stretches the y axis to fill the frame, so the band looks tall here; the bbox row below is the true shape.`
-          : ""
-      }
-    </p>
-    <div id="reduce-board" class="jxgbox reduce-board"></div>
-  </section>
+  <div class="reduce-pair">
+    <section class="reduce-panel">
+      <h2 class="reduce-h2">The exact curve</h2>
+      <div id="board-exact" class="jxgbox reduce-board"></div>
+      <table class="reduce-facts">
+        <tr><th>position degree</th><td>{x.length - 1} (x) · {y.length - 1} (y)</td></tr>
+        <tr><th>rail degree</th><td>
+          {railDeg} — {railDeg <= CEILING ? "inside" : `over`} the ceiling of {CEILING}
+        </td></tr>
+        <tr><th>curve ceiling</th><td>{CEILING} (four-point cubic spans)</td></tr>
+        <tr><th>size</th><td>{plainNumber(size)} units</td></tr>
+        <tr><th>bbox</th><td>
+          x {plainNumber(xMin)} … {plainNumber(xMax)}<br />
+          y {plainNumber(yMin)} … {plainNumber(yMax)}
+        </td></tr>
+        <tr><th>shape</th><td>
+          {exactAspect > 20 ? `a wide band (${plainNumber(exactAspect)} : 1)` : "compact"}
+        </td></tr>
+      </table>
+      <p class="reduce-links">
+        <a href={`/api/print-plate/${uid}?format=svg`}>the print plate (SVG)</a> ·
+        <a href={`/tune/${uid}`}>the tune desk</a> ·
+        <a href={`/api/print-plate/${uid}?format=png`}>the plate (PNG)</a>
+      </p>
+    </section>
 
-  <section class="reduce-panel">
-    <h2 class="reduce-h2">The numbers</h2>
-    <table class="reduce-table">
-      <thead><tr><th>measure</th><th>value</th><th>what it means</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>position degree</td>
-          <td>{x.length - 1} (x) · {y.length - 1} (y)</td>
-          <td>the exact curve's polynomial degrees</td>
-        </tr>
-        <tr>
-          <td>curve ceiling</td>
-          <td>{CEILING}</td>
-          <td>what four-point cubic spans carry</td>
-        </tr>
-        <tr>
-          <td>rail degree</td>
-          <td>{railDeg}</td>
-          <td>
-            {railDeg <= CEILING
-              ? "inside the ceiling — the rails are fine"
-              : `over the ceiling of ${CEILING} — truncation cannot fix the rails; the speed-space reduction or a sibling recipe must`}
-          </td>
-        </tr>
-        <tr>
-          <td>pieces</td>
-          <td>{pieces}</td>
-          <td>how many segments the reduced form uses</td>
-        </tr>
-        <tr>
-          <td>proven miss bound</td>
-          <td>{plainNumber(num(bound))} units · {fmtPct(boundShare)} of size</td>
-          <td>exact fractions: the sum of the discarded Chebyshev coefficients</td>
-        </tr>
-        <tr>
-          <td>measured miss</td>
-          <td>{plainNumber(actualMiss)} units · {fmtPct(actualShare)} of size</td>
-          <td>at the {N + 1} stations; must stay ≤ the bound</td>
-        </tr>
-        <tr>
-          <td>desk's bar</td>
-          <td>{pct(DIAL)} of size</td>
-          <td>the working bar for the default verdict; the number to judge by is the miss in units above</td>
-        </tr>
-        <tr>
-          <td>exact bbox</td>
-          <td>
-            x {plainNumber(xMin)} … {plainNumber(xMax)}<br />
-            y {plainNumber(yMin)} … {plainNumber(yMax)}
-          </td>
-          <td>size {plainNumber(size)} units</td>
-        </tr>
-        <tr>
-          <td>reduced bbox</td>
-          <td>
-            x {plainNumber(rMinX)} … {plainNumber(rMaxX)}<br />
-            y {plainNumber(rMinY)} … {plainNumber(rMaxY)}
-          </td>
-          <td>
-            {reducedFlat
-              ? "collapsed flat — the desk refuses"
-              : "same extent as the exact curve"}
-          </td>
-        </tr>
-        <tr>
-          <td>desk status</td>
-          <td><strong>{refused ? "refused" : "verified"}</strong></td>
-          <td>
-            {refused
-              ? "a self-check failed; the verdict above is withheld"
-              : "measured miss ≤ proven bound, reduced form not degenerate"}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <section class="reduce-panel">
+      <h2 class="reduce-h2">The reduced form</h2>
+      <div id="board-reduced" class="jxgbox reduce-board"></div>
+      <table class="reduce-facts">
+        <tr><th>degree per piece</th><td>{KEEP}</td></tr>
+        <tr><th>pieces</th><td>{pieces} — as cubic spans, {pieces * 4} for the whole curve</td></tr>
+        <tr><th>proven miss bound</th><td>
+          {plainNumber(num(bound))} units · {fmtPct(boundShare)} of size
+        </td></tr>
+        <tr><th>measured miss</th><td>
+          {plainNumber(actualMiss)} units · {fmtPct(actualMiss / size)} of size
+        </td></tr>
+        <tr><th>bbox</th><td>
+          x {plainNumber(rMinX)} … {plainNumber(rMaxX)}<br />
+          y {plainNumber(rMinY)} … {plainNumber(rMaxY)}
+        </td></tr>
+        <tr><th>desk status</th><td>
+          <strong>{refused ? "refused" : "verified"}</strong>
+          {refused ? " — a self-check failed; the verdict is withheld" : " — measured ≤ proven, not degenerate"}
+        </td></tr>
+      </table>
+      <p class="reduce-links">
+        <a href="/reduce/">the reduction index</a> ·
+        <a href="/problems/">the problem gallery</a> ·
+        <a href={`/reduce/${prevUid}`}>← {prevUid}</a> ·
+        <a href={`/reduce/${nextUid}`}>{nextUid} →</a>
+      </p>
+    </section>
+  </div>
 
   <section class="reduce-panel">
     <h2 class="reduce-h2">What this means</h2>
@@ -293,61 +254,56 @@ const payload = JSON.stringify({
   </section>
 
   <p class="reduce-nav">
-    <a href={`/reduce/${prevUid}`}>← previous</a> ·
-    <a href={`/reduce/${nextUid}`}>next →</a> ·
+    <a href={`/reduce/${prevUid}`}>← previous desk</a> ·
+    <a href={`/reduce/${nextUid}`}>next desk →</a> ·
+    <a href="/reduce/">the index</a> ·
     <a href="/problems/">the problem gallery</a>
   </p>
   <p class="reduce-foot">
     The bound, the polynomials and the samples are exact BigInt fractions.
     Only the reduced form's drawing evaluation runs in float64, guarded by the
-    bound. Spec: the reduction desk section of the plan; guard:
-    app/tests/chebyshev.test.mjs.
+    bound. The two figures share one bounding box, so they are drawn at the
+    same scale. Guard: app/tests/chebyshev.test.mjs.
   </p>
 </div>
 </body></html>
 
 <style is:global>
   .reduce-desk { color: #3b2d1c; font: 16px/1.55 Georgia, serif; }
-  .reduce-crumb a, .reduce-nav a {
-    color: #2f6fa8; text-decoration: underline; font-size: 14px;
-  }
+  .reduce-crumb a, .reduce-nav a { color: #2f6fa8; text-decoration: underline; font-size: 14px; }
   .reduce-title { font-size: 28px; margin: 6px 0 2px; }
-  .reduce-sub {
-    font: 13px ui-monospace, Menlo, monospace; color: #7a6a55; margin: 0 0 16px;
-  }
+  .reduce-sub { font: 13px ui-monospace, Menlo, monospace; color: #7a6a55; margin: 0 0 16px; }
   .reduce-verdict {
     border: 1px solid #e6dccb; border-left: 6px solid #1a6b3c;
     background: #f4f8f2; padding: 12px 16px; margin: 0 0 18px;
   }
-  .reduce-verdict.is-bad {
-    border-left-color: #a83232; background: #f9f2f0;
-  }
-  .reduce-verdict-word {
-    font-size: 19px; font-weight: bold; margin: 0 0 4px; color: #1a6b3c;
-  }
+  .reduce-verdict.is-bad { border-left-color: #a83232; background: #f9f2f0; }
+  .reduce-verdict-word { font-size: 19px; font-weight: bold; margin: 0 0 4px; color: #1a6b3c; }
   .is-bad .reduce-verdict-word { color: #a83232; }
   .reduce-verdict-note { margin: 0; font-size: 14px; }
+  .reduce-pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 0 0 18px;
+  }
+  .reduce-pair > section { min-width: 0; }
+  @media (max-width: 860px) { .reduce-pair { grid-template-columns: 1fr; } }
   .reduce-panel {
     border: 1px solid #e6dccb; background: #fffef9;
-    padding: 14px 16px; margin: 0 0 18px;
+    padding: 14px 16px; margin: 0;
   }
   .reduce-h2 { font-size: 18px; margin: 0 0 6px; }
-  .reduce-note, .reduce-prose { font-size: 14px; margin: 0 0 8px; }
-  .reduce-prose { font-size: 15px; }
-  .reduce-board {
-    width: 100%; height: 420px; background: #fffef9;
-    border: 1px solid #e6dccb;
-  }
-  .reduce-table {
+  .reduce-prose { font-size: 15px; margin: 0 0 8px; }
+  .reduce-board { width: 100%; height: 380px; background: #fffef9; border: 1px solid #e6dccb; }
+  .reduce-facts {
     border-collapse: collapse; font: 13px ui-monospace, Menlo, monospace;
-    width: 100%;
+    width: 100%; margin-top: 10px; table-layout: fixed;
   }
-  .reduce-table th, .reduce-table td {
-    border: 1px solid #e6dccb; padding: 5px 10px;
-    text-align: left; vertical-align: top;
+  .reduce-facts th, .reduce-facts td {
+    border: 1px solid #e6dccb; padding: 4px 8px; text-align: left; vertical-align: top;
+    overflow-wrap: anywhere;
   }
-  .reduce-table th { background: #f4ecdd; }
-  .reduce-table td:first-child { white-space: nowrap; }
+  .reduce-facts th { background: #f4ecdd; white-space: nowrap; width: 34%; }
+  .reduce-links { font-size: 13px; margin: 10px 0 0; }
+  .reduce-links a { color: #2f6fa8; text-decoration: underline; }
   .reduce-foot { font-size: 12px; color: #7a6a55; margin-top: 10px; }
 </style>
 
@@ -356,32 +312,32 @@ const payload = JSON.stringify({
   <script define:vars={{ payload }}>
     const data = JSON.parse(payload);
     if (window.JXG) {
-      const padX = (data.xMax - data.xMin) * 0.05 || 1;
-      const padY = (data.yMax - data.yMin) * 0.08 || 1;
-      const board = JXG.JSXGraph.initBoard("reduce-board", {
-        boundingbox: [
-          data.xMin - padX, data.yMax + padY,
-          data.xMax + padX, data.yMin - padY,
-        ],
-        axis: true, showCopyright: false, showNavigation: true,
-        keepaspectratio: false,
-        defaultAxes: {
-          strokeColor: "#b9a98a",
-          ticks: { strokeColor: "#b9a98a", fontSize: 10 },
-        },
+      const makeBoard = (hostId, caption) => {
+        const board = JXG.JSXGraph.initBoard(hostId, {
+          boundingbox: data.bbox,
+          axis: true, showCopyright: false, showNavigation: false,
+          keepaspectratio: false,
+          defaultAxes: {
+            strokeColor: "#b9a98a",
+            ticks: { strokeColor: "#b9a98a", fontSize: 9 },
+          },
+        });
+        // the figure label inside the figure, per the house rule
+        const bb = board.getBoundingBox();
+        board.create("text", [
+          bb[0] + (bb[2] - bb[0]) * 0.02,
+          bb[1] - (bb[1] - bb[3]) * 0.04,
+          caption,
+        ], { fontSize: 12, strokeColor: "#3b2d1c", fixed: true, highlight: false });
+        return board;
+      };
+      const exactBoard = makeBoard("board-exact", "exact curve");
+      exactBoard.create("curve", [data.exactX, data.exactY], {
+        strokeColor: "#141414", strokeWidth: 2.4, highlight: false, fixed: true,
       });
-      board.create("curve", [data.exactX, data.exactY], {
-        strokeColor: "#141414", strokeWidth: 2.4,
-        highlight: false, fixed: true,
-      });
-      board.create("curve", [data.reducedX, data.reducedY], {
-        strokeColor: "#1a8a3c", strokeWidth: 1.8, dash: 2,
-        highlight: false, fixed: true,
-      });
-      const lx = data.xMin + (data.xMax - data.xMin) * 0.02;
-      const ly = data.yMax;
-      board.create("text", [lx, ly, "black: exact · green dashed: reduced (degree 11 per piece)"], {
-        fontSize: 13, strokeColor: "#3b2d1c", fixed: true, highlight: false,
+      const reducedBoard = makeBoard("board-reduced", "reduced · degree 11 per piece");
+      reducedBoard.create("curve", [data.reducedX, data.reducedY], {
+        strokeColor: "#1a8a3c", strokeWidth: 2.0, dash: 2, highlight: false, fixed: true,
       });
     }
   </script>
