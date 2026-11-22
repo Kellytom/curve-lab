@@ -330,3 +330,14 @@ The honest finding on the first real curve: **c-0260 (degree 23, 19 crossings) i
 Proved by: the desk renders 200 for c-0260 and c-0001; the probe prints `pieces 64, splits 6, met false, boundShare 1.077e+2`; the reducer is the exact Chebyshev truncation with the proven bound (no fitting, no samples).
 Blocked: nothing
 Next: run the desk across the degree-11..15 curves — the milder ones may meet the dial at a few pieces; the genuinely over-degree ones get stated as such, per the spec's honesty rule.
+
+---
+
+## 2026-11-21 05:30 — the piece builder is in TypeScript: parity 4 pieces, 0 mismatches
+
+Job (operator, direct): two more hours on the conversion track.
+Done, three more commits since the last entry: **`9d089c0d`** parallel-bezier.ts (the Levien rail fitter — parity 12 runs), **`31557851`** coneTerminal (the two-arc cone, parity 12 runs), **`64af7186`** piece.ts (Trace/Group/Piece, mirrorSpans, the pre-built-spans build path — parity 4 pieces, 0 mismatches across round+point, mirror+taper, hairline, arc+butt).
+Flag for you: **the Python Trace constructor forbids width on span traces** while build_piece's pre-built path and the tune desk's records use exactly that — the port follows the build_piece branch (the desk reality); the constructor's restriction is yours to reconcile.
+Proved by: the four parity scripts print their counts (212 curves, 15 checks, 12 runs, 36 runs, 12 runs, 4 pieces — all zero mismatches); npm run check -> 0 errors.
+Blocked: nothing
+Next: model.py, then svg.py.
