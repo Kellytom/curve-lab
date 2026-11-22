@@ -194,3 +194,72 @@ function reduceAt(exact: Poly, size: number, degree: number, pieces: number): Re
     size,
   };
 }
+
+/** The fast float path for the desks: the same Chebyshev truncation, in
+ * float64. The bound is the same Sum|c_i|; the reduced series is evaluated
+ * directly in the Chebyshev basis, so no exact fraction is ever built. The
+ * exact Fraction variant belongs to the reduction pipeline's records, not to
+ * a desk page that only needs the verdict. */
+export interface FastResult {
+  pieces: number;
+  splits: number;
+  met: boolean;
+  boundShare: number;   // the proven bound as a share of the curve's size
+  reducedAt: (t: number) => number;   // the reduced series' value at t
+  exactAt: (t: number) => number;     // the exact polynomial's value at t
+}
+
+function chebCoeffsFloat(power: number[], degree: number): number[] {
+  const n = power.length;
+  const nodes: number[] = [], weights: number[] = [];
+  for (let k = 0; k < n; k += 1) {
+    nodes.push(Math.cos((Math.PI * (2 * k + 1)) / (2 * n)));
+    weights.push(k === 0 || k === n - 1 ? 1 : 2);
+  }
+  const coeffs: number[] = [];
+  for (let i = 0; i < n; i += 1) {
+    let sum = 0.0;
+    for (let k = 0; k < n; k += 1) {
+      const Tk = Math.cos(i * Math.acos(nodes[k]));
+      sum += weights[k] * power[k] * Tk;
+    }
+    coeffs.push(sum / n * (i === 0 ? 0.5 : 1) * 2 === 0 ? 0 : sum / n * (i === 0 ? 1 : 2) / 1);
+  }
+  return coeffs.map((c, i) => (i === 0 ? c / 2 : c));
+}
+
+/** The float truncation on one interval: returns the Chebyshev coefficients
+ * (full + kept) so the caller can evaluate the reduced series. */
+export function truncateFloat(power: number[], lo: number, hi: number, degree: number) {
+  // map to [-1, 1] and evaluate the power polynomial at the Chebyshev nodes
+  const n = power.length;
+  const mid = (lo + hi) / 2, half = (hi - lo) / 2;
+  const nodes: number[] = [], values: number[] = [];
+  for (let k = 0; k < n; k += 1) {
+    const u = Math.cos((Math.PI * (2 * k + 1)) / (2 * n));
+    const t = mid + half * u;
+    let value = 0.0;
+    for (let i = power.length - 1; i >= 0; i -= 1) value = value * t + power[i];
+    nodes.push(u); values.push(value);
+  }
+  // discrete Chebyshev transform (exact for polynomials of degree < n)
+  const coeffs: number[] = [];
+  for (let i = 0; i < n; i += 1) {
+    let sum = 0.0;
+    for (let k = 0; k < n; k += 1) {
+      sum += values[k] * Math.cos((i * Math.PI * (2 * k + 1)) / (2 * n));
+    }
+    coeffs.push(i === 0 ? sum / n : 2 * sum / n);
+  }
+  let bound = 0.0;
+  for (let i = degree + 1; i < n; i += 1) bound += Math.abs(coeffs[i]);
+  const evaluateReduced = (t: number): number => {
+    const u = (t - mid) / half;
+    let sum = 0.0;
+    for (let i = Math.min(degree, coeffs.length - 1); i >= 0; i -= 1) {
+      sum = sum * u + (i === 0 ? coeffs[i] / 2 : coeffs[i]);
+    }
+    return sum - (coeffs[0] / 2);
+  };
+  return { coeffs, bound, evaluateReduced };
+}

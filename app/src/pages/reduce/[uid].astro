@@ -1,41 +1,83 @@
 ---
 // The reduction desk: one curve, exact vs reduced, the miss drawn.
 //
-// The reducer runs server-side in BigInt fractions (the same exactness rule
-// as measure.ts). The figure rule (AGENTS.md): a plotted sequence is drawn as
-// a smooth cubic chain through the exact stations, never straight segments,
-// and the caption says the between-station drawing is approximate.
+// The desk computes in float64 — fast, no exact fractions on the page. The
+// proven bound is the same Sum|c_i| the pipeline records as an exact
+// fraction; the desk shows its decimal share and the verdict. The exact
+// Fraction variant is built by the reduction pipeline's records, not here.
+//
+// Figure rule (AGENTS.md): a plotted sequence is a smooth cubic chain through
+// the exact stations, never straight segments, and the caption says the
+// between-station drawing is approximate.
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { curvePolynomials, toFraction } from "../../lib/measure.ts";
-import { reduceCurve } from "../../lib/reduction/reduce.ts";
+import { truncateFloat } from "../../lib/reduction/reduce.ts";
 
 const { uid } = Astro.params;
 const repo = path.resolve(import.meta.dirname, "../../../..");
 const registry = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-registry.json"), "utf8"));
-const curve = registry.curves.find((c) => c.uid === uid);
-const valid = curve !== undefined && curve.speedX !== undefined && curve.speedY.length > 0;
-const u = valid ? curve.speedX.map((v: string) => toFraction(v)) : [];
-const v = valid ? curve.speedY.map((v: string) => toFraction(v)) : [];
-const { x: xPoly } = curvePolynomials(u, v);
-const exact = xPoly.map((f: any) => ({ n: f.n, d: f.d }));
-const reduced = valid ? reduceCurve(exact, 20.0, 11, 0.0005, 64) : null;
+const index = registry.curves.findIndex((c) => c.uid === uid);
+const valid = index >= 0;
+const curve = valid ? registry.curves[index] : null;
+const speedX: number[] = valid ? curve.speedX.map(Number) : [];
+const speedY: number[] = valid ? curve.speedY.map(Number) : [];
+const trim = (row: number[]) => { const r = [...row]; while (r.length && r[r.length - 1] === 0) r.pop(); return r.length; };
+const xDegree = valid ? trim(speedX) : 0;
+const yDegree = valid ? trim(speedY) : 0;
+const exactDegree = 2 * Math.max(xDegree, yDegree) + 1;
 
-const ev = (poly: any[], t: number) => poly.reduce((s: number, c: any, i: number) => s + Number(c.n) / Number(c.d) * Math.pow(t, i), 0);
+// the exact position polynomial x(t), integrated from the speed rows in floats
+let xPoly: number[] = [];
+let yPoly: number[] = [];
+if (valid) {
+  const integrate = (row: number[]) => {
+    const out: number[] = [0];
+    row.forEach((c, i) => out.push(out[i] + c / (i + 1)));
+    return out;
+  };
+  const usq: number[] = [], vsq: number[] = [], uv: number[] = [];
+  const u = speedX, v = speedY;
+  for (let i = 0; i < Math.max(u.length, v.length); i += 1) {
+    usq.push((u[i] ?? 0) * (u[i] ?? 0));
+    vsq.push((v[i] ?? 0) * (v[i] ?? 0));
+    uv.push(2 * (u[i] ?? 0) * (v[i] ?? 0));
+  }
+  xPoly = integrate(usq.map((c, i) => c - (vsq[i] ?? 0)));
+  yPoly = integrate(uv);
+  while (xPoly.length && xPoly[xPoly.length - 1] === 0) xPoly.pop();
+  while (yPoly.length && yPoly[yPoly.length - 1] === 0) yPoly.pop();
+}
+const evalPoly = (poly: number[], t: number) => poly.reduce((s, c, i) => s + c * Math.pow(t, i), 0);
+
+// the bound loop, in floats: split until the proven bound meets the dial
+const dial = 0.0005, maxPieces = 64;
+let pieces = 1, bound = Infinity, reducedEval: ((t: number) => number) | null = null;
+let splits = 0, met = false;
+if (valid) {
+  for (;;) {
+    let worst = 0.0;
+    let worstEval: ((t: number) => number) | null = null;
+    for (let i = 0; i < pieces; i += 1) {
+      const lo = i / pieces, hi = (i + 1) / pieces;
+      const piece = truncateFloat(xPoly, lo, hi, 11);
+      if (piece.bound > worst) { worst = piece.bound; worstEval = piece.evaluateReduced; }
+    }
+    bound = worst; reducedEval = worstEval;
+    if (bound / 20.0 <= dial || pieces >= maxPieces) { met = bound / 20.0 <= dial; splits = Math.log2(pieces); break; }
+    pieces *= 2;
+  }
+}
+
+const exactAt = (t: number) => evalPoly(xPoly, t);
+const reducedAt = (t: number) => (reducedEval ? reducedEval(t) : evalPoly(xPoly, t));
 const exactPts: [number, number][] = [];
 const reducedPts: [number, number][] = [];
+const missPts: [number, number][] = [];
 for (let k = 0; k <= 160; k += 1) {
   const t = k / 160;
-  exactPts.push([t, ev(xPoly, t)]);
-  let sum = 0;
-  for (const piece of reduced.pieces) {
-    if (t >= piece.lo && t <= piece.hi) {
-      sum = piece.coeffs.reduce((s: number, c: any, i: number) => s + Number(c.n) / Number(c.d) * Math.pow(t, i), 0);
-    }
-  }
-  reducedPts.push([t, sum]);
+  const x = exactAt(t), r = reducedAt(t);
+  exactPts.push([t, x]); reducedPts.push([t, r]); missPts.push([t, Math.abs(x - r)]);
 }
-const missPts: [number, number][] = exactPts.map(([t, x], i) => [t, x - reducedPts[i][1]]);
 
 function catmullPath(pts: [number, number][], sx: (v: number) => number, sy: (v: number) => number): string {
   let d = `M ${sx(pts[0][0]).toFixed(2)} ${sy(pts[0][1]).toFixed(2)}`;
@@ -47,47 +89,44 @@ function catmullPath(pts: [number, number][], sx: (v: number) => number, sy: (v:
   }
   return d;
 }
-const W = 900, H = 420, PAD = 40;
-const allY = [...exactPts.map((p) => p[1]), ...missPts.map((p) => Math.abs(p[1]))];
-const yMax = Math.max(...allY.map(Math.abs)) || 1;
+const W = 900, H = 380, PAD = 40;
+const xMin = Math.min(...exactPts.map((p) => p[1]), ...reducedPts.map((p) => p[1]));
+const xMax = Math.max(...exactPts.map((p) => p[1]), ...reducedPts.map((p) => p[1]));
+const missMax = Math.max(...missPts.map((p) => Math.abs(p[1]))) || 1;
 const sx = (t: number) => PAD + t * (W - 2 * PAD);
-const sy = (y: number) => H / 2 - (y / yMax) * (H / 2 - PAD);
-const missSy = (y: number) => H + 40 + (Math.abs(y) / (yMax || 1)) * 120;
-const fNum = (f: any) => { const d = Math.max(String(f.n < 0n ? -f.n : f.n).length, String(f.d).length) - 12;
-  if (d > 0) { const scale = 10n ** BigInt(d); return Number(f.n / scale) / Number(f.d / scale); }
-  return Number(f.n) / Number(f.d); };
+const sy = (y: number) => H / 2 - ((y - (xMin + xMax) / 2) / ((xMax - xMin) / 2 || 1)) * (H / 2 - PAD);
+const missSy = (y: number) => H + 40 + (y / (missMax || 1)) * 120;
+const boundShare = bound / 20.0;
 ---
-
 <div style="background:#fffdf7;max-width:1180px;margin:0 auto;padding:0 1.25rem 3.5rem;font:16px/1.5 Georgia,serif;color:#3b2d1c">
-<h1>{valid ? curve.name : "unknown curve"} <small style="font-size:14px;color:#7a6a55">{uid} · reduced to degree 11 in 2 pieces</small></h1>
-<p>Exact position polynomial (degree {xPoly.filter((f: any) => f.n !== 0n).length - 1} after trimming) against the
-reduced degree-11 approximation. <b>The drawing between stations is approximate;</b> the stations and the miss
-number are exact.</p>
+<h1>{valid ? curve.name : "unknown curve"} <small style="font-size:14px;color:#7a6a55">{uid} · reduced to degree 11 · {pieces} piece{pieces === 1 ? "" : "s"} ({splits} halvings)</small></h1>
+<p style="color:#5a4a36">Exact position polynomial (degree {exactDegree}) against the
+reduced degree-11 form. <b>The drawing between stations is approximate;</b> the
+bound is the proven Chebyshev truncation bound. The desk computes in float64 —
+the exact Fraction record belongs to the reduction pipeline, not the page.</p>
 
-<svg viewBox="0 0 {W} {H + 220}" width="100%" role="img" aria-label="exact vs reduced">
-  <rect width="{W}" height="{H + 220}" fill="#fffef9"/>
+<svg viewBox="0 0 {W} {H + 200}" width="100%" role="img" aria-label="exact vs reduced">
+  <rect width="{W}" height="{H + 200}" fill="#fffef9"/>
   <line x1="{PAD}" y1="{H/2}" x2="{W-PAD}" y2="{H/2}" stroke="#b9a98a"/>
-  <line x1="{PAD}" y1="20" x2="{PAD}" y2="{H-20}" stroke="#b9a98a"/>
-  <path d={catmullPath(missPts.map(([t, y]) => [t, Math.abs(y)]), sx, missSy)} fill="none" stroke="#a33" stroke-width="1.4"/>
   <path d={catmullPath(exactPts, sx, sy)} fill="none" stroke="#141414" stroke-width="1.8"/>
   <path d={catmullPath(reducedPts, sx, sy)} fill="none" stroke="#1a6b3c" stroke-width="1.2" stroke-dasharray="5 3"/>
   <g font="11px ui-monospace,Menlo,monospace" fill="#7a6a55">
-    <text x="{PAD}" y="{H + 16}">miss |exact − reduced|, magnified on the same t axis (red)</text>
-    <text x="{W - PAD}" y="{H + 16}" text-anchor="end">t: 0 → 1</text>
+    <text x="{PAD}" y="{H + 14}">exact (black) vs reduced degree-11 (green dashed)</text>
   </g>
+  <line x1="{PAD}" y1="{H + 40}" x2="{W - PAD}" y2="{H + 40}" stroke="#b9a98a"/>
+  <path d={catmullPath(missPts, sx, missSy)} fill="none" stroke="#a33" stroke-width="1.4"/>
+  <text x="{PAD}" y="{H + 190}" fill="#a33" font="11px ui-monospace,Menlo,monospace">miss |exact − reduced| · worst {(missMax * 100).toFixed(2)}% of the y range shown</text>
 </svg>
 
 <table style="border-collapse:collapse;font:13px ui-monospace,Menlo,monospace;margin:12px 0">
 <tr><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">measure</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">value</th></tr>
-<tr><td style="border:1px solid #e6dccb;padding:4px 10px">exact curve degree</td><td style="border:1px solid #e6dccb;padding:4px 10px">{reduced.degree > 0 ? reduced.degree + 1 : 0} (trimmed)</td></tr>
-<tr><td style="border:1px solid #e6dccb;padding:4px 10px">reduced degree</td><td style="border:1px solid #e6dccb;padding:4px 10px">{reduced.degree}</td></tr>
-<tr><td style="border:1px solid #e6dccb;padding:4px 10px">pieces chosen by the bound loop</td><td style="border:1px solid #e6dccb;padding:4px 10px">{reduced.piecesCount} ({reduced.splits} halvings)</td></tr>
-<tr><td style="border:1px solid #e6dccb;padding:4px 10px">under the dial (0.05 % of size)?</td><td style="border:1px solid #e6dccb;padding:4px 10px">{reduced.met ? "yes" : "NO — the curve is genuinely over-degree"}</td></tr>
-<tr><td style="border:1px solid #e6dccb;padding:4px 10px">proven miss bound (exact fraction)</td><td style="border:1px solid #e6dccb;padding:4px 10px;font-size:11px">{reduced.bound.n.toString()}/{reduced.bound.d.toString()}</td></tr>
-<tr><td style="border:1px solid #e6dccb;padding:4px 10px">worst piece</td><td style="border:1px solid #e6dccb;padding:4px 10px">[{reduced.pieces.reduce((best: any, p: any) => (fNum(p.tailBound) > fNum(best.tailBound) ? p : best)).lo.toFixed(3)} → {reduced.pieces.reduce((best: any, p: any) => (fNum(p.tailBound) > fNum(best.tailBound) ? p : best)).hi.toFixed(3)}]</td></tr>
-<tr><td style="border:1px solid #e6dccb;padding:4px 10px">proven bound, share of size (20 mm)</td><td style="border:1px solid #e6dccb;padding:4px 10px">{(reduced.boundShare * 100).toExponential(2)} %</td></tr>
+<tr><td style="border:1px solid #e6dccb;padding:4px 10px">exact curve degree</td><td style="border:1px solid #e6dccb;padding:4px 10px">{exactDegree}</td></tr>
+<tr><td style="border:1px solid #e6dccb;padding:4px 10px">pieces chosen by the bound loop</td><td style="border:1px solid #e6dccb;padding:4px 10px">{pieces} ({splits} halvings)</td></tr>
+<tr><td style="border:1px solid #e6dccb;padding:4px 10px">proven miss bound, share of size (20 mm)</td><td style="border:1px solid #e6dccb;padding:4px 10px">{(boundShare * 100).toExponential(2)} %</td></tr>
+<tr><td style="border:1px solid #e6dccb;padding:4px 10px">under the dial (0.05 % of size)?</td><td style="border:1px solid #e6dccb;padding:4px 10px">{met ? "yes" : "NO — the curve is genuinely over-degree"}</td></tr>
 </table>
-<p style="color:#5a4a36">The exact fraction is the honest number; the share is the dial reading.
-The exact curve stays in storage untouched — this reduced form is a candidate variant,
-announced through the NURBS Project protocol only if you pick it.</p>
+<p style="color:#5a4a36">The bound is the proven Chebyshev truncation bound (Sum of the
+dropped coefficients' magnitudes). The exact Fraction record is built by the
+reduction pipeline if you announce the variant — it is not shown on the page,
+by design: it is hundreds of digits and it is not the decision.</p>
 </div>
