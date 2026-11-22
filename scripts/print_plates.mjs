@@ -16,8 +16,7 @@ import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
 import { turn, frame as frameFor } from "./lib/plate-frame.mjs";
-import { rowFor as plateRow } from "./lib/plate-row.mjs";
-import { partnersOf } from "./lib/plate-partner.mjs";
+import { rowFor as plateRow, symmetricStrength } from "./lib/plate-row.mjs";
 
 // d3 does the geometry: the extents and the line generator. It is a dependency the app
 // already carries (app/node_modules), so the plate uses the same library as the pages.
@@ -127,24 +126,32 @@ function plateSvg(record) {
   const degrees = Number(record.transform?.degrees || 0);
   let spine;
   let rails = [];
+  // The offset curves: one character law, the two sides the same strength (the average of
+  // the saved pair), the profile zero at both ends so the start and end gaps are the base.
+  // No scaling of the drawn curve (2026-11-21, the operator: "the offset curves should look
+  // the same on both sides, not thin on the right and wide on the left").
+  const strength = symmetricStrength(row.character.plus, row.character.minus);
+  const character = { ...row.character, plus: strength, minus: strength };
   if (Array.isArray(record.path) && record.path.length > 2) {
-    // A stored path is a construction, not a normal offset: the side curves are the same
-    // path scaled about the construction centre (the origin). The double's half radius,
-    // the hybrid's middle weight and the mobile's arm all change by that scale, and a
-    // scaled copy cannot tangle (docs/SIDE-CURVES.md §1, §5, §9).
-    const d = Math.max(0.001, Math.abs(Number(row.width.percent) || 0) / 100);
-    spine = record.path.map(([x, y]) => [x, y]);
-    const { right, left } = partnersOf(spine, d);
-    rails = [right, left];
+    const group = PLATE.pathGroup(record.path, {
+      widthPercent: row.width.percent, plus: strength, minus: strength,
+      profile: row.character.profile,
+    });
+    if (group && group.paths.length) {
+      spine = group.paths[0];
+      rails = group.paths.slice(1);
+    } else {
+      spine = record.path.map(([x, y]) => [x, y]);
+    }
   } else {
-    // A row's side curve is the same speed rows scaled by (1 ∓ d), so the position is
-    // scaled by (1 ∓ d)² about the origin (docs/SIDE-CURVES.md §5). A scaled copy cannot
-    // fold; the character band is the tune page's law, not the plate's side curve.
-    const d = Math.max(0.001, Math.abs(Number(row.width.percent) || 0) / 100);
-    const pts = PLATE.spine(row.speedX, row.speedY, 700).map((s) => [s.x, s.y]);
-    spine = pts;
-    const { right, left } = partnersOf(pts, d, 2);
-    rails = [right, left];
+    let group = null;
+    try { group = PLATE.group ? PLATE.group({ ...row, character }) : null; } catch { group = null; }
+    if (group && group.paths && group.paths.length) {
+      spine = group.paths[0];
+      rails = group.paths.slice(1);
+    } else {
+      spine = PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]);
+    }
   }
   spine = turn(spine, degrees);
   rails = rails.map((rail) => turn(rail, degrees));

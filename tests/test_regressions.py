@@ -224,18 +224,19 @@ class DevServerHostTest(unittest.TestCase):
         self.assertIn("--host 127.0.0.1", package["scripts"]["dev"])
 
 
-class SideCurvePartnerTest(unittest.TestCase):
-    def test_the_side_curves_are_the_construction_partners(self):
-        """The operator, 2026-11-21: "c-0273 to whatever are wrong wrong wrong ... give the
-        offset curves as they should be", then "finish go fast". docs/SIDE-CURVES.md §1 and
-        §5: a side curve is the same construction with one parameter shifted, never a
-        parallel offset. The stored paths scale linearly; a row's speed rows scale by
-        (1 ∓ d), so its position scales by (1 ∓ d)². A scaled copy cannot tangle."""
+class SideCurveOffsetTest(unittest.TestCase):
+    def test_the_offset_curves_are_equal_on_both_sides(self):
+        """The operator, 2026-11-21: "it looks like you just took the original curve and scaled
+        it... the offset curves should look the same on both sides of the curve, not thin on the
+        right and wide on the left... if the difference at the end is 10x 10y, then move the
+        starting position by 5 x and 5 y to balance." The two sides take one strength (the
+        average of plus and minus); the profile is zero at both ends, so the start and end gaps
+        are equal. The next session moves the curve's starting point where they are not."""
         node = shutil.which("node")
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
-            [node, "--test", str(ROOT / "tests" / "js" / "plate-partner.test.mjs")],
+            [node, "--test", str(ROOT / "tests" / "js" / "plate-offset.test.mjs")],
             capture_output=True, text=True, cwd=ROOT,
         )
         self.assertEqual(run.returncode, 0, run.stdout + run.stderr)

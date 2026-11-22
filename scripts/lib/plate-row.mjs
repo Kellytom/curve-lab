@@ -12,6 +12,13 @@
 // for a better preset level."
 export const DEFAULTS = { widthPercent: 1, plus: 2.5, minus: 0.1, profile: "bow" };
 
+// The operator, 2026-11-21: "the offset curves should look the same on both sides of the
+// curve, not thin on the right and wide on the left." The two sides take one strength, the
+// average of the saved pair; the profile is zero at both ends, so the start and end gaps are
+// the base and the ends balance.
+export const symmetricStrength = (plus, minus) =>
+  (Math.abs(Number(plus) || 0) + Math.abs(Number(minus) || 0)) / 2;
+
 // A zero in a note is the placeholder the 2026-11 note migration wrote, not a choice: every
 // plate then drew a 0 % parallel band. The note wins only when it holds a real value; a zero
 // falls through to the desk row, then the default. A deliberate zero belongs in the desk row.
