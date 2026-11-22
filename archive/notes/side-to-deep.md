@@ -67,3 +67,12 @@ Next: model.py, then svg.py.
 - The variant proposal was POSTed through /api/sandbox-curves (HTTP 200, {"saved":1}): candidate `c-0002a` "euler-hook-end-edited" sits in the sandbox table with base_uid c-0002, the acted top coefficient (speedX[5] = −0.1), transform exact:true, origin "inkscape-roundtrip". 155 rows in the table; awaiting your promotion flow (/names or the desk) — it is a genuine product of the round trip, not a test row.
 - The receive extension gained --variant (prints the proposal) and --post <url> (POSTs it to the sandbox endpoint, stdlib urllib). The full loop: registry → send (Inkscape runtime) → Inkscape load/save → drag → receive+snap → acted recipe → variant proposal → sandbox candidate.
 - One design rule surfaced and applied: a translation is a view, not a curve — translated placements are refused as variants (the offset stays in the SVG); rotations, scales, mirrors and end-edits bake into the rows exactly.
+
+---
+
+2026-11-22 · sidechat · the speed-space re-fit exists, and the census answers R1's open question
+
+- The next hardest thing was the speed-space re-fit — find speed rows of degree 5 (position 11, rails 9 — both gates legal) that best reproduce a curve designed at a higher degree. Built as `reduction/speed_fit.py`: a float64 Gauss-Newton search (the machinery is not the claim) whose result is quantized to exact Fractions and JUDGED exactly (L² is a rational; station misses are exact squared distances). Guarded by `tests/test_speed_fit.py` (5 tests, including the recovery-at-own-degree law on a 5e7-coefficient curve).
+- The census (`reduction/speed_fit_census.py` → `workbench/speed-fit-census.json`, 110 over-ceiling curves, seconds): the FIT family reduces cleanly to speed 5 — catenary-fit **0.0000 units**, euler-fit 0.0012, gumdrop 0.0016, involute-fit 0.0408, logspiral-fit 0.3929. The wave/loop/lace families genuinely reject it (wave-1of8-4 misses 122 units, the loops 1e9+). The speed-space re-fit handles exactly the curves the sibling map was for in the fit family; the wave/loop families stay the sibling map's job.
+- Register row 56: the first verdict floor was quantization in normalized coordinates (6 dp of a normalized row = 50 units on a 5e7 coefficient; the derivative is quadratic, so the own-degree recovery reported l2 2e11). Fixed to 15 places; the recovery law guards it.
+- For the prefer-7 track: c-0002 (euler-hook) at speed 3 misses 0.0196 units, c-0059 (lace-1of10-3-2) at speed 3 misses 2.12 — the hook can live at position 7, the lace cannot.

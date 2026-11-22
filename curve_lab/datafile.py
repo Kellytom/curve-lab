@@ -41,6 +41,7 @@ FORMATS = {
     "coupler-curves.json": "curve-lab.coupler-curves/1",
     "bezier-knots.json": "curve-lab.bezier-knots/1",
     "nurbs-inventory.json": "curve-lab.nurbs-inventory/1",
+    "speed-fit-census.json": "curve-lab.speed-fit-census/1",
     "hybrid-candidates.json": "curve-lab.hybrid-candidates/1",
     "hybrid-formulas.json": "curve-lab.hybrid-formulas/1",
     "hybrids.json": "curve-lab.hybrids/1",

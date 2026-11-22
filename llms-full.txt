@@ -4038,6 +4038,26 @@ curve in /plates ... all with UIDs".
   `distance × peak ≤ 0.9`; the used width is the largest safe width, so the band never narrows
   as the slider rises. Halving made it jump (`c-0002`: 2.2 % → 1.15 % at the next step).
 
+## A band may break at a sharp turn, in the drawing only — 2026-11-22
+
+The operator: "Break the band at each sharp turn", then "but only for display purposes. keep it
+internally as an equation we can send back and forth to inkscape".
+
+- **The record stays one continuous equation.** A row curve keeps its speed pair, a stored curve
+  its path; no segment, break or cap is stored, and nothing about the break is written to
+  `data/`, the registry or the database.
+- **The break is computed at render time** (`workbench/plate_math.js` → `splitGroup`): the
+  curvature is evaluated along the curve, and the band is drawn only where the asked width and
+  its bow fit under the fold limit (`distance × curvature ≤ 0.9`). The pen lifts across a turn
+  and starts again after it, tapering onto the spine over about an eighth of each run.
+- **A break is the fallback, not the default.** If the curve can carry a continuous band at
+  some visible width (the uniform guard's safe width ≥ 0.2 %), that whole band is drawn and no
+  break is made. Only a curve the uniform guard would refuse — 102 of the 371 today — is drawn
+  in runs, at the asked 4 %.
+- **Measured:** after the change every one of the 371 plates draws a band (269 continuous, 102
+  in runs); before it, 100 were plain spines. `c-0046` (wave-1of14-3) goes from a bare spine to
+  four runs.
+
 ## The unsaved default is 4 %, and an outline keeps its precision — 2026-11-21
 
 - **A curve with no desk row starts at width 4 %**, plus 2.5, minus 0.1, bow. A saved row always
@@ -4304,6 +4324,7 @@ spine, the fit is under tolerance, and the cap name is not double-prefixed.
 | 53 | 2026-11-21 | "it looks like you just took the original curve and scaled it ... the offset curves should look the same on both sides of the curve, not thin on the right and wide on the left ... if the difference at the end is 10x 10y, then move the starting position by 5 x and 5 y to balance": the plates drew the side curves as scaled copies about the origin, so the right side was thin and the left wide and the start and end did not balance | `tests/test_regressions.py` (`test_the_offset_curves_are_equal_on_both_sides`, running `tests/js/plate-offset.test.mjs`: the two sides take the average strength; the gaps match station for station; the start and end gaps match) | the offset curves are the character rails with one strength (the average of plus/minus) and the profile zero at both ends; no scaling of the drawn curve. The starting-point shift is the next focus |
 | 56 | 2026-11-22 | "i cant see how many curves to do because the page keeps refreshing constantly": the launch agent re-ran `npm run dev` every ten seconds; it failed on Node 22, but its `predev` step still ran the ornament writer, which **deleted the folder and rewrote all 371 SVGs** each time, and the dev server watches that folder | `tests/test_regressions.py` (`OrnamentWriterTest`: an unchanged file keeps its inode and mtime; the writer does not wipe its folder) running `tests/js/write-if-changed.test.mjs` | the ornament writer touches only files whose bytes change, so a restart or a re-run cannot reload the operator's page |
 | 55 | 2026-11-21 | the round-trip's translate shifted node 8 (t = 0.25) by 0.1333 for a declared 0.1: the offset was added to every position coefficient, so the shift grew as 1 + t + t² + … and the "translation" was a different curve; the first unit test passed because it checked the coefficient difference, which the wrong form also satisfies | `tests/test_ph_actions.py` (`test_translate_moves_the_offset_and_not_the_rows`: only the constant term moves; every other coefficient equal) and `tests/test_ph_roundtrip.py` (the snap against Inkscape 1.4.4's own re-serialized file, fixture `tests/fixtures/through-inkscape-c-0002.svg`) found while snapping a real drag through Inkscape | a translation enters the constant term alone; the drag→action snap is tested against Inkscape's own file precision, not just against self-produced numbers |
+| 56 | 2026-11-22 | the speed-space re-fit's verdict floor was the quantization, not the fit: rows were quantized at six decimals in NORMALIZED coordinates, so on the large-coefficient families (c-0253's rows ~5e7) one row carried 50 units of rounding error, the derivative is quadratic in the rows, and the "best fit" at the curve's OWN degree reported l2 2e11 and a station miss of 1.4e5 — the fit had recovered the curve, the verdict was measuring its own rounding | `tests/test_speed_fit.py` (`test_a_large_coefficient_curve_recovers_at_its_own_degree`: c-0253 at speed 7 recovers with l2 exactly 0; and the six-decimal assertion was removed from the lower-degree test because it encoded the fault) | the quantization precision must sit far below the rows' own scale (15 places now); the recovery-at-own-degree law is the guard for any future change to the verdict side |
 
 
 <!-- source: state/DATA-int.md -->
@@ -4402,6 +4423,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
 | `nurbs-inventory.json` | `curve-lab.nurbs-inventory/1` | cache | the session's degree sweep | the NURBS-readiness analysis (`state/SC-NURBS-int.md`) |
+| `speed-fit-census.json` | `curve-lab.speed-fit-census/1` | cache | `reduction/speed_fit_census.py` | the R1 decision: which over-ceiling curves a speed-space re-fit serves (the fit family) and which need a sibling |
 | `hybrids.json` | `curve-lab.hybrids/1` | cache | `scripts/hybrid_figures.py` | the `/hybrids` page, `scripts/promote_saved.py` |
 | `wonkies.json` | `curve-lab.wonkies/1` | cache | `scripts/make_wonkies.py` | `/hybrids-wonk/`, `scripts/make_doubles.py` |
 | `doubles.json` | `curve-lab.doubles/1` | cache | `scripts/make_doubles.py` | `/hybrids-wonk/`, `/hybrids/` |

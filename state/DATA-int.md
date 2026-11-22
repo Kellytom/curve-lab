@@ -92,6 +92,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
 | `nurbs-inventory.json` | `curve-lab.nurbs-inventory/1` | cache | the session's degree sweep | the NURBS-readiness analysis (`state/SC-NURBS-int.md`) |
+| `speed-fit-census.json` | `curve-lab.speed-fit-census/1` | cache | `reduction/speed_fit_census.py` | the R1 decision: which over-ceiling curves a speed-space re-fit serves (the fit family) and which need a sibling |
 | `hybrids.json` | `curve-lab.hybrids/1` | cache | `scripts/hybrid_figures.py` | the `/hybrids` page, `scripts/promote_saved.py` |
 | `wonkies.json` | `curve-lab.wonkies/1` | cache | `scripts/make_wonkies.py` | `/hybrids-wonk/`, `scripts/make_doubles.py` |
 | `doubles.json` | `curve-lab.doubles/1` | cache | `scripts/make_doubles.py` | `/hybrids-wonk/`, `/hybrids/` |
