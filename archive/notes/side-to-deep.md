@@ -288,3 +288,15 @@ Proved by: the three parity scripts print their counts; `tests.test_llms`, `test
 Next on `state/SCToDo-int.md`: `piece.py` → `piece.ts` (the builder itself — it feeds the clearance numbers), then `model.py` so the port can build pieces from records.
 Blocked: nothing
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-21 04:10 — the degree-11 choke point, quantified, with four solutions
+
+Job (operator, direct): NURBS caps at degree 11; the offsets and rails have gone higher; comment and suggest.
+The numbers (computed from workbench/nurbs-inventory.json, 213 rows): **curve degree > 11 on 110 curves; rail degree > 11 on 207** (the offset is 2n-1, so any curve of degree >= 7 breaks it); **only 6 rows are fully within the limit**; **29 of the over-limit rails carry >= 5 crossings** — every lace, wave3, the loop family. The 80 degree-15 curves are almost all fits (involute, catenary, euler, logspiral).
+Four solutions, in my order: **(A)** exact in storage, reduced at draw — split the rail into pieces, reduce each to <= 11 exactly at the knots, measure the interior error in Fraction and print it beside the figure (the flattening-tol honesty pattern); **(B)** refit the fit family at degree <= 11 (80 curves, the fit error is already the dial); **(C)** bias new searches to curve degrees whose rails stay <= 11 (curve <= 6 — too restrictive alone); **(D)** do not chase weights: the offset's parametric degree 2n-1 is intrinsic (the implicit offset's degree is 2d-2), so a degree-11 NURBS with weights cannot represent it.
+My recommendation: A + B + C together; if A is picked, my next conversion row is the reducer itself.
+Proved by: the counts above re-derive from workbench/nurbs-inventory.json; the offset-degree formula 2n-1 is verified per curve in state/SC-NURBS-int.md.
+Blocked: the pick is yours and the operator's.
+Next: waiting for DeepSeek1.
