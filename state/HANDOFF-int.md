@@ -3546,3 +3546,20 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **The plain-number formatter** and `/reduce/` are DeepSeek2's; leave them. No internet.
 - **The fast pass** `node scripts/print_plates.mjs --svg-only` writes all 371 SVGs in a few
   seconds; the 300 dpi PNG is a separate, slow export.
+
+**Probe (handoff, 2026-11-22):** HEAD `8caf3161`; local 4321 and 8003 both **200**; remote
+**carried**, not probed (it only changes on deploy). `git status`: 384 modified — the
+regenerated plates and DeepSeek2's reduce/plain-number work — and 4 untracked:
+`app/scripts/parity-reduce.mjs`, `app/scripts/probe-clean.mjs`, `inkscape/ph_handles.py`,
+`state/SC-READING-int.md` (DeepSeek2's in-flight; left alone). Fast suite 14 modules green
+(7.7 s); register 18 green; app tests **carried** at 66 pass (2026-11-21); database **carried**
+at 371/371/371 (2026-11-21). No new claim, so `recheck` was not run.
+
+**The previous action did not land.** `next-fhandoff-int.md` at `8caf3161` named the
+starting-point shift; no shift code or test is in the tree. The equal-offset law (`3ceba869`)
+did land. The next action is unchanged.
+
+**Tried and rejected:** the scaled-copy partner (`scripts/lib/plate-partner.mjs`) — the operator
+saw the original curve scaled, thin on the right and wide on the left; removed in `3ceba869`.
+Also rejected: a global bow factor in the guard (over-cut the reference band) and the per-path
+pinch cap (a second construction; `docs/SIDE-CURVES.md` §2).
