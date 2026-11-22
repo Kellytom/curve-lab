@@ -252,6 +252,18 @@
     for (let i = 1; i < samples.length; i += 1) {
       arc.push(arc[i - 1] + Math.hypot(samples[i].x - samples[i - 1].x, samples[i].y - samples[i - 1].y));
     }
+    // A corner's offset is a miter: the rail shoots out along the bisector and back, which
+    // reads as a bevel on the outside edge. Smoothing the normal over a few stations rounds
+    // that corner without moving the spine or the distance law.
+    const smoothNormals = samples.map((s, i) => {
+      let nx = 0, ny = 0;
+      for (let k = -2; k <= 2; k += 1) {
+        const n = samples[Math.max(0, Math.min(samples.length - 1, i + k))];
+        nx += n.nx; ny += n.ny;
+      }
+      const len = Math.hypot(nx, ny) || 1;
+      return [nx / len, ny / len];
+    });
     const railFor = (sign, strength) => {
       const room = samples.map((s, i) => {
         const factor = 1 + clamp(strength) * profileAt(profileName, s.t);
@@ -262,7 +274,8 @@
       });
       // Row curvature is analytic and smooth, so the ceiling needs no smoothing here: a
       // slope limit would drag a short tight bend's thin width along the whole curve.
-      return samples.map((s, i) => [s.x + sign * room[i] * s.nx, s.y + sign * room[i] * s.ny]);
+      return samples.map((s, i) => [s.x + sign * room[i] * smoothNormals[i][0],
+        s.y + sign * room[i] * smoothNormals[i][1]]);
     };
     const rails = [];
     let note;
@@ -604,6 +617,17 @@
     // Per station, as on a row curve: the inside of a turn is capped at the local safe
     // distance, the outside keeps the asked width.
     let wasCut = false;
+    // Round the miter at a corner: a smoothed tangent spreads the outside rail's spike over
+    // a few stations instead of shooting out and back (the "bevel" the operator saw).
+    const smoothTangents = tangents.map((t, i) => {
+      let tx = 0, ty = 0;
+      for (let k = -6; k <= 6; k += 1) {
+        const n = tangents[Math.max(0, Math.min(tangents.length - 1, i + k))];
+        tx += n[0]; ty += n[1];
+      }
+      const len = Math.hypot(tx, ty) || 1;
+      return [tx / len, ty / len];
+    });
     const railFor = (side, strength) => {
       const room = walk.map((p, i) => {
         const factor = 1 + clamp(strength) * profileAt(profile, arc[i] / total);
@@ -618,7 +642,7 @@
       // whole curve thin.
       const distance = pinchCap(room, arc, 0.4);
       return walk.map((p, i) => {
-        const [tx, ty] = tangents[i];
+        const [tx, ty] = smoothTangents[i];
         const d = side * distance[i];
         return [p[0] - ty * d, p[1] + tx * d];
       });
@@ -647,7 +671,64 @@
              buckles, buckleNote, note };
   }
 
+  // Where a drawn rail crosses itself. Those are the future cut points: a rail that closes a
+  // loop on itself has to be cut there before it can be a printed side curve. Non-adjacent
+  // segments only, and a cell grid keeps it near linear for a 1600-point rail.
+  function selfIntersections(points, cell = 0) {
+    const pts = (points || []).filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
+    if (pts.length < 4) return [];
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    const size = Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) || 1;
+    const step = cell > 0 ? cell : size / 64;
+    const buckets = new Map();
+    const keyOf = (x, y) => `${Math.floor(x / step)},${Math.floor(y / step)}`;
+    for (let i = 0; i < pts.length - 1; i += 1) {
+      const [x0, y0] = pts[i], [x1, y1] = pts[i + 1];
+      const xa = Math.floor(Math.min(x0, x1) / step), xb = Math.floor(Math.max(x0, x1) / step);
+      const ya = Math.floor(Math.min(y0, y1) / step), yb = Math.floor(Math.max(y0, y1) / step);
+      for (let gx = xa; gx <= xb; gx += 1) {
+        for (let gy = ya; gy <= yb; gy += 1) {
+          const key = `${gx},${gy}`;
+          if (!buckets.has(key)) buckets.set(key, []);
+          buckets.get(key).push(i);
+        }
+      }
+    }
+    const seen = new Set();
+    const hits = [];
+    const cross = (a, b, c, d) => {
+      const r = [b[0] - a[0], b[1] - a[1]];
+      const q = [d[0] - c[0], d[1] - c[1]];
+      const den = r[0] * q[1] - r[1] * q[0];
+      if (Math.abs(den) < 1e-12) return null;
+      const t = ((c[0] - a[0]) * q[1] - (c[1] - a[1]) * q[0]) / den;
+      const u = ((c[0] - a[0]) * r[1] - (c[1] - a[1]) * r[0]) / den;
+      if (t <= 1e-9 || t >= 1 - 1e-9 || u <= 1e-9 || u >= 1 - 1e-9) return null;
+      return [a[0] + t * r[0], a[1] + t * r[1]];
+    };
+    for (const list of buckets.values()) {
+      for (let i = 0; i < list.length; i += 1) {
+        for (let j = i + 1; j < list.length; j += 1) {
+          const a = list[i], b = list[j];
+          if (Math.abs(a - b) < 2) continue;       // sharing a station is not a crossing
+          const pair = a < b ? `${a}:${b}` : `${b}:${a}`;
+          if (seen.has(pair)) continue;
+          seen.add(pair);
+          const hit = cross(pts[a], pts[a + 1], pts[b], pts[b + 1]);
+          if (hit) hits.push({ x: hit[0], y: hit[1], a, b });
+        }
+      }
+    }
+    // one dot per crossing place, not per segment pair
+    const merged = [];
+    for (const hit of hits) {
+      if (!merged.some((m) => Math.hypot(m.x - hit.x, m.y - hit.y) < size * 0.002)) merged.push(hit);
+    }
+    return merged;
+  }
+
   return { value, spine, curvaturePeak, curvatureWorst, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
+           selfIntersections,
            profileAt,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };

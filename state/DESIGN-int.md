@@ -886,6 +886,24 @@ hairline whenever one side was tight. What stands is the operator's own explanat
   gap), `widthPlus`, `widthMinus`, `buckles` and a `buckleNote` naming the cut side;
   `/tune/<uid>` prints it, and draws the wide side a second time at 1.5× in amber as a guide.
 
+## The outside rail's self-crossings are cut points — 2026-11-22
+
+The operator: "find the intersection points of the outside curve with itself on curves like
+c-0273 to c-0337 and mark with a dot. that is a future cut point".
+
+- **Where the outside rail crosses itself, the rail has to be cut** before it can be a printed
+  side curve: a band that closes a loop on itself cannot be one stroke.
+- **The plate marks each crossing with a red dot** (`#b03a2e`, 1 % of the long side). The dots
+  are a working mark, not part of the book plate; they come off when the set is cut.
+- **The points are written to `book/print/cuts.json`** in model coordinates, one entry per
+  curve, found by `selfIntersections` in `workbench/plate_math.js` (a cell grid keeps it near
+  linear on a 1600-point rail). Measured today: 276 curves, 864 points.
+- **The band fill is `nonzero`,** so a rail crossing itself fills as one solid shape instead of
+  bevelling out the overlap.
+- **A corner's outside offset is a miter.** Smoothing the normal over a few stations rounds the
+  common corners; the very sharpest still show a barb, because rounding a cusp's offset needs
+  an inserted arc around the corner. That is the next step if the operator wants it.
+
 ## The unsaved preset is a measured 1 % gap — 2026-11-22
 
 - **A curve with no saved width is drawn at a 1 % gap**, plus 2.5, minus 0.1, bow. A saved

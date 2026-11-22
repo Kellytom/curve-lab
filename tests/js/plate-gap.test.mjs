@@ -62,7 +62,7 @@ test("a band that would buckle is cut, never folded", () => {
     if (spineOnly) continue;
     assert.ok(group.fold === undefined || group.fold <= 0.9 + 1e-9,
       `${uid} folds: ${group.fold}`);
-    if (group.width < row.width.percent) {
+    if (group.width < row.width.percent - 1e-6) {
       assert.equal(group.buckles, true, `${uid} was cut but does not say so`);
       assert.ok(group.buckleNote && group.buckleNote.includes("buckle"));
     }

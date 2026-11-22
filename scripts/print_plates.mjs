@@ -163,10 +163,24 @@ function plateSvg(record) {
       segments = [{ spine: PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]), rails: [] }];
     }
   }
+  // The future cut points: where the outside rail crosses itself. Measured on the unturned
+  // geometry so the points can be used to cut the curve later, then turned with it.
+  const cuts = [];
+  for (const segment of segments) {
+    const rails = segment.rails.slice(0, 2).filter((rail) => rail && rail.length > 3);
+    if (rails.length < 2) continue;
+    const gapOf = (rail) => rail.reduce((most, p, i) =>
+      Math.max(most, Math.hypot(p[0] - segment.spine[i][0], p[1] - segment.spine[i][1])), 0);
+    const outer = gapOf(rails[0]) >= gapOf(rails[1]) ? rails[0] : rails[1];
+    for (const hit of PLATE.selfIntersections(outer)) {
+      cuts.push({ x: hit.x, y: hit.y, uid: record.uid });
+    }
+  }
   segments = segments.map((segment) => ({
     spine: turn(segment.spine, degrees),
     rails: segment.rails.map((rail) => turn(rail, degrees)),
   }));
+  const cutPoints = cuts.map((hit) => turn([[hit.x, hit.y]], degrees)[0]);
 
   const all = segments.flatMap((segment) => [...segment.spine, ...segment.rails.flat()]);
   const [x0, x1] = d3.extent(all, (p) => p[0]);
@@ -196,8 +210,11 @@ function plateSvg(record) {
   const axis = px([axisX, 0])[0].toFixed(2);
   // the bands: between each rail and the spine, filled. The right rail's band is the dark
   // grey, the left rail's the light one; the spine and the rails are then stroked on top.
+  // nonzero, not even-odd: where the rail crosses itself the band must fill as one solid
+  // shape, not bevel out the overlap.
   const band = (segment, rail, fill) => (rail && rail.length > 2)
-    ? `<path d="${gen([...segment.spine, ...[...rail].reverse()])}Z" fill="${fill}" stroke="none"/>`
+    ? `<path d="${gen([...segment.spine, ...[...rail].reverse()])}Z" fill="${fill}" ` +
+      `fill-rule="nonzero" stroke="none"/>`
     : "";
   const bands = segments.map((segment) => segment.rails.length >= 2
     ? band(segment, segment.rails[0], LIGHT_BAND) + band(segment, segment.rails[1], DARK_BAND)
@@ -206,18 +223,25 @@ function plateSvg(record) {
     segment.rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)).join("")).join("");
   const spineLeft = segments.map((segment) => line(segment.spine, LEFT, stroke)).join("");
   const spineRight = segments.map((segment) => line(segment.spine, RIGHT, stroke)).join("");
+  const dotLines = cutPoints.map(([x, y]) => {
+    const [cx, cy] = px([x, y]);
+    const r = Math.max(3, 0.01 * LONG_SIDE);
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="#b03a2e"/>`;
+  }).join("");
   const body = singleTone
-    ? [bands, railLines, spineLeft].join("")
+    ? [bands, railLines, spineLeft, dotLines].join("")
     : [
         bands,
         railLines,
         spineLeft,
         `<clipPath id="right"><rect x="${axis}" y="0" width="${(pxW - Number(axis)).toFixed(2)}" height="${pxH}"/></clipPath>`,
         `<g clip-path="url(#right)">${spineRight}</g>`,
+        dotLines,
       ].join("");
   const railCount = segments.reduce((n, segment) => n + segment.rails.length, 0);
   return { svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${pxW}" height="${pxH}" viewBox="0 0 ${pxW} ${pxH}">${body}</svg>`,
-    pxW, pxH, degrees, rails: railCount, segments: segments.length };
+    pxW, pxH, degrees, rails: railCount, segments: segments.length,
+    cuts: cuts.map((hit) => ({ x: hit.x, y: hit.y })) };
 }
 
 const records = registry.curves.filter((record) => {
@@ -233,8 +257,10 @@ const browser = SVG_ONLY ? null : await chromium.launch({
 const page = browser ? await browser.newPage() : null;
 
 let done = 0;
+const cutList = [];
 for (const record of records) {
-  const { svg, pxW, pxH, degrees, rails } = plateSvg(record);
+  const { svg, pxW, pxH, degrees, rails, cuts } = plateSvg(record);
+  if (cuts && cuts.length) cutList.push({ uid: record.uid, name: record.name, points: cuts });
   // Naming: <uid>-<long side>-<tone>-<dpi>.<ext>. The size and tone are in the name so a
   // folder of renders can be read without opening one.
   const svgPath = path.join(OUT, `${record.uid}.svg`);
@@ -260,9 +286,22 @@ for (const record of records) {
 }
 if (browser) await browser.close();
 
+// The future cut points, in the curve's own model coordinates: where the outside rail
+// crosses itself and has to be cut before it can be a printed side curve.
+if (cutList.length) {
+  const cutsPath = path.join(OUT, "cuts.json");
+  writeFileSync(cutsPath, `${JSON.stringify({
+    format: "curve-lab.cuts/1",
+    note: "Self-crossings of the outside rail, in model coordinates. Each point is a place " +
+      "the rail has to be cut; the dot on the plate marks the same point.",
+    curves: cutList,
+  }, null, 1)}\n`);
+  console.log(`${cutList.length} curve(s) with outside-rail cut points -> ${path.relative(ROOT, cutsPath)}`);
+}
+
 // a plate is replaced, never duplicated: the expected names are known, so anything else in
 // the folder is an orphan and is removed
-const expected = new Set();
+const expected = new Set(["cuts.json"]);
 for (const record of registry.curves) {
   expected.add(`${record.uid}.svg`);
   expected.add(`${record.uid}-${LONG_SIDE}-grey-300dpi.png`);
