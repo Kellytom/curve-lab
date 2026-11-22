@@ -80,6 +80,8 @@ for (const uid of ["c-0269", "c-0273", "c-0350"]) {
     size: round(size),
     W, H,
     centre: [round(cx), round(cy)],
+    start: [round(projected[0][0]), round(projected[0][1])],
+    end: [round(projected[projected.length - 1][0]), round(projected[projected.length - 1][1])],
     d: line(projected),
     spine: spine.map(([x, y]) => [round(x), round(y)]),
     turns: turns(spine),
@@ -107,30 +109,49 @@ svg{width:100%;height:auto;display:block}
 table{border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin-top:12px}
 th,td{text-align:left;padding:3px 12px 3px 0;border-bottom:1px solid #eee3d3}
 th{color:#6b5b46}
+.legend{display:flex;flex-direction:column;gap:4px;margin:0 0 14px;font:12px/1.6 ui-monospace,Menlo,monospace}
+.legend > span{display:flex;align-items:center;gap:8px}
+.swatch{display:inline-block;width:2.4rem;border-top:3pt solid;flex:none}
+.swatch.spine{border-color:#2b2b2b}.swatch.right{border-color:#8a3b2a}.swatch.left{border-color:#2f5d8a}
+.swatch.ends{border-color:#6b5b46}
 </style></head><body>
 <h1>Side curves: per-construction partners</h1>
-<p class="lead">The side curve is the <b>same construction</b> as its spine with one parameter
-reduced — no width offset, no normal estimate, no curvature cap. The curve is drawn by
-d3's centripetal Catmull-Rom; the overlapping dots are only the stroke. The construction's
-centre is the origin; the partner is the spine scaled about it.</p>
+<p class="lead">The side curves are the <b>same construction</b> as the spine with one parameter
+changed: a smaller construction on the <b>right</b> (parameter − d_R) and a larger one on the
+<b>left</b> (parameter + d_L). No width offset, no normal estimate, no curvature cap. The curves
+are drawn by d3's centripetal Catmull-Rom; the overlapping dots are only the stroke. The
+construction's centre is the origin.</p>
 <div class="rule">mobile   P(t) = r1(cos t, sin t) + r2(cos kt, sin kt)      r → r − d
 hybrid   station = k · P(x, y) · (C(t)^p, S(t)^q)          k → k − d
 double   the wonk half at radius r, mirrored across y = x    r → r − d
 
-The current curve states its own parameter below. For the mobile the gap is d·|P(t)|.</div>
+The current curve states its own parameter below. Right = 1 − d_R, left = 1 + d_L about the
+construction's centre; for the mobile the gaps are d_R·|P(t)| and d_L·|P(t)|.</div>
 <div class="tabs" id="tabs"></div>
 <div class="grid">
   <div class="picture">
     <svg id="picture" viewBox="0 0 760 600" role="img" aria-label="side curve">
       <path id="spine" fill="none" stroke="#2b2b2b" vector-effect="non-scaling-stroke"/>
-      <path id="partner" fill="none" stroke="#8a3b2a" vector-effect="non-scaling-stroke"/>
+      <path id="right" fill="none" stroke="#8a3b2a" vector-effect="non-scaling-stroke"/>
+      <path id="left" fill="none" stroke="#2f5d8a" vector-effect="non-scaling-stroke"/>
+      <line id="cap-start" stroke="#6b5b46" stroke-width="2.4" stroke-linecap="round"/>
+      <line id="cap-end" stroke="#6b5b46" stroke-width="2.4" stroke-linecap="round"/>
     </svg>
   </div>
   <div class="controls">
     <div class="construction" id="construction"></div>
-    <label><span id="param-name">reduction d</span>
-      <input id="d" type="range" min="0.01" max="0.20" step="0.01" value="0.06">
-      <output id="d-out">0.060</output></label>
+    <div class="legend">
+      <span><i class="swatch spine"></i><span>spine</span></span>
+      <span><i class="swatch right"></i><span>right · d_R <b id="dr-shown">0.040</b> · ×<b id="right-scale">0.960</b></span></span>
+      <span><i class="swatch left"></i><span>left · d_L <b id="dl-shown">0.080</b> · ×<b id="left-scale">1.080</b></span></span>
+      <span><i class="swatch ends"></i><span>the ends · one cap line each</span></span>
+    </div>
+    <label><span>right d_R</span>
+      <input id="dr" type="range" min="0.01" max="0.20" step="0.01" value="0.04">
+      <output id="dr-out">0.040</output></label>
+    <label><span>left d_L</span>
+      <input id="dl" type="range" min="0.01" max="0.20" step="0.01" value="0.08">
+      <output id="dl-out">0.080</output></label>
     <label>stroke <select id="stroke"><option value="dots" selected>dots</option><option value="line">line</option></select></label>
     <label>dot r px <input id="dot" type="range" min="0.6" max="2.4" step="0.1" value="1.6"><output id="dot-out">1.6</output></label>
     <table id="metrics"></table>
@@ -141,7 +162,7 @@ The width rail is not drawn: it was the hand-rolled offset, and the per-construc
 replaces it.</p>
 <script>
 const DATA = ${JSON.stringify(data)};
-const state = { index: 0, d: 0.06, dots: true, dot: 1.6 };
+const state = { index: 0, dR: 0.04, dL: 0.08, dots: true, dot: 1.6 };
 const byId = (id) => document.getElementById(id);
 const paint = (node, radius) => {
   node.setAttribute("stroke-width", (state.dots ? 2 * radius : 2 * radius * 0.55).toFixed(2));
@@ -157,30 +178,48 @@ const paint = (node, radius) => {
 
 function draw() {
   const entry = DATA[state.index];
-  const s = 1 - state.d;
+  const sR = 1 - state.dR;
+  const sL = 1 + state.dL;
   const svg = byId("picture");
   svg.setAttribute("viewBox", "0 0 " + entry.W + " " + entry.H);
   const spine = byId("spine");
-  const partner = byId("partner");
-  spine.setAttribute("d", entry.d);
-  partner.setAttribute("d", entry.d);
+  const right = byId("right");
+  const left = byId("left");
+  for (const node of [spine, right, left]) node.setAttribute("d", entry.d);
   const [cx, cy] = entry.centre;
-  partner.setAttribute("transform",
-    "translate(" + cx + " " + cy + ") scale(" + s.toFixed(4) + ") translate(" + (-cx) + " " + (-cy) + ")");
-  paint(spine, state.dot);
-  paint(partner, state.dot);
+  const at = (s) => "translate(" + cx + " " + cy + ") scale(" + s.toFixed(4) +
+    ") translate(" + (-cx) + " " + (-cy) + ")";
+  right.setAttribute("transform", at(sR));
+  left.setAttribute("transform", at(sL));
+  for (const node of [spine, right, left]) paint(node, state.dot);
+
+  // close the band: a cap line at each end, from the right endpoint to the left one; the
+  // spine's endpoint lies between them because the partners scale about the same centre
+  const place = (point, s) => [cx + s * (point[0] - cx), cy + s * (point[1] - cy)];
+  const cap = (node, a, b) => {
+    node.setAttribute("x1", a[0].toFixed(1)); node.setAttribute("y1", a[1].toFixed(1));
+    node.setAttribute("x2", b[0].toFixed(1)); node.setAttribute("y2", b[1].toFixed(1));
+  };
+  cap(byId("cap-start"), place(entry.start, sR), place(entry.start, sL));
+  cap(byId("cap-end"), place(entry.end, sR), place(entry.end, sL));
 
   byId("construction").innerHTML = '<b>' + entry.param.name + '</b><br>' + entry.param.formula;
-  byId("param-name").textContent = entry.param.name;
+  byId("dr-shown").textContent = state.dR.toFixed(3);
+  byId("dl-shown").textContent = state.dL.toFixed(3);
+  byId("right-scale").textContent = sR.toFixed(3);
+  byId("left-scale").textContent = sL.toFixed(3);
 
-  const gaps = entry.spine.map(([x, y]) => state.d * Math.hypot(x, y));
+  const gaps = (d) => entry.spine.map(([x, y]) => d * Math.hypot(x, y));
   const pct = (v) => (100 * v / entry.size).toFixed(2);
+  const gapText = (values) => pct(Math.min(...values)) + ' / ' +
+    pct(values.reduce((a, b) => a + b, 0) / values.length) + ' / ' + pct(Math.max(...values));
   byId("metrics").innerHTML =
     '<tr><th></th><th>turns &gt;10°</th><th>&gt;20°</th><th>gap min / mean / max %</th></tr>' +
     '<tr><td>spine</td><td>' + entry.turns.over10 + '</td><td>' + entry.turns.over20 + '</td><td>—</td></tr>' +
-    '<tr><td>partner</td><td>' + entry.turns.over10 + '</td><td>' + entry.turns.over20 + '</td><td>' +
-      pct(Math.min(...gaps)) + ' / ' + pct(gaps.reduce((a, b) => a + b, 0) / gaps.length) + ' / ' +
-      pct(Math.max(...gaps)) + '</td></tr>';
+    '<tr><td>right</td><td>' + entry.turns.over10 + '</td><td>' + entry.turns.over20 + '</td><td>' +
+      gapText(gaps(state.dR)) + '</td></tr>' +
+    '<tr><td>left</td><td>' + entry.turns.over10 + '</td><td>' + entry.turns.over20 + '</td><td>' +
+      gapText(gaps(state.dL)) + '</td></tr>';
 }
 function wire() {
   const tabs = byId("tabs");
@@ -195,9 +234,14 @@ function wire() {
     if (i === 0) button.classList.add("on");
     tabs.appendChild(button);
   });
-  byId("d").addEventListener("input", (event) => {
-    state.d = Number(event.target.value);
-    byId("d-out").value = state.d.toFixed(3);
+  byId("dr").addEventListener("input", (event) => {
+    state.dR = Number(event.target.value);
+    byId("dr-out").value = state.dR.toFixed(3);
+    draw();
+  });
+  byId("dl").addEventListener("input", (event) => {
+    state.dL = Number(event.target.value);
+    byId("dl-out").value = state.dL.toFixed(3);
     draw();
   });
   byId("stroke").addEventListener("change", (event) => {

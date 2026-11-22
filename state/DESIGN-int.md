@@ -987,5 +987,9 @@ EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
   curve; the repository's Levien parallel-Bézier port (`app/src/lib/parallel-bezier.ts`,
   `curve_lab/parallel_bezier.py`) for the scrollwork/fitted exception. The overlapping-dot
   stroke is a thin drawing layer; the geometry is the construction.
-- **The sandbox is the rule's home:** `/workbench/side-curves.html` has no parallel curve. The
-  spine, the partner, the parameter and formula per family, and the measured gap.
+- **The sandbox is the rule's home:** `/workbench/side-curves.html` has no parallel curve. It
+  draws the spine and its two per-construction partners — a smaller construction on the right
+  (parameter − d_R) and a larger one on the left (parameter + d_L) — closed at each end by one
+  cap line through the spine endpoint, with a 3 pt colour legend, the parameter and formula per
+  family, and the measured gap. d3's centripetal Catmull-Rom draws the curves; the overlapping
+  dots are only the stroke.
