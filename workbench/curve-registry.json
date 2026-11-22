@@ -10675,18 +10675,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -12012,18 +12012,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -13349,18 +13349,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -14687,18 +14687,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -16022,18 +16022,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -17357,18 +17357,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -18692,18 +18692,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -20029,18 +20029,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -21363,18 +21363,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -22699,18 +22699,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -24039,18 +24039,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -25379,18 +25379,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -26719,18 +26719,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -28059,18 +28059,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -29399,18 +29399,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -30739,18 +30739,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -32079,18 +32079,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -33419,18 +33419,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -34756,18 +34756,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -36093,18 +36093,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -37430,18 +37430,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -38767,18 +38767,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -40104,18 +40104,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -41441,18 +41441,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -42778,18 +42778,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -44115,18 +44115,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -45452,18 +45452,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -48311,18 +48311,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -51170,18 +51170,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -54029,18 +54029,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -56888,18 +56888,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -59747,18 +59747,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -62606,18 +62606,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -65460,18 +65460,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -68314,18 +68314,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -71168,18 +71168,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -73629,18 +73629,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -76090,18 +76090,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -78555,18 +78555,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -81020,18 +81020,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -83958,18 +83958,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -86901,18 +86901,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -89844,18 +89844,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -92792,18 +92792,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       }
     },
     {
@@ -169555,18 +169555,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 3x^2y + 3xy^2 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -170044,18 +170044,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -170533,18 +170533,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -171022,18 +171022,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -171511,18 +171511,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": -45,
+        "degrees": 0,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "1",
+            "0"
           ],
           [
-            "-√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "hybrid",
