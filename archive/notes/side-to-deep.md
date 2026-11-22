@@ -76,3 +76,11 @@ Next: model.py, then svg.py.
 - The census (`reduction/speed_fit_census.py` → `workbench/speed-fit-census.json`, 110 over-ceiling curves, seconds): the FIT family reduces cleanly to speed 5 — catenary-fit **0.0000 units**, euler-fit 0.0012, gumdrop 0.0016, involute-fit 0.0408, logspiral-fit 0.3929. The wave/loop/lace families genuinely reject it (wave-1of8-4 misses 122 units, the loops 1e9+). The speed-space re-fit handles exactly the curves the sibling map was for in the fit family; the wave/loop families stay the sibling map's job.
 - Register row 56: the first verdict floor was quantization in normalized coordinates (6 dp of a normalized row = 50 units on a 5e7 coefficient; the derivative is quadratic, so the own-degree recovery reported l2 2e11). Fixed to 15 places; the recovery law guards it.
 - For the prefer-7 track: c-0002 (euler-hook) at speed 3 misses 0.0196 units, c-0059 (lace-1of10-3-2) at speed 3 misses 2.12 — the hook can live at position 7, the lace cannot.
+
+---
+
+2026-11-22 · sidechat · the speed-space candidates are in the sandbox, and the index shows the census
+
+- Five speed-5 candidates POSTed to /api/sandbox-curves (all HTTP 200): `c-0016-s5` catenary-fit-speed5 (miss 0.000005 units of 3.291), `c-0017-s5` euler-fit (0.001182 of 0.5285), `c-0011-s5` gumdrop (0.001622 of 4.7457), `c-0015-s5` involute-fit (0.040755 of 20.1168), `c-0018-s5` logspiral-fit (0.392942 of 41.3245). Each verified by the exact core: position degree 11, rails 9 — both gates legal. Awaiting your promotion decision; the miss is recomputed on the stored six-decimal rows, so the record's number is the record's curve.
+- Note on grids: the fitted rows' grids are large (1.4e16), but so are the PARENTS' (catenary-fit 9.0e16, euler-fit 1.8e17) — the fit family is decimal by construction. Snapping the rows to 1/100 would cost catenary-fit 0.0129 units and euler-fit 0.0115; not done, the six-decimal rows are the honest record.
+- /reduce/ now carries the census: every over-ceiling curve with its speed → 5 miss in curve units, sorted smallest first, plain decimals (the operator's 5/25/3125 rule). Five curves can live at the ceiling by the re-fit alone; the rest say so in units. The page renders in 0.08 s; the census is a cache (missing file → dashes, never a broken page).
