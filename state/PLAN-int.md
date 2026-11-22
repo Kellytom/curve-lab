@@ -22,7 +22,8 @@ nobody has made — and then write the question instead of picking.
   the plates curated (194 of 371, provenance, star order with variants); Marginalia (the docs
   ornament theme, all 371 at a quarter scale, the dot stroke); the wonks out; the side curves as
   per-construction partners (the sandbox with the row/mobile/double/hybrid families, d3 plotting,
-  3 pt legend, optional caps); the 11-degree reduction handed to DeepSeek2.
+  3 pt legend, optional caps); the row-family preview sheet (`partner-preview.html`, one row per
+  family, the speed-scaled partners); the 11-degree reduction handed to DeepSeek2.
 - **Next:** migrate the plates per family, starting with the row family; the operator names the
   scrollwork and select exceptions; `/fhandoff` after the next block.
 - **Parked:** Sprint 1; the W01–W04 board order.

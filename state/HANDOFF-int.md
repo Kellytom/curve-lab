@@ -3479,6 +3479,10 @@ Tschirnhausen — classic but adds nothing; off the board.
   optional cap lines, and d3's scales, axes, curves and caps (the installed bundle at
   `/api/d3js`). The row family's parameter is the speed scale (position ×(1∓d)²); the mobile,
   double and hybrid parameters are stated on the page.
+- **The row family at collection scale** (`85798af9`): `/workbench/partner-preview.html` draws one
+  row per family — spine, right partner (speed × 0.97) and left partner (speed × 1.03), each with
+  its cap line — in units of each curve's largest radius, with the mean gap per side. The cards
+  are d3 (the `/api/d3js` bundle); the page carries the draft A label from its generator.
 - **The 11-degree/NURBS reduction** is DeepSeek2's: the protocol, the corrected spec and the
   reducer draft are merged; the amendments are in their spec (reduce the curve *and* fit each
   rail; a reduced curve is a new variant record; report the total miss).
