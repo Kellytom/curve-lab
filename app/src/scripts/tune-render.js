@@ -163,9 +163,9 @@ export function live(controls, redraw) {
 }
 
 export const valuesOf = (inputs) => ({
-  widthPct: number(inputs.widthPct.value, 1.5),
-  plus: number(inputs.plus.value, 2),
-  minus: number(inputs.minus.value, 2),
+  widthPct: number(inputs.widthPct.value, 1),
+  plus: number(inputs.plus.value, 2.5),
+  minus: number(inputs.minus.value, 0.1),
   profile: inputs.profile.value || "bow",
   degrees: number(inputs.degrees.value, 0),
 });

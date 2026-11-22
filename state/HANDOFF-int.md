@@ -3495,6 +3495,14 @@ Tschirnhausen — classic but adds nothing; off the board.
   flattens saved pairs to their primary and drops a nameless record (register 49); `/prime-mover/`
   no longer scrolls sideways (the plot scales, long fractions wrap); the names check counts the
   non-candidate curves from the database instead of a remembered 212.
+- **The plate preset is the first two curves** (2026-11-21): width **1 %**, plus **2.5**,
+  minus **0.1**, on a bow. The note migration had written 0 into width, plus and minus for the
+  untouched curves, and the note won over the desk, so those plates drew a 0 % band
+  (plus = minus = 0 is a parallel offset). A zero note is now a placeholder and falls through to
+  the desk row (register 50). The whole set is re-rendering at the new preset. Still wrong:
+  `c-0006` carries a saved 8 % (plus 6) and is grossly wide; the character bow is added after
+  the fold guard, so a tight loop (`c-0001`) can still cross; and `c-0260` renders 3000×88 with
+  no rails (a guard-floor spine-only). Those are the next geometry pass.
 - **The figures sheet is paginated** (2026-11-21): fifty figures a page, eight pages, the last
   page twenty-one; the range and the pager are on the page, and `app/src/lib/figure-pages.js`
   carries the arithmetic with its own test. The split with DeepSeek2 is in `state/PLAN-int.md`:

@@ -22,7 +22,8 @@ The operator: "coordinate with deep2: don't collide with code about the side off
 DeepSeek2 has the side-offset curves and the bordered illumination variants **C** (corner rule)
 and **D** (C plus the tangent seam and proportion): `illuminations.astro`, `bordered.js`, the
 plate offset/width code and the C/D renders. DeepSeek1 takes the figures sheet (pagination,
-the index) and the review/curation surfaces. Say which file you are in; do not revert or
+the index), the plate **preset** (the default character row) and the review/curation surfaces;
+the offset algorithm and the C/D renders stay with DeepSeek2. Say which file you are in; do not revert or
 rewrite the other's uncommitted edit.
 
 ## Current (2026-11-21, late) — the review desk, Marginalia, the partners

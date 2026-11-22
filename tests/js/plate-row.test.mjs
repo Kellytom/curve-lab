@@ -63,12 +63,28 @@ test("plus = minus = 0 is the only case that is a parallel offset", () => {
   assert.ok(flat(plus) && flat(minus), "zero character must be a true parallel offset");
 });
 
-test("an unsaved curve starts at 1.5 % width", () => {
-  // The operator, 2026-11-21: "instead of 6%, set width of offsets to 1.5% for the ones i
-  // havent saved." 6 % was the old guard's asked width, drawn at about 1.5 after halving;
-  // now that the guard is solved directly, the untouched default is the old drawn width.
-  assert.equal(DEFAULTS.widthPercent, 1.5);
-  assert.equal(rowFor(record).width.percent, 1.5);
+test("the first two curves set the preset: 1 % width, plus 2.5, minus 0.1", () => {
+  // The operator, 2026-11-21: "6% is way too much, look at the first two curves i did for a
+  // better preset level." c-0001 and c-0001a are 1 % / 2.5 / 0.1; 6 % was the old guard's
+  // asked width and 1.5 % the first correction.
+  assert.equal(DEFAULTS.widthPercent, 1);
+  assert.equal(DEFAULTS.plus, 2.5);
+  assert.equal(DEFAULTS.minus, 0.1);
+  assert.equal(rowFor(record).width.percent, 1);
   assert.equal(rowFor(record, { desk: { widthPct: 4 } }).width.percent, 4,
     "a saved row always keeps its own width");
+});
+
+test("a placeholder zero in a note does not win over the desk row", () => {
+  // The 2026-11 note migration wrote 0 into width, plus and minus for untouched curves;
+  // taking those zeros at face value drew a 0 % band, and plus = minus = 0 is a parallel
+  // offset. The desk row's tuned values must still reach the plate.
+  const row = rowFor(record, {
+    note: { widthPct: 0, plus: 0, minus: 0, profile: null },
+    desk: { widthPct: 1, plus: 2.5, minus: 0.1, profile: "bow" },
+  });
+  assert.equal(row.width.percent, 1);
+  assert.equal(row.character.plus, 2.5);
+  assert.equal(row.character.minus, 0.1);
+  assert.equal(row.character.profile, "bow");
 });
