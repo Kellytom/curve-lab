@@ -63,3 +63,17 @@ much?* — and refuses to answer when its own checks fail.
 - Any claim that a reduced drawing is a PH curve — the truncation is a
   drawing within a stated miss; the catalogue entry still needs the
   speed-space reduction or a sibling, and the page says which gate fails.
+
+## The index (`/reduce/`)
+
+- Rows: every curve whose position degree (read from the speed rows) is
+  above 11 — the desk's population, not the stored `degree` field.
+- Columns: uid, name, position degree, **speed → 5 miss (units)**, curve
+  size (units), crossings, desk link. The miss column comes from
+  `workbench/speed-fit-census.json` (cache; the page works without it —
+  a missing census prints "—", it never breaks the page).
+- Numbers are plain (`plain-number.js`); no exponent anywhere.
+- The summary sentence states how many curves can live at the ceiling by the
+  re-fit alone (miss under one per cent of the curve's size — an
+  informational cut, the decision is by units per curve).
+- Sort: smallest miss first — the reducible curves are the reading order.
