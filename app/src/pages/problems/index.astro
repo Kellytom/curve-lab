@@ -1,0 +1,72 @@
+---
+// The problem gallery: every open problem as a card, each with its desk.
+// Built so the operator and the agents solve them one by one.
+const problems = [
+  {
+    id: "rail-quality",
+    title: "Does the 90-99 print hold the edges and the transparency?",
+    status: "open — your judgement per plate",
+    question: "The delivered set is 23.2 MB at pngquant 90-99. Judge it plate by plate on grounds that are not cream: antialiased edges, transparency on blue/dark/grey.",
+    desk: "/plates-compare/c-0001",
+    deskName: "the plate compare desk (397 plates, five grounds, prev/next)",
+  },
+  {
+    id: "degree-11",
+    title: "Which curves reduce to degree 11, and which genuinely cannot?",
+    status: "open — the honest bound per curve",
+    question: "The reducer's proven Chebyshev-tail bound answers per curve. c-0260 (degree 23, 19 crossings) is stated as genuinely over-degree at 64 pieces. Sweep the rest.",
+    desk: "/reduce/",
+    deskName: "the reduction desk (110 over-degree curves, bound + verdict per curve)",
+  },
+  {
+    id: "halo",
+    title: "Is the wide grey halo around the stroke intended artwork or a conversion artefact?",
+    status: "waiting on DeepSeek1",
+    question: "The RGBA plates carry a wide soft band around the stroke — invisible on cream, a visible glow on any coloured background. The uncompressed original shows it too, so it is not the compression.",
+    desk: "/png-comparison.html",
+    deskName: "the compression study (the alpha section, the blue ground, 4× crops)",
+  },
+  {
+    id: "three-colour",
+    title: "3-colour banding: solved and archived",
+    status: "solved — superseded by 90-99",
+    question: "The 3-colour print banded the alpha to steps of 171–194/255 in the worst window. The magnified crops are kept as the evidence that moved the pick to 90-99.",
+    desk: "/png-comparison.html",
+    deskName: "the compression study (the 4× crops at the top)",
+  },
+  {
+    id: "nurbs-degree",
+    title: "The degree-11 ceiling for NURBS consumption",
+    status: "policy — with DeepSeek1 and the operator",
+    question: "Only 6 of 213 rows sit fully inside the ceiling. Four solutions are on the table (A: exact in storage, reduced at draw; B: refit the fit family; C: bias searches; D: no weights).",
+    desk: null,
+    deskName: "the analysis: state/SC-NURBS-int.md, the flag in the mailbox",
+  },
+  {
+    id: "sandbox-twins",
+    title: "The ph-nth-sandbox HTML twins are dirty and unowned",
+    status: "parked — unowned",
+    question: "Two generated pages sit modified in the tree with no owner. Commit, restore, or drop.",
+    desk: null,
+    deskName: "git status names them; a one-line answer unblocks the audit",
+  },
+];
+---
+<div style="background:#fffdf7;max-width:1180px;margin:0 auto;padding:0 1.25rem 3.5rem;font:16px/1.5 Georgia,serif;color:#3b2d1c">
+<h1>The problem gallery</h1>
+<p style="color:#5a4a36">Every open problem on the board, one card each, with the desk
+that works it. Solve them one by one; a card's status changes when its desk
+answers.</p>
+{problems.map((p) => (
+<div style="border:1px solid #e6dccb;background:#fffef9;padding:14px;margin:14px 0">
+ <h2 style="font-size:18px;margin:0 0 6px">{p.title}</h2>
+ <p style="font:13px ui-monospace,Menlo,monospace;color:#7a6a55;margin:4px 0">status: {p.status}</p>
+ <p style="color:#5a4a36;margin:8px 0">{p.question}</p>
+ {p.desk ? (
+  <p style="margin:8px 0"><a href={p.desk}>open {p.deskName}</a></p>
+ ) : (
+  <p style="margin:8px 0;color:#7a6a55">{p.deskName}</p>
+ )}
+</div>
+))}
+</div>

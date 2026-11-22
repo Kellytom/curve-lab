@@ -1,0 +1,59 @@
+---
+// The plate compare desk: the delivered 90-99 print against the uncompressed
+// RGBA source, on a background you choose, per plate.
+//
+// The question this desk answers: does the 90-99 print hold the antialiased
+// edges and the transparency on a background that is not cream?
+import { readFileSync } from "node:fs";
+import path from "node:path";
+const { uid } = Astro.params;
+const repo = path.resolve(import.meta.dirname, "../../../..");
+const registry = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-registry.json"), "utf8"));
+const index = registry.curves.findIndex((c) => c.uid === uid);
+const valid = index >= 0;
+const curve = valid ? registry.curves[index] : null;
+const prevUid = valid ? registry.curves[(index - 1 + registry.curves.length) % registry.curves.length].uid : "c-0001";
+const nextUid = valid ? registry.curves[(index + 1) % registry.curves.length].uid : "c-0001";
+const web = `/plates-web/${uid}-1600-grey.png`;
+const source = `/plates-rgba/${uid}-1600-grey.png`;
+const backgrounds = [
+  { name: "complement blue", css: "#d6e6f7" },
+  { name: "page cream", css: "#fffdf7" },
+  { name: "white", css: "#ffffff" },
+  { name: "dark", css: "#1d1d22" },
+  { name: "mid grey", css: "#8a8a8a" },
+];
+---
+<div style="background:#fffdf7;max-width:1180px;margin:0 auto;padding:0 1.25rem 3.5rem;font:16px/1.5 Georgia,serif;color:#3b2d1c">
+<h1>{valid ? curve.name : "unknown curve"} <small style="font-size:14px;color:#7a6a55">{uid} · delivered 90-99 print vs the uncompressed RGBA source</small></h1>
+<p style="color:#5a4a36">Pick the ground. The delivered print (left) against the uncompressed
+source (right). The question this desk answers: <b>does the 90-99 print hold the
+antialiased edges and the transparency on a background that is not cream?</b>
+Zoom the browser on a dense edge to judge.</p>
+<p style="font:13px ui-monospace,Menlo,monospace">
+{backgrounds.map((b, i) => (
+  <label style="margin-right:14px;white-space:nowrap">
+    <input type="radio" name="bg" checked={i === 0}
+      onclick={`document.querySelectorAll('.plate-img').forEach(el => { el.style.background = '${b.css}'; });`} />
+    {" "}{b.name}
+  </label>
+))}
+</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;background:#d6e6f7;padding:10px">
+ <figure style="margin:0">
+  <img class="plate-img" src={web} style="width:100%;height:auto;background:#d6e6f7;display:block" loading="lazy" alt="delivered print" />
+  <figcaption style="font:12px ui-monospace,Menlo,monospace;color:#3b4a5c;margin-top:6px">
+    DELIVERED · pngquant 90-99 · 23.2 MB for the set</figcaption>
+ </figure>
+ <figure style="margin:0">
+  <img class="plate-img" src={source} style="width:100%;height:auto;background:#d6e6f7;display:block" loading="lazy" alt="uncompressed source" />
+  <figcaption style="font:12px ui-monospace,Menlo,monospace;color:#3b4a5c;margin-top:6px">
+    UNCOMPRESSED RGBA source · 60.6 MB for the set</figcaption>
+ </figure>
+</div>
+<p style="color:#5a4a36">
+ <a href={`/plates-compare/${prevUid}`}>← previous plate</a> ·
+ <a href={`/plates-compare/${nextUid}`}>next plate →</a> ·
+ <a href="/problems/">the problem gallery</a>
+</p>
+</div>
