@@ -39,7 +39,7 @@ const PARAMS = {
   },
 };
 
-const round = (value) => Number(Number(value).toFixed(2));
+const round = (value) => Number(Number(value).toFixed(4));
 const spineOf = (record) => {
   if (record.speedX?.length || record.speedY?.length) {
     return P.spine(record.speedX, record.speedY, 700).map((s) => [s.x, s.y]);
