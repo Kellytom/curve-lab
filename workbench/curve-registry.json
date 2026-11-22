@@ -10675,18 +10675,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -12012,18 +12012,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -13349,18 +13349,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -14687,18 +14687,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -16022,18 +16022,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -17357,18 +17357,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -18692,18 +18692,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -20029,18 +20029,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -21363,18 +21363,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -22699,18 +22699,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -24039,18 +24039,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -25379,18 +25379,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -26719,18 +26719,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -28059,18 +28059,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -29399,18 +29399,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -30739,18 +30739,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -32079,18 +32079,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -33419,18 +33419,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -34756,18 +34756,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -36093,18 +36093,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -37430,18 +37430,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -38767,18 +38767,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -40104,18 +40104,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -41441,18 +41441,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -42778,18 +42778,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -44115,18 +44115,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -45452,18 +45452,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -48311,18 +48311,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -51170,18 +51170,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -54029,18 +54029,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -56888,18 +56888,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -59747,18 +59747,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -62606,18 +62606,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -65460,18 +65460,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -68314,18 +68314,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -71168,18 +71168,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -73629,18 +73629,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -76090,18 +76090,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -78555,18 +78555,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -81020,18 +81020,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -83958,18 +83958,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -86901,18 +86901,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -89844,18 +89844,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -92792,18 +92792,18 @@
         "formulaNext": null
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       }
     },
     {
@@ -125696,18 +125696,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -126550,18 +126550,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -127396,18 +127396,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -128258,18 +128258,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -129144,18 +129144,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -129974,18 +129974,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -130796,18 +130796,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -131666,18 +131666,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -132504,18 +132504,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -133390,18 +133390,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -134244,18 +134244,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -135026,18 +135026,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -135856,18 +135856,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -136662,18 +136662,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -137524,18 +137524,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -138346,18 +138346,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -139232,18 +139232,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -139502,18 +139502,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -140308,18 +140308,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -141146,18 +141146,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -141968,18 +141968,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -142822,18 +142822,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -143660,18 +143660,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -144538,18 +144538,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -145400,18 +145400,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -146166,18 +146166,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -146420,18 +146420,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -147210,18 +147210,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -148040,18 +148040,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -148838,18 +148838,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -149692,18 +149692,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -149954,18 +149954,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -150216,18 +150216,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -150862,18 +150862,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -151492,18 +151492,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -152186,18 +152186,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -152856,18 +152856,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -153294,18 +153294,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -153636,18 +153636,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -154154,18 +154154,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -154472,18 +154472,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -155014,18 +155014,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -155580,18 +155580,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -156458,18 +156458,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -157336,18 +157336,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -158158,18 +158158,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -159004,18 +159004,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -159850,18 +159850,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -160712,18 +160712,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -161566,18 +161566,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -162444,18 +162444,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -163306,18 +163306,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -164152,18 +164152,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -165046,18 +165046,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -165916,18 +165916,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -166746,18 +166746,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 45,
+        "degrees": -90,
         "matrix": [
           [
-            "√2/2",
-            "-√2/2"
+            "0",
+            "1"
           ],
           [
-            "√2/2",
-            "√2/2"
+            "-1",
+            "0"
           ]
         ],
-        "exact": false
+        "exact": true
       },
       "conversion": {
         "algorithm": "double",
@@ -169555,18 +169555,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 3x^2y + 3xy^2 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -170044,18 +170044,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -170533,18 +170533,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -171022,18 +171022,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "hybrid",
@@ -171511,18 +171511,18 @@
         "search": "x = cos^1(t), y = sin^1(t)  P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2  parametric curve, rational parametrisation"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": -45,
         "matrix": [
           [
-            1,
-            0
+            "√2/2",
+            "-√2/2"
           ],
           [
-            0,
-            1
+            "-√2/2",
+            "-√2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "hybrid",
