@@ -3522,3 +3522,27 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **Next:** the plates migration per family, starting with the row family (the sandbox is the
   worked rule); the operator names the scrollwork/select exceptions; DeepSeek2's reductions.
   The regenerated `plates-web` copies are uncommitted generated files; the deploy ships the tree.
+
+## 2026-11-22 — side curves: equal offsets, and the starting point
+
+- **The model:** DeepSeek2 is back on `opencode-go/deepseek-v4.1-flash` (the `sidechat` agent
+  and `~/.config/opencode/sidechat.json`). DeepSeek1 owns the side curves; DeepSeek2 owns the
+  NURBS and the Inkscape flow (`49ea8179`).
+- **The side curves are offsets, not scaled copies** (`3ceba869`). One character law: the two
+  sides take **one strength**, the average of the saved plus/minus; the bow profile is zero at
+  both ends, so the start and end gaps are the base and the ends balance. The scaled-partner
+  attempt and its test are gone.
+- **The plates:** the rows use `PLATE.group`, the stored paths the one-law `pathGroup`, both at
+  the symmetric strength. The SVG is the plate; `/review/` and `/plates/` read
+  `/api/print-plate/<uid>?format=svg`. The SVGs in the tree were generated **before** this
+  commit; regenerate the set **once** with the finished law, not to prove speed. The operator:
+  "once a curve is generated algorithmically, it is done; the page is done when they are all
+  finished."
+- **The open focus: the starting point.** Where a curve's offset endpoints differ from the
+  spine's by (dx, dy), move the curve's starting point by (dx/2, dy/2) so the gaps at the start
+  and end match. The operator: "if the difference at the end is 10x 10y, then move the starting
+  position by 5 x and 5 y to balance." `tests/js/plate-offset.test.mjs` covers the equal sides
+  and equal ends; the shift and its test are next.
+- **The plain-number formatter** and `/reduce/` are DeepSeek2's; leave them. No internet.
+- **The fast pass** `node scripts/print_plates.mjs --svg-only` writes all 371 SVGs in a few
+  seconds; the 300 dpi PNG is a separate, slow export.

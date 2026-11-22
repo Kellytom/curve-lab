@@ -35,6 +35,19 @@ Neither reserves files; the rule is the operator's latest words and the register
 `docs/SIDE-CURVES.md` before changing a rail or the preset.
 
 
+## Current (2026-11-22) — the side curves: equal offsets, then the starting point
+
+- **Landed:** the equal-offset law (`3ceba869`) — the two sides take one strength (the average
+  of the saved plus/minus); the bow is zero at the ends; no scaling of the drawn curve. The
+  equal-sides and equal-ends test is `tests/js/plate-offset.test.mjs`.
+- **Focus:** the starting-point shift — where a curve's offset endpoints differ by (dx, dy),
+  move the curve's start by (dx/2, dy/2) so the gaps match. One plate generation with the
+  finished law, not a loop.
+- **Next:** the named scrollwork/select exceptions (the six flourish, curlicue, logspiral,
+  involute are the candidates); the plate preset migration is this offset law.
+- **DeepSeek2:** the NURBS reduction and the Inkscape round-trip; leave `/reduce/` and the
+  plain-number formatter to them.
+
 ## Current (2026-11-21, late) — the review desk, Marginalia, the partners
 
 - **Landed:** the review desk (`/review/`, bulk stars, scopes, refusals); the ten clickable stars;
