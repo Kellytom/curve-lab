@@ -10,6 +10,18 @@
    "updated": "2026-11-19T03:00:14.558Z"
   },
   {
+   "uid": "c-0001a",
+   "name": "amper-thin",
+   "importance": 0,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "widthPct": 1,
+   "plus": 2,
+   "profile": "bow",
+   "updated": "2026-11-21T16:29:52.974Z"
+  },
+  {
    "uid": "c-0002",
    "name": "euler-hook",
    "importance": 3,
@@ -226,7 +238,7 @@
    "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T03:12:35.439Z"
+   "updated": "2026-11-20T04:17:39.691Z"
   },
   {
    "uid": "c-0029",
@@ -234,7 +246,7 @@
    "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T03:06:36.809Z"
+   "updated": "2026-11-20T04:17:39.695Z"
   },
   {
    "uid": "c-0030",
@@ -483,7 +495,7 @@
    "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T03:13:37.827Z"
+   "updated": "2026-11-20T04:17:39.699Z"
   },
   {
    "uid": "c-0061",
@@ -2100,6 +2112,968 @@
    "pieces": 1,
    "updated": "2026-11-18T23:28:02.034Z",
    "candidate": true
+  },
+  {
+   "uid": "c-0263",
+   "name": "bezier-loop-1",
+   "importance": 9,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-19T16:28:44.035Z"
+  },
+  {
+   "uid": "c-0264",
+   "name": "bezier-loop-2",
+   "importance": 9,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-19T16:28:44.047Z"
+  },
+  {
+   "uid": "c-0265",
+   "name": "bezier-loop-3",
+   "importance": 9,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-19T16:28:44.049Z"
+  },
+  {
+   "uid": "c-0266",
+   "name": "bezier-loop-4",
+   "importance": 9,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-19T16:28:44.051Z"
+  },
+  {
+   "uid": "c-0267",
+   "name": "bezier-loop-5",
+   "importance": 9,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-19T16:28:44.055Z"
+  },
+  {
+   "uid": "c-0268",
+   "name": "bezier-loop-6",
+   "importance": 9,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-19T16:28:44.057Z"
+  },
+  {
+   "uid": "c-0269",
+   "name": "mobile-k3-equal",
+   "importance": 8,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-19T16:28:44.060Z"
+  },
+  {
+   "uid": "c-0270",
+   "name": "lens-56-783-785",
+   "importance": 7,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-20T03:44:37.482Z"
+  },
+  {
+   "uid": "c-0271",
+   "name": "four-fold-56-783-785",
+   "importance": 7,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-20T03:45:30.570Z"
+  },
+  {
+   "uid": "c-0272",
+   "name": "lace-2-eight-3-circle-parameter",
+   "importance": 0,
+   "rotation": 0,
+   "pieces": 1,
+   "updated": "2026-11-20T04:54:59.171Z"
+  },
+  {
+   "uid": "c-0273",
+   "name": "double-1-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.477Z"
+  },
+  {
+   "uid": "c-0274",
+   "name": "double-1-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.481Z"
+  },
+  {
+   "uid": "c-0275",
+   "name": "double-10-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.482Z"
+  },
+  {
+   "uid": "c-0276",
+   "name": "double-10-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.483Z"
+  },
+  {
+   "uid": "c-0277",
+   "name": "double-11-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.484Z"
+  },
+  {
+   "uid": "c-0278",
+   "name": "double-11-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.485Z"
+  },
+  {
+   "uid": "c-0279",
+   "name": "double-12-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.486Z"
+  },
+  {
+   "uid": "c-0280",
+   "name": "double-12-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.487Z"
+  },
+  {
+   "uid": "c-0281",
+   "name": "double-13-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.488Z"
+  },
+  {
+   "uid": "c-0282",
+   "name": "double-13-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.489Z"
+  },
+  {
+   "uid": "c-0283",
+   "name": "double-14-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.490Z"
+  },
+  {
+   "uid": "c-0284",
+   "name": "double-14-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.491Z"
+  },
+  {
+   "uid": "c-0285",
+   "name": "double-15-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.491Z"
+  },
+  {
+   "uid": "c-0286",
+   "name": "double-15-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.492Z"
+  },
+  {
+   "uid": "c-0287",
+   "name": "double-16-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.493Z"
+  },
+  {
+   "uid": "c-0288",
+   "name": "double-16-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.494Z"
+  },
+  {
+   "uid": "c-0289",
+   "name": "double-17-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.495Z"
+  },
+  {
+   "uid": "c-0290",
+   "name": "double-17-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.496Z"
+  },
+  {
+   "uid": "c-0291",
+   "name": "double-18-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.497Z"
+  },
+  {
+   "uid": "c-0292",
+   "name": "double-18-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.498Z"
+  },
+  {
+   "uid": "c-0293",
+   "name": "double-19-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.498Z"
+  },
+  {
+   "uid": "c-0294",
+   "name": "double-19-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.499Z"
+  },
+  {
+   "uid": "c-0295",
+   "name": "double-2-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.500Z"
+  },
+  {
+   "uid": "c-0296",
+   "name": "double-2-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.501Z"
+  },
+  {
+   "uid": "c-0297",
+   "name": "double-20-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.502Z"
+  },
+  {
+   "uid": "c-0298",
+   "name": "double-20-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.503Z"
+  },
+  {
+   "uid": "c-0299",
+   "name": "double-21-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.504Z"
+  },
+  {
+   "uid": "c-0300",
+   "name": "double-21-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.504Z"
+  },
+  {
+   "uid": "c-0301",
+   "name": "double-22-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.505Z"
+  },
+  {
+   "uid": "c-0302",
+   "name": "double-22-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.506Z"
+  },
+  {
+   "uid": "c-0303",
+   "name": "double-23-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.507Z"
+  },
+  {
+   "uid": "c-0304",
+   "name": "double-23-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.508Z"
+  },
+  {
+   "uid": "c-0305",
+   "name": "double-24-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.509Z"
+  },
+  {
+   "uid": "c-0306",
+   "name": "double-24-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.510Z"
+  },
+  {
+   "uid": "c-0307",
+   "name": "double-25-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.511Z"
+  },
+  {
+   "uid": "c-0308",
+   "name": "double-25-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.513Z"
+  },
+  {
+   "uid": "c-0309",
+   "name": "double-26-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.514Z"
+  },
+  {
+   "uid": "c-0310",
+   "name": "double-26-se-2",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.515Z"
+  },
+  {
+   "uid": "c-0311",
+   "name": "double-27-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.516Z"
+  },
+  {
+   "uid": "c-0312",
+   "name": "double-27-se-2",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.516Z"
+  },
+  {
+   "uid": "c-0313",
+   "name": "double-28-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.517Z"
+  },
+  {
+   "uid": "c-0314",
+   "name": "double-28-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.518Z"
+  },
+  {
+   "uid": "c-0315",
+   "name": "double-3-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.519Z"
+  },
+  {
+   "uid": "c-0316",
+   "name": "double-3-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.520Z"
+  },
+  {
+   "uid": "c-0317",
+   "name": "double-4-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.521Z"
+  },
+  {
+   "uid": "c-0318",
+   "name": "double-4-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.522Z"
+  },
+  {
+   "uid": "c-0319",
+   "name": "double-5-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.523Z"
+  },
+  {
+   "uid": "c-0320",
+   "name": "double-5-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.524Z"
+  },
+  {
+   "uid": "c-0321",
+   "name": "double-6-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.525Z"
+  },
+  {
+   "uid": "c-0322",
+   "name": "double-6-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.526Z"
+  },
+  {
+   "uid": "c-0323",
+   "name": "double-7-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.527Z"
+  },
+  {
+   "uid": "c-0324",
+   "name": "double-7-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.529Z"
+  },
+  {
+   "uid": "c-0325",
+   "name": "double-8-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.530Z"
+  },
+  {
+   "uid": "c-0326",
+   "name": "double-8-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.531Z"
+  },
+  {
+   "uid": "c-0327",
+   "name": "double-9-nw-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.532Z"
+  },
+  {
+   "uid": "c-0328",
+   "name": "double-9-se-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T18:04:06.533Z"
+  },
+  {
+   "uid": "c-0329",
+   "name": "swan-hybrid-7",
+   "importance": 7,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.563Z"
+  },
+  {
+   "uid": "c-0330",
+   "name": "h-colour-1-2",
+   "importance": 0,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.567Z"
+  },
+  {
+   "uid": "c-0331",
+   "name": "point-1",
+   "importance": 1,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-22T01:22:11.123Z"
+  },
+  {
+   "uid": "c-0332",
+   "name": "h-colour-7-3",
+   "importance": 0,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.579Z"
+  },
+  {
+   "uid": "c-0333",
+   "name": "cubic-radius-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.584Z"
+  },
+  {
+   "uid": "c-0334",
+   "name": "quintic-balloons",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.588Z"
+  },
+  {
+   "uid": "c-0335",
+   "name": "6-balloon-every-term",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.593Z"
+  },
+  {
+   "uid": "c-0336",
+   "name": "quintic-double",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.598Z"
+  },
+  {
+   "uid": "c-0337",
+   "name": "quintic-radius",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.603Z"
+  },
+  {
+   "uid": "c-0338",
+   "name": "hybrid-1of2-butterfly",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-22T01:57:15.782Z"
+  },
+  {
+   "uid": "c-0339",
+   "name": "cubic-quintic",
+   "importance": 1,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.615Z"
+  },
+  {
+   "uid": "c-0340",
+   "name": "incomplete-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.618Z"
+  },
+  {
+   "uid": "c-0341",
+   "name": "bounce",
+   "importance": 2,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.621Z"
+  },
+  {
+   "uid": "c-0342",
+   "name": "wild-butterfly",
+   "importance": 2,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.625Z"
+  },
+  {
+   "uid": "c-0346",
+   "name": "2-petals",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.643Z"
+  },
+  {
+   "uid": "c-0349",
+   "name": "side-top-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.656Z"
+  },
+  {
+   "uid": "c-0350",
+   "name": "flourish-3",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.660Z"
+  },
+  {
+   "uid": "c-0351",
+   "name": "flourish-1",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.665Z"
+  },
+  {
+   "uid": "c-0355",
+   "name": "2-petals-2",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.684Z"
+  },
+  {
+   "uid": "c-0358",
+   "name": "side-top-2",
+   "importance": 5,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.697Z"
+  },
+  {
+   "uid": "c-0359",
+   "name": "double-bounce",
+   "importance": 8,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.702Z"
+  },
+  {
+   "uid": "c-0360",
+   "name": "flourish-2",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.705Z"
+  },
+  {
+   "uid": "c-0364",
+   "name": "2-petals-3",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.724Z"
+  },
+  {
+   "uid": "c-0366",
+   "name": "1of2-butterfly-2",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.734Z"
+  },
+  {
+   "uid": "c-0367",
+   "name": "flourish-5",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.738Z"
+  },
+  {
+   "uid": "c-0368",
+   "name": "side-bounce",
+   "importance": 5,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.741Z"
+  },
+  {
+   "uid": "c-0369",
+   "name": "quintic-butterfly-2",
+   "importance": 8,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.745Z"
+  },
+  {
+   "uid": "c-0373",
+   "name": "2-petals-4",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.759Z"
+  },
+  {
+   "uid": "c-0376",
+   "name": "side-top-3",
+   "importance": 2,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.771Z"
+  },
+  {
+   "uid": "c-0377",
+   "name": "side-top-hat",
+   "importance": 3,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.776Z"
+  },
+  {
+   "uid": "c-0378",
+   "name": "star-trek-2",
+   "importance": 2,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.780Z"
+  },
+  {
+   "uid": "c-0379",
+   "name": "star-trek-1",
+   "importance": 3,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.786Z"
+  },
+  {
+   "uid": "c-0380",
+   "name": "flourish-7",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.788Z"
+  },
+  {
+   "uid": "c-0381",
+   "name": "side-bounce-2",
+   "importance": 2,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.794Z"
+  },
+  {
+   "uid": "c-0382",
+   "name": "top-5",
+   "importance": 7,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.799Z"
+  },
+  {
+   "uid": "c-0383",
+   "name": "top-4",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.802Z"
+  },
+  {
+   "uid": "c-0386",
+   "name": "2-petals-5",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.813Z"
+  },
+  {
+   "uid": "c-0389",
+   "name": "top-3",
+   "importance": 8,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.830Z"
+  },
+  {
+   "uid": "c-0390",
+   "name": "flourish-8",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.833Z"
+  },
+  {
+   "uid": "c-0391",
+   "name": "top-1",
+   "importance": 4,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.837Z"
+  },
+  {
+   "uid": "c-0392",
+   "name": "double-top",
+   "importance": 8,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.841Z"
+  },
+  {
+   "uid": "c-0396",
+   "name": "2-petals-6",
+   "importance": 10,
+   "rotation": 0,
+   "pieces": 1,
+   "perSide": 9,
+   "updated": "2026-11-20T17:40:28.857Z"
   }
  ]
 }

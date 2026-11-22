@@ -21706,7 +21706,7 @@
    },
    "note": {
     "uid": "c-0338",
-    "name": "1of2-butterfly",
+    "name": "hybrid-1of2-butterfly",
     "importance": 10,
     "rotation": 0,
     "pieces": 1,
@@ -21726,7 +21726,7 @@
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "each station is multiplied by P, the cubic middle terms of (x + y)^n",
-    "updatedAt": "2026-11-20T17:40:28.608Z"
+    "updatedAt": "2026-11-22T01:57:15.782Z"
    },
    "set": null,
    "metric": null
