@@ -96,7 +96,8 @@ if (row.speedX.length) {
     paths = group.paths.slice(0, 3);
     // say what the width measures, and say when the band was narrowed to stop it folding
     const cut = group.width < values.widthPct
-      ? ` (asked ${values.widthPct} %, cut so the band cannot fold over itself)`
+      ? ` (asked ${values.widthPct} %, cut so the band cannot fold over itself; ` +
+        "it buckles above that — tune it by hand)"
       : "";
     note = `rails: each edge ${group.width} % of the curve's size away from the spine${cut}; ` +
       `plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
@@ -116,7 +117,8 @@ if (!paths.length && record.path) {
     if (group) {
       paths = group.paths;
       const cut = group.width < values.widthPct
-        ? ` (asked ${values.widthPct} %, cut so the band cannot fold over itself)`
+        ? ` (asked ${values.widthPct} %, cut so the band cannot fold over itself; ` +
+          "it buckles above that — tune it by hand)"
         : "";
       note = `rails from the ${record.path.length} stored points: exact there, approximate ` +
         `between them${cut}; plus ${values.plus}, minus ${values.minus}, ${values.profile}`;

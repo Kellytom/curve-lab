@@ -76,7 +76,7 @@ function drawing(P, curve, values) {
       });
       if (group && group.paths.length >= 3) {
         return { paths: group.paths, kind: "stored", stored: curve.path.length,
-                 width: group.width };
+                 width: group.width, buckles: group.buckles, buckleNote: group.buckleNote };
       }
     }
     return { paths: [curve.path], kind: "path-spine", stored: curve.path.length };
@@ -92,7 +92,8 @@ function drawing(P, curve, values) {
   let group = null;
   try { group = P.group(row); } catch { group = null; }
   if (group && group.paths.length >= 3) {
-    return { paths: group.paths.slice(0, 3), kind: "rows", width: group.width };
+    return { paths: group.paths.slice(0, 3), kind: "rows", width: group.width,
+             buckles: group.buckles, buckleNote: group.buckleNote };
   }
   const spine = P.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]);
   return { paths: [spine], kind: "spine" };
@@ -126,7 +127,7 @@ function readout(drawn, values, paths) {
   const used = number(drawn.width, asked);
   const cut = used < Math.abs(asked) - 1e-9
     ? ` Band width ${used.toFixed(1)} % — asked ${asked} %, cut so the band cannot fold ` +
-      "over itself."
+      "over itself. Buckles above that: tune the width by hand."
     : ` Band width ${used.toFixed(1)} %.`;
   const stored = drawn.kind === "stored"
     ? ` Built from the ${drawn.stored} stored points: exact there, approximate between them.`

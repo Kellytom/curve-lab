@@ -860,25 +860,23 @@ curve in /plates ... all with UIDs".
   `distance × peak ≤ 0.9`; the used width is the largest safe width, so the band never narrows
   as the slider rises. Halving made it jump (`c-0002`: 2.2 % → 1.15 % at the next step).
 
-## A band may break at a sharp turn, in the drawing only — 2026-11-22
+## A band is never broken; it is cut to the safe width — 2026-11-22
 
-The operator: "Break the band at each sharp turn", then "but only for display purposes. keep it
-internally as an equation we can send back and forth to inkscape".
+Tried and withdrawn the same day. The operator first asked to "break the band at each sharp
+turn", then corrected it: **"it breaks too many places. just keep the side curves with tight
+thin, but as thick as reasonable until they start to buckle, and i will manually adjust. you
+can make a note if there are buckles in the curve for the tuner."**
 
-- **The record stays one continuous equation.** A row curve keeps its speed pair, a stored curve
-  its path; no segment, break or cap is stored, and nothing about the break is written to
-  `data/`, the registry or the database.
-- **The break is computed at render time** (`workbench/plate_math.js` → `splitGroup`): the
-  curvature is evaluated along the curve, and the band is drawn only where the asked width and
-  its bow fit under the fold limit (`distance × curvature ≤ 0.9`). The pen lifts across a turn
-  and starts again after it, tapering onto the spine over about an eighth of each run.
-- **A break is the fallback, not the default.** If the curve can carry a continuous band at
-  some visible width (the uniform guard's safe width ≥ 0.2 %), that whole band is drawn and no
-  break is made. Only a curve the uniform guard would refuse — 102 of the 371 today — is drawn
-  in runs, at the asked 4 %.
-- **Measured:** after the change every one of the 371 plates draws a band (269 continuous, 102
-  in runs); before it, 100 were plain spines. `c-0046` (wave-1of14-3) goes from a bare spine to
-  four runs.
+- **One continuous band per curve.** No run splitting, no taper, no caps at a break. The
+  record was never touched either way: a row curve keeps its speed pair, a stored curve its
+  path.
+- **The width is `min(the preset gap, the largest width that does not fold)`.** Where the
+  geometry is tight, the band is simply thin — the operator adjusts it by hand.
+- **A thin band is still drawn.** The old 0.2 % floor that turned a tight curve into a bare
+  spine is gone; only infinite curvature (no safe width at all) leaves a spine.
+- **The tuner is told when it was cut.** `group()` and `pathGroup()` return
+  `asked`, `width`, `buckles` and a `buckleNote` ("buckles above 0.04 % — asked 1.01 %, cut so
+  the band cannot fold"); `/tune/<uid>` prints it beside the band width.
 
 ## The unsaved preset is a measured 2 % gap — 2026-11-22
 

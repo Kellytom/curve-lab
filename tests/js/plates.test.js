@@ -7,7 +7,7 @@ const path = require("node:path");
 const PlateMath = require("../../workbench/plate_math.js");
 
 const ROOT = path.resolve(__dirname, "../..");
-const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "book/plates.json")));
+const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "book/old-plates.json")));
 const curves = JSON.parse(fs.readFileSync(path.join(ROOT, "workbench/real-curves.json")));
 const rows = Object.fromEntries(curves.curves.map((row) => [row.name, row]));
 
@@ -17,10 +17,14 @@ test("a railed curve is the spine, two rails and four caps", () => {
   assert.ok(group.note.includes("character rails"));
 });
 
-test("a curve whose rail folds is spine only", () => {
+test("a curve whose rail would fold keeps a hairline band, not a spine", () => {
+  // Amended 2026-11-22 with the operator's words: "just keep the side curves with tight
+  // thin, but as thick as reasonable until they start to buckle, and i will manually adjust."
+  // The guard still cuts the width; it no longer hides the band at the 0.2 % floor.
   const group = PlateMath.group(rows["inflect-2"]);
-  assert.equal(group.paths.length, 1);
-  assert.ok(group.note.includes("spine only"));
+  assert.equal(group.paths.length, 7);
+  assert.ok(group.width < 0.2, `cut to ${group.width} %`);
+  assert.equal(group.buckles, true);
 });
 
 test("a cross in a 3x3 frame is 16 groups of seven paths", () => {
@@ -43,7 +47,7 @@ test("every plate has its SVG and a 300 dpi PNG at the long side", () => {
     const width = Number(svg.match(/width="(\d+)"/)[1]);
     const height = Number(svg.match(/height="(\d+)"/)[1]);
     assert.equal(Math.max(width, height), manifest.longSide, plate.id);
-    const png = fs.readFileSync(path.join(ROOT, "book/plates", `${plate.id}.png`));
+    const png = fs.readFileSync(path.join(ROOT, "book/old-plates", `${plate.id}.png`));
     assert.equal(png.readUInt32BE(16), width, plate.id);
     assert.equal(png.readUInt32BE(20), height, plate.id);
     let offset = 8;
