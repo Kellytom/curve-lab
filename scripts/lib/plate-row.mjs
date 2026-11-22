@@ -1,17 +1,36 @@
 // The one place a plate's four character values are chosen.
 //
-// Order, everywhere: note → desk row → defaults (4 %, plus 2.5, minus 0.1, bow).
+// Order, everywhere: note → desk row → preset.
 // This lives in a library, not inside print_plates.mjs, because it was a copy of the
 // function that carried a duplicate `character:` key: the second key silently won and
 // set plus and minus to 0, so every plate drew two parallel offsets no matter what the
 // desk said. See state/REGRESSIONS-int.md.
+import P from "../../workbench/plate_math.js";
 
-// The preset is the first two curves the operator tuned: c-0001 and c-0001a, at 1 % width,
-// plus 2.5, minus 0.1. 6 % was the old guard's asked width; 1.5 % was the first correction;
-// the operator's words, 2026-11-21: "6% is way too much, look at the first two curves i did
-// for a better preset level." On 2026-11-22 they asked for at least double the visible gap
-// on c-0022 and the curves after it, so the untouched preset is 4 %.
-export const DEFAULTS = { widthPercent: 4, plus: 2.5, minus: 0.1, profile: "bow" };
+// The preset is a **measured gap**, not a fixed width. The operator, 2026-11-22: "half are
+// too thin and half are too thick ... you should have algorithms to figure that out already
+// and fix it before i even see it. right? check the thickness". The good references are
+// c-0001a (drawn gap 1.9 % of the curve's size) and c-0161 (2.3 %), so the preset solves the
+// width that puts the drawn median gap at 2 % of the curve's own size. A saved width still
+// wins: those are the operator's own curves.
+export const TARGET_GAP_PERCENT = 2;
+export const DEFAULTS = { plus: 2.5, minus: 0.1, profile: "bow" };
+
+// The median of the bow factor over the curve, so a solved base width lands at the target
+// gap whatever the profile and strength are.
+const medianFactor = (profile, strength) => {
+  const values = [];
+  for (let i = 0; i <= 200; i += 1) {
+    values.push(1 + strength * P.profileAt(profile, i / 200));
+  }
+  values.sort((a, b) => a - b);
+  return values[100] || 1;
+};
+
+export function presetWidthPercent(character) {
+  const strength = (Math.abs(Number(character.plus) || 0) + Math.abs(Number(character.minus) || 0)) / 2;
+  return Math.round((TARGET_GAP_PERCENT / medianFactor(character.profile, strength)) * 100) / 100;
+}
 
 // The operator, 2026-11-21: "the offset curves should look the same on both sides of the
 // curve, not thin on the right and wide on the left." The two sides take one strength, the
@@ -32,22 +51,26 @@ const choose = (noteValue, deskValue, defaultValue) => {
 export function rowFor(record, context = {}) {
   const note = context.note || {};
   const desk = context.desk || {};
+  const plus = choose(note.plus, desk.plus, DEFAULTS.plus);
+  const minus = choose(note.minus, desk.minus, DEFAULTS.minus);
+  const profile = note.profile || desk.profile || DEFAULTS.profile;
   // Every curve takes the preset when it has no saved width, stored paths included. The
   // operator, 2026-11-21: "i didnt ask for spines only. i asked for clean curves like the
   // first two." (The path rails' fold at a tight loop is a geometry problem, not a reason to
   // drop the band.)
-  const widthPercent = choose(note.width_pct ?? note.widthPct, desk.widthPct, DEFAULTS.widthPercent);
-  const plus = choose(note.plus, desk.plus, DEFAULTS.plus);
-  const minus = choose(note.minus, desk.minus, DEFAULTS.minus);
+  const preset = presetWidthPercent({ plus, minus, profile });
+  const noteWidth = note.width_pct ?? note.widthPct;
+  const widthPercent = choose(noteWidth, desk.widthPct, preset);
+  // Who set the width. The plate only normalises a preset curve to the target gap; a saved
+  // width is the operator's own number and is used as asked.
+  const widthSource = (noteWidth !== undefined && noteWidth !== null && Number(noteWidth) !== 0)
+    ? "note"
+    : (desk.widthPct !== undefined && desk.widthPct !== null ? "desk" : "preset");
   return {
     name: record.name,
     speedX: record.speedX || [],
     speedY: record.speedY || [],
-    width: { percent: widthPercent },
-    character: {
-      plus,
-      minus,
-      profile: note.profile || desk.profile || DEFAULTS.profile,
-    },
+    width: { percent: widthPercent, source: widthSource },
+    character: { plus, minus, profile },
   };
 }

@@ -45,10 +45,11 @@ test("every drawn run stays under the fold limit at the asked width", () => {
   }
 });
 
-test("a curve that can carry a continuous band keeps it whole", () => {
-  // c-0001 at 1 % has a safe uniform width, so the caller keeps the ordinary band; the
-  // break is only for curves the uniform guard would refuse.
-  assert.equal(P.splitGroup(optionsFor(curveOf("c-0001"), 1)), null);
+test("a curve that can carry the width is one continuous run", () => {
+  // c-0001 at 1 % fits everywhere, so the band is not broken: one run, no lift.
+  const split = P.splitGroup(optionsFor(curveOf("c-0001"), 1));
+  assert.equal(split.segments.length, 1);
+  assert.ok(split.segments[0].from < 0.01 && split.segments[0].to > 0.99);
 });
 
 test("the break is display only: the equation is not touched", () => {

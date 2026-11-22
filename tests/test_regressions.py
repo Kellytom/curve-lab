@@ -170,6 +170,27 @@ class TestRegressions(unittest.TestCase):
 
 
 
+class PlateGapTest(unittest.TestCase):
+    """2026-11-22, the operator: "half are too thin and half are too thick ... you should
+    have algorithms to figure that out already and fix it before i even see it. right?
+    check the thickness".
+
+    The preset was a fixed number, so a curve the fold guard bound drew a hairline and a
+    curve it did not drew a slab. The preset is now a measured 2 % drawn gap, solved per
+    run; this runs the plate-gap check over every preset curve in the registry.
+    """
+
+    def test_every_preset_plate_draws_the_target_gap(self):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "plate-gap.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+
+
 class OrnamentWriterTest(unittest.TestCase):
     """2026-11-22, the operator: "i cant see how many curves to do because the page
     keeps refreshing constantly."

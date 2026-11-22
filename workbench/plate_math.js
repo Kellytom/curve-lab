@@ -557,41 +557,66 @@
     const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
     const strengths = [clamp(plus), clamp(minus)];
     const base = (widthPercent / 100) * size;
-    // If the curve can carry a continuous band at some visible width, that band is better
-    // than a broken one: the break is the answer only where the uniform guard would refuse
-    // (operator, 2026-11-22: the spines get the band broken at each sharp turn).
-    const worst = curvatureWorst(u, v, plus, minus, profile);
-    const safePercent = worst === 0
-      ? Infinity
-      : Number.isFinite(worst) && worst > 0
-        ? Math.floor((FOLD_LIMIT / worst) * 10000 / size) / 100
-        : 0;
-    if (safePercent >= WIDTH_FLOOR) return null;
     const safe = curvatureProfile(u, v, samples)
       .map((k) => (Number.isFinite(k) && k > 0 ? FOLD_LIMIT / k : Infinity));
-    // 2 % margin so a spike between two samples cannot fold the drawn rail
-    const fits = samples.map((s, i) => {
-      const factor = Math.max(...strengths.map((k) => Math.abs(1 + k * profileAt(profile, s.t))), 1e-9);
-      return safe[i] >= base * factor * 1.02;
-    });
-    const minRun = Math.max(3, Math.round(samples.length * 0.04));
-    const runs = [];
-    let i = 0;
-    while (i < samples.length) {
-      if (!fits[i]) { i += 1; continue; }
-      let j = i;
-      while (j + 1 < samples.length && fits[j + 1]) j += 1;
-      if (j - i + 1 >= minRun) runs.push([i, j]);
-      i = j + 1;
+    // The offset each side would carry at a station, including its bow.
+    const factorAt = (i) => Math.max(
+      ...strengths.map((k) => Math.abs(1 + k * profileAt(profile, samples[i].t))), 1e-9);
+    // A run is a stretch where the band at `baseDistance` fits: distance x curvature <= 0.9.
+    const runsFor = (baseDistance, from = 0, to = samples.length - 1, minLength = 3) => {
+      const out = [];
+      let i = from;
+      while (i <= to) {
+        if (!(safe[i] >= baseDistance * factorAt(i) * 1.02)) { i += 1; continue; }
+        let j = i;
+        while (j + 1 <= to && safe[j + 1] >= baseDistance * factorAt(j + 1) * 1.02) j += 1;
+        if (j - i + 1 >= minLength) out.push([i, j]);
+        i = j + 1;
+      }
+      return out;
+    };
+    const medianOf = (values) => {
+      const sorted = values.slice().sort((a, b) => a - b);
+      return sorted[Math.floor(sorted.length / 2)] || 1;
+    };
+    // Bands are normalised to the target gap (operator, 2026-11-22: "check the thickness").
+    // Each run solves its own base so the drawn gap is the target there, which matters
+    // because the bow is small near the curve's ends and a run there would otherwise be thin.
+    const target = Number(opts.targetGapPercent || 0);
+    const minRun = Math.max(3, Math.round(samples.length * 0.02));
+    const baseForRun = (a, b) => {
+      if (!target) return base;
+      const factors = [];
+      for (let i = a; i <= b; i += 1) factors.push(factorAt(i));
+      return ((target / 100) * size) / medianOf(factors);
+    };
+    const all = [];
+    for (let i = 0; i < samples.length; i += 1) all.push(i);
+    let runs = runsFor(baseForRun(0, samples.length - 1), 0, samples.length - 1, minRun)
+      .map(([a, b]) => [a, b, baseForRun(a, b)]);
+    if (target && runs.length) {
+      // Two passes: cut the parent at its base, then re-solve the base of each child (its own
+      // bow median differs) and cut again. Without the second solve an end run stays at the
+      // curve-wide base and draws thin.
+      const cut = (list) => {
+        const out = [];
+        for (const [a, b, runBase] of list) {
+          for (const [c, d] of runsFor(runBase, a, b, Math.max(3, Math.round(samples.length * 0.01)))) {
+            out.push([c, d, baseForRun(c, d)]);
+          }
+        }
+        return out;
+      };
+      runs = cut(cut(runs));
     }
     if (!runs.length) return null;
-    const segments = runs.map(([a, b]) => {
+    const segments = runs.map(([a, b, runBase]) => {
       const part = samples.slice(a, b + 1);
       const spinePart = part.map((s) => [s.x, s.y]);
       // The band closes onto the spine at each break, over about an eighth of the run, so the
       // lifted pen leaves a tapered end rather than a straight slash across the band. The
       // curve's own ends are not breaks: there the band keeps its base gap.
-      const ramp = Math.max(6, Math.round(part.length * 0.08));
+      const ramp = Math.min(Math.max(3, Math.round(part.length * 0.08)), Math.max(1, Math.floor(part.length / 5)));
       const taperStart = a > 0;
       const taperEnd = b < samples.length - 1;
       const edgeAt = (i) => Math.min(1,
@@ -599,7 +624,7 @@
         taperEnd ? (part.length - 1 - i) / ramp : 1,
       );
       const railFor = (sign, strength) => part.map((s, i) => {
-        const d = base * (1 + clamp(strength) * profileAt(profile, s.t)) * edgeAt(i);
+        const d = runBase * (1 + clamp(strength) * profileAt(profile, s.t)) * edgeAt(i);
         return [s.x + sign * d * s.nx, s.y + sign * d * s.ny];
       });
       const right = railFor(1, plus);
@@ -619,8 +644,114 @@
     return { name: row.name, segments, width: widthPercent, profileName: profile, note };
   }
 
+  // The same break for a stored path: the same refinement, tangents and arc as pathGroup,
+  // but the band is drawn at the asked width wherever it fits and lifted across the rest,
+  // tapering onto the spine at each break. Display only, like splitGroup.
+  function splitPath(points, options) {
+    const opts = options || {};
+    const widthPercent = Number(opts.widthPercent ?? DEFAULT_WIDTH);
+    const plus = Number(opts.plus ?? DEFAULT_PLUS);
+    const minus = Number(opts.minus ?? DEFAULT_MINUS);
+    const profile = ["bow", "s", "taper"].includes(opts.profile) ? opts.profile : DEFAULT_PROFILE;
+    const stored = (points || []).filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
+    if (stored.length < 3) return null;
+    const box = bbox(stored);
+    const size = Math.hypot(box[2] - box[0], box[3] - box[1]) || 1;
+    const base = (widthPercent / 100) * size;
+    const walk = refinePath(stored, size / 1600);
+    const arc = [0];
+    for (let i = 1; i < walk.length; i += 1) {
+      arc.push(arc[i - 1] + Math.hypot(walk[i][0] - walk[i - 1][0], walk[i][1] - walk[i - 1][1]));
+    }
+    const total = arc[arc.length - 1] || 1;
+    const tangents = walk.map((p, i) => {
+      const before = walk[Math.max(0, i - 1)];
+      const after = walk[Math.min(walk.length - 1, i + 1)];
+      const tx = after[0] - before[0], ty = after[1] - before[1];
+      const len = Math.hypot(tx, ty) || 1;
+      return [tx / len, ty / len];
+    });
+    const curvature = walk.map((p, i) => {
+      const a = tangents[Math.max(0, i - 1)];
+      const b = tangents[Math.min(walk.length - 1, i + 1)];
+      const step = arc[Math.min(walk.length - 1, i + 1)] - arc[Math.max(0, i - 1)];
+      const turn = Math.abs(Math.atan2(a[0] * b[1] - a[1] * b[0], a[0] * b[0] + a[1] * b[1]));
+      return turn > 1e-12 && step > 1e-12 ? turn / step : 0;
+    });
+    const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
+    const strengths = [clamp(plus), clamp(minus)];
+    const factorAt = (i) => Math.max(
+      ...strengths.map((k) => Math.abs(1 + k * profileAt(profile, arc[i] / total))), 1e-9);
+    const safeAt = (i) => (curvature[i] > 0 ? FOLD_LIMIT / curvature[i] : Infinity);
+    const runsFor = (baseDistance, from = 0, to = walk.length - 1, minLength = 3) => {
+      const out = [];
+      let i = from;
+      while (i <= to) {
+        if (!(safeAt(i) >= baseDistance * factorAt(i) * 1.02)) { i += 1; continue; }
+        let j = i;
+        while (j + 1 <= to && safeAt(j + 1) >= baseDistance * factorAt(j + 1) * 1.02) j += 1;
+        if (j - i + 1 >= minLength) out.push([i, j]);
+        i = j + 1;
+      }
+      return out;
+    };
+    const medianOf = (values) => {
+      const sorted = values.slice().sort((a, b) => a - b);
+      return sorted[Math.floor(sorted.length / 2)] || 1;
+    };
+    const target = Number(opts.targetGapPercent || 0);
+    const baseForRun = (a, b) => {
+      if (!target) return base;
+      const factors = [];
+      for (let i = a; i <= b; i += 1) factors.push(factorAt(i));
+      return ((target / 100) * size) / medianOf(factors);
+    };
+    const minRun = Math.max(3, Math.round(walk.length * 0.02));
+    let runs = runsFor(baseForRun(0, walk.length - 1), 0, walk.length - 1, minRun)
+      .map(([a, b]) => [a, b, baseForRun(a, b)]);
+    if (target && runs.length) {
+      const refined = [];
+      for (const [a, b, runBase] of runs) {
+        for (const [c, d] of runsFor(runBase, a, b, Math.max(3, Math.round(walk.length * 0.01)))) {
+          refined.push([c, d, runBase]);
+        }
+      }
+      runs = refined;
+    }
+    if (!runs.length) return null;
+    const segments = runs.map(([a, b, runBase]) => {
+      const part = walk.slice(a, b + 1);
+      const spinePart = part.map((p) => [p[0], p[1]]);
+      const ramp = Math.min(Math.max(3, Math.round(part.length * 0.08)), Math.max(1, Math.floor(part.length / 5)));
+      const taperStart = a > 0;
+      const taperEnd = b < walk.length - 1;
+      const edgeAt = (k) => Math.min(1,
+        taperStart ? k / ramp : 1,
+        taperEnd ? (part.length - 1 - k) / ramp : 1);
+      const railFor = (side, strength) => part.map((p, k) => {
+        const u = (arc[a + k] || 0) / total;
+        const want = runBase * (1 + clamp(strength) * profileAt(profile, u)) * edgeAt(k);
+        const [tx, ty] = tangents[a + k];
+        const d = side * want;
+        return [p[0] - ty * d, p[1] + tx * d];
+      });
+      const right = railFor(1, plus);
+      const left = railFor(-1, minus);
+      const last = spinePart.length - 1;
+      return {
+        spine: spinePart,
+        rails: [right, left,
+          [spinePart[0], right[0]], [spinePart[last], right[last]],
+          [spinePart[0], left[0]], [spinePart[last], left[last]]],
+        from: (arc[a] || 0) / total,
+        to: (arc[b] || 0) / total,
+      };
+    });
+    return { segments, width: widthPercent, note: `path band broken at ${segments.length} run(s)` };
+  }
+
   return { value, spine, curvaturePeak, curvatureWorst, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
-           splitGroup, curvatureProfile,
+           splitGroup, splitPath, curvatureProfile, profileAt,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };
 });

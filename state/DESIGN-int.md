@@ -880,16 +880,28 @@ internally as an equation we can send back and forth to inkscape".
   in runs); before it, 100 were plain spines. `c-0046` (wave-1of14-3) goes from a bare spine to
   four runs.
 
-## The unsaved default is 4 %, and an outline keeps its precision — 2026-11-21
+## The unsaved preset is a measured 2 % gap — 2026-11-22
 
-- **A curve with no desk row starts at width 4 %**, plus 2.5, minus 0.1, bow. A saved row always
-  uses its own values. The operator: "instead of 6%, set width of offsets to 1.5% for the ones
-  i havent saved." Reason: 6 % was the old guard's *asked* width, drawn at about 1.5 % after
-  halving; now that the guard is solved directly, 6 % is a genuinely wide band, so the untouched
-  default is the width it used to draw. Raised to 2 % on 2026-11-22 and to 4 % the same day:
-  "increase the current distance apart of the offset curves for c-22 and following at least
-  double so i can see it better." The guard still cuts a curve whose own curvature would fold,
-  so the saved number is the ask, never a promise.
+- **A curve with no saved width is drawn at a 2 % gap**, plus 2.5, minus 0.1, bow. A saved
+  width always wins; those are the operator's own curves.
+- **The number is measured, not chosen.** The operator, after reviewing the set: "the more or
+  less correct ones for a starting set of variables are: c-0022 to c-0043 ... the last one
+  c-0001a is good", then "half are too thin and half are too thick ... you should have
+  algorithms to figure that out already and fix it before i even see it. right? check the
+  thickness". The reference curves measure a drawn gap of **1.9 %** (`c-0001a`) and **2.3 %**
+  (`c-0161`) of the curve's own size, so the preset solves for **2 %**.
+- **The solve is per run.** The bow is small near the curve's ends, so a run there would draw
+  thin at a curve-wide base. Each run solves its own base: `base = target / median(bow
+  factor)`, then the run is recut at that base so it cannot fold. A run that cannot carry the
+  target is dropped, and the curve is left to the uniform guard or the spine.
+- **Measured after:** every one of the 371 plates draws a median gap between **1.96 % and
+  2.01 %** (10th to 90th centile) and a widest gap between 2.24 % and 2.45 %.
+  `tests/js/plate-gap.test.mjs` fails if a preset plate leaves that window.
+- **History:** 6 % was the old guard's asked width, drawn at about 1.5 % after halving; then
+  1.5 %, 2 %, 4 % on the same day, each a fixed number that produced thin curves where the
+  guard bound and slabs where it did not. The fixed number is retired for the measured gap.
+
+## An outline keeps its precision — 2026-11-21
 - **The registry copies a sampled outline at six decimals, never two.** Two decimals is coarser
   than the step between samples on a curve of size 1–3, and it turns a smooth curve into a run
   of axis-aligned steps: `c-0143` (y = x² as a t² cover) drew as a staircase, not a parabola

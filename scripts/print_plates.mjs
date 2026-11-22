@@ -16,7 +16,7 @@ import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
 import { turn, frame as frameFor } from "./lib/plate-frame.mjs";
-import { rowFor as plateRow, symmetricStrength } from "./lib/plate-row.mjs";
+import { rowFor as plateRow, symmetricStrength, TARGET_GAP_PERCENT } from "./lib/plate-row.mjs";
 
 // d3 does the geometry: the extents and the line generator. It is a dependency the app
 // already carries (app/node_modules), so the plate uses the same library as the pages.
@@ -75,7 +75,8 @@ const decisionsRaw = existsSync(DECISIONS) ? JSON.parse(readFileSync(DECISIONS, 
 const decisions = decisionsRaw.rows || decisionsRaw.curves || [];
 if (!decisions.length) {
   console.log("WARNING: data/sandbox-curves.json is missing or empty — every plate will use " +
-    "the defaults (4 %, plus 2.5, minus 0.1, bow). Run: node scripts/export-data.mjs");
+    "the measured preset (a 2 % drawn gap, plus 2.5, minus 0.1, bow). " +
+    "Run: node scripts/export-data.mjs");
 }
 const extra = new Map(decisions.map((row) => [row.uid || row.name, row]));
 
@@ -130,23 +131,31 @@ function plateSvg(record) {
   // the same on both sides, not thin on the right and wide on the left").
   const strength = symmetricStrength(row.character.plus, row.character.minus);
   const character = { ...row.character, plus: strength, minus: strength };
+  // A preset curve is normalised to the measured target gap; a saved width is used as asked.
+  const targetGapPercent = row.width.source === "preset" ? TARGET_GAP_PERCENT : undefined;
   // A plate draws one or more segments. Usually it is one; a curve that turns tighter than
   // the asked width gets the band lifted across the turn and started again after it
   // (operator, 2026-11-22: "break the band at each sharp turn"). That is a display choice,
   // computed from the equation here; nothing about the break is stored.
   let segments = [];
   if (Array.isArray(record.path) && record.path.length > 2) {
-    const group = PLATE.pathGroup(record.path, {
+    const opts = {
       widthPercent: row.width.percent, plus: strength, minus: strength,
-      profile: row.character.profile,
-    });
-    if (group && group.paths.length) {
-      segments = [{ spine: group.paths[0], rails: group.paths.slice(1) }];
+      profile: row.character.profile, targetGapPercent,
+    };
+    const split = PLATE.splitPath ? PLATE.splitPath(record.path, opts) : null;
+    if (split && split.segments.length) {
+      segments = split.segments.map(({ spine, rails }) => ({ spine, rails }));
     } else {
-      segments = [{ spine: record.path.map(([x, y]) => [x, y]), rails: [] }];
+      const group = PLATE.pathGroup(record.path, opts);
+      if (group && group.paths.length) {
+        segments = [{ spine: group.paths[0], rails: group.paths.slice(1) }];
+      } else {
+        segments = [{ spine: record.path.map(([x, y]) => [x, y]), rails: [] }];
+      }
     }
   } else {
-    const split = PLATE.splitGroup ? PLATE.splitGroup({ ...row, character }) : null;
+    const split = PLATE.splitGroup ? PLATE.splitGroup({ ...row, character }, { targetGapPercent }) : null;
     if (split && split.segments.length) {
       segments = split.segments.map(({ spine, rails }) => ({ spine, rails }));
     } else {

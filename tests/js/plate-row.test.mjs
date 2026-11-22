@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { rowFor, DEFAULTS } from "../../scripts/lib/plate-row.mjs";
+import { rowFor, DEFAULTS, TARGET_GAP_PERCENT, presetWidthPercent } from "../../scripts/lib/plate-row.mjs";
 import P from "../../workbench/plate_math.js";
 
 // The operator's words: "I CANT BELIEVE WE ARE DEALING WITH PARALLEL CURVE".
@@ -30,7 +30,7 @@ test("a note wins over the desk row, and the desk row wins over the defaults", (
   assert.equal(noted.character.minus, DEFAULTS.minus);
 
   const bare = rowFor(record);
-  assert.equal(bare.width.percent, DEFAULTS.widthPercent);
+  assert.equal(bare.width.percent, presetWidthPercent(bare.character));
   assert.equal(bare.character.plus, DEFAULTS.plus);
 });
 
@@ -63,15 +63,34 @@ test("plus = minus = 0 is the only case that is a parallel offset", () => {
   assert.ok(flat(plus) && flat(minus), "zero character must be a true parallel offset");
 });
 
-test("the preset is 4 % width, plus 2.5, minus 0.1 (doubled again for the review)", () => {
-  // The operator, 2026-11-21: "6% is way too much, look at the first two curves i did for a
-  // better preset level." The first two are 1 % / 2.5 / 0.1; on 2026-11-22 the operator asked
-  // twice to double the visible gap ("for c-22 and following at least double so i can see it
-  // better"), so the untouched preset is 4 %.
-  assert.equal(DEFAULTS.widthPercent, 4);
+test("the preset solves for the drawn gap, not a fixed width", () => {
+  // The operator, 2026-11-22: "half are too thin and half are too thick ... you should have
+  // algorithms to figure that out already and fix it before i even see it. right? check the
+  // thickness". The good references are c-0001a (1.9 % drawn gap) and c-0161 (2.3 %), so the
+  // preset solves the base width that puts the drawn median gap at 2 % of the curve's size.
+  assert.equal(TARGET_GAP_PERCENT, 2);
   assert.equal(DEFAULTS.plus, 2.5);
   assert.equal(DEFAULTS.minus, 0.1);
-  assert.equal(rowFor(record).width.percent, 4);
+  const row = rowFor(record);
+  assert.ok(row.width.percent > 0.9 && row.width.percent < 1.2,
+    `the 2 % target is about 1.07 % of base width, got ${row.width.percent}`);
+
+  // behaviour: measure the drawn gap on a row curve whose guard does not bind (c-0010)
+  const registry = JSON.parse(readFileSync(new URL("../../workbench/curve-registry.json", import.meta.url)));
+  const wide = registry.curves.find((r) => r.uid === "c-0010");
+  const wideRow = rowFor({ name: wide.name, speedX: wide.speedX, speedY: wide.speedY });
+  // the plates draw both sides at one strength, the average of the saved pair
+  const strength = (Math.abs(wideRow.character.plus) + Math.abs(wideRow.character.minus)) / 2;
+  const group = P.group({ ...wideRow, character: { ...wideRow.character, plus: strength, minus: strength } });
+  const [spine, ...rails] = group.paths;
+  const xs = spine.map((p) => p[0]), ys = spine.map((p) => p[1]);
+  const size = Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  const gaps = rails.slice(0, 2).flatMap((rail) =>
+    spine.map((p, i) => Math.hypot(rail[i][0] - p[0], rail[i][1] - p[1]))).sort((a, b) => a - b);
+  const median = gaps[Math.floor(gaps.length / 2)] / size * 100;
+  assert.ok(Math.abs(median - TARGET_GAP_PERCENT) < 0.5,
+    `the drawn median gap is ${median.toFixed(2)} %, not the 2 % target`);
+
   assert.equal(rowFor(record, { desk: { widthPct: 6 } }).width.percent, 6,
     "a saved row always keeps its own width");
 });
@@ -99,7 +118,7 @@ test("a stored path takes the preset like every other curve", () => {
   assert.ok(path, "a stored-path record is needed for this test");
   for (const note of [{ widthPct: 0, plus: 0, minus: 0, profile: null }, {}]) {
     const row = rowFor(path, { note, desk: {} });
-    assert.equal(row.width.percent, DEFAULTS.widthPercent);
+    assert.equal(row.width.percent, presetWidthPercent(row.character));
     assert.equal(row.character.plus, DEFAULTS.plus);
     assert.equal(row.character.minus, DEFAULTS.minus);
   }
