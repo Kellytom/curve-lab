@@ -92,6 +92,7 @@ const only = (() => {
   return at >= 0 ? new Set(args[at + 1].split(",")) : null;
 })();
 const missing = args.includes("--missing");
+const SVG_ONLY = args.includes("--svg-only");
 // one tone (a single black) or two (dark left, grey right); the brief asked for two
 const toneArg = (args.find((a) => a.startsWith("--tone=")) || "--tone=two").split("=")[1];
 const singleTone = toneArg === "one";
@@ -212,10 +213,12 @@ const records = registry.curves.filter((record) => {
   if (missing && existsSync(path.join(OUT, `${record.uid}.png`))) return false;
   return true;
 });
-const browser = await chromium.launch({
+// The SVG is the plate; the PNG is a convenience raster. --svg-only writes every SVG in
+// seconds (no browser, no screenshot), which is the fast iteration the operator asked for.
+const browser = SVG_ONLY ? null : await chromium.launch({
   executablePath: process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
 });
-const page = await browser.newPage();
+const page = browser ? await browser.newPage() : null;
 
 let done = 0;
 for (const record of records) {
@@ -225,6 +228,10 @@ for (const record of records) {
   const svgPath = path.join(OUT, `${record.uid}.svg`);
   const pngPath = path.join(OUT, `${record.uid}-${LONG_SIDE}-grey-300dpi.png`);
   writeFileSync(svgPath, svg);
+  if (SVG_ONLY) {
+    done += 1;
+    continue;
+  }
   await page.setViewportSize({ width: pxW, height: pxH });
   // omitBackground keeps the alpha: what is not drawn is transparent, not white
   await page.setContent(`<body style="margin:0;background:transparent">${svg}</body>`);
@@ -239,7 +246,7 @@ for (const record of records) {
       `turn ${String(degrees).padStart(3)}°  ${pxW}×${pxH}  rails ${rails}`);
   }
 }
-await browser.close();
+if (browser) await browser.close();
 
 // a plate is replaced, never duplicated: the expected names are known, so anything else in
 // the folder is an orphan and is removed
@@ -254,5 +261,7 @@ for (const file of readdirSync(OUT)) {
   rmSync(path.join(OUT, file));
   pruned += 1;
 }
-console.log(`${done} plates written to book/print at ${LONG_SIDE} px, 300 dpi` +
-  (pruned ? `; ${pruned} orphan files removed` : ""));
+console.log(SVG_ONLY
+  ? `${done} plate SVGs written to book/print (no raster pass)`
+  : `${done} plates written to book/print at ${LONG_SIDE} px, 300 dpi` +
+    (pruned ? `; ${pruned} orphan files removed` : ""));

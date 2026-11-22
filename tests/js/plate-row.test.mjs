@@ -89,22 +89,19 @@ test("a placeholder zero in a note does not win over the desk row", () => {
   assert.equal(row.character.profile, "bow");
 });
 
-test("a stored-path record keeps a zero note as the clean spine-only line", () => {
-  // The doubles and flourishes (c-0275..c-0368) are stored paths. Their zero note is the
-  // two-tone spine, not a placeholder; giving them the row preset drew a band that tangled
-  // at the tight loop. The operator: "it looks to me like you went backwards with c-0275
-  // to 368."
+test("a stored path takes the preset like every other curve", () => {
+  // The operator, 2026-11-21: "i didnt ask for spines only. i asked for clean curves like
+  // the first two." The doubles and flourishes are stored paths, but a zero or missing note
+  // is the placeholder here too; the preset band applies. A saved width still wins.
   const registry = JSON.parse(readFileSync(new URL("../../workbench/curve-registry.json", import.meta.url)));
   const path = registry.curves.find((row) => Array.isArray(row.path) && row.path.length > 2);
   assert.ok(path, "a stored-path record is needed for this test");
-  const row = rowFor(path, { note: { widthPct: 0, plus: 0, minus: 0, profile: null }, desk: {} });
-  assert.equal(row.width.percent, 0);
-  assert.equal(row.character.plus, 0);
-  assert.equal(row.character.minus, 0);
-  // the export the print used had nulls, not zeros; a missing path width is the spine too
-  const missing = rowFor(path, { note: {}, desk: {} });
-  assert.equal(missing.width.percent, 0);
-  // a saved width on a path still draws the bands
-  const banded = rowFor(path, { note: { widthPct: 1.5, plus: 2, minus: 2, profile: "bow" }, desk: {} });
-  assert.equal(banded.width.percent, 1.5);
+  for (const note of [{ widthPct: 0, plus: 0, minus: 0, profile: null }, {}]) {
+    const row = rowFor(path, { note, desk: {} });
+    assert.equal(row.width.percent, DEFAULTS.widthPercent);
+    assert.equal(row.character.plus, DEFAULTS.plus);
+    assert.equal(row.character.minus, DEFAULTS.minus);
+  }
+  const saved = rowFor(path, { note: { widthPct: 1.5, plus: 2, minus: 2, profile: "bow" }, desk: {} });
+  assert.equal(saved.width.percent, 1.5);
 });

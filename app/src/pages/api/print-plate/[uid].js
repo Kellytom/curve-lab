@@ -23,7 +23,8 @@ export const GET = async ({ params, url }) => {
   return new Response(readFileSync(file), {
     headers: {
       "content-type": format === "svg" ? "image/svg+xml" : "image/png",
-      "cache-control": "public, max-age=600",
+      // the SVG is the live plate; a reload must show the current law, not a ten-minute old copy
+      "cache-control": format === "svg" ? "no-cache" : "public, max-age=600",
     },
   });
 };

@@ -24,16 +24,13 @@ const choose = (noteValue, deskValue, defaultValue) => {
 export function rowFor(record, context = {}) {
   const note = context.note || {};
   const desk = context.desk || {};
-  // The zero placeholders are a row-record problem. A stored path (the doubles and the
-  // flourishes) uses its zero note as the clean two-tone spine; the preset must not add a
-  // band there (2026-11-21, the operator: "it looks to me like you went backwards with
-  // c-0275 to 368").
-  const storedPath = Array.isArray(record.path) && record.path.length > 2;
-  const widthPercent = storedPath
-    ? (note.width_pct ?? note.widthPct ?? desk.widthPct ?? 0)
-    : choose(note.width_pct ?? note.widthPct, desk.widthPct, DEFAULTS.widthPercent);
-  const plus = storedPath ? (note.plus ?? desk.plus ?? 0) : choose(note.plus, desk.plus, DEFAULTS.plus);
-  const minus = storedPath ? (note.minus ?? desk.minus ?? 0) : choose(note.minus, desk.minus, DEFAULTS.minus);
+  // Every curve takes the preset when it has no saved width, stored paths included. The
+  // operator, 2026-11-21: "i didnt ask for spines only. i asked for clean curves like the
+  // first two." (The path rails' fold at a tight loop is a geometry problem, not a reason to
+  // drop the band.)
+  const widthPercent = choose(note.width_pct ?? note.widthPct, desk.widthPct, DEFAULTS.widthPercent);
+  const plus = choose(note.plus, desk.plus, DEFAULTS.plus);
+  const minus = choose(note.minus, desk.minus, DEFAULTS.minus);
   return {
     name: record.name,
     speedX: record.speedX || [],

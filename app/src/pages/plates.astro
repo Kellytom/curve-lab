@@ -51,7 +51,7 @@ const done = rows.filter((row) => row.exported).length;
     {rows.map((row) => (
       <article class="plate-card">
         <a href={`/tune/${row.uid}`} title="open the tuning engine for this curve">
-          <img src={row.web ? `/plates-web/${row.uid}-1600-grey.png?v=${row.stamp}` : `/api/print-plate/${row.uid}`}
+          <img src={`/api/print-plate/${row.uid}?format=svg&v=${row.stamp}`}
             alt={row.name} loading="lazy" />
         </a>
         <p class="plate-name"><code>{row.uid}</code> {row.name}</p>

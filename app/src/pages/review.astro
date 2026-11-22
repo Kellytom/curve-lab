@@ -20,7 +20,7 @@ const rows = chosen
     uid: curve.uid,
     name: curve.name,
     stars: Number(curve.stars || 0),
-    plate: `/plates-web/${curve.uid}-1600-grey.png`,
+    plate: `/api/print-plate/${curve.uid}?format=svg`,
     provenance: provenanceFor(curve, byUid),
   }));
 const scopes = [

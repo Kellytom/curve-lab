@@ -20,6 +20,12 @@ image, clipped to the curve**, a plain gallery with no controls.
 - **serial** — four digits, allocated once in `old-plates.json`, never reused. A
   re-export keeps the name, so a LibreOffice link survives.
 
+## The fast pass
+
+The SVG is the plate. `node scripts/print_plates.mjs --svg-only` rewrites all 371 plate SVGs
+in about eleven seconds; the 300 dpi PNG is a screenshot of that SVG and is the slow export,
+run for the final kept set. `/review/` and `/plates/` show the SVG directly.
+
 ## The image
 
 | property | value | why |
