@@ -18,11 +18,18 @@
 #     curve units — never a percentage.
 
 import json
+import os
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
+# The extension can run from two homes: the repo (inkscape/ph_extension.py,
+# HERE.parent is the repo) or Inkscape's user extensions folder (the repo is
+# pointed at by CURVE_LAB_ROOT). Both paths land on the same modules — the
+# recipe machinery is the repo's, never a copy.
+ROOT = Path(os.environ.get("CURVE_LAB_ROOT", HERE.parent)).resolve()
+if not (ROOT / "curve_lab").is_dir():
+    ROOT = Path.home() / "developer" / "curve-lab"
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -30,10 +37,8 @@ from inkscape import ph_actions, ph_svg  # noqa: E402
 
 try:
     import inkex
-    from inkex import Element
 except ImportError:  # the module is importable outside Inkscape for linting
     inkex = None
-    Element = None
 
 REGISTRY = ROOT / "workbench" / "curve-registry.json"
 
@@ -42,6 +47,11 @@ def rows_for(uid):
     """The stored speed rows, exact, from the registry."""
     registry = json.load(open(REGISTRY))
     return ph_actions.act_recipe_swap(registry, uid)
+
+
+def ph_extension_root():
+    """The repo root the glue resolved (for sibling modules)."""
+    return ROOT
 
 
 def send_svg(uid, out_path, placement=None):
@@ -88,6 +98,7 @@ if inkex is not None:
         """The send dialog: pick a curve, emit the SVG with its recipe."""
 
         def add_arguments(self, pars):
+            pars.add_argument("--mode", type=str, default="send")
             pars.add_argument("--uid", type=str, default="c-0002")
             pars.add_argument("--path", type=str, default="")
 
@@ -98,20 +109,49 @@ if inkex is not None:
             print(f"wrote {target} with the recipe for {uid}")
 
     class CurveLabReceive(inkex.EffectExtension):
-        """Read the recipe back from an SVG file's metadata."""
+        """Read the recipe back, snap any dragged nodes to the closed
+        vocabulary, and rewrite the file with the acted recipe."""
 
         def add_arguments(self, pars):
+            pars.add_argument("--mode", type=str, default="receive")
             pars.add_argument("--path", type=str, required=True)
+            pars.add_argument("--variant", type=str, default="")
 
         def effect(self):
-            uid, name, rows, placement = receive_svg(self.options.path)
-            print(json.dumps({
+            from inkscape import ph_handles
+            svg = self.options.path
+            uid, name, (rows_x, rows_y), placement = receive_svg(svg)
+            report = ph_handles.apply_snap(
+                svg, rows_x, rows_y, placement, ph_svg.stations)
+            out = {
                 "uid": uid, "name": name,
-                "speedX": [f"{v.numerator}/{v.denominator}" for v in rows[0]],
-                "speedY": [f"{v.numerator}/{v.denominator}" for v in rows[1]],
-                "placement": {k: f"{v.numerator}/{v.denominator}" if isinstance(v, __import__('fractions').Fraction) else v
+                "action": report["action"],
+                "miss": str(report["miss"]) if report["miss"] is not None else None,
+                "rewritten": report["rewritten"],
+                "note": report.get("note", ""),
+                "placement": {k: f"{v.numerator}/{v.denominator}"
                               for k, v in placement.items()},
-            }, indent=1))
+            }
+            if self.options.variant:
+                # the acted recipe as a registry-variant PROPOSAL (the save
+                # endpoint owns the registry; this only prints the payload)
+                from inkscape import ph_variant
+                acted = ph_svg.read_svg(svg)
+                record, note = ph_variant.variant_record(acted, json.load(
+                    open(ph_extension_root() / "workbench" / "curve-registry.json")))
+                out["variant"] = record
+                out["variant_note"] = note
+            print(json.dumps(out, indent=1))
 
 else:
     CurveLabSend = CurveLabReceive = None
+
+if __name__ == "__main__" and inkex is not None:
+    # one script, two extensions: the .inx files carry <param name="mode">
+    mode = "send"
+    argv = sys.argv
+    if "--mode=receive" in argv or ("--path" in argv and "--uid" not in argv):
+        mode = "receive"
+    elif "--mode=send" in argv:
+        mode = "send"
+    (CurveLabSend if mode == "send" else CurveLabReceive)().run()

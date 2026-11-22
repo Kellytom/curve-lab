@@ -23,14 +23,15 @@ META_TAG = f"{{{NS}}}metadata"
 
 
 def stations(rows_x, rows_y, placement, count=33):
-    """The exact stations, as Fractions."""
+    """The exact stations, as Fractions — the drawing converts to float
+    only at the path text, so a drag snaps against exact numbers."""
     px, py = position_of(rows_x, rows_y, placement)
     out = []
     for k in range(count):
         t = Fraction(k, count - 1)
         x = sum(c * t ** i for i, c in enumerate(px))
         y = sum(c * t ** i for i, c in enumerate(py))
-        out.append((float(x), float(y)))
+        out.append((x, y))
     return out
 
 
@@ -44,16 +45,18 @@ def spans_from_stations(points, station_points):
 
 
 def path_d(rows_x, rows_y, placement, count=33):
-    """The path data: cubic spans through the exact stations."""
-    pts = stations(rows_x, rows_y, placement, count)
-    parts = [f"M {pts[0][0]:.4f} {pts[0][1]:.4f}"]
-    for i in range(1, len(pts)):
-        p0, p3 = pts[i - 1], pts[i]
-        # the handle along the chord's direction at a third of the chord
-        c1 = (p0[0] + (p3[0] - p0[0]) / 3, p0[1] + (p3[1] - p0[1]) / 3)
-        c2 = (p0[0] + 2 * (p3[0] - p0[0]) / 3, p0[1] + 2 * (p3[1] - p0[1]) / 3)
+    """The path data: cubic spans through the exact stations. The handles
+    are the house Catmull-Rom rule (the exact central difference), written
+    as plain decimals; the stations they ride on stay exact."""
+    from inkscape.ph_handles import chain
+    spans = chain(rows_x, rows_y, placement, stations, count)
+    def f(v):
+        return f"{float(v):.4f}"
+    parts = [f"M {f(spans[0]['p0'][0])} {f(spans[0]['p0'][1])}"]
+    for s in spans:
         parts.append(
-            f"C {c1[0]:.4f} {c1[1]:.4f} {c2[0]:.4f} {c2[1]:.4f} {p3[0]:.4f} {p3[1]:.4f}"
+            f"C {f(s['c1'][0])} {f(s['c1'][1])} {f(s['c2'][0])} {f(s['c2'][1])}"
+            f" {f(s['p3'][0])} {f(s['p3'][1])}"
         )
     return " ".join(parts)
 

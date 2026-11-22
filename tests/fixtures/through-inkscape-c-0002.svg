@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="210mm"
+   height="210mm"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="curve-lab-c-0002.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#cccccc"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" />
+  <metadata
+     id="metadata1">{
+ &quot;kind&quot;: &quot;curve-lab-recipe&quot;,
+ &quot;uid&quot;: &quot;c-0002&quot;,
+ &quot;name&quot;: &quot;euler-hook&quot;,
+ &quot;speedX&quot;: [
+  &quot;11/5&quot;,
+  &quot;-22/5&quot;,
+  &quot;33/5&quot;,
+  &quot;11/10&quot;,
+  &quot;11/10&quot;,
+  &quot;-11/10&quot;
+ ],
+ &quot;speedY&quot;: [
+  &quot;22/5&quot;,
+  &quot;-22/1&quot;,
+  &quot;22/1&quot;,
+  &quot;-11/5&quot;,
+  &quot;11/10&quot;,
+  &quot;-11/10&quot;
+ ],
+ &quot;placement&quot;: {
+  &quot;dx&quot;: &quot;0/1&quot;,
+  &quot;dy&quot;: &quot;0/1&quot;,
+  &quot;a&quot;: &quot;1/1&quot;,
+  &quot;b&quot;: &quot;0/1&quot;,
+  &quot;q&quot;: &quot;1/1&quot;,
+  &quot;m&quot;: &quot;1/1&quot;
+ },
+ &quot;drawing&quot;: &quot;cubic spans through exact stations; approximate between them&quot;
+}</metadata>
+  <path
+     id="curve-lab-spine"
+     style="fill:none;stroke:#3b2d1c;stroke-width:1"
+     d="M 0.0000 0.0000 C -0.2284 0.2342 -0.3766 0.4339 -0.6851 0.7025 C -0.9936 0.9711 -1.3777 1.2712 -1.8509 1.6117 C -2.3240 1.9522 -2.8773 2.3272 -3.5242 2.7455 C -4.1710 3.1637 -4.9025 3.6194 -5.7320 4.1213 C -6.5615 4.6232 -7.4801 5.1654 -8.5012 5.7569 C -9.5224 6.3483 -10.6371 6.9830 -11.8589 7.6698 C -13.0807 8.3567 -14.4005 9.0897 -15.8320 9.8778 C -17.2634 10.6659 -18.7974 11.5031 -20.4475 12.3983 C -22.0976 13.2936 -23.8547 14.2409 -25.7325 15.2491 C -27.6103 16.2572 -29.5996 17.3205 -31.7140 18.4475 C -33.8285 19.5745 -36.0590 20.7595 -38.4192 22.0113 C -40.7794 23.2630 -43.2601 24.5757 -45.8751 25.9580 C -48.4900 27.3403 -51.2300 28.7864 -54.1088 30.3052 C -56.9875 31.8239 -59.9958 33.4094 -63.1474 35.0704 C -66.2990 36.7315 -69.5848 38.4622 -73.0182 40.2714 C -76.4517 42.0807 -80.0239 43.9625 -83.7484 45.9258 C -87.4729 47.8891 -91.3405 49.9279 -95.3651 52.0512 C -99.3896 54.1745 -103.5618 56.3762 -107.8955 58.6653 C -112.2291 60.9545 -116.7150 63.3250 -121.3669 65.7860 C -126.0187 68.2469 -130.8274 70.7922 -135.8066 73.4309 C -140.7857 76.0695 -145.9263 78.7956 -151.2418 81.6179 C -156.5574 84.4403 -162.0388 87.3530 -167.6999 90.3650 C -173.3610 93.3770 -179.1925 96.4824 -185.2082 99.6901 C -191.2239 102.8978 -197.4146 106.2019 -203.7940 109.6113 C -210.1734 113.0207 -216.7325 116.5295 -223.4847 120.1467 C -230.2370 123.7639 -237.1735 127.4834 -244.3078 131.3145 C -251.4421 135.1456 -258.7651 139.0820 -266.2905 143.1331 C -273.8160 147.1842 -281.5347 151.3437 -289.4604 155.6209 C -297.3862 159.8982 -305.5097 164.2869 -313.8449 168.7965 C -322.1801 173.3061 -330.7177 177.9303 -339.4715 182.6785 C -348.2253 187.4267 -357.1861 192.2927 -366.3676 197.2858 C -375.5492 202.2789 -385.1631 207.5202 -394.5608 212.6373" />
+</svg>

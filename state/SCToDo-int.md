@@ -103,17 +103,30 @@ decided. `Proves:` a sweep with calibrated counters only.
 
 ## Immediate queue (top first)
 
-1. **`print_plates.mjs` gains the pngquant step** (`--quality 90-99 --speed 1`)
+1. **DONE 2026-11-22 · The Inkscape round trip, hardest part first** — the
+   drag→action map, proven through Inkscape 1.4.4's own runtime and file
+   precision; the variant proposal; register rows 54/55.
+   `Proves:` tests/test_ph_actions.py (14) + test_ph_roundtrip.py (7, fixture
+   `tests/fixtures/through-inkscape-c-0002.svg`) + test_ph_variant.py (5),
+   and the send/receive extensions registered and run under Inkscape's own
+   inkex.
+2. **The variant proposal meets the save endpoint** — POST the payload from
+   `inkscape/ph_variant.py` through the app's save path (not the registry
+   directly), and the tune page shows the candidate. `Proves:` a posted
+   variant appears in `data/` with `base_uid` set and the registry untouched.
+3. **The snap UI inside Inkscape** — the dialog path (send/receive) works
+   headless; the live handle-drag flow needs a hand session in Inkscape to
+   bind the node-edit event to `apply_snap`. `Proves:` a drag→save→receive
+   loop performed in the GUI, the report printed.
+4. **`print_plates.mjs` gains the pngquant step** (`--quality 90-99 --speed 1`)
    so the next export lands compressed — flagged to DeepSeek1; mine if handed
    over. `Proves:` a regenerated plate is within 2% of the swapped-in set's
    size for the same uid.
-2. **Post-reset check-in:** read `state/SC-READING-int.md` tier 0, confirm the
+5. **Post-reset check-in:** read `state/SC-READING-int.md` tier 0, confirm the
    mailbox paths, run the gate. `Proves:` `scripts/mailbox.py --check --quiet`
    → ok, and the gate green.
-3. **`gallery.test.mjs` red on the dirty tree** — DeepSeek1's in-flight work;
+6. **`gallery.test.mjs` red on the dirty tree** — DeepSeek1's in-flight work;
    mine to fix only if they hand the files over. `Proves:` the test green.
-4. **`workbench/ph-nth-sandbox*.html` twins** — dirty and unowned; ask, then
-   commit or restore. `Proves:` a clean `git status` for those two paths.
 
 ## Parked (decided, not started)
 

@@ -3563,3 +3563,34 @@ did land. The next action is unchanged.
 saw the original curve scaled, thin on the right and wide on the left; removed in `3ceba869`.
 Also rejected: a global bow factor in the guard (over-cut the reference band) and the per-path
 pinch cap (a second construction; `docs/SIDE-CURVES.md` §2).
+
+## 2026-11-22 — the plate preset is 4 %, and the page stopped reloading
+
+- **The preset doubles again.** The operator: "increase the current distance apart of the offset
+  curves for c-22 and following at least double so i can see it better." The untouched plate
+  preset is now **4 %** width, plus 2.5, minus 0.1, bow (`scripts/lib/plate-row.mjs`); it was
+  2 %. 366 of the 371 records have no saved width, so they take it; the five saved rows keep
+  their own numbers. Measured with `group` and `pathGroup`: **47 curves widen, 35 of them at
+  least double** (c-0023 and c-0024 go 2.00 → 4.00 %); the rest are already cut below 2 % by
+  the fold guard. All 371 plate SVGs regenerated once with
+  `node scripts/print_plates.mjs --svg-only` (about 10 s), so `/plates/` and `/review/` serve
+  the new law from `/api/print-plate/<uid>?format=svg`.
+- **100 curves from c-0022 on are still plain spines.** c-0046 (wave-1of14-3) and 99 others
+  have sharp turns: c-0046's curvature peaks at **4858** at t = 0.497, and the drawing shows
+  cusps at t ≈ 0.17 and 0.83. The largest safe uniform width is **0.058 %**, below the 0.2 %
+  floor, so the guard refuses and no band is drawn. A constant band through a cusp folds; the
+  operator's rule forbids a local cap ("you cant cheat and use another way to make the
+  character rails"). They stay spines until the operator chooses: break the band at the sharp
+  turns (two ribbons per curve), or leave them. The full list is in the census output of this
+  session; the first entries are c-0046, c-0047, c-0053 … c-0087, c-0164 … c-0268.
+- **The page reloading constantly is fixed.** The launch agent `com.curvelab.app` re-ran
+  `npm run dev` every 10 s; it fails on Node 22 ("Node.js v22.4.1 is not supported by Astro"),
+  but its `predev` step ran `scripts/marginalia.mjs`, which **deleted** `app/public/ornaments`
+  and rewrote all 371 SVGs each time. The dev server watches that folder, so every open page
+  reloaded on the same beat. Playwright on `/review/?scope=unrated`: **3 navigations in 20 s
+  before, 1 in 22 s after**. The writer now uses `scripts/lib/write-if-changed.mjs` (an
+  unchanged file keeps its inode and mtime) and prunes only ornaments whose curve has left the
+  registry. Register row 56.
+- **Outside the repo:** the launch agent itself points at `/usr/local/bin/npm` (Node 22) and
+  loops; it should use `~/node24/bin` or be unloaded. It no longer reloads pages, but it still
+  takes a database snapshot every ten seconds.

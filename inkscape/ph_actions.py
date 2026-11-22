@@ -62,10 +62,12 @@ def position_of(rows_x, rows_y, placement):
     px, py = integral(xs), integral(ys)
     # The rotation and the mirror are already in the placed rows: squaring
     # the placed speed applies the double angle (and the conjugation) to the
-    # derivative, and integrating coefficient-wise keeps it. Only the offset
-    # is added here.
-    return ([xk + placement["dx"] for xk in px],
-            [yk + placement["dy"] for yk in py])
+    # derivative, and integrating coefficient-wise keeps it. The offset is a
+    # TRANSLATION — it enters the constant term alone; adding it to every
+    # coefficient would slide the curve differently at each t (register 55).
+    px[0] = px[0] + placement["dx"]
+    py[0] = py[0] + placement["dy"]
+    return px, py
 
 
 # ── the actions ─────────────────────────────────────────────────────────────
