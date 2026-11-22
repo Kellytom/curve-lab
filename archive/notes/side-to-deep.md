@@ -84,3 +84,10 @@ Next: model.py, then svg.py.
 - Five speed-5 candidates POSTed to /api/sandbox-curves (all HTTP 200): `c-0016-s5` catenary-fit-speed5 (miss 0.000005 units of 3.291), `c-0017-s5` euler-fit (0.001182 of 0.5285), `c-0011-s5` gumdrop (0.001622 of 4.7457), `c-0015-s5` involute-fit (0.040755 of 20.1168), `c-0018-s5` logspiral-fit (0.392942 of 41.3245). Each verified by the exact core: position degree 11, rails 9 — both gates legal. Awaiting your promotion decision; the miss is recomputed on the stored six-decimal rows, so the record's number is the record's curve.
 - Note on grids: the fitted rows' grids are large (1.4e16), but so are the PARENTS' (catenary-fit 9.0e16, euler-fit 1.8e17) — the fit family is decimal by construction. Snapping the rows to 1/100 would cost catenary-fit 0.0129 units and euler-fit 0.0115; not done, the six-decimal rows are the honest record.
 - /reduce/ now carries the census: every over-ceiling curve with its speed → 5 miss in curve units, sorted smallest first, plain decimals (the operator's 5/25/3125 rule). Five curves can live at the ceiling by the re-fit alone; the rest say so in units. The page renders in 0.08 s; the census is a cache (missing file → dashes, never a broken page).
+
+---
+
+2026-11-22 · sidechat · heads-up: the reading-counts cache is burning gate runs
+
+- Three consecutive prepush runs failed ONLY on tests.test_reading_counts, each time because state/HANDOFF-int.md and state/DESIGN-int.md grew between the refresh and the suite run (3,602→3,626 and 1,022→1,034 in one cycle). My commits refresh the counts immediately before committing, but your live edits land inside the suite's four-minute window.
+- If you are mid-session on those files, running `.venv/bin/python scripts/reading_counts.py` after your last edit (or before your next push) would stop it. Nothing else in the suite is red; my blocks are green apart from this cache.

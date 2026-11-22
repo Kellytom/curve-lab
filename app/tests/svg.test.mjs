@@ -1,7 +1,7 @@
 // The SVG text layer's tests, pinned to curve_lab/svg.py's laws.
 import assert from "node:assert/strict";
 import test from "node:test";
-import { bbox, escapeXml, gridStep, metadataDesign, parseD, pathD, slug, spanEval, svgNum } from "../src/lib/svg.ts";
+import { bbox, escapeXml, gridLines, gridStep, metadataDesign, parseD, pathD, slug, spanEval, svgNum } from "../src/lib/svg.ts";
 
 const span = { p0: [0, 0], c1: [1, 2], c2: [3, 2], p3: [4, 0] };
 
@@ -37,6 +37,14 @@ test("the grid step is a round 1/2/2.5/5 × 10^k, about ten lines", () => {
   assert.equal(gridStep(25), 2.5);
   assert.equal(gridStep(40), 5);
   assert.equal(gridStep(0), 1);
+});
+
+test("the grid lines run through every multiple of the step, on both axes", () => {
+  // identity placement: a 10×10 box at step 5 gives 3 vertical + 3 horizontal
+  const lines = gridLines((x, y) => [x, y], 0, 10, 0, 10, 5);
+  assert.equal(lines.length, 6);
+  assert.ok(lines[0].includes('x1="0.000"'));
+  assert.ok(lines[0].includes('stroke="#ece4cf"'));
 });
 
 test("the bounding box counts control points (the writer's own rule)", () => {

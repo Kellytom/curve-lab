@@ -20,12 +20,12 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 2 | `LTMemory-int.md` | 318 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 4 | `state/PLAN-int.md` | 222 | the next few sessions, one action each, with what is parked and why |
-| 5 | `state/HANDOFF-int.md` | 3,596 | current truth — **read the tail (~80 lines), not the whole file** |
+| 5 | `state/HANDOFF-int.md` | 3,626 | current truth — **read the tail (~80 lines), not the whole file** |
 | 6 | `TODO.md` | 947 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
-| 9 | `state/DESIGN-int.md` | 1002 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
-| 10 | `state/REGRESSIONS-int.md` | 122 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
+| 9 | `state/DESIGN-int.md` | 1034 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 10 | `state/REGRESSIONS-int.md` | 124 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 
@@ -41,7 +41,7 @@ to *what is the next step*.
 | `app/src/content/docs/docs/project.md` | 175 | scope in and out; what is deliberately not built |
 | `goals.md` | 266 | the arc: plant-forms → ornament-forms, and the offset tiers |
 | `app/src/content/docs/docs/philosophy.md` | 231 | glyph, full line, sections, joints — the design rules |
-| `state/PORT-int.md` | 100 | the language boundary: browser JS, Node for tests only, Python kept where it is debugged |
+| `state/PORT-int.md` | 110 | the language boundary: browser JS, Node for tests only, Python kept where it is debugged |
 | `founder/LOG.md` | 188 | the founder's current focus, dated entries and priority tags; read the top section |
 
 **Scope in one line**, so it is never absent even when the files are not open:
