@@ -40,9 +40,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:00:14.558Z"
+    "updatedAt": "2026-11-22T20:48:17.638Z"
    },
    "set": null,
    "metric": {
@@ -154,9 +154,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:01:51.419Z"
+    "updatedAt": "2026-11-22T20:48:17.643Z"
    },
    "set": null,
    "metric": {
@@ -224,9 +224,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:16:12.255Z"
+    "updatedAt": "2026-11-22T20:48:17.646Z"
    },
    "set": null,
    "metric": {
@@ -294,9 +294,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:01:57.766Z"
+    "updatedAt": "2026-11-22T20:48:17.648Z"
    },
    "set": null,
    "metric": {
@@ -364,9 +364,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:01:38.102Z"
+    "updatedAt": "2026-11-22T20:48:17.651Z"
    },
    "set": null,
    "metric": {
@@ -434,9 +434,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:00:54.004Z"
+    "updatedAt": "2026-11-22T20:48:17.654Z"
    },
    "set": null,
    "metric": {
@@ -504,9 +504,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:02:03.745Z"
+    "updatedAt": "2026-11-22T20:48:17.658Z"
    },
    "set": null,
    "metric": {
@@ -574,9 +574,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:16:38.833Z"
+    "updatedAt": "2026-11-22T20:48:17.661Z"
    },
    "set": null,
    "metric": {
@@ -644,9 +644,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:16:53.801Z"
+    "updatedAt": "2026-11-22T20:48:17.663Z"
    },
    "set": null,
    "metric": {
@@ -714,9 +714,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:15:42.420Z"
+    "updatedAt": "2026-11-22T20:48:17.665Z"
    },
    "set": null,
    "metric": {
@@ -784,9 +784,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:02:13.164Z"
+    "updatedAt": "2026-11-22T20:48:17.667Z"
    },
    "set": null,
    "metric": {
@@ -854,9 +854,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:16:00.570Z"
+    "updatedAt": "2026-11-22T20:48:17.670Z"
    },
    "set": null,
    "metric": {
@@ -924,9 +924,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:00:36.255Z"
+    "updatedAt": "2026-11-22T20:48:17.674Z"
    },
    "set": null,
    "metric": {
@@ -994,9 +994,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T04:33:20.841Z"
+    "updatedAt": "2026-11-22T20:48:17.678Z"
    },
    "set": null,
    "metric": {
@@ -1064,9 +1064,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:02:37.332Z"
+    "updatedAt": "2026-11-22T20:48:17.680Z"
    },
    "set": null,
    "metric": {
@@ -1134,9 +1134,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:00:46.906Z"
+    "updatedAt": "2026-11-22T20:48:17.683Z"
    },
    "set": null,
    "metric": {
@@ -1204,9 +1204,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:01:44.876Z"
+    "updatedAt": "2026-11-22T20:48:17.685Z"
    },
    "set": null,
    "metric": {
@@ -1274,9 +1274,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:13:57.398Z"
+    "updatedAt": "2026-11-22T20:48:17.687Z"
    },
    "set": null,
    "metric": {
@@ -1344,9 +1344,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T04:37:35.244Z"
+    "updatedAt": "2026-11-22T20:48:17.689Z"
    },
    "set": null,
    "metric": {
@@ -1414,9 +1414,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:03:10.289Z"
+    "updatedAt": "2026-11-22T20:48:17.692Z"
    },
    "set": null,
    "metric": {
@@ -1484,9 +1484,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T04:33:20.841Z"
+    "updatedAt": "2026-11-22T20:48:17.695Z"
    },
    "set": null,
    "metric": {
@@ -1554,9 +1554,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:30:05.734Z"
+    "updatedAt": "2026-11-22T20:48:17.697Z"
    },
    "set": null,
    "metric": {
@@ -1624,9 +1624,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:01:14.494Z"
+    "updatedAt": "2026-11-22T20:48:17.699Z"
    },
    "set": null,
    "metric": {
@@ -1694,9 +1694,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:01:27.254Z"
+    "updatedAt": "2026-11-22T20:48:17.701Z"
    },
    "set": null,
    "metric": {
@@ -1764,9 +1764,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:16:32.488Z"
+    "updatedAt": "2026-11-22T20:48:17.703Z"
    },
    "set": null,
    "metric": {
@@ -1834,9 +1834,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:17:10.859Z"
+    "updatedAt": "2026-11-22T20:48:17.705Z"
    },
    "set": null,
    "metric": {
@@ -1904,9 +1904,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:16:17.806Z"
+    "updatedAt": "2026-11-22T20:48:17.708Z"
    },
    "set": null,
    "metric": {
@@ -1974,9 +1974,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-20T04:17:39.691Z"
+    "updatedAt": "2026-11-22T20:48:17.710Z"
    },
    "set": null,
    "metric": {
@@ -2044,9 +2044,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-20T04:17:39.695Z"
+    "updatedAt": "2026-11-22T20:48:17.712Z"
    },
    "set": null,
    "metric": {
@@ -2114,9 +2114,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:04:40.250Z"
+    "updatedAt": "2026-11-22T20:48:17.715Z"
    },
    "set": null,
    "metric": {
@@ -2184,9 +2184,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:23:08.779Z"
+    "updatedAt": "2026-11-22T20:48:17.717Z"
    },
    "set": null,
    "metric": {
@@ -2254,9 +2254,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:00.969Z"
+    "updatedAt": "2026-11-22T20:48:17.719Z"
    },
    "set": null,
    "metric": {
@@ -2324,9 +2324,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:29:09.168Z"
+    "updatedAt": "2026-11-22T20:48:17.722Z"
    },
    "set": null,
    "metric": {
@@ -2394,9 +2394,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:19:50.495Z"
+    "updatedAt": "2026-11-22T20:48:17.724Z"
    },
    "set": null,
    "metric": {
@@ -2464,9 +2464,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T04:33:20.841Z"
+    "updatedAt": "2026-11-22T20:48:17.727Z"
    },
    "set": null,
    "metric": {
@@ -2534,9 +2534,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:00.980Z"
+    "updatedAt": "2026-11-22T20:48:17.729Z"
    },
    "set": null,
    "metric": {
@@ -2604,9 +2604,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:00.983Z"
+    "updatedAt": "2026-11-22T20:48:17.731Z"
    },
    "set": null,
    "metric": {
@@ -2674,9 +2674,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:00.986Z"
+    "updatedAt": "2026-11-22T20:48:17.733Z"
    },
    "set": null,
    "metric": {
@@ -2744,9 +2744,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:00.988Z"
+    "updatedAt": "2026-11-22T20:48:17.736Z"
    },
    "set": null,
    "metric": {
@@ -2814,9 +2814,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:00.992Z"
+    "updatedAt": "2026-11-22T20:48:17.738Z"
    },
    "set": null,
    "metric": {
@@ -2884,9 +2884,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:22:25.558Z"
+    "updatedAt": "2026-11-22T20:48:17.741Z"
    },
    "set": null,
    "metric": {
@@ -2954,9 +2954,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:00.998Z"
+    "updatedAt": "2026-11-22T20:48:17.744Z"
    },
    "set": null,
    "metric": {
@@ -3024,9 +3024,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:12:48.175Z"
+    "updatedAt": "2026-11-22T20:48:17.746Z"
    },
    "set": null,
    "metric": {
@@ -3094,9 +3094,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.005Z"
+    "updatedAt": "2026-11-22T20:48:17.748Z"
    },
    "set": null,
    "metric": {
@@ -3164,9 +3164,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.010Z"
+    "updatedAt": "2026-11-22T20:48:17.750Z"
    },
    "set": null,
    "metric": {
@@ -3234,9 +3234,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:24:21.280Z"
+    "updatedAt": "2026-11-22T20:48:17.752Z"
    },
    "set": null,
    "metric": {
@@ -3304,9 +3304,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:07:45.880Z"
+    "updatedAt": "2026-11-22T20:48:17.755Z"
    },
    "set": null,
    "metric": {
@@ -3374,9 +3374,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:04:26.976Z"
+    "updatedAt": "2026-11-22T20:48:17.757Z"
    },
    "set": null,
    "metric": {
@@ -3444,9 +3444,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.019Z"
+    "updatedAt": "2026-11-22T20:48:17.760Z"
    },
    "set": null,
    "metric": {
@@ -3514,9 +3514,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.020Z"
+    "updatedAt": "2026-11-22T20:48:17.762Z"
    },
    "set": null,
    "metric": {
@@ -3584,9 +3584,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.025Z"
+    "updatedAt": "2026-11-22T20:48:17.764Z"
    },
    "set": null,
    "metric": {
@@ -3654,9 +3654,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.029Z"
+    "updatedAt": "2026-11-22T20:48:17.766Z"
    },
    "set": null,
    "metric": {
@@ -3724,9 +3724,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:24:40.819Z"
+    "updatedAt": "2026-11-22T20:48:17.769Z"
    },
    "set": null,
    "metric": {
@@ -3794,9 +3794,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.034Z"
+    "updatedAt": "2026-11-22T20:48:17.771Z"
    },
    "set": null,
    "metric": {
@@ -3864,9 +3864,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:05:04.257Z"
+    "updatedAt": "2026-11-22T20:48:17.774Z"
    },
    "set": null,
    "metric": {
@@ -3934,9 +3934,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:24:08.403Z"
+    "updatedAt": "2026-11-22T20:48:17.776Z"
    },
    "set": null,
    "metric": {
@@ -4004,9 +4004,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:05:26.986Z"
+    "updatedAt": "2026-11-22T20:48:17.779Z"
    },
    "set": null,
    "metric": {
@@ -4074,9 +4074,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:03:52.513Z"
+    "updatedAt": "2026-11-22T20:48:17.781Z"
    },
    "set": null,
    "metric": {
@@ -4144,9 +4144,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:04:54.063Z"
+    "updatedAt": "2026-11-22T20:48:17.783Z"
    },
    "set": null,
    "metric": {
@@ -4214,9 +4214,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-20T04:17:39.699Z"
+    "updatedAt": "2026-11-22T20:48:17.785Z"
    },
    "set": null,
    "metric": {
@@ -4284,9 +4284,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:07:26.866Z"
+    "updatedAt": "2026-11-22T20:48:17.787Z"
    },
    "set": null,
    "metric": {
@@ -4354,9 +4354,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:03:50.711Z"
+    "updatedAt": "2026-11-22T20:48:17.790Z"
    },
    "set": null,
    "metric": {
@@ -4424,9 +4424,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:05:50.582Z"
+    "updatedAt": "2026-11-22T20:48:17.793Z"
    },
    "set": null,
    "metric": {
@@ -4494,9 +4494,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:19:21.768Z"
+    "updatedAt": "2026-11-22T20:48:17.795Z"
    },
    "set": null,
    "metric": {
@@ -4564,9 +4564,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:08:02.580Z"
+    "updatedAt": "2026-11-22T20:48:17.797Z"
    },
    "set": null,
    "metric": {
@@ -4634,9 +4634,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:09:28.955Z"
+    "updatedAt": "2026-11-22T20:48:17.799Z"
    },
    "set": null,
    "metric": {
@@ -4704,9 +4704,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:08:58.366Z"
+    "updatedAt": "2026-11-22T20:48:17.801Z"
    },
    "set": null,
    "metric": {
@@ -4774,9 +4774,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:28:09.047Z"
+    "updatedAt": "2026-11-22T20:48:17.804Z"
    },
    "set": null,
    "metric": {
@@ -4844,9 +4844,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:12:05.206Z"
+    "updatedAt": "2026-11-22T20:48:17.806Z"
    },
    "set": null,
    "metric": {
@@ -4914,9 +4914,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.115Z"
+    "updatedAt": "2026-11-22T20:48:17.809Z"
    },
    "set": null,
    "metric": {
@@ -4984,9 +4984,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:18:29.676Z"
+    "updatedAt": "2026-11-22T20:48:17.811Z"
    },
    "set": null,
    "metric": {
@@ -5054,9 +5054,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:06:19.555Z"
+    "updatedAt": "2026-11-22T20:48:17.813Z"
    },
    "set": null,
    "metric": {
@@ -5124,9 +5124,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:17:40.966Z"
+    "updatedAt": "2026-11-22T20:48:17.815Z"
    },
    "set": null,
    "metric": {
@@ -5194,9 +5194,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:05:40.139Z"
+    "updatedAt": "2026-11-22T20:48:17.817Z"
    },
    "set": null,
    "metric": {
@@ -5264,9 +5264,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:20:23.070Z"
+    "updatedAt": "2026-11-22T20:48:17.820Z"
    },
    "set": null,
    "metric": {
@@ -5334,9 +5334,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.172Z"
+    "updatedAt": "2026-11-22T20:48:17.823Z"
    },
    "set": null,
    "metric": {
@@ -5404,9 +5404,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:19:22.930Z"
+    "updatedAt": "2026-11-22T20:48:17.826Z"
    },
    "set": null,
    "metric": {
@@ -5474,9 +5474,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:20:49.287Z"
+    "updatedAt": "2026-11-22T20:48:17.829Z"
    },
    "set": null,
    "metric": {
@@ -5544,9 +5544,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.182Z"
+    "updatedAt": "2026-11-22T20:48:17.831Z"
    },
    "set": null,
    "metric": {
@@ -5614,9 +5614,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.184Z"
+    "updatedAt": "2026-11-22T20:48:17.833Z"
    },
    "set": null,
    "metric": {
@@ -5684,9 +5684,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.190Z"
+    "updatedAt": "2026-11-22T20:48:17.835Z"
    },
    "set": null,
    "metric": {
@@ -5754,9 +5754,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.197Z"
+    "updatedAt": "2026-11-22T20:48:17.838Z"
    },
    "set": null,
    "metric": {
@@ -5824,9 +5824,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.200Z"
+    "updatedAt": "2026-11-22T20:48:17.841Z"
    },
    "set": null,
    "metric": {
@@ -5894,9 +5894,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:04:16.734Z"
+    "updatedAt": "2026-11-22T20:48:17.843Z"
    },
    "set": null,
    "metric": {
@@ -5964,9 +5964,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:11:25.643Z"
+    "updatedAt": "2026-11-22T20:48:17.846Z"
    },
    "set": null,
    "metric": {
@@ -6034,9 +6034,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:08:38.455Z"
+    "updatedAt": "2026-11-22T20:48:17.848Z"
    },
    "set": null,
    "metric": {
@@ -6104,9 +6104,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:29:48.108Z"
+    "updatedAt": "2026-11-22T20:48:17.850Z"
    },
    "set": null,
    "metric": {
@@ -6174,9 +6174,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.219Z"
+    "updatedAt": "2026-11-22T20:48:17.852Z"
    },
    "set": null,
    "metric": {
@@ -6244,9 +6244,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.223Z"
+    "updatedAt": "2026-11-22T20:48:17.855Z"
    },
    "set": null,
    "metric": {
@@ -6314,9 +6314,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.225Z"
+    "updatedAt": "2026-11-22T20:48:17.857Z"
    },
    "set": null,
    "metric": {
@@ -6384,9 +6384,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T02:59:17.185Z"
+    "updatedAt": "2026-11-22T20:48:17.860Z"
    },
    "set": null,
    "metric": {
@@ -6454,9 +6454,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T02:59:18.784Z"
+    "updatedAt": "2026-11-22T20:48:17.862Z"
    },
    "set": null,
    "metric": {
@@ -6524,9 +6524,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T02:59:33.332Z"
+    "updatedAt": "2026-11-22T20:48:17.865Z"
    },
    "set": null,
    "metric": {
@@ -6594,9 +6594,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T01:01:39.481Z"
+    "updatedAt": "2026-11-22T20:48:17.867Z"
    },
    "set": null,
    "metric": {
@@ -6664,9 +6664,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.256Z"
+    "updatedAt": "2026-11-22T20:48:17.869Z"
    },
    "set": null,
    "metric": {
@@ -6734,9 +6734,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.269Z"
+    "updatedAt": "2026-11-22T20:48:17.872Z"
    },
    "set": null,
    "metric": {
@@ -6804,9 +6804,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.275Z"
+    "updatedAt": "2026-11-22T20:48:17.875Z"
    },
    "set": null,
    "metric": {
@@ -6874,9 +6874,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.280Z"
+    "updatedAt": "2026-11-22T20:48:17.877Z"
    },
    "set": null,
    "metric": {
@@ -6944,9 +6944,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.283Z"
+    "updatedAt": "2026-11-22T20:48:17.879Z"
    },
    "set": null,
    "metric": {
@@ -7014,9 +7014,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.285Z"
+    "updatedAt": "2026-11-22T20:48:17.881Z"
    },
    "set": null,
    "metric": {
@@ -7084,9 +7084,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T01:01:36.486Z"
+    "updatedAt": "2026-11-22T20:48:17.884Z"
    },
    "set": null,
    "metric": {
@@ -7154,9 +7154,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.291Z"
+    "updatedAt": "2026-11-22T20:48:17.886Z"
    },
    "set": null,
    "metric": {
@@ -7224,9 +7224,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.296Z"
+    "updatedAt": "2026-11-22T20:48:17.889Z"
    },
    "set": null,
    "metric": {
@@ -7294,9 +7294,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.299Z"
+    "updatedAt": "2026-11-22T20:48:17.891Z"
    },
    "set": null,
    "metric": {
@@ -7364,9 +7364,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.302Z"
+    "updatedAt": "2026-11-22T20:48:17.894Z"
    },
    "set": null,
    "metric": {
@@ -7434,9 +7434,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.305Z"
+    "updatedAt": "2026-11-22T20:48:17.896Z"
    },
    "set": null,
    "metric": {
@@ -7504,9 +7504,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.309Z"
+    "updatedAt": "2026-11-22T20:48:17.898Z"
    },
    "set": null,
    "metric": {
@@ -7574,9 +7574,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.316Z"
+    "updatedAt": "2026-11-22T20:48:17.901Z"
    },
    "set": null,
    "metric": {
@@ -7644,9 +7644,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.318Z"
+    "updatedAt": "2026-11-22T20:48:17.903Z"
    },
    "set": null,
    "metric": {
@@ -7714,9 +7714,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.321Z"
+    "updatedAt": "2026-11-22T20:48:17.905Z"
    },
    "set": null,
    "metric": {
@@ -7784,9 +7784,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.325Z"
+    "updatedAt": "2026-11-22T20:48:17.908Z"
    },
    "set": null,
    "metric": {
@@ -7854,9 +7854,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.328Z"
+    "updatedAt": "2026-11-22T20:48:17.911Z"
    },
    "set": null,
    "metric": {
@@ -7924,9 +7924,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.331Z"
+    "updatedAt": "2026-11-22T20:48:17.913Z"
    },
    "set": null,
    "metric": {
@@ -7994,9 +7994,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.334Z"
+    "updatedAt": "2026-11-22T20:48:17.915Z"
    },
    "set": null,
    "metric": {
@@ -8064,9 +8064,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.337Z"
+    "updatedAt": "2026-11-22T20:48:17.918Z"
    },
    "set": null,
    "metric": {
@@ -8134,9 +8134,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.341Z"
+    "updatedAt": "2026-11-22T20:48:17.920Z"
    },
    "set": null,
    "metric": {
@@ -8204,9 +8204,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.346Z"
+    "updatedAt": "2026-11-22T20:48:17.922Z"
    },
    "set": null,
    "metric": {
@@ -8274,9 +8274,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.349Z"
+    "updatedAt": "2026-11-22T20:48:17.925Z"
    },
    "set": null,
    "metric": {
@@ -8344,9 +8344,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.351Z"
+    "updatedAt": "2026-11-22T20:48:17.928Z"
    },
    "set": null,
    "metric": {
@@ -8414,9 +8414,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.356Z"
+    "updatedAt": "2026-11-22T20:48:17.930Z"
    },
    "set": null,
    "metric": {
@@ -8484,9 +8484,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.361Z"
+    "updatedAt": "2026-11-22T20:48:17.932Z"
    },
    "set": null,
    "metric": {
@@ -8554,9 +8554,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.364Z"
+    "updatedAt": "2026-11-22T20:48:17.934Z"
    },
    "set": null,
    "metric": {
@@ -8624,9 +8624,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.373Z"
+    "updatedAt": "2026-11-22T20:48:17.936Z"
    },
    "set": null,
    "metric": {
@@ -8694,9 +8694,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.393Z"
+    "updatedAt": "2026-11-22T20:48:17.938Z"
    },
    "set": null,
    "metric": {
@@ -8764,9 +8764,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.416Z"
+    "updatedAt": "2026-11-22T20:48:17.941Z"
    },
    "set": null,
    "metric": {
@@ -8834,9 +8834,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.421Z"
+    "updatedAt": "2026-11-22T20:48:17.944Z"
    },
    "set": null,
    "metric": {
@@ -8904,9 +8904,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.427Z"
+    "updatedAt": "2026-11-22T20:48:17.946Z"
    },
    "set": null,
    "metric": {
@@ -8974,9 +8974,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.434Z"
+    "updatedAt": "2026-11-22T20:48:17.948Z"
    },
    "set": null,
    "metric": {
@@ -9044,9 +9044,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.440Z"
+    "updatedAt": "2026-11-22T20:48:17.951Z"
    },
    "set": null,
    "metric": {
@@ -9114,9 +9114,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.445Z"
+    "updatedAt": "2026-11-22T20:48:17.953Z"
    },
    "set": null,
    "metric": {
@@ -9184,9 +9184,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.450Z"
+    "updatedAt": "2026-11-22T20:48:17.955Z"
    },
    "set": null,
    "metric": {
@@ -9254,9 +9254,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.453Z"
+    "updatedAt": "2026-11-22T20:48:17.957Z"
    },
    "set": null,
    "metric": {
@@ -9324,9 +9324,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.456Z"
+    "updatedAt": "2026-11-22T20:48:17.960Z"
    },
    "set": null,
    "metric": {
@@ -9394,9 +9394,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T02:59:49.793Z"
+    "updatedAt": "2026-11-22T20:48:17.963Z"
    },
    "set": null,
    "metric": {
@@ -9464,9 +9464,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.471Z"
+    "updatedAt": "2026-11-22T20:48:17.965Z"
    },
    "set": null,
    "metric": {
@@ -9534,9 +9534,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.475Z"
+    "updatedAt": "2026-11-22T20:48:17.967Z"
    },
    "set": null,
    "metric": {
@@ -9604,9 +9604,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.479Z"
+    "updatedAt": "2026-11-22T20:48:17.969Z"
    },
    "set": null,
    "metric": {
@@ -9674,9 +9674,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.483Z"
+    "updatedAt": "2026-11-22T20:48:17.972Z"
    },
    "set": null,
    "metric": {
@@ -9744,9 +9744,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.488Z"
+    "updatedAt": "2026-11-22T20:48:17.974Z"
    },
    "set": null,
    "metric": {
@@ -9814,9 +9814,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.492Z"
+    "updatedAt": "2026-11-22T20:48:17.977Z"
    },
    "set": null,
    "metric": {
@@ -9884,9 +9884,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.501Z"
+    "updatedAt": "2026-11-22T20:48:17.979Z"
    },
    "set": null,
    "metric": {
@@ -9954,9 +9954,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.506Z"
+    "updatedAt": "2026-11-22T20:48:17.981Z"
    },
    "set": null,
    "metric": {
@@ -10024,9 +10024,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.511Z"
+    "updatedAt": "2026-11-22T20:48:17.983Z"
    },
    "set": null,
    "metric": {
@@ -10094,9 +10094,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.516Z"
+    "updatedAt": "2026-11-22T20:48:17.986Z"
    },
    "set": null,
    "metric": {
@@ -10164,9 +10164,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.521Z"
+    "updatedAt": "2026-11-22T20:48:17.988Z"
    },
    "set": null,
    "metric": {
@@ -10234,9 +10234,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.524Z"
+    "updatedAt": "2026-11-22T20:48:17.990Z"
    },
    "set": null,
    "metric": {
@@ -10304,9 +10304,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.529Z"
+    "updatedAt": "2026-11-22T20:48:17.993Z"
    },
    "set": null,
    "metric": {
@@ -10374,9 +10374,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.532Z"
+    "updatedAt": "2026-11-22T20:48:17.995Z"
    },
    "set": null,
    "metric": {
@@ -10444,9 +10444,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.540Z"
+    "updatedAt": "2026-11-22T20:48:17.998Z"
    },
    "set": null,
    "metric": {
@@ -10514,9 +10514,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.542Z"
+    "updatedAt": "2026-11-22T20:48:18.000Z"
    },
    "set": null,
    "metric": {
@@ -10584,9 +10584,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.546Z"
+    "updatedAt": "2026-11-22T20:48:18.002Z"
    },
    "set": null,
    "metric": {
@@ -10654,9 +10654,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.551Z"
+    "updatedAt": "2026-11-22T20:48:18.005Z"
    },
    "set": null,
    "metric": {
@@ -10724,9 +10724,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.554Z"
+    "updatedAt": "2026-11-22T20:48:18.009Z"
    },
    "set": null,
    "metric": {
@@ -10794,9 +10794,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.557Z"
+    "updatedAt": "2026-11-22T20:48:18.012Z"
    },
    "set": null,
    "metric": {
@@ -10864,9 +10864,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.560Z"
+    "updatedAt": "2026-11-22T20:48:18.016Z"
    },
    "set": null,
    "metric": {
@@ -10934,9 +10934,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.562Z"
+    "updatedAt": "2026-11-22T20:48:18.033Z"
    },
    "set": null,
    "metric": {
@@ -11004,9 +11004,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.566Z"
+    "updatedAt": "2026-11-22T20:48:18.044Z"
    },
    "set": null,
    "metric": {
@@ -11074,9 +11074,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:23:25.540Z"
+    "updatedAt": "2026-11-22T20:48:18.047Z"
    },
    "set": null,
    "metric": {
@@ -11144,9 +11144,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.573Z"
+    "updatedAt": "2026-11-22T20:48:18.050Z"
    },
    "set": null,
    "metric": {
@@ -11214,9 +11214,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.575Z"
+    "updatedAt": "2026-11-22T20:48:18.052Z"
    },
    "set": null,
    "metric": {
@@ -11284,9 +11284,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:21:53.617Z"
+    "updatedAt": "2026-11-22T20:48:18.056Z"
    },
    "set": null,
    "metric": {
@@ -11354,9 +11354,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.581Z"
+    "updatedAt": "2026-11-22T20:48:18.063Z"
    },
    "set": null,
    "metric": {
@@ -11424,9 +11424,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:11:41.575Z"
+    "updatedAt": "2026-11-22T20:48:18.067Z"
    },
    "set": null,
    "metric": {
@@ -11494,9 +11494,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.589Z"
+    "updatedAt": "2026-11-22T20:48:18.076Z"
    },
    "set": null,
    "metric": {
@@ -11564,9 +11564,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:25:35.955Z"
+    "updatedAt": "2026-11-22T20:48:18.083Z"
    },
    "set": null,
    "metric": {
@@ -11634,9 +11634,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.595Z"
+    "updatedAt": "2026-11-22T20:48:18.098Z"
    },
    "set": null,
    "metric": {
@@ -11704,9 +11704,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.597Z"
+    "updatedAt": "2026-11-22T20:48:18.102Z"
    },
    "set": null,
    "metric": {
@@ -11774,9 +11774,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.600Z"
+    "updatedAt": "2026-11-22T20:48:18.106Z"
    },
    "set": null,
    "metric": {
@@ -11844,9 +11844,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.608Z"
+    "updatedAt": "2026-11-22T20:48:18.109Z"
    },
    "set": null,
    "metric": {
@@ -11914,9 +11914,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.612Z"
+    "updatedAt": "2026-11-22T20:48:18.112Z"
    },
    "set": null,
    "metric": {
@@ -11984,9 +11984,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.615Z"
+    "updatedAt": "2026-11-22T20:48:18.115Z"
    },
    "set": null,
    "metric": {
@@ -12054,9 +12054,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:21:17.803Z"
+    "updatedAt": "2026-11-22T20:48:18.117Z"
    },
    "set": null,
    "metric": {
@@ -12124,9 +12124,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:22:12.214Z"
+    "updatedAt": "2026-11-22T20:48:18.120Z"
    },
    "set": null,
    "metric": {
@@ -12194,9 +12194,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.629Z"
+    "updatedAt": "2026-11-22T20:48:18.122Z"
    },
    "set": null,
    "metric": {
@@ -12264,9 +12264,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.631Z"
+    "updatedAt": "2026-11-22T20:48:18.125Z"
    },
    "set": null,
    "metric": {
@@ -12334,9 +12334,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:31:05.530Z"
+    "updatedAt": "2026-11-22T20:48:18.127Z"
    },
    "set": null,
    "metric": {
@@ -12404,9 +12404,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:27:29.428Z"
+    "updatedAt": "2026-11-22T20:48:18.130Z"
    },
    "set": null,
    "metric": {
@@ -12474,9 +12474,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:27:17.334Z"
+    "updatedAt": "2026-11-22T20:48:18.132Z"
    },
    "set": null,
    "metric": {
@@ -12544,9 +12544,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:27:51.647Z"
+    "updatedAt": "2026-11-22T20:48:18.134Z"
    },
    "set": null,
    "metric": {
@@ -12614,9 +12614,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.648Z"
+    "updatedAt": "2026-11-22T20:48:18.136Z"
    },
    "set": null,
    "metric": {
@@ -12684,9 +12684,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.650Z"
+    "updatedAt": "2026-11-22T20:48:18.139Z"
    },
    "set": null,
    "metric": {
@@ -12754,9 +12754,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.653Z"
+    "updatedAt": "2026-11-22T20:48:18.143Z"
    },
    "set": null,
    "metric": {
@@ -12824,9 +12824,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.657Z"
+    "updatedAt": "2026-11-22T20:48:18.145Z"
    },
    "set": null,
    "metric": {
@@ -12894,9 +12894,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.660Z"
+    "updatedAt": "2026-11-22T20:48:18.148Z"
    },
    "set": null,
    "metric": {
@@ -12964,9 +12964,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.663Z"
+    "updatedAt": "2026-11-22T20:48:18.150Z"
    },
    "set": null,
    "metric": {
@@ -13034,9 +13034,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.666Z"
+    "updatedAt": "2026-11-22T20:48:18.152Z"
    },
    "set": null,
    "metric": {
@@ -13104,9 +13104,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.669Z"
+    "updatedAt": "2026-11-22T20:48:18.155Z"
    },
    "set": null,
    "metric": {
@@ -13174,9 +13174,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.673Z"
+    "updatedAt": "2026-11-22T20:48:18.158Z"
    },
    "set": null,
    "metric": {
@@ -13244,9 +13244,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.676Z"
+    "updatedAt": "2026-11-22T20:48:18.161Z"
    },
    "set": null,
    "metric": {
@@ -13314,9 +13314,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.679Z"
+    "updatedAt": "2026-11-22T20:48:18.163Z"
    },
    "set": null,
    "metric": {
@@ -13384,9 +13384,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.682Z"
+    "updatedAt": "2026-11-22T20:48:18.165Z"
    },
    "set": null,
    "metric": {
@@ -13454,9 +13454,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.685Z"
+    "updatedAt": "2026-11-22T20:48:18.167Z"
    },
    "set": null,
    "metric": {
@@ -13524,9 +13524,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.688Z"
+    "updatedAt": "2026-11-22T20:48:18.171Z"
    },
    "set": null,
    "metric": {
@@ -13594,9 +13594,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.692Z"
+    "updatedAt": "2026-11-22T20:48:18.174Z"
    },
    "set": null,
    "metric": {
@@ -13664,9 +13664,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.696Z"
+    "updatedAt": "2026-11-22T20:48:18.176Z"
    },
    "set": null,
    "metric": {
@@ -13734,9 +13734,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.701Z"
+    "updatedAt": "2026-11-22T20:48:18.179Z"
    },
    "set": null,
    "metric": {
@@ -13804,9 +13804,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.704Z"
+    "updatedAt": "2026-11-22T20:48:18.181Z"
    },
    "set": null,
    "metric": {
@@ -13874,9 +13874,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.709Z"
+    "updatedAt": "2026-11-22T20:48:18.183Z"
    },
    "set": null,
    "metric": {
@@ -13944,9 +13944,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.712Z"
+    "updatedAt": "2026-11-22T20:48:18.186Z"
    },
    "set": null,
    "metric": {
@@ -14014,9 +14014,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.715Z"
+    "updatedAt": "2026-11-22T20:48:18.189Z"
    },
    "set": null,
    "metric": {
@@ -14084,9 +14084,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.718Z"
+    "updatedAt": "2026-11-22T20:48:18.192Z"
    },
    "set": null,
    "metric": {
@@ -14154,9 +14154,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.722Z"
+    "updatedAt": "2026-11-22T20:48:18.194Z"
    },
    "set": null,
    "metric": {
@@ -14224,9 +14224,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.725Z"
+    "updatedAt": "2026-11-22T20:48:18.197Z"
    },
    "set": null,
    "metric": {
@@ -14294,9 +14294,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.728Z"
+    "updatedAt": "2026-11-22T20:48:18.199Z"
    },
    "set": null,
    "metric": {
@@ -14364,9 +14364,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.732Z"
+    "updatedAt": "2026-11-22T20:48:18.202Z"
    },
    "set": null,
    "metric": {
@@ -14434,9 +14434,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.736Z"
+    "updatedAt": "2026-11-22T20:48:18.205Z"
    },
    "set": null,
    "metric": {
@@ -14504,9 +14504,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.739Z"
+    "updatedAt": "2026-11-22T20:48:18.208Z"
    },
    "set": null,
    "metric": {
@@ -14574,9 +14574,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.743Z"
+    "updatedAt": "2026-11-22T20:48:18.210Z"
    },
    "set": null,
    "metric": {
@@ -14644,9 +14644,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.745Z"
+    "updatedAt": "2026-11-22T20:48:18.212Z"
    },
    "set": null,
    "metric": {
@@ -14714,9 +14714,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:13:44.962Z"
+    "updatedAt": "2026-11-22T20:48:18.215Z"
    },
    "set": null,
    "metric": {
@@ -14784,9 +14784,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.754Z"
+    "updatedAt": "2026-11-22T20:48:18.216Z"
    },
    "set": null,
    "metric": {
@@ -14854,9 +14854,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:22:41.471Z"
+    "updatedAt": "2026-11-22T20:48:18.219Z"
    },
    "set": null,
    "metric": {
@@ -14924,9 +14924,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:22:59.838Z"
+    "updatedAt": "2026-11-22T20:48:18.221Z"
    },
    "set": null,
    "metric": {
@@ -14994,9 +14994,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.764Z"
+    "updatedAt": "2026-11-22T20:48:18.224Z"
    },
    "set": null,
    "metric": {
@@ -15064,9 +15064,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.767Z"
+    "updatedAt": "2026-11-22T20:48:18.226Z"
    },
    "set": null,
    "metric": {
@@ -15134,9 +15134,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.771Z"
+    "updatedAt": "2026-11-22T20:48:18.228Z"
    },
    "set": null,
    "metric": {
@@ -15204,9 +15204,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:29:28.526Z"
+    "updatedAt": "2026-11-22T20:48:18.231Z"
    },
    "set": null,
    "metric": {
@@ -15274,9 +15274,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.779Z"
+    "updatedAt": "2026-11-22T20:48:18.233Z"
    },
    "set": null,
    "metric": {
@@ -15344,9 +15344,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.783Z"
+    "updatedAt": "2026-11-22T20:48:18.235Z"
    },
    "set": null,
    "metric": {
@@ -15414,9 +15414,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:25:52.906Z"
+    "updatedAt": "2026-11-22T20:48:18.237Z"
    },
    "set": null,
    "metric": {
@@ -15484,9 +15484,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.791Z"
+    "updatedAt": "2026-11-22T20:48:18.240Z"
    },
    "set": null,
    "metric": {
@@ -15554,9 +15554,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.795Z"
+    "updatedAt": "2026-11-22T20:48:18.243Z"
    },
    "set": null,
    "metric": {
@@ -15624,9 +15624,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.798Z"
+    "updatedAt": "2026-11-22T20:48:18.245Z"
    },
    "set": null,
    "metric": {
@@ -15694,9 +15694,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.801Z"
+    "updatedAt": "2026-11-22T20:48:18.247Z"
    },
    "set": null,
    "metric": {
@@ -15764,9 +15764,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.805Z"
+    "updatedAt": "2026-11-22T20:48:18.249Z"
    },
    "set": null,
    "metric": {
@@ -15834,9 +15834,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.809Z"
+    "updatedAt": "2026-11-22T20:48:18.251Z"
    },
    "set": null,
    "metric": {
@@ -15904,9 +15904,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.813Z"
+    "updatedAt": "2026-11-22T20:48:18.253Z"
    },
    "set": null,
    "metric": {
@@ -15974,9 +15974,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.816Z"
+    "updatedAt": "2026-11-22T20:48:18.256Z"
    },
    "set": null,
    "metric": {
@@ -16044,9 +16044,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.820Z"
+    "updatedAt": "2026-11-22T20:48:18.259Z"
    },
    "set": null,
    "metric": {
@@ -16114,9 +16114,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.824Z"
+    "updatedAt": "2026-11-22T20:48:18.261Z"
    },
    "set": null,
    "metric": {
@@ -16184,9 +16184,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:10:27.876Z"
+    "updatedAt": "2026-11-22T20:48:18.263Z"
    },
    "set": null,
    "metric": {
@@ -16254,9 +16254,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.831Z"
+    "updatedAt": "2026-11-22T20:48:18.266Z"
    },
    "set": null,
    "metric": {
@@ -16324,9 +16324,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.839Z"
+    "updatedAt": "2026-11-22T20:48:18.268Z"
    },
    "set": null,
    "metric": {
@@ -16394,9 +16394,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.842Z"
+    "updatedAt": "2026-11-22T20:48:18.270Z"
    },
    "set": null,
    "metric": {
@@ -16464,9 +16464,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.845Z"
+    "updatedAt": "2026-11-22T20:48:18.273Z"
    },
    "set": null,
    "metric": {
@@ -16534,9 +16534,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:10:35.807Z"
+    "updatedAt": "2026-11-22T20:48:18.276Z"
    },
    "set": null,
    "metric": {
@@ -16604,9 +16604,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.851Z"
+    "updatedAt": "2026-11-22T20:48:18.278Z"
    },
    "set": null,
    "metric": {
@@ -16674,9 +16674,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.856Z"
+    "updatedAt": "2026-11-22T20:48:18.280Z"
    },
    "set": null,
    "metric": {
@@ -16744,9 +16744,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.861Z"
+    "updatedAt": "2026-11-22T20:48:18.282Z"
    },
    "set": null,
    "metric": {
@@ -16814,9 +16814,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.864Z"
+    "updatedAt": "2026-11-22T20:48:18.284Z"
    },
    "set": null,
    "metric": {
@@ -16884,9 +16884,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.867Z"
+    "updatedAt": "2026-11-22T20:48:18.286Z"
    },
    "set": null,
    "metric": {
@@ -16954,9 +16954,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.874Z"
+    "updatedAt": "2026-11-22T20:48:18.288Z"
    },
    "set": null,
    "metric": {
@@ -17024,9 +17024,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.877Z"
+    "updatedAt": "2026-11-22T20:48:18.291Z"
    },
    "set": null,
    "metric": {
@@ -17094,9 +17094,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.879Z"
+    "updatedAt": "2026-11-22T20:48:18.294Z"
    },
    "set": null,
    "metric": {
@@ -17164,9 +17164,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.882Z"
+    "updatedAt": "2026-11-22T20:48:18.296Z"
    },
    "set": null,
    "metric": {
@@ -17234,9 +17234,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.888Z"
+    "updatedAt": "2026-11-22T20:48:18.298Z"
    },
    "set": null,
    "metric": {
@@ -17304,9 +17304,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.892Z"
+    "updatedAt": "2026-11-22T20:48:18.300Z"
    },
    "set": null,
    "metric": {
@@ -17374,9 +17374,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.896Z"
+    "updatedAt": "2026-11-22T20:48:18.302Z"
    },
    "set": null,
    "metric": {
@@ -17444,9 +17444,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.900Z"
+    "updatedAt": "2026-11-22T20:48:18.304Z"
    },
    "set": null,
    "metric": {
@@ -17514,9 +17514,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.904Z"
+    "updatedAt": "2026-11-22T20:48:18.307Z"
    },
    "set": null,
    "metric": {
@@ -17584,9 +17584,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.908Z"
+    "updatedAt": "2026-11-22T20:48:18.310Z"
    },
    "set": null,
    "metric": {
@@ -17654,9 +17654,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.911Z"
+    "updatedAt": "2026-11-22T20:48:18.312Z"
    },
    "set": null,
    "metric": {
@@ -17724,9 +17724,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.914Z"
+    "updatedAt": "2026-11-22T20:48:18.314Z"
    },
    "set": null,
    "metric": {
@@ -17794,9 +17794,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.917Z"
+    "updatedAt": "2026-11-22T20:48:18.316Z"
    },
    "set": null,
    "metric": {
@@ -17864,9 +17864,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.941Z"
+    "updatedAt": "2026-11-22T20:48:18.319Z"
    },
    "set": null,
    "metric": {
@@ -17934,9 +17934,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:01.989Z"
+    "updatedAt": "2026-11-22T20:48:18.323Z"
    },
    "set": null,
    "metric": {
@@ -18004,9 +18004,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:02.010Z"
+    "updatedAt": "2026-11-22T20:48:18.327Z"
    },
    "set": null,
    "metric": {
@@ -18074,9 +18074,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:02.016Z"
+    "updatedAt": "2026-11-22T20:48:18.329Z"
    },
    "set": null,
    "metric": {
@@ -18144,9 +18144,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:02.023Z"
+    "updatedAt": "2026-11-22T20:48:18.331Z"
    },
    "set": null,
    "metric": {
@@ -18214,9 +18214,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:02.026Z"
+    "updatedAt": "2026-11-22T20:48:18.333Z"
    },
    "set": null,
    "metric": {
@@ -18284,9 +18284,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T03:15:20.743Z"
+    "updatedAt": "2026-11-22T20:48:18.335Z"
    },
    "set": null,
    "metric": {
@@ -18354,9 +18354,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-18T23:28:02.034Z"
+    "updatedAt": "2026-11-22T20:48:18.338Z"
    },
    "set": null,
    "metric": {
@@ -18424,9 +18424,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T16:28:44.035Z"
+    "updatedAt": "2026-11-22T20:48:18.341Z"
    },
    "set": null,
    "metric": null
@@ -18468,9 +18468,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T16:28:44.047Z"
+    "updatedAt": "2026-11-22T20:48:18.343Z"
    },
    "set": null,
    "metric": null
@@ -18512,9 +18512,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T16:28:44.049Z"
+    "updatedAt": "2026-11-22T20:48:18.345Z"
    },
    "set": null,
    "metric": null
@@ -18556,9 +18556,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T16:28:44.051Z"
+    "updatedAt": "2026-11-22T20:48:18.348Z"
    },
    "set": null,
    "metric": null
@@ -18600,9 +18600,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T16:28:44.055Z"
+    "updatedAt": "2026-11-22T20:48:18.350Z"
    },
    "set": null,
    "metric": null
@@ -18644,9 +18644,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T16:28:44.057Z"
+    "updatedAt": "2026-11-22T20:48:18.352Z"
    },
    "set": null,
    "metric": null
@@ -18688,9 +18688,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-19T16:28:44.060Z"
+    "updatedAt": "2026-11-22T20:48:18.355Z"
    },
    "set": null,
    "metric": null
@@ -18732,9 +18732,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-20T03:44:37.482Z"
+    "updatedAt": "2026-11-22T20:48:18.358Z"
    },
    "set": null,
    "metric": null
@@ -18776,9 +18776,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-20T03:45:30.570Z"
+    "updatedAt": "2026-11-22T20:48:18.361Z"
    },
    "set": null,
    "metric": null
@@ -18820,9 +18820,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-20T04:54:59.171Z"
+    "updatedAt": "2026-11-22T20:48:18.363Z"
    },
    "set": null,
    "metric": null
@@ -18848,7 +18848,7 @@
     "uid": "c-0273",
     "name": "double-1-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18864,9 +18864,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-1 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.477Z"
+    "updatedAt": "2026-11-22T20:48:31.315Z"
    },
    "set": null,
    "metric": null
@@ -18892,7 +18892,7 @@
     "uid": "c-0274",
     "name": "double-1-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18908,9 +18908,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-1 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.481Z"
+    "updatedAt": "2026-11-22T20:48:31.319Z"
    },
    "set": null,
    "metric": null
@@ -18936,7 +18936,7 @@
     "uid": "c-0275",
     "name": "double-10-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18952,9 +18952,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-10 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.482Z"
+    "updatedAt": "2026-11-22T20:48:31.321Z"
    },
    "set": null,
    "metric": null
@@ -18980,7 +18980,7 @@
     "uid": "c-0276",
     "name": "double-10-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18996,9 +18996,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-10 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.483Z"
+    "updatedAt": "2026-11-22T20:48:31.323Z"
    },
    "set": null,
    "metric": null
@@ -19024,7 +19024,7 @@
     "uid": "c-0277",
     "name": "double-11-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19040,9 +19040,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-11 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.484Z"
+    "updatedAt": "2026-11-22T20:48:31.325Z"
    },
    "set": null,
    "metric": null
@@ -19068,7 +19068,7 @@
     "uid": "c-0278",
     "name": "double-11-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19084,9 +19084,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-11 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.485Z"
+    "updatedAt": "2026-11-22T20:48:31.327Z"
    },
    "set": null,
    "metric": null
@@ -19112,7 +19112,7 @@
     "uid": "c-0279",
     "name": "double-12-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19128,9 +19128,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-12 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.486Z"
+    "updatedAt": "2026-11-22T20:48:31.329Z"
    },
    "set": null,
    "metric": null
@@ -19156,7 +19156,7 @@
     "uid": "c-0280",
     "name": "double-12-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19172,9 +19172,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-12 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.487Z"
+    "updatedAt": "2026-11-22T20:48:31.331Z"
    },
    "set": null,
    "metric": null
@@ -19200,7 +19200,7 @@
     "uid": "c-0281",
     "name": "double-13-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19216,9 +19216,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-13 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.488Z"
+    "updatedAt": "2026-11-22T20:48:31.332Z"
    },
    "set": null,
    "metric": null
@@ -19244,7 +19244,7 @@
     "uid": "c-0282",
     "name": "double-13-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19260,9 +19260,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-13 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.489Z"
+    "updatedAt": "2026-11-22T20:48:31.334Z"
    },
    "set": null,
    "metric": null
@@ -19288,7 +19288,7 @@
     "uid": "c-0283",
     "name": "double-14-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19304,9 +19304,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-14 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.490Z"
+    "updatedAt": "2026-11-22T20:48:31.336Z"
    },
    "set": null,
    "metric": null
@@ -19332,7 +19332,7 @@
     "uid": "c-0284",
     "name": "double-14-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19348,9 +19348,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-14 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.491Z"
+    "updatedAt": "2026-11-22T20:48:31.338Z"
    },
    "set": null,
    "metric": null
@@ -19376,7 +19376,7 @@
     "uid": "c-0285",
     "name": "double-15-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19392,9 +19392,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-15 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.491Z"
+    "updatedAt": "2026-11-22T20:48:31.340Z"
    },
    "set": null,
    "metric": null
@@ -19420,7 +19420,7 @@
     "uid": "c-0286",
     "name": "double-15-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19436,9 +19436,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-15 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.492Z"
+    "updatedAt": "2026-11-22T20:48:31.342Z"
    },
    "set": null,
    "metric": null
@@ -19464,7 +19464,7 @@
     "uid": "c-0287",
     "name": "double-16-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19480,9 +19480,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-16 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.493Z"
+    "updatedAt": "2026-11-22T20:48:31.345Z"
    },
    "set": null,
    "metric": null
@@ -19508,7 +19508,7 @@
     "uid": "c-0288",
     "name": "double-16-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19524,9 +19524,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-16 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.494Z"
+    "updatedAt": "2026-11-22T20:48:31.347Z"
    },
    "set": null,
    "metric": null
@@ -19552,7 +19552,7 @@
     "uid": "c-0289",
     "name": "double-17-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19568,9 +19568,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-17 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.495Z"
+    "updatedAt": "2026-11-22T20:48:31.349Z"
    },
    "set": null,
    "metric": null
@@ -19596,7 +19596,7 @@
     "uid": "c-0290",
     "name": "double-17-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19612,9 +19612,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-17 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.496Z"
+    "updatedAt": "2026-11-22T20:48:31.351Z"
    },
    "set": null,
    "metric": null
@@ -19640,7 +19640,7 @@
     "uid": "c-0291",
     "name": "double-18-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19656,9 +19656,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-18 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.497Z"
+    "updatedAt": "2026-11-22T20:48:31.353Z"
    },
    "set": null,
    "metric": null
@@ -19684,7 +19684,7 @@
     "uid": "c-0292",
     "name": "double-18-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19700,9 +19700,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-18 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.498Z"
+    "updatedAt": "2026-11-22T20:48:31.355Z"
    },
    "set": null,
    "metric": null
@@ -19728,7 +19728,7 @@
     "uid": "c-0293",
     "name": "double-19-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19744,9 +19744,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-19 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.498Z"
+    "updatedAt": "2026-11-22T20:48:31.357Z"
    },
    "set": null,
    "metric": null
@@ -19772,7 +19772,7 @@
     "uid": "c-0294",
     "name": "double-19-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19788,9 +19788,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-19 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.499Z"
+    "updatedAt": "2026-11-22T20:48:31.360Z"
    },
    "set": null,
    "metric": null
@@ -19816,7 +19816,7 @@
     "uid": "c-0295",
     "name": "double-2-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19832,9 +19832,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-2 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.500Z"
+    "updatedAt": "2026-11-22T20:48:31.362Z"
    },
    "set": null,
    "metric": null
@@ -19860,7 +19860,7 @@
     "uid": "c-0296",
     "name": "double-2-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19876,9 +19876,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-2 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.501Z"
+    "updatedAt": "2026-11-22T20:48:31.364Z"
    },
    "set": null,
    "metric": null
@@ -19904,7 +19904,7 @@
     "uid": "c-0297",
     "name": "double-20-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19920,9 +19920,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-20 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.502Z"
+    "updatedAt": "2026-11-22T20:48:31.366Z"
    },
    "set": null,
    "metric": null
@@ -19948,7 +19948,7 @@
     "uid": "c-0298",
     "name": "double-20-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19964,9 +19964,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-20 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.503Z"
+    "updatedAt": "2026-11-22T20:48:31.369Z"
    },
    "set": null,
    "metric": null
@@ -19992,7 +19992,7 @@
     "uid": "c-0299",
     "name": "double-21-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20008,9 +20008,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-21 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.504Z"
+    "updatedAt": "2026-11-22T20:48:31.370Z"
    },
    "set": null,
    "metric": null
@@ -20036,7 +20036,7 @@
     "uid": "c-0300",
     "name": "double-21-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20052,9 +20052,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-21 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.504Z"
+    "updatedAt": "2026-11-22T20:48:31.372Z"
    },
    "set": null,
    "metric": null
@@ -20080,7 +20080,7 @@
     "uid": "c-0301",
     "name": "double-22-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20096,9 +20096,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-22 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.505Z"
+    "updatedAt": "2026-11-22T20:48:31.374Z"
    },
    "set": null,
    "metric": null
@@ -20124,7 +20124,7 @@
     "uid": "c-0302",
     "name": "double-22-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20140,9 +20140,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-22 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.506Z"
+    "updatedAt": "2026-11-22T20:48:31.377Z"
    },
    "set": null,
    "metric": null
@@ -20168,7 +20168,7 @@
     "uid": "c-0303",
     "name": "double-23-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20184,9 +20184,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-23 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.507Z"
+    "updatedAt": "2026-11-22T20:48:31.379Z"
    },
    "set": null,
    "metric": null
@@ -20212,7 +20212,7 @@
     "uid": "c-0304",
     "name": "double-23-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20228,9 +20228,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-23 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.508Z"
+    "updatedAt": "2026-11-22T20:48:31.381Z"
    },
    "set": null,
    "metric": null
@@ -20256,7 +20256,7 @@
     "uid": "c-0305",
     "name": "double-24-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20272,9 +20272,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-24 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.509Z"
+    "updatedAt": "2026-11-22T20:48:31.383Z"
    },
    "set": null,
    "metric": null
@@ -20300,7 +20300,7 @@
     "uid": "c-0306",
     "name": "double-24-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20316,9 +20316,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-24 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.510Z"
+    "updatedAt": "2026-11-22T20:48:31.385Z"
    },
    "set": null,
    "metric": null
@@ -20344,7 +20344,7 @@
     "uid": "c-0307",
     "name": "double-25-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20360,9 +20360,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-25 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.511Z"
+    "updatedAt": "2026-11-22T20:48:31.387Z"
    },
    "set": null,
    "metric": null
@@ -20388,7 +20388,7 @@
     "uid": "c-0308",
     "name": "double-25-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20404,9 +20404,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-25 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.513Z"
+    "updatedAt": "2026-11-22T20:48:31.389Z"
    },
    "set": null,
    "metric": null
@@ -20432,7 +20432,7 @@
     "uid": "c-0309",
     "name": "double-26-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20448,9 +20448,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-26 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.514Z"
+    "updatedAt": "2026-11-22T20:48:31.391Z"
    },
    "set": null,
    "metric": null
@@ -20476,7 +20476,7 @@
     "uid": "c-0310",
     "name": "double-26-se-2",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20492,9 +20492,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-26 (SE-2), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.515Z"
+    "updatedAt": "2026-11-22T20:48:31.393Z"
    },
    "set": null,
    "metric": null
@@ -20520,7 +20520,7 @@
     "uid": "c-0311",
     "name": "double-27-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20536,9 +20536,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-27 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.516Z"
+    "updatedAt": "2026-11-22T20:48:31.395Z"
    },
    "set": null,
    "metric": null
@@ -20564,7 +20564,7 @@
     "uid": "c-0312",
     "name": "double-27-se-2",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20580,9 +20580,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-27 (SE-2), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.516Z"
+    "updatedAt": "2026-11-22T20:48:31.397Z"
    },
    "set": null,
    "metric": null
@@ -20608,7 +20608,7 @@
     "uid": "c-0313",
     "name": "double-28-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20624,9 +20624,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-28 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.517Z"
+    "updatedAt": "2026-11-22T20:48:31.399Z"
    },
    "set": null,
    "metric": null
@@ -20652,7 +20652,7 @@
     "uid": "c-0314",
     "name": "double-28-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20668,9 +20668,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-28 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.518Z"
+    "updatedAt": "2026-11-22T20:48:31.401Z"
    },
    "set": null,
    "metric": null
@@ -20696,7 +20696,7 @@
     "uid": "c-0315",
     "name": "double-3-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20712,9 +20712,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-3 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.519Z"
+    "updatedAt": "2026-11-22T20:48:31.403Z"
    },
    "set": null,
    "metric": null
@@ -20740,7 +20740,7 @@
     "uid": "c-0316",
     "name": "double-3-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20756,9 +20756,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-3 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T18:04:06.520Z"
+    "updatedAt": "2026-11-22T20:48:31.405Z"
    },
    "set": null,
    "metric": null
@@ -20784,7 +20784,7 @@
     "uid": "c-0317",
     "name": "double-4-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20800,9 +20800,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-4 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.521Z"
+    "updatedAt": "2026-11-22T20:48:31.407Z"
    },
    "set": null,
    "metric": null
@@ -20828,7 +20828,7 @@
     "uid": "c-0318",
     "name": "double-4-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20844,9 +20844,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-4 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.522Z"
+    "updatedAt": "2026-11-22T20:48:31.409Z"
    },
    "set": null,
    "metric": null
@@ -20872,7 +20872,7 @@
     "uid": "c-0319",
     "name": "double-5-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20888,9 +20888,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-5 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.523Z"
+    "updatedAt": "2026-11-22T20:48:31.412Z"
    },
    "set": null,
    "metric": null
@@ -20916,7 +20916,7 @@
     "uid": "c-0320",
     "name": "double-5-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20932,9 +20932,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-5 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.524Z"
+    "updatedAt": "2026-11-22T20:48:31.414Z"
    },
    "set": null,
    "metric": null
@@ -20960,7 +20960,7 @@
     "uid": "c-0321",
     "name": "double-6-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20976,9 +20976,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-6 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.525Z"
+    "updatedAt": "2026-11-22T20:48:31.416Z"
    },
    "set": null,
    "metric": null
@@ -21004,7 +21004,7 @@
     "uid": "c-0322",
     "name": "double-6-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21020,9 +21020,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-6 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.526Z"
+    "updatedAt": "2026-11-22T20:48:31.418Z"
    },
    "set": null,
    "metric": null
@@ -21048,7 +21048,7 @@
     "uid": "c-0323",
     "name": "double-7-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21064,9 +21064,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-7 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.527Z"
+    "updatedAt": "2026-11-22T20:48:31.420Z"
    },
    "set": null,
    "metric": null
@@ -21092,7 +21092,7 @@
     "uid": "c-0324",
     "name": "double-7-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21108,9 +21108,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-7 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T18:04:06.529Z"
+    "updatedAt": "2026-11-22T20:48:31.422Z"
    },
    "set": null,
    "metric": null
@@ -21136,7 +21136,7 @@
     "uid": "c-0325",
     "name": "double-8-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21152,9 +21152,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-8 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.530Z"
+    "updatedAt": "2026-11-22T20:48:31.424Z"
    },
    "set": null,
    "metric": null
@@ -21180,7 +21180,7 @@
     "uid": "c-0326",
     "name": "double-8-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21196,9 +21196,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-8 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T18:04:06.531Z"
+    "updatedAt": "2026-11-22T20:48:31.427Z"
    },
    "set": null,
    "metric": null
@@ -21224,7 +21224,7 @@
     "uid": "c-0327",
     "name": "double-9-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21240,9 +21240,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-9 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.532Z"
+    "updatedAt": "2026-11-22T20:48:31.428Z"
    },
    "set": null,
    "metric": null
@@ -21268,7 +21268,7 @@
     "uid": "c-0328",
     "name": "double-9-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 90,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21284,9 +21284,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":45,\"matrix\":[[\"√2/2\",\"-√2/2\"],[\"√2/2\",\"√2/2\"]],\"exact\":false}",
+    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-9 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T18:04:06.533Z"
+    "updatedAt": "2026-11-22T20:48:31.430Z"
    },
    "set": null,
    "metric": null

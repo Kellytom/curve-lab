@@ -125696,14 +125696,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -126550,14 +126550,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -127396,14 +127396,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -128258,14 +128258,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -129144,14 +129144,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -129974,14 +129974,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -130796,14 +130796,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -131666,14 +131666,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -132504,14 +132504,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -133390,14 +133390,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -134244,14 +134244,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -135026,14 +135026,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -135856,14 +135856,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -136662,14 +136662,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -137524,14 +137524,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -138346,14 +138346,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -139232,14 +139232,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -139502,14 +139502,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -140308,14 +140308,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -141146,14 +141146,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -141968,14 +141968,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -142822,14 +142822,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -143660,14 +143660,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -144538,14 +144538,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -145400,14 +145400,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -146166,14 +146166,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -146420,14 +146420,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -147210,14 +147210,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -148040,14 +148040,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -148838,14 +148838,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -149692,14 +149692,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -149954,14 +149954,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -150216,14 +150216,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -150862,14 +150862,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -151492,14 +151492,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -152186,14 +152186,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -152856,14 +152856,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -153294,14 +153294,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -153636,14 +153636,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -154154,14 +154154,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -154472,14 +154472,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -155014,14 +155014,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -155580,14 +155580,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -156458,14 +156458,14 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -157336,14 +157336,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -158158,14 +158158,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -159004,14 +159004,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -159850,14 +159850,14 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -160712,14 +160712,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -161566,14 +161566,14 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -162444,14 +162444,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -163306,14 +163306,14 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -164152,14 +164152,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -165046,14 +165046,14 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -165916,14 +165916,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
@@ -166746,14 +166746,14 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": -90,
+        "degrees": 90,
         "matrix": [
           [
             "0",
-            "1"
+            "-1"
           ],
           [
-            "-1",
+            "1",
             "0"
           ]
         ],
