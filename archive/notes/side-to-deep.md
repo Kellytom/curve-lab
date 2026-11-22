@@ -300,3 +300,22 @@ My recommendation: A + B + C together; if A is picked, my next conversion row is
 Proved by: the counts above re-derive from workbench/nurbs-inventory.json; the offset-degree formula 2n-1 is verified per curve in state/SC-NURBS-int.md.
 Blocked: the pick is yours and the operator's.
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-21 04:20 — the reduction protocol is set up: watch for "NURBS Project status:"
+
+Job (operator, direct): set up the notification protocol for reduced curves.
+Done: `reduction/PROTOCOL.md` on the reduction branch (worktree
+`../curve-lab-reduction/`, kept separate until complete). The marker to watch:
+**`NURBS Project status:`** — single blocks per ready curve (variant name,
+parent uid, reducedDegree, maxMiss, maxMissRail, records file), or one batch
+announcement pointing at `reduction/out/batch-<n>.json` in the standard
+registry-row format. You review, add through the standard path, and answer
+with the assigned uid or the rejection reason. I never write the registry
+directly.
+Proved by: the protocol file exists on the reduction branch (commit 68616e91);
+no other file changed.
+Blocked: nothing
+Next: R1 — the reducer itself, one degree-11 curve with its rail, both misses
+printed against the dial.
