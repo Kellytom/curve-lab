@@ -20,12 +20,12 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 2 | `LTMemory-int.md` | 318 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 4 | `state/PLAN-int.md` | 200 | the next few sessions, one action each, with what is parked and why |
-| 5 | `state/HANDOFF-int.md` | 3,522 | current truth — **read the tail (~80 lines), not the whole file** |
+| 5 | `state/HANDOFF-int.md` | 3,525 | current truth — **read the tail (~80 lines), not the whole file** |
 | 6 | `TODO.md` | 947 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
 | 9 | `state/DESIGN-int.md` | 999 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
-| 10 | `state/REGRESSIONS-int.md` | 119 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
+| 10 | `state/REGRESSIONS-int.md` | 120 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 
@@ -75,7 +75,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the tuning desk (`/tune/`, `/tune/<uid>`) | `state/SPEC-tune-lab-int.md`, `state/PROBLEMS-tune-lab-int.md`, `app/src/lib/desk-tune.js`, `app/src/scripts/tune-render.js`, `app/src/scripts/tune-uid.js`, `app/tests/desk-tune.test.mjs`, `scripts/check-tune-lab.mjs` |
 | the review desk (bulk approval) | `state/SPEC-review-int.md`, `state/PROBLEMS-review-int.md`, `app/src/pages/review.astro`, `app/src/scripts/review.js`, `app/src/pages/api/curve-stars.js`, `app/scripts/check-review.mjs` |
 | the docs ornament theme (Marginalia) | `app/src/theme/marginalia/README.md`, `app/src/theme/marginalia/marginalia.css`, `app/src/theme/marginalia/Head.astro`, `app/src/theme/marginalia/ornaments.json`, `scripts/marginalia.mjs`, `app/src/pages/ornaments.astro`, `app/src/content/docs/docs/marginalia.md`, `tests/test_marginalia.py` |
-| the side-curve partners sandbox | `scripts/side_curves.mjs`, `workbench/side-curves.html`, `app/src/pages/api/d3js.js`, `app/src/lib/parallel-bezier.ts` |
+| the side-curve partners sandbox | `docs/SIDE-CURVES.md`, `scripts/side_curves.mjs`, `workbench/side-curves.html`, `app/src/pages/api/d3js.js`, `app/src/lib/parallel-bezier.ts` |
 | square and frame figures | `curve_lab/square_assembly.py`, `workbench/plate_math.js`, `workbench/square-frame.html`, `scripts/square_frame.py`, `scripts/square_try.py`, `tests/js/plates.test.js`, `tests/test_square_frame.py` |
 | the prime mover: circle-driven parametrics, p-triple points, the closure fact | `state/PRIME-MOVER-int.md` |
 | future exploration (the pendulum mobile, Gaussian transforms, tails, the review) | `state/EXPLORATION-int.md` |

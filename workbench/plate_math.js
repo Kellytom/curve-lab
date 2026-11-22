@@ -482,31 +482,39 @@
       const len = Math.hypot(tx, ty) || 1;
       return [tx / len, ty / len];
     });
-    const room = walk.map((p, i) => {
+    // The one character law, also on a stored path: distance x (1 + strength x
+    // profile(t)), capped by the fold guard (distance x curvature <= 0.9). The local
+    // pinch cap was tried and reverted (docs/SIDE-CURVES.md, section 2): it is a second
+    // construction, and at the same saved number it drew a band about four times too wide.
+    const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
+    const strengths = [clamp(plus), clamp(minus)];
+    const curvature = walk.map((p, i) => {
       const a = tangents[Math.max(0, i - 1)];
       const b = tangents[Math.min(walk.length - 1, i + 1)];
       const step = arc[Math.min(walk.length - 1, i + 1)] - arc[Math.max(0, i - 1)];
       const turn = Math.abs(Math.atan2(a[0] * b[1] - a[1] * b[0], a[0] * b[0] + a[1] * b[1]));
-      return turn > 1e-9 ? (0.5 * step) / turn : Infinity;
+      return turn > 1e-12 && step > 1e-12 ? turn / step : 0;
     });
-    const cap = pinchCap(room, arc);
-    const narrowest = (100 * Math.min(...cap)) / size;
-
+    let worst = 0;
+    walk.forEach((p, i) => {
+      const bow = profileAt(profile, arc[i] / total);
+      const factor = Math.max(...strengths.map((strength) => Math.abs(1 + strength * bow)), 1e-9);
+      worst = Math.max(worst, factor * curvature[i]);
+    });
+    const safeBase = worst === 0 ? Infinity : (Number.isFinite(worst) ? FOLD_LIMIT / worst : 0);
+    const usedBase = Math.min(base, safeBase);
+    const usedPercent = (usedBase / size) * 100;
     const railFor = (side, strength) => walk.map((p, i) => {
       const [tx, ty] = tangents[i];
-      const want = base * (1 + strength * profileAt(profile, arc[i] / total));
-      const mag = Math.min(Math.abs(want), cap[i]);
-      const d = side * (want < 0 ? -mag : mag);
+      const want = usedBase * (1 + clamp(strength) * profileAt(profile, arc[i] / total));
+      const d = side * want;
       return [p[0] - ty * d, p[1] + tx * d];
     });
 
     const paths = [walk, railFor(1, plus), railFor(-1, minus)];
-    let note = `path rails · width ${widthPercent}% · ${profile} ${plus}/${minus}` +
-      ` · ${walk.length} points from ${stored.length} stored`;
-    if (narrowest < Math.abs(widthPercent) - 1e-9) {
-      note += ` · pinched to ${narrowest.toFixed(1)}% at the tightest bend`;
-    }
-    return { paths, bbox: bbox(paths.flat()), width: widthPercent, narrowest, note };
+    const note = `path rails · width ${usedPercent.toFixed(2)}% of ${widthPercent}% · ${profile} ${plus}/${minus}` +
+      ` · ${walk.length} points from ${stored.length} stored · fold ${(usedBase * worst).toFixed(2)}`;
+    return { paths, bbox: bbox(paths.flat()), width: usedPercent, note };
   }
 
   return { value, spine, curvaturePeak, curvatureWorst, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,

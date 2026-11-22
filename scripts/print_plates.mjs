@@ -17,6 +17,7 @@ import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
 import { turn, frame as frameFor } from "./lib/plate-frame.mjs";
 import { rowFor as plateRow } from "./lib/plate-row.mjs";
+import { partnersOf } from "./lib/plate-partner.mjs";
 
 // d3 does the geometry: the extents and the line generator. It is a dependency the app
 // already carries (app/node_modules), so the plate uses the same library as the pages.
@@ -126,22 +127,15 @@ function plateSvg(record) {
   const degrees = Number(record.transform?.degrees || 0);
   let spine;
   let rails = [];
-  if (Array.isArray(record.path) && record.path.length > 2 && PLATE.pathGroup) {
-    // a stored outline: the rails are built from the walk itself, same character law and
-    // the same continuous fold cap as the page. A saved width draws the two bands; zero is
-    // the clean two-tone spine.
-    const group = PLATE.pathGroup(record.path, {
-      widthPercent: row.width.percent, plus: row.character.plus,
-      minus: row.character.minus, profile: row.character.profile,
-    });
-    if (group && group.paths.length) {
-      spine = group.paths[0];
-      rails = group.paths.slice(1);
-    } else {
-      spine = record.path.map(([x, y]) => [x, y]);
-    }
-  } else if (Array.isArray(record.path) && record.path.length > 2) {
+  if (Array.isArray(record.path) && record.path.length > 2) {
+    // A stored path is a construction, not a normal offset: the side curves are the same
+    // path scaled about the construction centre (the origin). The double's half radius,
+    // the hybrid's middle weight and the mobile's arm all change by that scale, and a
+    // scaled copy cannot tangle (docs/SIDE-CURVES.md §1, §5, §9).
+    const d = Math.max(0.001, Math.abs(Number(row.width.percent) || 0) / 100);
     spine = record.path.map(([x, y]) => [x, y]);
+    const { right, left } = partnersOf(spine, d);
+    rails = [right, left];
   } else {
     // rails come from the polynomial; a row whose coefficients are too large for the
     // curvature routine falls back to the spine alone rather than failing the export

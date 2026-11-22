@@ -3498,9 +3498,12 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **The plate preset is the first two curves** (2026-11-21): width **1 %**, plus **2.5**,
   minus **0.1**, on a bow. The note migration had written 0 into width, plus and minus for the
   untouched curves, and the note won over the desk, so those plates drew a 0 % band
-  (plus = minus = 0 is a parallel offset). Every curve with no saved width takes the preset,
-  stored paths included (register 52; the operator: "i didnt ask for spines only"). The plate
-  **SVG is the plate**: `node scripts/print_plates.mjs --svg-only` writes all 371 in **10.8 s**;
+  (plus = minus = 0 is a parallel offset). Every **row** curve with no saved width takes the character preset
+  (register 52; the operator: "i didnt ask for spines only"). A **stored path** draws the
+  per-construction partner instead: the same path scaled about the origin by the saved width
+  (default 1 %), so the doubles and flourishes have clean side curves and cannot tangle
+  (register 53; docs/SIDE-CURVES.md §5). The plate
+  **SVG is the plate**: `node scripts/print_plates.mjs --svg-only` writes all 371 in **3.9 s**;
   the 300 dpi PNG is a separate, slow export. `/review/` and `/plates/` show the SVG from
   `/api/print-plate/<uid>?format=svg`, uncached, so a reload shows the current law. The print
   reads the saved values from `data/curves.json`, not a stale notes export. The whole set is re-rendering at the new preset. Still wrong:
