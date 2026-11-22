@@ -73,6 +73,9 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | a curve's folder and its figure | `curves/README.md`, `scripts/curve_files.py`, `scripts/curve_svg.py`, `scripts/curve_png.mjs`, `scripts/curve_png_all.mjs`, `workbench/figures/` |
 | book plates (PNG export) | `book/README.md`, `book/plates.json`, `workbench/real-curves.json`, `scripts/real_curves.mjs`, `scripts/plates_export.mjs`, `workbench/plate_math.js`, `tests/js/plates.test.js` |
 | the tuning desk (`/tune/`, `/tune/<uid>`) | `state/SPEC-tune-lab-int.md`, `state/PROBLEMS-tune-lab-int.md`, `app/src/lib/desk-tune.js`, `app/src/scripts/tune-render.js`, `app/src/scripts/tune-uid.js`, `app/tests/desk-tune.test.mjs`, `scripts/check-tune-lab.mjs` |
+| the review desk (bulk approval) | `state/SPEC-review-int.md`, `state/PROBLEMS-review-int.md`, `app/src/pages/review.astro`, `app/src/scripts/review.js`, `app/src/pages/api/curve-stars.js`, `app/scripts/check-review.mjs` |
+| the docs ornament theme (Marginalia) | `app/src/theme/marginalia/README.md`, `app/src/theme/marginalia/marginalia.css`, `app/src/theme/marginalia/Head.astro`, `app/src/theme/marginalia/ornaments.json`, `scripts/marginalia.mjs`, `app/src/pages/ornaments.astro`, `app/src/content/docs/docs/marginalia.md`, `tests/test_marginalia.py` |
+| the side-curve partners sandbox | `scripts/side_curves.mjs`, `workbench/side-curves.html`, `app/src/pages/api/d3js.js`, `app/src/lib/parallel-bezier.ts` |
 | square and frame figures | `curve_lab/square_assembly.py`, `workbench/plate_math.js`, `workbench/square-frame.html`, `scripts/square_frame.py`, `scripts/square_try.py`, `tests/js/plates.test.js`, `tests/test_square_frame.py` |
 | the prime mover: circle-driven parametrics, p-triple points, the closure fact | `state/PRIME-MOVER-int.md` |
 | future exploration (the pendulum mobile, Gaussian transforms, tails, the review) | `state/EXPLORATION-int.md` |

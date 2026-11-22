@@ -16,6 +16,17 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Current (2026-11-21, late) — the review desk, Marginalia, the partners
+
+- **Landed:** the review desk (`/review/`, bulk stars, scopes, refusals); the ten clickable stars;
+  the plates curated (194 of 371, provenance, star order with variants); Marginalia (the docs
+  ornament theme, all 371 at a quarter scale, the dot stroke); the wonks out; the side curves as
+  per-construction partners (the sandbox with the row/mobile/double/hybrid families, d3 plotting,
+  3 pt legend, optional caps); the 11-degree reduction handed to DeepSeek2.
+- **Next:** migrate the plates per family, starting with the row family; the operator names the
+  scrollwork and select exceptions; `/fhandoff` after the next block.
+- **Parked:** Sprint 1; the W01–W04 board order.
+
 ## Current (2026-11-21) — the tuning desk, the outlines, the path rails
 
 - **Landed:** desk saves (save / new curve with its own uid / collision refusal / the save

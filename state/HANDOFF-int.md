@@ -3455,3 +3455,33 @@ Tschirnhausen — classic but adds nothing; off the board.
   four-up with all 371. Template record `app/src/theme/marginalia/README.md`; generator
   `scripts/marginalia.mjs` (SVGs gitignored, manifest tracked, predev/prebuild). Build and check green.
 - **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.
+
+## 2026-11-21 (late) — the review desk, Marginalia, and the per-construction rule
+
+- **The review desk** `/review/` (`d70f8652`): the whole collection with its plate and provenance,
+  three scopes (the plates 194, unrated, every curve), checkboxes and select all, one bulk star
+  write (10/5/2/1/none or a number), the count and the refusal in place. Spec and problems files;
+  `app/scripts/check-review.mjs` (no write); the plates page links to it.
+- **Ten stars clickable** on `/tune/<uid>` (`f009fe3a`): POST `/api/curve-stars` writes the note's
+  importance (0 = none), refreshes the JSON copy, and the pages follow.
+- **The plates show the curated set** (`b7bef36c`, `6eb1780b`): 194 of 371 (2+ stars, or a variant
+  of a kept parent), a provenance sentence per card, and the star order with each variant beside
+  its parent. The wonks are out (27; the 59 doubles stay; the wonk desk keeps its rows, `66af54b5`).
+- **Marginalia is the docs theme** (`d423cf97`, `2ed649f6`): every curve at a quarter of the text
+  width — a curve in the title, an `h2` companion, blockquote/footer/sidebar ornaments, and the
+  `/ornaments/` contact sheet four-up; the stroke is overlapping dots (no Béziers); the template
+  record is `app/src/theme/marginalia/README.md`; the SVGs are generated and gitignored.
+- **Side curves are per-construction partners only** (`42c5aaba`, `53d95659`, `5e04d696`,
+  `8261aadb`, `1e75914b`). The operator's rule: no parallel curves as a general side curve (too
+  mechanical), except scrollwork and a few select cases. The sandbox
+  `/workbench/side-curves.html` draws the spine and two partners — a smaller construction on the
+  right (parameter − d_R) and a larger one on the left (+ d_L) — with a 3 pt colour legend,
+  optional cap lines, and d3's scales, axes, curves and caps (the installed bundle at
+  `/api/d3js`). The row family's parameter is the speed scale (position ×(1∓d)²); the mobile,
+  double and hybrid parameters are stated on the page.
+- **The 11-degree/NURBS reduction** is DeepSeek2's: the protocol, the corrected spec and the
+  reducer draft are merged; the amendments are in their spec (reduce the curve *and* fit each
+  rail; a reduced curve is a new variant record; report the total miss).
+- **Next:** the plates migration per family, starting with the row family (the sandbox is the
+  worked rule); the operator names the scrollwork/select exceptions; DeepSeek2's reductions.
+  The regenerated `plates-web` copies are uncommitted generated files; the deploy ships the tree.
