@@ -35,6 +35,15 @@ def branches(spec):
 
 def points_of(ctrl):
     deg = len(ctrl) - 1
+    if len(ctrl[0]) == 2:
+        # already a plain Bézier control polygon (x, y)
+        out = []
+        for i in range(SAMPLES + 1):
+            s = Fraction(i, SAMPLES)
+            x = sum(Fraction(ctrl[j][0]) * G.bern_n(j, deg, s) for j in range(len(ctrl)))
+            y = sum(Fraction(ctrl[j][1]) * G.bern_n(j, deg, s) for j in range(len(ctrl)))
+            out.append((float(x), float(y)))
+        return out
     pts = []
     for i in range(SAMPLES + 1):
         s = Fraction(i, SAMPLES)
@@ -49,7 +58,12 @@ def points_of(ctrl):
 
 def figure(key, spec):
     lines = []
-    ctrl_list = branches(spec)
+    if "branches" not in spec:
+        # an n / h / u / v preset: its integer control points are the Bézier form
+        built = G.build_preset(spec)
+        ctrl_list = [built["cps"]]
+    else:
+        ctrl_list = branches(spec)
     if not ctrl_list:
         return None
     for ctrl in ctrl_list:
@@ -108,7 +122,9 @@ def main():
     wanted = [row["key"] for row in page["missingNamed"]]
     OUT.mkdir(parents=True, exist_ok=True)
     written = 0
-    for spec in G.NAMED:
+    # NAMED holds the equations with branches; PRESETS holds the ones written as n / h / u / v
+    # (quartic, sextic); named_data builds both.
+    for spec in list(G.NAMED) + list(getattr(G, "PRESETS", [])):
         key = spec["key"]
         if key not in wanted:
             continue

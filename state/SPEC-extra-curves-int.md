@@ -40,8 +40,11 @@ Rules with a check each:
 ## 3 · Regenerating
 
 ```sh
-PATH="$HOME/node24/bin:$PATH" node scripts/curve_gaps.mjs
+PATH="$HOME/node24/bin:$PATH" node scripts/curve_gaps.mjs     # the lists and the JSON
+.venv/bin/python scripts/extra_curve_figs.py                  # the rational named curves
+.venv/bin/python scripts/nonrational_figs.py                  # heart and squircle, sampled
 ```
 
-writes `app/src/data/extra-curves.json` and `state/GAPS-int.md` together, so the page and the
-prose cannot disagree.
+The first writes `app/src/data/extra-curves.json` and `state/GAPS-int.md` together, so the page
+and the prose cannot disagree. The other two draw from the generators' own equations; the
+non-rational two are labelled **sampled** inside the figure and never claim exactness.

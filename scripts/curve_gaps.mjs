@@ -38,15 +38,38 @@ const curves = registry.curves.map((record) => {
 const generatorSource = readFileSync(path.join(ROOT, "scripts", "generators.py"), "utf8");
 const named = [...generatorSource.matchAll(/dict\(key="([^"]+)"/g)].map((m) => m[1]);
 // the equation and the one-line description of each named curve, for the extra-curves page
+const polyText = (list) => {
+  if (!list) return "";
+  const sup = (n) => String(n).replace(/[0-9]/g, (d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+  const terms = [];
+  list.forEach((c, i) => {
+    if (!c) return;
+    const magnitude = Math.abs(c) === 1 && i > 0 ? "" : String(Math.abs(c));
+    const power = i === 0 ? "" : i === 1 ? "t" : `t${sup(i)}`;
+    terms.push(`${c < 0 ? "−" : "+"}${magnitude}${power}`);
+  });
+  if (!terms.length) return "0";
+  const first = terms[0].replace(/^\+/, "");
+  return terms.slice(1).reduce((text, term) => `${text} ${term}`, first);
+};
+
 const namedDetails = new Map();
 for (const block of generatorSource.split("dict(key=").slice(1)) {
   const key = (block.match(/^"([^"]+)"/) || [])[1];
   if (!key) continue;
+  const eq = (block.match(/eq="([^"]*)"/) || [])[1] || "";
+  const h = (block.match(/h=\(([^)]*)\)/) || [])[1];
+  const u = (block.match(/u=\(([^)]*)\)/) || [])[1];
+  const v = (block.match(/v=\(([^)]*)\)/) || [])[1];
+  const asList = (text) => (text ? text.split(",").map((n) => Number(n.trim())) : null);
+  const speedEq = h && u && v
+    ? `h = ${polyText(asList(h))} · u = ${polyText(asList(u))} · v = ${polyText(asList(v))}`
+    : "";
   namedDetails.set(key, {
     key,
-    eq: (block.match(/eq="([^"]*)"/) || [])[1] || "",
-    tail: (block.match(/tail="([^"]*)"/) || [])[1] || "",
-    deg: Number((block.match(/deg=(\d+)/) || [])[1] || 0),
+    eq: eq || speedEq,
+    tail: (block.match(/tail="([^"]*)"/) || [])[1] || (block.match(/note="([^"]*)"/) || [])[1] || "",
+    deg: Number((block.match(/deg=(\d+)/) || [])[1] || (block.match(/n=(\d+)/) || [])[1] || 0),
   });
 }
 const present = new Set(curves.flatMap((c) => [c.name.toLowerCase(), ...c.aliases.map((a) => a.toLowerCase())]));

@@ -171,15 +171,15 @@
   },
   {
    "key": "quartic",
-   "eq": "",
-   "tail": "",
-   "deg": 0
+   "eq": "h = 1 +2t · u = 1 −t · v = 1 −2t",
+   "tail": "one linear h, so the degree comes out even",
+   "deg": 4
   },
   {
    "key": "sextic",
-   "eq": "",
-   "tail": "",
-   "deg": 0
+   "eq": "h = 1 +2t · u = −1 +t · v = 2 −t",
+   "tail": "linear h times quadratic generators",
+   "deg": 6
   }
  ],
  "emptyCells": [
