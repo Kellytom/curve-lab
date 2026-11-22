@@ -51,9 +51,16 @@ for (const cell of emptyCells) {
   </div>
 
   <h2>The empty crossing × inflection cells · {count.emptyCells}</h2>
-  <p class="note">A crossing is a <b>crossing pair</b> (two parameters that pass through the
-    same place); an inflection is a station where the turn changes direction. Each row lists
-    the inflection counts that have no curve at that many crossings.</p>
+  <p class="note">A <b>crossing pair</b> is two parameters t₁ &lt; t₂ where the stroke passes
+    through the same place (three passes through one point count as three pairs). An
+    <b>inflection</b> is a station where the curve stops bending one way and starts bending the
+    other. The pair of counts is a shape signature: every curve has one, and two curves with the
+    same pair still differ in shape. Each row lists the inflection counts with no curve at that
+    many crossing pairs.</p>
+  <p class="note"><b>Measured curves only.</b> The table counts the 262 curves with a recorded
+    exact measurement. The 158 stored paths have no exact crossing or inflection count yet, so
+    they are not in it — a cell can be empty here and still be occupied by a path that has not
+    been measured. Read it as "no measured curve", not "no curve".</p>
   <table class="cells">
     <thead>
       <tr><th>crossing pairs</th><th>inflections with no curve</th></tr>
