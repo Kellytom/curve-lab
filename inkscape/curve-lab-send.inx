@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/extensions/1.0">
+  <name>Curve Lab: send a curve</name>
+  <id>curve-lab.send</id>
+  <param name="uid" type="string" gui-text="Curve uid (e.g. c-0002)">c-0002</param>
+  <param name="path" type="string" gui-text="Output .svg path (empty = &lt;uid&gt;.svg)"></param>
+  <effect needs-document="false">
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu name="Curve Lab"/>
+    </effects-menu>
+  </effect>
+  <script>
+    <command location="inx" interpreter="python">ph_extension.py</command>
+  </script>
+</inkscape-extension>
