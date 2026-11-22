@@ -3500,9 +3500,11 @@ Tschirnhausen — classic but adds nothing; off the board.
   untouched curves, and the note won over the desk, so those plates drew a 0 % band
   (plus = minus = 0 is a parallel offset). A zero note is now a placeholder and falls through to
   the desk row (register 50). The whole set is re-rendering at the new preset. Still wrong:
-  `c-0006` carries a saved 8 % (plus 6) and is grossly wide; the character bow is added after
-  the fold guard, so a tight loop (`c-0001`) can still cross; and `c-0260` renders 3000×88 with
-  no rails (a guard-floor spine-only). Those are the next geometry pass.
+  `c-0006` carries a saved 8 % (plus 6); the guard now cuts it to 2.84 %. The character bow is
+  **in** the fold guard as of register 51: `c-0001` cuts from 1 % to 0.7 % and the widest rail is
+  at 0.89, not 1.28. The ribbon still overwraps visually at a tight loop; that is what the
+  per-construction partner is for. `c-0260` still renders 3000×88 with no rails (the guard floor);
+  the partner is its fix too.
 - **The figures sheet is paginated** (2026-11-21): fifty figures a page, eight pages, the last
   page twenty-one; the range and the pager are on the page, and `app/src/lib/figure-pages.js`
   carries the arithmetic with its own test. The split with DeepSeek2 is in `state/PLAN-int.md`:

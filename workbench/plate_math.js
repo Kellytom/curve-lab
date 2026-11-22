@@ -81,6 +81,34 @@
     return 4 * t * (1 - t);
   };
 
+  // The fold guard must see the bow, not only the base width. The rail's offset at a
+  // station is distance * (1 + strength * profile(t)), and the fold is that offset times
+  // the curvature there. A global bow factor over-cut the reference band; this looks at
+  // the station where the two actually meet (2026-11-21, c-0001 at 1 % measured 1.28 × the
+  // fold limit because the guard ignored the plus).
+  function curvatureWorst(u, v, plus, minus, profileName, samples = 400) {
+    const u2 = multiply(u, u), v2 = multiply(v, v), uv = multiply(u, v);
+    const x1 = add(u2, scalePoly(v2, -1));
+    const y1 = scalePoly(uv, 2);
+    const x2 = scalePoly(add(multiply(u, derivative(u)), scalePoly(multiply(v, derivative(v)), -1)), 2);
+    const y2 = scalePoly(add(multiply(derivative(u), v), multiply(u, derivative(v))), 2);
+    const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
+    const strengths = [clamp(plus), clamp(minus)];
+    let worst = 0;
+    for (let i = 0; i <= samples; i += 1) {
+      const t = i / samples;
+      const a = value(x1, t), b = value(y1, t);
+      const speed = Math.hypot(a, b);
+      if (speed < 1e-12) return Infinity;
+      const cross = a * value(y2, t) - b * value(x2, t);
+      const curvature = Math.abs(cross) / speed ** 3;
+      const bow = profileAt(profileName, t);
+      const factor = Math.max(1, ...strengths.map((strength) => 1 + strength * bow));
+      worst = Math.max(worst, curvature * factor);
+    }
+    return worst;
+  }
+
   function integrate(start, u, v, steps, eps = 0, bump = null) {
     let x = start[0], y = start[1];
     const points = [[x, y]];
@@ -156,9 +184,12 @@
     // Halving made the band jump DOWN as the slider went up: on c-0002, 2.2 % became 1.15 %
     // at the next step, and again at 4.6 % (2026-11-21). This is the same rule —
     // distance × peak ≤ FOLD_LIMIT — solved directly, so the band moves with the slider.
-    const safePercent = peak > 0 && Number.isFinite(peak)
-      ? Math.floor((FOLD_LIMIT / peak) * 10000 / size) / 100
-      : Infinity;
+    const worst = curvatureWorst(u, v, plus, minus, profileName);
+    const safePercent = worst === 0
+      ? Infinity
+      : Number.isFinite(worst) && worst > 0
+        ? Math.floor((FOLD_LIMIT / worst) * 10000 / size) / 100
+        : 0;
     width = Math.min(width, safePercent);
     let distance = width >= WIDTH_FLOOR ? (width / 100) * size : 0;
     const spinePoints = samples.map((s) => [s.x, s.y]);
@@ -181,7 +212,7 @@
       });
     }
     return { name: row.name, paths, spine: spinePoints, width, profileName,
-             plus, minus, distance, fold: Math.abs(distance) * peak, note };
+             plus, minus, distance, fold: distance * worst, note };
   }
 
   const rotate = (points, deg) => {
@@ -478,7 +509,7 @@
     return { paths, bbox: bbox(paths.flat()), width: widthPercent, narrowest, note };
   }
 
-  return { value, spine, curvaturePeak, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
+  return { value, spine, curvaturePeak, curvatureWorst, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };
 });
