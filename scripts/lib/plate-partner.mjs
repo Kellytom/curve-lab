@@ -6,9 +6,11 @@
 // hybrid's middle weight, the mobile's arm radius. Scaling the stored path about the
 // origin is that shift, and a scaled copy of a curve cannot cross itself.
 
-export function partnersOf(path, d) {
+export function partnersOf(path, d, exponent = 1) {
   const s = Math.abs(Number(d)) || 0;
   const scaled = (factor) => path.map(([x, y]) => [x * factor, y * factor]);
-  // right is the smaller construction (parameter − d), left the larger (+ d)
-  return { right: scaled(1 - s), left: scaled(1 + s) };
+  // right is the smaller construction (parameter − d), left the larger (+ d).
+  // A row shifts the speed rows by (1 ∓ d), so the position scales (1 ∓ d)²;
+  // a stored path's own parameter scales the position once.
+  return { right: scaled((1 - s) ** exponent), left: scaled((1 + s) ** exponent) };
 }

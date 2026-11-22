@@ -137,16 +137,14 @@ function plateSvg(record) {
     const { right, left } = partnersOf(spine, d);
     rails = [right, left];
   } else {
-    // rails come from the polynomial; a row whose coefficients are too large for the
-    // curvature routine falls back to the spine alone rather than failing the export
-    let group = null;
-    try { group = PLATE.group ? PLATE.group(row) : null; } catch { group = null; }
-    if (group && group.paths && group.paths.length) {
-      spine = group.paths[0];
-      rails = group.paths.slice(1);
-    } else {
-      spine = PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]);
-    }
+    // A row's side curve is the same speed rows scaled by (1 ∓ d), so the position is
+    // scaled by (1 ∓ d)² about the origin (docs/SIDE-CURVES.md §5). A scaled copy cannot
+    // fold; the character band is the tune page's law, not the plate's side curve.
+    const d = Math.max(0.001, Math.abs(Number(row.width.percent) || 0) / 100);
+    const pts = PLATE.spine(row.speedX, row.speedY, 700).map((s) => [s.x, s.y]);
+    spine = pts;
+    const { right, left } = partnersOf(pts, d, 2);
+    rails = [right, left];
   }
   spine = turn(spine, degrees);
   rails = rails.map((rail) => turn(rail, degrees));

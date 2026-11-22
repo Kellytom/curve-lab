@@ -46,3 +46,12 @@ test("a real stored double scales cleanly at the plate's preset", () => {
     assert.ok(Math.abs(left[i][1] - y * 1.01) < 1e-12);
   }
 });
+
+test("a row's partner is the speed scale squared on the position", () => {
+  // docs/SIDE-CURVES.md §5: row speed rows ×(1 ∓ d) → position ×(1 ∓ d)² about the origin.
+  const { right, left } = partnersOf(path, 0.01, 2);
+  path.forEach(([x, y], i) => {
+    assert.ok(Math.abs(right[i][0] - x * 0.99 ** 2) < 1e-12);
+    assert.ok(Math.abs(left[i][1] - y * 1.01 ** 2) < 1e-12);
+  });
+});

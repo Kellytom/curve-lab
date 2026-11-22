@@ -224,5 +224,22 @@ class DevServerHostTest(unittest.TestCase):
         self.assertIn("--host 127.0.0.1", package["scripts"]["dev"])
 
 
+class SideCurvePartnerTest(unittest.TestCase):
+    def test_the_side_curves_are_the_construction_partners(self):
+        """The operator, 2026-11-21: "c-0273 to whatever are wrong wrong wrong ... give the
+        offset curves as they should be", then "finish go fast". docs/SIDE-CURVES.md §1 and
+        §5: a side curve is the same construction with one parameter shifted, never a
+        parallel offset. The stored paths scale linearly; a row's speed rows scale by
+        (1 ∓ d), so its position scales by (1 ∓ d)². A scaled copy cannot tangle."""
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "plate-partner.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()
