@@ -1,6 +1,10 @@
 # SPEC-NURBS-int — the switchover to NURBS, as a separate subsystem
 
-> **draft A** — a working draft, the operator has ideas to add.
+> **PARKED 2026-11-21** — the operator's decision, after the analysis: the
+> deliverable is cubic Beziers for Inkscape and glyphs, so the direct route
+> wins unless a consumer needs NURBS input. The spec stays as the reference
+> for that day; the exact-rail formula (section 1.2) carries over to the
+> direct route as the rail-fit source.
 
 What this is: a **parallel, additive subsystem** that carries the catalogue —
 the curves **and their rails** — into NURBS form, while the current Bézier
