@@ -106,11 +106,15 @@ c = the spine's bounding-box centre; s = scale; φ = rotation.</div>
   <div class="controls">
     <label>scale s <input id="scale" type="range" min="0.80" max="1.20" step="0.005" value="0.94"><output id="scale-out">0.940</output></label>
     <label>rotation φ° <input id="rot" type="range" min="-15" max="15" step="0.5" value="0"><output id="rot-out">0.0</output></label>
-    <label>centre <input id="centre" type="range" min="0" max="1" step="0.05" value="0.5"><output id="centre-out">0.50</output></label>
+    <label>centre <select id="centre-mode"><option value="bbox" selected>bbox middle</option><option value="origin">origin (construction)</option></select></label>
+    <label>centre x <input id="centre" type="range" min="0" max="1" step="0.05" value="0.5"><output id="centre-out">0.50</output></label>
     <label>stroke <select id="stroke"><option value="dots" selected>dots</option><option value="line">line</option></select></label>
     <label>dot r px <input id="dot" type="range" min="0.6" max="2.4" step="0.1" value="1.6"><output id="dot-out">1.6</output></label>
-    <p class="lead" style="font-size:12px">Centre moves along the bounding box's x axis:
-      0.5 is its middle, 0 is the left edge, 1 the right. The gap is zero at the centre.</p>
+    <p class="lead" style="font-size:12px">About the construction's own centre (the origin),
+      the similarity is the same construction with its radius scaled: for the mobile
+      P(t) = r(u + v), the partner is (r − d)(u + v) = (1 − d)P. The gap is d·|P|, zero
+      where the construction passes through its centre. The bbox middle is only the
+      picture's centre; move it with the slider.</p>
     <table id="metrics"></table>
   </div>
 </div>
@@ -118,11 +122,15 @@ c = the spine's bounding-box centre; s = scale; φ = rotation.</div>
 The rail is the plate's width law at 1.5 %, plus 2, minus 2, bow.</p>
 <script>
 const DATA = ${JSON.stringify(data)};
-const state = { index: 0, s: 0.94, phi: 0, centreMix: 0.5, dots: true, dot: 1.6 };
+const state = { index: 0, s: 0.94, phi: 0, centreMix: 0.5, centreMode: "bbox", dots: true, dot: 1.6 };
 const byId = (id) => document.getElementById(id);
 const styleOf = () => ({ spine: "#2b2b2b", rail: "#b9b1a2", partner: "#8a3b2a" });
 
 function centreOf(entry) {
+  // the construction's own centre: the mobile is P(t) = r(u + v) about the origin, so a
+  // scale about the origin IS the same construction with its radius reduced,
+  // P_d = (r - d)(u + v) = (1 - d)P. The bbox middle is only the picture's centre.
+  if (state.centreMode === "origin") return [0, 0];
   const [x0, y0, x1] = entry.box;
   return [x0 + (x1 - x0) * state.centreMix, (entry.box[1] + entry.box[3]) / 2];
 }
@@ -193,6 +201,11 @@ function wire() {
   byId("rot").addEventListener("input", (event) => {
     state.phi = Number(event.target.value);
     byId("rot-out").value = state.phi.toFixed(1);
+    draw();
+  });
+  byId("centre-mode").addEventListener("change", (event) => {
+    state.centreMode = event.target.value;
+    byId("centre").disabled = state.centreMode === "origin";
     draw();
   });
   byId("centre").addEventListener("input", (event) => {
