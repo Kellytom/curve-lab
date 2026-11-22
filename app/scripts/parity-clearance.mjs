@@ -4,7 +4,7 @@
 // this script recomputes both from the same spans and diffs.
 
 import { readFileSync } from "node:fs";
-import { flatten, measure, segmentDistance } from "../src/lib/clearance.ts";
+import { flatten, measure } from "../src/lib/clearance.ts";
 
 const dump = JSON.parse(readFileSync("/tmp/py-clearance.json", "utf8"));
 let mismatches = 0; let checked = 0;

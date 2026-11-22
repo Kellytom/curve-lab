@@ -1,7 +1,7 @@
 // The bezier parity check: TS fit_chain vs Python's on a circle of known geometry.
 //   PATH="$HOME/node24/bin:$PATH" node app/scripts/parity-bezier.mjs
 import { readFileSync } from "node:fs";
-import { fitChain, cubicAt, spanError } from "../src/lib/bezier.ts";
+import { fitChain, cubicAt } from "../src/lib/bezier.ts";
 
 const dump = JSON.parse(readFileSync("/tmp/py-bezier.json", "utf8"));
 const R = dump.R;

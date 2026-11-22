@@ -4130,6 +4130,52 @@ in nice places on the page (astro starlight ... customize ... template ...)".
   path, so a page is stable and the whole set is used across the docs.
 - **Masks, not pictures:** the ornaments take the page's ink in light and dark from one file.
 
+## Side curves are per-construction partners — 2026-11-21
+
+The operator: "use only per-construction partner." The similarity and the width offset are not
+the rule.
+
+- **A side curve is the same construction with one parameter reduced**, about the construction's
+  own centre (the origin): the mobile's arm length `r → r − d` (equal radii: `P_d = (1 − d)P`),
+  the hybrid's middle weight `k → k − d`, the double's half radius `r → r − d` before the mirror.
+  No normal estimate and no curvature cut: the curve is smooth because of how it is built.
+- **The gap is the construction's, and it is measured.** For the mobile it is `d·|P|`, zero where
+  the construction passes its centre — not a constant width. That is honest, not a defect.
+- **The sandbox is the rule's home**: `scripts/side_curves.mjs` → `/workbench/side-curves.html`.
+  Each of the three families states its parameter and formula; the width rail is a faint
+  reference.
+- **The migration is per family, never a silent switch.** The 212 PH rows need their speed or
+  family parameter; the finder paths their generator parameter. Until a family's rule exists,
+  the plates and the tune page keep the character width rail, labelled as the reference.
+
+## No parallel curves as a general side curve — 2026-11-21
+
+The operator: "NO PARALLEL CURVES AS A GENERAL RULE. PARALLEL CURVES LOOK TOO MECHANICAL,
+EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
+
+- **The side curve is the per-construction partner.** A parallel offset is not the general
+  route: it is too mechanical, and at high curvature it is where an offset is least valid
+  (the normal changes fastest, and the edge wobbles or folds).
+- **Exceptions:** scrollwork, and a short list of select cases the operator will name. Only
+  there may a parallel rail stay.
+- **The character/width rails are legacy on the general set.** The plates and the tune page
+  keep them only as a labelled reference until each family's partner rule lands. Nothing is
+  stripped from the curated book plates silently; the migration is per family.
+- **The standard tools, not hand-rolled geometry:** d3's centripetal Catmull-Rom for the drawn
+  curve; the repository's Levien parallel-Bézier port (`app/src/lib/parallel-bezier.ts`,
+  `curve_lab/parallel_bezier.py`) for the scrollwork/fitted exception. The overlapping-dot
+  stroke is a thin drawing layer; the geometry is the construction.
+- **The sandbox is the rule's home:** `/workbench/side-curves.html` has no parallel curve. It
+  draws the spine and its two per-construction partners — a smaller construction on the right
+  (parameter − d_R) and a larger one on the left (parameter + d_L) — closed at each end by one
+  cap line through the spine endpoint, with a 3 pt colour legend, the parameter and formula per
+  family, and the measured gap. d3's centripetal Catmull-Rom draws the curves; the scales, axes
+  and cap lines are d3's too (the library is served at `/api/d3js` from the installed bundle);
+  the overlapping dots are only the stroke.
+- **The row family's parameter is the speed scale.** The 212 row curves are PH in the speed
+  pair (u, v); scaling the speed by (1 ∓ d) scales the position by (1 ∓ d)² about the origin —
+  the same construction, one parameter, no offset. `c-0001` is the sandbox's worked row.
+
 
 <!-- source: state/REGRESSIONS-int.md -->
 
