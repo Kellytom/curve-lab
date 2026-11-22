@@ -6,19 +6,31 @@ const repo = path.resolve(import.meta.dirname, "../../../..");
 const registry = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-registry.json"), "utf8"));
 const metrics = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-analysis.json"), "utf8"));
 const byUid = new Map((metrics.curves || []).map((r) => [r.uid, r]));
-const overLimit = registry.curves.filter((c) => {
-  const m = byUid.get(c.uid);
-  return m && m.degree >= 12;
-}).map((c) => ({ uid: c.uid, name: c.name, degree: byUid.get(c.uid).degree,
-                crossings: byUid.get(c.uid).crossings ?? 0 }));
+// The position degree is computed from the speed rows themselves: the stored
+// "degree" field changed meaning once already, so the desk derives its own.
+function positionDegree(speedX, speedY) {
+  const trim = (row) => { const r = [...row]; while (r.length && Number(r[r.length - 1]) === 0) r.pop(); return r.length; };
+  return 2 * Math.max(trim(speedX), trim(speedY)) + 1;
+}
+const overLimit = registry.curves.filter((c) => c.speedX && c.speedY.length)
+  .map((c) => ({ uid: c.uid, name: c.name,
+                 degree: positionDegree(c.speedX, c.speedY),
+                 crossings: (byUid.get(c.uid) || {}).crossings ?? 0 }))
+  .filter((c) => c.degree > 11);
 overLimit.sort((a, b) => b.degree - a.degree || b.crossings - a.crossings);
 ---
 <div style="background:#fffdf7;max-width:1180px;margin:0 auto;padding:0 1.25rem 3.5rem;font:16px/1.5 Georgia,serif;color:#3b2d1c">
 <h1>Reduction desk</h1>
-<p>{overLimit.length} curves sit above the degree-11 ceiling. Each links to its
-reduction desk: exact vs reduced, the miss drawn, the numbers printed.</p>
+<p>{overLimit.length} curves have a <b>position degree above 11</b> (computed
+from the speed rows, not the stored field). Their rails sit higher still — a
+rail is degree 2n−1, so even a degree-7 curve has a degree-13 rail — which
+makes the <b>rail</b> the harder half of the ceiling. On the full measure
+(curve <i>and</i> rail inside degree 11), only 6 of 213 rows qualify
+(see <a href="/problems/">the problem gallery</a>). Each curve here links to its
+reduction desk: exact vs reduced, the proven miss bound drawn, the numbers
+printed.</p>
 <table style="border-collapse:collapse;font:13px ui-monospace,Menlo,monospace">
-<tr><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">uid</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">name</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">degree</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">crossings</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">desk</th></tr>
+<tr><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">uid</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">name</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">position degree</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">crossings</th><th style="border:1px solid #e6dccb;padding:4px 10px;background:#f4ecdd">desk</th></tr>
 {overLimit.map((c) => (
 <tr><td style="border:1px solid #e6dccb;padding:4px 10px">{c.uid}</td>
 <td style="border:1px solid #e6dccb;padding:4px 10px">{c.name}</td>
