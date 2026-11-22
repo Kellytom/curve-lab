@@ -951,3 +951,21 @@ in nice places on the page (astro starlight ... customize ... template ...)".
   corner, the footer's flourish, the sidebar's foot. Each page gets four curves by a hash of its
   path, so a page is stable and the whole set is used across the docs.
 - **Masks, not pictures:** the ornaments take the page's ink in light and dark from one file.
+
+## Side curves are per-construction partners — 2026-11-21
+
+The operator: "use only per-construction partner." The similarity and the width offset are not
+the rule.
+
+- **A side curve is the same construction with one parameter reduced**, about the construction's
+  own centre (the origin): the mobile's arm length `r → r − d` (equal radii: `P_d = (1 − d)P`),
+  the hybrid's middle weight `k → k − d`, the double's half radius `r → r − d` before the mirror.
+  No normal estimate and no curvature cut: the curve is smooth because of how it is built.
+- **The gap is the construction's, and it is measured.** For the mobile it is `d·|P|`, zero where
+  the construction passes its centre — not a constant width. That is honest, not a defect.
+- **The sandbox is the rule's home**: `scripts/side_curves.mjs` → `/workbench/side-curves.html`.
+  Each of the three families states its parameter and formula; the width rail is a faint
+  reference.
+- **The migration is per family, never a silent switch.** The 212 PH rows need their speed or
+  family parameter; the finder paths their generator parameter. Until a family's rule exists,
+  the plates and the tune page keep the character width rail, labelled as the reference.
