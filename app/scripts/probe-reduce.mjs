@@ -1,0 +1,11 @@
+import { readFileSync } from "node:fs";
+import { toFraction, curvePolynomials } from "../src/lib/measure.ts";
+import { reduceCurve } from "../src/lib/reduction/reduce.ts";
+const reg = JSON.parse(readFileSync(new URL("../../workbench/curve-registry.json", import.meta.url), "utf8"));
+const c = reg.curves.find((r) => r.uid === "c-0260");
+const u = c.speedX.map((v) => toFraction(v));
+const v = c.speedY.map((v) => toFraction(v));
+const { x: xPoly } = curvePolynomials(u, v);
+const exact = xPoly.map((f) => ({ n: f.n, d: f.d }));
+const result = reduceCurve(exact, 20.0, 11, 0.0005, 64);
+console.log('pieces', result.piecesCount, 'splits', result.splits, 'met', result.met, 'boundShare', result.boundShare.toExponential(3));

@@ -319,3 +319,14 @@ no other file changed.
 Blocked: nothing
 Next: R1 — the reducer itself, one degree-11 curve with its rail, both misses
 printed against the dial.
+
+---
+
+## 2026-11-21 04:45 — the reduction desk is live, and c-0260 is honestly not reducible
+
+Job (operator, direct): iterate the reducer, visible on a page.
+Done: the reduction desk is live on the dev server — `/reduce/` lists the over-degree curves, and `/reduce/<uid>` runs the reducer server-side in BigInt fractions and draws exact vs reduced (Catmull-Rom chains through exact stations, per the figure rule), the miss curve magnified, and the numbers: the proven Chebyshev-tail bound, the pieces the bound loop chose, and the dial verdict.
+The honest finding on the first real curve: **c-0260 (degree 23, 19 crossings) is NOT reducible to degree 11.** The proven Chebyshev-tail bound stays at **1.08e+2 (107 steps of 255, ~5.4% of size)** even at 64 pieces — the curve genuinely carries degree-23 content, exactly as its 19 crossings suggest. The desk states it: "NO — the curve is genuinely over-degree".
+Proved by: the desk renders 200 for c-0260 and c-0001; the probe prints `pieces 64, splits 6, met false, boundShare 1.077e+2`; the reducer is the exact Chebyshev truncation with the proven bound (no fitting, no samples).
+Blocked: nothing
+Next: run the desk across the degree-11..15 curves — the milder ones may meet the dial at a few pieces; the genuinely over-degree ones get stated as such, per the spec's honesty rule.
