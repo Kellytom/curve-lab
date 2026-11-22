@@ -95,7 +95,7 @@ GUI, the same extensions appear under **Extensions → Curve Lab**.)
 
     .venv/bin/python -m unittest tests.test_ph_actions tests.test_ph_roundtrip tests.test_ph_variant
 
-26 tests. The fixture `tests/fixtures/through-inkscape-c-0002.svg` is
+27 tests (14 actions, 7 round trip, 6 variant). The fixture `tests/fixtures/through-inkscape-c-0002.svg` is
 Inkscape's own re-serialization — the snap is proven against Inkscape's
 real precision, not self-produced numbers. Register rows 54 and 55 record
 the two faults that wrote these guards (a running sum standing in for the

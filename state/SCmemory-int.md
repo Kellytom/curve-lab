@@ -155,3 +155,31 @@ DeepSeek2's page). What is known:
    `--fast` 3 s, `--commit`, `--pages [--changed] [--read-only] [--url 4322]`, `--full`.
    The page checks print every failure in one pass (`app/scripts/check-all.mjs`). Use the built
    server while DeepSeek1 edits; the dev server reloads and aborts navigations.
+
+## 2026-11-22 · the round trip and the re-fit landed (this session)
+
+- **Inkscape 1.4.4 is installed** and drivable headless. Extensions run under its bundled
+  python: `PYTHONPATH=/Applications/Inkscape.app/Contents/Resources/share/inkscape/extensions
+  /Applications/Inkscape.app/Contents/Resources/bin/python3 ph_extension.py /tmp/blank.svg
+  --mode=send|receive ...` (a blank input svg is required even for needs-document=false).
+  Gotchas: the .inx namespace must be `http://www.inkscape.org/namespace/inkscape/extension`
+  (the `/extensions/1.0` one is silently skipped); inkex 1.4 has no top-level `Element`; the
+  script must call its own `Extension().run()`; unknown CLI params need `add_arguments`
+  entries; re-copy `inkscape/*.py *.inx` to the user extensions folder after every edit.
+- **The round trip is closed**: send (inkex) → Inkscape load/save (metadata survives; path
+  drift 4.8e-05 units) → drag → receive snap (the drag→action map; one action explains all
+  moved nodes; refusals in curve units) → acted recipe → variant proposal → sandbox candidate
+  (`c-0002a` posted, HTTP 200). Modules: `inkscape/ph_actions.py`, `ph_svg.py`,
+  `ph_handles.py`, `ph_variant.py`, `ph_extension.py`. Docs: `docs/INKSCAPE-ROUNDTRIP.md`.
+- **The speed-space re-fit exists**: `reduction/speed_fit.py` (float search, exact rational
+  verdict), census on `/reduce/` and `workbench/speed-fit-census.json` (registered format).
+  The fit family reduces to speed 5 with essentially zero miss (catenary-fit 0.000005 units);
+  the wave/loop/lace families refuse it. Five candidates POSTed to the sandbox
+  (`c-0016-s5` … `c-0018-s5`), each verified position 11 / rails 9.
+- **Registers 54, 55, 56** are the session's faults: the desk's running-sum integral; the
+  round trip's translate-in-every-coefficient; the re-fit's verdict floor being 6-dp
+  quantization. Read them before touching the desk, `ph_actions.position_of`, or
+  `speed_fit.quantize`.
+- **The conversion track** landed `model.ts` (6 tests) and the `svg.ts` TEXT layer (8 tests):
+  `document()` stays in Python until the site emits documents. `state/PORT-int.md` carries
+  the row table.

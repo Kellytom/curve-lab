@@ -4530,6 +4530,16 @@ Sizes: every module above is under 200 lines, has one job, and loads either as a
 plain script (`globalThis.Exact`) or through `require`. That is the house shape
 for JS modules: no bundler, no import graph to debug.
 
+## The conversion track's rows (the sidechat's, 2026-11-21/22)
+
+| row | landed | parity | notes |
+|---|---|---|---|
+| `measure.py` | `app/src/lib/measure.ts` | 212 curves, 0 mismatches | the one exact core |
+| `clearance.py` | `app/src/lib/clearance.ts` | 15 checks, 0 mismatches | flatten, distance, gap/crossings |
+| `piece.py` | `app/src/lib/piece.ts` | 4 pieces, 0 mismatches | the pre-built-spans path |
+| `model.py` | `app/src/lib/model.ts` | JSON shape round-trips | one widening: null `kappa0` through `fromPieces` |
+| `svg.py` | `app/src/lib/svg.ts` | 8 laws pinned | TEXT layer only; `document()` stays in Python until the site emits documents |
+
 ## What is deliberately not moving
 
 - **`curve_lab/measure.py`** (293 lines). It is the debugged exact core, and the

@@ -46,9 +46,17 @@ numeric check, not a hope.
   groups) — parity **4 pieces, 0 mismatches** (`app/scripts/parity-piece.mjs`).
   The desk-reality gap is flagged: the Python Trace forbids width on spans
   while build_piece's pre-built path and the tune desk's records use it.
-- Next row: `model.py` → `app/src/lib/model.ts` (Design/Segment), then
-  `svg.py` — with model.py the port can hold records end to end.
-  `Proves:` the parity script prints zero mismatches.
+- ~~`model.py` → `app/src/lib/model.ts`~~ **LANDED 2026-11-22**: Segment and
+  Design with the same refusals and the same JSON shape (a Python-written
+  design loads unchanged and round-trips); one widening, stated in the
+  commit — `fromPieces` carries a null `kappa0` through instead of NaN.
+  `app/tests/model.test.mjs` (6 tests), in the npm test list.
+- ~~`svg.py` → `app/src/lib/svg.ts`~~ **PARTLY LANDED 2026-11-22**: the TEXT
+  layer (svgNum, pathD, parseD, spanEval, gridStep, gridLines, bbox, slug,
+  escapeXml, metadataDesign) with 8 tests; the LAYOUT builder `document()`
+  stays in Python until the site emits design documents — the module header
+  says so. Next conversion rows: `junction.py`, the rest of `svg.py`.
+  `Proves:` node --test tests/svg.test.mjs (8/8).
 - The NURBS-analysis row: **the rails' fit source becomes the exact analytic
   normal** — `X = x·w2 − d·y′` over `w2`, built from the speed rows with no
   backend and no square root in the storage. The rails then sit as close to
@@ -56,12 +64,14 @@ numeric check, not a hope.
   numbers are measured against the exact source instead of the backend's
   offset evaluation. `Proves:` the rail fit's `error_max` against the exact
   source is at or under the current fit's, on the same curves.
-- The reducer and its Python twin agree (2026-11-21): the over-ceiling curves
-  genuinely carry their degree — c-0260's proven bound stays at 1.08e+2 at 64
-  pieces; c-0072's explodes. The sibling map is the answer for them
-  (`state/SC-NOTES-constructions.md`); the reducer serves the mild cases.
-  `Proves:` the twin runs the identical algorithm in Fraction
-  (`reduction/parity/reduce_reference.py`) and prints the same verdicts.
+- The reducer's numbers are superseded (2026-11-22): the desk's integral was
+  a running sum (register 54), so the old "c-0260 genuinely carries its
+  degree" came from a wrong polynomial. Corrected: c-0260's drawing fits at
+  4 pieces with a proven 0.1316-unit miss, and the speed-space re-fit
+  (`reduction/speed_fit.py`) serves the fit family with essentially zero
+  miss. The wave/loop/lace families still refuse it — the sibling map stays
+  their answer. The census is on `/reduce/`.
+  `Proves:` tests/test_speed_fit.py; workbench/speed-fit-census.json.
 - Then `piece.py`, `junction.py`, `svg.py`, each with its own parity check.
 - `state/PORT-int.md` is the boundary record — update it per row.
 - `Proves:` per row: the parity script plus `npm --prefix app test`.
