@@ -85,7 +85,7 @@ for (const uid of CURVES) {
 }
 
 const html = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>side curves — per-construction partners</title>
+<html lang="en"><head><meta charset="utf-8"><title>side curves — per-construction partners: draft A</title>
 <style>
 body{margin:0;padding:24px;background:#faf8f2;color:#26221c;font:14px/1.5 system-ui,sans-serif}
 h1{font-size:20px;margin:0 0 4px} .lead{color:#6b5b46;max-width:80ch}
@@ -298,6 +298,7 @@ byId("dot").addEventListener("input", (event) => {
 });
 draw();
 </script>
+<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
 </body></html>`;
 
 writeFileSync(path.join(ROOT, "workbench", "side-curves.html"), html);
