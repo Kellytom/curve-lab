@@ -46,6 +46,14 @@ for (const cell of emptyCells) {
         <p class="eq"><code>{curve.eq}</code></p>
         <p class="shape">{curve.tail}</p>
         <p class="tag">degree {curve.deg || "—"}</p>
+        {curve.key === "squircle" && (
+          <p class="variants">
+            fitted:{" "}
+            <a href="/extra-curves/squircle-4-span.svg">4 spans · miss 0.53 %</a>{" · "}
+            <a href="/extra-curves/squircle-8-span.svg">8 spans · miss 0.12 %</a>
+            {" "}of the radius
+          </p>
+        )}
       </article>
     ))}
   </div>
@@ -92,6 +100,8 @@ for (const cell of emptyCells) {
   .gap .shape { margin: 0; font-size: 12px; line-height: 1.5; color: #5a4a36; }
   .gap .tag { margin: 6px 0 0; font: 11px/1.4 ui-monospace, Menlo, monospace; color: #8a6a1f; }
   .gap .thumb { display: block; width: 100%; height: 150px; object-fit: contain; background: #fff; margin: 0 0 8px; }
+  .gap .variants { margin: 6px 0 0; font-size: 11px; line-height: 1.5; color: #5a4a36; }
+  .gap .variants a { color: #7a5a1f; }
   .gap .nofig { margin: 0 0 8px; height: 150px; display: grid; place-items: center; text-align: center;
     font-size: 12px; line-height: 1.5; color: #8a7a62; background: #faf7f0; border: 1px dashed #e6dccb; padding: 8px; }
   .cells { border-collapse: collapse; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 10px 0 26px; }

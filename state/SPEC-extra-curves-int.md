@@ -43,8 +43,16 @@ Rules with a check each:
 PATH="$HOME/node24/bin:$PATH" node scripts/curve_gaps.mjs     # the lists and the JSON
 .venv/bin/python scripts/extra_curve_figs.py                  # the rational named curves
 .venv/bin/python scripts/nonrational_figs.py                  # heart and squircle, sampled
+.venv/bin/python scripts/squircle_spans.py                    # the squircle as 4 and 8 spans
 ```
 
 The first writes `app/src/data/extra-curves.json` and `state/GAPS-int.md` together, so the page
 and the prose cannot disagree. The other two draw from the generators' own equations; the
 non-rational two are labelled **sampled** inside the figure and never claim exactness.
+
+**The squircle's fitted versions.** Cutting a non-rational curve into spans does not make it
+exact; it makes it exportable. The card links two fitted versions, and each figure prints its
+measured worst miss: **4 spans 0.53 %**, **8 spans 0.12 %** of the radius. The handles are one
+symmetric pair per span, their length chosen by measurement — a least-squares solve for two
+independent handles was tried first and gave 4.5 % on a quadrant, worse than the one-parameter
+search, because the two handles are not independent enough for the normal equations.
