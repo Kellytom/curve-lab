@@ -15,6 +15,13 @@ that is DeepSeek1's lead and I am the measurement and search support around it.
 
 So the order is:
 
+**NURBS: parked 2026-11-21**, on the `nurbs` branch (worktree
+`../curve-lab-nurbs/`, spec and analysis preserved). The operator's call after
+the analysis: the deliverable is cubic Béziers for Inkscape and glyphs, so
+NURBS is the indirect route — and no library serves the exact-fraction
+requirement (`verb`, `geomdl`, three's `NURBSCurve` are all float64). The row
+the analysis did earn is below.
+
 ### 1 · Python → TypeScript conversion (the long-term project I lead)
 
 The site eventually runs free or low-cost on Netlify / Cloudflare Pages +
@@ -36,6 +43,13 @@ numeric check, not a hope.
 - Next row: `piece.py` → `app/src/lib/piece.ts` (the builder the clearance
   numbers come from), then `model.py` (Design/Segment) so the port can build
   pieces itself. `Proves:` the parity script prints zero mismatches.
+- The NURBS-analysis row: **the rails' fit source becomes the exact analytic
+  normal** — `X = x·w2 − d·y′` over `w2`, built from the speed rows with no
+  backend and no square root in the storage. The rails then sit as close to
+  the true offset as the fit tolerance allows, and the fit's `error_max`
+  numbers are measured against the exact source instead of the backend's
+  offset evaluation. `Proves:` the rail fit's `error_max` against the exact
+  source is at or under the current fit's, on the same curves.
 - Then `piece.py`, `junction.py`, `svg.py`, each with its own parity check.
 - `state/PORT-int.md` is the boundary record — update it per row.
 - `Proves:` per row: the parity script plus `npm --prefix app test`.
