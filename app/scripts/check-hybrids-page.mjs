@@ -24,7 +24,7 @@ const check = (ok, message) => {
   else { failed += 1; console.log(`  FAIL ${message}`); }
 };
 
-const response = await page.goto(`${BASE}/hybrids/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+const response = await page.goto(`${BASE}/hybrids/`, { waitUntil: "domcontentloaded", timeout: 90000 });
 check(response?.status() === 200, `page answers ${response?.status()}`);
 
 const cards = await page.locator(".hybrid-card").count();
@@ -129,7 +129,7 @@ await blocked.route("**/api/sandbox-curves", (route) =>
   route.request().method() === "GET"
     ? route.fulfill({ status: 500, body: "down" })
     : route.continue());
-await blocked.goto(`${BASE}/hybrids/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+await blocked.goto(`${BASE}/hybrids/`, { waitUntil: "domcontentloaded", timeout: 90000 });
 await blocked.waitForTimeout(900);
 const warned = await blocked.evaluate(() => document.getElementById("hybrids-counts")?.textContent || "");
 await blocked.locator(".hybrid-card .hybrid-actions button").first().click();

@@ -92,3 +92,25 @@ headless browser), so they are named here rather than duplicated:
 | 45 | 2026-11-21 | the path records printed blobs and spikes (`c-0273`) or the spine only: the path rail's fold cap moved one station at a time, so the distance jumped 4 % of the curve's size and the edge made 105 sharp turns | `tests/js/plate-path.test.mjs` (`c-0273`: two rails, neither crosses the spine, no step over 1 % of size, under 30 sharp turns) and `scripts/check-tune-lab.mjs` (a stored path draws a band in the lab) | the path rail's continuous cap: one character law, the 0.5 × radius rule, applied as a ceiling that cannot step |
 | 46 | 2026-11-21 | "how am i supposed to name it? desk io" and "the suggested name is in the box, but is greyed out and i cant save it" — the new-curve field held only a placeholder, so the button refused an empty name; a half-landed edit then made the page 500 | `scripts/check-tune-lab.mjs` (the box starts with a real free name; clearing it says "type a name" in place and re-enables the buttons) | the new-curve name: a real default, an editable value, and a refusal with a reason |
 | 47 | 2026-11-21 | "it seems like you are ignoring that. didnt i say put the curves with stars? ... that is why we need the explanation below the curve" — `/plates` listed all 371 records, including 1-star and unrated ones, with no reason for any | `app/tests/provenance.test.mjs` (2 stars kept, 1 and 0 out, a variant joins a kept parent; the sentence names the rating or parent and the saved note) and the page prints it | the plates page shows the curator's choice and states its provenance |
+
+## 90 · the span-trace width refusal blocked the desk records — removed
+
+**Fault.** The `Trace` constructor refused a span trace that carried a width
+("a cubic span trace is a hairline; width is not supported"), while the tune
+desk's saved records carry exactly that (spans + width), and
+`build_piece`'s pre-built path is written to build rails from it. Every saved
+desk piece was un-buildable through the normal model, and the
+rails-from-spans capability was unreachable. Also: `build_piece` doubled the
+layer when the trace name already carried it (`ink/ink/a`).
+
+**Fix.** The refusal is removed (`curve_lab/piece.py`); the pre-built path
+builds the rails with the fitted parallels and reports the fit error in the
+piece info (`fit_ok`), so the approximation is stated. The layer is not
+doubled when the trace name already carries it. The TypeScript port follows
+(`app/src/lib/piece.ts`).
+
+**Test.** `tests/test_regressions.py :: SpanWidthTraceTest` — a span trace
+with a width builds two rails, two caps (round start, point end) and the
+spine, the fit is under tolerance, and the cap name is not double-prefixed.
+| 48 | 2026-11-21 | every browser check failed with `net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4321/` while `curl localhost:4321` answered; a fresh `npm --prefix app run dev` bound Astro's `localhost` (IPv6 ::1) only, so every documented 127.0.0.1 link and every check using it was refused | `tests/test_regressions.py` (`test_the_dev_server_answers_on_ipv4_loopback`: the dev script names 127.0.0.1) | the dev server's host is explicit, and it is the address the links and checks use |
+| 49 | 2026-11-21 | `/ph-nth-sandbox/` threw `Cannot read properties of undefined (reading 'length')`, intermittently, in the framed gallery: a saved record can be a **pair** with the name on its primary, so the pair entered the list with no name and the numberer called `uidOf(undefined)` | `scripts/check-pages.mjs` (every route records a `pageerror`, and `/ph-nth-sandbox/` is in its list; the fix was also probed with a seeded nameless pair) | saved records are flattened to their primary before they reach the gallery, and a nameless record is dropped rather than counted |

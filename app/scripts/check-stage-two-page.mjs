@@ -28,7 +28,7 @@ const read = () => page.evaluate(() => ({
 }));
 
 try {
-  await page.goto(`${BASE}/stage-two/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await page.goto(`${BASE}/stage-two/`, { waitUntil: "domcontentloaded", timeout: 90000 });
   await page.waitForTimeout(600);
 
   // circle: the table is the driver itself, exactly

@@ -219,7 +219,7 @@ async function sweep(browser, route) {
   });
 
   try {
-    const response = await page.goto(BASE + route, { waitUntil: "domcontentloaded", timeout: 30000 });
+    const response = await page.goto(BASE + route, { waitUntil: "domcontentloaded", timeout: 90000 });
     await waitForPage(page);
     if (response?.status() !== 200) fail(route, `HTTP ${response?.status()}`);
 

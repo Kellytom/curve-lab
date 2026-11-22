@@ -3483,6 +3483,18 @@ Tschirnhausen — classic but adds nothing; off the board.
   row per family — spine, right partner (speed × 0.97) and left partner (speed × 1.03), each with
   its cap line — in units of each curve's largest radius, with the mean gap per side. The cards
   are d3 (the `/api/d3js` bundle); the page carries the draft A label from its generator.
+- **The gate runs in tiers, prints every failure, and can be read-only** (`scripts/gate.py`):
+  `--status`, `--fast`, `--commit`, `--pages`, `--full`, `--changed`, `--read-only`, `--url 4322`,
+  with a lock at `state/gate.lock`. The page suite is now `app/scripts/check-all.mjs`, which runs
+  all six checks and lists every failure in one pass; `check-pages --changed` checks only the
+  routes in the diff. The built server on :4322 is the stable target while another agent edits
+  (the dev server reloads on every source change and aborts navigations); the browser checks
+  retry an interrupted navigation once and use a 90 s budget. Read-only runs write no name and
+  no star, so a gate can run while the operator reviews.
+- **Fixed in that batch:** the dev script binds 127.0.0.1 (register 48); the framed PH nth gallery
+  flattens saved pairs to their primary and drops a nameless record (register 49); `/prime-mover/`
+  no longer scrolls sideways (the plot scales, long fractions wrap); the names check counts the
+  non-candidate curves from the database instead of a remembered 212.
 - **The 11-degree/NURBS reduction** is DeepSeek2's: the protocol, the corrected spec and the
   reducer draft are merged; the amendments are in their spec (reduce the curve *and* fit each
   rail; a reduced curve is a new variant record; report the total miss).

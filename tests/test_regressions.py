@@ -169,5 +169,60 @@ class TestRegressions(unittest.TestCase):
         self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
 
 
+
+class SpanWidthTraceTest(unittest.TestCase):
+    """The desk records name their traces with the layer baked in ("ink/a") and
+    carry a width; the constructor refused that combination ("a cubic span trace
+    is a hairline"), so every saved desk piece was un-buildable through the
+    normal model, and the rails-from-spans capability was unreachable. The
+    refusal is removed; build_piece's pre-built path builds the rails and
+    reports the fit error; the layer is not doubled when the name already
+    carries it."""
+
+    def test_a_span_trace_may_carry_a_width_and_build_its_rails(self):
+        import json
+        import subprocess
+        from pathlib import Path as PathLib
+        sys_path = str(PathLib(__file__).resolve().parents[1])
+        program = """
+import json, sys
+sys.path.insert(0, '.')
+from curve_lab.model import Design, Segment
+from curve_lab.piece import Piece, Trace, build_piece
+def ribbon(x, y, length=60.0, angle=0.0, kd=0.0, kappa0=0.005):
+    return Design(name="ribbon", segments=[Segment(kd=kd, length=length, kappa0=kappa0)],
+                  anchor={"x": x, "y": y, "angle": angle})
+groups0, _ = build_piece(Piece(name="src", stroke=0.6, traces=[
+    Trace("a", ribbon(0, 0, kd=0.01, kappa0=0.005), width=3.0)]), tol=0.02)
+spine_spans = [dict(s) for s in groups0[0].spans]
+piece = Piece(name="desk", stroke=0.6, traces=[
+    Trace("ink/a", spans=[dict(s) for s in spine_spans], width=3.0,
+          terminals=("round", "point"))])
+groups, info = build_piece(piece, tol=0.02)
+roles = [g.role for g in groups]
+assert roles.count("rail") == 2, roles
+assert roles.count("cap") == 2, roles
+assert roles.count("spine") == 1, roles
+assert info["fit_ok"], info["traces"]
+assert groups[0].name == "ink/a start round", groups[0].name
+assert next(g for g in groups if g.role == "rail").instance == "ink/a"
+print("ok")
+"""
+        run = subprocess.run([sys.executable, "-c", program], capture_output=True,
+                             text=True, cwd=sys_path)
+        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+
+
+class DevServerHostTest(unittest.TestCase):
+    def test_the_dev_server_answers_on_ipv4_loopback(self):
+        """Every browser check failed with `net::ERR_CONNECTION_REFUSED at
+        http://127.0.0.1:4321/` while `curl localhost:4321` answered: a fresh
+        `npm --prefix app run dev` bound Astro's `localhost` (IPv6 ::1) only, so
+        every documented 127.0.0.1 link and every check that uses it was refused.
+        The dev script must name the IPv4 loopback."""
+        package = json.loads((ROOT / "app" / "package.json").read_text())
+        self.assertIn("--host 127.0.0.1", package["scripts"]["dev"])
+
+
 if __name__ == "__main__":
     unittest.main()

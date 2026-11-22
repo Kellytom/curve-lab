@@ -11,9 +11,11 @@
 // The Astro server must be up on :4321.
 
 import { chromium } from "playwright-core";
+import { gotoStable } from "./lib/navigate.mjs";
 import { createRequire } from "node:module";
 
 const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
+const READ_ONLY = process.env.CURVE_LAB_READ_ONLY === "1";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const require = createRequire(import.meta.url);
 
@@ -34,7 +36,7 @@ const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
 const errors = [];
 page.on("pageerror", (error) => errors.push(String(error)));
 
-await page.goto(`${BASE}/finder/`, { waitUntil: "domcontentloaded" });
+await gotoStable(page, `${BASE}/finder/`, { waitUntil: "domcontentloaded" });
 await page.waitForTimeout(800);
 await page.evaluate(() => localStorage.removeItem("finder-stars"));
 await page.reload({ waitUntil: "domcontentloaded" });
@@ -45,31 +47,40 @@ const shape = await page.evaluate(() => {
   return { cards: ids.length, duplicates: ids.length - new Set(ids).size };
 });
 
-const picked = await page.evaluate(() => {
-  const button = [...document.querySelectorAll("button.star")].find((b) => b.textContent.trim() === "☆");
-  button.click();
-  return button.dataset.id;
-});
-await page.waitForTimeout(1200);
-const starred = await page.evaluate((id) => ({
-  on: document.querySelector(`button.star[data-id="${id}"]`).textContent.trim() === "★",
-  stored: JSON.parse(localStorage.getItem("finder-stars") || "[]").length,
-}), picked);
+let picked = null;
+const starred = { on: false, stored: 0 };
+if (!READ_ONLY) {
+  picked = await page.evaluate(() => {
+    const button = [...document.querySelectorAll("button.star")].find((b) => b.textContent.trim() === "☆");
+    button.click();
+    return button.dataset.id;
+  });
+  await page.waitForTimeout(1200);
+  Object.assign(starred, await page.evaluate((id) => ({
+    on: document.querySelector(`button.star[data-id="${id}"]`).textContent.trim() === "★",
+    stored: JSON.parse(localStorage.getItem("finder-stars") || "[]").length,
+  }), picked));
 
-await page.evaluate((id) => document.querySelector(`button.star[data-id="${id}"]`).click(), picked);
-await page.waitForTimeout(1200);
+  await page.evaluate((id) => document.querySelector(`button.star[data-id="${id}"]`).click(), picked);
+  await page.waitForTimeout(1200);
+}
 await browser.close();
 
 const after = await starCount();
 const failures = [];
 if (shape.duplicates) failures.push(`the page draws ${shape.duplicates} duplicate card(s)`);
-if (!starred.on) failures.push("the star did not turn on");
-if (starred.stored < 1) failures.push("the click wrote nothing to the browser's list");
-if (after !== before) failures.push(`the server has ${after} stars, not the ${before} it started with`);
+if (!shape.cards) failures.push("the page draws no star buttons");
+if (!READ_ONLY) {
+  if (!starred.on) failures.push("the star did not turn on");
+  if (starred.stored < 1) failures.push("the click wrote nothing to the browser's list");
+  if (after !== before) failures.push(`the server has ${after} stars, not the ${before} it started with`);
+}
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 if (failures.length) {
   console.error(failures.map((line) => `FAIL ${line}`).join("\n"));
   process.exit(1);
 }
-console.log(`ok — ${shape.cards} cards, no duplicates; starred and unstarred ${picked}; ${before} stars on the server before and after`);
+console.log(READ_ONLY
+  ? `ok — ${shape.cards} cards, no duplicates; read-only: no star was written; ${before} stars on the server`
+  : `ok — ${shape.cards} cards, no duplicates; starred and unstarred ${picked}; ${before} stars on the server before and after`);

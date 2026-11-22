@@ -58,6 +58,8 @@ function characterPanel(curve) {
     .pm-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
     @media (max-width:880px){.pm-grid{grid-template-columns:1fr}}
     .pm-board{width:620px;height:620px;max-width:100%;margin:0 auto}
+    #st-plot{max-width:100%;height:auto}
+    .pm-formula,.pm-note code,.pm-split code,figcaption code{overflow-wrap:anywhere}
     .pm-board .jxgbox{border:0;background:#fffef9}
     .pm-chart svg,.pm-curve svg{display:block;width:100%;height:auto}
     .pm-panel{border:1px solid var(--pico-muted-border-color);background:#fffef9;padding:12px 14px}

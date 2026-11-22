@@ -6,7 +6,10 @@
 // The Astro server must be up on :4321. A page that answers 500, loses its
 // <main> (the 2026-11-19 /lab margin fault) or links to itself is a failure.
 
+import { execSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
+import { gotoStable } from "./lib/navigate.mjs";
 
 const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -21,11 +24,49 @@ const ALL_ROUTES = [
 //   node app/scripts/check-pages.mjs                     every page (end of session)
 const QUICK = ["/", "/plates", "/hybrids/", "/hybrids-wonk/"];
 const asked = process.argv.slice(2);
-const ROUTES = asked.includes("--quick")
-  ? QUICK
-  : asked.filter((arg) => arg.startsWith("/")).length
-    ? asked.filter((arg) => arg.startsWith("/"))
-    : ALL_ROUTES;
+
+// The routes whose source changed since HEAD, intersected with the list above.
+// A shared layout, style, script or server library means every route.
+function changedRoutes() {
+  const repo = fileURLToPath(new URL("../../", import.meta.url));
+  const changed = [
+    execSync("git diff --name-only HEAD", { cwd: repo, encoding: "utf8" }),
+    execSync("git ls-files --others --exclude-standard", { cwd: repo, encoding: "utf8" }),
+  ].join("\n").split("\n").filter(Boolean);
+  const known = new Map(ALL_ROUTES.map((route) => [route.replace(/\/$/, "") || "/", route]));
+  const routes = new Set();
+  let shared = false;
+  for (const file of changed) {
+    const page = file.match(/^app\/src\/pages\/(.+)\.astro$/);
+    if (page) {
+      const name = page[1].replace(/\/index$/, "");
+      const route = known.get(`/${name}`.replace(/\/$/, "")) || (name === "index" ? "/" : undefined);
+      if (route) routes.add(route);
+      continue;
+    }
+    if (/^app\/(src\/(layouts|components|styles|theme|scripts|lib)\/|public\/vendor\/)/.test(file)) {
+      shared = true;
+    }
+  }
+  if (shared) return ALL_ROUTES;
+  return [...routes];
+}
+
+const changed = asked.includes("--changed");
+const ROUTES = changed
+  ? changedRoutes()
+  : asked.includes("--quick")
+    ? QUICK
+    : asked.filter((arg) => arg.startsWith("/")).length
+      ? asked.filter((arg) => arg.startsWith("/"))
+      : ALL_ROUTES;
+
+if (changed) {
+  console.log(ROUTES.length
+    ? `changed: ${ROUTES.join(" ")}`
+    : "no page source in the diff");
+  if (!ROUTES.length) process.exit(0);
+}
 
 const browser = await chromium.launch({ executablePath: EXE });
 const failures = [];
@@ -44,7 +85,7 @@ for (const route of ROUTES) {
     }
   });
   try {
-    const response = await page.goto(BASE + route, { waitUntil: "domcontentloaded", timeout: 30000 });
+    const response = await gotoStable(page, BASE + route, { waitUntil: "domcontentloaded", timeout: 90000 });
     await page.waitForTimeout(400);
     const found = await page.evaluate(() => {
       const path = location.pathname.replace(/\/$/, "") || "/";

@@ -3,6 +3,7 @@
 //   node app/scripts/check-prime-mover-page.mjs        (dev server on :4321)
 
 import { chromium } from "playwright-core";
+import { gotoStable } from "./lib/navigate.mjs";
 
 const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -18,7 +19,7 @@ const check = (condition, message) => { if (!condition) failures.push(message); 
 const big = (cell) => BigInt(cell.split("/")[0].replace(/[−-]/g, ""));
 
 try {
-  await page.goto(`${BASE}/prime-mover/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await gotoStable(page, `${BASE}/prime-mover/`, { waitUntil: "domcontentloaded", timeout: 90000 });
   await page.waitForTimeout(900);
 
   const seen = await page.evaluate(() => {
@@ -130,7 +131,7 @@ try {
   }
 
   // and the notes do carry them, with the laws intact
-  await page.goto(`${BASE}/spec/prime-mover-gaussian.html`, { waitUntil: "domcontentloaded" });
+  await gotoStable(page, `${BASE}/spec/prime-mover-gaussian.html`, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(300);
   const notesRows = await page.evaluate(() => [...document.querySelectorAll("table tr")]
     .map((row) => [...row.children].map((cell) => cell.textContent.trim()))
@@ -167,7 +168,7 @@ try {
   check(seen.deadControls === 0, "a dead control is back on the page");
 
   // Fig. 9 — the drawings: four panels, each with axes, a legend and Bézier chains
-  await page.goto(`${BASE}/prime-mover/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await gotoStable(page, `${BASE}/prime-mover/`, { waitUntil: "domcontentloaded", timeout: 90000 });
   await page.waitForTimeout(1400);
   const panels = await page.evaluate(() => {
     return [...document.querySelectorAll(".pm-plots svg[data-panel]")].map((svg) => {
@@ -227,10 +228,10 @@ try {
     check(panel.bezier, `the ${panel.key} panel has no cubic Bézier path`);
   }
 
-  // Fig. 9 — the circle taken out: every implementation prints its own exact error
-  // (the notes page was visited above; come back to the page before reading it)
-  await page.goto(`${BASE}/prime-mover/`, { waitUntil: "domcontentloaded", timeout: 30000 });
-  await page.waitForTimeout(1200);
+  // Fig. 9 — the circle taken out: every implementation prints its own exact error.
+  // The page is already loaded (the second load above); wait for the table rather
+  // than reload a page that has not changed, which a dev-server reload can abort.
+  await page.waitForSelector("#pm-circle-split", { timeout: 10000 }).catch(() => {});
   const splitRows = await page.evaluate(() => {
     const table = document.getElementById("pm-circle-split");
     if (!table) return null;
@@ -248,7 +249,7 @@ try {
 
   // the heading carries the setting: pick another triple and read the headings
   // (the notes page was visited above, so come back to the page first)
-  await page.goto(`${BASE}/prime-mover/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await gotoStable(page, `${BASE}/prime-mover/`, { waitUntil: "domcontentloaded", timeout: 90000 });
   await page.waitForTimeout(1500);
   const headingOf = () => page.evaluate(() =>
     ["pm-fig1-title", "pm-fig2-title", "pm-fig3-title", "pm-fig4-title"]

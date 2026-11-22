@@ -926,3 +926,22 @@ What is left is feature work, not correctness.
       `plate_math.js`, in the browser gate.
 - [ ] **Path curves carry rails.** Blocked on the band fill at corners and self-crossings
       (`c-0273`). 185 records are stored as paths.
+
+## Later — keep the loop cheap (2026-11-21)
+
+Parked because each needs a decision or a measurement, not because it is hard:
+
+- **Generated media out of git.** `app/public/plates-web` is 43 MB across 371 tracked PNGs,
+  and every rebuild puts 385 paths in `git status`. Move it to a build artefact, or keep only
+  the manifest; the operator decides.
+- **The full suite's job count.** The four slow modules are 135 s, 116 s, 101 s and 70–80 s.
+  Measure `scripts/test.py --full --jobs 8` in the background before changing the default.
+- **The built-server page gate is the stable one while another agent edits.** The dev server
+  reloads on every source change and aborts navigations; `scripts/gate.py --pages --url 4322`
+  runs against the built server. Make that the default for a concurrent session after a build.
+- **A no-bare-count rule.** `check-names.mjs` now reads the database; add a test that a check
+  may not hold a curve count as a literal, so the 212 class of fault cannot come back.
+- **A watchdog for the dev server.** The daemon is managed by Astro, but nothing checks that
+  it still answers before a gate; `gate.py --status` shows it, a supervisor could restart it.
+- **The `--changed` route map covers the 19 checked routes.** The other agent's new
+  `/reduce/` pages are not in `ALL_ROUTES`; add them when they land.

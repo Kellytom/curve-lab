@@ -5,8 +5,9 @@
 
 import fs from "node:fs";
 import { chromium } from "playwright-core";
+import { gotoStable } from "./lib/navigate.mjs";
 
-const BASE = process.argv[2] || "http://127.0.0.1:4321";
+const BASE = process.env.CURVE_LAB_URL || process.argv[2] || "http://127.0.0.1:4321";
 const candidates = [
   process.env.CHROME_PATH,
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -26,7 +27,7 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
 const problems = [];
 
 try {
-  await page.goto(`${BASE}/review/?scope=unrated`, { waitUntil: "networkidle" });
+  await gotoStable(page, `${BASE}/review/?scope=unrated`, { waitUntil: "networkidle" });
   await page.waitForSelector(".review-card", { timeout: 8000 });
   const cards = await page.$$eval(".review-card", (nodes) => nodes.length);
   if (!cards) problems.push("the unrated scope has no cards");

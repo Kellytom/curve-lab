@@ -5,6 +5,7 @@
 //   node app/scripts/check-layout.mjs        (dev server on :4321)
 
 import { chromium } from "playwright-core";
+import { gotoStable } from "./lib/navigate.mjs";
 
 const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -26,7 +27,7 @@ try {
   for (const route of PAGES) {
     for (const view of VIEWS) {
       const page = await browser.newPage({ viewport: { width: view.width, height: 900 } });
-      await page.goto(BASE + route, { waitUntil: "domcontentloaded", timeout: 30000 });
+      await gotoStable(page, BASE + route, { waitUntil: "domcontentloaded", timeout: 90000 });
       await page.waitForTimeout(700);
 
       const measured = await page.evaluate(() => {

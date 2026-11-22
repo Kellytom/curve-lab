@@ -3578,13 +3578,24 @@
              pitch: measured.grid !== undefined ? measured.grid : entry.pitch };
   }
 
+  // A saved record may be a pair (primary and complement): the name sits on the
+  // primary. Flatten it here, and drop a record with no name, rather than let it
+  // reach the gallery and crash on `entry.name.length` (2026-11-21).
+  const namedOf = (item) => {
+    const rows = rowsOf(item) || {};
+    return { name: item && (item.name || rows.name), rows };
+  };
+
   function currentList() {
     const locals = {};
-    localSaved().forEach(item => { locals[item.name] = item; });
+    localSaved().forEach(item => {
+      const { name } = namedOf(item);
+      if (name) locals[name] = item;
+    });
     const out = window.phNthGallery.map(entry => {
       const local = locals[entry.name];
       if (!local) return entry;
-      const rows = rowsOf(local);
+      const rows = namedOf(local).rows;
       return { ...entry, speedX: rows.speedX, speedY: rows.speedY,
                from: "local fix", local: true };
     });
@@ -3601,10 +3612,11 @@
     });
     const known = new Set(out.map(entry => entry.name));
     Object.values(locals).forEach(item => {
-      if (known.has(item.name)) return;
-      const rows = rowsOf(item);
+      const { name, rows } = namedOf(item);
+      if (!name || known.has(name)) return;
+      if (!Array.isArray(rows.speedX) || !Array.isArray(rows.speedY)) return;
       const measured = window.recipeMetrics ? window.recipeMetrics(rows.speedX, rows.speedY) : null;
-      out.push({ name: item.name, speedX: rows.speedX, speedY: rows.speedY,
+      out.push({ name, speedX: rows.speedX, speedY: rows.speedY,
                  bend: measured ? +measured.bend.toFixed(3) : "-",
                  pitch: measured ? measured.pitch : "-",
                  from: "local", local: true });
@@ -3612,7 +3624,7 @@
     // no sort here: the order on the page is the order the generator wrote, so a
     // figure can be moved by the generator and stay moved. A rank sort here used to
     // pull a moved operator entry straight back to the top.
-    return out;
+    return out.filter(entry => entry && typeof entry.name === "string" && entry.name.length);
   }
   // The finder's own file, read at load: every search that ran with --write
   // shows up here without a rebuild, so nothing depends on someone remembering
@@ -4012,8 +4024,10 @@
     // 1, 2, 3 … with no gaps however many were moved. A map keyed by name skipped numbers
     // whenever two entries shared a name.
     let number = 0;
-    const numberOf = entry =>
-      hiddenIds.has(uidOf(entry.name)) ? 0 : ++number;
+    const numberOf = entry => {
+      if (!entry || !entry.name) return 0;
+      return hiddenIds.has(uidOf(entry.name)) ? 0 : ++number;
+    };
     host.innerHTML =
       `<h2 class="gallery-head" id="n-symmetric">Symmetric</h2>
     <p class="gallery-note">Mirrored about the middle: <code>q(1 - t) = -q(t)</code> and
