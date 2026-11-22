@@ -61,8 +61,12 @@ const PLATE = (await import(path.join(ROOT, "workbench", "plate_math.js"))).defa
   || (await import(path.join(ROOT, "workbench", "plate_math.js")));
 
 const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8"));
-const notes = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-notes.json"), "utf8"));
-const noteOf = new Map((notes.curves || []).map((row) => [row.uid, row]));
+// The saved values are the database's, exported to data/curves.json. The old
+// workbench/curve-notes.json was a stale copy whose nulls fell through to the row
+// preset, which is how the stored paths (c-0275..c-0368) gained a band they never
+// asked for (2026-11-21).
+const saved = JSON.parse(readFileSync(path.join(ROOT, "data", "curves.json"), "utf8"));
+const noteOf = new Map((saved.rows || []).map((row) => [row.uid, row.note || {}]));
 // The desk's decisions live in ONE copy: data/sandbox-curves.json (the database export).
 // Reading the old workbench path in silence used the defaults for every curve, which is how
 // character values stopped reaching the plates.
@@ -123,7 +127,8 @@ function plateSvg(record) {
   let rails = [];
   if (Array.isArray(record.path) && record.path.length > 2 && PLATE.pathGroup) {
     // a stored outline: the rails are built from the walk itself, same character law and
-    // the same continuous fold cap as the page. c-0273 prints two bands (2026-11-21).
+    // the same continuous fold cap as the page. A saved width draws the two bands; zero is
+    // the clean two-tone spine.
     const group = PLATE.pathGroup(record.path, {
       widthPercent: row.width.percent, plus: row.character.plus,
       minus: row.character.minus, profile: row.character.profile,

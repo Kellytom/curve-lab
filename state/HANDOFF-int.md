@@ -3501,7 +3501,9 @@ Tschirnhausen — classic but adds nothing; off the board.
   (plus = minus = 0 is a parallel offset). On a **row** curve a zero note is a placeholder and
   falls through to the desk row (register 50); on a **stored path** (the doubles and flourishes,
   `c-0275`..`c-0368`) the zero is the clean two-tone spine, and the preset must not add a band
-  (register 52 — the operator saw those plates "go backwards" when it did). The whole set is re-rendering at the new preset. Still wrong:
+  (register 52 — the operator saw those plates "go backwards" when it did). The print was also
+  reading a stale notes export with nulls, so the paths still took the row default; it now reads
+  `data/curves.json`, and a stored path with no saved width is the spine. The whole set is re-rendering at the new preset. Still wrong:
   `c-0006` carries a saved 8 % (plus 6); the guard now cuts it to 2.84 %. The character bow is
   **in** the fold guard as of register 51: `c-0001` cuts from 1 % to 0.7 % and the widest rail is
   at 0.89, not 1.28. The ribbon still overwraps visually at a tight loop; that is what the

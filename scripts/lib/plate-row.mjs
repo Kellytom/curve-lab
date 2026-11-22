@@ -30,10 +30,10 @@ export function rowFor(record, context = {}) {
   // c-0275 to 368").
   const storedPath = Array.isArray(record.path) && record.path.length > 2;
   const widthPercent = storedPath
-    ? (note.width_pct ?? note.widthPct ?? desk.widthPct ?? DEFAULTS.widthPercent)
+    ? (note.width_pct ?? note.widthPct ?? desk.widthPct ?? 0)
     : choose(note.width_pct ?? note.widthPct, desk.widthPct, DEFAULTS.widthPercent);
-  const plus = storedPath ? (note.plus ?? desk.plus ?? DEFAULTS.plus) : choose(note.plus, desk.plus, DEFAULTS.plus);
-  const minus = storedPath ? (note.minus ?? desk.minus ?? DEFAULTS.minus) : choose(note.minus, desk.minus, DEFAULTS.minus);
+  const plus = storedPath ? (note.plus ?? desk.plus ?? 0) : choose(note.plus, desk.plus, DEFAULTS.plus);
+  const minus = storedPath ? (note.minus ?? desk.minus ?? 0) : choose(note.minus, desk.minus, DEFAULTS.minus);
   return {
     name: record.name,
     speedX: record.speedX || [],

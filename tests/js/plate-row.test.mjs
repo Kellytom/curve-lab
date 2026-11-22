@@ -101,4 +101,10 @@ test("a stored-path record keeps a zero note as the clean spine-only line", () =
   assert.equal(row.width.percent, 0);
   assert.equal(row.character.plus, 0);
   assert.equal(row.character.minus, 0);
+  // the export the print used had nulls, not zeros; a missing path width is the spine too
+  const missing = rowFor(path, { note: {}, desk: {} });
+  assert.equal(missing.width.percent, 0);
+  // a saved width on a path still draws the bands
+  const banded = rowFor(path, { note: { widthPct: 1.5, plus: 2, minus: 2, profile: "bow" }, desk: {} });
+  assert.equal(banded.width.percent, 1.5);
 });
