@@ -7,13 +7,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadRegistry } from "../lib/registry.ts";
 import { repoRoot } from "../lib/gallery.js";
 import { isKept, provenanceFor } from "../lib/provenance.js";
+import { orderPlates } from "../lib/plate-order.js";
 
 const registry = await loadRegistry();
 const print = path.join(repoRoot(), "book", "print");
 const byUid = new Map(registry.curves.map((curve) => [curve.uid, curve]));
-const rows = registry.curves
-  .filter((curve) => isKept(curve, byUid))
-  .sort((a, b) => a.uid.localeCompare(b.uid))
+const order = Astro.url.searchParams.get("order") === "uid" ? "uid" : "stars";
+const rows = orderPlates(registry.curves.filter((curve) => isKept(curve, byUid)), order)
   .map((curve) => ({
     uid: curve.uid,
     name: curve.name,
@@ -42,7 +42,9 @@ const done = rows.filter((row) => row.exported).length;
     <a href="/tune/">the tuning lab</a>: pick a curve and drag width, plus, minus and profile.</p>
   <p class="plates-count">{done} of {rows.length} plates exported · {rows.length} of
     {registry.curves.length} records chosen (2 stars or more; a new curve joins its parent) ·
-    ordered by uid, so a variant sits beside its parent · generator
+    order: {order === "stars"
+      ? <><b>stars</b>, a variant beside its parent · <a href="/plates/?order=uid">uid</a></>
+      : <><a href="/plates/">stars</a> · <b>uid</b></>} · generator
     <code>scripts/print_plates.mjs</code></p>
 
   <div class="plates-grid">
