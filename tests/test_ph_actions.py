@@ -37,10 +37,14 @@ class RigidMotionTest(unittest.TestCase):
         placement = ph_actions.act_translate(ph_actions.identity_placement(), 3, -2)
         px, py = ph_actions.position_of(rx, ry, placement)
         self.assertEqual(placement["dx"], Fraction(3))
-        # the shape is unchanged: subtracting the offset restores the curve
+        # a translation differs from the base curve by a CONSTANT: only the
+        # constant term moves (the register-55 fault added it to every term)
         base_x, base_y = ph_actions.position_of(rx, ry, ph_actions.identity_placement())
-        self.assertEqual([a - 3 for a in px], base_x)
-        self.assertEqual([a + 2 for a in py], base_y)
+        self.assertEqual(px[0], base_x[0] + 3)
+        self.assertEqual(py[0], base_y[0] - 2)
+        for k in range(1, len(px)):
+            self.assertEqual(px[k], base_x[k], f"x coefficient {k}")
+            self.assertEqual(py[k], base_y[k], f"y coefficient {k}")
 
     def test_p_triple_rotation_keeps_the_rows_exact(self):
         rx, ry = rows_of("c-0002")

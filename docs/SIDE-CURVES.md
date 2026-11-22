@@ -60,7 +60,7 @@ next 0.01 % folds). A saved width above the safe one is cut, not obeyed
 The operator, 2026-11-21: "i didnt ask for spines only. i asked for clean
 curves like the first two."
 
-The preset is **width 1 %, plus 2.5, minus 0.1**, and it applies to:
+The preset is **width 2 %, plus 2.5, minus 0.1** for the review (doubled on 2026-11-22 so the gap is visible; the first two curves keep their saved 1 %), and it applies to:
 
 - every curve with **no saved width**,
 - every curve with a **saved zero or missing width** — the note migration

@@ -71,8 +71,13 @@ class Trace:
             needed = {"p0", "c1", "c2", "p3"}
             if any(not needed <= set(span) for span in self.spans):
                 raise ValueError("every span needs p0, c1, c2, p3")
-            if self.width is not None:
-                raise ValueError("a cubic span trace is a hairline; width is not supported")
+            # A span trace may carry a width: build_piece's pre-built path
+            # builds the two rails from the spans with the fitted parallels
+            # (parallel_bezier), and the fit error is reported in the piece
+            # info (fit_ok), so the approximation is stated, not hidden.
+            # The old refusal ("a cubic span trace is a hairline") blocked
+            # every saved desk piece and the rails-from-spans capability;
+            # removed 2026-11-21 by the operator's word (REGRESSIONS row 90).
         if self.width is not None and self.width <= 0:
             raise ValueError("trace width must be positive")
         if not self.layer.strip():
@@ -208,7 +213,10 @@ def build_piece(piece: Piece, tol: float = 0.02, max_spans: int = 64,
     report = []
 
     for trace in piece.traces:
-        base = f"{trace.layer}/{trace.name}"
+        # the desk records name their traces with the layer baked in ("ink/a");
+        # don't prepend the layer twice
+        base = trace.name if trace.name.startswith(f"{trace.layer}/") \
+            else f"{trace.layer}/{trace.name}"
         if trace.spans is not None:
             mirrored = piece.mirror if trace.mirror is None else bool(trace.mirror)
             rails = []

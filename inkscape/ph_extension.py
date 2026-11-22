@@ -101,12 +101,19 @@ if inkex is not None:
             pars.add_argument("--mode", type=str, default="send")
             pars.add_argument("--uid", type=str, default="c-0002")
             pars.add_argument("--path", type=str, default="")
+            pars.add_argument("--ceiling", type=int, default=11)
 
         def effect(self):
             uid = self.options.uid
             target = self.options.path or f"{uid}.svg"
+            rows_x, rows_y, name = rows_for(uid)
+            ok, degree = ph_actions.degree_gate(rows_x, rows_y, self.options.ceiling)
+            if not ok:
+                raise SystemExit(f"{uid} is position degree {degree}, over the "
+                                 f"ceiling of {self.options.ceiling}")
             send_svg(uid, target)
-            print(f"wrote {target} with the recipe for {uid}")
+            print(f"wrote {target} with the recipe for {uid} "
+                  f"(position degree {degree}, ceiling {self.options.ceiling})")
 
     class CurveLabReceive(inkex.EffectExtension):
         """Read the recipe back, snap any dragged nodes to the closed
@@ -116,13 +123,16 @@ if inkex is not None:
             pars.add_argument("--mode", type=str, default="receive")
             pars.add_argument("--path", type=str, required=True)
             pars.add_argument("--variant", type=str, default="")
+            pars.add_argument("--post", type=str, default="")
+            pars.add_argument("--ceiling", type=int, default=11)
 
         def effect(self):
             from inkscape import ph_handles
             svg = self.options.path
             uid, name, (rows_x, rows_y), placement = receive_svg(svg)
             report = ph_handles.apply_snap(
-                svg, rows_x, rows_y, placement, ph_svg.stations)
+                svg, rows_x, rows_y, placement, ph_svg.stations,
+                ceiling=self.options.ceiling)
             out = {
                 "uid": uid, "name": name,
                 "action": report["action"],
@@ -141,6 +151,8 @@ if inkex is not None:
                     open(ph_extension_root() / "workbench" / "curve-registry.json")))
                 out["variant"] = record
                 out["variant_note"] = note
+                if record and self.options.post:
+                    out["posted"] = ph_variant.post_candidate(record, self.options.post)
             print(json.dumps(out, indent=1))
 
 else:

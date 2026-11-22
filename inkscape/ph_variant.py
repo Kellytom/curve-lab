@@ -112,3 +112,33 @@ def variant_record(svg_recipe, registry, parent_uid=None):
     note = (f"position degree {degree_of(baked_x, baked_y)} · "
             f"grid {grid(baked_x, baked_y)} · bend {bend(baked_x, baked_y):.3f}")
     return record, note
+
+
+def sandbox_payload(record):
+    """The body for POST /api/sandbox-curves: one name, one curve, the
+    record stored as written. The row's key is the uid; the chosen name
+    (`curveName`) is what promotion reads."""
+    return {"curves": [{
+        "name": record["uid"],
+        "curveName": record["name"],
+        "base_uid": record["base_uid"],
+        "speedX": record["speedX"],
+        "speedY": record["speedY"],
+        "kind": record["kind"],
+        "variant": record["variant"],
+        "source": record["source"],
+        "transform": record["transform"],
+        "candidate": True,
+        "origin": "inkscape-roundtrip",
+    }]}
+
+
+def post_candidate(record, url):
+    """POST the proposal to the app's sandbox-curves endpoint. Returns
+    (status, response-text). stdlib only — the extension runs inside
+    Inkscape's python."""
+    from urllib.request import Request, urlopen
+    body = json.dumps(sandbox_payload(record)).encode()
+    request = Request(url, data=body, headers={"content-type": "application/json"})
+    with urlopen(request, timeout=30) as response:
+        return response.status, response.read().decode()

@@ -90,6 +90,22 @@ class VariantTest(unittest.TestCase):
         sibling = next(r for r in book["curves"] if r["uid"] == "c-0004")
         self.assertEqual(sibling["name"], "gosling")
 
+    def test_the_sandbox_payload_carries_what_promotion_reads(self):
+        ex, ey = ph_actions.act_end_edit(self.rx, self.ry, Fraction(1), 0)
+        record, _ = ph_variant.variant_record(
+            ("c-0002", "euler-hook", (ex, ey),
+             ph_actions.identity_placement()),
+            registry())
+        payload = ph_variant.sandbox_payload(record)
+        curve = payload["curves"][0]
+        self.assertEqual(payload["curves"].__len__(), 1)
+        self.assertEqual(curve["name"], record["uid"])
+        self.assertEqual(curve["curveName"], "euler-hook-end-edited")
+        self.assertEqual(curve["base_uid"], "c-0002")
+        self.assertEqual(curve["speedX"][-1], -0.1)
+        self.assertEqual(curve["candidate"], True)
+        self.assertIn('"exact": true', json.dumps(curve["transform"]))
+
 
 if __name__ == "__main__":
     unittest.main()
