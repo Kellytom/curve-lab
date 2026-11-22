@@ -14686,7 +14686,7 @@
    "starred": false,
    "candidate": false,
    "createdAt": "2026-11-18T23:28:01.747Z",
-   "stars": 10,
+   "stars": null,
    "formula": {
     "plain": "x(t) = −200t + 2130t² − 40900/3t³ + 57248t⁴ − 823264/5t⁵ + 1003616/3t⁶ − 3383360/7t⁷ + 487424t⁸ − 2940928/9t⁹ + 131072t¹⁰ − 262144/11t¹¹;  y(t) = −150t + 1310t² − 18448/3t³ + 17256t⁴ − 29920t⁵ + 94432/3t⁶ − 18432t⁷ + 4608t⁸",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 3465",
@@ -14697,7 +14697,7 @@
    "note": {
     "uid": "c-0210",
     "name": "lace-triangle-loop-3",
-    "importance": 10,
+    "importance": 0,
     "rotation": 0,
     "pieces": 1,
     "borderUid": null,
@@ -14716,7 +14716,7 @@
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": null,
-    "updatedAt": "2026-11-22T20:48:18.215Z"
+    "updatedAt": "2026-11-22T21:22:25.219Z"
    },
    "set": null,
    "metric": {
