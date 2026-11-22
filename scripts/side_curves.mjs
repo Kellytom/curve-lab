@@ -102,6 +102,8 @@ svg{width:100%;height:auto;display:block}
 .controls{font:13px/1.6 ui-monospace,Menlo,monospace}
 .controls label{display:grid;grid-template-columns:7rem 1fr 3.5rem;gap:8px;align-items:center;margin:0 0 10px}
 .controls output{text-align:right}
+.controls .toggle{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+.controls .toggle input{margin:0}
 .construction{background:#fffef9;border:1px solid #e6dccb;padding:8px 10px;margin:0 0 12px;font:12px/1.6 ui-monospace,Menlo,monospace}
 .tabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
 .tabs button{font:12px/1.4 ui-monospace,Menlo,monospace;padding:4px 8px;background:#fffef9;border:1px solid #e6dccb;cursor:pointer}
@@ -144,7 +146,7 @@ construction's centre; for the mobile the gaps are d_R·|P(t)| and d_L·|P(t)|.<
       <span><i class="swatch spine"></i><span>spine</span></span>
       <span><i class="swatch right"></i><span>right · d_R <b id="dr-shown">0.040</b> · ×<b id="right-scale">0.960</b></span></span>
       <span><i class="swatch left"></i><span>left · d_L <b id="dl-shown">0.080</b> · ×<b id="left-scale">1.080</b></span></span>
-      <span><i class="swatch ends"></i><span>the ends · one cap line each</span></span>
+      <span id="legend-ends"><i class="swatch ends"></i><span>the ends · one cap line each</span></span>
     </div>
     <label><span>right d_R</span>
       <input id="dr" type="range" min="0.01" max="0.20" step="0.01" value="0.04">
@@ -152,6 +154,7 @@ construction's centre; for the mobile the gaps are d_R·|P(t)| and d_L·|P(t)|.<
     <label><span>left d_L</span>
       <input id="dl" type="range" min="0.01" max="0.20" step="0.01" value="0.08">
       <output id="dl-out">0.080</output></label>
+    <label class="toggle"><input id="caps" type="checkbox" checked> close the ends</label>
     <label>stroke <select id="stroke"><option value="dots" selected>dots</option><option value="line">line</option></select></label>
     <label>dot r px <input id="dot" type="range" min="0.6" max="2.4" step="0.1" value="1.6"><output id="dot-out">1.6</output></label>
     <table id="metrics"></table>
@@ -162,7 +165,7 @@ The width rail is not drawn: it was the hand-rolled offset, and the per-construc
 replaces it.</p>
 <script>
 const DATA = ${JSON.stringify(data)};
-const state = { index: 0, dR: 0.04, dL: 0.08, dots: true, dot: 1.6 };
+const state = { index: 0, dR: 0.04, dL: 0.08, caps: true, dots: true, dot: 1.6 };
 const byId = (id) => document.getElementById(id);
 const paint = (node, radius) => {
   node.setAttribute("stroke-width", (state.dots ? 2 * radius : 2 * radius * 0.55).toFixed(2));
@@ -202,6 +205,11 @@ function draw() {
   };
   cap(byId("cap-start"), place(entry.start, sR), place(entry.start, sL));
   cap(byId("cap-end"), place(entry.end, sR), place(entry.end, sL));
+  for (const node of [byId("cap-start"), byId("cap-end")]) {
+    node.style.display = state.caps ? "" : "none";
+  }
+  const ends = byId("legend-ends");
+  if (ends) ends.style.opacity = state.caps ? "1" : "0.35";
 
   byId("construction").innerHTML = '<b>' + entry.param.name + '</b><br>' + entry.param.formula;
   byId("dr-shown").textContent = state.dR.toFixed(3);
@@ -242,6 +250,10 @@ function wire() {
   byId("dl").addEventListener("input", (event) => {
     state.dL = Number(event.target.value);
     byId("dl-out").value = state.dL.toFixed(3);
+    draw();
+  });
+  byId("caps").addEventListener("change", (event) => {
+    state.caps = event.target.checked;
     draw();
   });
   byId("stroke").addEventListener("change", (event) => {
