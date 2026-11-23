@@ -22,13 +22,13 @@
    "bboxW": 2.1693,
    "bboxH": 1.9866,
    "area": 1.2381,
-   "maxCurvature": 0,
+   "maxCurvature": 32.9677,
    "curvatureMedian": 2.3814,
    "mirrorY": 0.2339,
    "halfTurn": 0.1909,
    "mirrorYX": 0.1703,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0001a",
@@ -49,13 +49,13 @@
    "bboxW": 2.1693,
    "bboxH": 1.9866,
    "area": 1.2381,
-   "maxCurvature": 0,
+   "maxCurvature": 32.9677,
    "curvatureMedian": 2.3814,
    "mirrorY": 0.2339,
    "halfTurn": 0.1909,
    "mirrorYX": 0.1703,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0002",
@@ -76,13 +76,13 @@
    "bboxW": 6.1207,
    "bboxH": 2.081,
    "area": 1.4944,
-   "maxCurvature": 0,
+   "maxCurvature": 37.0351,
    "curvatureMedian": 3.1075,
    "mirrorY": 0.0444,
    "halfTurn": 0.1478,
    "mirrorYX": 0.0973,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0003",
@@ -103,13 +103,13 @@
    "bboxW": 13.6087,
    "bboxH": 49.5863,
    "area": 322.3964,
-   "maxCurvature": 0,
+   "maxCurvature": 42.0997,
    "curvatureMedian": 3.291,
    "mirrorY": 0.1493,
    "halfTurn": 0.0863,
    "mirrorYX": 0.3362,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0004",
@@ -130,13 +130,13 @@
    "bboxW": 1.9074,
    "bboxH": 1.6246,
    "area": 1.7463,
-   "maxCurvature": 0,
+   "maxCurvature": 40.4706,
    "curvatureMedian": 3.0059,
    "mirrorY": 0.2125,
    "halfTurn": 0.1767,
    "mirrorYX": 0.3621,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0005",
@@ -157,13 +157,13 @@
    "bboxW": 2.2848,
    "bboxH": 1.7838,
    "area": 0.1975,
-   "maxCurvature": 0,
+   "maxCurvature": 125.2991,
    "curvatureMedian": 3.3539,
    "mirrorY": 0.0948,
    "halfTurn": 0.1645,
    "mirrorYX": 0.7634,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0006",
@@ -184,13 +184,13 @@
    "bboxW": 35.3041,
    "bboxH": 40.7911,
    "area": 1.6063,
-   "maxCurvature": 0,
+   "maxCurvature": 12.4934,
    "curvatureMedian": 3.592,
    "mirrorY": 0.2179,
    "halfTurn": 0.0658,
    "mirrorYX": 0.2226,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0007",
@@ -211,13 +211,13 @@
    "bboxW": 562.0166,
    "bboxH": 544.6259,
    "area": 28370.3377,
-   "maxCurvature": 0,
+   "maxCurvature": 15.1583,
    "curvatureMedian": 3.3046,
    "mirrorY": 0.5728,
    "halfTurn": 0.0796,
    "mirrorYX": 0.2669,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0008",
@@ -238,13 +238,13 @@
    "bboxW": 0.6667,
    "bboxH": 0.5,
    "area": 0.2667,
-   "maxCurvature": 0,
+   "maxCurvature": 2.6666,
    "curvatureMedian": 1.7066,
    "mirrorY": 0,
    "halfTurn": 0.2071,
    "mirrorYX": 0.7634,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0008a",
@@ -265,13 +265,13 @@
    "bboxW": 0.6667,
    "bboxH": 0.5,
    "area": 0.2667,
-   "maxCurvature": 0,
+   "maxCurvature": 2.6666,
    "curvatureMedian": 1.7066,
    "mirrorY": 0,
    "halfTurn": 0.2071,
    "mirrorYX": 0.7634,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0009",
@@ -292,13 +292,13 @@
    "bboxW": 0.8572,
    "bboxH": 0.25,
    "area": 0.187,
-   "maxCurvature": 0,
+   "maxCurvature": 4.1766,
    "curvatureMedian": 2.4929,
    "mirrorY": 0,
    "halfTurn": 0.1836,
    "mirrorYX": 0.5756,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0010",
@@ -319,13 +319,13 @@
    "bboxW": 0.5332,
    "bboxH": 0.6667,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 10.9618,
    "curvatureMedian": 2.332,
    "mirrorY": 0.1558,
    "halfTurn": 0,
    "mirrorYX": 0.6614,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0011",
@@ -346,13 +346,13 @@
    "bboxW": 4.1265,
    "bboxH": 2.3442,
    "area": 5.2077,
-   "maxCurvature": 0,
+   "maxCurvature": 18.9081,
    "curvatureMedian": 1.7416,
    "mirrorY": 0.0075,
    "halfTurn": 0.1423,
    "mirrorYX": 0.1515,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0012",
@@ -373,13 +373,13 @@
    "bboxW": 3.248,
    "bboxH": 2.9999,
    "area": 2.9838,
-   "maxCurvature": 0,
+   "maxCurvature": 20.7344,
    "curvatureMedian": 4.812,
    "mirrorY": 0.3545,
    "halfTurn": 0.2256,
    "mirrorYX": 0.0748,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0013",
@@ -400,13 +400,13 @@
    "bboxW": 1.1852,
    "bboxH": 2.16,
    "area": 1.5999,
-   "maxCurvature": 0,
+   "maxCurvature": 5.7031,
    "curvatureMedian": 2.0821,
    "mirrorY": 0.0826,
    "halfTurn": 0.0982,
    "mirrorYX": 0.3226,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0014",
@@ -427,13 +427,13 @@
    "bboxW": 0.6425,
    "bboxH": 0.64,
    "area": 0.0753,
-   "maxCurvature": 0,
+   "maxCurvature": 12.9068,
    "curvatureMedian": 3.3738,
    "mirrorY": 0,
    "halfTurn": 0.0746,
    "mirrorYX": 0.0781,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0015",
@@ -454,13 +454,13 @@
    "bboxW": 12.5735,
    "bboxH": 15.705,
    "area": 134.7834,
-   "maxCurvature": 0,
+   "maxCurvature": 584.2743,
    "curvatureMedian": 3.3571,
    "mirrorY": 0.0571,
    "halfTurn": 0.073,
    "mirrorYX": 0.0755,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0016",
@@ -481,13 +481,13 @@
    "bboxW": 3.0002,
    "bboxH": 1.3526,
    "area": 2.7991,
-   "maxCurvature": 0,
+   "maxCurvature": 2.9999,
    "curvatureMedian": 1.7898,
    "mirrorY": 0,
    "halfTurn": 0.2071,
    "mirrorYX": 0.6147,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0017",
@@ -508,13 +508,13 @@
    "bboxW": 0.39,
    "bboxH": 0.3567,
    "area": 0.0667,
-   "maxCurvature": 0,
+   "maxCurvature": 4.8381,
    "curvatureMedian": 2.4493,
    "mirrorY": 0.1882,
    "halfTurn": 0.1286,
    "mirrorYX": 0.1481,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0018",
@@ -535,13 +535,13 @@
    "bboxW": 34.0172,
    "bboxH": 23.4721,
    "area": 534.2399,
-   "maxCurvature": 0,
+   "maxCurvature": 35.616,
    "curvatureMedian": 6.8535,
    "mirrorY": 0.1559,
    "halfTurn": 0.1219,
    "mirrorYX": 0.0771,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0019",
@@ -562,13 +562,13 @@
    "bboxW": 4.1014,
    "bboxH": 4.7141,
    "area": 0.3453,
-   "maxCurvature": 0,
+   "maxCurvature": 13.1151,
    "curvatureMedian": 3.62,
    "mirrorY": 0.2073,
    "halfTurn": 0.1594,
    "mirrorYX": 0.4235,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0020",
@@ -589,13 +589,13 @@
    "bboxW": 2.9713,
    "bboxH": 4.5809,
    "area": 2.9803,
-   "maxCurvature": 0,
+   "maxCurvature": 127.9834,
    "curvatureMedian": 11.4382,
    "mirrorY": 0.4965,
    "halfTurn": 0.1315,
    "mirrorYX": 0.2351,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0021",
@@ -616,13 +616,13 @@
    "bboxW": 0.2277,
    "bboxH": 3.2396,
    "area": 0.2628,
-   "maxCurvature": 0,
+   "maxCurvature": 177.9031,
    "curvatureMedian": 1.2129,
    "mirrorY": 0.0396,
    "halfTurn": 0.0344,
    "mirrorYX": 0.8419,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0022",
@@ -643,13 +643,13 @@
    "bboxW": 1.5041,
    "bboxH": 0.6944,
    "area": 0.2771,
-   "maxCurvature": 0,
+   "maxCurvature": 49.7274,
    "curvatureMedian": 6.9434,
    "mirrorY": 0,
    "halfTurn": 0.0855,
    "mirrorYX": 0.1314,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0023",
@@ -670,13 +670,13 @@
    "bboxW": 0.7298,
    "bboxH": 0.5,
    "area": 0.2841,
-   "maxCurvature": 0,
+   "maxCurvature": 6.6796,
    "curvatureMedian": 1.3576,
    "mirrorY": 0,
    "halfTurn": 0.0976,
    "mirrorYX": 0.5128,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0024",
@@ -697,13 +697,13 @@
    "bboxW": 0.7656,
    "bboxH": 0.4999,
    "area": 0.2589,
-   "maxCurvature": 0,
+   "maxCurvature": 9.2321,
    "curvatureMedian": 0.7947,
    "mirrorY": 0,
    "halfTurn": 0.1405,
    "mirrorYX": 0.3352,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0025",
@@ -724,13 +724,13 @@
    "bboxW": 3.0694,
    "bboxH": 3.9708,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 12.7627,
    "curvatureMedian": 0.7209,
    "mirrorY": 0.045,
    "halfTurn": 0,
    "mirrorYX": 0.4793,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0026",
@@ -751,13 +751,13 @@
    "bboxW": 0.5332,
    "bboxH": 0.6667,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 10.9618,
    "curvatureMedian": 2.332,
    "mirrorY": 0.1558,
    "halfTurn": 0,
    "mirrorYX": 0.1492,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0027",
@@ -778,13 +778,13 @@
    "bboxW": 0.8,
    "bboxH": 0.6667,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 3.0123,
    "curvatureMedian": 2.2669,
    "mirrorY": 0.1527,
    "halfTurn": 0,
    "mirrorYX": 0.2275,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0028",
@@ -805,13 +805,13 @@
    "bboxW": 2.3753,
    "bboxH": 0.6102,
    "area": 0.4902,
-   "maxCurvature": 0,
+   "maxCurvature": 204.4185,
    "curvatureMedian": 29.7213,
    "mirrorY": 0,
    "halfTurn": 0.127,
    "mirrorYX": 0.357,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0029",
@@ -832,13 +832,13 @@
    "bboxW": 4.2305,
    "bboxH": 1.6607,
    "area": 2.757,
-   "maxCurvature": 0,
+   "maxCurvature": 258.53,
    "curvatureMedian": 5.1306,
    "mirrorY": 0,
    "halfTurn": 0.0351,
    "mirrorYX": 0.4825,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0030",
@@ -859,13 +859,13 @@
    "bboxW": 2.6967,
    "bboxH": 0.7525,
    "area": 0.8669,
-   "maxCurvature": 0,
+   "maxCurvature": 139.5201,
    "curvatureMedian": 6.0255,
    "mirrorY": 0,
    "halfTurn": 0.0445,
    "mirrorYX": 0.3255,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0031",
@@ -886,13 +886,13 @@
    "bboxW": 0.5109,
    "bboxH": 0.2944,
    "area": 0.1351,
-   "maxCurvature": 0,
+   "maxCurvature": 5.6794,
    "curvatureMedian": 1.314,
    "mirrorY": 0,
    "halfTurn": 0.1199,
    "mirrorYX": 0.6457,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0032",
@@ -913,13 +913,13 @@
    "bboxW": 1.1235,
    "bboxH": 0.4438,
    "area": 0.4354,
-   "maxCurvature": 0,
+   "maxCurvature": 10.5747,
    "curvatureMedian": 1.0855,
    "mirrorY": 0,
    "halfTurn": 0.0948,
    "mirrorYX": 0.4737,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0033",
@@ -940,13 +940,13 @@
    "bboxW": 0.6091,
    "bboxH": 0.1562,
    "area": 0.085,
-   "maxCurvature": 0,
+   "maxCurvature": 4.878,
    "curvatureMedian": 1.3719,
    "mirrorY": 0,
    "halfTurn": 0.1862,
    "mirrorYX": 0.5651,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0034",
@@ -967,13 +967,13 @@
    "bboxW": 2.396,
    "bboxH": 0.6329,
    "area": 0.3319,
-   "maxCurvature": 0,
+   "maxCurvature": 138.0041,
    "curvatureMedian": 7.2503,
    "mirrorY": 0,
    "halfTurn": 0.0727,
    "mirrorYX": 0.2834,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0035",
@@ -994,13 +994,13 @@
    "bboxW": 2.3748,
    "bboxH": 0.7438,
    "area": 0.4505,
-   "maxCurvature": 0,
+   "maxCurvature": 111.6737,
    "curvatureMedian": 2.6717,
    "mirrorY": 0,
    "halfTurn": 0.0803,
    "mirrorYX": 0.2841,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0036",
@@ -1021,13 +1021,13 @@
    "bboxW": 1.8071,
    "bboxH": 0.5319,
    "area": 0.2524,
-   "maxCurvature": 0,
+   "maxCurvature": 101.1435,
    "curvatureMedian": 12.1523,
    "mirrorY": 0,
    "halfTurn": 0.1377,
    "mirrorYX": 0.2668,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0037",
@@ -1048,13 +1048,13 @@
    "bboxW": 0.8056,
    "bboxH": 0.4728,
    "area": 0.2049,
-   "maxCurvature": 0,
+   "maxCurvature": 15.6465,
    "curvatureMedian": 0.7466,
    "mirrorY": 0,
    "halfTurn": 0.1289,
    "mirrorYX": 0.1406,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0038",
@@ -1075,13 +1075,13 @@
    "bboxW": 0.5181,
    "bboxH": 0.394,
    "area": 0.1146,
-   "maxCurvature": 0,
+   "maxCurvature": 10.0188,
    "curvatureMedian": 0.4192,
    "mirrorY": 0,
    "halfTurn": 0.1307,
    "mirrorYX": 0.243,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0039",
@@ -1102,13 +1102,13 @@
    "bboxW": 0.5226,
    "bboxH": 0.4184,
    "area": 0.0082,
-   "maxCurvature": 0,
+   "maxCurvature": 11.237,
    "curvatureMedian": 0.7765,
    "mirrorY": 0,
    "halfTurn": 0.1698,
    "mirrorYX": 0.0929,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0040",
@@ -1129,13 +1129,13 @@
    "bboxW": 0.819,
    "bboxH": 0.3339,
    "area": 0.2378,
-   "maxCurvature": 0,
+   "maxCurvature": 10.8853,
    "curvatureMedian": 0.4098,
    "mirrorY": 0,
    "halfTurn": 0.0981,
    "mirrorYX": 0.4744,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0041",
@@ -1156,13 +1156,13 @@
    "bboxW": 0.3268,
    "bboxH": 0.2166,
    "area": 0.0625,
-   "maxCurvature": 0,
+   "maxCurvature": 5.1611,
    "curvatureMedian": 0.7797,
    "mirrorY": 0,
    "halfTurn": 0.132,
    "mirrorYX": 0.6971,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0042",
@@ -1183,13 +1183,13 @@
    "bboxW": 0.4,
    "bboxH": 0.1125,
    "area": 0.04,
-   "maxCurvature": 0,
+   "maxCurvature": 4.4946,
    "curvatureMedian": 0.6758,
    "mirrorY": 0,
    "halfTurn": 0.2187,
    "mirrorYX": 0.576,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0043",
@@ -1210,13 +1210,13 @@
    "bboxW": 2.5879,
    "bboxH": 0.6859,
    "area": 0.5637,
-   "maxCurvature": 0,
+   "maxCurvature": 157.5718,
    "curvatureMedian": 11.4856,
    "mirrorY": 0,
    "halfTurn": 0.0553,
    "mirrorYX": 0.3374,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0044",
@@ -1237,13 +1237,13 @@
    "bboxW": 1.507,
    "bboxH": 0.592,
    "area": 0.1712,
-   "maxCurvature": 0,
+   "maxCurvature": 63.3835,
    "curvatureMedian": 9.2728,
    "mirrorY": 0,
    "halfTurn": 0.115,
    "mirrorYX": 0.1326,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0045",
@@ -1264,13 +1264,13 @@
    "bboxW": 6.4371,
    "bboxH": 1.6497,
    "area": 1.8831,
-   "maxCurvature": 0,
+   "maxCurvature": 54.2373,
    "curvatureMedian": 2.0178,
    "mirrorY": 0,
    "halfTurn": 0.0998,
    "mirrorYX": 0.3142,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0046",
@@ -1291,13 +1291,13 @@
    "bboxW": 8.5386,
    "bboxH": 2.6439,
    "area": 3.6455,
-   "maxCurvature": 0,
+   "maxCurvature": 848.1595,
    "curvatureMedian": 7.5436,
    "mirrorY": 0,
    "halfTurn": 0.0558,
    "mirrorYX": 0.5109,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0047",
@@ -1318,13 +1318,13 @@
    "bboxW": 10.397,
    "bboxH": 3.3806,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 357.1212,
    "curvatureMedian": 19.194,
    "mirrorY": 0.0341,
    "halfTurn": 0,
    "mirrorYX": 0.5292,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0048",
@@ -1345,13 +1345,13 @@
    "bboxW": 3.4885,
    "bboxH": 3.7701,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 157.3112,
    "curvatureMedian": 5.0147,
    "mirrorY": 0.0746,
    "halfTurn": 0,
    "mirrorYX": 0.187,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0049",
@@ -1372,13 +1372,13 @@
    "bboxW": 0.2809,
    "bboxH": 0.0952,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 25.5417,
    "curvatureMedian": 0.4782,
    "mirrorY": 0.0321,
    "halfTurn": 0,
    "mirrorYX": 0.5346,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0050",
@@ -1399,13 +1399,13 @@
    "bboxW": 3.4388,
    "bboxH": 2.0093,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 96.582,
    "curvatureMedian": 11.7793,
    "mirrorY": 0.0544,
    "halfTurn": 0,
    "mirrorYX": 0.5799,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0051",
@@ -1426,13 +1426,13 @@
    "bboxW": 22.701,
    "bboxH": 6.1235,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 207.9396,
    "curvatureMedian": 10.5401,
    "mirrorY": 0.0357,
    "halfTurn": 0,
    "mirrorYX": 0.5182,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0052",
@@ -1453,13 +1453,13 @@
    "bboxW": 0.0778,
    "bboxH": 0.0286,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 2.6905,
    "curvatureMedian": 0.7201,
    "mirrorY": 0.0407,
    "halfTurn": 0,
    "mirrorYX": 0.5401,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0053",
@@ -1480,13 +1480,13 @@
    "bboxW": 14.1345,
    "bboxH": 3.7711,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 632.4224,
    "curvatureMedian": 92.3522,
    "mirrorY": 0.0333,
    "halfTurn": 0,
    "mirrorYX": 0.5176,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0054",
@@ -1507,13 +1507,13 @@
    "bboxW": 103.0216,
    "bboxH": 27.7897,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 1967.1878,
    "curvatureMedian": 7.5997,
    "mirrorY": 0.161,
    "halfTurn": 0,
    "mirrorYX": 0.5182,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0055",
@@ -1534,13 +1534,13 @@
    "bboxW": 3.323,
    "bboxH": 0.8629,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 389.5809,
    "curvatureMedian": 32.7207,
    "mirrorY": 0.018,
    "halfTurn": 0,
    "mirrorYX": 0.5172,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0056",
@@ -1561,13 +1561,13 @@
    "bboxW": 4.493,
    "bboxH": 1.1484,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 505.3178,
    "curvatureMedian": 14.5662,
    "mirrorY": 0.015,
    "halfTurn": 0,
    "mirrorYX": 0.5049,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0057",
@@ -1588,13 +1588,13 @@
    "bboxW": 13.1895,
    "bboxH": 9.5258,
    "area": 30.0539,
-   "maxCurvature": 0,
+   "maxCurvature": 779.2422,
    "curvatureMedian": 19.8725,
    "mirrorY": 0,
    "halfTurn": 0.1366,
    "mirrorYX": 0.0791,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0058",
@@ -1615,13 +1615,13 @@
    "bboxW": 28.5225,
    "bboxH": 10.2473,
    "area": 112.2391,
-   "maxCurvature": 0,
+   "maxCurvature": 7574.8187,
    "curvatureMedian": 53.0968,
    "mirrorY": 0,
    "halfTurn": 0.2002,
    "mirrorYX": 0.2285,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0059",
@@ -1642,13 +1642,13 @@
    "bboxW": 2.9635,
    "bboxH": 1.8188,
    "area": 1.906,
-   "maxCurvature": 0,
+   "maxCurvature": 134.238,
    "curvatureMedian": 22.3931,
    "mirrorY": 0,
    "halfTurn": 0.2633,
    "mirrorYX": 0.0464,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0060",
@@ -1669,13 +1669,13 @@
    "bboxW": 27.6159,
    "bboxH": 8.6763,
    "area": 94.8469,
-   "maxCurvature": 0,
+   "maxCurvature": 3028.5651,
    "curvatureMedian": 13.733,
    "mirrorY": 0,
    "halfTurn": 0.1462,
    "mirrorYX": 0.2682,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0061",
@@ -1696,13 +1696,13 @@
    "bboxW": 20.551,
    "bboxH": 5.8344,
    "area": 38.9183,
-   "maxCurvature": 0,
+   "maxCurvature": 1744.53,
    "curvatureMedian": 64.7643,
    "mirrorY": 0,
    "halfTurn": 0.1544,
    "mirrorYX": 0.3319,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0062",
@@ -1723,13 +1723,13 @@
    "bboxW": 8.329,
    "bboxH": 6.038,
    "area": 1.9786,
-   "maxCurvature": 0,
+   "maxCurvature": 265.3736,
    "curvatureMedian": 12.8907,
    "mirrorY": 0,
    "halfTurn": 0.1388,
    "mirrorYX": 0.0746,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0063",
@@ -1750,13 +1750,13 @@
    "bboxW": 40.7176,
    "bboxH": 13.965,
    "area": 219.9025,
-   "maxCurvature": 0,
+   "maxCurvature": 9284.9741,
    "curvatureMedian": 24.5145,
    "mirrorY": 0,
    "halfTurn": 0.1706,
    "mirrorYX": 0.2442,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0064",
@@ -1777,13 +1777,13 @@
    "bboxW": 59.407,
    "bboxH": 19.286,
    "area": 480.3197,
-   "maxCurvature": 0,
+   "maxCurvature": 18738.8615,
    "curvatureMedian": 22.9757,
    "mirrorY": 0,
    "halfTurn": 0.1593,
    "mirrorYX": 0.2588,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0065",
@@ -1804,13 +1804,13 @@
    "bboxW": 9.2904,
    "bboxH": 3.1655,
    "area": 11.2358,
-   "maxCurvature": 0,
+   "maxCurvature": 2204.6266,
    "curvatureMedian": 100.5763,
    "mirrorY": 0,
    "halfTurn": 0.2118,
    "mirrorYX": 0.2405,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0066",
@@ -1831,13 +1831,13 @@
    "bboxW": 31.3091,
    "bboxH": 16.4628,
    "area": 158.8797,
-   "maxCurvature": 0,
+   "maxCurvature": 5859.0873,
    "curvatureMedian": 24.0716,
    "mirrorY": 0,
    "halfTurn": 0.218,
    "mirrorYX": 0.0369,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0067",
@@ -1858,13 +1858,13 @@
    "bboxW": 20.2444,
    "bboxH": 6.4496,
    "area": 47.9975,
-   "maxCurvature": 0,
+   "maxCurvature": 1043.3991,
    "curvatureMedian": 67.1072,
    "mirrorY": 0,
    "halfTurn": 0.1981,
    "mirrorYX": 0.2723,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0068",
@@ -1885,13 +1885,13 @@
    "bboxW": 62.2407,
    "bboxH": 22.0131,
    "area": 571.3609,
-   "maxCurvature": 0,
+   "maxCurvature": 19632.791,
    "curvatureMedian": 17.8302,
    "mirrorY": 0,
    "halfTurn": 0.1572,
    "mirrorYX": 0.2254,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0069",
@@ -1912,13 +1912,13 @@
    "bboxW": 88.953,
    "bboxH": 24.0312,
    "area": 806.7169,
-   "maxCurvature": 0,
+   "maxCurvature": 1895.3667,
    "curvatureMedian": 112.5367,
    "mirrorY": 0,
    "halfTurn": 0.1671,
    "mirrorYX": 0.349,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0070",
@@ -1939,13 +1939,13 @@
    "bboxW": 98.4257,
    "bboxH": 31.391,
    "area": 1182.9697,
-   "maxCurvature": 0,
+   "maxCurvature": 225.333,
    "curvatureMedian": 31.7407,
    "mirrorY": 0,
    "halfTurn": 0.1964,
    "mirrorYX": 0.2792,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0071",
@@ -1966,13 +1966,13 @@
    "bboxW": 17.0161,
    "bboxH": 11.5789,
    "area": 23.3269,
-   "maxCurvature": 0,
+   "maxCurvature": 73.8168,
    "curvatureMedian": 17.9734,
    "mirrorY": 0,
    "halfTurn": 0.2144,
    "mirrorYX": 0.0367,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0072",
@@ -1993,13 +1993,13 @@
    "bboxW": 59.57,
    "bboxH": 17.1083,
    "area": 342.1498,
-   "maxCurvature": 0,
+   "maxCurvature": 881.7053,
    "curvatureMedian": 89.4449,
    "mirrorY": 0,
    "halfTurn": 0.1491,
    "mirrorYX": 0.3179,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0073",
@@ -2020,13 +2020,13 @@
    "bboxW": 11.6767,
    "bboxH": 3.2226,
    "area": 13.7896,
-   "maxCurvature": 0,
+   "maxCurvature": 1688.0822,
    "curvatureMedian": 49.5766,
    "mirrorY": 0,
    "halfTurn": 0.174,
    "mirrorYX": 0.3243,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0074",
@@ -2047,13 +2047,13 @@
    "bboxW": 15.1037,
    "bboxH": 4.8979,
    "area": 25.3354,
-   "maxCurvature": 0,
+   "maxCurvature": 801.8805,
    "curvatureMedian": 48.4071,
    "mirrorY": 0,
    "halfTurn": 0.1677,
    "mirrorYX": 0.2796,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0075",
@@ -2074,13 +2074,13 @@
    "bboxW": 27.6307,
    "bboxH": 12.7173,
    "area": 84.5967,
-   "maxCurvature": 0,
+   "maxCurvature": 186.4144,
    "curvatureMedian": 41.7526,
    "mirrorY": 0,
    "halfTurn": 0.1772,
    "mirrorYX": 0.0621,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0076",
@@ -2101,13 +2101,13 @@
    "bboxW": 35.3957,
    "bboxH": 17.1431,
    "area": 164.5021,
-   "maxCurvature": 0,
+   "maxCurvature": 38.0986,
    "curvatureMedian": 13.9845,
    "mirrorY": 0,
    "halfTurn": 0.2289,
    "mirrorYX": 0.0481,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0077",
@@ -2128,13 +2128,13 @@
    "bboxW": 40.07,
    "bboxH": 15.6023,
    "area": 175.9619,
-   "maxCurvature": 0,
+   "maxCurvature": 379.6053,
    "curvatureMedian": 46.8979,
    "mirrorY": 0,
    "halfTurn": 0.1863,
    "mirrorYX": 0.1535,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0078",
@@ -2155,13 +2155,13 @@
    "bboxW": 55.4301,
    "bboxH": 16.5518,
    "area": 287.2204,
-   "maxCurvature": 0,
+   "maxCurvature": 830.7418,
    "curvatureMedian": 92.5734,
    "mirrorY": 0,
    "halfTurn": 0.1706,
    "mirrorYX": 0.2773,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0079",
@@ -2182,13 +2182,13 @@
    "bboxW": 96.3825,
    "bboxH": 24.5308,
    "area": 785.6805,
-   "maxCurvature": 0,
+   "maxCurvature": 3649.3526,
    "curvatureMedian": 90.1124,
    "mirrorY": 0,
    "halfTurn": 0.1615,
    "mirrorYX": 0.3473,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0080",
@@ -2209,13 +2209,13 @@
    "bboxW": 94.2587,
    "bboxH": 24.8129,
    "area": 785.8263,
-   "maxCurvature": 0,
+   "maxCurvature": 4514.5639,
    "curvatureMedian": 98.468,
    "mirrorY": 0,
    "halfTurn": 0.1655,
    "mirrorYX": 0.3358,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0081",
@@ -2236,13 +2236,13 @@
    "bboxW": 80.9638,
    "bboxH": 23.0692,
    "area": 613.9523,
-   "maxCurvature": 0,
+   "maxCurvature": 3065.7232,
    "curvatureMedian": 76.1731,
    "mirrorY": 0,
    "halfTurn": 0.175,
    "mirrorYX": 0.304,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0082",
@@ -2263,13 +2263,13 @@
    "bboxW": 63.4461,
    "bboxH": 19.8605,
    "area": 395.29,
-   "maxCurvature": 0,
+   "maxCurvature": 1352.1604,
    "curvatureMedian": 63.2095,
    "mirrorY": 0,
    "halfTurn": 0.1794,
    "mirrorYX": 0.2591,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0083",
@@ -2290,13 +2290,13 @@
    "bboxW": 69.6586,
    "bboxH": 21.0737,
    "area": 483.8033,
-   "maxCurvature": 0,
+   "maxCurvature": 153.3548,
    "curvatureMedian": 45.5387,
    "mirrorY": 0,
    "halfTurn": 0.176,
    "mirrorYX": 0.281,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0084",
@@ -2317,13 +2317,13 @@
    "bboxW": 42.0045,
    "bboxH": 12.6533,
    "area": 176.5667,
-   "maxCurvature": 0,
+   "maxCurvature": 3298.0871,
    "curvatureMedian": 189.758,
    "mirrorY": 0,
    "halfTurn": 0.1844,
    "mirrorYX": 0.279,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0085",
@@ -2344,13 +2344,13 @@
    "bboxW": 41.8657,
    "bboxH": 12.4339,
    "area": 176.9216,
-   "maxCurvature": 0,
+   "maxCurvature": 12159.0766,
    "curvatureMedian": 88.7806,
    "mirrorY": 0,
    "halfTurn": 0.1769,
    "mirrorYX": 0.2787,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0086",
@@ -2371,13 +2371,13 @@
    "bboxW": 7.3337,
    "bboxH": 2.7978,
    "area": 6.903,
-   "maxCurvature": 0,
+   "maxCurvature": 752.961,
    "curvatureMedian": 10.3512,
    "mirrorY": 0,
    "halfTurn": 0.2154,
    "mirrorYX": 0.1706,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0087",
@@ -2398,13 +2398,13 @@
    "bboxW": 1.8303,
    "bboxH": 2.4517,
    "area": 0.554,
-   "maxCurvature": 0,
+   "maxCurvature": 169.6868,
    "curvatureMedian": 14.4321,
    "mirrorY": 0,
    "halfTurn": 0.1863,
    "mirrorYX": 0.3395,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0088",
@@ -2425,13 +2425,13 @@
    "bboxW": 3.2965,
    "bboxH": 3.6345,
    "area": 5.7537,
-   "maxCurvature": 0,
+   "maxCurvature": 4.0396,
    "curvatureMedian": 2.7581,
    "mirrorY": 0.1297,
    "halfTurn": 0.0526,
    "mirrorYX": 0.3955,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0089",
@@ -2458,7 +2458,7 @@
    "halfTurn": 0,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0090",
@@ -2485,7 +2485,7 @@
    "halfTurn": 0,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0091",
@@ -2506,13 +2506,13 @@
    "bboxW": 1.4692,
    "bboxH": 1.4692,
    "area": 0.2429,
-   "maxCurvature": 0,
+   "maxCurvature": 295.7393,
    "curvatureMedian": 3.0768,
    "mirrorY": 0.2788,
    "halfTurn": 0.4009,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0092",
@@ -2533,13 +2533,13 @@
    "bboxW": 1.3303,
    "bboxH": 1.3303,
    "area": 0.1347,
-   "maxCurvature": 0,
+   "maxCurvature": 238.3207,
    "curvatureMedian": 3.2005,
    "mirrorY": 0.1349,
    "halfTurn": 0.2566,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0093",
@@ -2560,13 +2560,13 @@
    "bboxW": 1.2229,
    "bboxH": 1.2229,
    "area": 0.0971,
-   "maxCurvature": 0,
+   "maxCurvature": 169.6147,
    "curvatureMedian": 4.2566,
    "mirrorY": 0.1279,
    "halfTurn": 0.2179,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0094",
@@ -2587,13 +2587,13 @@
    "bboxW": 7.5087,
    "bboxH": 7.5087,
    "area": 0.1119,
-   "maxCurvature": 0,
+   "maxCurvature": 3470.3068,
    "curvatureMedian": 8.7409,
    "mirrorY": 0.1231,
    "halfTurn": 0.1362,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0095",
@@ -2614,13 +2614,13 @@
    "bboxW": 4,
    "bboxH": 4,
    "area": 1.2747,
-   "maxCurvature": 0,
+   "maxCurvature": 4.0189,
    "curvatureMedian": 0.6084,
    "mirrorY": 0.2685,
    "halfTurn": 0.5313,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0096",
@@ -2641,13 +2641,13 @@
    "bboxW": 4,
    "bboxH": 4,
    "area": 0.6546,
-   "maxCurvature": 0,
+   "maxCurvature": 4.6459,
    "curvatureMedian": 0.9008,
    "mirrorY": 0.2463,
    "halfTurn": 0.4829,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0097",
@@ -2668,13 +2668,13 @@
    "bboxW": 4,
    "bboxH": 4,
    "area": 0.4443,
-   "maxCurvature": 0,
+   "maxCurvature": 5.7146,
    "curvatureMedian": 1.4853,
    "mirrorY": 0.2156,
    "halfTurn": 0.3867,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0098",
@@ -2695,13 +2695,13 @@
    "bboxW": 4,
    "bboxH": 4,
    "area": 0.1757,
-   "maxCurvature": 0,
+   "maxCurvature": 5.7079,
    "curvatureMedian": 0.4344,
    "mirrorY": 0.2475,
    "halfTurn": 0.4463,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0099",
@@ -2728,7 +2728,7 @@
    "halfTurn": 0,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0100",
@@ -2749,13 +2749,13 @@
    "bboxW": 10.4658,
    "bboxH": 10.4658,
    "area": 7.4348,
-   "maxCurvature": 0,
+   "maxCurvature": 67.0789,
    "curvatureMedian": 3.1827,
    "mirrorY": 0.3404,
    "halfTurn": 0.2298,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0101",
@@ -2776,13 +2776,13 @@
    "bboxW": 1.3361,
    "bboxH": 1.3361,
    "area": 1.0974,
-   "maxCurvature": 0,
+   "maxCurvature": 105.6654,
    "curvatureMedian": 3.7462,
    "mirrorY": 0.2673,
    "halfTurn": 0.3833,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0102",
@@ -2803,13 +2803,13 @@
    "bboxW": 1.1286,
    "bboxH": 1.1286,
    "area": 0.726,
-   "maxCurvature": 0,
+   "maxCurvature": 74.0301,
    "curvatureMedian": 4.7343,
    "mirrorY": 0.1385,
    "halfTurn": 0.172,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0103",
@@ -2830,13 +2830,13 @@
    "bboxW": 1.3379,
    "bboxH": 1.3379,
    "area": 0.9822,
-   "maxCurvature": 0,
+   "maxCurvature": 211.0046,
    "curvatureMedian": 3.8808,
    "mirrorY": 0.2032,
    "halfTurn": 0.3351,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0104",
@@ -2857,13 +2857,13 @@
    "bboxW": 1.2229,
    "bboxH": 1.2229,
    "area": 0.7845,
-   "maxCurvature": 0,
+   "maxCurvature": 169.6147,
    "curvatureMedian": 4.2566,
    "mirrorY": 0.1279,
    "halfTurn": 0.2179,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0105",
@@ -2884,13 +2884,13 @@
    "bboxW": 1.4692,
    "bboxH": 1.4692,
    "area": 1.2263,
-   "maxCurvature": 0,
+   "maxCurvature": 295.7393,
    "curvatureMedian": 3.0768,
    "mirrorY": 0.2788,
    "halfTurn": 0.4009,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0106",
@@ -2911,13 +2911,13 @@
    "bboxW": 1.3303,
    "bboxH": 1.3303,
    "area": 0.8459,
-   "maxCurvature": 0,
+   "maxCurvature": 238.3207,
    "curvatureMedian": 3.2005,
    "mirrorY": 0.1349,
    "halfTurn": 0.2566,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0107",
@@ -2938,13 +2938,13 @@
    "bboxW": 0.9669,
    "bboxH": 0.9669,
    "area": 0.0305,
-   "maxCurvature": 0,
+   "maxCurvature": 172.18,
    "curvatureMedian": 1.3479,
    "mirrorY": 0.0959,
    "halfTurn": 0.1181,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0108",
@@ -2965,13 +2965,13 @@
    "bboxW": 1.38,
    "bboxH": 1.38,
    "area": 0.8711,
-   "maxCurvature": 0,
+   "maxCurvature": 124.6876,
    "curvatureMedian": 2.6767,
    "mirrorY": 0.1381,
    "halfTurn": 0.2698,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0109",
@@ -2992,13 +2992,13 @@
    "bboxW": 17.1654,
    "bboxH": 17.1654,
    "area": 8.2216,
-   "maxCurvature": 0,
+   "maxCurvature": 80.1332,
    "curvatureMedian": 16.8529,
    "mirrorY": 0.1293,
    "halfTurn": 0.1835,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0110",
@@ -3019,13 +3019,13 @@
    "bboxW": 17.1738,
    "bboxH": 17.1738,
    "area": 14.3366,
-   "maxCurvature": 0,
+   "maxCurvature": 96.9341,
    "curvatureMedian": 13.236,
    "mirrorY": 0.1356,
    "halfTurn": 0.2436,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0111",
@@ -3046,13 +3046,13 @@
    "bboxW": 17.4383,
    "bboxH": 17.4383,
    "area": 23.4573,
-   "maxCurvature": 0,
+   "maxCurvature": 123.6198,
    "curvatureMedian": 9.5184,
    "mirrorY": 0.1406,
    "halfTurn": 0.3223,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0112",
@@ -3073,13 +3073,13 @@
    "bboxW": 36.6382,
    "bboxH": 36.6382,
    "area": 0.7955,
-   "maxCurvature": 0,
+   "maxCurvature": 168.1166,
    "curvatureMedian": 12.6982,
    "mirrorY": 0.1212,
    "halfTurn": 0.0538,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0113",
@@ -3100,13 +3100,13 @@
    "bboxW": 33.2086,
    "bboxH": 33.2086,
    "area": 4.1997,
-   "maxCurvature": 0,
+   "maxCurvature": 127.7841,
    "curvatureMedian": 14.8305,
    "mirrorY": 0.1238,
    "halfTurn": 0.074,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0114",
@@ -3127,13 +3127,13 @@
    "bboxW": 29.4512,
    "bboxH": 29.4512,
    "area": 13.9269,
-   "maxCurvature": 0,
+   "maxCurvature": 142.9481,
    "curvatureMedian": 16.5775,
    "mirrorY": 0.1302,
    "halfTurn": 0.1213,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0115",
@@ -3154,13 +3154,13 @@
    "bboxW": 1.5832,
    "bboxH": 1.5832,
    "area": 1.4527,
-   "maxCurvature": 0,
+   "maxCurvature": 179.9839,
    "curvatureMedian": 0.7821,
    "mirrorY": 0.1764,
    "halfTurn": 0.2944,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0116",
@@ -3181,13 +3181,13 @@
    "bboxW": 1.1179,
    "bboxH": 1.1179,
    "area": 1.0173,
-   "maxCurvature": 0,
+   "maxCurvature": 60.1764,
    "curvatureMedian": 1.9184,
    "mirrorY": 0.3717,
    "halfTurn": 0.2183,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0117",
@@ -3208,13 +3208,13 @@
    "bboxW": 1.4939,
    "bboxH": 1.4939,
    "area": 1.6697,
-   "maxCurvature": 0,
+   "maxCurvature": 4.5834,
    "curvatureMedian": 2.1309,
    "mirrorY": 0.0629,
    "halfTurn": 0.0431,
    "mirrorYX": 0,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0118",
@@ -3235,13 +3235,13 @@
    "bboxW": 2,
    "bboxH": 4.1231,
    "area": 1.5661,
-   "maxCurvature": 0,
+   "maxCurvature": 194.6534,
    "curvatureMedian": 0.4773,
    "mirrorY": 0.2317,
    "halfTurn": 0.0011,
    "mirrorYX": 0.1852,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0119",
@@ -3262,13 +3262,13 @@
    "bboxW": 5.3851,
    "bboxH": 3.6055,
    "area": 12.5442,
-   "maxCurvature": 0,
+   "maxCurvature": 8.5928,
    "curvatureMedian": 1.7808,
    "mirrorY": 0.1386,
    "halfTurn": 0.0013,
    "mirrorYX": 0.3191,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0120",
@@ -3289,13 +3289,13 @@
    "bboxW": 3,
    "bboxH": 12.1655,
    "area": 4.6966,
-   "maxCurvature": 0,
+   "maxCurvature": 1309.2867,
    "curvatureMedian": 0.2102,
    "mirrorY": 0.138,
    "halfTurn": 0.001,
    "mirrorYX": 0.3203,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0121",
@@ -3316,13 +3316,13 @@
    "bboxW": 10.8166,
    "bboxH": 10.7703,
    "area": 75.2527,
-   "maxCurvature": 0,
+   "maxCurvature": 5.7941,
    "curvatureMedian": 1.6457,
    "mirrorY": 0.1739,
    "halfTurn": 0.0015,
    "mirrorYX": 0.5806,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0122",
@@ -3343,13 +3343,13 @@
    "bboxW": 17.2046,
    "bboxH": 13.4164,
    "area": 159.9081,
-   "maxCurvature": 0,
+   "maxCurvature": 5.6713,
    "curvatureMedian": 1.906,
    "mirrorY": 0.1277,
    "halfTurn": 0.0014,
    "mirrorYX": 0.394,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0123",
@@ -3370,13 +3370,13 @@
    "bboxW": 9.434,
    "bboxH": 5.3851,
    "area": 39.2144,
-   "maxCurvature": 0,
+   "maxCurvature": 6.5022,
    "curvatureMedian": 2.0707,
    "mirrorY": 0.0413,
    "halfTurn": 0.0013,
    "mirrorYX": 0.3263,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0124",
@@ -3397,13 +3397,13 @@
    "bboxW": 3.125,
    "bboxH": 3.5203,
    "area": 9.4213,
-   "maxCurvature": 0,
+   "maxCurvature": 10.5572,
    "curvatureMedian": 2.8219,
    "mirrorY": 0.0824,
    "halfTurn": 0.0824,
    "mirrorYX": 0.1901,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0125",
@@ -3424,13 +3424,13 @@
    "bboxW": 4.0833,
    "bboxH": 4.4887,
    "area": 17.2654,
-   "maxCurvature": 0,
+   "maxCurvature": 5.6278,
    "curvatureMedian": 2.6972,
    "mirrorY": 0.0518,
    "halfTurn": 0.0518,
    "mirrorYX": 0.2165,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0126",
@@ -3451,13 +3451,13 @@
    "bboxW": 5.3333,
    "bboxH": 6.0977,
    "area": 26.6995,
-   "maxCurvature": 0,
+   "maxCurvature": 24.4056,
    "curvatureMedian": 2.8608,
    "mirrorY": 0.0667,
    "halfTurn": 0.0667,
    "mirrorYX": 0.1877,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0127",
@@ -3478,13 +3478,13 @@
    "bboxW": 2.773,
    "bboxH": 2.8503,
    "area": 5.5144,
-   "maxCurvature": 0,
+   "maxCurvature": 2.7899,
    "curvatureMedian": 1.9157,
    "mirrorY": 0.0571,
    "halfTurn": 0.0571,
    "mirrorYX": 0.0353,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0128",
@@ -3505,13 +3505,13 @@
    "bboxW": 2.4585,
    "bboxH": 2.4271,
    "area": 4.1135,
-   "maxCurvature": 0,
+   "maxCurvature": 2.4618,
    "curvatureMedian": 1.9408,
    "mirrorY": 0.0684,
    "halfTurn": 0.0684,
    "mirrorYX": 0.0447,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0129",
@@ -3532,13 +3532,13 @@
    "bboxW": 3.2695,
    "bboxH": 3.1438,
    "area": 7.147,
-   "maxCurvature": 0,
+   "maxCurvature": 2.9838,
    "curvatureMedian": 1.9559,
    "mirrorY": 0.0587,
    "halfTurn": 0.0587,
    "mirrorYX": 0.0419,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0130",
@@ -3559,13 +3559,13 @@
    "bboxW": 6.1472,
    "bboxH": 6.2675,
    "area": 25.7293,
-   "maxCurvature": 0,
+   "maxCurvature": 3.6657,
    "curvatureMedian": 1.9689,
    "mirrorY": 0.0897,
    "halfTurn": 0.0897,
    "mirrorYX": 0.0501,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0131",
@@ -3586,13 +3586,13 @@
    "bboxW": 1.6,
    "bboxH": 1.8,
    "area": 1.5708,
-   "maxCurvature": 0,
+   "maxCurvature": 2.1932,
    "curvatureMedian": 1.7969,
    "mirrorY": 0.2744,
    "halfTurn": 0.2199,
    "mirrorYX": 0.0144,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0132",
@@ -3613,13 +3613,13 @@
    "bboxW": 2.4656,
    "bboxH": 2.5385,
    "area": 3.8562,
-   "maxCurvature": 0,
+   "maxCurvature": 2.8844,
    "curvatureMedian": 2.1285,
    "mirrorY": 0.1038,
    "halfTurn": 0.0693,
    "mirrorYX": 0.0289,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0133",
@@ -3640,13 +3640,13 @@
    "bboxW": 1.6865,
    "bboxH": 1.7889,
    "area": 2.0944,
-   "maxCurvature": 0,
+   "maxCurvature": 16.8609,
    "curvatureMedian": 2.6405,
    "mirrorY": 0.0956,
    "halfTurn": 0.0541,
    "mirrorYX": 0.074,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0134",
@@ -3667,13 +3667,13 @@
    "bboxW": 2.7029,
    "bboxH": 2.7212,
    "area": 3.937,
-   "maxCurvature": 0,
+   "maxCurvature": 9.9943,
    "curvatureMedian": 2.8586,
    "mirrorY": 0.1588,
    "halfTurn": 0.1151,
    "mirrorYX": 0.0373,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0135",
@@ -3694,13 +3694,13 @@
    "bboxW": 1.5754,
    "bboxH": 0.6695,
    "area": 1.3509,
-   "maxCurvature": 0,
+   "maxCurvature": 1.4536,
    "curvatureMedian": 1.1939,
    "mirrorY": 0.1555,
    "halfTurn": 0.1988,
    "mirrorYX": 0.2495,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0136",
@@ -3721,13 +3721,13 @@
    "bboxW": 1.748,
    "bboxH": 2.2387,
    "area": 2.554,
-   "maxCurvature": 0,
+   "maxCurvature": 2.081,
    "curvatureMedian": 1.7341,
    "mirrorY": 0.3144,
    "halfTurn": 0.26,
    "mirrorYX": 0.037,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0137",
@@ -3748,13 +3748,13 @@
    "bboxW": 2.3231,
    "bboxH": 0.8541,
    "area": 2.0896,
-   "maxCurvature": 0,
+   "maxCurvature": 2.4445,
    "curvatureMedian": 1.8423,
    "mirrorY": 0.0153,
    "halfTurn": 0.1711,
    "mirrorYX": 0.4324,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0138",
@@ -3775,13 +3775,13 @@
    "bboxW": 2.4957,
    "bboxH": 2.484,
    "area": 3.81,
-   "maxCurvature": 0,
+   "maxCurvature": 3.1627,
    "curvatureMedian": 2.0806,
    "mirrorY": 0.1086,
    "halfTurn": 0.0699,
    "mirrorYX": 0.0311,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0139",
@@ -3802,13 +3802,13 @@
    "bboxW": 2,
    "bboxH": 1.5396,
    "area": 2.3561,
-   "maxCurvature": 0,
+   "maxCurvature": 12.3683,
    "curvatureMedian": 2.157,
    "mirrorY": 0.0218,
    "halfTurn": 0.0218,
    "mirrorYX": 0.2836,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0140",
@@ -3829,13 +3829,13 @@
    "bboxW": 0.7698,
    "bboxH": 4,
    "area": 2.3562,
-   "maxCurvature": 0,
+   "maxCurvature": 41.983,
    "curvatureMedian": 4.4281,
    "mirrorY": 0.0863,
    "halfTurn": 0.0863,
    "mirrorYX": 0.2162,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0141",
@@ -3856,13 +3856,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 1.6894,
-   "maxCurvature": 0,
+   "maxCurvature": 15.5024,
    "curvatureMedian": 1.5693,
    "mirrorY": 0.062,
    "halfTurn": 0.062,
    "mirrorYX": 0.1947,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0142",
@@ -3883,13 +3883,13 @@
    "bboxW": 2,
    "bboxH": 4,
    "area": 2.3561,
-   "maxCurvature": 0,
+   "maxCurvature": 31.38,
    "curvatureMedian": 3.0086,
    "mirrorY": 0.1219,
    "halfTurn": 0.1219,
    "mirrorYX": 0.1046,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0143",
@@ -3910,13 +3910,13 @@
    "bboxW": 1,
    "bboxH": 1,
    "area": 0.1667,
-   "maxCurvature": 0,
+   "maxCurvature": 3.7083,
    "curvatureMedian": 1.247,
    "mirrorY": 0.3842,
    "halfTurn": 0.1639,
    "mirrorYX": 0.1757,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0144",
@@ -3937,13 +3937,13 @@
    "bboxW": 3.4171,
    "bboxH": 0.9727,
    "area": 0.692,
-   "maxCurvature": 0,
+   "maxCurvature": 70.2,
    "curvatureMedian": 7.5146,
    "mirrorY": 0,
    "halfTurn": 0.1223,
    "mirrorYX": 0.2698,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0145",
@@ -3964,13 +3964,13 @@
    "bboxW": 4.3063,
    "bboxH": 1.229,
    "area": 0.8532,
-   "maxCurvature": 0,
+   "maxCurvature": 60.0302,
    "curvatureMedian": 6.7261,
    "mirrorY": 0,
    "halfTurn": 0.101,
    "mirrorYX": 0.2781,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0146",
@@ -3991,13 +3991,13 @@
    "bboxW": 2.01,
    "bboxH": 0.7707,
    "area": 0.3086,
-   "maxCurvature": 0,
+   "maxCurvature": 40.5322,
    "curvatureMedian": 4.2836,
    "mirrorY": 0,
    "halfTurn": 0.1515,
    "mirrorYX": 0.1531,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0147",
@@ -4018,13 +4018,13 @@
    "bboxW": 4.5488,
    "bboxH": 1.1878,
    "area": 0.7329,
-   "maxCurvature": 0,
+   "maxCurvature": 82.1096,
    "curvatureMedian": 6.6058,
    "mirrorY": 0,
    "halfTurn": 0.0866,
    "mirrorYX": 0.2758,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0148",
@@ -4045,13 +4045,13 @@
    "bboxW": 2.2118,
    "bboxH": 0.9791,
    "area": 0.2696,
-   "maxCurvature": 0,
+   "maxCurvature": 24.005,
    "curvatureMedian": 2.9494,
    "mirrorY": 0,
    "halfTurn": 0.1291,
    "mirrorYX": 0.1133,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0149",
@@ -4072,13 +4072,13 @@
    "bboxW": 0.9484,
    "bboxH": 0.5425,
    "area": 0.0195,
-   "maxCurvature": 0,
+   "maxCurvature": 27.5016,
    "curvatureMedian": 4.1571,
    "mirrorY": 0,
    "halfTurn": 0.1218,
    "mirrorYX": 0.0902,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0150",
@@ -4099,13 +4099,13 @@
    "bboxW": 0.8415,
    "bboxH": 0.5273,
    "area": 0.0672,
-   "maxCurvature": 0,
+   "maxCurvature": 18.8322,
    "curvatureMedian": 1.6755,
    "mirrorY": 0,
    "halfTurn": 0.1895,
    "mirrorYX": 0.0356,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0151",
@@ -4126,13 +4126,13 @@
    "bboxW": 0.6821,
    "bboxH": 0.457,
    "area": 0.0284,
-   "maxCurvature": 0,
+   "maxCurvature": 20.3375,
    "curvatureMedian": 4.3189,
    "mirrorY": 0,
    "halfTurn": 0.1739,
    "mirrorYX": 0.0451,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0152",
@@ -4153,13 +4153,13 @@
    "bboxW": 6.4808,
    "bboxH": 1.8123,
    "area": 0.4541,
-   "maxCurvature": 0,
+   "maxCurvature": 63.823,
    "curvatureMedian": 6.0396,
    "mirrorY": 0,
    "halfTurn": 0.0636,
    "mirrorYX": 0.2809,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0153",
@@ -4180,13 +4180,13 @@
    "bboxW": 2.1262,
    "bboxH": 0.8291,
    "area": 0.047,
-   "maxCurvature": 0,
+   "maxCurvature": 33.0946,
    "curvatureMedian": 0.7423,
    "mirrorY": 0,
    "halfTurn": 0.0983,
    "mirrorYX": 0.1606,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0154",
@@ -4207,13 +4207,13 @@
    "bboxW": 4.6064,
    "bboxH": 1.3227,
    "area": 0.413,
-   "maxCurvature": 0,
+   "maxCurvature": 48.9862,
    "curvatureMedian": 0.6306,
    "mirrorY": 0,
    "halfTurn": 0.0707,
    "mirrorYX": 0.2335,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0155",
@@ -4234,13 +4234,13 @@
    "bboxW": 5.2532,
    "bboxH": 1.4592,
    "area": 0.1688,
-   "maxCurvature": 0,
+   "maxCurvature": 45.5321,
    "curvatureMedian": 0.2394,
    "mirrorY": 0,
    "halfTurn": 0.0804,
    "mirrorYX": 0.2385,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0156",
@@ -4261,13 +4261,13 @@
    "bboxW": 3.4628,
    "bboxH": 0.9164,
    "area": 0.6034,
-   "maxCurvature": 0,
+   "maxCurvature": 63.658,
    "curvatureMedian": 1.0628,
    "mirrorY": 0,
    "halfTurn": 0.1116,
    "mirrorYX": 0.2936,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0157",
@@ -4288,13 +4288,13 @@
    "bboxW": 3.748,
    "bboxH": 0.9555,
    "area": 0.5076,
-   "maxCurvature": 0,
+   "maxCurvature": 74.4091,
    "curvatureMedian": 2.3777,
    "mirrorY": 0,
    "halfTurn": 0.0938,
    "mirrorYX": 0.2852,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0158",
@@ -4315,13 +4315,13 @@
    "bboxW": 6.2548,
    "bboxH": 1.6874,
    "area": 0.3069,
-   "maxCurvature": 0,
+   "maxCurvature": 42.8605,
    "curvatureMedian": 1.0368,
    "mirrorY": 0,
    "halfTurn": 0.0729,
    "mirrorYX": 0.2624,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0159",
@@ -4342,13 +4342,13 @@
    "bboxW": 3.1218,
    "bboxH": 0.8492,
    "area": 0.6475,
-   "maxCurvature": 0,
+   "maxCurvature": 63.4092,
    "curvatureMedian": 1.3186,
    "mirrorY": 0,
    "halfTurn": 0.1306,
    "mirrorYX": 0.3024,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0160",
@@ -4369,13 +4369,13 @@
    "bboxW": 1.9013,
    "bboxH": 0.6665,
    "area": 0.3314,
-   "maxCurvature": 0,
+   "maxCurvature": 45.1784,
    "curvatureMedian": 3.4597,
    "mirrorY": 0,
    "halfTurn": 0.1657,
    "mirrorYX": 0.2098,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0161",
@@ -4396,13 +4396,13 @@
    "bboxW": 1.6294,
    "bboxH": 0.5906,
    "area": 0.2286,
-   "maxCurvature": 0,
+   "maxCurvature": 43.9123,
    "curvatureMedian": 1.3196,
    "mirrorY": 0,
    "halfTurn": 0.1648,
    "mirrorYX": 0.1822,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0162",
@@ -4423,13 +4423,13 @@
    "bboxW": 1.4468,
    "bboxH": 0.9522,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 83.9727,
    "curvatureMedian": 21.9672,
    "mirrorY": 0.0454,
    "halfTurn": 0,
    "mirrorYX": 0.599,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0163",
@@ -4450,13 +4450,13 @@
    "bboxW": 2.1331,
    "bboxH": 1.2047,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 87.6704,
    "curvatureMedian": 7.2768,
    "mirrorY": 0.0822,
    "halfTurn": 0,
    "mirrorYX": 0.4789,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0164",
@@ -4477,13 +4477,13 @@
    "bboxW": 6.9157,
    "bboxH": 2.2758,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 736.9864,
    "curvatureMedian": 85.5902,
    "mirrorY": 0.0302,
    "halfTurn": 0,
    "mirrorYX": 0.5266,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0165",
@@ -4504,13 +4504,13 @@
    "bboxW": 9.911,
    "bboxH": 5.2282,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 151.6155,
    "curvatureMedian": 21.382,
    "mirrorY": 0.0429,
    "halfTurn": 0,
    "mirrorYX": 0.5708,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0166",
@@ -4531,13 +4531,13 @@
    "bboxW": 26.6498,
    "bboxH": 6.9235,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 202.9045,
    "curvatureMedian": 22.5404,
    "mirrorY": 0.0283,
    "halfTurn": 0,
    "mirrorYX": 0.517,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0167",
@@ -4558,13 +4558,13 @@
    "bboxW": 0.4939,
    "bboxH": 0.1905,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 25.3333,
    "curvatureMedian": 0.7821,
    "mirrorY": 0.0299,
    "halfTurn": 0,
    "mirrorYX": 0.4003,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0168",
@@ -4585,13 +4585,13 @@
    "bboxW": 6.2705,
    "bboxH": 2.5521,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 300.1515,
    "curvatureMedian": 54.9359,
    "mirrorY": 0.042,
    "halfTurn": 0,
    "mirrorYX": 0.5404,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0169",
@@ -4612,13 +4612,13 @@
    "bboxW": 4.6599,
    "bboxH": 2.0378,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 278.6368,
    "curvatureMedian": 78.2577,
    "mirrorY": 0.0396,
    "halfTurn": 0,
    "mirrorYX": 0.5462,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0170",
@@ -4639,13 +4639,13 @@
    "bboxW": 0.8678,
    "bboxH": 0.9427,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 35.9172,
    "curvatureMedian": 11.4371,
    "mirrorY": 0.0444,
    "halfTurn": 0,
    "mirrorYX": 0.6828,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0171",
@@ -4666,13 +4666,13 @@
    "bboxW": 1.0234,
    "bboxH": 0.362,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 38.8984,
    "curvatureMedian": 1.3739,
    "mirrorY": 0.0425,
    "halfTurn": 0,
    "mirrorYX": 0.5394,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0172",
@@ -4693,13 +4693,13 @@
    "bboxW": 11.1512,
    "bboxH": 3.1808,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 2200.5966,
    "curvatureMedian": 10.2684,
    "mirrorY": 0.1118,
    "halfTurn": 0,
    "mirrorYX": 0.4997,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0173",
@@ -4720,13 +4720,13 @@
    "bboxW": 2.7085,
    "bboxH": 1.6855,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 99.1953,
    "curvatureMedian": 37.0796,
    "mirrorY": 0.0524,
    "halfTurn": 0,
    "mirrorYX": 0.59,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0174",
@@ -4747,13 +4747,13 @@
    "bboxW": 44.4606,
    "bboxH": 11.9231,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 1463.3941,
    "curvatureMedian": 11.6241,
    "mirrorY": 0.1305,
    "halfTurn": 0,
    "mirrorYX": 0.5181,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0175",
@@ -4774,13 +4774,13 @@
    "bboxW": 22.9495,
    "bboxH": 6.0708,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 1027.1264,
    "curvatureMedian": 15.2254,
    "mirrorY": 0.0914,
    "halfTurn": 0,
    "mirrorYX": 0.5175,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0176",
@@ -4801,13 +4801,13 @@
    "bboxW": 18.0823,
    "bboxH": 5.0375,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 1191.9538,
    "curvatureMedian": 30.4895,
    "mirrorY": 0.0851,
    "halfTurn": 0,
    "mirrorYX": 0.5195,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0177",
@@ -4828,13 +4828,13 @@
    "bboxW": 42.6355,
    "bboxH": 11.6564,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 2806.1839,
    "curvatureMedian": 21.9653,
    "mirrorY": 0.1424,
    "halfTurn": 0,
    "mirrorYX": 0.5192,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0178",
@@ -4855,13 +4855,13 @@
    "bboxW": 8.3519,
    "bboxH": 2.1136,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 378.942,
    "curvatureMedian": 17.4235,
    "mirrorY": 0.019,
    "halfTurn": 0,
    "mirrorYX": 0.5159,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0179",
@@ -4882,13 +4882,13 @@
    "bboxW": 2.0414,
    "bboxH": 0.9774,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 138.5712,
    "curvatureMedian": 21.0046,
    "mirrorY": 0.0297,
    "halfTurn": 0,
    "mirrorYX": 0.5546,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0180",
@@ -4909,13 +4909,13 @@
    "bboxW": 4.9665,
    "bboxH": 1.8852,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 183.5666,
    "curvatureMedian": 13.8862,
    "mirrorY": 0.0231,
    "halfTurn": 0,
    "mirrorYX": 0.5352,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0181",
@@ -4936,13 +4936,13 @@
    "bboxW": 18.9669,
    "bboxH": 5.2344,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 142.297,
    "curvatureMedian": 2.8862,
    "mirrorY": 0.0219,
    "halfTurn": 0,
    "mirrorYX": 0.5192,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0182",
@@ -4963,13 +4963,13 @@
    "bboxW": 7.5665,
    "bboxH": 3.8759,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 45.259,
    "curvatureMedian": 1.5408,
    "mirrorY": 0.0308,
    "halfTurn": 0,
    "mirrorYX": 0.5664,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0183",
@@ -4990,13 +4990,13 @@
    "bboxW": 2.5366,
    "bboxH": 1.814,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 38.7308,
    "curvatureMedian": 1.6345,
    "mirrorY": 0.0278,
    "halfTurn": 0,
    "mirrorYX": 0.623,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0184",
@@ -5017,13 +5017,13 @@
    "bboxW": 13.7449,
    "bboxH": 3.4612,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 260.0927,
    "curvatureMedian": 15.0045,
    "mirrorY": 0.0203,
    "halfTurn": 0,
    "mirrorYX": 0.5158,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0185",
@@ -5044,13 +5044,13 @@
    "bboxW": 16.4701,
    "bboxH": 4.3899,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 151.2777,
    "curvatureMedian": 6.8707,
    "mirrorY": 0.0227,
    "halfTurn": 0,
    "mirrorYX": 0.5179,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0186",
@@ -5071,13 +5071,13 @@
    "bboxW": 7.3231,
    "bboxH": 2.99,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 83.0422,
    "curvatureMedian": 2.3681,
    "mirrorY": 0.026,
    "halfTurn": 0,
    "mirrorYX": 0.5414,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0187",
@@ -5098,13 +5098,13 @@
    "bboxW": 0.788,
    "bboxH": 0.9712,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 19.2133,
    "curvatureMedian": 1.4348,
    "mirrorY": 0.0361,
    "halfTurn": 0,
    "mirrorYX": 0.5993,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0188",
@@ -5125,13 +5125,13 @@
    "bboxW": 0.1606,
    "bboxH": 0.0572,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 15.8803,
    "curvatureMedian": 0.023,
    "mirrorY": 0.025,
    "halfTurn": 0,
    "mirrorYX": 0.5497,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0189",
@@ -5152,13 +5152,13 @@
    "bboxW": 0.5107,
    "bboxH": 0.1397,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 50.8655,
    "curvatureMedian": 0.6535,
    "mirrorY": 0.0179,
    "halfTurn": 0,
    "mirrorYX": 0.5158,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0190",
@@ -5179,13 +5179,13 @@
    "bboxW": 2.4501,
    "bboxH": 2.3664,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 16.7918,
    "curvatureMedian": 0.4951,
    "mirrorY": 0.0442,
    "halfTurn": 0,
    "mirrorYX": 0.6387,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0191",
@@ -5206,13 +5206,13 @@
    "bboxW": 0.5095,
    "bboxH": 0.1397,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 40.791,
    "curvatureMedian": 0.441,
    "mirrorY": 0.0223,
    "halfTurn": 0,
    "mirrorYX": 0.2574,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0192",
@@ -5233,13 +5233,13 @@
    "bboxW": 15.8863,
    "bboxH": 4.1709,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 225.7388,
    "curvatureMedian": 7.969,
    "mirrorY": 0.0261,
    "halfTurn": 0,
    "mirrorYX": 0.5172,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0193",
@@ -5260,13 +5260,13 @@
    "bboxW": 2.2597,
    "bboxH": 1.5013,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 54.3462,
    "curvatureMedian": 5.2966,
    "mirrorY": 0.0405,
    "halfTurn": 0,
    "mirrorYX": 0.6016,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0194",
@@ -5287,13 +5287,13 @@
    "bboxW": 17.5683,
    "bboxH": 4.7707,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 260.223,
    "curvatureMedian": 18.5379,
    "mirrorY": 0.0327,
    "halfTurn": 0,
    "mirrorYX": 0.519,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0195",
@@ -5314,13 +5314,13 @@
    "bboxW": 10.3182,
    "bboxH": 3.1994,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 199.1333,
    "curvatureMedian": 11.0286,
    "mirrorY": 0.025,
    "halfTurn": 0,
    "mirrorYX": 0.5242,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0196",
@@ -5341,13 +5341,13 @@
    "bboxW": 6.5015,
    "bboxH": 2.7646,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 93.5099,
    "curvatureMedian": 3.8657,
    "mirrorY": 0.0285,
    "halfTurn": 0,
    "mirrorYX": 0.5453,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0197",
@@ -5368,13 +5368,13 @@
    "bboxW": 11.0259,
    "bboxH": 3.901,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 130.6606,
    "curvatureMedian": 6.6491,
    "mirrorY": 0.0334,
    "halfTurn": 0,
    "mirrorYX": 0.5323,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0198",
@@ -5395,13 +5395,13 @@
    "bboxW": 3.1971,
    "bboxH": 2.2219,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 37.2198,
    "curvatureMedian": 0.9147,
    "mirrorY": 0.0337,
    "halfTurn": 0,
    "mirrorYX": 0.6193,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0199",
@@ -5422,13 +5422,13 @@
    "bboxW": 1.4947,
    "bboxH": 1.5712,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 15.7156,
    "curvatureMedian": 0.3773,
    "mirrorY": 0.0412,
    "halfTurn": 0,
    "mirrorYX": 0.567,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0200",
@@ -5449,13 +5449,13 @@
    "bboxW": 0.5936,
    "bboxH": 0.2096,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 37.356,
    "curvatureMedian": 0.5765,
    "mirrorY": 0.0242,
    "halfTurn": 0,
    "mirrorYX": 0.5528,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0201",
@@ -5476,13 +5476,13 @@
    "bboxW": 0.0436,
    "bboxH": 0.0159,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 1.5618,
    "curvatureMedian": 0.4041,
    "mirrorY": 0.0292,
    "halfTurn": 0,
    "mirrorYX": 0.5491,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0202",
@@ -5503,13 +5503,13 @@
    "bboxW": 5.7057,
    "bboxH": 3.324,
    "area": 16.5475,
-   "maxCurvature": 0,
+   "maxCurvature": 1008.4022,
    "curvatureMedian": 0.9486,
    "mirrorY": 0,
    "halfTurn": 0.1251,
    "mirrorYX": 0.6899,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0203",
@@ -5530,13 +5530,13 @@
    "bboxW": 6.0155,
    "bboxH": 1.9519,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 510.1042,
    "curvatureMedian": 86.176,
    "mirrorY": 0.0245,
    "halfTurn": 0,
    "mirrorYX": 0.5258,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0204",
@@ -5557,13 +5557,13 @@
    "bboxW": 7.4586,
    "bboxH": 6.074,
    "area": 3.1718,
-   "maxCurvature": 0,
+   "maxCurvature": 976.574,
    "curvatureMedian": 2.2473,
    "mirrorY": 0,
    "halfTurn": 0.1271,
    "mirrorYX": 0.0567,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0205",
@@ -5584,13 +5584,13 @@
    "bboxW": 5.5931,
    "bboxH": 5.6754,
    "area": 3.6802,
-   "maxCurvature": 0,
+   "maxCurvature": 305.8349,
    "curvatureMedian": 1.4151,
    "mirrorY": 0,
    "halfTurn": 0.0785,
    "mirrorYX": 0.0864,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0206",
@@ -5611,13 +5611,13 @@
    "bboxW": 51.368,
    "bboxH": 15.4917,
    "area": 306.9422,
-   "maxCurvature": 0,
+   "maxCurvature": 6650.1422,
    "curvatureMedian": 57.9244,
    "mirrorY": 0,
    "halfTurn": 0.1919,
    "mirrorYX": 0.2824,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0207",
@@ -5638,13 +5638,13 @@
    "bboxW": 32.6074,
    "bboxH": 10.2494,
    "area": 118.24,
-   "maxCurvature": 0,
+   "maxCurvature": 14190.0942,
    "curvatureMedian": 4.8951,
    "mirrorY": 0,
    "halfTurn": 0.1752,
    "mirrorYX": 0.2366,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0208",
@@ -5665,13 +5665,13 @@
    "bboxW": 16.9206,
    "bboxH": 7.9026,
    "area": 39.3726,
-   "maxCurvature": 0,
+   "maxCurvature": 1398.3894,
    "curvatureMedian": 1.1853,
    "mirrorY": 0,
    "halfTurn": 0.1922,
    "mirrorYX": 0.0978,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0209",
@@ -5692,13 +5692,13 @@
    "bboxW": 28.6685,
    "bboxH": 9.5581,
    "area": 106.4141,
-   "maxCurvature": 0,
+   "maxCurvature": 795.1873,
    "curvatureMedian": 0.8498,
    "mirrorY": 0,
    "halfTurn": 0.1902,
    "mirrorYX": 0.2025,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0210",
@@ -5719,13 +5719,13 @@
    "bboxW": 11.6539,
    "bboxH": 6.9998,
    "area": 21.4968,
-   "maxCurvature": 0,
+   "maxCurvature": 315.2179,
    "curvatureMedian": 0.6976,
    "mirrorY": 0,
    "halfTurn": 0.186,
    "mirrorYX": 0.0719,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0211",
@@ -5746,13 +5746,13 @@
    "bboxW": 5.6564,
    "bboxH": 5.4906,
    "area": 4.9302,
-   "maxCurvature": 0,
+   "maxCurvature": 322.6926,
    "curvatureMedian": 0.1722,
    "mirrorY": 0,
    "halfTurn": 0.1195,
    "mirrorYX": 0.2311,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0212",
@@ -5773,13 +5773,13 @@
    "bboxW": 63.8383,
    "bboxH": 25.4227,
    "area": 585.8721,
-   "maxCurvature": 0,
+   "maxCurvature": 151.1885,
    "curvatureMedian": 42.368,
    "mirrorY": 0,
    "halfTurn": 0.2224,
    "mirrorYX": 0.1726,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0213",
@@ -5800,13 +5800,13 @@
    "bboxW": 0.1538,
    "bboxH": 0.5428,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 9.3387,
    "curvatureMedian": 7.139,
    "mirrorY": 0.0453,
    "halfTurn": 0,
    "mirrorYX": 0.5062,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0214",
@@ -5827,13 +5827,13 @@
    "bboxW": 0.3749,
    "bboxH": 0.7427,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 18.5115,
    "curvatureMedian": 10.7787,
    "mirrorY": 0.0334,
    "halfTurn": 0,
    "mirrorYX": 0.5639,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0215",
@@ -5854,13 +5854,13 @@
    "bboxW": 128.9881,
    "bboxH": 34.163,
    "area": 1680.0077,
-   "maxCurvature": 0,
+   "maxCurvature": 1222.0682,
    "curvatureMedian": 131.9531,
    "mirrorY": 0,
    "halfTurn": 0.1735,
    "mirrorYX": 0.3462,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0216",
@@ -5881,13 +5881,13 @@
    "bboxW": 102.0671,
    "bboxH": 31.6753,
    "area": 1234.9967,
-   "maxCurvature": 0,
+   "maxCurvature": 221.1613,
    "curvatureMedian": 33.1546,
    "mirrorY": 0,
    "halfTurn": 0.1928,
    "mirrorYX": 0.2896,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0217",
@@ -5908,13 +5908,13 @@
    "bboxW": 0.6091,
    "bboxH": 0.2396,
    "area": 0.0899,
-   "maxCurvature": 0,
+   "maxCurvature": 4.7294,
    "curvatureMedian": 1.4777,
    "mirrorY": 0,
    "halfTurn": 0.2972,
    "mirrorYX": 0.618,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0218",
@@ -5935,13 +5935,13 @@
    "bboxW": 1.9404,
    "bboxH": 0.9837,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 118.0587,
    "curvatureMedian": 28.2057,
    "mirrorY": 0.0244,
    "halfTurn": 0,
    "mirrorYX": 0.5608,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0219",
@@ -5962,13 +5962,13 @@
    "bboxW": 4.7813,
    "bboxH": 1.6851,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 247.8427,
    "curvatureMedian": 54.621,
    "mirrorY": 0.0224,
    "halfTurn": 0,
    "mirrorYX": 0.5303,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0220",
@@ -5989,13 +5989,13 @@
    "bboxW": 1.7627,
    "bboxH": 1.1711,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 52.9748,
    "curvatureMedian": 15.8419,
    "mirrorY": 0.0327,
    "halfTurn": 0,
    "mirrorYX": 0.6012,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0221",
@@ -6016,13 +6016,13 @@
    "bboxW": 67.4557,
    "bboxH": 17.1572,
    "area": 448.4594,
-   "maxCurvature": 0,
+   "maxCurvature": 8886.9639,
    "curvatureMedian": 4.0486,
    "mirrorY": 0,
    "halfTurn": 0.1725,
    "mirrorYX": 0.3446,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0222",
@@ -6043,13 +6043,13 @@
    "bboxW": 40.8238,
    "bboxH": 10.5649,
    "area": 142.8182,
-   "maxCurvature": 0,
+   "maxCurvature": 5192.2875,
    "curvatureMedian": 5.2548,
    "mirrorY": 0,
    "halfTurn": 0.1481,
    "mirrorYX": 0.3106,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0223",
@@ -6070,13 +6070,13 @@
    "bboxW": 27.0017,
    "bboxH": 9.221,
    "area": 80.8658,
-   "maxCurvature": 0,
+   "maxCurvature": 3980.0615,
    "curvatureMedian": 0.8857,
    "mirrorY": 0,
    "halfTurn": 0.1757,
    "mirrorYX": 0.1867,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0224",
@@ -6097,13 +6097,13 @@
    "bboxW": 20.8778,
    "bboxH": 8.2013,
    "area": 43.2883,
-   "maxCurvature": 0,
+   "maxCurvature": 2961.1771,
    "curvatureMedian": 1.2359,
    "mirrorY": 0,
    "halfTurn": 0.1669,
    "mirrorYX": 0.1314,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0225",
@@ -6124,13 +6124,13 @@
    "bboxW": 23.8799,
    "bboxH": 8.741,
    "area": 60.2595,
-   "maxCurvature": 0,
+   "maxCurvature": 7838.2337,
    "curvatureMedian": 2.1783,
    "mirrorY": 0,
    "halfTurn": 0.1719,
    "mirrorYX": 0.1535,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0226",
@@ -6151,13 +6151,13 @@
    "bboxW": 28.9016,
    "bboxH": 9.3451,
    "area": 80.939,
-   "maxCurvature": 0,
+   "maxCurvature": 7198.0816,
    "curvatureMedian": 1.8031,
    "mirrorY": 0,
    "halfTurn": 0.1633,
    "mirrorYX": 0.2149,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0227",
@@ -6178,13 +6178,13 @@
    "bboxW": 9.4567,
    "bboxH": 3.243,
    "area": 10.8303,
-   "maxCurvature": 0,
+   "maxCurvature": 279.6162,
    "curvatureMedian": 27.3794,
    "mirrorY": 0,
    "halfTurn": 0.2052,
    "mirrorYX": 0.2273,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0228",
@@ -6205,13 +6205,13 @@
    "bboxW": 19.5183,
    "bboxH": 8.2024,
    "area": 45.2129,
-   "maxCurvature": 0,
+   "maxCurvature": 2786.4355,
    "curvatureMedian": 0.7899,
    "mirrorY": 0,
    "halfTurn": 0.18,
    "mirrorYX": 0.1147,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0229",
@@ -6232,13 +6232,13 @@
    "bboxW": 34.652,
    "bboxH": 9.8631,
    "area": 107.2944,
-   "maxCurvature": 0,
+   "maxCurvature": 2864.0246,
    "curvatureMedian": 3.5807,
    "mirrorY": 0,
    "halfTurn": 0.1556,
    "mirrorYX": 0.2703,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0230",
@@ -6259,13 +6259,13 @@
    "bboxW": 26.4323,
    "bboxH": 8.6835,
    "area": 62.3841,
-   "maxCurvature": 0,
+   "maxCurvature": 3973.9163,
    "curvatureMedian": 5.5184,
    "mirrorY": 0,
    "halfTurn": 0.1549,
    "mirrorYX": 0.2033,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0231",
@@ -6286,13 +6286,13 @@
    "bboxW": 24.4671,
    "bboxH": 8.2207,
    "area": 53.9097,
-   "maxCurvature": 0,
+   "maxCurvature": 9834.7253,
    "curvatureMedian": 8.3204,
    "mirrorY": 0,
    "halfTurn": 0.152,
    "mirrorYX": 0.1883,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0232",
@@ -6313,13 +6313,13 @@
    "bboxW": 19.4134,
    "bboxH": 7.7111,
    "area": 34.9651,
-   "maxCurvature": 0,
+   "maxCurvature": 1431.0837,
    "curvatureMedian": 5.6686,
    "mirrorY": 0,
    "halfTurn": 0.164,
    "mirrorYX": 0.1325,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0233",
@@ -6340,13 +6340,13 @@
    "bboxW": 9.1263,
    "bboxH": 6.376,
    "area": 2.4905,
-   "maxCurvature": 0,
+   "maxCurvature": 2892.8635,
    "curvatureMedian": 0.2109,
    "mirrorY": 0,
    "halfTurn": 0.1529,
    "mirrorYX": 0.0804,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0234",
@@ -6367,13 +6367,13 @@
    "bboxW": 11.089,
    "bboxH": 6.8071,
    "area": 10.3547,
-   "maxCurvature": 0,
+   "maxCurvature": 4831.5152,
    "curvatureMedian": 0.3711,
    "mirrorY": 0,
    "halfTurn": 0.1546,
    "mirrorYX": 0.0756,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0235",
@@ -6394,13 +6394,13 @@
    "bboxW": 11.7155,
    "bboxH": 6.7682,
    "area": 8.8804,
-   "maxCurvature": 0,
+   "maxCurvature": 772.388,
    "curvatureMedian": 0.9599,
    "mirrorY": 0,
    "halfTurn": 0.1475,
    "mirrorYX": 0.085,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0236",
@@ -6421,13 +6421,13 @@
    "bboxW": 10.958,
    "bboxH": 6.3696,
    "area": 5.3451,
-   "maxCurvature": 0,
+   "maxCurvature": 5881.084,
    "curvatureMedian": 1.3179,
    "mirrorY": 0,
    "halfTurn": 0.1466,
    "mirrorYX": 0.0885,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0237",
@@ -6448,13 +6448,13 @@
    "bboxW": 10.3879,
    "bboxH": 6.407,
    "area": 4.8094,
-   "maxCurvature": 0,
+   "maxCurvature": 571.4353,
    "curvatureMedian": 1.5026,
    "mirrorY": 0,
    "halfTurn": 0.1461,
    "mirrorYX": 0.088,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0238",
@@ -6475,13 +6475,13 @@
    "bboxW": 49.396,
    "bboxH": 15.1872,
    "area": 288.9257,
-   "maxCurvature": 0,
+   "maxCurvature": 19027.0362,
    "curvatureMedian": 2.0215,
    "mirrorY": 0,
    "halfTurn": 0.1948,
    "mirrorYX": 0.2702,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0239",
@@ -6502,13 +6502,13 @@
    "bboxW": 55.3049,
    "bboxH": 15.2422,
    "area": 301.5623,
-   "maxCurvature": 0,
+   "maxCurvature": 2300.5129,
    "curvatureMedian": 18.3395,
    "mirrorY": 0,
    "halfTurn": 0.1731,
    "mirrorYX": 0.3164,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0240",
@@ -6529,13 +6529,13 @@
    "bboxW": 11.9868,
    "bboxH": 4.6926,
    "area": 16.9664,
-   "maxCurvature": 0,
+   "maxCurvature": 47.0503,
    "curvatureMedian": 5.4745,
    "mirrorY": 0,
    "halfTurn": 0.1989,
    "mirrorYX": 0.1674,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0241",
@@ -6556,13 +6556,13 @@
    "bboxW": 108.2511,
    "bboxH": 29.105,
    "area": 1116.5084,
-   "maxCurvature": 0,
+   "maxCurvature": 133.2163,
    "curvatureMedian": 21.4518,
    "mirrorY": 0,
    "halfTurn": 0.1707,
    "mirrorYX": 0.3356,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0242",
@@ -6583,13 +6583,13 @@
    "bboxW": 95.5123,
    "bboxH": 27.8305,
    "area": 932.0438,
-   "maxCurvature": 0,
+   "maxCurvature": 109.9911,
    "curvatureMedian": 12.8153,
    "mirrorY": 0,
    "halfTurn": 0.1797,
    "mirrorYX": 0.3063,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0243",
@@ -6610,13 +6610,13 @@
    "bboxW": 72.6808,
    "bboxH": 25.3144,
    "area": 630.9729,
-   "maxCurvature": 0,
+   "maxCurvature": 79.2787,
    "curvatureMedian": 12.1699,
    "mirrorY": 0,
    "halfTurn": 0.2006,
    "mirrorYX": 0.2324,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0244",
@@ -6637,13 +6637,13 @@
    "bboxW": 65.7296,
    "bboxH": 17.1095,
    "area": 396.3846,
-   "maxCurvature": 0,
+   "maxCurvature": 6974.0583,
    "curvatureMedian": 93.0533,
    "mirrorY": 0,
    "halfTurn": 0.1706,
    "mirrorYX": 0.3434,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0245",
@@ -6664,13 +6664,13 @@
    "bboxW": 12.0345,
    "bboxH": 3.7061,
    "area": 16.4943,
-   "maxCurvature": 0,
+   "maxCurvature": 795.7694,
    "curvatureMedian": 7.3618,
    "mirrorY": 0,
    "halfTurn": 0.1951,
    "mirrorYX": 0.2785,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0246",
@@ -6691,13 +6691,13 @@
    "bboxW": 11.0444,
    "bboxH": 3.4868,
    "area": 13.8744,
-   "maxCurvature": 0,
+   "maxCurvature": 379.4339,
    "curvatureMedian": 34.2635,
    "mirrorY": 0,
    "halfTurn": 0.1978,
    "mirrorYX": 0.266,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0247",
@@ -6718,13 +6718,13 @@
    "bboxW": 69.4029,
    "bboxH": 24.9625,
    "area": 592.2884,
-   "maxCurvature": 0,
+   "maxCurvature": 75.6054,
    "curvatureMedian": 14.0583,
    "mirrorY": 0,
    "halfTurn": 0.2042,
    "mirrorYX": 0.2179,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0248",
@@ -6745,13 +6745,13 @@
    "bboxW": 113.0204,
    "bboxH": 28.587,
    "area": 1137.5828,
-   "maxCurvature": 0,
+   "maxCurvature": 150.5321,
    "curvatureMedian": 50.7121,
    "mirrorY": 0,
    "halfTurn": 0.1645,
    "mirrorYX": 0.3542,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0249",
@@ -6772,13 +6772,13 @@
    "bboxW": 0.9815,
    "bboxH": 0.8569,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 34.1113,
    "curvatureMedian": 8.2314,
    "mirrorY": 0.0312,
    "halfTurn": 0,
    "mirrorYX": 0.6654,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0250",
@@ -6799,13 +6799,13 @@
    "bboxW": 0.5669,
    "bboxH": 0.7458,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 20.1549,
    "curvatureMedian": 6.544,
    "mirrorY": 0.0304,
    "halfTurn": 0,
    "mirrorYX": 0.6316,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0251",
@@ -6826,13 +6826,13 @@
    "bboxW": 0.2085,
    "bboxH": 0.603,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 12.8408,
    "curvatureMedian": 5.8434,
    "mirrorY": 0.0304,
    "halfTurn": 0,
    "mirrorYX": 0.5356,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0252",
@@ -6853,13 +6853,13 @@
    "bboxW": 0.6559,
    "bboxH": 0.8284,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 19.4803,
    "curvatureMedian": 8.8234,
    "mirrorY": 0.0358,
    "halfTurn": 0,
    "mirrorYX": 0.641,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0253",
@@ -6886,7 +6886,7 @@
    "halfTurn": 0.0001,
    "mirrorYX": 0.5,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0254",
@@ -6913,7 +6913,7 @@
    "halfTurn": 0.0001,
    "mirrorYX": 0.5,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0255",
@@ -6940,7 +6940,7 @@
    "halfTurn": 0.0001,
    "mirrorYX": 0.5,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0256",
@@ -6961,13 +6961,13 @@
    "bboxW": 224.5075,
    "bboxH": 4.8626,
    "area": 404.0372,
-   "maxCurvature": 0,
+   "maxCurvature": 62123.86,
    "curvatureMedian": 1322.1373,
    "mirrorY": 0,
    "halfTurn": 0.0176,
    "mirrorYX": 0.5004,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0257",
@@ -6988,13 +6988,13 @@
    "bboxW": 419.2208,
    "bboxH": 6.6407,
    "area": 947.934,
-   "maxCurvature": 0,
+   "maxCurvature": 91527.8224,
    "curvatureMedian": 1720.6315,
    "mirrorY": 0,
    "halfTurn": 0.0133,
    "mirrorYX": 0.5002,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0258",
@@ -7015,13 +7015,13 @@
    "bboxW": 889.4529,
    "bboxH": 12.6606,
    "area": 3298.8416,
-   "maxCurvature": 0,
+   "maxCurvature": 272455.2392,
    "curvatureMedian": 67.5596,
    "mirrorY": 0,
    "halfTurn": 0.009,
    "mirrorYX": 0.5001,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0259",
@@ -7042,13 +7042,13 @@
    "bboxW": 65.9296,
    "bboxH": 2.6442,
    "area": 63.1809,
-   "maxCurvature": 0,
+   "maxCurvature": 16069.1197,
    "curvatureMedian": 293.6734,
    "mirrorY": 0,
    "halfTurn": 0.0294,
    "mirrorYX": 0.5013,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0260",
@@ -7069,13 +7069,13 @@
    "bboxW": 2243.5539,
    "bboxH": 13.3449,
    "area": 10667.8817,
-   "maxCurvature": 0,
+   "maxCurvature": 665449.4236,
    "curvatureMedian": 12237.3817,
    "mirrorY": 0,
    "halfTurn": 0.0054,
    "mirrorYX": 0.5,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0261",
@@ -7096,13 +7096,13 @@
    "bboxW": 1.6098,
    "bboxH": 0.7331,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 61.0696,
    "curvatureMedian": 8.1727,
    "mirrorY": 0.1143,
    "halfTurn": 0,
    "mirrorYX": 0.5524,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0262",
@@ -7123,13 +7123,13 @@
    "bboxW": 760.0278,
    "bboxH": 22.7273,
    "area": 8215.5861,
-   "maxCurvature": 0,
+   "maxCurvature": 222893.6097,
    "curvatureMedian": 1.6643,
    "mirrorY": 0,
    "halfTurn": 0.0171,
    "mirrorYX": 0.4995,
    "computedAt": "2026-11-19T06:18:38.211Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0263",
@@ -7150,13 +7150,13 @@
    "bboxW": 2079.6962,
    "bboxH": 93098.6303,
    "area": 96374257.3419,
-   "maxCurvature": 0,
+   "maxCurvature": 1658.0712,
    "curvatureMedian": 0.4089,
    "mirrorY": 0.0097,
    "halfTurn": 0.0151,
    "mirrorYX": 0.8234,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0264",
@@ -7177,13 +7177,13 @@
    "bboxW": 8813.1654,
    "bboxH": 15697.0866,
    "area": 10926890.9481,
-   "maxCurvature": 0,
+   "maxCurvature": 84.7251,
    "curvatureMedian": 1.6578,
    "mirrorY": 0.2974,
    "halfTurn": 0.0491,
    "mirrorYX": 0.8662,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0265",
@@ -7204,13 +7204,13 @@
    "bboxW": 99494.9943,
    "bboxH": 59414.5663,
    "area": 282910753.8005,
-   "maxCurvature": 0,
+   "maxCurvature": 30540.0283,
    "curvatureMedian": 1.7988,
    "mirrorY": 0.4351,
    "halfTurn": 0.0229,
    "mirrorYX": 0.5034,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0266",
@@ -7231,13 +7231,13 @@
    "bboxW": 15266.8923,
    "bboxH": 12418.9943,
    "area": 18112160.2247,
-   "maxCurvature": 0,
+   "maxCurvature": 82.0776,
    "curvatureMedian": 0.8297,
    "mirrorY": 0.5117,
    "halfTurn": 0.0786,
    "mirrorYX": 0.9663,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0267",
@@ -7258,13 +7258,13 @@
    "bboxW": 43675.5178,
    "bboxH": 47802.4962,
    "area": 276476899.4262,
-   "maxCurvature": 0,
+   "maxCurvature": 10962.9685,
    "curvatureMedian": 5.0484,
    "mirrorY": 0.6307,
    "halfTurn": 0.0807,
    "mirrorYX": 0.0914,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0268",
@@ -7285,13 +7285,13 @@
    "bboxW": 5449.214,
    "bboxH": 3640.5826,
    "area": 4074656.2576,
-   "maxCurvature": 0,
+   "maxCurvature": 478924.3796,
    "curvatureMedian": 2.9321,
    "mirrorY": 0.2711,
    "halfTurn": 0.1669,
    "mirrorYX": 0.1195,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0269",
@@ -7312,13 +7312,13 @@
    "bboxW": 3.933,
    "bboxH": 3.4517,
    "area": 10.566,
-   "maxCurvature": 0,
+   "maxCurvature": 12.254,
    "curvatureMedian": 3.7008,
    "mirrorY": 0.0692,
    "halfTurn": 0.0568,
    "mirrorYX": 0.0392,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0270",
@@ -7339,13 +7339,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 2.3541,
-   "maxCurvature": 0,
+   "maxCurvature": 1519.6774,
    "curvatureMedian": 1.7767,
    "mirrorY": 0.0001,
    "halfTurn": 0,
    "mirrorYX": 0.032,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0271",
@@ -7366,13 +7366,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 1.1811,
-   "maxCurvature": 0,
+   "maxCurvature": 524.8619,
    "curvatureMedian": 1.7841,
    "mirrorY": 0.0001,
    "halfTurn": 0,
    "mirrorYX": 0.0001,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0272",
@@ -7393,13 +7393,13 @@
    "bboxW": 2.3775,
    "bboxH": 0.6093,
    "area": 0.4997,
-   "maxCurvature": 0,
+   "maxCurvature": 180.5306,
    "curvatureMedian": 30.3862,
    "mirrorY": 0,
    "halfTurn": 0.1301,
    "mirrorYX": 0.3584,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0273",
@@ -7420,13 +7420,13 @@
    "bboxW": 2.5275,
    "bboxH": 2.5275,
    "area": 2.4258,
-   "maxCurvature": 0,
+   "maxCurvature": 1905.5543,
    "curvatureMedian": 4.1891,
    "mirrorY": 0.0941,
    "halfTurn": 0.0665,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0274",
@@ -7447,13 +7447,13 @@
    "bboxW": 2.2775,
    "bboxH": 2.2775,
    "area": 2.0255,
-   "maxCurvature": 0,
+   "maxCurvature": 94.9892,
    "curvatureMedian": 2.0553,
    "mirrorY": 0.0903,
    "halfTurn": 0.1469,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0275",
@@ -7474,13 +7474,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 0.8117,
-   "maxCurvature": 0,
+   "maxCurvature": 94.4117,
    "curvatureMedian": 1.7301,
    "mirrorY": 0.0353,
    "halfTurn": 0.0379,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0276",
@@ -7501,13 +7501,13 @@
    "bboxW": 2.1002,
    "bboxH": 2.1002,
    "area": 1.4781,
-   "maxCurvature": 0,
+   "maxCurvature": 60.8956,
    "curvatureMedian": 1.8222,
    "mirrorY": 0.0685,
    "halfTurn": 0.0967,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0277",
@@ -7528,13 +7528,13 @@
    "bboxW": 3.1909,
    "bboxH": 3.1909,
    "area": 3.9314,
-   "maxCurvature": 0,
+   "maxCurvature": 197.379,
    "curvatureMedian": 3.2759,
    "mirrorY": 0.1416,
    "halfTurn": 0.0708,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0278",
@@ -7555,13 +7555,13 @@
    "bboxW": 2.7123,
    "bboxH": 2.7123,
    "area": 2.5616,
-   "maxCurvature": 0,
+   "maxCurvature": 297.5244,
    "curvatureMedian": 2.0268,
    "mirrorY": 0.0686,
    "halfTurn": 0.0848,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0279",
@@ -7582,13 +7582,13 @@
    "bboxW": 2.7035,
    "bboxH": 2.7035,
    "area": 1.984,
-   "maxCurvature": 0,
+   "maxCurvature": 162.984,
    "curvatureMedian": 1.2048,
    "mirrorY": 0.111,
    "halfTurn": 0.0583,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0280",
@@ -7609,13 +7609,13 @@
    "bboxW": 2.3014,
    "bboxH": 2.3014,
    "area": 1.1885,
-   "maxCurvature": 0,
+   "maxCurvature": 38.7107,
    "curvatureMedian": 0.9717,
    "mirrorY": 0.0833,
    "halfTurn": 0.1419,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0281",
@@ -7636,13 +7636,13 @@
    "bboxW": 2.5053,
    "bboxH": 2.5053,
    "area": 1.2997,
-   "maxCurvature": 0,
+   "maxCurvature": 227.821,
    "curvatureMedian": 0.8394,
    "mirrorY": 0.0885,
    "halfTurn": 0.0514,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0282",
@@ -7663,13 +7663,13 @@
    "bboxW": 2.2445,
    "bboxH": 2.2445,
    "area": 0.7829,
-   "maxCurvature": 0,
+   "maxCurvature": 407.2477,
    "curvatureMedian": 0.6932,
    "mirrorY": 0.0681,
    "halfTurn": 0.1169,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0283",
@@ -7690,13 +7690,13 @@
    "bboxW": 2.7142,
    "bboxH": 2.7142,
    "area": 2.5674,
-   "maxCurvature": 0,
+   "maxCurvature": 454.4899,
    "curvatureMedian": 1.7224,
    "mirrorY": 0.0794,
    "halfTurn": 0.0969,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0284",
@@ -7717,13 +7717,13 @@
    "bboxW": 3.1897,
    "bboxH": 3.1897,
    "area": 3.9381,
-   "maxCurvature": 0,
+   "maxCurvature": 534.1062,
    "curvatureMedian": 3.188,
    "mirrorY": 0.118,
    "halfTurn": 0.0828,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0285",
@@ -7744,13 +7744,13 @@
    "bboxW": 2.2994,
    "bboxH": 2.2994,
    "area": 1.1942,
-   "maxCurvature": 0,
+   "maxCurvature": 40.3109,
    "curvatureMedian": 1.3625,
    "mirrorY": 0.0864,
    "halfTurn": 0.1413,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0286",
@@ -7771,13 +7771,13 @@
    "bboxW": 2.7026,
    "bboxH": 2.7026,
    "area": 1.9895,
-   "maxCurvature": 0,
+   "maxCurvature": 57.0447,
    "curvatureMedian": 1.748,
    "mirrorY": 0.0913,
    "halfTurn": 0.0648,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0287",
@@ -7798,13 +7798,13 @@
    "bboxW": 2.2485,
    "bboxH": 2.2485,
    "area": 0.7885,
-   "maxCurvature": 0,
+   "maxCurvature": 356.3805,
    "curvatureMedian": 1.0213,
    "mirrorY": 0.0679,
    "halfTurn": 0.1124,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0288",
@@ -7825,13 +7825,13 @@
    "bboxW": 2.5041,
    "bboxH": 2.5041,
    "area": 1.3048,
-   "maxCurvature": 0,
+   "maxCurvature": 193.0453,
    "curvatureMedian": 1.2371,
    "mirrorY": 0.0724,
    "halfTurn": 0.053,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0289",
@@ -7852,13 +7852,13 @@
    "bboxW": 3.0315,
    "bboxH": 3.0315,
    "area": 6.21,
-   "maxCurvature": 0,
+   "maxCurvature": 39.3434,
    "curvatureMedian": 1.7182,
    "mirrorY": 0.1202,
    "halfTurn": 0.1555,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0290",
@@ -7879,13 +7879,13 @@
    "bboxW": 3.6868,
    "bboxH": 3.6868,
    "area": 4.4374,
-   "maxCurvature": 0,
+   "maxCurvature": 2930.1872,
    "curvatureMedian": 2.6707,
    "mirrorY": 0.0679,
    "halfTurn": 0.0845,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0291",
@@ -7906,13 +7906,13 @@
    "bboxW": 3.2725,
    "bboxH": 3.2725,
    "area": 3.3631,
-   "maxCurvature": 0,
+   "maxCurvature": 285.8512,
    "curvatureMedian": 1.7089,
    "mirrorY": 0.1301,
    "halfTurn": 0.0969,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0292",
@@ -7933,13 +7933,13 @@
    "bboxW": 2.6329,
    "bboxH": 2.6329,
    "area": 1.9165,
-   "maxCurvature": 0,
+   "maxCurvature": 300.6891,
    "curvatureMedian": 1.1341,
    "mirrorY": 0.1112,
    "halfTurn": 0.2259,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0293",
@@ -7960,13 +7960,13 @@
    "bboxW": 2.9428,
    "bboxH": 2.9428,
    "area": 2.112,
-   "maxCurvature": 0,
+   "maxCurvature": 233.718,
    "curvatureMedian": 0.7089,
    "mirrorY": 0.1257,
    "halfTurn": 0.1004,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0294",
@@ -7987,13 +7987,13 @@
    "bboxW": 2.5044,
    "bboxH": 2.5044,
    "area": 1.1868,
-   "maxCurvature": 0,
+   "maxCurvature": 293.5868,
    "curvatureMedian": 0.4506,
    "mirrorY": 0.1018,
    "halfTurn": 0.2143,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0295",
@@ -8014,13 +8014,13 @@
    "bboxW": 2.3127,
    "bboxH": 2.3127,
    "area": 1.4546,
-   "maxCurvature": 0,
+   "maxCurvature": 783.0853,
    "curvatureMedian": 1.4304,
    "mirrorY": 0.0763,
    "halfTurn": 0.0659,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0296",
@@ -8041,13 +8041,13 @@
    "bboxW": 2.1935,
    "bboxH": 2.1935,
    "area": 1.1522,
-   "maxCurvature": 0,
+   "maxCurvature": 101.3118,
    "curvatureMedian": 1.0709,
    "mirrorY": 0.0642,
    "halfTurn": 0.098,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0297",
@@ -8068,13 +8068,13 @@
    "bboxW": 3.6923,
    "bboxH": 3.6923,
    "area": 4.4472,
-   "maxCurvature": 0,
+   "maxCurvature": 1927.3332,
    "curvatureMedian": 2.5981,
    "mirrorY": 0.0732,
    "halfTurn": 0.0942,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0298",
@@ -8095,13 +8095,13 @@
    "bboxW": 1.7244,
    "bboxH": 1.7244,
    "area": 1.8016,
-   "maxCurvature": 0,
+   "maxCurvature": 30.5128,
    "curvatureMedian": 2.1818,
    "mirrorY": 0.0877,
    "halfTurn": 0.1096,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0299",
@@ -8122,13 +8122,13 @@
    "bboxW": 2.64,
    "bboxH": 2.64,
    "area": 1.9265,
-   "maxCurvature": 0,
+   "maxCurvature": 242.7818,
    "curvatureMedian": 1.2505,
    "mirrorY": 0.115,
    "halfTurn": 0.219,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0300",
@@ -8149,13 +8149,13 @@
    "bboxW": 3.2692,
    "bboxH": 3.2692,
    "area": 3.3762,
-   "maxCurvature": 0,
+   "maxCurvature": 488.986,
    "curvatureMedian": 2.1641,
    "mirrorY": 0.1015,
    "halfTurn": 0.0881,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0301",
@@ -8176,13 +8176,13 @@
    "bboxW": 2.5016,
    "bboxH": 2.5016,
    "area": 1.1968,
-   "maxCurvature": 0,
+   "maxCurvature": 220.7066,
    "curvatureMedian": 0.8828,
    "mirrorY": 0.0982,
    "halfTurn": 0.2001,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0302",
@@ -8203,13 +8203,13 @@
    "bboxW": 2.9484,
    "bboxH": 2.9484,
    "area": 2.1235,
-   "maxCurvature": 0,
+   "maxCurvature": 723.7436,
    "curvatureMedian": 1.1894,
    "mirrorY": 0.0983,
    "halfTurn": 0.0934,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0303",
@@ -8230,13 +8230,13 @@
    "bboxW": 3.4912,
    "bboxH": 3.4912,
    "area": 8.2962,
-   "maxCurvature": 0,
+   "maxCurvature": 652.8754,
    "curvatureMedian": 1.5954,
    "mirrorY": 0.1178,
    "halfTurn": 0.1502,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0304",
@@ -8257,13 +8257,13 @@
    "bboxW": 1.8063,
    "bboxH": 1.8063,
    "area": 0.77,
-   "maxCurvature": 0,
+   "maxCurvature": 23.0322,
    "curvatureMedian": 1.4428,
    "mirrorY": 0.2618,
    "halfTurn": 0.2653,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0305",
@@ -8284,13 +8284,13 @@
    "bboxW": 1.1167,
    "bboxH": 1.1167,
    "area": 0.1597,
-   "maxCurvature": 0,
+   "maxCurvature": 106.6689,
    "curvatureMedian": 0.366,
    "mirrorY": 0.3097,
    "halfTurn": 0.2329,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0306",
@@ -8311,13 +8311,13 @@
    "bboxW": 1.3087,
    "bboxH": 1.3087,
    "area": 1.3442,
-   "maxCurvature": 0,
+   "maxCurvature": 159.3453,
    "curvatureMedian": 0.4568,
    "mirrorY": 0.0606,
    "halfTurn": 0.0901,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0307",
@@ -8338,13 +8338,13 @@
    "bboxW": 1.0769,
    "bboxH": 1.0769,
    "area": 0.0903,
-   "maxCurvature": 0,
+   "maxCurvature": 99.6327,
    "curvatureMedian": 0.1816,
    "mirrorY": 0.3078,
    "halfTurn": 0.2863,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0308",
@@ -8365,13 +8365,13 @@
    "bboxW": 1.0178,
    "bboxH": 1.0178,
    "area": 0.6141,
-   "maxCurvature": 0,
+   "maxCurvature": 95.3665,
    "curvatureMedian": 0.1197,
    "mirrorY": 0.0841,
    "halfTurn": 0.1129,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0309",
@@ -8392,13 +8392,13 @@
    "bboxW": 1.2102,
    "bboxH": 1.2102,
    "area": 0.355,
-   "maxCurvature": 0,
+   "maxCurvature": 178.9731,
    "curvatureMedian": 1.6287,
    "mirrorY": 0.2926,
    "halfTurn": 0.1723,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0310",
@@ -8419,13 +8419,13 @@
    "bboxW": 3.4966,
    "bboxH": 3.4966,
    "area": 8.3201,
-   "maxCurvature": 0,
+   "maxCurvature": 31.3012,
    "curvatureMedian": 1.4585,
    "mirrorY": 0.1046,
    "halfTurn": 0.1334,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0311",
@@ -8446,13 +8446,13 @@
    "bboxW": 1.1162,
    "bboxH": 1.1162,
    "area": 0.1598,
-   "maxCurvature": 0,
+   "maxCurvature": 3.1271,
    "curvatureMedian": 0.7024,
    "mirrorY": 0.2777,
    "halfTurn": 0.287,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0312",
@@ -8473,13 +8473,13 @@
    "bboxW": 2.6545,
    "bboxH": 2.6545,
    "area": 4.1837,
-   "maxCurvature": 0,
+   "maxCurvature": 21.391,
    "curvatureMedian": 1.0466,
    "mirrorY": 0.1308,
    "halfTurn": 0.1619,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0313",
@@ -8500,13 +8500,13 @@
    "bboxW": 1.0178,
    "bboxH": 1.0178,
    "area": 0.6145,
-   "maxCurvature": 0,
+   "maxCurvature": 58.4939,
    "curvatureMedian": 0.2152,
    "mirrorY": 0.0867,
    "halfTurn": 0.1219,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0314",
@@ -8527,13 +8527,13 @@
    "bboxW": 1.0772,
    "bboxH": 1.0772,
    "area": 0.0905,
-   "maxCurvature": 0,
+   "maxCurvature": 4.6106,
    "curvatureMedian": 0.2104,
    "mirrorY": 0.2732,
    "halfTurn": 0.3496,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0315",
@@ -8554,13 +8554,13 @@
    "bboxW": 2.2204,
    "bboxH": 2.2204,
    "area": 1.0388,
-   "maxCurvature": 0,
+   "maxCurvature": 117.8385,
    "curvatureMedian": 0.6184,
    "mirrorY": 0.0598,
    "halfTurn": 0.0561,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0316",
@@ -8581,13 +8581,13 @@
    "bboxW": 2.147,
    "bboxH": 2.147,
    "area": 0.8126,
-   "maxCurvature": 0,
+   "maxCurvature": 409.3892,
    "curvatureMedian": 0.5396,
    "mirrorY": 0.0514,
    "halfTurn": 0.074,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0317",
@@ -8608,13 +8608,13 @@
    "bboxW": 2.279,
    "bboxH": 2.279,
    "area": 2.0291,
-   "maxCurvature": 0,
+   "maxCurvature": 607.5834,
    "curvatureMedian": 1.8157,
    "mirrorY": 0.0967,
    "halfTurn": 0.1464,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0318",
@@ -8635,13 +8635,13 @@
    "bboxW": 2.5265,
    "bboxH": 2.5265,
    "area": 2.4282,
-   "maxCurvature": 0,
+   "maxCurvature": 673.561,
    "curvatureMedian": 4.067,
    "mirrorY": 0.0936,
    "halfTurn": 0.0698,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0319",
@@ -8662,13 +8662,13 @@
    "bboxW": 2.1933,
    "bboxH": 2.1933,
    "area": 1.156,
-   "maxCurvature": 0,
+   "maxCurvature": 155.5977,
    "curvatureMedian": 1.5263,
    "mirrorY": 0.0676,
    "halfTurn": 0.1008,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0320",
@@ -8689,13 +8689,13 @@
    "bboxW": 2.3142,
    "bboxH": 2.3142,
    "area": 1.4571,
-   "maxCurvature": 0,
+   "maxCurvature": 55.3633,
    "curvatureMedian": 1.9526,
    "mirrorY": 0.0739,
    "halfTurn": 0.0692,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0321",
@@ -8716,13 +8716,13 @@
    "bboxW": 2.1505,
    "bboxH": 2.1505,
    "area": 0.8166,
-   "maxCurvature": 0,
+   "maxCurvature": 207.9697,
    "curvatureMedian": 1.2947,
    "mirrorY": 0.0527,
    "halfTurn": 0.073,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0322",
@@ -8743,13 +8743,13 @@
    "bboxW": 2.2227,
    "bboxH": 2.2227,
    "area": 1.0415,
-   "maxCurvature": 0,
+   "maxCurvature": 181.3919,
    "curvatureMedian": 1.2495,
    "mirrorY": 0.0575,
    "halfTurn": 0.0612,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0323",
@@ -8770,13 +8770,13 @@
    "bboxW": 2.4533,
    "bboxH": 2.4533,
    "area": 2.6135,
-   "maxCurvature": 0,
+   "maxCurvature": 71.0802,
    "curvatureMedian": 2.8443,
    "mirrorY": 0.1053,
    "halfTurn": 0.0812,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0324",
@@ -8797,13 +8797,13 @@
    "bboxW": 2.0036,
    "bboxH": 2.0036,
    "area": 1.6074,
-   "maxCurvature": 0,
+   "maxCurvature": 72.4252,
    "curvatureMedian": 5.0321,
    "mirrorY": 0.0588,
    "halfTurn": 0.0576,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0325",
@@ -8824,13 +8824,13 @@
    "bboxW": 2.0983,
    "bboxH": 2.0983,
    "area": 1.4761,
-   "maxCurvature": 0,
+   "maxCurvature": 99.6979,
    "curvatureMedian": 1.0048,
    "mirrorY": 0.0649,
    "halfTurn": 0.0898,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0326",
@@ -8851,13 +8851,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 0.8089,
-   "maxCurvature": 0,
+   "maxCurvature": 47.213,
    "curvatureMedian": 1.3522,
    "mirrorY": 0.0294,
    "halfTurn": 0.0346,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0327",
@@ -8878,13 +8878,13 @@
    "bboxW": 2.0029,
    "bboxH": 2.0029,
    "area": 1.6105,
-   "maxCurvature": 0,
+   "maxCurvature": 84.0663,
    "curvatureMedian": 4.3088,
    "mirrorY": 0.069,
    "halfTurn": 0.0673,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0328",
@@ -8905,13 +8905,13 @@
    "bboxW": 2.453,
    "bboxH": 2.453,
    "area": 2.6159,
-   "maxCurvature": 0,
+   "maxCurvature": 82.0779,
    "curvatureMedian": 3.0277,
    "mirrorY": 0.0989,
    "halfTurn": 0.087,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0329",
@@ -8932,13 +8932,13 @@
    "bboxW": 1.9996,
    "bboxH": 1.9984,
    "area": 3.1191,
-   "maxCurvature": 0,
+   "maxCurvature": 2.0003,
    "curvatureMedian": 1.9995,
    "mirrorY": 0,
    "halfTurn": 0,
    "mirrorYX": 0.008,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0330",
@@ -8959,13 +8959,13 @@
    "bboxW": 1.9996,
    "bboxH": 0.998,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 3.9367,
    "curvatureMedian": 0.6683,
    "mirrorY": 0,
    "halfTurn": 0.2009,
    "mirrorYX": 0.2382,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0331",
@@ -8986,13 +8986,13 @@
    "bboxW": 1.9971,
    "bboxH": 0.998,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 3.8308,
    "curvatureMedian": 0.8691,
    "mirrorY": 0,
    "halfTurn": 0.2291,
    "mirrorYX": 0.1465,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0332",
@@ -9013,13 +9013,13 @@
    "bboxW": 1.9971,
    "bboxH": 1.9952,
    "area": 0.5192,
-   "maxCurvature": 0,
+   "maxCurvature": 336.2285,
    "curvatureMedian": 1.2654,
    "mirrorY": 0,
    "halfTurn": 0,
    "mirrorYX": 0.0139,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0333",
@@ -9040,13 +9040,13 @@
    "bboxW": 3.918,
    "bboxH": 3.9142,
    "area": 6.6118,
-   "maxCurvature": 0,
+   "maxCurvature": 123.9997,
    "curvatureMedian": 3.098,
    "mirrorY": 0.0773,
    "halfTurn": 0.0793,
    "mirrorYX": 0.0105,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0334",
@@ -9067,13 +9067,13 @@
    "bboxW": 8.5194,
    "bboxH": 8.5147,
    "area": 41.4439,
-   "maxCurvature": 0,
+   "maxCurvature": 327.6473,
    "curvatureMedian": 4.0945,
    "mirrorY": 0.1556,
    "halfTurn": 0.0486,
    "mirrorYX": 0.0133,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0335",
@@ -9094,13 +9094,13 @@
    "bboxW": 8.8055,
    "bboxH": 8.8,
    "area": 42.9995,
-   "maxCurvature": 0,
+   "maxCurvature": 158.9697,
    "curvatureMedian": 4.2331,
    "mirrorY": 0.1767,
    "halfTurn": 0.0968,
    "mirrorYX": 0.0128,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0336",
@@ -9121,13 +9121,13 @@
    "bboxW": 6.3836,
    "bboxH": 6.3799,
    "area": 21.9308,
-   "maxCurvature": 0,
+   "maxCurvature": 347.8899,
    "curvatureMedian": 4.0214,
    "mirrorY": 0.147,
    "halfTurn": 0.0451,
    "mirrorYX": 0.0122,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0337",
@@ -9148,13 +9148,13 @@
    "bboxW": 4.3763,
    "bboxH": 4.3724,
    "area": 10.3715,
-   "maxCurvature": 0,
+   "maxCurvature": 227.3516,
    "curvatureMedian": 3.3004,
    "mirrorY": 0.1239,
    "halfTurn": 0.0721,
    "mirrorYX": 0.0125,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0338",
@@ -9175,13 +9175,13 @@
    "bboxW": 2.5394,
    "bboxH": 1.7747,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 60.6519,
    "curvatureMedian": 3.2429,
    "mirrorY": 0.1448,
    "halfTurn": 0.1768,
    "mirrorYX": 0.2316,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0339",
@@ -9202,13 +9202,13 @@
    "bboxW": 4.5631,
    "bboxH": 4.0073,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 37.9182,
    "curvatureMedian": 3.1283,
    "mirrorY": 0.1348,
    "halfTurn": 0.1259,
    "mirrorYX": 0.128,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0340",
@@ -9229,13 +9229,13 @@
    "bboxW": 4.8188,
    "bboxH": 5.0627,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 87.8428,
    "curvatureMedian": 4.175,
    "mirrorY": 0.1473,
    "halfTurn": 0.0874,
    "mirrorYX": 0.0715,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0341",
@@ -9256,13 +9256,13 @@
    "bboxW": 2.0795,
    "bboxH": 1.3294,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 86.9867,
    "curvatureMedian": 2.3365,
    "mirrorY": 0.127,
    "halfTurn": 0.1833,
    "mirrorYX": 0.1351,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0342",
@@ -9283,13 +9283,13 @@
    "bboxW": 3.3729,
    "bboxH": 2.8305,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 98.072,
    "curvatureMedian": 2.4932,
    "mirrorY": 0.1474,
    "halfTurn": 0.1604,
    "mirrorYX": 0.1941,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0346",
@@ -9310,13 +9310,13 @@
    "bboxW": 1.9988,
    "bboxH": 2.4469,
    "area": 1.9426,
-   "maxCurvature": 0,
+   "maxCurvature": 358.4891,
    "curvatureMedian": 3.5387,
    "mirrorY": 0.0622,
    "halfTurn": 0,
    "mirrorYX": 0.0441,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0349",
@@ -9337,13 +9337,13 @@
    "bboxW": 1.9988,
    "bboxH": 1.3904,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 38.1203,
    "curvatureMedian": 3.1048,
    "mirrorY": 0.0771,
    "halfTurn": 0.2346,
    "mirrorYX": 0.2706,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0350",
@@ -9364,13 +9364,13 @@
    "bboxW": 2.6632,
    "bboxH": 3.3446,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 613.0205,
    "curvatureMedian": 4.7308,
    "mirrorY": 0.111,
    "halfTurn": 0.1294,
    "mirrorYX": 0.1195,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0351",
@@ -9391,13 +9391,13 @@
    "bboxW": 1.9988,
    "bboxH": 1.1603,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 62.3982,
    "curvatureMedian": 2.3123,
    "mirrorY": 0.0624,
    "halfTurn": 0.2153,
    "mirrorYX": 0.1585,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0355",
@@ -9418,13 +9418,13 @@
    "bboxW": 1.9988,
    "bboxH": 2.2679,
    "area": 1.2036,
-   "maxCurvature": 0,
+   "maxCurvature": 95.8194,
    "curvatureMedian": 1.5624,
    "mirrorY": 0.0382,
    "halfTurn": 0,
    "mirrorYX": 0.0448,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0358",
@@ -9445,13 +9445,13 @@
    "bboxW": 1.9988,
    "bboxH": 1.2466,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 30.4622,
    "curvatureMedian": 1.6097,
    "mirrorY": 0.0463,
    "halfTurn": 0.2355,
    "mirrorYX": 0.2272,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0359",
@@ -9472,13 +9472,13 @@
    "bboxW": 1.9988,
    "bboxH": 2.0857,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 45.9742,
    "curvatureMedian": 1.4301,
    "mirrorY": 0.0719,
    "halfTurn": 0.2537,
    "mirrorYX": 0.2331,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0360",
@@ -9499,13 +9499,13 @@
    "bboxW": 1.9988,
    "bboxH": 1.1115,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 91.6034,
    "curvatureMedian": 1.1292,
    "mirrorY": 0.0393,
    "halfTurn": 0.2238,
    "mirrorYX": 0.1557,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0364",
@@ -9526,13 +9526,13 @@
    "bboxW": 1.9988,
    "bboxH": 2.179,
    "area": 0.877,
-   "maxCurvature": 0,
+   "maxCurvature": 73.4715,
    "curvatureMedian": 0.8314,
    "mirrorY": 0.0275,
    "halfTurn": 0,
    "mirrorYX": 0.0438,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0366",
@@ -9553,13 +9553,13 @@
    "bboxW": 1.7775,
    "bboxH": 2.5409,
    "area": 0.0202,
-   "maxCurvature": 0,
+   "maxCurvature": 73.1098,
    "curvatureMedian": 2.9329,
    "mirrorY": 0.1533,
    "halfTurn": 0.1573,
    "mirrorYX": 0.2022,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0367",
@@ -9580,13 +9580,13 @@
    "bboxW": 5.0592,
    "bboxH": 4.8301,
    "area": 0.0196,
-   "maxCurvature": 0,
+   "maxCurvature": 118.3746,
    "curvatureMedian": 3.5972,
    "mirrorY": 0.1786,
    "halfTurn": 0.0944,
    "mirrorYX": 0.0656,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0368",
@@ -9607,13 +9607,13 @@
    "bboxW": 1.331,
    "bboxH": 2.0753,
    "area": 0.0201,
-   "maxCurvature": 0,
+   "maxCurvature": 59.806,
    "curvatureMedian": 2.4015,
    "mirrorY": 0.1316,
    "halfTurn": 0.1481,
    "mirrorYX": 0.1152,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0369",
@@ -9634,13 +9634,13 @@
    "bboxW": 1.9466,
    "bboxH": 2.6136,
    "area": 0.0203,
-   "maxCurvature": 0,
+   "maxCurvature": 63.3326,
    "curvatureMedian": 3.0854,
    "mirrorY": 0.115,
    "halfTurn": 0.1371,
    "mirrorYX": 0.1567,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0373",
@@ -9661,13 +9661,13 @@
    "bboxW": 2.4462,
    "bboxH": 1.9955,
    "area": 1.9296,
-   "maxCurvature": 0,
+   "maxCurvature": 168.6989,
    "curvatureMedian": 3.4799,
    "mirrorY": 0.0758,
    "halfTurn": 0,
    "mirrorYX": 0.0458,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0376",
@@ -9688,13 +9688,13 @@
    "bboxW": 1.9988,
    "bboxH": 0.995,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 60.6206,
    "curvatureMedian": 1.6905,
    "mirrorY": 0.0351,
    "halfTurn": 0.2083,
    "mirrorYX": 0.1627,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0377",
@@ -9715,13 +9715,13 @@
    "bboxW": 2.1938,
    "bboxH": 0.9953,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 117.5347,
    "curvatureMedian": 3.3303,
    "mirrorY": 0.0568,
    "halfTurn": 0.1581,
    "mirrorYX": 0.1694,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0378",
@@ -9742,13 +9742,13 @@
    "bboxW": 1.9964,
    "bboxH": 1.986,
    "area": 0.2967,
-   "maxCurvature": 0,
+   "maxCurvature": 87.8681,
    "curvatureMedian": 0.79,
    "mirrorY": 0.0139,
    "halfTurn": 0.0168,
    "mirrorYX": 0.0085,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0379",
@@ -9769,13 +9769,13 @@
    "bboxW": 1.9964,
    "bboxH": 1.9859,
    "area": 0.3075,
-   "maxCurvature": 0,
+   "maxCurvature": 225.9181,
    "curvatureMedian": 0.8966,
    "mirrorY": 0.018,
    "halfTurn": 0,
    "mirrorYX": 0.0087,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0380",
@@ -9796,13 +9796,13 @@
    "bboxW": 3.3331,
    "bboxH": 2.6617,
    "area": 0.0195,
-   "maxCurvature": 0,
+   "maxCurvature": 338.3705,
    "curvatureMedian": 4.1475,
    "mirrorY": 0.1534,
    "halfTurn": 0.1263,
    "mirrorYX": 0.1099,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0381",
@@ -9823,13 +9823,13 @@
    "bboxW": 1.1677,
    "bboxH": 1.9952,
    "area": 0.0201,
-   "maxCurvature": 0,
+   "maxCurvature": 88.4207,
    "curvatureMedian": 2.3834,
    "mirrorY": 0.1476,
    "halfTurn": 0.1683,
    "mirrorYX": 0.1322,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0382",
@@ -9850,13 +9850,13 @@
    "bboxW": 1.8836,
    "bboxH": 1.9952,
    "area": 0.0201,
-   "maxCurvature": 0,
+   "maxCurvature": 52.8438,
    "curvatureMedian": 2.5663,
    "mirrorY": 0.1951,
    "halfTurn": 0.2003,
    "mirrorYX": 0.2796,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0383",
@@ -9877,13 +9877,13 @@
    "bboxW": 1.2209,
    "bboxH": 1.9952,
    "area": 0.0203,
-   "maxCurvature": 0,
+   "maxCurvature": 45.1782,
    "curvatureMedian": 2.1658,
    "mirrorY": 0.1097,
    "halfTurn": 0.1439,
    "mirrorYX": 0.2042,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0386",
@@ -9904,13 +9904,13 @@
    "bboxW": 2.2644,
    "bboxH": 1.9952,
    "area": 1.192,
-   "maxCurvature": 0,
+   "maxCurvature": 338.968,
    "curvatureMedian": 2.0913,
    "mirrorY": 0.0505,
    "halfTurn": 0,
    "mirrorYX": 0.0442,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0389",
@@ -9931,13 +9931,13 @@
    "bboxW": 1.2613,
    "bboxH": 1.9952,
    "area": 0.0201,
-   "maxCurvature": 0,
+   "maxCurvature": 36.3213,
    "curvatureMedian": 2.0636,
    "mirrorY": 0.1773,
    "halfTurn": 0.1889,
    "mirrorYX": 0.1956,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0390",
@@ -9958,13 +9958,13 @@
    "bboxW": 2.6771,
    "bboxH": 2.0432,
    "area": 0.0195,
-   "maxCurvature": 0,
+   "maxCurvature": 129.9639,
    "curvatureMedian": 2.142,
    "mirrorY": 0.1379,
    "halfTurn": 0.1734,
    "mirrorYX": 0.1284,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0391",
@@ -9985,13 +9985,13 @@
    "bboxW": 1.1122,
    "bboxH": 1.9952,
    "area": 0.0201,
-   "maxCurvature": 0,
+   "maxCurvature": 149.5027,
    "curvatureMedian": 1.5956,
    "mirrorY": 0.1532,
    "halfTurn": 0.1716,
    "mirrorYX": 0.1254,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0392",
@@ -10012,13 +10012,13 @@
    "bboxW": 1.0345,
    "bboxH": 1.9952,
    "area": 0.0203,
-   "maxCurvature": 0,
+   "maxCurvature": 33.4157,
    "curvatureMedian": 1.9733,
    "mirrorY": 0.1241,
    "halfTurn": 0.1429,
    "mirrorYX": 0.178,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0396",
@@ -10039,13 +10039,13 @@
    "bboxW": 2.1901,
    "bboxH": 1.9952,
    "area": 0.8664,
-   "maxCurvature": 0,
+   "maxCurvature": 148.8632,
    "curvatureMedian": 1.3878,
    "mirrorY": 0.0375,
    "halfTurn": 0,
    "mirrorYX": 0.0411,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0398",
@@ -10066,13 +10066,13 @@
    "bboxW": 5.76,
    "bboxH": 13.248,
    "area": 9.8762,
-   "maxCurvature": 0,
+   "maxCurvature": 21.5149,
    "curvatureMedian": 3.4371,
    "mirrorY": 0.0871,
    "halfTurn": 0.0871,
    "mirrorYX": 0.0706,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0399",
@@ -10093,13 +10093,13 @@
    "bboxW": 2.88,
    "bboxH": 6.624,
    "area": 2.4691,
-   "maxCurvature": 0,
+   "maxCurvature": 21.5233,
    "curvatureMedian": 3.4371,
    "mirrorY": 0.0871,
    "halfTurn": 0.0871,
    "mirrorYX": 0.0706,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0400",
@@ -10120,13 +10120,13 @@
    "bboxW": 9.6537,
    "bboxH": 9.6537,
    "area": 9.8762,
-   "maxCurvature": 0,
+   "maxCurvature": 15.6901,
    "curvatureMedian": 2.5047,
    "mirrorY": 0.1685,
    "halfTurn": 0.5073,
    "mirrorYX": 0.0066,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0401",
@@ -10147,13 +10147,13 @@
    "bboxW": 5.76,
    "bboxH": 13.248,
    "area": 9.8762,
-   "maxCurvature": 0,
+   "maxCurvature": 21.5149,
    "curvatureMedian": 3.4371,
    "mirrorY": 0.0871,
    "halfTurn": 0.0871,
    "mirrorYX": 0.0712,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0402",
@@ -10174,13 +10174,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 22.0901,
    "curvatureMedian": 1.8721,
    "mirrorY": 0.0074,
    "halfTurn": 0.0108,
    "mirrorYX": 0.0047,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0403",
@@ -10201,13 +10201,13 @@
    "bboxW": 2.25,
    "bboxH": 1.299,
    "area": 2.3561,
-   "maxCurvature": 0,
+   "maxCurvature": 26.6676,
    "curvatureMedian": 2.2415,
    "mirrorY": 0.0512,
    "halfTurn": 0.1605,
    "mirrorYX": 0.4027,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0404",
@@ -10228,13 +10228,13 @@
    "bboxW": 4.5,
    "bboxH": 5.1961,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 33.1047,
    "curvatureMedian": 0.9039,
    "mirrorY": 0.2166,
    "halfTurn": 0.2166,
    "mirrorYX": 0.1561,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0405",
@@ -10255,13 +10255,13 @@
    "bboxW": 5.6568,
    "bboxH": 8,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 90.7387,
    "curvatureMedian": 4.2999,
    "mirrorY": 0.0075,
    "halfTurn": 0.011,
    "mirrorYX": 0.1479,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0406",
@@ -10282,13 +10282,13 @@
    "bboxW": 1.5625,
    "bboxH": 1.7602,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 17.7488,
    "curvatureMedian": 2.2212,
    "mirrorY": 0.168,
    "halfTurn": 0.168,
    "mirrorYX": 0.1142,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0407",
@@ -10309,13 +10309,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 1.5706,
-   "maxCurvature": 0,
+   "maxCurvature": 10.0804,
    "curvatureMedian": 3.509,
    "mirrorY": 0.0116,
    "halfTurn": 0.0059,
    "mirrorYX": 0.0093,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0408",
@@ -10336,13 +10336,13 @@
    "bboxW": 9.0451,
    "bboxH": 9.5104,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 141.5965,
    "curvatureMedian": 4.1787,
    "mirrorY": 0.1095,
    "halfTurn": 0.1094,
    "mirrorYX": 0.0833,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0409",
@@ -10363,13 +10363,13 @@
    "bboxW": 13.3067,
    "bboxH": 13.6481,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 778.8021,
    "curvatureMedian": 5.6282,
    "mirrorY": 0.0802,
    "halfTurn": 0.0802,
    "mirrorYX": 0.0588,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0410",
@@ -10390,13 +10390,13 @@
    "bboxW": 9.0451,
    "bboxH": 9.5104,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 89.3151,
    "curvatureMedian": 2.5189,
    "mirrorY": 0.119,
    "halfTurn": 0.1189,
    "mirrorYX": 0.0841,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0411",
@@ -10417,13 +10417,13 @@
    "bboxW": 0.7698,
    "bboxH": 0.25,
    "area": 0.0762,
-   "maxCurvature": 0,
+   "maxCurvature": 35.0535,
    "curvatureMedian": 1.8221,
    "mirrorY": 0.0061,
    "halfTurn": 0.0965,
    "mirrorYX": 0.241,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0412",
@@ -10444,13 +10444,13 @@
    "bboxW": 2,
    "bboxH": 1,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 9.3707,
    "curvatureMedian": 1.211,
    "mirrorY": 0.0031,
    "halfTurn": 0.145,
    "mirrorYX": 0.2232,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0413",
@@ -10471,13 +10471,13 @@
    "bboxW": 2,
    "bboxH": 1,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 9.6301,
    "curvatureMedian": 2.8488,
    "mirrorY": 0.1834,
    "halfTurn": 0.0038,
    "mirrorYX": 0.1703,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0414",
@@ -10498,13 +10498,13 @@
    "bboxW": 1,
    "bboxH": 0.7698,
    "area": 0.5333,
-   "maxCurvature": 0,
+   "maxCurvature": 3.4515,
    "curvatureMedian": 2.1911,
    "mirrorY": 0.0961,
    "halfTurn": 0.0962,
    "mirrorYX": 0.5318,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0415",
@@ -10525,13 +10525,13 @@
    "bboxW": 2,
    "bboxH": 0.7071,
    "area": 0.9999,
-   "maxCurvature": 0,
+   "maxCurvature": 6.0223,
    "curvatureMedian": 2.8054,
    "mirrorY": 0.0097,
    "halfTurn": 0.0033,
    "mirrorYX": 0.1118,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0416",
@@ -10552,13 +10552,13 @@
    "bboxW": 9.1111,
    "bboxH": 5.2,
    "area": 19.4323,
-   "maxCurvature": 0,
+   "maxCurvature": 14.2924,
    "curvatureMedian": 3.5799,
    "mirrorY": 0.0025,
    "halfTurn": 0.0049,
    "mirrorYX": 0.0229,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0417",
@@ -10579,13 +10579,13 @@
    "bboxW": 2,
    "bboxH": 2.598,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 29.3997,
    "curvatureMedian": 1.6645,
    "mirrorY": 0.1206,
    "halfTurn": 0.1206,
    "mirrorYX": 0.2837,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0418",
@@ -10606,13 +10606,13 @@
    "bboxW": 1,
    "bboxH": 1,
    "area": 0.6666,
-   "maxCurvature": 0,
+   "maxCurvature": 4.8204,
    "curvatureMedian": 1.1997,
    "mirrorY": 0.1325,
    "halfTurn": 0.1326,
    "mirrorYX": 0.4311,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0419",
@@ -10633,13 +10633,13 @@
    "bboxW": 1.6,
    "bboxH": 3.2,
    "area": 1.0785,
-   "maxCurvature": 0,
+   "maxCurvature": 30.3495,
    "curvatureMedian": 0.8358,
    "mirrorY": 0.2569,
    "halfTurn": 0.1554,
    "mirrorYX": 0.1641,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0420",
@@ -10660,13 +10660,13 @@
    "bboxW": 1,
    "bboxH": 2,
    "area": 0.2,
-   "maxCurvature": 0,
+   "maxCurvature": 18.3704,
    "curvatureMedian": 1.3404,
    "mirrorY": 0.2051,
    "halfTurn": 0.2051,
    "mirrorYX": 0.1359,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0421",
@@ -10687,13 +10687,13 @@
    "bboxW": 1.6544,
    "bboxH": 1.7647,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 4.3209,
    "curvatureMedian": 2.0284,
    "mirrorY": 0.2486,
    "halfTurn": 0.2487,
    "mirrorYX": 0.2267,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0422",
@@ -10714,13 +10714,13 @@
    "bboxW": 1,
    "bboxH": 0.6006,
    "area": 0.4292,
-   "maxCurvature": 0,
+   "maxCurvature": 4.0021,
    "curvatureMedian": 1.6994,
    "mirrorY": 0.0603,
    "halfTurn": 0.0601,
    "mirrorYX": 0.4706,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0423",
@@ -10741,13 +10741,13 @@
    "bboxW": 0.6495,
    "bboxH": 1,
    "area": 0.3927,
-   "maxCurvature": 0,
+   "maxCurvature": 8.7055,
    "curvatureMedian": 2.0179,
    "mirrorY": 0.0064,
    "halfTurn": 0.1102,
    "mirrorYX": 0.3865,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0424",
@@ -10768,13 +10768,13 @@
    "bboxW": 4,
    "bboxH": 2.598,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 20.1713,
    "curvatureMedian": 2.2558,
    "mirrorY": 0.1104,
    "halfTurn": 0.1104,
    "mirrorYX": 0.455,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0425",
@@ -10795,13 +10795,13 @@
    "bboxW": 1,
    "bboxH": 1.3333,
    "area": 0,
-   "maxCurvature": 0,
+   "maxCurvature": 4.9898,
    "curvatureMedian": 1.9947,
    "mirrorY": 0.0548,
    "halfTurn": 0.0552,
    "mirrorYX": 0.3159,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0426",
@@ -10822,13 +10822,13 @@
    "bboxW": 2.2781,
    "bboxH": 2.2366,
    "area": 0.3733,
-   "maxCurvature": 0,
+   "maxCurvature": 79.1367,
    "curvatureMedian": 2.9636,
    "mirrorY": 0,
    "halfTurn": 0.1178,
    "mirrorYX": 0.097,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0427",
@@ -10849,13 +10849,13 @@
    "bboxW": 2,
    "bboxH": 2,
    "area": 3.7078,
-   "maxCurvature": 0,
+   "maxCurvature": 5.0389,
    "curvatureMedian": 2.733,
    "mirrorY": 0,
    "halfTurn": 0,
    "mirrorYX": 0,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   },
   {
    "uid": "c-0428",
@@ -10876,13 +10876,13 @@
    "bboxW": 6,
    "bboxH": 6,
    "area": 35.1416,
-   "maxCurvature": 0,
+   "maxCurvature": 7.5211,
    "curvatureMedian": 4.5953,
    "mirrorY": 0.0061,
    "halfTurn": 0.0093,
    "mirrorYX": 0.0087,
    "computedAt": "2026-11-23T23:34:22.846Z",
-   "updatedAt": "2026-11-23T23:34:22.846Z"
+   "updatedAt": "2026-11-23T23:43:57.843Z"
   }
  ]
 }
