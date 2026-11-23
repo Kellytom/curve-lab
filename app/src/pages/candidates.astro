@@ -11,6 +11,7 @@
 import { prisma } from "../lib/db.js";
 import { plainNumber } from "../lib/plain-number.js";
 import { curveThumbnail } from "../lib/curve-thumbnail.ts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const rows = await prisma.sandboxCurve.findMany({ orderBy: { name: "asc" } });
 const parse = (row) => {
@@ -47,7 +48,7 @@ const sections = [
 
 const cell = (v: number) => (typeof v === "number" ? plainNumber(v) : "—");
 ---
-<html lang="en"><head><meta charset="utf-8"><title>The new curves</title></head><body>
+<BaseLayout title="the new curves" pageTitle="The new curves">
 <div class="cands">
   <h1>The new curves</h1>
   <p class="lede">
@@ -69,7 +70,7 @@ const cell = (v: number) => (typeof v === "number" ? plainNumber(v) : "—");
             {typeof c.miss === "number" && (
               <p class="facts">miss {cell(c.miss)} units · {section.title === "The sibling candidates" ? "degree 11, rails 9" : ""}</p>
             )}
-            {c.note && <p class="note-cell">{String(c.note)}</p>}
+            
             {c.base_uid && (
               <p class="links"><a href={`/reduce/${c.base_uid}`}>its parent's desk</a></p>
             )}
@@ -79,7 +80,7 @@ const cell = (v: number) => (typeof v === "number" ? plainNumber(v) : "—");
     </section>
   ))}
 </div>
-</body></html>
+</BaseLayout>
 
 <style is:global>
   body { background: #fffdf7; }

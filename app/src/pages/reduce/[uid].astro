@@ -19,6 +19,7 @@ import {
   substitute,
 } from "../../lib/reduction/chebyshev.ts";
 import { plainNumber } from "../../lib/plain-number.js";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const { uid } = Astro.params;
 const repo = path.resolve(import.meta.dirname, "../../../..");
@@ -170,7 +171,7 @@ const payload = JSON.stringify({
 });
 ---
 
-<html lang="en"><head><meta charset="utf-8"><title>{name} · the reduction desk</title></head><body>
+<BaseLayout title={`${name} — the reduction desk`} pageTitle={`The reduction desk: ${name}`}>
 <div class="reduce-desk">
   <p class="reduce-crumb"><a href="/reduce/">← the reduction index</a></p>
 
@@ -295,7 +296,7 @@ const payload = JSON.stringify({
     same scale. Guard: app/tests/chebyshev.test.mjs.
   </p>
 </div>
-</body></html>
+</BaseLayout>
 
 <style is:global>
   .reduce-desk { color: #3b2d1c; font: 16px/1.55 Georgia, serif; }

@@ -13,6 +13,7 @@ import path from "node:path";
 import { curvePolynomials, evaluate, fr } from "../../lib/measure.ts";
 import { plainNumber } from "../../lib/plain-number.js";
 import { curveThumbnail } from "../../lib/curve-thumbnail.ts";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 const repo = path.resolve(import.meta.dirname, "../../../..");
 const registry = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-registry.json"), "utf8"));
 const metrics = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-analysis.json"), "utf8"));
@@ -57,7 +58,7 @@ const withFit = cards.filter((c: { miss: number | null }) => c.miss != null);
 const served = withFit.filter((c: { miss: number | null; size: number | null }) =>
   c.size && c.miss != null && c.miss / c.size < 0.01).length;
 ---
-<html lang="en"><head><meta charset="utf-8"><title>Reduction desk</title></head><body>
+<BaseLayout title="the reduction desk" pageTitle="The reduction desk">
 <div class="gallery">
   <h1>The reduction desk</h1>
   <p class="lede">
@@ -94,7 +95,7 @@ const served = withFit.filter((c: { miss: number | null; size: number | null }) 
     ))}
   </div>
 </div>
-</body></html>
+</BaseLayout>
 
 <style is:global>
   body { background: #fffdf7; }
