@@ -4,7 +4,7 @@
   "curves": {
    "file": "curves.json",
    "count": 394,
-   "hash": "da071f2c8dad80a4"
+   "hash": "1897fe4becdd30aa"
   },
   "stars": {
    "file": "stars.json",
@@ -24,7 +24,7 @@
   "sandbox-curves": {
    "file": "sandbox-curves.json",
    "count": 215,
-   "hash": "188edbadcac317db"
+   "hash": "92cb17dae4518ad5"
   },
   "metrics": {
    "file": "metrics.json",

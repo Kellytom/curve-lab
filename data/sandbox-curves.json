@@ -111,6 +111,21 @@
    "savedAt": "2026-11-21T00:27:38.702Z"
   },
   {
+   "name": "c-0008a",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 180
+   },
+   "spine": "c-0008",
+   "curveName": "u-bowl-gothic",
+   "tune": true,
+   "variant": "c-0008a",
+   "savedAt": "2026-11-23T22:13:53.439Z"
+  },
+  {
    "name": "c-0011-s5",
    "curveName": "gumdrop-speed5",
    "base_uid": "c-0011",
@@ -254,21 +269,6 @@
    "miss": 0.392942,
    "note": "speed-space re-fit at degree 5 · miss 0.392942 curve units on size 41.3245 · position degree 11, rails 9",
    "savedAt": "2026-11-22T13:47:14.487Z"
-  },
-  {
-   "name": "c-0022a",
-   "widthPct": 1.5,
-   "plus": 2.5,
-   "minus": 0.1,
-   "profile": "bow",
-   "transform": {
-    "degrees": 180
-   },
-   "spine": "c-0022",
-   "curveName": "wave3-gothic-probe",
-   "tune": true,
-   "variant": "c-0022a",
-   "savedAt": "2026-11-23T22:09:56.680Z"
   },
   {
    "name": "c-0034-ceil",
