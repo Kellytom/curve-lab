@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 221,
+ "count": 222,
  "rows": [
   {
    "name": "c-0001",
@@ -1650,6 +1650,21 @@
    "tune": true,
    "variant": "c-0274c",
    "savedAt": "2026-11-23T21:26:23.231Z"
+  },
+  {
+   "name": "c-0274d",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 135
+   },
+   "spine": "c-0274",
+   "curveName": "tulip-top",
+   "tune": true,
+   "variant": "c-0274d",
+   "savedAt": "2026-11-23T21:33:27.233Z"
   },
   {
    "name": "c-0288a",
