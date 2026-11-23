@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.curves/1",
  "note": "One object per curve: the Curve row, its Note, its CurveSet, its metric and its formula.",
- "count": 393,
+ "count": 394,
  "rows": [
   {
    "uid": "c-0001",
@@ -19527,6 +19527,50 @@
     "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-16 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
     "updatedAt": "2026-11-22T21:00:48.699Z"
+   },
+   "set": null,
+   "metric": null
+  },
+  {
+   "uid": "c-0288b",
+   "name": "cut-check-2",
+   "family": "hybrid",
+   "lists": "[\"found\",\"hybrid\",\"double\",\"variant\"]",
+   "aliases": "[]",
+   "starred": false,
+   "candidate": false,
+   "createdAt": "2026-11-23T20:24:17.229Z",
+   "stars": null,
+   "formula": {
+    "plain": "polyline through 169 stations, (0, -1) to (0, 0)",
+    "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+    "parameter": "k = 0 … station count − 1",
+    "search": "polyline 169 stations from (0, -1) to (0, 0); no metric yet",
+    "use": "no metric yet"
+   },
+   "note": {
+    "uid": "c-0288b",
+    "name": "cut-check-2",
+    "importance": 0,
+    "rotation": 0,
+    "pieces": 1,
+    "borderUid": null,
+    "perSide": 9,
+    "borderTurn": 0,
+    "offsets": 0,
+    "widthPct": 1,
+    "plus": 2,
+    "minus": 0,
+    "profile": "bow",
+    "formula": "{\"plain\":\"x = cos^7(t), y = sin^1(t)\",\"internal\":\"x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-16, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^7(t), y = sin^1(t) mirrored across the line y = x\"}",
+    "params": "{\"kind\":\"double\",\"parent\":\"c-0288\",\"parentName\":\"double-16-se-1\",\"half\":\"SE-1\",\"p\":7,\"q\":1,\"use\":\"radius\",\"block\":\"quintic-all-four\",\"cuts\":[{\"t\":-4.195652,\"x\":0.0691,\"y\":0.0691},{\"t\":0.238342,\"x\":0.4362,\"y\":0.4362}],\"ends\":[[0.069115,0.069115],[0.069115,0.069115]],\"crossings\":0,\"variantOf\":\"c-0288\",\"tuned\":{\"widthPct\":1.5,\"plus\":2.5,\"minus\":0.1,\"profile\":\"bow\",\"transform\":{\"degrees\":135},\"degrees\":135},\"cut\":{\"of\":\"c-0288\",\"ofName\":\"double-16-se-1\",\"cusp\":0,\"keep\":\"long\"}}",
+    "grid": null,
+    "stationRule": null,
+    "algorithm": "cut at a cusp",
+    "conversion": "{\"algorithm\":\"cut at a cusp\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null,\"exact\":false,\"note\":\"sampled: the kept arc of c-0288's stored points, cut at a cusp\"}",
+    "transform": "{\"degrees\":135,\"exact\":false}",
+    "note": "cut from c-0288 (double-16-se-1) at cusp 0 · kept the long arc · 169 stored points, exact there, approximate between them",
+    "updatedAt": "2026-11-23T20:24:17.229Z"
    },
    "set": null,
    "metric": null
