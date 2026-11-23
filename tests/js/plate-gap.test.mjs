@@ -54,35 +54,45 @@ test("no preset plate is a slab: the gap never exceeds the 1 % target", () => {
   assert.deepEqual(slabs, [], `plates above the target: ${slabs.slice(0, 10).join(", ")}`);
 });
 
-test("a band that would buckle is cut, never folded", () => {
+test("a folded rail is reported, and its crossing is the cut point", () => {
+  // Law change, 2026-11-23: the inside cap is withdrawn. A rail that would fold now folds,
+  // and the fold is named instead of cut away; the crossing it makes is the cut point.
   for (const uid of ["c-0001", "c-0046", "c-0065"]) {
     const record = registry.curves.find((row) => row.uid === uid);
     const row = rowFor(record, { note: noteOf.get(uid) || {}, desk: deskOf.get(uid) || {} });
     const { group, spineOnly } = measure(record, row);
     if (spineOnly) continue;
-    assert.ok(group.fold === undefined || group.fold <= 0.9 + 1e-9,
-      `${uid} folds: ${group.fold}`);
-    if (group.width < row.width.percent - 1e-6) {
-      assert.equal(group.buckles, true, `${uid} was cut but does not say so`);
-      assert.ok(group.buckleNote && group.buckleNote.includes("buckle"));
+    assert.ok(group.fold === undefined || Number.isFinite(group.fold), `${uid}: no fold measure`);
+    if (group.fold > 0.9) {
+      assert.equal(group.buckles, true, `${uid} folds but does not say so`);
+      assert.ok(group.buckleNote && group.buckleNote.includes("crossing"),
+        `${uid}: the note must name the crossing, not a cut`);
     }
+    const rails = group.paths.slice(1, 3);
+    const crossings = rails.reduce((count, rail) => count + P.railHoles(rail).crossings.length, 0);
+    if (group.fold > 0.9) assert.ok(crossings > 0, `${uid}: a fold with no crossing`);
   }
 });
 
-test("a tight turn pulls the inside to the spine and keeps the outside wide", () => {
-  // The operator, 2026-11-22: "figure out which side is buckling and make that thin, and the
-  // outer rail can be wider ... the curve on the inner side should be close to the spine".
+test("a tight turn lets the inside rail cross itself, and the loop is a hidden span", () => {
+  // The operator, 2026-11-23: "letting each rail cross itself at a tight turn, marking every
+  // crossing with a red dot, hiding the small loop as an invisible span." c-0046 is the
+  // measured case: its rail folds through itself at the two sharp turns.
   const record = registry.curves.find((row) => row.uid === "c-0046");
   const row = rowFor(record, { note: noteOf.get("c-0046") || {}, desk: deskOf.get("c-0046") || {} });
   const { group } = measure(record, row);
+  assert.ok(group.fold > 0.9, `c-0046 should fold; fold ${group.fold}`);
   assert.equal(group.buckles, true);
-  const [spine, first, second] = group.paths;
-  const gaps = (rail) => spine.map((p, i) => Math.hypot(rail[i][0] - p[0], rail[i][1] - p[1]));
-  const widest = Math.max(...gaps(first), ...gaps(second));
-  const narrowest = Math.min(...gaps(first), ...gaps(second));
-  assert.ok(widest / narrowest > 4,
-    `the band is not asymmetric enough: ${(narrowest / widest).toFixed(2)}`);
-  assert.ok(Number.isFinite(group.fold) && group.fold <= 0.9 + 1e-6, `folds: ${group.fold}`);
+  const rails = group.paths.slice(1, 3);
+  const infos = rails.map((rail) => P.railHoles(rail));
+  assert.ok(infos.every((info) => info.crossings.length > 0), "both rails cross themselves");
+  assert.ok(infos.some((info) => info.spans.length > 0), "a loop must be found and hidden");
+  for (const info of infos) {
+    for (const span of info.spans) {
+      assert.ok(span.from < span.to, "a span runs forward along the rail");
+      assert.ok(span.length > 0, "a hidden span has a length");
+    }
+  }
 });
 
 test("the preset draws the 1 % target, a saved curve keeps its own width", () => {

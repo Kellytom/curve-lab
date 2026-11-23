@@ -3759,3 +3759,18 @@ pinch cap (a second construction; `docs/SIDE-CURVES.md` §2).
   side; breaking the band at every turn — "it breaks too many places"; a two-handle least-squares
   fit for the offset — 4.5 % on a quadrant against 0.53 % for one measured parameter; Quarto —
   a second publishing toolchain duplicating Astro.
+
+## 2026-11-23 (the rail crossings landed)
+
+- **Landed:** the character rail keeps the ask at every station — no inside cap, no smoothed
+  normal (the `roundSpikes` bevel). A fold is shown: every crossing on either rail is a red dot,
+  and the loop between the two passes is hidden and recorded. `book/print/rail-holes.json` holds
+  **263** curves; `book/print/cuts.json` **299**; all **393** plate SVGs regenerated once.
+  Register rows 51 and 59 amended with the reason, row 60 added; the guard is
+  `tests/js/plate-holes.test.mjs` (c-0046, c-0065, c-0273: cross, span, dots = record), run by
+  `PlateRailCrossingTest`.
+- **Not done:** the 3000 dpi PNG set was not re-rastered. The SVG is the plate; the PNG export
+  is the separate slow pass (`node scripts/print_plates.mjs`).
+- **Also written, nothing built:** `state/SPEC-side-pillars-int.md` — thin side pillars for the
+  illustration border, one outside-edge line each, base and capital.
+- **Next:** the human figure in the centre (`TODO.md`), then the book set.

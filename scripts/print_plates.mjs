@@ -204,26 +204,57 @@ function plateSvg(record) {
       segments = [{ spine: PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]), rails: [] }];
     }
   }
-  // The future cut points: where the outside rail crosses itself. Measured on the unturned
-  // geometry so the points can be used to cut the curve later, then turned with it.
+  // Every crossing on either rail, measured on the unturned geometry so the point can be used
+  // to cut the curve later, then turned with it. The span between the two passes of a crossing
+  // is the loop; the plate hides it, because a band that closes a loop on itself cannot be one
+  // printed stroke, and records it in book/print/rail-holes.json.
   const cuts = [];
-  for (const segment of segments) {
-    const rails = segment.rails.slice(0, 2).filter((rail) => rail && rail.length > 3);
-    if (rails.length < 2) continue;
-    const gapOf = (rail) => rail.reduce((most, p, i) =>
-      Math.max(most, Math.hypot(p[0] - segment.spine[i][0], p[1] - segment.spine[i][1])), 0);
-    const outer = gapOf(rails[0]) >= gapOf(rails[1]) ? rails[0] : rails[1];
-    for (const hit of PLATE.selfIntersections(outer)) {
-      cuts.push({ x: hit.x, y: hit.y, uid: record.uid });
-    }
-  }
-  segments = segments.map((segment) => ({
+  const holes = segments.map((segment) => segment.rails.slice(0, 2).map((rail) => {
+    if (!rail || rail.length < 4) return { crossings: [], spans: [] };
+    const info = PLATE.railHoles(rail);
+    for (const hit of info.crossings) cuts.push({ x: hit.x, y: hit.y });
+    return info;
+  }));
+  const turned = segments.map((segment, index) => ({
     spine: turn(segment.spine, degrees),
     rails: segment.rails.map((rail) => turn(rail, degrees)),
+    // one entry per rail: the runs left after the hidden spans, or an empty array when the
+    // rail is drawn whole (no hole was found)
+    runs: segment.rails.slice(0, 2).map((rail, side) => {
+      const spans = (holes[index][side] || { spans: [] }).spans;
+      if (!rail || !spans.length) return [];
+      return PLATE.railRuns(rail, spans).map((run) => ({
+        from: run.from,
+        to: run.to,
+        spine: turn(segment.spine.slice(run.from, run.to + 1), degrees),
+        rail: turn(run.points, degrees),
+      }));
+    }),
   }));
   const cutPoints = cuts.map((hit) => turn([[hit.x, hit.y]], degrees)[0]);
+  // the hidden spans, in model coordinates, one entry per rail that has one
+  const holeRecords = [];
+  segments.forEach((segment, index) => {
+    (holes[index] || []).forEach((info, side) => {
+      if (!info.spans.length) return;
+      const rail = segment.rails[side];
+      holeRecords.push({
+        rail: side === 0 ? "plus" : "minus",
+        spans: info.spans.map((span) => ({
+          from: span.from,
+          to: span.to,
+          length: Number(span.length.toFixed(6)),
+          start: rail[span.from],
+          end: rail[span.to],
+        })),
+        crossings: info.crossings.map((hit) => ({
+          x: Number(hit.x.toFixed(6)), y: Number(hit.y.toFixed(6)),
+        })),
+      });
+    });
+  });
 
-  const all = segments.flatMap((segment) => [...segment.spine, ...segment.rails.flat()]);
+  const all = turned.flatMap((segment) => [...segment.spine, ...segment.rails.flat()]);
   const [x0, x1] = d3.extent(all, (p) => p[0]);
   const [y0, y1] = d3.extent(all, (p) => p[1]);
   const w = x1 - x0 || 1, h = y1 - y0 || 1;
@@ -251,19 +282,31 @@ function plateSvg(record) {
   const axis = px([axisX, 0])[0].toFixed(2);
   // the bands: between each rail and the spine, filled. The right rail's band is the dark
   // grey, the left rail's the light one; the spine and the rails are then stroked on top.
-  // nonzero, not even-odd: where the rail crosses itself the band must fill as one solid
-  // shape, not bevel out the overlap.
-  const band = (segment, rail, fill) => (rail && rail.length > 2)
-    ? `<path d="${gen([...segment.spine, ...[...rail].reverse()])}Z" fill="${fill}" ` +
+  // nonzero, not even-odd: where a rail crosses itself the band fills as one solid shape, not
+  // beveled out. A rail with a hidden span is filled run by run, so the loop stays empty.
+  const bandPath = (spine, rail, fill) => (rail && rail.length > 2)
+    ? `<path d="${gen([...spine, ...[...rail].reverse()])}Z" fill="${fill}" ` +
       `fill-rule="nonzero" stroke="none"/>`
     : "";
-  const bands = segments.map((segment) => segment.rails.length >= 2
-    ? band(segment, segment.rails[0], LIGHT_BAND) + band(segment, segment.rails[1], DARK_BAND)
+  const band = (segment, side, fill) => {
+    const rail = segment.rails[side];
+    if (!rail || rail.length <= 2) return "";
+    const runs = segment.runs[side];
+    return runs && runs.length
+      ? runs.map((run) => bandPath(run.spine, run.rail, fill)).join("")
+      : bandPath(segment.spine, rail, fill);
+  };
+  const bands = turned.map((segment) => segment.rails.length >= 2
+    ? band(segment, 0, LIGHT_BAND) + band(segment, 1, DARK_BAND)
     : "").join("");
-  const railLines = segments.map((segment) =>
-    segment.rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)).join("")).join("");
-  const spineLeft = segments.map((segment) => line(segment.spine, LEFT, stroke)).join("");
-  const spineRight = segments.map((segment) => line(segment.spine, RIGHT, stroke)).join("");
+  const railLines = turned.map((segment) =>
+    segment.rails.slice(0, 2).map((rail, side) => {
+      const runs = segment.runs[side];
+      const pieces = runs && runs.length ? runs.map((run) => run.rail) : [rail];
+      return pieces.map((piece) => line(piece, "#3a3a3a", stroke * 0.6)).join("");
+    }).join("")).join("");
+  const spineLeft = turned.map((segment) => line(segment.spine, LEFT, stroke)).join("");
+  const spineRight = turned.map((segment) => line(segment.spine, RIGHT, stroke)).join("");
   const dotLines = cutPoints.map(([x, y]) => {
     const [cx, cy] = px([x, y]);
     const r = Math.max(3, 0.01 * LONG_SIDE);
@@ -299,8 +342,8 @@ function plateSvg(record) {
     }
   }
   // where the curve begins and ends, so a turn is readable at a glance
-  const [startX, startY] = px(segments[0].spine[0]);
-  const endSpine = segments[segments.length - 1].spine;
+  const [startX, startY] = px(turned[0].spine[0]);
+  const endSpine = turned[turned.length - 1].spine;
   const [endX, endY] = px(endSpine[endSpine.length - 1]);
   const marker = Math.max(4, 0.014 * LONG_SIDE);
   // A closed curve starts and ends at the same point: show the start as a blue disc inside a
@@ -330,10 +373,11 @@ function plateSvg(record) {
         endLines,
         cuspDots,
       ].join("");
-  const railCount = segments.reduce((n, segment) => n + segment.rails.length, 0);
+  const railCount = turned.reduce((n, segment) => n + segment.rails.length, 0);
   return { svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${pxW}" height="${pxH}" viewBox="0 0 ${pxW} ${pxH}">${body}</svg>`,
     pxW, pxH, degrees, rails: railCount, segments: segments.length,
-    cuts: cuts.map((hit) => ({ x: hit.x, y: hit.y })) };
+    cuts: cuts.map((hit) => ({ x: hit.x, y: hit.y })),
+    holes: holeRecords };
 }
 
 const records = registry.curves.filter((record) => {
@@ -350,9 +394,11 @@ const page = browser ? await browser.newPage() : null;
 
 let done = 0;
 const cutList = [];
+const holeList = [];
 for (const record of records) {
-  const { svg, pxW, pxH, degrees, rails, cuts } = plateSvg(record);
+  const { svg, pxW, pxH, degrees, rails, cuts, holes } = plateSvg(record);
   if (cuts && cuts.length) cutList.push({ uid: record.uid, name: record.name, points: cuts });
+  if (holes && holes.length) holeList.push({ uid: record.uid, name: record.name, rails: holes });
   // Naming: <uid>-<long side>-<tone>-<dpi>.<ext>. The size and tone are in the name so a
   // folder of renders can be read without opening one.
   const svgPath = path.join(OUT, `${record.uid}.svg`);
@@ -378,22 +424,50 @@ for (const record of records) {
 }
 if (browser) await browser.close();
 
-// The future cut points, in the curve's own model coordinates: where the outside rail
-// crosses itself and has to be cut before it can be a printed side curve.
-if (cutList.length) {
-  const cutsPath = path.join(OUT, "cuts.json");
-  writeFileSync(cutsPath, `${JSON.stringify({
-    format: "curve-lab.cuts/1",
-    note: "Self-crossings of the outside rail, in model coordinates. Each point is a place " +
-      "the rail has to be cut; the dot on the plate marks the same point.",
-    curves: cutList,
-  }, null, 1)}\n`);
-  console.log(`${cutList.length} curve(s) with outside-rail cut points -> ${path.relative(ROOT, cutsPath)}`);
+// A partial run (--only, --missing) must never replace a whole index with its own few
+// curves: a `--only` run once wrote index.json from the two curves it had drawn and every
+// other entry vanished (register row 37). A full run replaces the file; a partial run
+// merges, replacing only the entries it just measured.
+const partialRun = Boolean(only || missing);
+function writeIndex(file, header, entries) {
+  const kept = partialRun
+    ? (() => {
+        try { return JSON.parse(readFileSync(file, "utf8")).curves || []; } catch { return []; }
+      })()
+    : [];
+  const byUid = new Map(kept.map((entry) => [entry.uid, entry]));
+  for (const entry of entries) byUid.set(entry.uid, entry);
+  const curves = [...byUid.values()].sort((a, b) => String(a.uid).localeCompare(String(b.uid)));
+  writeFileSync(file, `${JSON.stringify({ ...header, curves }, null, 1)}\n`);
+  return curves.length;
 }
+
+// The future cut points, in the curve's own model coordinates: where either rail crosses
+// itself and has to be cut before it can be a printed side curve.
+const cutsPath = path.join(OUT, "cuts.json");
+const cutCount = writeIndex(cutsPath, {
+  format: "curve-lab.cuts/1",
+  note: "Self-crossings of a character rail, in model coordinates. Each point is a place " +
+    "the rail has to be cut; the dot on the plate marks the same point.",
+}, cutList);
+console.log(`${cutList.length} curve(s) with rail cut points -> ${path.relative(ROOT, cutsPath)}` +
+  ` (${cutCount} in the index)`);
+
+// The hidden spans: the loop between the two passes of a crossing, which the plate does not
+// draw or fill. Indices are into the rail as this script builds it; the endpoints are in
+// model coordinates, so a later cut can use them without the plate's turn.
+const holesPath = path.join(OUT, "rail-holes.json");
+const holeCount = writeIndex(holesPath, {
+  format: "curve-lab.rail-holes/1",
+  note: "The span of a character rail hidden on the plate: the small loop between the two " +
+    "passes of a self-crossing. from/to index the rail; start/end are model coordinates.",
+}, holeList);
+console.log(`${holeList.length} curve(s) with hidden rail spans -> ${path.relative(ROOT, holesPath)}` +
+  ` (${holeCount} in the index)`);
 
 // a plate is replaced, never duplicated: the expected names are known, so anything else in
 // the folder is an orphan and is removed
-const expected = new Set(["cuts.json"]);
+const expected = new Set(["cuts.json", "rail-holes.json"]);
 for (const record of registry.curves) {
   expected.add(`${record.uid}.svg`);
   expected.add(`${record.uid}-${LONG_SIDE}-grey-300dpi.png`);

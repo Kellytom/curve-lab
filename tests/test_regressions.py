@@ -191,6 +191,28 @@ class PlateGapTest(unittest.TestCase):
         self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
 
 
+class PlateRailCrossingTest(unittest.TestCase):
+    """2026-11-23, the operator: "letting each rail cross itself at a tight turn, marking
+    every crossing with a red dot, hiding the small loop as an invisible span, and recording
+    the spans in book/print/rail-holes.json."
+
+    The inside cap and the roundSpikes bevel are withdrawn, so the rail is the asked offset at
+    every station and folds through itself where the curve turns tight. This runs the three
+    probed curves (c-0046, c-0065, c-0273) and checks the drawn dot and the recorded span,
+    not the count, which changes with the width.
+    """
+
+    def test_each_probed_curve_crosses_and_records_a_span(self):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "plate-holes.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+
+
 class OrnamentWriterTest(unittest.TestCase):
     """2026-11-22, the operator: "i cant see how many curves to do because the page
     keeps refreshing constantly."

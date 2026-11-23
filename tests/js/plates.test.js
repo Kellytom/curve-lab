@@ -17,14 +17,18 @@ test("a railed curve is the spine, two rails and four caps", () => {
   assert.ok(group.note.includes("character rails"));
 });
 
-test("a curve whose rail would fold keeps a hairline band, not a spine", () => {
-  // Amended 2026-11-22 with the operator's words: "just keep the side curves with tight
-  // thin, but as thick as reasonable until they start to buckle, and i will manually adjust."
-  // The guard still cuts the width; it no longer hides the band at the 0.2 % floor.
+test("a curve whose rail folds keeps its band and crosses itself", () => {
+  // Amended 2026-11-23 with the operator's words: "letting each rail cross itself at a tight
+  // turn, marking every crossing with a red dot, hiding the small loop as an invisible span."
+  // The inside cap is withdrawn; the rail is the asked offset, so this curve folds, and the
+  // plate marks the crossing instead of shortening the band.
   const group = PlateMath.group(rows["inflect-2"]);
   assert.equal(group.paths.length, 7);
-  assert.ok(group.width < 0.2, `cut to ${group.width} %`);
+  assert.ok(group.fold > 0.9, `fold ${group.fold}`);
   assert.equal(group.buckles, true);
+  const crossings = group.paths.slice(1, 3)
+    .reduce((count, rail) => count + PlateMath.railHoles(rail).crossings.length, 0);
+  assert.ok(crossings > 0, "the fold must cross itself so the plate can mark it");
 });
 
 test("a cross in a 3x3 frame is 16 groups of seven paths", () => {

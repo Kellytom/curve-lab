@@ -14,7 +14,6 @@
   const DEFAULT_PLUS = 2;
   const DEFAULT_MINUS = 2;
   const DEFAULT_PROFILE = "bow";
-  const WIDTH_FLOOR = 0.2;
   const FOLD_LIMIT = 0.9;
 
   const value = (poly, t) => {
@@ -127,38 +126,6 @@
     });
   }
 
-  // Which side folds is a geometric question, not a width question: only the rail on the
-  // inside of a turn can fold, because it runs toward the centre of curvature. The outside
-  // rail moves away from the centre and cannot. The operator, 2026-11-22: "figure out which
-  // side is buckling and make that thin, and the outer rail can be wider ... the curve on
-  // the inner side should be close to the spine, the curve on the outside can be wider."
-  //
-  // The inner side at a station is the sign of the signed curvature: the unit normal used by
-  // the rails is the tangent turned +90°, and a positive cross product puts the centre of
-  // curvature on that side. So `side = +1` measures only the stations where the + rail is
-  // inside, and `side = -1` only those where the - rail is inside.
-  function curvatureWorstSide(u, v, side, strength, profileName, samples = 400) {
-    const u2 = multiply(u, u), v2 = multiply(v, v), uv = multiply(u, v);
-    const x1 = add(u2, scalePoly(v2, -1));
-    const y1 = scalePoly(uv, 2);
-    const x2 = scalePoly(add(multiply(u, derivative(u)), scalePoly(multiply(v, derivative(v)), -1)), 2);
-    const y2 = scalePoly(add(multiply(derivative(u), v), multiply(u, derivative(v))), 2);
-    const clamped = Math.max(-0.95, Math.min(4, Number(strength) || 0));
-    let worst = 0;
-    for (let i = 0; i <= samples; i += 1) {
-      const t = i / samples;
-      const a = value(x1, t), b = value(y1, t);
-      const speed = Math.hypot(a, b);
-      if (speed < 1e-12) return Infinity;
-      const cross = a * value(y2, t) - b * value(x2, t);
-      if (Math.sign(cross) !== side) continue;
-      const curvature = Math.abs(cross) / speed ** 3;
-      const factor = Math.abs(1 + clamped * profileAt(profileName, t));
-      worst = Math.max(worst, curvature * factor);
-    }
-    return worst;
-  }
-
   function integrate(start, u, v, steps, eps = 0, bump = null) {
     let x = start[0], y = start[1];
     const points = [[x, y]];
@@ -230,53 +197,22 @@
     let profileName = ["bow", "s", "taper"].includes(character.profile)
       ? character.profile : DEFAULT_PROFILE;
     const shear = Number(row.shear ?? 0);
-    const peak = curvaturePeak(u, v);
-    // The guard's job is "the largest width that does not fold", not "halve until it fits".
-    // Halving made the band jump DOWN as the slider went up: on c-0002, 2.2 % became 1.15 %
-    // at the next step, and again at 4.6 % (2026-11-21). This is the same rule —
-    // distance × peak ≤ FOLD_LIMIT — solved directly, so the band moves with the slider.
-    // The inner side of a turn is the one that folds; the outer side moves away from the
-    // centre of curvature and cannot. So the band is cut per station: each rail keeps the
-    // asked width, except where it is on the inside of a tight turn, where it stops at the
-    // largest safe distance and hugs the spine. No break, no second construction — the same
-    // character law with a ceiling (operator, 2026-11-22: "the curve on the inner side should
-    // be close to the spine, the curve on the outside can be wider").
+    // The law, 2026-11-23. The rail keeps the asked width at every station, including the
+    // inside of a tight turn, and it uses the curve's own normal, unsmoothed: the offset at a
+    // corner is the real miter, not a beveled copy of it. Where that makes the rail fold
+    // through itself, the fold is a fact to show, not a width to cut away — the plate marks
+    // the crossing with a dot and hides the small loop between the two passes (`railHoles`).
+    //
+    // Withdrawn the same day: the 2026-11-22 inside cap, which shortened the rail wherever the
+    // curve turned (so the side curve was a different curve from the number asked for); and
+    // the smoothed normal, which is the "roundSpikes" bevel the operator asked to remove.
     const stations = curvatureStations(u, v, samples);
     const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
     const base = (askedPercent / 100) * size;
-    const safeAt = (i) => (stations[i].kappa > 0 && Number.isFinite(stations[i].kappa)
-      ? FOLD_LIMIT / stations[i].kappa
-      : (stations[i].kappa === Infinity ? 0 : Infinity));
-    let wasCut = false;
-    const arc = [0];
-    for (let i = 1; i < samples.length; i += 1) {
-      arc.push(arc[i - 1] + Math.hypot(samples[i].x - samples[i - 1].x, samples[i].y - samples[i - 1].y));
-    }
-    // A corner's offset is a miter: the rail shoots out along the bisector and back, which
-    // reads as a bevel on the outside edge. Smoothing the normal over a few stations rounds
-    // that corner without moving the spine or the distance law.
-    const smoothNormals = samples.map((s, i) => {
-      let nx = 0, ny = 0;
-      for (let k = -2; k <= 2; k += 1) {
-        const n = samples[Math.max(0, Math.min(samples.length - 1, i + k))];
-        nx += n.nx; ny += n.ny;
-      }
-      const len = Math.hypot(nx, ny) || 1;
-      return [nx / len, ny / len];
+    const railFor = (sign, strength) => samples.map((s) => {
+      const d = base * (1 + clamp(strength) * profileAt(profileName, s.t));
+      return [s.x + sign * d * s.nx, s.y + sign * d * s.ny];
     });
-    const railFor = (sign, strength) => {
-      const room = samples.map((s, i) => {
-        const factor = 1 + clamp(strength) * profileAt(profileName, s.t);
-        const want = base * factor;
-        if (stations[i].side !== sign) return want;
-        if (safeAt(i) < want) { wasCut = true; return safeAt(i); }
-        return want;
-      });
-      // Row curvature is analytic and smooth, so the ceiling needs no smoothing here: a
-      // slope limit would drag a short tight bend's thin width along the whole curve.
-      return samples.map((s, i) => [s.x + sign * room[i] * smoothNormals[i][0],
-        s.y + sign * room[i] * smoothNormals[i][1]]);
-    };
     const rails = [];
     let note;
     const drawn = [];
@@ -311,22 +247,25 @@
         paths.push([spinePoints[spinePoints.length - 1], r[r.length - 1]]);
       });
     }
-    // The tuner's note: how far the inside had to come in.
+    // The tuner's note: the band is not cut anywhere now, so there is no "would buckle" —
+    // the fold is named, and so is where it crosses.
     const widest = rails.length ? Math.max(...drawn) / size * 100 : 0;
-    const buckles = rails.length > 0 && wasCut;
+    const fold = (() => {
+      const value = Math.max(worstPlus, worstMinus);
+      return Number.isFinite(value) ? value : 0;
+    })();
+    const crossings = rails.flatMap((r) => railHoles(r).crossings);
+    const buckles = rails.length > 0 && fold > FOLD_LIMIT + 1e-9;
     const buckleNote = buckles
-      ? `the band would buckle above that — the inside is cut to ${width.toFixed(2)}%, ` +
-        `the outside is ${widest.toFixed(2)}%`
+      ? `the rail folds through itself where the curve turns tight (fold ${fold.toFixed(2)}) — ` +
+        `${crossings.length} crossing place(s); the plate dots each crossing and hides the small loop`
       : null;
     return { name: row.name, paths, spine: spinePoints, width, asked: askedPercent,
              widthPlus: rails.length ? Math.max(...gapPlus) / size * 100 : 0,
              widthMinus: rails.length ? Math.max(...gapMinus) / size * 100 : 0,
-             buckles, buckleNote, profileName,
-             plus, minus,
-             fold: (() => {
-               const value = Math.max(worstPlus, worstMinus);
-               return Number.isFinite(value) ? value : 0;
-             })(), note };
+             buckles, buckleNote, profileName, fold,
+             widest,
+             plus, minus, note };
   }
 
   const rotate = (points, deg) => {
@@ -551,25 +490,55 @@
     return out;
   }
 
-  // A ceiling that changes no faster than `slope` per unit of arc length. The path rail's
-  // cap used to be one station at a time, so it jumped wherever the curvature did: on
-  // c-0273 the distance moved 4 % of the curve's size in one step and the edge made 105
-  // sharp turns. This is the same rule — d ≤ half the local radius — applied continuously.
-  function pinchCap(room, arc, slope = 0.25) {
-    const cap = room.slice();
-    for (let i = 1; i < cap.length; i += 1) {
-      cap[i] = Math.min(cap[i], cap[i - 1] + slope * (arc[i] - arc[i - 1]));
+  // A rail that folds through itself crosses itself, and between the two passes lies a small
+  // loop. The loop is a fact to show, not waste: a band that closes a loop on itself cannot be
+  // one printed stroke, so the plate hides the span between the two passes and records it.
+  // `shareLimit` keeps the rule honest: only a span short enough to be the loop is hidden; the
+  // long way round is the rail itself and is always drawn.
+  function railHoles(rail, shareLimit = 0.35) {
+    const hits = selfIntersections(rail);
+    if (!hits.length) return { crossings: [], spans: [] };
+    const arc = [0];
+    for (let i = 1; i < rail.length; i += 1) {
+      arc.push(arc[i - 1] + Math.hypot(rail[i][0] - rail[i - 1][0], rail[i][1] - rail[i - 1][1]));
     }
-    for (let i = cap.length - 2; i >= 0; i -= 1) {
-      cap[i] = Math.min(cap[i], cap[i + 1] + slope * (arc[i + 1] - arc[i]));
+    const total = arc[arc.length - 1] || 1;
+    const spans = [];
+    for (const hit of hits) {
+      const from = Math.min(hit.a, hit.b);
+      const to = Math.max(hit.a, hit.b);
+      if (to - from < 1) continue;
+      const length = arc[to] - arc[from];
+      if (length > shareLimit * total) continue;
+      spans.push({ from, to, length });
     }
-    return cap;
+    spans.sort((a, b) => a.from - b.from);
+    const merged = [];
+    for (const span of spans) {
+      const last = merged[merged.length - 1];
+      if (last && span.from <= last.to) last.to = Math.max(last.to, span.to);
+      else merged.push({ ...span });
+    }
+    return { crossings: hits, spans: merged };
+  }
+
+  // The rail drawn as the runs between the hidden spans, with the indices kept so the caller
+  // can slice the spine the same way and fill the band per run.
+  function railRuns(rail, spans) {
+    const out = [];
+    let at = 0;
+    for (const span of spans) {
+      if (span.from > at) out.push({ from: at, to: span.from, points: rail.slice(at, span.from + 1) });
+      at = Math.max(at, span.to);
+    }
+    if (at < rail.length - 1) {
+      out.push({ from: at, to: rail.length - 1, points: rail.slice(at) });
+    }
+    return out.filter((run) => run.points.length > 1);
   }
 
   // The rail on a path: the refined walk, then the same law as a row curve —
   // distance = base * (1 + strength * profile(u)), u by arclength, one sign per side.
-  // The offset is held below half the local radius by a continuous cap, so a corner
-  // yields a thin rail instead of a fold, and the edge never jumps between stations.
   function pathGroup(points, options) {
     const opts = options || {};
     const widthPercent = Number(opts.widthPercent ?? 1.5);
@@ -598,55 +567,16 @@
       const len = Math.hypot(tx, ty) || 1;
       return [tx / len, ty / len];
     });
-    // The one character law, also on a stored path: distance x (1 + strength x
-    // profile(t)), capped by the fold guard (distance x curvature <= 0.9). The local
-    // pinch cap was tried and reverted (docs/SIDE-CURVES.md, section 2): it is a second
-    // construction, and at the same saved number it drew a band about four times too wide.
+    // The one character law, on a stored path too: distance × (1 + strength × profile(t)),
+    // with no inside cap and no smoothed tangent (2026-11-23). The rail is the curve's own
+    // offset at every station, so it folds through itself exactly where the law says it does;
+    // the plate dots the crossing and hides the small loop.
     const clamp = (value) => Math.max(-0.95, Math.min(4, Number(value) || 0));
-    // Per side, as on a row curve: only the inside of a turn can fold.
-    const signed = walk.map((p, i) => {
-      const a = tangents[Math.max(0, i - 1)];
-      const b = tangents[Math.min(walk.length - 1, i + 1)];
-      const step = arc[Math.min(walk.length - 1, i + 1)] - arc[Math.max(0, i - 1)];
-      const turn = Math.atan2(a[0] * b[1] - a[1] * b[0], a[0] * b[0] + a[1] * b[1]);
-      return {
-        curvature: step > 1e-12 ? Math.abs(turn) / step : 0,
-        side: Math.sign(turn),
-      };
+    const railFor = (side, strength) => walk.map((p, i) => {
+      const d = side * base * (1 + clamp(strength) * profileAt(profile, arc[i] / total));
+      const [tx, ty] = tangents[i];
+      return [p[0] - ty * d, p[1] + tx * d];
     });
-    // Per station, as on a row curve: the inside of a turn is capped at the local safe
-    // distance, the outside keeps the asked width.
-    let wasCut = false;
-    // Round the miter at a corner: a smoothed tangent spreads the outside rail's spike over
-    // a few stations instead of shooting out and back (the "bevel" the operator saw).
-    const smoothTangents = tangents.map((t, i) => {
-      let tx = 0, ty = 0;
-      for (let k = -6; k <= 6; k += 1) {
-        const n = tangents[Math.max(0, Math.min(tangents.length - 1, i + k))];
-        tx += n[0]; ty += n[1];
-      }
-      const len = Math.hypot(tx, ty) || 1;
-      return [tx / len, ty / len];
-    });
-    const railFor = (side, strength) => {
-      const room = walk.map((p, i) => {
-        const factor = 1 + clamp(strength) * profileAt(profile, arc[i] / total);
-        const want = base * factor;
-        if (signed[i].side !== side || !(signed[i].curvature > 0)) return want;
-        const safe = FOLD_LIMIT / signed[i].curvature;
-        if (safe < want) { wasCut = true; return safe; }
-        return want;
-      });
-      // The sampled curvature is noisy, so the path band keeps the continuous ceiling
-      // (register 45) — at a slope of 1 per unit arc, so a tight bend does not drag the
-      // whole curve thin.
-      const distance = pinchCap(room, arc, 0.4);
-      return walk.map((p, i) => {
-        const [tx, ty] = smoothTangents[i];
-        const d = side * distance[i];
-        return [p[0] - ty * d, p[1] + tx * d];
-      });
-    };
     const railPlus = railFor(1, plus);
     const railMinus = railFor(-1, minus);
     const gapOf = (rail) => rail.map((p, i) => Math.hypot(p[0] - walk[i][0], p[1] - walk[i][1]));
@@ -661,10 +591,11 @@
     const widest = (Math.max(...drawnGaps) / size) * 100;
     const note = `path rails · ${usedPercent.toFixed(2)}% to ${widest.toFixed(2)}% of the size` +
       ` · ${profile} ${plus}/${minus} · ${walk.length} points from ${stored.length} stored`;
-    const buckles = wasCut;
+    const crossings = [railPlus, railMinus].flatMap((r) => railHoles(r).crossings);
+    const buckles = crossings.length > 0;
     const buckleNote = buckles
-      ? `the band would buckle above that — the inside is cut to ${usedPercent.toFixed(2)}%, ` +
-        `the outside is ${widest.toFixed(2)}%`
+      ? `the rail crosses itself ${crossings.length} time(s) — the plate dots each crossing ` +
+        "and hides the small loop"
       : null;
     return { paths, bbox: bbox(paths.flat()), width: usedPercent, asked: widthPercent,
              widthPlus: usedPercentPlus, widthMinus: usedPercentMinus,
@@ -728,7 +659,7 @@
   }
 
   return { value, spine, curvaturePeak, curvatureWorst, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
-           selfIntersections,
+           selfIntersections, railHoles, railRuns,
            profileAt,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };

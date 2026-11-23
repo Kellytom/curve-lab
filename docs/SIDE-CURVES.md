@@ -29,38 +29,41 @@ side curve.
 
 One law, not a choice. Settled decisions that keep it one law:
 
-- **The cap is solved directly, not by halving.** The rule is
-  `distance × peak ≤ 0.9`; the used width is the largest safe width, so the
-  band never narrows as the slider rises. Halving made the width jump
-  (`c-0002`: 2.2 % → 1.15 % at the next step).
+- **The rail is the ask, at every station.** There is no inside cap (withdrawn 2026-11-23,
+  register 60): the offset is the law above, on the curve's own normal, and the rail keeps the
+  number the operator set. The cap made the side curve a *shorter* curve wherever the spine
+  turned, so the drawing was not the curve the number asked for.
+- **A fold is a crossing, not a cut.** Where `distance × κ > 1` the rail loops through itself.
+  The plate marks each crossing with a red dot and hides the loop between the two passes,
+  recording the span in `book/print/rail-holes.json`; the tuner is told the fold value. The
+  earlier "keep it thin until it buckles" rule is superseded.
 - **No second construction on top.** A local pinch cap was tried on
   2026-11-21 and reverted: at the same saved number it drew a band about
   four times too wide. The operator: "you cant cheat and use another way to
   make the character rails."
-- **The fold guard sees the bow.** The station-wise offset × curvature
-  *including* the strength profile is what is capped — not base width ×
-  peak curvature. Register 51: at `c-0001`'s preset the widest rail reached
-  1.28 × the fold limit when the guard ignored the plus, and the rail
-  crossed at the loop.
+- **The cap saw the bow while it existed.** The 2026-11-21 lesson — measure the
+  station-wise offset × curvature *including* the strength profile, not base width × peak
+  curvature (register 51) — is kept for the fold report, which still measures the bow.
 
-## 3. The fold guard, exactly
+## 3. The fold, measured
 
-`curvatureWorst` in `workbench/plate_math.js`: at 400 stations, the rail's
-offset at a station is `distance × (1 + strength × profile(t))`, and the
-fold is that offset × the curvature there. The guard caps the width so the
-worst fold stays ≤ 0.9. At the `WIDTH_FLOOR` of 0.2 % the plate is
-spine-only and says so in its note.
+`curvatureWorst` / `curvatureWorstSide` in `workbench/plate_math.js` measure the fold at 400
+stations: the rail's offset at a station is `distance × (1 + strength × profile(t))`, and the
+fold is that offset × the curvature there.
 
-The character bow is *inside* the guard (`c-0001`: 1 % cuts to 0.7 %, the
-next 0.01 % folds). A saved width above the safe one is cut, not obeyed
-(`c-0006` carries a saved 8 %; the guard cuts it to 2.84 %).
+A fold above 1 means the rail crosses itself. It is no longer cut: the group reports
+`fold`, `buckles` (fold > 0.9) and a note naming the crossing, and the plate does the dotting
+and hiding. There is no width floor and no spine-only fallback for a folding curve; a curve is
+spine-only only when its rows cannot make a rail at all.
 
 ## 4. The preset, and who it applies to
 
 The operator, 2026-11-21: "i didnt ask for spines only. i asked for clean
 curves like the first two."
 
-The preset is **width 2 %, plus 2.5, minus 0.1** for the review (doubled on 2026-11-22 so the gap is visible; the first two curves keep their saved 1 %), and it applies to:
+The preset is a **measured 1 % drawn gap** — width solved per curve, plus 2.5, minus 0.1 — for
+every curve with **no saved width** (the operator: "reduce the width to 1% on the ones i have
+not edited"), and it applies to:
 
 - every curve with **no saved width**,
 - every curve with a **saved zero or missing width** — the note migration
@@ -104,16 +107,17 @@ fault class of register 52 — a drawing nobody can reconstruct.
 
 | file | role |
 |---|---|
-| `workbench/plate_math.js` | `sideRail`, `curvatureWorst`, `characterDesign` — the one law |
+| `workbench/plate_math.js` | `sideRail`, `curvatureWorst`, `railHoles` — the one law, the fold measure, the hidden loop |
 | `scripts/side_curves.mjs` | the sandbox → `/workbench/side-curves.html` (spine + two partners, cap lines) |
 | `scripts/partner_preview.mjs` | one row per family at collection scale, mean gap per side |
-| `scripts/print_plates.mjs --svg-only` | all 371 plate SVGs in ~11 s — **the SVG is the plate** |
-| `tests/js/plate-guard.test.mjs` | the guard keeps a band and does not fold at the preset |
+| `scripts/print_plates.mjs --svg-only` | all 393 plate SVGs in ~11 s — **the SVG is the plate**; dots the crossings, hides the loops |
+| `tests/js/plate-holes.test.mjs` | c-0046/c-0065/c-0273 cross, the loop is a short span, the dots and the record agree |
+| `tests/js/plate-guard.test.mjs` | the rail keeps the ask; a fold is a crossing, not a cut |
 | `tests/js/plate-row.test.mjs` | zero/missing width takes the preset; a saved width wins |
 
-Run the guards: `node --test tests/js/*.test.js`. Register rows 51 and 52
-in `state/REGRESSIONS-int.md` are the two faults that wrote these tests —
-read them before changing the guard or the preset.
+Run the guards: `node --test tests/js/*.test.js`. Register rows 51, 52 and 60
+in `state/REGRESSIONS-int.md` are the faults that wrote these tests — read them
+before changing the rail, the preset or the hidden span.
 
 ## 8. The size and canvas law
 

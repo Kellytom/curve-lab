@@ -77,7 +77,13 @@ dist/
 # the 3000 px print masters: local, re-rendered freely; git carries the lossless WebP
 # The plate renders are derived: the records and the generator are in git, so a clone can
 # rebuild them. Keep them out of the repository — masters and web copies both.
-book/print/
+book/print/*
+
+# ...except the two crossing indexes, which the operator named as the record: the dots on the
+# plates (cuts.json) and the hidden spans (rail-holes.json). Both are under 1 MB, and each is
+# rebuilt by scripts/print_plates.mjs; the guard regenerates them and compares.
+!book/print/cuts.json
+!book/print/rail-holes.json
 
 # the web renders are working state while the look is being judged; commit the set at freeze
 

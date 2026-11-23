@@ -862,6 +862,10 @@ curve in /plates ... all with UIDs".
 
 ## A band is never broken; the inside of a turn is cut, the outside stays wide — 2026-11-22
 
+**Superseded 2026-11-23:** the inside cap is withdrawn; the rail keeps the ask and crosses
+itself (see *The rail crosses itself; the plate dots and hides the loop*). What still holds:
+the band is never broken, and the outside keeps the asked width.
+
 Tried and withdrawn the same day: breaking the band at every sharp turn ("it breaks too many
 places"). Tried and withdrawn too: one width for both sides, which made the whole band a
 hairline whenever one side was tight. What stands is the operator's own explanation:
@@ -888,6 +892,9 @@ hairline whenever one side was tight. What stands is the operator's own explanat
 
 ## The outside rail's self-crossings are cut points — 2026-11-22
 
+**Extended 2026-11-23:** every crossing on *either* rail is a dot now, and the small loop is
+hidden and recorded in `book/print/rail-holes.json` (see *The rail crosses itself*).
+
 The operator: "find the intersection points of the outside curve with itself on curves like
 c-0273 to c-0337 and mark with a dot. that is a future cut point".
 
@@ -903,6 +910,40 @@ c-0273 to c-0337 and mark with a dot. that is a future cut point".
 - **A corner's outside offset is a miter.** Smoothing the normal over a few stations rounds the
   common corners; the very sharpest still show a barb, because rounding a cusp's offset needs
   an inserted arc around the corner. That is the next step if the operator wants it.
+
+## The rail crosses itself; the plate dots and hides the loop — 2026-11-23
+
+**Supersedes the inside cap** in *A band is never broken* below.
+
+The operator: "removing the inside cap and the roundSpikes bevel from the character rails,
+letting each rail cross itself at a tight turn, marking every crossing with a red dot, hiding
+the small loop as an invisible span, and recording the spans in `book/print/rail-holes.json`."
+
+- **One law, no second construction.** `distance = base × (1 + strength × profile(t))` at every
+  station, on the curve's own normal, with no smoothing. The cap shortened the rail wherever the
+  spine turned; the smoothed normal was the `roundSpikes` bevel. Both replaced the curve the
+  operator asked for with a different one.
+- **A fold is shown.** `distance × κ > 1` means the rail loops through itself. The group reports
+  `fold`, `buckles` (fold > 0.9) and a note naming the crossing. Nothing is cut.
+- **Every crossing is a dot.** Both rails, both sides. On the full set: **299 curves with a
+  crossing place**, each marked `#b03a2e` at 1 % of the long side, the same working dot as
+  before; the points are in `book/print/cuts.json` in model coordinates.
+- **The loop is hidden.** The span between the two passes of a crossing is removed from the
+  drawing — the band is filled run by run, so the lobe is empty paper — and recorded in
+  `book/print/rail-holes.json`: **263 curves**, with the rail indices and both endpoints in
+  model coordinates.
+- **Only the loop, never the long way round.** A span is hidden only when it is at most 35 % of
+  the rail's arc. `c-0273`'s minus rail crosses itself with its other pass at the far end
+  (99.7 % of the arc); hiding that would delete the rail. The share limit is the rule that keeps
+  the two apart.
+- **A partial run merges.** `--only` replaces only the curves it measured, in both indexes
+  (register 37's rule). Before this, a three-curve run wrote a three-curve index over the set.
+- **The tuner is told.** `/tune/<uid>` prints the fold value and says the plate dots the
+  crossing and hides the loop.
+
+**Measured:** 393 plates; 299 with a crossing, 263 with a hidden span; the preset law elsewhere
+is untouched — the median drawn gap on an unedited curve is still the 1 % target, and no rail is
+narrower than the ask.
 
 ## The unsaved preset is a measured 1 % gap — 2026-11-22
 

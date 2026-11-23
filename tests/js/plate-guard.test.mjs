@@ -30,30 +30,35 @@ for (const uid of ["c-0001", "c-0002"]) {
     }
   });
 
-  test(`${uid}: the band folds nowhere, and the outside keeps the asked width`, () => {
-    const curve = registry.curves.find((row) => row.uid === uid);
+  test(`${uid}: the band keeps the asked width, and a fold is marked as a crossing`, () => {
     const group = groupAt(uid, 6);
-    // the inside is cut at a tight turn; the outside moves away from the centre of curvature
-    // and keeps the full ask. Nothing on either rail may fold.
-    const samples = P.spine(curve.speedX, curve.speedY, 700).map((s) => [s.x, s.y]);
-    const [x0, y0, x1, y1] = P.bbox(samples);
-    const size = Math.hypot(x1 - x0, y1 - y0);
-    assert.ok(Number.isFinite(group.fold) && group.fold <= 0.9 + 1e-6,
-      `the drawn band folds: ${group.fold}`);
+    // The law changed on 2026-11-23 (operator: remove the inside cap and the roundSpikes
+    // bevel, let each rail cross itself at a tight turn, dot the crossing, hide the loop).
+    // There is no cut any more: the rail is the asked offset at every station, so the band is
+    // the ask; where the ask folds, the rail crosses itself, and the plate marks and hides it.
     assert.ok(group.paths.length >= 3, "a rated band must keep both rails");
-    const outside = Math.max(group.widthPlus, group.widthMinus);
-    assert.ok(outside > group.width, "the outside rail must be wider than the cut inside");
-    assert.ok(outside > 3.5, `the outside rail is ${outside.toFixed(2)} %, the ask was 6 %`);
+    assert.ok(Math.abs(group.width - 6) < 0.6, `drew ${group.width} %, asked 6 %`);
+    assert.ok(Number.isFinite(group.fold) && group.fold >= 0);
+    const crossings = group.paths.slice(1, 3)
+      .reduce((count, rail) => count + P.railHoles(rail).crossings.length, 0);
+    if (group.fold > 0.9) {
+      // a fold is a loop: it must cross itself somewhere, or the plate would hide nothing
+      assert.ok(crossings > 0, `fold ${group.fold.toFixed(2)} with no crossing to mark`);
+    }
+    assert.equal(group.buckles, group.fold > 0.9 + 1e-9, "buckles must state the measured fold");
   });
 }
 
-test("c-0001 at the operator's preset keeps a band and does not fold at the loop", () => {
-  // The measured fault: at 1 % / plus 2.5 / minus 0.1 the widest rail reached 1.28 x the
-  // fold limit, because the guard capped the base width and then added the bow. The band
-  // must still exist and nothing on it may fold.
+test("c-0001 at the operator's preset keeps a band and marks its crossings", () => {
+  // The 2026-11-21 fault was a band cut to 1.28 x the fold limit at the loop. The guard is
+  // withdrawn (2026-11-23), so the check is now the new law's: the band exists, it is the
+  // asked 1 %, and the rail's crossings are found so the plate can dot them.
   const group = groupAt("c-0001", 1, 2.5, 0.1);
   assert.ok(group.width > 0, "the band must exist");
-  assert.ok(Number.isFinite(group.fold) && group.fold <= 0.9 + 1e-6,
-    `the drawn band folds: ${group.fold}`);
+  assert.ok(Math.abs(group.width - 1) < 0.2, `drew ${group.width} %, asked 1 %`);
   assert.ok(group.paths.length >= 3);
+  const crossings = group.paths.slice(1, 3)
+    .reduce((count, rail) => count + P.railHoles(rail).crossings.length, 0);
+  assert.ok(crossings > 0, "c-0001 crosses itself at the preset; the plate must dot it");
+  assert.ok(Number.isFinite(group.fold), "the fold is measured, not hidden");
 });

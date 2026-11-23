@@ -94,12 +94,13 @@ if (row.speedX.length) {
   try {
     const group = PLATE.group(row);
     paths = group.paths.slice(0, 3);
-    // say what the width measures, and say when the band was narrowed to stop it folding
-    const cut = group.width < values.widthPct
-      ? ` (asked ${values.widthPct} %, cut so the band cannot fold over itself; ` +
-        "it buckles above that — tune it by hand)"
+    // the band is the ask, unedited; say where it folds through itself, and that the plate
+    // hides the loop (2026-11-23: the inside cap is withdrawn)
+    const fold = group.buckles && Number.isFinite(group.fold)
+      ? ` (the rail folds through itself where the curve turns tight: fold ` +
+        `${group.fold.toFixed(2)}; the plate dots the crossing and hides the loop)`
       : "";
-    note = `rails: each edge ${group.width} % of the curve's size away from the spine${cut}; ` +
+    note = `rails: each edge ${group.width} % of the curve's size away from the spine${fold}; ` +
       `plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
   } catch {
     // the rail routine declined this curve: draw the spine rather than nothing
@@ -116,12 +117,9 @@ if (!paths.length && record.path) {
     });
     if (group) {
       paths = group.paths;
-      const cut = group.width < values.widthPct
-        ? ` (asked ${values.widthPct} %, cut so the band cannot fold over itself; ` +
-          "it buckles above that — tune it by hand)"
-        : "";
+      const fold = group.buckleNote ? ` (${group.buckleNote})` : "";
       note = `rails from the ${record.path.length} stored points: exact there, approximate ` +
-        `between them${cut}; plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
+        `between them${fold}; plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
     }
   }
   if (!paths.length) {
