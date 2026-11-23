@@ -145,6 +145,14 @@ row-based search can reach them.
 and see whether the cell fills. If it does not, the cell may be arithmetically
 empty — which is a result worth writing down.
 
+**Run 2026-11-23:** `.venv/bin/python scripts/parametric_search.py --cell 0,4 --n 600`
+found **0** candidates in the cell (0 crossing pairs, 4 inflections) out of 600.
+The `--cell C,I` option scans every candidate with the exact core, not only the
+2+ crossing winners. This is a sample of one family, not a proof: the family's
+low terms are turned, so it mostly makes loops. Next: a graph-shaped family
+(real coefficients, degree 5 and up) is the natural one for 0 crossings with 4
+inflections; 600 random draws of the looping family is not the test.
+
 ---
 
 ---

@@ -4,6 +4,7 @@
     .venv/bin/python scripts/parametric_search.py            # 600 candidates
     .venv/bin/python scripts/parametric_search.py --n 2000   # a longer run
     .venv/bin/python scripts/parametric_search.py --write    # keep the winners
+    .venv/bin/python scripts/parametric_search.py --cell 0,4 # does the empty cell fill?
 
 The object is one complex polynomial in a real parameter:
 
@@ -130,6 +131,8 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--n", type=int, default=600)
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--cell", default=None,
+                        help="C,I: keep only candidates with exactly C crossing pairs and I inflections")
     args = parser.parse_args(argv)
 
     rng = random.Random(7)
@@ -150,34 +153,70 @@ def main(argv=None) -> int:
 
     for candidate in pool:
         candidate.update(score(candidate))
-    pool = [c for c in pool if c["crossings"] >= 2]
-    pool.sort(key=lambda c: (-c["crossings"], c["size"]))
-    top = pool[:12]
-
-    print(f"{args.n} candidates · {len(pool)} with 2+ crossings · best {top[0]['crossings'] if top else 0}")
-
     kept = []
-    for candidate in top:
-        x, y = candidate["x"], candidate["y"]
-        hits = stable_crossings(deriv(x), deriv(y))
-        try:
-            m = measure.metrics(deriv(x), deriv(y))
-            grid = int(m["grid"])
-            inflections = int(m["inflection_count"])
-            bend = round(float(m["bend"]), 4)
-            exact = True
-        except Exception:  # noqa: BLE001
-            grid, inflections, bend, exact = 0, 0, 0.0, False
-        item = {
-            "terms": candidate["terms"],
-            "crossings": len(hits),
-            "places": len({(round(h["x"], 1), round(h["y"], 1)) for h in hits}),
-            "grid": grid, "inflections": inflections, "bend": bend, "exact": exact,
-            "x": [round(v, 6) for v in x], "y": [round(v, 6) for v in y],
-        }
-        kept.append(item)
-        print(f"  x={item['x']} y={item['y']} → {item['crossings']} pairs, "
-              f"{item['places']} places, grid {grid}, infl {inflections}, bend {bend}")
+
+    if args.cell:
+        # The empty-cell question: does a cell of (crossing pairs, inflections) fill? Scan the
+        # whole pool, not only the 2+ crossing winners, and keep exact matches. The counts come
+        # from the exact core, the same ones the metadata records carry.
+        want_crossings, want_inflections = (int(v) for v in args.cell.split(","))
+        matches = []
+        for candidate in pool:
+            if candidate["crossings"] != want_crossings:
+                continue
+            try:
+                m = measure.metrics(deriv(candidate["x"]), deriv(candidate["y"]))
+            except Exception:  # noqa: BLE001
+                continue
+            if int(m["inflection_count"]) == want_inflections:
+                matches.append((candidate, m))
+        matches.sort(key=lambda pair: pair[0]["size"])
+        print(f"{args.n} candidates · {len(matches)} in the cell "
+              f"({want_crossings} crossing pairs, {want_inflections} inflections)")
+        for candidate, m in matches[:12]:
+            x, y = candidate["x"], candidate["y"]
+            hits = stable_crossings(deriv(x), deriv(y))
+            item = {
+                "terms": candidate["terms"],
+                "crossings": len(hits),
+                "places": len({(round(h["x"], 1), round(h["y"], 1)) for h in hits}),
+                "grid": int(m["grid"]), "inflections": int(m["inflection_count"]),
+                "bend": round(float(m["bend"]), 4), "exact": True,
+                "x": [round(v, 6) for v in x], "y": [round(v, 6) for v in y],
+            }
+            kept.append(item)
+            print(f"  x={item['x']} y={item['y']} → {item['crossings']} pairs, "
+                  f"{item['places']} places, grid {item['grid']}, infl {item['inflections']}, "
+                  f"bend {item['bend']}")
+    else:
+        winners = [c for c in pool if c["crossings"] >= 2]
+        winners.sort(key=lambda c: (-c["crossings"], c["size"]))
+        top = winners[:12]
+
+        print(f"{args.n} candidates · {len(winners)} with 2+ crossings · "
+              f"best {top[0]['crossings'] if top else 0}")
+
+        for candidate in top:
+            x, y = candidate["x"], candidate["y"]
+            hits = stable_crossings(deriv(x), deriv(y))
+            try:
+                m = measure.metrics(deriv(x), deriv(y))
+                grid = int(m["grid"])
+                inflections = int(m["inflection_count"])
+                bend = round(float(m["bend"]), 4)
+                exact = True
+            except Exception:  # noqa: BLE001
+                grid, inflections, bend, exact = 0, 0, 0.0, False
+            item = {
+                "terms": candidate["terms"],
+                "crossings": len(hits),
+                "places": len({(round(h["x"], 1), round(h["y"], 1)) for h in hits}),
+                "grid": grid, "inflections": inflections, "bend": bend, "exact": exact,
+                "x": [round(v, 6) for v in x], "y": [round(v, 6) for v in y],
+            }
+            kept.append(item)
+            print(f"  x={item['x']} y={item['y']} → {item['crossings']} pairs, "
+                  f"{item['places']} places, grid {grid}, infl {inflections}, bend {bend}")
 
     if args.write:
         # History, not a snapshot: a new run goes on top and the older finds sink
