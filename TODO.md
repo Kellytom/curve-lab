@@ -110,6 +110,9 @@ The main families are done; these are loose ends, not new work:
 - coupler curves: my first generator zigzagged between circle-intersection branches; the family still looks worth one careful attempt.
 
 
+- **Frames set: 90 or 231?** `state/FRAMES-int.md` records 90 chosen curves; the current
+  registry makes `frames_build.mjs` select 231, so `--write` would render 924 thumbnails and
+  triple the tracked set. The operator decides before the next run.
 - **Done 2026-11-23: the seven curated finds have their plates.** `c-0263`..`c-0269` each
   have a 3000 px plate and its SVG in `book/print/` (checked file by file).
 - **Done 2026-11-23: `curve_pngs.mjs --only` merges the index.** A partial run writes its

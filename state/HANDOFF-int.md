@@ -3884,6 +3884,10 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   figure and turned the figure-index test red; each was repaired with
   `curve_pngs.mjs --only <uid>`. The registry moved from 394 to 403 during this block, so a red
   run at a boundary may name their newest save; repair it, then re-run once.
+- **Full-gate repairs:** c-0008a lacked the 2×2 transform matrix (the variant writer now builds
+  the exact quarter-turn matrix; record repaired) and 31 sampled extra-curves records lacked the
+  conversion slot (repaired); `llms_full.py` was regenerated after AGENTS.md changed. Register
+  rows 68 and 69.
 - **Next:** the operator's look; the rational-`t` control replaces the percent slider later.
 
 ## 2026-11-23 (the glue-ready Tschirnhausen pieces) — the sources named
@@ -3897,8 +3901,12 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   and the plan; the page is generated and was a comparison bed. The literal ask was followed.
 - **`/gothic/` now names the four source pages**: extra-curves, side-tests, glue and class V, so
   the place the operator looks for curves says where the non-records live.
-- **Open:** the pieces, the glue connectors and class V are constructions, not records; whether
-  to make them records (so the desk and plates use them) is the operator's call.
+- **The pieces are Study rows.** `curl`-free report: `node scripts/register_studies.mjs` says
+  "6 wanted, 0 missing" — the six Tschirnhausen pieces name `workbench/side-tests.html`, the four
+  Tschirnhausen records are `in-progress`, and `/extra-curves/` proposals are studies. They are
+  rows in the database, not fake plate records and not loose drawings.
+- **Open:** how a studied curve becomes a plate record (the operator's call); the glue join at a
+  node is the quintic action in `state/SPEC-glue-int.md`.
 
 ## 2026-11-23 (the cut desk landed; the fold, the tune strip, the hub stills)
 
@@ -3976,3 +3984,34 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   ph-nth-sandbox and finder stills older than their page sources). The figure-index failure seen
   in one run was a race with the other agent writing the registry; it passes in isolation.
 - **Next:** the book set (`state/PLAN-int.md`), unless the operator sets another direction.
+
+## 2026-11-23 (the book set finished; the guards that hold the data)
+
+- **The book set is complete and checked.** 22 curves had no 3000 px plate (c-0398..c-0419);
+  rendered. `scripts/check_book_plates.mjs` reads each PNG header: **403 plates, every long side
+  3000 px, every pHYs 300 dpi**. `BookPlateTest` runs it; register row 68.
+- **The PNG flag has a one-line switch.** `scripts/set_png_flag.mjs <uid> keep|ignore` writes the
+  row and runs `curve_pngs_git --write` in the same act. Proved on c-0420: keep staged its plate
+  and figure (2 tracked), ignore untracked them (0); the check is back to ok — 806 PNG files,
+  411 rows (403 curves + 8 studies), 0 kept in git.
+- **A rebuild cannot eat the registry.** `scripts/curve_registry.py --write` renumbers uids, so
+  it would have dropped 141 records (the seven curated finds among them). It now exits 2 and
+  names them unless `--force`; `RegistryRebuildTest` runs the real write and requires the file
+  unchanged. Register row 67.
+- **The gaps page tells the truth at zero.** Title no longer says "the 371 curves"; at 0 missing
+  it says so in one line and the candidate list starts at the empty cells.
+- **The first empty-cell run:** `parametric_search.py --cell 0,4 --n 600` found 0 of 600 in
+  (0 crossing pairs, 4 inflections). Recorded in `state/EXPLORATION-int.md` §7 as a sample, not
+  a proof; the next step is a graph-shaped family (real coefficients, degree 5+). The `--cell`
+  option is new and scans every candidate with the exact core.
+- **Housekeeping:** `workbench/side-tests.html` got the draft A badge by `scripts/stamp_draft.py`
+  (it was the one page without it); `data/README.md` names `status` and `pngIgnored`; the reading
+  counts and `llms-full.txt` are regenerated.
+- **At the block:** 403 curves, database 403/403/403, 8 studies; register green for the checks
+  added today. **Known reds, other agent's work:** `test_data_audit` wants
+  `data/emblem-stations.json` in `FORMATS`; `test_hub_stills` wants lab, book, ph-nth-sandbox and
+  finder stills rebuilt after their page edits.
+- **Open question for the operator:** `frames_build.mjs` now selects **231** curves (the kept set
+  grew) where `state/FRAMES-int.md` records **90**. A `--write` would render 924 thumbnails and
+  triple the tracked frames set; not run.
+- **Next:** the book set or the frames decision, whichever the operator prefers.
