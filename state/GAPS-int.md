@@ -5,7 +5,7 @@ It proposes; nothing here is created until the operator says so.
 
 ## The set
 
-- **393 curves**, 213 as speed rows and 180 as stored paths.
+- **398 curves**, 213 as speed rows and 185 as stored paths.
 - **192** are rated 2/10 or more; 262 have a recorded exact measurement.
 
 ## Families
@@ -26,6 +26,7 @@ It proposes; nothing here is created until the operator says so.
 | mobile-arcs | 4 | 0 | 0 | 4 | 0 |
 | roses-rational | 4 | 0 | 0 | 4 | 0 |
 | tschirnhausen | 4 | 0 | 0 | 4 | — |
+| u | 3 | 1 | 1 | 2 | 3 |
 | amper | 2 | 1 | 2 | 0 | 105 |
 | euler | 2 | 2 | 2 | 0 | 126000, 180180000000000000 |
 | m | 2 | 2 | 2 | 0 | 1, 15 |
@@ -35,7 +36,6 @@ It proposes; nothing here is created until the operator says so.
 | double | 1 | 1 | 1 | 0 | 3465 |
 | curlicue | 1 | 1 | 1 | 0 | 2772 |
 | grass | 1 | 1 | 1 | 0 | 11088 |
-| u | 1 | 1 | 1 | 0 | 3 |
 | v | 1 | 1 | 1 | 0 | 7 |
 | gumdrop | 1 | 1 | 1 | 0 | 2042040 |
 | bowl | 1 | 1 | 1 | 0 | 3 |
@@ -73,6 +73,9 @@ It proposes; nothing here is created until the operator says so.
 | piriform | 1 | 0 | 0 | 1 | — |
 | abs(x) gerono | 1 | 0 | 0 | 1 | — |
 | cissoid | 1 | 0 | 0 | 1 | — |
+| semicubical | 1 | 0 | 0 | 1 | — |
+| kappa | 1 | 0 | 0 | 1 | — |
+| strophoid | 1 | 0 | 0 | 1 | — |
 
 ## The crossings × inflections grid
 
@@ -138,6 +141,7 @@ Empty cells with a plain reading:
 | mobile-exact | 0 | 0 | 4 |
 | mobile-arcs | 0 | 0 | 4 |
 | roses-rational | 0 | 0 | 4 |
+| u | 1 | 0 | 0 |
 | amper | 0 | 0 | 1 |
 | euler | 0 | 0 | 2 |
 | m | 0 | 1 | 1 |
@@ -147,7 +151,6 @@ Empty cells with a plain reading:
 | double | 0 | 0 | 1 |
 | curlicue | 0 | 0 | 1 |
 | grass | 0 | 0 | 1 |
-| u | 1 | 0 | 0 |
 | v | 1 | 0 | 0 |
 | gumdrop | 0 | 0 | 1 |
 | bowl | 0 | 0 | 1 |
@@ -167,7 +170,7 @@ Empty cells with a plain reading:
 
 ## Named classical curves not present
 
-The generators already know 33 named curves; **11 have no record in the collection**:
+The generators already know 33 named curves; **8 have no record in the collection**:
 
 - bean
 - pear
@@ -175,9 +178,6 @@ The generators already know 33 named curves; **11 have no record in the collecti
 - rounded square
 - squircle
 - piriform 2x
-- semicubical
-- kappa
-- strophoid
 - quartic
 - sextic
 
@@ -187,5 +187,5 @@ In the order they would fill the biggest holes:
 
 1. **The named classical curves above** — each has an equation already written in `scripts/generators.py`, so a record is data entry plus a figure, not new mathematics.
 2. **The empty crossing/inflection cells** — 139 cells, starting with the ones adjacent to a full cell (one more crossing, one more inflection), which are the cheapest new shapes to find.
-3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen, astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium, epicycloid k=3, epicycloid k=5, hypocycloid k=5, bow, bicorn, gerono, nodal, bernoulli, cruciform, piriform, abs(x) gerono, cissoid
+3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen, astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium, epicycloid k=3, epicycloid k=5, hypocycloid k=5, bow, bicorn, gerono, nodal, bernoulli, cruciform, piriform, abs(x) gerono, cissoid, semicubical, kappa, strophoid
 

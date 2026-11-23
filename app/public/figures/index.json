@@ -1,3923 +1,3950 @@
 {
-  "format": "curve-lab.figures/1",
-  "curves": [
-    {
-      "uid": "c-0001",
-      "name": "amper",
-      "family": "amper",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0002",
-      "name": "euler-hook",
-      "family": "euler",
-      "perSide": 5,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0003",
-      "name": "swan",
-      "family": "swan",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0004",
-      "name": "gosling",
-      "family": "gosling",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0005",
-      "name": "double-tap",
-      "family": "double",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0006",
-      "name": "curlicue",
-      "family": "curlicue",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0007",
-      "name": "grass",
-      "family": "grass",
-      "perSide": 5,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0008",
-      "name": "u-bowl",
-      "family": "u",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0009",
-      "name": "v-sharp",
-      "family": "v",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0010",
-      "name": "m-arch",
-      "family": "m",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0011",
-      "name": "gumdrop",
-      "family": "gumdrop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0012",
-      "name": "m-coarse",
-      "family": "m",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0013",
-      "name": "bowl-coarse",
-      "family": "bowl",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0014",
-      "name": "wave-coarse",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0015",
-      "name": "involute-fit",
-      "family": "involute",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0016",
-      "name": "catenary-fit",
-      "family": "catenary",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0017",
-      "name": "euler-fit",
-      "family": "euler",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0018",
-      "name": "logspiral-fit",
-      "family": "logspiral",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0019",
-      "name": "knot-6",
-      "family": "knot",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0020",
-      "name": "knot-7",
-      "family": "knot",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0021",
-      "name": "inflect-2",
-      "family": "inflect",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0022",
-      "name": "wave3",
-      "family": "wave3",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0023",
-      "name": "cusp5-x3",
-      "family": "cusp5",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0024",
-      "name": "cusp7-deep",
-      "family": "cusp7",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0025",
-      "name": "twin-cusp",
-      "family": "twin",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0026",
-      "name": "w-arch",
-      "family": "w",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0027",
-      "name": "new-symmetric",
-      "family": "new",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0028",
-      "name": "lace-1of8-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0029",
-      "name": "lace-1of12-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0030",
-      "name": "lace-1of10-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0031",
-      "name": "wave-1of3-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0032",
-      "name": "wave-1of4-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0033",
-      "name": "wave-middle-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0034",
-      "name": "wave-1of10-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0035",
-      "name": "lace-1of12-5",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0036",
-      "name": "wave-1of8-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0037",
-      "name": "wave-1of6-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0038",
-      "name": "wave-1of5-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0039",
-      "name": "wave-2x1of3-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0040",
-      "name": "wave-1of4-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0041",
-      "name": "wave-1of3-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0042",
-      "name": "wave-middle-7",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0043",
-      "name": "lace-1of9-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0044",
-      "name": "wave-1of7-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0045",
-      "name": "wave-2of7-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0046",
-      "name": "wave-1of14-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0047",
-      "name": "lace-1of8-1of3-0",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0048",
-      "name": "lace-1of10-2",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0049",
-      "name": "wave-1of3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0050",
-      "name": "wave-2of5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0051",
-      "name": "wave-3of8-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0052",
-      "name": "wave-middle-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0053",
-      "name": "wave-1of3-2of5-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0054",
-      "name": "wave-2x1of6-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0055",
-      "name": "lace-1of10-4",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0056",
-      "name": "wave-1of12-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0057",
-      "name": "lace-1of12-1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0058",
-      "name": "lace-1of10-1of4-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0059",
-      "name": "lace-1of10-3-2",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0060",
-      "name": "lace-2x1of6-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0061",
-      "name": "lace-1of6-1of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0062",
-      "name": "lace-1of10-1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0063",
-      "name": "lace-1of12-1of4-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0064",
-      "name": "wave-1of10-1of5-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0065",
-      "name": "lace-1of8-1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0066",
-      "name": "lace-1of8-1of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0067",
-      "name": "lace-1of8-1of4-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0068",
-      "name": "wave-1of8-1of6-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0069",
-      "name": "lace-1of8-2of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0070",
-      "name": "wave-5of12-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0071",
-      "name": "wave-1of10-1of4-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0072",
-      "name": "lace-1of12-2x1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0073",
-      "name": "wave-1of10-1of3-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0074",
-      "name": "lace-1of12-1of3-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0075",
-      "name": "wave-1of12-1of4-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0076",
-      "name": "wave-1of6-2of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0077",
-      "name": "wave-1of10-2x1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0078",
-      "name": "wave-1of12-1of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0079",
-      "name": "wave-2x1of6-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0080",
-      "name": "wave-2x1of5-1of4-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0081",
-      "name": "wave-1of6-2x1of4-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0082",
-      "name": "wave-1of8-1of4-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0083",
-      "name": "wave-1of8-2of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0084",
-      "name": "lace-1of10-1of5-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0085",
-      "name": "lace-1of8-1of6-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0086",
-      "name": "lace-1of8-1of3-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0087",
-      "name": "wide-knot-x20",
-      "family": "wide",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0088",
-      "name": "ph-3-4-5-rotated-mirror-slope-minus3of4",
-      "family": "ph",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0089",
-      "name": "bend45-t1of2",
-      "family": "bend45",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0090",
-      "name": "bend45-b-1-t1of2",
-      "family": "bend45",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0091",
-      "name": "loop-t1of2-3of4",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0092",
-      "name": "loop-t1of3-2of3",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0093",
-      "name": "loop-t1of4-3of4",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0094",
-      "name": "cross-45deg-t1of4",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0095",
-      "name": "term-a-plus-1",
-      "family": "term",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0096",
-      "name": "term-c-minus1",
-      "family": "term",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0097",
-      "name": "term-e-plus-1",
-      "family": "term",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0098",
-      "name": "term-a-c-e-mixed",
-      "family": "term",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0099",
-      "name": "line-q-0",
-      "family": "line",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0100",
-      "name": "term-c-10-middle",
-      "family": "term",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0101",
-      "name": "cross-2of5-4of5",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0102",
-      "name": "cross-1of5-4of5",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0103",
-      "name": "cross-1of3-3of4",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0104",
-      "name": "cross-1of4-3of4",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0105",
-      "name": "cross-1of2-3of4",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0106",
-      "name": "cross-1of3-2of3",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0107",
-      "name": "cross-1of5-3of5",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0108",
-      "name": "cross-2of5-3of5",
-      "family": "cross",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0109",
-      "name": "weighted-balance-exp-balance-t1of4",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0110",
-      "name": "weighted-balance-exp-balance-t1of2",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0111",
-      "name": "weighted-balance-exp-balance-t3of4",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0112",
-      "name": "weighted-balance-parabola-balance-t1of4",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0113",
-      "name": "weighted-balance-parabola-balance-t1of2",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0114",
-      "name": "weighted-balance-parabola-balance-t3of4",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0115",
-      "name": "weighted-balance-flat-balance-t1of4",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0116",
-      "name": "weighted-balance-flat-balance-t1of2",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0117",
-      "name": "weighted-balance-flat-balance-t3of4",
-      "family": "weighted-balance",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0118",
-      "name": "bounded-3-4-5-gentle",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0119",
-      "name": "bounded-3-4-5-crossed",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0120",
-      "name": "bounded-5-12-13-gentle",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0121",
-      "name": "bounded-5-12-13-crossed",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0122",
-      "name": "bounded-8-15-17-crossed",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0123",
-      "name": "bounded-3-4-5-tight",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0124",
-      "name": "bounded-limacon-1-plus-2cos",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0125",
-      "name": "bounded-limacon-1-plus-3cos",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0126",
-      "name": "bounded-limacon-2-plus-3cos",
-      "family": "bounded",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0127",
-      "name": "mobile-two-vanes-1-1of2",
-      "family": "mobile",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0128",
-      "name": "mobile-two-vanes-1-1of3",
-      "family": "mobile",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0129",
-      "name": "mobile-three-vanes-1-1of2-1of4",
-      "family": "mobile",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0130",
-      "name": "mobile-three-vanes-big-small",
-      "family": "mobile",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0131",
-      "name": "mobile-exact-one-vane-3-4-5",
-      "family": "mobile-exact",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0132",
-      "name": "mobile-exact-3-4-5-plus-half-2-turns",
-      "family": "mobile-exact",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0133",
-      "name": "mobile-exact-3-4-5-plus-third-3-turns",
-      "family": "mobile-exact",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0134",
-      "name": "mobile-exact-1-1of2-1of5-1-2-5",
-      "family": "mobile-exact",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0135",
-      "name": "mobile-arcs-arc-0-to-1of2",
-      "family": "mobile-arcs",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0136",
-      "name": "mobile-arcs-arc-minus1of2-to-1of2",
-      "family": "mobile-arcs",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0137",
-      "name": "mobile-arcs-arc-0-to-1",
-      "family": "mobile-arcs",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0138",
-      "name": "mobile-arcs-arc-minus1-to-1",
-      "family": "mobile-arcs",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0139",
-      "name": "rose-k-2-a-1-b-1",
-      "family": "rose",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0140",
-      "name": "rose-k-2-a-1-b-minus1",
-      "family": "rose",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0141",
-      "name": "rose-k-3-a-1-b-1",
-      "family": "rose",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0142",
-      "name": "rose-k-4-a-1-b-1",
-      "family": "rose",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0143",
-      "name": "graphs-y-x-2-as-t2-cover",
-      "family": "graphs",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0144",
-      "name": "wave-1of5-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0145",
-      "name": "wave-2x1of4-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0146",
-      "name": "wave-1of4-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0147",
-      "name": "wave-1of6-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0148",
-      "name": "wave-2of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0149",
-      "name": "wave-1of6-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0150",
-      "name": "wave-2x1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0151",
-      "name": "wave-1of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0152",
-      "name": "wave-1of5-1of4-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0153",
-      "name": "wave-1of5-1of3-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0154",
-      "name": "wave-1of5-1of4-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0155",
-      "name": "wave-1of4-2x1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0156",
-      "name": "wave-2x1of4-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0157",
-      "name": "wave-1of6-1of3-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0158",
-      "name": "wave-1of3-2of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0159",
-      "name": "wave-3x1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0160",
-      "name": "wave-2of5-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0161",
-      "name": "wave-1of4-1of3-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0162",
-      "name": "wave-1of6-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0163",
-      "name": "lace-1of8-2",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0164",
-      "name": "wave-1of6-1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0165",
-      "name": "wave-1of5-1of4-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0166",
-      "name": "wave-1of4-2of5-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0167",
-      "name": "wave-1of4-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0168",
-      "name": "wave-2x1of4-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0169",
-      "name": "wave-1of5-1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0170",
-      "name": "wave-1of5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0171",
-      "name": "wave-2x1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0172",
-      "name": "wave-1of12-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0173",
-      "name": "wave-1of4-1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0174",
-      "name": "wave-1of6-1of5-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0175",
-      "name": "wave-2x1of5-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0176",
-      "name": "wave-1of6-1of4-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0177",
-      "name": "wave-1of8-1of4-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0178",
-      "name": "wave-1of8-1of3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0179",
-      "name": "wave-1of8-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0180",
-      "name": "wave-1of6-1of3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0181",
-      "name": "wave-1of4-2of5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0182",
-      "name": "wave-1of3-2of5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0183",
-      "name": "wave-1of5-1of3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0184",
-      "name": "wave-1of5-2x1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0185",
-      "name": "wave-2x1of4-1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0186",
-      "name": "wave-1of4-2x1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0187",
-      "name": "wave-1of6-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0188",
-      "name": "wave-1of3-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0189",
-      "name": "wave-1of5-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0190",
-      "name": "wave-3x1of3-0",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0191",
-      "name": "wave-1of4-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0192",
-      "name": "wave-3of8-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0193",
-      "name": "wave-2of5-4",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0194",
-      "name": "wave-1of6-1of5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0195",
-      "name": "wave-1of6-1of4-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0196",
-      "name": "wave-1of5-1of4-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0197",
-      "name": "wave-2x1of5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0198",
-      "name": "wave-2x1of4-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0199",
-      "name": "wave-1of4-1of3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0200",
-      "name": "wave-2x1of3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0201",
-      "name": "wave-middle-6",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0202",
-      "name": "wave-1of5-1of3-1-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0203",
-      "name": "wave-1of6-1of3-1-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0204",
-      "name": "lace-2x1of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0205",
-      "name": "wave-1of6-1of4-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0206",
-      "name": "lace-1of6-2of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0207",
-      "name": "lace-1of5-2of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0208",
-      "name": "wave-1of4-2of5-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0209",
-      "name": "lace-3of10-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0210",
-      "name": "lace-3of8-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0211",
-      "name": "lace-1of3-2of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0212",
-      "name": "wave-1of3-3of8-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0213",
-      "name": "wave-1of3-3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0214",
-      "name": "wave-1of4-3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0215",
-      "name": "wave-3of10-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0216",
-      "name": "wave-2x2of5-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0217",
-      "name": "wave-middle-5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0218",
-      "name": "wave-1of8-5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0219",
-      "name": "wave-1of6-1of3-3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0220",
-      "name": "wave-1of4-1of3-3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0221",
-      "name": "lace-1of4-1of3-2of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0222",
-      "name": "lace-2x1of5-1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0223",
-      "name": "lace-2x1of3-2of5-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0224",
-      "name": "lace-1of5-1of4-1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0225",
-      "name": "lace-1of5-2of5-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0226",
-      "name": "lace-3x1of4-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0227",
-      "name": "wave-1of6-1of4-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0228",
-      "name": "lace-3of10-5",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0229",
-      "name": "wave-1of6-1of4-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0230",
-      "name": "lace-1of8-2x1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0231",
-      "name": "lace-1of8-1of5-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0232",
-      "name": "wave-2x1of6-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0233",
-      "name": "lace-2x1of4-1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0234",
-      "name": "lace-1of4-2of5-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0235",
-      "name": "wave-1of6-2x1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0236",
-      "name": "lace-1of8-1of4-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0237",
-      "name": "wave-1of6-1of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0238",
-      "name": "lace-1of3-3of8-3",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0239",
-      "name": "lace-1of5-2x1of4-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0240",
-      "name": "wave-3of8-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0241",
-      "name": "wave-1of4-3of8-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0242",
-      "name": "wave-3of10-1of3-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0243",
-      "name": "wave-2x2of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0244",
-      "name": "wave-1of6-1of5-1of3-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0245",
-      "name": "lace-1of5-2x1of3-1",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0246",
-      "name": "wave-2x1of5-3",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0247",
-      "name": "wave-5of12-5",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0248",
-      "name": "wave-1of5-1of3-2of5-1",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0249",
-      "name": "wave-1of6-5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0250",
-      "name": "wave-1of5-5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0251",
-      "name": "wave-1of4-5-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0252",
-      "name": "wave-2x1of3-3-2",
-      "family": "wave",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0253",
-      "name": "loop-12-13-15-mid-1",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0254",
-      "name": "loop-12-15-18-mid-1",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0255",
-      "name": "loop-13-15-17-mid-1",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0256",
-      "name": "loop-3-5-11-mid-1",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0257",
-      "name": "loop-3-7-11-mid-3",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0258",
-      "name": "loop-3-8-13-mid-1",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0259",
-      "name": "loop-5-12-mid-3",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0260",
-      "name": "loop-5-8-12-mid-5",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0261",
-      "name": "loop-7-mid-2",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0262",
-      "name": "loop-8-11-mid-1",
-      "family": "loop",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0263",
-      "name": "bezier-loop-1",
-      "family": "bezier",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0264",
-      "name": "bezier-loop-2",
-      "family": "bezier",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0265",
-      "name": "bezier-loop-3",
-      "family": "bezier",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0266",
-      "name": "bezier-loop-4",
-      "family": "bezier",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0267",
-      "name": "bezier-loop-5",
-      "family": "bezier",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0268",
-      "name": "bezier-loop-6",
-      "family": "bezier",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0269",
-      "name": "mobile-k3-equal",
-      "family": "mobile-k3",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0270",
-      "name": "lens-56-783-785",
-      "family": "lens",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0271",
-      "name": "four-fold-56-783-785",
-      "family": "four-fold",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0272",
-      "name": "lace-2-eight-3-circle-parameter",
-      "family": "lace",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0273",
-      "name": "double-1-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0274",
-      "name": "double-1-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0275",
-      "name": "double-10-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0276",
-      "name": "double-10-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0277",
-      "name": "double-11-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0278",
-      "name": "double-11-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0279",
-      "name": "double-12-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0280",
-      "name": "double-12-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0281",
-      "name": "double-13-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0282",
-      "name": "double-13-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0283",
-      "name": "double-14-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0284",
-      "name": "double-14-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0285",
-      "name": "double-15-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0286",
-      "name": "double-15-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0287",
-      "name": "double-16-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0288",
-      "name": "double-16-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0289",
-      "name": "double-17-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0290",
-      "name": "double-17-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0291",
-      "name": "double-18-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0292",
-      "name": "double-18-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0293",
-      "name": "double-19-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0294",
-      "name": "double-19-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0295",
-      "name": "double-2-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0296",
-      "name": "double-2-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0297",
-      "name": "double-20-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0298",
-      "name": "double-20-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0299",
-      "name": "double-21-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0300",
-      "name": "double-21-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0301",
-      "name": "double-22-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0302",
-      "name": "double-22-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0303",
-      "name": "double-23-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0304",
-      "name": "double-23-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0305",
-      "name": "double-24-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0306",
-      "name": "double-24-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0307",
-      "name": "double-25-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0308",
-      "name": "double-25-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0309",
-      "name": "double-26-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0310",
-      "name": "double-26-se-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0311",
-      "name": "double-27-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0312",
-      "name": "double-27-se-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0313",
-      "name": "double-28-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0314",
-      "name": "double-28-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0315",
-      "name": "double-3-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0316",
-      "name": "double-3-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0317",
-      "name": "double-4-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0318",
-      "name": "double-4-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0319",
-      "name": "double-5-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0320",
-      "name": "double-5-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0321",
-      "name": "double-6-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0322",
-      "name": "double-6-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0323",
-      "name": "double-7-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0324",
-      "name": "double-7-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0325",
-      "name": "double-8-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0326",
-      "name": "double-8-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0327",
-      "name": "double-9-nw-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0328",
-      "name": "double-9-se-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0329",
-      "name": "swan-hybrid-7",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0330",
-      "name": "h-colour-1-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0331",
-      "name": "point-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0332",
-      "name": "h-colour-7-3",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0333",
-      "name": "cubic-radius-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0334",
-      "name": "quintic-balloons",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0335",
-      "name": "6-balloon-every-term",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0336",
-      "name": "quintic-double",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0337",
-      "name": "quintic-radius",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0338",
-      "name": "1of2-butterfly",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0339",
-      "name": "cubic-quintic",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0340",
-      "name": "incomplete-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0341",
-      "name": "bounce",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0342",
-      "name": "wild-butterfly",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0346",
-      "name": "2-petals",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0349",
-      "name": "side-top-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0350",
-      "name": "flourish-3",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0351",
-      "name": "flourish-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0355",
-      "name": "2-petals-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0358",
-      "name": "side-top-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0359",
-      "name": "double-bounce",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0360",
-      "name": "flourish-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0364",
-      "name": "2-petals-3",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0366",
-      "name": "1of2-butterfly-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0367",
-      "name": "flourish-5",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0368",
-      "name": "side-bounce",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0369",
-      "name": "quintic-butterfly-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0373",
-      "name": "2-petals-4",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0376",
-      "name": "side-top-3",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0377",
-      "name": "side-top-hat",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0378",
-      "name": "star-trek-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0379",
-      "name": "star-trek-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0380",
-      "name": "flourish-7",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0381",
-      "name": "side-bounce-2",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0382",
-      "name": "top-5",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0383",
-      "name": "top-4",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0386",
-      "name": "2-petals-5",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0389",
-      "name": "top-3",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0390",
-      "name": "flourish-8",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0391",
-      "name": "top-1",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0392",
-      "name": "double-top",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0396",
-      "name": "2-petals-6",
-      "family": "hybrid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0001a",
-      "name": "amper-thin",
-      "family": "amper",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0398",
-      "name": "tschirnhausen",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0399",
-      "name": "tschirnhausen-half",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0400",
-      "name": "tschirnhausen-rot45",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0401",
-      "name": "tschirnhausen-mirror",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0402",
-      "name": "astroid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0403",
-      "name": "cardioid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0404",
-      "name": "deltoid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0405",
-      "name": "nephroid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0406",
-      "name": "trifolium",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0407",
-      "name": "quadrifolium",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0408",
-      "name": "epicycloid-k3",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0409",
-      "name": "epicycloid-k5",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0410",
-      "name": "hypocycloid-k5",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0411",
-      "name": "bow",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0412",
-      "name": "bicorn",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0413",
-      "name": "gerono",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0414",
-      "name": "nodal",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0415",
-      "name": "bernoulli",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0416",
-      "name": "cruciform",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0417",
-      "name": "piriform",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0418",
-      "name": "absx-gerono",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0419",
-      "name": "cissoid",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    },
-    {
-      "uid": "c-0008a",
-      "name": "u-bowl-gothic",
-      "family": "u",
-      "perSide": 9,
-      "marginPercent": 25,
-      "failed": false,
-      "reason": null,
-      "tooWide": false
-    }
-  ]
+ "format": "curve-lab.figures/1",
+ "curves": [
+  {
+   "uid": "c-0001",
+   "name": "amper",
+   "family": "amper",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0002",
+   "name": "euler-hook",
+   "family": "euler",
+   "perSide": 5,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0003",
+   "name": "swan",
+   "family": "swan",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0004",
+   "name": "gosling",
+   "family": "gosling",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0005",
+   "name": "double-tap",
+   "family": "double",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0006",
+   "name": "curlicue",
+   "family": "curlicue",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0007",
+   "name": "grass",
+   "family": "grass",
+   "perSide": 5,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0008",
+   "name": "u-bowl",
+   "family": "u",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0009",
+   "name": "v-sharp",
+   "family": "v",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0010",
+   "name": "m-arch",
+   "family": "m",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0011",
+   "name": "gumdrop",
+   "family": "gumdrop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0012",
+   "name": "m-coarse",
+   "family": "m",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0013",
+   "name": "bowl-coarse",
+   "family": "bowl",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0014",
+   "name": "wave-coarse",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0015",
+   "name": "involute-fit",
+   "family": "involute",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0016",
+   "name": "catenary-fit",
+   "family": "catenary",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0017",
+   "name": "euler-fit",
+   "family": "euler",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0018",
+   "name": "logspiral-fit",
+   "family": "logspiral",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0019",
+   "name": "knot-6",
+   "family": "knot",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0020",
+   "name": "knot-7",
+   "family": "knot",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0021",
+   "name": "inflect-2",
+   "family": "inflect",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0022",
+   "name": "wave3",
+   "family": "wave3",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0023",
+   "name": "cusp5-x3",
+   "family": "cusp5",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0024",
+   "name": "cusp7-deep",
+   "family": "cusp7",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0025",
+   "name": "twin-cusp",
+   "family": "twin",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0026",
+   "name": "w-arch",
+   "family": "w",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0027",
+   "name": "new-symmetric",
+   "family": "new",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0028",
+   "name": "lace-1of8-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0029",
+   "name": "lace-1of12-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0030",
+   "name": "lace-1of10-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0031",
+   "name": "wave-1of3-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0032",
+   "name": "wave-1of4-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0033",
+   "name": "wave-middle-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0034",
+   "name": "wave-1of10-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0035",
+   "name": "lace-1of12-5",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0036",
+   "name": "wave-1of8-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0037",
+   "name": "wave-1of6-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0038",
+   "name": "wave-1of5-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0039",
+   "name": "wave-2x1of3-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0040",
+   "name": "wave-1of4-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0041",
+   "name": "wave-1of3-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0042",
+   "name": "wave-middle-7",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0043",
+   "name": "lace-1of9-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0044",
+   "name": "wave-1of7-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0045",
+   "name": "wave-2of7-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0046",
+   "name": "wave-1of14-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0047",
+   "name": "lace-1of8-1of3-0",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0048",
+   "name": "lace-1of10-2",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0049",
+   "name": "wave-1of3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0050",
+   "name": "wave-2of5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0051",
+   "name": "wave-3of8-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0052",
+   "name": "wave-middle-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0053",
+   "name": "wave-1of3-2of5-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0054",
+   "name": "wave-2x1of6-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0055",
+   "name": "lace-1of10-4",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0056",
+   "name": "wave-1of12-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0057",
+   "name": "lace-1of12-1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0058",
+   "name": "lace-1of10-1of4-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0059",
+   "name": "lace-1of10-3-2",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0060",
+   "name": "lace-2x1of6-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0061",
+   "name": "lace-1of6-1of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0062",
+   "name": "lace-1of10-1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0063",
+   "name": "lace-1of12-1of4-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0064",
+   "name": "wave-1of10-1of5-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0065",
+   "name": "lace-1of8-1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0066",
+   "name": "lace-1of8-1of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0067",
+   "name": "lace-1of8-1of4-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0068",
+   "name": "wave-1of8-1of6-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0069",
+   "name": "lace-1of8-2of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0070",
+   "name": "wave-5of12-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0071",
+   "name": "wave-1of10-1of4-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0072",
+   "name": "lace-1of12-2x1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0073",
+   "name": "wave-1of10-1of3-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0074",
+   "name": "lace-1of12-1of3-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0075",
+   "name": "wave-1of12-1of4-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0076",
+   "name": "wave-1of6-2of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0077",
+   "name": "wave-1of10-2x1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0078",
+   "name": "wave-1of12-1of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0079",
+   "name": "wave-2x1of6-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0080",
+   "name": "wave-2x1of5-1of4-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0081",
+   "name": "wave-1of6-2x1of4-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0082",
+   "name": "wave-1of8-1of4-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0083",
+   "name": "wave-1of8-2of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0084",
+   "name": "lace-1of10-1of5-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0085",
+   "name": "lace-1of8-1of6-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0086",
+   "name": "lace-1of8-1of3-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0087",
+   "name": "wide-knot-x20",
+   "family": "wide",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0088",
+   "name": "ph-3-4-5-rotated-mirror-slope-minus3of4",
+   "family": "ph",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0089",
+   "name": "bend45-t1of2",
+   "family": "bend45",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0090",
+   "name": "bend45-b-1-t1of2",
+   "family": "bend45",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0091",
+   "name": "loop-t1of2-3of4",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0092",
+   "name": "loop-t1of3-2of3",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0093",
+   "name": "loop-t1of4-3of4",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0094",
+   "name": "cross-45deg-t1of4",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0095",
+   "name": "term-a-plus-1",
+   "family": "term",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0096",
+   "name": "term-c-minus1",
+   "family": "term",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0097",
+   "name": "term-e-plus-1",
+   "family": "term",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0098",
+   "name": "term-a-c-e-mixed",
+   "family": "term",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0099",
+   "name": "line-q-0",
+   "family": "line",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0100",
+   "name": "term-c-10-middle",
+   "family": "term",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0101",
+   "name": "cross-2of5-4of5",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0102",
+   "name": "cross-1of5-4of5",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0103",
+   "name": "cross-1of3-3of4",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0104",
+   "name": "cross-1of4-3of4",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0105",
+   "name": "cross-1of2-3of4",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0106",
+   "name": "cross-1of3-2of3",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0107",
+   "name": "cross-1of5-3of5",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0108",
+   "name": "cross-2of5-3of5",
+   "family": "cross",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0109",
+   "name": "weighted-balance-exp-balance-t1of4",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0110",
+   "name": "weighted-balance-exp-balance-t1of2",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0111",
+   "name": "weighted-balance-exp-balance-t3of4",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0112",
+   "name": "weighted-balance-parabola-balance-t1of4",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0113",
+   "name": "weighted-balance-parabola-balance-t1of2",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0114",
+   "name": "weighted-balance-parabola-balance-t3of4",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0115",
+   "name": "weighted-balance-flat-balance-t1of4",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0116",
+   "name": "weighted-balance-flat-balance-t1of2",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0117",
+   "name": "weighted-balance-flat-balance-t3of4",
+   "family": "weighted-balance",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0118",
+   "name": "bounded-3-4-5-gentle",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0119",
+   "name": "bounded-3-4-5-crossed",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0120",
+   "name": "bounded-5-12-13-gentle",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0121",
+   "name": "bounded-5-12-13-crossed",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0122",
+   "name": "bounded-8-15-17-crossed",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0123",
+   "name": "bounded-3-4-5-tight",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0124",
+   "name": "bounded-limacon-1-plus-2cos",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0125",
+   "name": "bounded-limacon-1-plus-3cos",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0126",
+   "name": "bounded-limacon-2-plus-3cos",
+   "family": "bounded",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0127",
+   "name": "mobile-two-vanes-1-1of2",
+   "family": "mobile",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0128",
+   "name": "mobile-two-vanes-1-1of3",
+   "family": "mobile",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0129",
+   "name": "mobile-three-vanes-1-1of2-1of4",
+   "family": "mobile",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0130",
+   "name": "mobile-three-vanes-big-small",
+   "family": "mobile",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0131",
+   "name": "mobile-exact-one-vane-3-4-5",
+   "family": "mobile-exact",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0132",
+   "name": "mobile-exact-3-4-5-plus-half-2-turns",
+   "family": "mobile-exact",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0133",
+   "name": "mobile-exact-3-4-5-plus-third-3-turns",
+   "family": "mobile-exact",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0134",
+   "name": "mobile-exact-1-1of2-1of5-1-2-5",
+   "family": "mobile-exact",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0135",
+   "name": "mobile-arcs-arc-0-to-1of2",
+   "family": "mobile-arcs",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0136",
+   "name": "mobile-arcs-arc-minus1of2-to-1of2",
+   "family": "mobile-arcs",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0137",
+   "name": "mobile-arcs-arc-0-to-1",
+   "family": "mobile-arcs",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0138",
+   "name": "mobile-arcs-arc-minus1-to-1",
+   "family": "mobile-arcs",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0139",
+   "name": "rose-k-2-a-1-b-1",
+   "family": "rose",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0140",
+   "name": "rose-k-2-a-1-b-minus1",
+   "family": "rose",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0141",
+   "name": "rose-k-3-a-1-b-1",
+   "family": "rose",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0142",
+   "name": "rose-k-4-a-1-b-1",
+   "family": "rose",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0143",
+   "name": "graphs-y-x-2-as-t2-cover",
+   "family": "graphs",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0144",
+   "name": "wave-1of5-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0145",
+   "name": "wave-2x1of4-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0146",
+   "name": "wave-1of4-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0147",
+   "name": "wave-1of6-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0148",
+   "name": "wave-2of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0149",
+   "name": "wave-1of6-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0150",
+   "name": "wave-2x1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0151",
+   "name": "wave-1of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0152",
+   "name": "wave-1of5-1of4-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0153",
+   "name": "wave-1of5-1of3-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0154",
+   "name": "wave-1of5-1of4-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0155",
+   "name": "wave-1of4-2x1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0156",
+   "name": "wave-2x1of4-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0157",
+   "name": "wave-1of6-1of3-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0158",
+   "name": "wave-1of3-2of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0159",
+   "name": "wave-3x1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0160",
+   "name": "wave-2of5-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0161",
+   "name": "wave-1of4-1of3-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0162",
+   "name": "wave-1of6-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0163",
+   "name": "lace-1of8-2",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0164",
+   "name": "wave-1of6-1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0165",
+   "name": "wave-1of5-1of4-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0166",
+   "name": "wave-1of4-2of5-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0167",
+   "name": "wave-1of4-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0168",
+   "name": "wave-2x1of4-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0169",
+   "name": "wave-1of5-1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0170",
+   "name": "wave-1of5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0171",
+   "name": "wave-2x1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0172",
+   "name": "wave-1of12-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0173",
+   "name": "wave-1of4-1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0174",
+   "name": "wave-1of6-1of5-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0175",
+   "name": "wave-2x1of5-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0176",
+   "name": "wave-1of6-1of4-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0177",
+   "name": "wave-1of8-1of4-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0178",
+   "name": "wave-1of8-1of3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0179",
+   "name": "wave-1of8-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0180",
+   "name": "wave-1of6-1of3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0181",
+   "name": "wave-1of4-2of5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0182",
+   "name": "wave-1of3-2of5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0183",
+   "name": "wave-1of5-1of3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0184",
+   "name": "wave-1of5-2x1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0185",
+   "name": "wave-2x1of4-1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0186",
+   "name": "wave-1of4-2x1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0187",
+   "name": "wave-1of6-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0188",
+   "name": "wave-1of3-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0189",
+   "name": "wave-1of5-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0190",
+   "name": "wave-3x1of3-0",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0191",
+   "name": "wave-1of4-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0192",
+   "name": "wave-3of8-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0193",
+   "name": "wave-2of5-4",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0194",
+   "name": "wave-1of6-1of5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0195",
+   "name": "wave-1of6-1of4-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0196",
+   "name": "wave-1of5-1of4-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0197",
+   "name": "wave-2x1of5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0198",
+   "name": "wave-2x1of4-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0199",
+   "name": "wave-1of4-1of3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0200",
+   "name": "wave-2x1of3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0201",
+   "name": "wave-middle-6",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0202",
+   "name": "wave-1of5-1of3-1-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0203",
+   "name": "wave-1of6-1of3-1-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0204",
+   "name": "lace-2x1of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0205",
+   "name": "wave-1of6-1of4-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0206",
+   "name": "lace-1of6-2of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0207",
+   "name": "lace-1of5-2of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0208",
+   "name": "wave-1of4-2of5-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0209",
+   "name": "lace-3of10-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0210",
+   "name": "lace-3of8-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0211",
+   "name": "lace-1of3-2of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0212",
+   "name": "wave-1of3-3of8-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0213",
+   "name": "wave-1of3-3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0214",
+   "name": "wave-1of4-3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0215",
+   "name": "wave-3of10-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0216",
+   "name": "wave-2x2of5-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0217",
+   "name": "wave-middle-5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0218",
+   "name": "wave-1of8-5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0219",
+   "name": "wave-1of6-1of3-3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0220",
+   "name": "wave-1of4-1of3-3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0221",
+   "name": "lace-1of4-1of3-2of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0222",
+   "name": "lace-2x1of5-1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0223",
+   "name": "lace-2x1of3-2of5-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0224",
+   "name": "lace-1of5-1of4-1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0225",
+   "name": "lace-1of5-2of5-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0226",
+   "name": "lace-3x1of4-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0227",
+   "name": "wave-1of6-1of4-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0228",
+   "name": "lace-3of10-5",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0229",
+   "name": "wave-1of6-1of4-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0230",
+   "name": "lace-1of8-2x1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0231",
+   "name": "lace-1of8-1of5-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0232",
+   "name": "wave-2x1of6-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0233",
+   "name": "lace-2x1of4-1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0234",
+   "name": "lace-1of4-2of5-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0235",
+   "name": "wave-1of6-2x1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0236",
+   "name": "lace-1of8-1of4-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0237",
+   "name": "wave-1of6-1of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0238",
+   "name": "lace-1of3-3of8-3",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0239",
+   "name": "lace-1of5-2x1of4-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0240",
+   "name": "wave-3of8-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0241",
+   "name": "wave-1of4-3of8-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0242",
+   "name": "wave-3of10-1of3-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0243",
+   "name": "wave-2x2of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0244",
+   "name": "wave-1of6-1of5-1of3-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0245",
+   "name": "lace-1of5-2x1of3-1",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0246",
+   "name": "wave-2x1of5-3",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0247",
+   "name": "wave-5of12-5",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0248",
+   "name": "wave-1of5-1of3-2of5-1",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0249",
+   "name": "wave-1of6-5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0250",
+   "name": "wave-1of5-5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0251",
+   "name": "wave-1of4-5-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0252",
+   "name": "wave-2x1of3-3-2",
+   "family": "wave",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0253",
+   "name": "loop-12-13-15-mid-1",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0254",
+   "name": "loop-12-15-18-mid-1",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0255",
+   "name": "loop-13-15-17-mid-1",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0256",
+   "name": "loop-3-5-11-mid-1",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0257",
+   "name": "loop-3-7-11-mid-3",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0258",
+   "name": "loop-3-8-13-mid-1",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0259",
+   "name": "loop-5-12-mid-3",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0260",
+   "name": "loop-5-8-12-mid-5",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0261",
+   "name": "loop-7-mid-2",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0262",
+   "name": "loop-8-11-mid-1",
+   "family": "loop",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0263",
+   "name": "bezier-loop-1",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0264",
+   "name": "bezier-loop-2",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0265",
+   "name": "bezier-loop-3",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0266",
+   "name": "bezier-loop-4",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0267",
+   "name": "bezier-loop-5",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0268",
+   "name": "bezier-loop-6",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0269",
+   "name": "mobile-k3-equal",
+   "family": "mobile-k3",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0270",
+   "name": "lens-56-783-785",
+   "family": "lens",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0271",
+   "name": "four-fold-56-783-785",
+   "family": "four-fold",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0272",
+   "name": "lace-2-eight-3-circle-parameter",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0273",
+   "name": "double-1-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0274",
+   "name": "double-1-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0275",
+   "name": "double-10-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0276",
+   "name": "double-10-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0277",
+   "name": "double-11-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0278",
+   "name": "double-11-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0279",
+   "name": "double-12-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0280",
+   "name": "double-12-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0281",
+   "name": "double-13-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0282",
+   "name": "double-13-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0283",
+   "name": "double-14-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0284",
+   "name": "double-14-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0285",
+   "name": "double-15-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0286",
+   "name": "double-15-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0287",
+   "name": "double-16-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0288",
+   "name": "double-16-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0289",
+   "name": "double-17-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0290",
+   "name": "double-17-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0291",
+   "name": "double-18-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0292",
+   "name": "double-18-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0293",
+   "name": "double-19-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0294",
+   "name": "double-19-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0295",
+   "name": "double-2-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0296",
+   "name": "double-2-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0297",
+   "name": "double-20-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0298",
+   "name": "double-20-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0299",
+   "name": "double-21-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0300",
+   "name": "double-21-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0301",
+   "name": "double-22-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0302",
+   "name": "double-22-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0303",
+   "name": "double-23-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0304",
+   "name": "double-23-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0305",
+   "name": "double-24-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0306",
+   "name": "double-24-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0307",
+   "name": "double-25-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0308",
+   "name": "double-25-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0309",
+   "name": "double-26-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0310",
+   "name": "double-26-se-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0311",
+   "name": "double-27-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0312",
+   "name": "double-27-se-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0313",
+   "name": "double-28-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0314",
+   "name": "double-28-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0315",
+   "name": "double-3-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0316",
+   "name": "double-3-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0317",
+   "name": "double-4-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0318",
+   "name": "double-4-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0319",
+   "name": "double-5-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0320",
+   "name": "double-5-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0321",
+   "name": "double-6-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0322",
+   "name": "double-6-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0323",
+   "name": "double-7-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0324",
+   "name": "double-7-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0325",
+   "name": "double-8-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0326",
+   "name": "double-8-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0327",
+   "name": "double-9-nw-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0328",
+   "name": "double-9-se-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0329",
+   "name": "swan-hybrid-7",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0330",
+   "name": "h-colour-1-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0331",
+   "name": "point-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0332",
+   "name": "h-colour-7-3",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0333",
+   "name": "cubic-radius-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0334",
+   "name": "quintic-balloons",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0335",
+   "name": "6-balloon-every-term",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0336",
+   "name": "quintic-double",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0337",
+   "name": "quintic-radius",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0338",
+   "name": "1of2-butterfly",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0339",
+   "name": "cubic-quintic",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0340",
+   "name": "incomplete-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0341",
+   "name": "bounce",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0342",
+   "name": "wild-butterfly",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0346",
+   "name": "2-petals",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0349",
+   "name": "side-top-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0350",
+   "name": "flourish-3",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0351",
+   "name": "flourish-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0355",
+   "name": "2-petals-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0358",
+   "name": "side-top-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0359",
+   "name": "double-bounce",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0360",
+   "name": "flourish-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0364",
+   "name": "2-petals-3",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0366",
+   "name": "1of2-butterfly-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0367",
+   "name": "flourish-5",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0368",
+   "name": "side-bounce",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0369",
+   "name": "quintic-butterfly-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0373",
+   "name": "2-petals-4",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0376",
+   "name": "side-top-3",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0377",
+   "name": "side-top-hat",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0378",
+   "name": "star-trek-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0379",
+   "name": "star-trek-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0380",
+   "name": "flourish-7",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0381",
+   "name": "side-bounce-2",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0382",
+   "name": "top-5",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0383",
+   "name": "top-4",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0386",
+   "name": "2-petals-5",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0389",
+   "name": "top-3",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0390",
+   "name": "flourish-8",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0391",
+   "name": "top-1",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0392",
+   "name": "double-top",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0396",
+   "name": "2-petals-6",
+   "family": "hybrid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0001a",
+   "name": "amper-thin",
+   "family": "amper",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0398",
+   "name": "tschirnhausen",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0399",
+   "name": "tschirnhausen-half",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0400",
+   "name": "tschirnhausen-rot45",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0401",
+   "name": "tschirnhausen-mirror",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0402",
+   "name": "astroid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0403",
+   "name": "cardioid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0404",
+   "name": "deltoid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0405",
+   "name": "nephroid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0406",
+   "name": "trifolium",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0407",
+   "name": "quadrifolium",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0408",
+   "name": "epicycloid-k3",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0409",
+   "name": "epicycloid-k5",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0410",
+   "name": "hypocycloid-k5",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0411",
+   "name": "bow",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0412",
+   "name": "bicorn",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0413",
+   "name": "gerono",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0414",
+   "name": "nodal",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0415",
+   "name": "bernoulli",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0416",
+   "name": "cruciform",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0417",
+   "name": "piriform",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0418",
+   "name": "absx-gerono",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0419",
+   "name": "cissoid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0008a",
+   "name": "u-bowl-gothic",
+   "family": "u",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0420",
+   "name": "semicubical",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0421",
+   "name": "kappa",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0422",
+   "name": "strophoid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  }
+ ]
 }

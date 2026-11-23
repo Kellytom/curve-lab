@@ -66,5 +66,11 @@ for (const row of missing) {
 for (const row of relabel) {
   await prisma.curve.update({ where: { uid: row.uid }, data: { status: "in-progress" } });
 }
-console.log(`studies: added ${missing.length}; curves: relabelled ${relabel.length}`);
+// A proposal that has become a record is no longer a study: drop its study row.
+const names = new Set((await prisma.curve.findMany({ select: { name: true } })).map((row) => row.name));
+const became = (await prisma.study.findMany({ where: { page: "/extra-curves/" } }))
+  .filter((row) => names.has(row.name));
+for (const row of became) await prisma.study.delete({ where: { uid: row.uid } });
+console.log(`studies: added ${missing.length}; curves: relabelled ${relabel.length};` +
+  ` removed ${became.length} that became records`);
 await prisma.$disconnect();
