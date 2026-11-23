@@ -234,7 +234,7 @@ def draw(seam_spans, seam_label, out_path, joined=False, gap=0.22):
         }
         for s in right_side
     ]
-    seam_rev = [
+    [
         {"p0": s["p3"], "c1": s["c2"], "c2": s["c1"], "p3": s["p0"]} for s in seam_spans[::-1]
     ]
 
