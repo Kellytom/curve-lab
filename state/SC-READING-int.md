@@ -30,6 +30,7 @@ file not on this list, add the row rather than inventing an order.
 | file | when |
 |---|---|
 | `state/EXPLORATION-int.md` | a job about future ideas (mobiles, A+iB, tweaks as rows) |
+| `state/SC-GLM-SESSION-int.md` | running a task on GLM, or any "switch model / fresh session" question |
 | `state/DATA-int.md` + `data/README.md` | anything that touches the database or the visible record |
 | `state/PNG-COMPRESSION-int.md` | anything about plates, compression, or the export pipeline |
 | `state/RESEARCH-int.md`, `archive/notes/sin-cos-parametric-research.md` | a job that says "has anyone done this" |

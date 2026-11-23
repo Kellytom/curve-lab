@@ -46,6 +46,11 @@ entries at the bottom of each section.
   first timing run mistook the tuple for a 2-byte PNG.
 - **pngquant comes from `pip install pngquant-cli`** (binary at
   `.venv/bin/pngquant`, version 3.0.3).
+- **`opencode run` ignores an agent file's `model:` line.** Pass
+  `--model provider/model` or the run quietly uses the default model — a "GLM"
+  scan ran on `deepseek-v4.1-flash` on 2026-11-23. Always read the printed line
+  `> <agent> · <model>`. The sequence for a cheap GLM session is
+  `state/SC-GLM-SESSION-int.md`.
 - **The mailboxes are `archive/notes/deep-to-side.md` and
   `archive/notes/side-to-deep.md`** — not `docs/`, whatever a prompt says.
   Over 400 lines the mailbox check fails: `scripts/mailbox.py --rotate 8`
