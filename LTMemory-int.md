@@ -86,6 +86,7 @@ script; never the HTML.
 | `workbench/piece-model.html` | `scripts/piece_sandbox.py` |
 | `workbench/fleur-study-01.html` | `scripts/study_01.py` |
 | `workbench/ornament-board.html` | `scripts/board/build-board.mjs` |
+| `workbench/side-tests.html` | `scripts/side_kinds.mjs` |
 | `workbench/workbench.html` (the hub) | `scripts/hub.py` + `workbench/manifest.json` |
 | `app/src/content/docs/docs/ph-integer.md` + `.html` | `scripts/ph_doc.py` |
 

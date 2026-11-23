@@ -5,7 +5,7 @@ It proposes; nothing here is created until the operator says so.
 
 ## The set
 
-- **371 curves**, 213 as speed rows and 158 as stored paths.
+- **375 curves**, 213 as speed rows and 162 as stored paths.
 - **192** are rated 2/10 or more; 262 have a recorded exact measurement.
 
 ## Families
@@ -25,6 +25,7 @@ It proposes; nothing here is created until the operator says so.
 | mobile-exact | 4 | 1 | 0 | 4 | 0 |
 | mobile-arcs | 4 | 0 | 0 | 4 | 0 |
 | roses-rational | 4 | 0 | 0 | 4 | 0 |
+| tschirnhausen | 4 | 0 | 0 | 4 | — |
 | amper | 2 | 1 | 2 | 0 | 105 |
 | euler | 2 | 2 | 2 | 0 | 126000, 180180000000000000 |
 | m | 2 | 2 | 2 | 0 | 1, 15 |
@@ -148,14 +149,13 @@ Empty cells with a plain reading:
 
 ## Named classical curves not present
 
-The generators already know 33 named curves; **29 have no record in the collection**:
+The generators already know 33 named curves; **28 have no record in the collection**:
 
 - bean
 - bicorn
 - pear
 - heart
 - nodal
-- tschirnhausen
 - epicycloid k=3
 - epicycloid k=5
 - deltoid
@@ -186,5 +186,5 @@ In the order they would fill the biggest holes:
 
 1. **The named classical curves above** — each has an equation already written in `scripts/generators.py`, so a record is data entry plus a figure, not new mathematics.
 2. **The empty crossing/inflection cells** — 139 cells, starting with the ones adjacent to a full cell (one more crossing, one more inflection), which are the cheapest new shapes to find.
-3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs
+3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen
 
