@@ -7,7 +7,7 @@
     "cutPoints": "book/print/cuts.json",
     "exactCore": "curve_lab/measure.py"
   },
-  "count": 371,
+  "count": 375,
   "curves": [
     {
       "uid": "c-0001",
@@ -24824,6 +24824,234 @@
         "tune": "/tune/c-0001a",
         "plateSvg": "/api/print-plate/c-0001a?format=svg",
         "tuneDesk": "/tune/c-0001a"
+      }
+    },
+    {
+      "uid": "c-0398",
+      "name": "tschirnhausen",
+      "aliases": [],
+      "family": "tschirnhausen",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          2.76,
+          -6.624
+        ],
+        "end": [
+          2.76,
+          6.624
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (2.76, -6.624) to (2.76, 6.624)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "the Tschirnhausen cubic · x = t² − 3, y = t(t² − 3) · the node is at t = ±√3, so its crossing point has no rational parameter",
+      "description": "tschirnhausen (c-0398) is a stored outline from the tschirnhausen family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: the Tschirnhausen cubic · x = t² − 3, y = t(t² − 3) · the node is at t = ±√3, so its crossing point has no rational parameter",
+      "links": {
+        "tune": "/tune/c-0398",
+        "plateSvg": "/api/print-plate/c-0398?format=svg",
+        "tuneDesk": "/tune/c-0398"
+      }
+    },
+    {
+      "uid": "c-0399",
+      "name": "tschirnhausen-half",
+      "aliases": [],
+      "family": "tschirnhausen",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          1.38,
+          -3.312
+        ],
+        "end": [
+          1.38,
+          3.312
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (1.38, -3.312) to (1.38, 3.312)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "the Tschirnhausen cubic at half size · same equation, every station halved",
+      "description": "tschirnhausen-half (c-0399) is a stored outline from the tschirnhausen family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: the Tschirnhausen cubic at half size · same equation, every station halved",
+      "links": {
+        "tune": "/tune/c-0399",
+        "plateSvg": "/api/print-plate/c-0399?format=svg",
+        "tuneDesk": "/tune/c-0399"
+      }
+    },
+    {
+      "uid": "c-0400",
+      "name": "tschirnhausen-rot45",
+      "aliases": [],
+      "family": "tschirnhausen",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          6.63549,
+          -2.732261
+        ],
+        "end": [
+          -2.732261,
+          6.63549
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (6.63549, -2.732261) to (-2.732261, 6.63549)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "the Tschirnhausen cubic turned 45° · sampled: the turn carries √2, so the stations are not exact",
+      "description": "tschirnhausen-rot45 (c-0400) is a stored outline from the tschirnhausen family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: the Tschirnhausen cubic turned 45° · sampled: the turn carries √2, so the stations are not exact",
+      "links": {
+        "tune": "/tune/c-0400",
+        "plateSvg": "/api/print-plate/c-0400?format=svg",
+        "tuneDesk": "/tune/c-0400"
+      }
+    },
+    {
+      "uid": "c-0401",
+      "name": "tschirnhausen-mirror",
+      "aliases": [],
+      "family": "tschirnhausen",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          -2.76,
+          -6.624
+        ],
+        "end": [
+          -2.76,
+          6.624
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (-2.76, -6.624) to (-2.76, 6.624)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "the Tschirnhausen cubic mirrored across x = 0 · a file MIRROR_CURVE action reproduces it from the base record",
+      "description": "tschirnhausen-mirror (c-0401) is a stored outline from the tschirnhausen family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: the Tschirnhausen cubic mirrored across x = 0 · a file MIRROR_CURVE action reproduces it from the base record",
+      "links": {
+        "tune": "/tune/c-0401",
+        "plateSvg": "/api/print-plate/c-0401?format=svg",
+        "tuneDesk": "/tune/c-0401"
       }
     }
   ]

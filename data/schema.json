@@ -4,7 +4,7 @@
   "curves.json": {
    "format": "curve-lab.data.curves/1",
    "kind": "array",
-   "count": 371,
+   "count": 375,
    "fields": {
     "uid": "string",
     "name": "string",
