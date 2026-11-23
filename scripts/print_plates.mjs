@@ -131,7 +131,7 @@ function splitBranches(points) {
   let run = [points[0]];
   for (let i = 1; i < points.length; i += 1) {
     const [x0, y0] = points[i - 1], [x1, y1] = points[i];
-    if (Math.hypot(x1 - x0, y1 - y0) > 0.02 * size) { runs.push(run); run = [points[i]]; }
+    if (Math.hypot(x1 - x0, y1 - y0) > 0.25 * size) { runs.push(run); run = [points[i]]; }
     else run.push(points[i]);
   }
   runs.push(run);
@@ -257,6 +257,35 @@ function plateSvg(record) {
     const r = Math.max(3, 0.01 * LONG_SIDE);
     return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="#b03a2e"/>`;
   }).join("");
+  // A cusp on a wonk-derived curve (the doubles): the tangent reverses sharply. The dot is
+  // decorative, so it is larger than the working dots and in a blue whose luminance matches the
+  // light grey, so a grey print sees a neutral grey, not a dark spot. #7290c0 -> 141, the same
+  // as #8d8d8d. Detection is on the source stations, before the plate's smoothing, or a cusp is
+  // rounded away and never seen.
+  const isWonkDouble = /^double-/i.test(record.name || "");
+  const cuspPoints = [];
+  if (isWonkDouble) {
+    const source = Array.isArray(record.path) && record.path.length > 2
+      ? record.path.map(([x, y]) => [x, y])
+      : PLATE.spine(record.speedX || [0], record.speedY || [0], 700).map((s) => [s.x, s.y]);
+    const [sx0, sy0, sx1, sy1] = d3.extent(source, (p) => p[0]).concat(d3.extent(source, (p) => p[1]));
+    const size = Math.hypot((sx1 || 0) - (sx0 || 0), (sy1 || 0) - (sy0 || 0)) || 1;
+    let last = null;
+    for (let i = 1; i < source.length - 1; i += 1) {
+      const a = source[i - 1], b = source[i], c = source[i + 1];
+      const v1 = [b[0] - a[0], b[1] - a[1]];
+      const v2 = [c[0] - b[0], c[1] - b[1]];
+      const l1 = Math.hypot(...v1) || 1, l2 = Math.hypot(...v2) || 1;
+      const dot = (v1[0] * v2[0] + v1[1] * v2[1]) / (l1 * l2);
+      const angle = (Math.acos(Math.max(-1, Math.min(1, dot))) * 180) / Math.PI;
+      if (angle > 165) {
+        if (!last || Math.hypot(b[0] - last[0], b[1] - last[1]) > 0.01 * size) {
+          cuspPoints.push(b);
+          last = b;
+        }
+      }
+    }
+  }
   // where the curve begins and ends, so a turn is readable at a glance
   const [startX, startY] = px(segments[0].spine[0]);
   const endSpine = segments[segments.length - 1].spine;
@@ -265,6 +294,12 @@ function plateSvg(record) {
   // A closed curve starts and ends at the same point: show the start as a blue disc inside a
   // green ring, so both are readable instead of one dot hiding the other.
   const coincident = Math.hypot(endX - startX, endY - startY) < marker * 1.5;
+  const cuspDots = cuspPoints.map(([x, y]) => {
+    const turned = turn([[x, y]], degrees)[0];
+    const [cx, cy] = px(turned);
+    const r = Math.max(6, 0.017 * LONG_SIDE);
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="#7290c0" fill-opacity="0.85"/>`;
+  }).join("");
   const endLines = coincident
     ? `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${(marker * 1.7).toFixed(1)}" ` +
       `fill="none" stroke="#e8890c" stroke-width="${(marker * 0.55).toFixed(1)}"/>` +
@@ -272,7 +307,7 @@ function plateSvg(record) {
     : `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#1f5fbf"/>` +
       `<circle cx="${endX.toFixed(1)}" cy="${endY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#e8890c"/>`;
   const body = singleTone
-    ? [bands, railLines, spineLeft, dotLines, endLines].join("")
+    ? [bands, railLines, spineLeft, dotLines, endLines, cuspDots].join("")
     : [
         bands,
         railLines,
@@ -281,6 +316,7 @@ function plateSvg(record) {
         `<g clip-path="url(#right)">${spineRight}</g>`,
         dotLines,
         endLines,
+        cuspDots,
       ].join("");
   const railCount = segments.reduce((n, segment) => n + segment.rails.length, 0);
   return { svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${pxW}" height="${pxH}" viewBox="0 0 ${pxW} ${pxH}">${body}</svg>`,
