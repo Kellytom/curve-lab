@@ -1,14 +1,20 @@
-// Markdown to HTML for the chat pages.
+// Markdown to HTML for the chat pages and the chat-display appendix pages.
 //
-// The parser is the one Astro already carries (micromark through mdast), so there is no new
-// dependency and no second dialect of Markdown in the project.
+// The parser is the one Astro already carries (micromark through mdast), plus GFM-free maths:
+// $inline$ and $$display$$ are rendered by KaTeX, so a formula in an answer is typeset rather
+// than spelled. Bare URLs get their own colour and stay clickable; code is left alone.
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { toHast } from "mdast-util-to-hast";
 import { toHtml } from "hast-util-to-html";
+import { math } from "micromark-extension-math";
+import { mathFromMarkdown } from "mdast-util-math";
+import katex from "katex";
 
-// A bare URL pasted into a message is shown in its own colour, outside code. Markdown links
-// keep the same colour, so a link reads as a link whether it was written [like this](url) or
-// pasted plainly. They stay clickable because the browser makes them so.
+const toMarkdownTree = (source) => fromMarkdown(source, {
+  extensions: [math({ singleDollarTextMath: true })],
+  mdastExtensions: [mathFromMarkdown({ singleDollarTextMath: true })],
+});
+
 const URL_PATTERN = /(https?:\/\/[^\s<>"'`]+)/g;
 
 function colourUrls(html) {
@@ -28,13 +34,36 @@ function colourUrls(html) {
   return out;
 }
 
+function renderMath(node, displayMode) {
+  try {
+    return katex.renderToString(node.value, { displayMode, throwOnError: false, output: "html" });
+  } catch {
+    return null;
+  }
+}
+
 export function renderMarkdown(text) {
   const source = String(text || "");
   if (!source.trim()) return "";
   try {
-    return colourUrls(toHtml(toHast(fromMarkdown(source))));
+    const tree = toMarkdownTree(source);
+    // KaTeX before the tree becomes HTML: a maths node is replaced by its rendered span
+    const walk = (node) => {
+      if (!node || !Array.isArray(node.children)) return;
+      node.children = node.children.map((child) => {
+        if (child.type === "inlineMath" || child.type === "math") {
+          const html = renderMath(child, child.type === "math");
+          if (!html) return child;
+          return { type: "html", value: html };
+        }
+        walk(child);
+        return child;
+      });
+    };
+    walk(tree);
+    // allowDangerousHtml: the maths nodes are replaced by KaTeX's own HTML
+    return colourUrls(toHtml(toHast(tree, { allowDangerousHtml: true }), { allowDangerousHtml: true }));
   } catch {
-    // a message that will not parse is shown as plain text rather than lost
     return "";
   }
 }

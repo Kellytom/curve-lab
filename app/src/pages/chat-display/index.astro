@@ -1,0 +1,33 @@
+---
+// The index of appendix pages: one card per markdown file in app/src/data/chat-display/.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { readdirSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
+const DIR = fileURLToPath(new URL("../../data/chat-display/", import.meta.url));
+const pages = readdirSync(DIR).filter((file) => file.endsWith(".md")).map((file) => {
+  const text = readFileSync(`${DIR}${file}`, "utf8");
+  const title = (text.match(/^# (.*)$/m) || [, file.replace(/\.md$/, "")])[1];
+  return { slug: file.replace(/\.md$/, ""), title };
+});
+---
+
+<BaseLayout title="chat display" pageTitle="Chat display appendices">
+  <p class="lead">The long version of an answer, at its own URL. The chat says the result in one
+    line and links here for the figures, the formulas and the tables. One page per answer.</p>
+  {pages.length === 0 && <p class="note">No appendices yet.</p>}
+  <div class="index">
+    {pages.map((page) => (
+      <article><a href={`/chat-display/${page.slug}/`}>{page.title}</a>
+        <code>/chat-display/{page.slug}/</code></article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .index { display: grid; gap: 10px; max-width: 70ch; }
+  .index article { background: #fffef9; border: 1px solid #eee3d3; padding: 10px 12px;
+    display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  .index a { color: #7a5a1f; }
+  .index code { font: 11px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+</style>

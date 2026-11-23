@@ -1,0 +1,44 @@
+---
+// A chat-display appendix: the long version of one answer, at its own URL.
+// The chat reply carries one line — "see the appendix: …/chat-display/<slug>/" — and the page
+// holds the figures, the formulas and the tables that do not belong in a chat message.
+// Spec: state/SPEC-chat-display-int.md.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { renderMarkdown } from "../../lib/markdown.js";
+
+const DIR = fileURLToPath(new URL("../../data/chat-display/", import.meta.url));
+const slug = String(Astro.params.slug || "");
+const FILE = `${DIR}${slug}.md`;
+const source = existsSync(FILE) ? readFileSync(FILE, "utf8") : "";
+const title = (source.match(/^# (.*)$/m) || [, slug])[1];
+const html = source ? renderMarkdown(source.replace(/^# .*\n/, "")) : "";
+---
+
+<BaseLayout title={title} pageTitle={title}>
+  <link slot="head" rel="stylesheet" href="/vendor/katex/katex.min.css" />
+  {source ? (
+    <>
+      <p class="appendix-mark">an appendix to a chat reply · <code>/chat-display/{slug}/</code></p>
+      <article class="appendix" set:html={html} />
+    </>
+  ) : (
+    <p class="note">No appendix named <code>{slug}</code>. <a href="/chat-display/">All appendices</a>.</p>
+  )}
+</BaseLayout>
+
+<style is:global>
+  .appendix-mark { font: 12px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; margin: 0 0 14px; }
+  .appendix { max-width: 78ch; }
+  .appendix h2 { font-size: 20px; margin: 26px 0 8px; }
+  .appendix p, .appendix li { font-size: 16px; line-height: 1.65; }
+  .appendix code { font: 13px/1.5 ui-monospace, Menlo, monospace; background: #f3ecdd; padding: 1px 4px; }
+  .appendix pre { background: #f6f0e2; padding: 12px 14px; border: 1px solid #e6dccb; overflow-x: auto; }
+  .appendix pre code { background: none; padding: 0; }
+  .appendix .katex { font-size: 1.05em; }
+  .appendix .katex-display { margin: 14px 0; }
+  .appendix .url { color: #1f5fbf; text-decoration: underline; text-underline-offset: 2px; word-break: break-all; }
+  .appendix table { border-collapse: collapse; margin: 12px 0; }
+  .appendix th, .appendix td { border-bottom: 1px solid #eee3d3; padding: 4px 14px 4px 0; text-align: left; }
+</style>

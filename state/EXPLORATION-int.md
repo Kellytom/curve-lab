@@ -244,7 +244,7 @@ is newest first and starred pinned, so a future run lands on top by itself.
 
 ## Rich chat display — first step
 
-Publish one existing answer as a page (`/talk/<date>-<slug>/`) and put the link in the chat
+Publish one existing answer as a page (`/chat-display/<date>-<slug>/`) and put the link in the chat
 reply. Spec: `state/SPEC-chat-display-int.md`. Parked behind the curves and the book.
 
 ## The human figure in the centre — first step
