@@ -3575,14 +3575,16 @@ pinch cap (a second construction; `docs/SIDE-CURVES.md` §2).
   the fold guard. All 371 plate SVGs regenerated once with
   `node scripts/print_plates.mjs --svg-only` (about 10 s), so `/plates/` and `/review/` serve
   the new law from `/api/print-plate/<uid>?format=svg`.
-- **100 curves from c-0022 on are still plain spines.** c-0046 (wave-1of14-3) and 99 others
-  have sharp turns: c-0046's curvature peaks at **4858** at t = 0.497, and the drawing shows
-  cusps at t ≈ 0.17 and 0.83. The largest safe uniform width is **0.058 %**, below the 0.2 %
-  floor, so the guard refuses and no band is drawn. A constant band through a cusp folds; the
-  operator's rule forbids a local cap ("you cant cheat and use another way to make the
-  character rails"). They stay spines until the operator chooses: break the band at the sharp
-  turns (two ribbons per curve), or leave them. The full list is in the census output of this
-  session; the first entries are c-0046, c-0047, c-0053 … c-0087, c-0164 … c-0268.
+- **The 100 plain spines now draw a broken band** (operator: "Break the band at each sharp
+  turn ... only for display purposes. keep it internally as an equation we can send back and
+  forth to inkscape"). `workbench/plate_math.js` gains `splitGroup`: where the uniform guard
+  would refuse (safe width below the 0.2 % floor), the band is drawn at the asked width on the
+  stretches that fit, lifted across each sharp turn, tapered onto the spine over about an
+  eighth of a run. The record is untouched — a row curve stays its speed pair, a stored curve
+  its path, and no break is stored anywhere. Measured: **371 of 371 plates now draw a band**
+  (269 continuous, 102 in runs); c-0046 (curvature 4858 at t = 0.497) goes from a bare spine to
+  four runs. `tests/js/plate-split.test.mjs` checks the gaps, the fold limit on every drawn
+  run, and that the record is not edited.
 - **The page reloading constantly is fixed.** The launch agent `com.curvelab.app` re-ran
   `npm run dev` every 10 s; it fails on Node 22 ("Node.js v22.4.1 is not supported by Astro"),
   but its `predev` step ran `scripts/marginalia.mjs`, which **deleted** `app/public/ornaments`
@@ -3594,3 +3596,166 @@ pinch cap (a second construction; `docs/SIDE-CURVES.md` §2).
 - **Outside the repo:** the launch agent itself points at `/usr/local/bin/npm` (Node 22) and
   loops; it should use `~/node24/bin` or be unloaded. It no longer reloads pages, but it still
   takes a database snapshot every ten seconds.
+- **Scope of the break:** it is in the plate writer (`scripts/print_plates.mjs` calls
+  `splitGroup`); the tuning page still draws the uniform guard's band, so a cusp curve is
+  spine-only there. Moving the tune page onto the same function is the next step if the
+  operator wants it.
+
+## 2026-11-22 (later) — the thickness is measured, and the preset is a 2 % gap
+
+- **The operator's review of the plates:** the good starting set is c-0022–c-0043 and c-0161,
+  `c-0001a` is good, and of the rest "half are too thin and half are too thick ... you should
+  have algorithms to figure that out already and fix it before i even see it. right? check the
+  thickness". They were right: the preset was a fixed number, so a curve the fold guard bound
+  drew 0.4–0.9 % and a curve it did not drew 7.9–9.2 %.
+- **The preset is now a measured gap.** The reference curves measure 1.9 % (`c-0001a`) and
+  2.3 % (`c-0161`) of the curve's own size, so `scripts/lib/plate-row.mjs` solves the base
+  width for a **2 % drawn median gap** (`TARGET_GAP_PERCENT`). A saved width still wins.
+- **The solve is per run.** The bow is small near a curve's ends, so each run solves its own
+  base (`base = target / median bow factor`) and is recut at that base, twice, so it cannot
+  fold. Before that, end runs sat at the curve-wide base and drew 1.3 %.
+- **The stored paths get the same treatment:** `splitPath` in `workbench/plate_math.js` breaks
+  the band at a sharp turn and normalises each run, so c-0089…c-0142 and c-0273… no longer
+  draw hairlines.
+- **Measured after:** every one of the 371 plates draws a median gap between **1.96 % and
+  2.01 %** (10th–90th centile) and a widest gap of 2.24–2.45 %. Before: 0.01–9.2 %.
+  `tests/js/plate-gap.test.mjs` fails outside 1.5–2.6 %; register row 59.
+- **One known outlier:** `c-0006` (curlicue) carries the operator's saved 8 % / plus 6 and still
+  draws a very wide band. Saved widths are not normalised; say if that one should be.
+- **Not changed:** the tune page still uses the uniform guard (`group`), not the broken,
+  normalised band. Moving it is the next step if wanted.
+
+## 2026-11-22 (later still) — the break is withdrawn
+
+- **The operator corrected the break:** "it breaks too many places. just keep the side curves
+  with tight thin, but as thick as reasonable until they start to buckle, and i will manually
+  adjust. you can make a note if there are buckles in the curve for the tuner."
+- **What is gone:** `splitGroup`, `splitPath`, the per-run base solve and the tapered ends. A
+  plate draws one continuous band again.
+- **What stays:** the measured preset. A curve with no saved width is asked for a 2 % drawn
+  gap; the fold guard cuts it to the largest safe width, so a tight curve is thin rather than
+  broken. The 0.2 % floor that hid a band entirely is gone: only a curve with infinite
+  curvature (no safe width at all) is drawn as a spine. `c-0006`'s saved 8 % is still used as
+  asked.
+- **The buckle note for the tuner:** `group()` and `pathGroup()` return `asked`, `width`,
+  `buckles` and `buckleNote` ("buckles above 0.04 % — asked 1.01 %, cut so the band cannot
+  fold"). `/tune/<uid>` prints it beside the band width, and the tune lab's readout says the
+  same.
+- **Measured, 366 preset curves:** 306 draw a band, 60 have no safe width and stay spines,
+  283 were cut below the ask. Median gap across the set is 0.08 % of the curve's size, 90th
+  centile 1.99 %, and nothing exceeds the 2 % target (max 2.22 %).
+- **The open trade-off, stated plainly:** on the 60 cusped curves a continuous band is a
+  hairline (c-0046 0.14 %, c-0065 0.02 %, c-0273 0.01 %); the only way to see a band there is
+  to break it, which the operator has just refused. If they want breaks only where the
+  continuous band would be under, say, 0.6 %, it is a small flag, not a rewrite.
+
+## 2026-11-22 (final) — the inside hugs the spine, the outside stays wide
+
+- **The operator's diagnosis was the missing law:** "figure out which side is buckling and
+  make that thin, and the outer rail can be wider ... the curve on the inner side should be
+  close to the spine, the curve on the outside can be wider."
+- **What the band now does, per station:** the signed curvature says which normal side holds
+  the centre of curvature; that rail is the inside. There the distance is
+  `min(base × (1 + strength × profile), 0.9 / κ)`; on the outside it is
+  `base × (1 + strength × profile)`. No break, no taper, one continuous band.
+- **A saved width can only lower the plate**: `min(saved, preset)`, so `c-0006` (8 %, plus 6)
+  is no longer a slab. The desk keeps the saved number.
+- **The tuner is told and can see it:** `group()`/`pathGroup()` return `width`, `widthPlus`,
+  `widthMinus`, `buckles`, `buckleNote`; `/tune/<uid>` prints the cut side and draws the wide
+  side a second time at 1.5× in amber, as a guide (nothing saved).
+- **Tests:** 40 JS green, 22 register green. The three tests that assumed a symmetric band
+  (midpoint = spine, parallel at any width) are amended with the operator's words.
+- **Measured:** `c-0046` inside 0.10 % / outside 2.32 %, `c-0065` 0.04 % / 2.32 %,
+  `c-0023` 1.01 % / 2.32 %, `c-0001a` unchanged at 1.74 %.
+
+## 2026-11-23 — plates settled, glue sandbox, six classical curves
+
+- **The plate band is one law, per station.** Inside a turn the rail is capped at 0.9/κ; outside
+  it keeps the ask. An unedited curve sits at a **1 %** gap (saved widths win); a saved width
+  can only lower the plate. After the change every plate draws a band (269 continuous, 102 cut).
+  Red dots mark the outside rail's self-crossings (future cut points, `book/print/cuts.json`);
+  blue marks the start, green the end (a closed curve shows blue inside a green ring).
+- **Turns and bearings are tools, not edits.** `scripts/set_turns.py` (absolute or `--delta`) and
+  `scripts/set_bearings.mjs` (blue dot at N/NE/…) write the registry; `app/scripts/sync-turns.mjs`
+  copies the turn into the database note, which had drifted 45° for days.
+- **Data.** All 381 curves have notes with text; 272 were filled from the generated description.
+  `data/curves-readable.json` is the one readable file (equation in words, measurements, turn).
+- **Gaps.** `state/GAPS-int.md` and `/extra-curves/`: 28 named classical curves still missing,
+  139 empty crossing × inflection cells (counted over the 262 measured curves only).
+  **Six were created today**: astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium —
+  sampled paths, `c-0402`–`c-0407`, with figures, notes and plates.
+- **Tschirnhausen** is in the collection as four sampled records (`c-0398`–`c-0401`), shown under
+  "Added on request" on `/extra-curves/`.
+- **The glue sandbox** (`/glue/`) joins a curve ending on slope 3/4 to one starting on −7/24: a
+  cubic whose ends lie on the typed directions, so both slopes are exact; directions are
+  p-triples (4:3, 24:−7), so the control points are fractions. It also offers a **rational** mode
+  (negative weights loop) and **Levien's parallel fit** (4 spans, worst miss 0.0042, from the
+  repository's own port), and a **band** that draws the connector's two side curves with caps.
+- **Not done / open.** G3 is impossible for a cubic (8 numbers, 10 conditions) and needs a
+  quintic; a true loop at the join also needs the quintic. The tune page still uses the old
+  uniform band in places. The 13 absent uids in `c-0338`–`c-0364` are still absent.
+- **Tooling.** `said` (recent messages; `/said/`), `said --who deep2` (`/deep2-said/`), and
+  `workhorse` (`jobq add …`, then run `workhorse` in a third terminal) so slow jobs never block
+  the chat.
+
+- **Later in the same session:** six more classical shapes joined (`epicycloid-k3`,
+  `epicycloid-k5`, `hypocycloid-k5`, `bow`, `bicorn`, `gerono`, `c-0408`–`c-0413`), and the
+  gap list now compares names with punctuation removed — `epicycloid k=3` had been counted as
+  missing while its record sat in the registry. **17 named classical curves remain missing.**
+  The workhorse queue has a page at `/jobs/`.
+
+## 2026-11-23 (later still) — hearts, class V, cusp dots, three more batches
+
+- **`/hearts/`**: the Sacred Heart (flame, cross, rays, a decorative **C**) and the Immaculate
+  Heart (sword, roses, rays, a decorative **M**). The heart is sampled and says so; everything
+  is a slider so proportions can be judged. **Nothing stored yet** — the operator picks one.
+- **`/class-v/`**: half a Tschirnhausen trimmed, mirrored and joined into a gothic arch; apex
+  angle, width and height printed; turn 0/90/180/270 and a y-stretch (default 90° and 2×). The
+  stroke and its side curves are continuous and pinned by `tests/js/class-v.test.mjs`.
+- **Cusp dots**: 50 double-wonk plates carry a larger **blue** dot at each cusp, `#7290c0`,
+  chosen to print as the same neutral grey as `#8d8d8d`. Detection is on the source stations,
+  not the smoothed spine.
+- **Curves**: three batches of six (to `c-0419`): 393 in all, database 393/393/393; the missing
+  classical list is down to **11**. **Known fault:** the multi-branch records `c-0416`
+  (cruciform) and `c-0418` (absx-gerono) draw as fragments — the branch split is a heuristic
+  on jumps; the next step is to store branches as separate arrays instead of one path.
+- **Plate health**: the rail spikes are rounded at cusps (`roundSpikes`), so the barbs are gone
+  on the worst curves.
+
+- **`ai-news/`**: the bootstrap pack for another AI — `README`, start-here, map, the last 40
+  commits, the data counts, the open faults (`07-questions.md`), a glossary, six code excerpts
+  with file:line, four plots and two plates. 242 KB. Regenerate the data parts with
+  `.venv/bin/python scripts/ai_news.py`; the prose is hand-written.
+
+## 2026-11-23 (end) — chat-display, the ding, and what is next
+
+- **`/chat-display/`** is the name and the route for an answer's long form: one markdown file in
+  `app/src/data/chat-display/` becomes a page at `/chat-display/<slug>/`; the chat carries one
+  line. KaTeX is installed and maths typesets; the first appendix is `offsets.md`. Spec:
+  `state/SPEC-chat-display-int.md`.
+- **The ding** is `~/bin/ding` (a macOS chime and banner, borrowed from grid-8's `notify.py`); the
+  job queue now dings when a job lands; DeepSeek2 has the note on the bus (id 160).
+- **Next action — the offset crossings (steps 1–4), not started.** Remove the inside cap and the
+  `roundSpikes` bevel, let the character rail cross itself, mark every crossing with a red dot,
+  hide the little loop as an invisible span, and record the spans in `book/print/rail-holes.json`.
+  This changes the law the register's plate-guard tests encode, so both tests and
+  `state/DESIGN-int.md` need amending in the same commit. Probe today: c-0046 three crossings a
+  side, c-0065 fifteen and twelve, c-0273 two and one.
+- **Also open:** the multi-branch records (c-0416, c-0418) still fragment; G3 needs a quintic;
+  the human figure waits on the operator's choice.
+
+## 2026-11-23 (handoff) — truth at the block
+
+- **HEAD `ad4cc590`** (DeepSeek2's ruff fix; my last commit `1e1f0674`). Local 4321 **200**, 8003
+  **200**. Register **OK**. Fast suite **carried**: 14 modules green, 2026-11-23, no code change
+  since; database last checked 393/393/393 the same day (carried).
+- **The previous action did not land.** The start-point shift is absent: no shift case in
+  `tests/js/plate-offset.test.mjs`, no shift code in `plate_math.js` or `print_plates.mjs`.
+- **Untracked, DeepSeek2's:** `app/scripts/parity-reduce.mjs`, `app/scripts/probe-clean.mjs`,
+  `state/SC-READING-int.md`. Left for them, not deleted.
+- **Next move:** the offset crossings, steps 1–4 (see `state/PLAN-int.md`).
+- **Tried and rejected:** the local pinch cap — the operator: "you cant cheat and use another way
+  to make the character rails"; the scaled partner — the operator saw a scaled copy, thin on one
+  side; breaking the band at every turn — "it breaks too many places"; a two-handle least-squares
+  fit for the offset — 4.5 % on a quadrant against 0.53 % for one measured parameter; Quarto —
+  a second publishing toolchain duplicating Astro.

@@ -227,5 +227,202 @@ def main():
     print(f"ai-news: {len(list(OUT.rglob('*')))} files, {total // 1024} KB")
 
 
+
+
+
+# ---- the single-file HTML ---------------------------------------------------------------
+#
+# The pack must open from the folder itself, with no server. So index.html embeds the prose
+# (converted here), the plots (SVG is text) and the two plates (inline SVG). No CDN, no fonts,
+# no JavaScript beyond a small table-of-contents highlight.
+
+def inline_md(text):
+    import html as html_mod
+    out = html_mod.escape(text, quote=False)
+    out = re.sub(r"`([^`]+)`", r"<code>\1</code>", out)
+    out = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", out)
+    out = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<i>\1</i>", out)
+    out = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', out)
+    return out
+
+
+def md_to_html(text):
+    import html as html_mod
+    lines = text.splitlines()
+    out = []
+    i = 0
+    para = []
+
+    def flush():
+        if para:
+            out.append("<p>" + inline_md(" ".join(para)) + "</p>")
+            para.clear()
+
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith("```"):
+            flush()
+            fence = []
+            i += 1
+            while i < len(lines) and not lines[i].startswith("```"):
+                fence.append(html_mod.escape(lines[i]))
+                i += 1
+            out.append("<pre><code>" + "\n".join(fence) + "</code></pre>")
+            i += 1
+            continue
+        if line.startswith("#"):
+            flush()
+            level = len(line) - len(line.lstrip("#"))
+            out.append(f"<h{level}>{inline_md(line[level:].strip())}</h{level}>")
+            i += 1
+            continue
+        if line.strip().startswith("|") and i + 1 < len(lines) and set(lines[i + 1].strip()) <= set("|-: "):
+            flush()
+            header = [c.strip() for c in line.strip().strip("|").split("|")]
+            i += 2
+            rows = []
+            while i < len(lines) and lines[i].strip().startswith("|"):
+                rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")])
+                i += 1
+            table = ["<table><thead><tr>"]
+            table += [f"<th>{inline_md(c)}</th>" for c in header]
+            table.append("</tr></thead><tbody>")
+            for row in rows:
+                table.append("<tr>" + "".join(f"<td>{inline_md(c)}</td>" for c in row) + "</tr>")
+            table.append("</tbody></table>")
+            out.append("".join(table))
+            continue
+        if re.match(r"^\s*[-*]\s", line) or re.match(r"^\s*\d+\.\s", line):
+            flush()
+            ordered = bool(re.match(r"^\s*\d+\.\s", line))
+            bullet = r"^\s*\d+\.\s" if ordered else r"^\s*[-*]\s"
+            items = []
+            while i < len(lines):
+                if re.match(bullet, lines[i]):
+                    items.append(re.sub(bullet, "", lines[i]))
+                    i += 1
+                elif lines[i].strip() and items and not lines[i].startswith("#") and not lines[i].strip().startswith("|"):
+                    # a wrapped line continues the item above it
+                    items[-1] = items[-1].rstrip() + " " + lines[i].strip()
+                    i += 1
+                else:
+                    break
+            tag = "ol" if ordered else "ul"
+            out.append(f"<{tag}>" + "".join(f"<li>{inline_md(it)}</li>" for it in items) + f"</{tag}>")
+            continue
+        if line.strip().startswith(">"):
+            flush()
+            quote = []
+            while i < len(lines) and lines[i].strip().startswith(">"):
+                quote.append(lines[i].strip().lstrip(">").strip())
+                i += 1
+            out.append("<blockquote>" + inline_md(" ".join(quote)) + "</blockquote>")
+            continue
+        if not line.strip():
+            flush()
+            i += 1
+            continue
+        para.append(line.strip())
+        i += 1
+    flush()
+    return "\n".join(out)
+
+
+def build_html():
+    import html as html_mod
+    sections = [
+        ("start", "Start here", "00-start-here.md"),
+        ("map", "Map", "01-map.md"),
+        ("recent", "Recent work", "02-recent-work.md"),
+        ("data", "Data", "03-data.md"),
+        ("questions", "Open questions", "07-questions.md"),
+        ("glossary", "Glossary", "08-glossary.md"),
+        ("code", "Code", "06-code.md"),
+    ]
+    nav = "".join(f'<a href="#{key}">{esc(label)}</a>' for key, label, _ in sections)
+    body = []
+    for key, label, filename in sections:
+        text = (OUT / filename).read_text()
+        # the file's own first heading would double the section title
+        text = re.sub(r"\A#\s[^\n]*\n", "", text)
+        body.append(f'<section id="{key}"><h2>{esc(label)}</h2>{md_to_html(text)}</section>')
+
+    plots = []
+    for name, title in (("families.svg", "Curves per family"),
+                        ("shape-grid.svg", "Crossing pairs × inflections"),
+                        ("grids.svg", "Grids, by power of ten"),
+                        ("stars.svg", "Ratings")):
+        path = PLOTS / name
+        if path.exists():
+            svg = re.sub(r'<svg[^>]*width="\d+" height="\d+"', '<svg class="plot"', path.read_text(), count=1)
+            plots.append(f'<figure>{svg}<figcaption>{esc(title)}</figcaption></figure>')
+
+    plates = []
+    for uid in ("c-0001", "c-0046"):
+        path = SVGS / f"{uid}.svg"
+        if path.exists():
+            svg = re.sub(r'<svg[^>]*width="\d+" height="\d+"', '<svg class="plate"', path.read_text(), count=1)
+            plates.append(f'<figure>{svg}<figcaption>{uid} — the plate as the collection draws it today</figcaption></figure>')
+
+    doc = f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ai-news — curve-lab, for a visiting AI</title>
+<style>
+  :root {{ --ink:#2b2620; --muted:#6b5d49; --paper:#faf6ec; --card:#fffef9; --line:#e6dccb; --gold:#b06a1f; }}
+  * {{ box-sizing:border-box; }}
+  body {{ margin:0; background:var(--paper); color:var(--ink);
+         font:16px/1.65 ui-sans-serif, system-ui, -apple-system, sans-serif; }}
+  header {{ padding:28px 24px 10px; max-width:1180px; margin:0 auto; }}
+  h1 {{ margin:0 0 4px; font-size:26px; }}
+  .sub {{ color:var(--muted); margin:0 0 14px; }}
+  nav {{ display:flex; flex-wrap:wrap; gap:6px 14px; font:13px/1.4 ui-monospace, Menlo, monospace;
+         border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 0; }}
+  nav a {{ color:var(--gold); text-decoration:none; }}
+  nav a:hover {{ text-decoration:underline; }}
+  main {{ max-width:1180px; margin:0 auto; padding:8px 24px 60px; }}
+  section {{ margin:26px 0 40px; scroll-margin-top:12px; }}
+  h2 {{ font-size:20px; margin:0 0 10px; border-bottom:1px solid var(--line); padding-bottom:6px; }}
+  h3 {{ font-size:16px; margin:18px 0 6px; }}
+  p, li {{ max-width:78ch; }}
+  code {{ font:13px/1.5 ui-monospace, Menlo, monospace; background:#f3ecdd; padding:1px 4px; }}
+  pre {{ background:#f6f0e2; padding:12px 14px; overflow-x:auto; border:1px solid var(--line); }}
+  pre code {{ background:none; padding:0; font-size:13px; }}
+  table {{ border-collapse:collapse; margin:10px 0 16px; font:13px/1.5 ui-monospace, Menlo, monospace; }}
+  th, td {{ border-bottom:1px solid var(--line); padding:4px 14px 4px 0; text-align:left; vertical-align:top; }}
+  th {{ color:var(--muted); }}
+  blockquote {{ margin:10px 0; padding:8px 14px; border-left:3px solid var(--line); color:var(--muted); }}
+  .grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:16px; }}
+  figure {{ margin:0; background:var(--card); border:1px solid var(--line); padding:10px; }}
+  figure svg {{ display:block; width:100%; height:auto; }}
+  figcaption {{ font:12px/1.4 ui-monospace, Menlo, monospace; color:var(--muted); padding-top:6px; }}
+  .plate {{ max-height:420px; object-fit:contain; }}
+  .note {{ background:var(--card); border:1px solid var(--line); padding:10px 14px; max-width:78ch; }}
+</style></head><body>
+<header>
+  <h1>ai-news</h1>
+  <p class="sub">curve-lab, for a visiting AI. This one file carries the pack: prose, plots, two
+  plates and the code that matters. The repository is the record; this is the way in.</p>
+  <nav>{nav}<a href="#plots">Plots</a><a href="#plates">Plates</a></nav>
+</header>
+<main>
+  {''.join(body)}
+  <section id="plots"><h2>Plots</h2><div class="grid">{''.join(plots)}</div></section>
+  <section id="plates"><h2>Plates</h2><div class="grid">{''.join(plates)}</div></section>
+</main>
+</body></html>"""
+    (OUT / "index.html").write_text(doc)
+    return (OUT / "index.html").stat().st_size
+
+
+# keep the html current whenever the pack is generated
+_original_main = main
+
+
+def main_and_html():
+    _original_main()
+    size = build_html()
+    print(f"ai-news/index.html  {size // 1024} KB")
+
+
 if __name__ == "__main__":
-    main()
+    main_and_html()

@@ -112,6 +112,12 @@ def run(once=False, quiet=False):
             if not quiet:
                 print(f"{job['status']}  {job['id']}  {job['seconds']:.1f}s  "
                       f"log {job['log']}")
+            # the operator is often away: a job that lands must be heard, not just written
+            try:
+                subprocess.Popen([str(Path.home() / "bin" / "ding"), f"{job['name']}: {job['status']}"],
+                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except OSError:
+                pass
             if once:
                 return 0 if code == 0 else 1
 

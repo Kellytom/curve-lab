@@ -43,6 +43,7 @@ def points_of(spec):
 
 
 def main():
+    batch = sys.argv[1:] or BATCH
     registry = json.loads(REGISTRY.read_text())
     have = {row["uid"] for row in registry["curves"]}
     names = {row["name"].lower() for row in registry["curves"]}
@@ -52,7 +53,7 @@ def main():
     next_uid = 402
     added = 0
 
-    for key in BATCH:
+    for key in batch:
         spec = next((s for s in G.NAMED if s["key"] == key), None)
         if spec is None:
             print(f"  {key}: not in NAMED")
