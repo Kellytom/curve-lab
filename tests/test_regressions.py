@@ -383,6 +383,22 @@ class CurveFlagsTest(unittest.TestCase):
             self.assertEqual(0, run.returncode, f"{script}:\n{run.stdout}{run.stderr}")
 
 
+class GapsNamedTest(unittest.TestCase):
+    def test_the_gaps_page_proposes_only_curves_that_are_actually_named(self):
+        """2026-11-23, found in the build: `curve_gaps.mjs` took every `dict(key=...)` block in
+        `generators.py` as a named curve, so the speed-family examples "quartic" and "sextic"
+        were listed as missing classical curves for years. Only the NAMED table (blocks with an
+        equation) counts."""
+        import generators as G  # noqa: E402
+        known = {spec["key"] for spec in G.NAMED}
+        page = json.loads((ROOT / "app" / "src" / "data" / "extra-curves.json").read_text())
+        for curve in page["missingNamed"]:
+            self.assertIn(curve["key"], known, f"{curve['key']} is not a NAMED curve")
+        for curve in page["addedOnRequest"]:
+            self.assertIn(curve["uid"], {row["uid"] for row in json.loads(
+                (ROOT / "workbench" / "curve-registry.json").read_text())["curves"]})
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at

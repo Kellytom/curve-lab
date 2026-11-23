@@ -36,7 +36,13 @@ const curves = registry.curves.map((record) => {
 
 // ---- the named classical curves the generators already know ------------------------------
 const generatorSource = readFileSync(path.join(ROOT, "scripts", "generators.py"), "utf8");
-const named = [...generatorSource.matchAll(/dict\(key="([^"]+)"/g)].map((m) => m[1]);
+// Only the NAMED table: a dict block with an equation. The speed-family examples carry h, u, v
+// and no equation, and the first version counted them as named curves — "quartic" and "sextic"
+// were proposed for years as missing curves that were never named at all (2026-11-23).
+const namedBlocks = generatorSource.split("dict(key=").slice(1)
+  .map((block) => ({ block, key: (block.match(/^"([^"]+)"/) || [])[1] }))
+  .filter(({ block, key }) => key && block.includes('eq="'));
+const named = namedBlocks.map(({ key }) => key);
 // the equation and the one-line description of each named curve, for the extra-curves page
 const polyText = (list) => {
   if (!list) return "";
@@ -54,8 +60,7 @@ const polyText = (list) => {
 };
 
 const namedDetails = new Map();
-for (const block of generatorSource.split("dict(key=").slice(1)) {
-  const key = (block.match(/^"([^"]+)"/) || [])[1];
+for (const { block, key } of namedBlocks) {
   if (!key) continue;
   const eq = (block.match(/eq="([^"]*)"/) || [])[1] || "";
   const h = (block.match(/h=\(([^)]*)\)/) || [])[1];

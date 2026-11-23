@@ -3963,6 +3963,42 @@
    "failed": false,
    "reason": null,
    "tooWide": false
+  },
+  {
+   "uid": "c-0425",
+   "name": "bean",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0426",
+   "name": "heart",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0427",
+   "name": "squircle",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0428",
+   "name": "rounded square",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
   }
  ]
 }

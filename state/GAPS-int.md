@@ -5,7 +5,7 @@ It proposes; nothing here is created until the operator says so.
 
 ## The set
 
-- **399 curves**, 213 as speed rows and 186 as stored paths.
+- **403 curves**, 213 as speed rows and 190 as stored paths.
 - **192** are rated 2/10 or more; 262 have a recorded exact measurement.
 
 ## Families
@@ -78,6 +78,10 @@ It proposes; nothing here is created until the operator says so.
 | strophoid | 1 | 0 | 0 | 1 | — |
 | pear | 1 | 0 | 0 | 1 | — |
 | piriform 2x | 1 | 0 | 0 | 1 | — |
+| bean | 1 | 0 | 0 | 1 | — |
+| heart | 1 | 0 | 0 | 1 | — |
+| squircle | 1 | 0 | 0 | 1 | — |
+| rounded square | 1 | 0 | 0 | 1 | — |
 
 ## The crossings × inflections grid
 
@@ -172,14 +176,8 @@ Empty cells with a plain reading:
 
 ## Named classical curves not present
 
-The generators already know 33 named curves; **6 have no record in the collection**:
+The generators already know 29 named curves; **0 have no record in the collection**:
 
-- bean
-- heart
-- rounded square
-- squircle
-- quartic
-- sextic
 
 ## Obvious candidates to create
 
@@ -187,5 +185,5 @@ In the order they would fill the biggest holes:
 
 1. **The named classical curves above** — each has an equation already written in `scripts/generators.py`, so a record is data entry plus a figure, not new mathematics.
 2. **The empty crossing/inflection cells** — 139 cells, starting with the ones adjacent to a full cell (one more crossing, one more inflection), which are the cheapest new shapes to find.
-3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen, astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium, epicycloid k=3, epicycloid k=5, hypocycloid k=5, bow, bicorn, gerono, nodal, bernoulli, cruciform, piriform, abs(x) gerono, cissoid, semicubical, kappa, strophoid, pear, piriform 2x
+3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen, astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium, epicycloid k=3, epicycloid k=5, hypocycloid k=5, bow, bicorn, gerono, nodal, bernoulli, cruciform, piriform, abs(x) gerono, cissoid, semicubical, kappa, strophoid, pear, piriform 2x, bean, heart, squircle, rounded square
 

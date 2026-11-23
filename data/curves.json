@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.curves/1",
  "note": "One object per curve: the Curve row, its Note, its CurveSet, its metric and its formula.",
- "count": 402,
+ "count": 403,
  "rows": [
   {
    "uid": "c-0001",
@@ -25303,6 +25303,52 @@
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "squircle — |x|⁴ + |y|⁴ = 1 · superellipse n = 4 · Lamé's special quartic · genus 3, sampled",
     "updatedAt": "2026-11-23T23:06:37.792Z"
+   },
+   "set": null,
+   "metric": null
+  },
+  {
+   "uid": "c-0428",
+   "name": "rounded square",
+   "family": "rounded square",
+   "lists": "[\"new\"]",
+   "aliases": "[]",
+   "starred": false,
+   "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
+   "createdAt": "2026-11-23T23:08:11.432Z",
+   "stars": null,
+   "formula": {
+    "plain": "polyline through 3208 stations, (3, -2) to (3, -2)",
+    "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+    "parameter": "k = 0 … station count − 1",
+    "search": "polyline 3208 stations from (3, -2) to (3, -2); no metric yet",
+    "use": "no metric yet"
+   },
+   "note": {
+    "uid": "c-0428",
+    "name": "rounded square",
+    "importance": 0,
+    "rotation": 0,
+    "pieces": 1,
+    "borderUid": null,
+    "perSide": 9,
+    "borderTurn": 0,
+    "offsets": 0,
+    "widthPct": 0,
+    "plus": 0,
+    "minus": 0,
+    "profile": null,
+    "formula": null,
+    "params": null,
+    "grid": null,
+    "stationRule": null,
+    "algorithm": "polyline",
+    "conversion": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
+    "note": "rounded square — four edges and four quarter arcs · assembled · every piece exact · corner radius 1, half-side 3",
+    "updatedAt": "2026-11-23T23:08:11.432Z"
    },
    "set": null,
    "metric": null

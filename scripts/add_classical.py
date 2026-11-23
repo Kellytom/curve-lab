@@ -24,14 +24,23 @@ SAMPLES = 400
 BATCH = ["astroid", "cardioid", "deltoid", "nephroid", "trifolium", "quadrifolium"]
 
 
-def points_of(spec):
+def branches_of(spec):
+    """The drawable branches, in the record's own order.
+
+    A curve with control rows is sampled from them; a curve with no parametrisation (the heart,
+    the squircle, the cruciform) comes from the generator's own sampler as ready-made branches.
+    The first version read only `ctrl`, so those curves were reported as "no drawable branch".
+    """
     data = G.named_data(spec)
+    if data.get("paths"):
+        return [[(float(x), float(y)) for x, y in branch] for branch in data["paths"] if len(branch) > 2]
     ctrls = data.get("ctrl")
     if not ctrls:
         return []
-    pts = []
+    branches = []
     for ctrl in ctrls:
         deg = len(ctrl) - 1
+        pts = []
         for i in range(SAMPLES + 1):
             s = Fraction(i, SAMPLES)
             w = sum(Fraction(p[2]) * G.bern_n(j, deg, s) for j, p in enumerate(ctrl))
@@ -39,7 +48,8 @@ def points_of(spec):
                 continue
             x, y = G.homog_point(ctrl, s)
             pts.append((float(x), float(y)))
-    return pts
+        branches.append(pts)
+    return branches
 
 
 def main():
@@ -61,7 +71,8 @@ def main():
         if key.lower() in names:
             print(f"  {key}: already a record")
             continue
-        pts = points_of(spec)
+        branches = branches_of(spec)
+        pts = [point for branch in branches for point in branch]
         if len(pts) < 10:
             print(f"  {key}: no drawable branch")
             continue
@@ -84,6 +95,8 @@ def main():
             "transform": {"degrees": 0, "matrix": [["1", "0"], ["0", "1"]], "exact": True},
             "note": (f"{key} — {spec.get('eq', '')}", f"{spec.get('tail', '')}")[0] +
                     (f" · {spec.get('tail', '')}" if spec.get("tail") else ""),
+            **({"branches": [[[round(x, 6), round(y, 6)] for x, y in branch]
+                             for branch in branches]} if len(branches) > 1 else {}),
         })
         sets.append({"uid": f"s-{next_set:04d}", "name": f"{key}-set", "inner_uid": uid,
                      "border_uid": uid, "rotation": 0, "pieces": 1, "per_side": 9,
