@@ -9,7 +9,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { repoRoot } from "../../lib/gallery.js";
 import { loadRegistry } from "../../lib/registry.ts";
-import { cuspsOf, lineRuns, lineY, turnPoints } from "../../lib/cut-doubles.js";
+import { cuspsOf, lineY, previewCut, turnPoints } from "../../lib/cut-doubles.js";
 import { bandSvg, frame } from "../../scripts/tune-render.js";
 
 // the one plate maths, read from disk as Node sees it (the same file the plate loads)
@@ -55,9 +55,13 @@ const cutY = lineY(points);
 const cutLineY = H - PAD - (cutY - y0) * k;
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%">
   <rect width="${W}" height="${H}" fill="#ffffff"/>
+  <text x="14" y="22" font-family="ui-monospace,Menlo,monospace" font-size="15"
+    fill="#33312d">${record.uid} ${record.name} · blue dots = cusps · red line = line cut</text>
   <path d="${line}" fill="none" stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round"/>
   <line x1="${PAD}" x2="${W - PAD}" y1="${cutLineY.toFixed(1)}" y2="${cutLineY.toFixed(1)}"
     stroke="#b03a2e" stroke-width="1.2" stroke-dasharray="8 6"/>
+  <text x="${PAD + 4}" y="${(cutLineY - 7).toFixed(1)}" font-family="ui-monospace,Menlo,monospace"
+    font-size="15" fill="#b03a2e">line cut</text>
   ${dots}
 </svg>`;
 // The side curves are chosen here: the preview and the saved record use the same four values,
@@ -76,11 +80,20 @@ const sideValues = {
 
 const suggested = `${record.name}-cut`;
 
-// The two curves the line makes, drawn here: each side's open runs with the same side curves
-// the plate will draw, so the operator sees what he is choosing before saving. This is a view;
-// the save is still the server's.
-const sidePreview = (side) => {
-  const runs = lineRuns(points, side);
+// The cut the form asks for. The default is the operator's own cut: dot 1, the long arc. A
+// dot cut is made on the stored points at the cusp the plate marks in blue; it is never the
+// picture split in half (operator, 2026-11-23: "does not cut at the dotted line. it cuts at 1
+// and 2 the blue dots, remember? algorithmically, not looking at the plot and cutting it in
+// half").
+const modeParam = q.get("mode") || "dot:0";
+const dotChoice = modeParam.startsWith("dot:");
+const cuspIndex = dotChoice ? Number(modeParam.slice(4)) || 0 : 0;
+const keepParam = q.get("keep") === "short" ? "short" : "long";
+const cutoff = previewCut(points, dotChoice ? "dot" : modeParam, cuspIndex, keepParam);
+
+// The chosen cut's kept runs, drawn with the same side curves the plate will draw, so the
+// operator sees what he is choosing before saving. This is a view; the save is the server's.
+const sidePreview = (runs) => {
   if (!runs.length) return { svg: "", runs: 0 };
   const groups = runs.map((run) => {
     const group = PLATE.pathGroup(run, {
@@ -95,8 +108,9 @@ const sidePreview = (side) => {
     runs: runs.length,
   };
 };
-const topHalf = sidePreview("top");
-const bottomHalf = sidePreview("bottom");
+const chosenPreview = sidePreview(cutoff.runs);
+const keptShare = cutoff.kept === null ? null
+  : Math.round((100 * cutoff.kept) / (cutoff.kept + cutoff.dropped));
 const saved = q.get("saved");
 const savedUid = q.get("new");
 const warning = q.get("warning");
@@ -105,9 +119,9 @@ const hasLine = true;
 
 <BaseLayout title="the cut desk" pageTitle="The cut desk">
   <p class="lead"><b>{record.uid}</b> {record.name} · <a href="/cut/">all the doubles</a> ·
-    <a href={`/tune/${record.uid}`}>tune it</a>. Two cuts: at a numbered dot, or across the red
-    line — the top and bottom halves are drawn below, with their side curves, before you save.
-    A cut adds a curve beside its parent; the parent stays as it is.</p>
+    <a href={`/tune/${record.uid}`}>tune it</a>. Two cuts: at a numbered blue dot, or across the red
+    line. The chosen cut is previewed below, with its side curves, before you save. A cut adds a
+    curve beside its parent; the parent stays as it is.</p>
 
   {saved && (
     <p class="cut-saved">saved: {saved}
@@ -124,16 +138,18 @@ const hasLine = true;
       <label>cut
         <select name="mode">
           {cusps.map((cusp, index) => (
-            <option value={`dot:${index}`}>at dot {index + 1} · {cusp.angle.toFixed(0)}°</option>
+            <option value={`dot:${index}`} selected={dotChoice && index === cuspIndex}>
+              at dot {index + 1} · {cusp.angle.toFixed(0)}°
+            </option>
           ))}
-          <option value="top">across the line · top half</option>
-          <option value="bottom">across the line · bottom half</option>
+          <option value="top" selected={!dotChoice && modeParam === "top"}>across the line · top half</option>
+          <option value="bottom" selected={!dotChoice && modeParam === "bottom"}>across the line · bottom half</option>
         </select>
       </label>
       <label>keep <span class="cut-hint">(dot cuts)</span>
         <select name="keep">
-          <option value="long">the long arc</option>
-          <option value="short">the short arc</option>
+          <option value="long" selected={keepParam === "long"}>the long arc</option>
+          <option value="short" selected={keepParam === "short"}>the short arc</option>
         </select>
       </label>
       <label>width % <input name="widthPct" type="number" min="0.5" max="20" step="0.05" value={sideValues.widthPct} /></label>
@@ -145,33 +161,38 @@ const hasLine = true;
         </select>
       </label>
       <label>new name
-        <input name="name" type="text" maxlength="120" value={suggested} />
+        <input name="name" type="text" maxlength="120" value={q.get("name") || suggested} />
       </label>
       <button type="submit">preview the side curves</button>
       <button type="submit" id="cut-save">cut and save</button>
       <p class="cut-state" id="cut-state" role="status" aria-live="polite"></p>
-      <p class="cut-note">The red dashed line is the horizontal cut: the top or bottom half is
-        kept as open curves, not one closed shape. The four side values are the ones previewed
-        below and saved with the cut; after saving they can be tuned at the curve's own tuning
-        page. A cut is a sampled record ({points.length} stored points on the parent).</p>
+      <p class="cut-note">The numbered dots are the plate's cusps, found on the stored points,
+        and a dot cut is made there — not by splitting the picture. The red dashed line belongs
+        to the line cut only: the horizontal line through the middle, with the runs on one side
+        kept as open curves. The four side values are the ones previewed below and saved with
+        the cut; after saving they can be tuned at the curve's own tuning page. A cut is a
+        sampled record ({points.length} stored points on the parent).</p>
     </form>
   </div>
 
   <section class="cut-halves">
-    <h2>The two curves the line makes</h2>
+    <h2>The cut the form chooses</h2>
     <div class="cut-halves-grid">
       <figure class="cut-half">
-        <div set:html={topHalf.svg} />
-        <figcaption>the top half · {topHalf.runs} open curve{topHalf.runs === 1 ? "" : "s"}</figcaption>
-      </figure>
-      <figure class="cut-half">
-        <div set:html={bottomHalf.svg} />
-        <figcaption>the bottom half · {bottomHalf.runs} open curve{bottomHalf.runs === 1 ? "" : "s"}</figcaption>
+        <div set:html={chosenPreview.svg} />
+        <figcaption>
+          {cutoff.mode === "dot"
+            ? <>the arc kept at dot {cuspIndex + 1} · {cutoff.angle?.toFixed(0)}° ·
+                {cutoff.kept?.toFixed(1)} units kept, {cutoff.dropped?.toFixed(1)} dropped
+                ({keptShare} % of the path)</>
+            : <>the {cutoff.side} half · {chosenPreview.runs}
+                open curve{chosenPreview.runs === 1 ? "" : "s"}</>}
+        </figcaption>
       </figure>
     </div>
-    <p class="cut-note">Each is the original cut at the red line, with the same side curves the
-      plate draws; a side with more than one run is saved as more than one curve. Choose one in
-      the form above to save it.</p>
+    <p class="cut-note">This is the cut the form names, drawn with the same side curves the plate
+      draws. A line side with more than one run is saved as more than one curve. Change the
+      form's <b>cut</b> and press <b>preview the side curves</b> to see another choice.</p>
   </section>
 </BaseLayout>
 

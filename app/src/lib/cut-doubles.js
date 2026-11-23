@@ -62,6 +62,29 @@ export function cutAt(points, index, keep = "long") {
   };
 }
 
+// Which cut the form asks for, and the runs it keeps. `dot` is the operator's cut: at a
+// numbered blue dot, on the stored points. The line cut is the other mode; it must never be
+// what a dot choice shows — the operator, 2026-11-23: "does not cut at the dotted line. it
+// cuts at 1 and 2 the blue dots, remember? algorithmically, not looking at the plot and
+// cutting it in half."
+export function previewCut(points, mode = "dot", cuspIndex = 0, keep = "long") {
+  if (mode === "top" || mode === "bottom") {
+    const runs = lineRuns(points, mode);
+    return { mode, side: mode, runs, cusps: cuspsOf(points),
+             kept: null, dropped: null, angle: null, cusp: null };
+  }
+  const cusps = cuspsOf(points);
+  const cusp = cusps[Number(cuspIndex) || 0];
+  if (!cusp) return { mode: "dot", runs: [], cusps, kept: null, dropped: null,
+                      angle: null, cusp: null };
+  const cut = cutAt(points, cusp.index, keep);
+  return {
+    mode: "dot", runs: [cut.points], cusps,
+    cusp: Number(cuspIndex) || 0, angle: cusp.angle,
+    kept: cut.keptLength, dropped: cut.droppedLength,
+  };
+}
+
 // The record's own turn, exactly as the plate applies it: the desk turns clockwise on screen,
 // so the model turns the other way. Kept here as a function so the check can compare it with
 // the plate's `turn`; a desk that draws the stored points unturned is 45 degrees off for the

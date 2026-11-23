@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { cuspsOf, cutAt, arcsAt, doublesOf, turnPoints, lineY, lineRuns } from "../../app/src/lib/cut-doubles.js";
+import { cuspsOf, cutAt, arcsAt, doublesOf, turnPoints, lineY, lineRuns, previewCut } from "../../app/src/lib/cut-doubles.js";
 import { turn as plateTurn } from "../../scripts/lib/plate-frame.mjs";
 
 // The operator, 2026-11-23: "many of them i want to cut at the big blue dot." The big blue dot
@@ -89,6 +89,24 @@ test("c-0274's top half is two open petals, its bottom half one body", () => {
         "a run is opened at the line, not closed on itself");
     }
   }
+});
+
+test("a dot cut previews the arc, never the line's halves", () => {
+  // The operator, 2026-11-23: "does not cut at the dotted line. it cuts at 1 and 2 the blue
+  // dots, remember? algorithmically, not looking at the plot and cutting it in half."
+  const record = registry.curves.find((curve) => curve.uid === "c-0274");
+  const shown = turnPoints(record.path, Number(record.transform?.degrees || 0));
+  const preview = previewCut(shown, "dot", 0, "long");
+  const cut = cutAt(shown, cuspsOf(shown)[0].index, "long");
+  assert.equal(preview.runs.length, 1, "a dot cut keeps one arc");
+  assert.deepEqual(preview.runs[0], cut.points, "the preview is the arc, not a redrawn curve");
+  assert.ok(preview.kept > 0 && preview.dropped > 0);
+  assert.ok(preview.angle > 165);
+  // the line halves are the other mode and must not be what a dot choice returns
+  const top = previewCut(shown, "top");
+  assert.equal(top.runs.length, 2);
+  assert.equal(previewCut(shown, "bottom").runs.length, 1);
+  assert.notEqual(preview.runs[0].length, top.runs[0].length);
 });
 
 test("the two arcs of a cusp add up to the whole path", () => {

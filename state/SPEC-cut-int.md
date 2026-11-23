@@ -1,6 +1,6 @@
 # SPEC — the cut desk (`/cut/`, `/cut/<uid>`)
 
-**Status, 2026-11-23:** built and used; one cut proved end to end, then removed.
+**Status, 2026-11-23:** built and used; cuts saved end to end at dot 1 of c-0274, then removed.
 
 **The pages:** `app/src/pages/cut/index.astro` (the list), `app/src/pages/cut/[uid].astro` (one curve)
 **The maths:** `app/src/lib/cut-doubles.js` (pure, node-tested)
@@ -65,9 +65,16 @@ are cut at, one curve at a time.
 - **`/cut/<uid>`** draws the curve once, in the page's first paint, with the cusps numbered in
   the plate's blue and the red dashed line across its middle; the form's numbers are the
   picture's numbers. It offers the dot or the line, the arc or the side, a name, and one
-  button. Under it, **the two curves the line makes** are drawn with their side curves — the
-  top and bottom halves as they would be saved — so the choice is made from the result, not
-  from a description.
+  button. Under it, **the cut the form chooses** is drawn with its side curves — the kept arc
+  at a dot (with the units kept and dropped), or the chosen line half — so the choice is made
+  from the result, not from a description. A dot choice never previews the line's halves:
+  the operator, 2026-11-23: "does not cut at the dotted line. it cuts at 1 and 2 the blue
+  dots, remember? algorithmically, not looking at the plot and cutting it in half."
+- **The save answers before the renders.** The record, the database rows and the exports are
+  written in the request; the plate and the figure render in a detached child
+  (`scripts/render_saved_curve.mjs`) and land on `/plates` and `/figures` a moment later.
+  Waiting for them in the request made the button say "cutting…" for minutes, which the
+  operator read as no way to save (2026-11-23).
 - **The save is the server's.** The page posts to `/api/cut-double`; the record write, the
   database rows, the exports and the plate all happen there, so a page that fails half way
   cannot leave a half-made curve.

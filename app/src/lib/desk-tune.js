@@ -9,7 +9,7 @@
 // without a database. createVariant writes the registry seed, the database, the desk row
 // and the plate, in that order, and rolls the seed back if a later step fails.
 
-import { execFile } from "node:child_process";
+import { execFile, spawn } from "node:child_process";
 import { copyFileSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { promisify } from "node:util";
@@ -184,7 +184,8 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
       algorithm: gothic ? "cut at the middle, mirrored into an arch" : "cut at a cusp",
       exact: false,
       note: gothic
-        ? `sampled: the two arms of ${base.uid}'s stored points, cut ` +
+        ? `sampled: the two arms of ${base.uid}` +
+          `${cut?.sampled ? " (sampled from its speed rows)" : ""}, cut ` +
           `${Math.round((cut?.share || 0) * 100)}% each side of the middle and mirrored`
         : `sampled: the kept arc of ${base.uid}'s stored points, cut at a cusp`,
     };
@@ -193,14 +194,19 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
       cut: cut
         ? (gothic
             ? { of: base.uid, ofName: base.name, mode: "gothic",
-                share: cut.share, axis: cut.axis, apexAngle: cut.apexAngle }
+                share: cut.share, t: cut.t, axis: cut.axis, apexAngle: cut.apexAngle,
+                mirrored: cut.mirrored, gap: cut.gap,
+                sampled: Boolean(cut.sampled) }
             : { of: base.uid, ofName: base.name, cusp: cut.cusp, keep: cut.keep || "long" })
         : null,
     };
     record.note = gothic
       ? `gothic arch from ${base.uid} (${base.name}) · cut ` +
-        `${Math.round((cut?.share || 0) * 100)}% each side of the middle · ` +
-        `${cut?.axis || "?"} mirror · apex ${Number(cut?.apexAngle || 0).toFixed(1)}° · ` +
+        `${Math.round((cut?.share || 0) * 100)}% each side of the middle` +
+        `${cut?.tLabel ? ` (t ${cut.tLabel})` : ""} · ` +
+        `${cut?.mirrored === false
+          ? `one arm mirrored, parent gap ${(Number(cut.gap || 0) * 100).toFixed(2)} %`
+          : `${cut?.axis || "?"} mirror`} · apex ${Number(cut?.apexAngle || 0).toFixed(1)}° · ` +
         `${record.path.length} stored points, exact there, approximate between them`
       : `cut from ${base.uid} (${base.name}) at cusp ${cut ? cut.cusp : "?"} · ` +
         `kept the ${cut && cut.keep === "short" ? "short" : "long"} arc · ` +
@@ -465,32 +471,23 @@ export async function createVariant({ spine, name, values, path: cutPath = null,
       throw new DeskError(`could not make the new curve: ${String(error.message || error)}`, 500);
     }
 
-    // the plate is what /plates shows, and the figure index is a gate: render both.
-    // A render failure is a warning, not a lost curve.
+    // The plate and the figure are what /plates and /figures show, but their renders take
+    // seconds to minutes. The request must not wait for them: the button said "cutting…" for
+    // minutes and the operator reported, twice, that there was no way to save a cut
+    // (2026-11-23). The record is written; a detached child renders both and logs what it did.
     const warnings = [];
     // The dev server exports CURVE_LAB_ROOT=.., relative to app/. A child run from the repo
     // root would resolve that one directory too high, so the figure script could not find the
-    // registry; the plate script uses its own path and was unaffected. Strip it for both.
+    // registry. Strip it for the child.
     const cleanEnv = { ...process.env };
     delete cleanEnv.CURVE_LAB_ROOT;
     try {
-      await renderPlate(uid);
+      const child = spawn(process.execPath,
+        [path.join(ROOT, "scripts", "render_saved_curve.mjs"), uid],
+        { cwd: ROOT, detached: true, stdio: "ignore", env: cleanEnv });
+      child.unref();
     } catch (error) {
-      warnings.push(`the plate did not render: ${String(error.message || error)}`);
-    }
-    // The figure render has failed once in the dev server and passed when run by hand; a
-    // second attempt after a breath is cheaper than a warning on a good save.
-    try {
-      await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
-        { cwd: ROOT, timeout: 180000, env: cleanEnv });
-    } catch {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 400));
-        await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
-          { cwd: ROOT, timeout: 180000, env: cleanEnv });
-      } catch (error) {
-        warnings.push(`the figure did not render: ${String(error.message || error)}`);
-      }
+      warnings.push(`the plate did not start rendering: ${String(error.message || error)}`);
     }
     const warning = warnings.length ? `the curve is saved; ${warnings.join("; ")}` : undefined;
     return { uid, name: record.name, spine: plan.root, created: true, values,
