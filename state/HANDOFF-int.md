@@ -3878,9 +3878,10 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   reloaded and the banner named the new uid; a cut saved with 3 / 4 / 0.5 / s kept those values;
   a rename to `tulip-top` followed the registry, the set, the export and the figure index, and
   `amper` was refused by `c-0001`. c-0274's line cut: top 2 open runs, bottom 1.
-- **Carried (2026-11-23, earlier that day):** the fast suite, 14 modules green; the database
-  393/393/393. The block-time runs of `scripts/test.py --fast` and the register were launched
-  and were still in flight when the session ended, so nothing newer is claimed.
+- **Measured at the block:** register **25 tests OK** (160 s, most of it the plate renders in
+  `PlateRailCrossingTest`); fast suite **15 modules, 162.8 s, no failure**; database
+  **394/394/394**, matching the registry (the other agent added one curve today).
+  Carried: the green runs reported earlier in this block's own text.
 - **At the block:** HEAD `87cf66c7` (the other agent's gothic desk, after this session's
   `6e458d6d`); local 4321 **200**, 8003 **200**. The working tree carries the other agent's
   uncommitted plate renders, `ai-news/`, `AppNav`, `piece.ts`, `plates.astro` and the figure
