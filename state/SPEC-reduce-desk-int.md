@@ -103,3 +103,14 @@ much?* — and refuses to answer when its own checks fail.
   ceiling", "v does not factor…", "u itself is over the ceiling").
 - A sibling is never silent: a stored sibling one click away prints what the
   click is for.
+
+## The candidates page (`/candidates/`)
+
+- One page for everything the reduction work produced and the sandbox holds:
+  the sibling candidates, the speed-fit candidates and the round-trip
+  variant — each with a card picture from its own speed rows (the shared
+  `app/src/lib/curve-thumbnail.ts`), the chosen name, its key and parent, its
+  miss in curve units, and a link to its parent's desk.
+- The gallery links here; the tune desk cannot show these rows (it needs a
+  registry record), so this is the only place to see them before promotion.
+- Numbers are plain; nothing here is in the catalogue — the page says so.

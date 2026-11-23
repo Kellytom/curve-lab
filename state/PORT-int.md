@@ -48,7 +48,10 @@ for JS modules: no bundler, no import graph to debug.
 | `clearance.py` | `app/src/lib/clearance.ts` | 15 checks, 0 mismatches | flatten, distance, gap/crossings |
 | `piece.py` | `app/src/lib/piece.ts` | 4 pieces, 0 mismatches | the pre-built-spans path |
 | `model.py` | `app/src/lib/model.ts` | JSON shape round-trips | one widening: null `kappa0` through `fromPieces` |
-| `svg.py` | `app/src/lib/svg.ts` | 8 laws pinned | TEXT layer only; `document()` stays in Python until the site emits documents |
+| `svg.py` | `app/src/lib/svg.ts` | 9 laws pinned | TEXT layer only; `document()` stays in Python until the site emits documents |
+| `contact.py` | `app/src/lib/contact.ts` | the licensing laws | declared merges, pair- and order-blind |
+| `fillet.py` | `app/src/lib/fillet.ts` | the ruler numbers | `corner_fillet` + `arc_segment`; `fillet_span` is the next row |
+| `junction.py` | `app/src/lib/junction.ts` | the report numbers | geometry + report; spans need the clothoid engine row |
 
 ## What is deliberately not moving
 
