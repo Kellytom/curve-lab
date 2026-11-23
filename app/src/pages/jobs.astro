@@ -1,0 +1,52 @@
+---
+// The workhorse queue: what is queued, what ran, and how it went.
+// Data: state/jobs/queue.json + state/jobs/<id>.log, local state written by scripts/jobq.py.
+// Spec: state/SPEC-workhorse-int.md.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { existsSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
+const QUEUE = fileURLToPath(new URL("../../../state/jobs/queue.json", import.meta.url));
+const queue = existsSync(QUEUE) ? JSON.parse(readFileSync(QUEUE, "utf8")) : { jobs: [] };
+const jobs = (queue.jobs || []).slice().reverse().slice(0, 30);
+const tail = (job, lines = 8) => {
+  const file = fileURLToPath(new URL(`../../../${job.log}`, import.meta.url));
+  if (!existsSync(file)) return "";
+  return readFileSync(file, "utf8").trimEnd().split("\n").slice(-lines).join("\n");
+};
+---
+
+<BaseLayout title="jobs" pageTitle="The workhorse queue">
+  <p class="lead">Slow work lives here instead of in the chat: <code>jobq add "&lt;command&gt;"
+    --name &lt;label&gt;</code> queues it, <code>workhorse</code> drains the queue in a third
+    terminal, and each job's output is its log. This page reads the queue on every request.</p>
+
+  {jobs.length === 0 && (
+    <p class="note">The queue is empty. Start <code>workhorse</code> once and it will pick up
+      the next job within ten seconds.</p>
+  )}
+
+  <table class="jobs">
+    <thead>
+      <tr><th>job</th><th>state</th><th>seconds</th><th>last lines of the log</th></tr>
+    </thead>
+    <tbody>
+      {jobs.map((job) => (
+        <tr class={job.status.startsWith("failed") ? "failed" : ""}>
+          <td><b>{job.name}</b><br /><code>{job.command}</code></td>
+          <td>{job.status}</td>
+          <td>{job.seconds === null ? "—" : job.seconds.toFixed(1)}</td>
+          <td><pre>{tail(job)}</pre></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</BaseLayout>
+
+<style is:global>
+  .jobs { border-collapse: collapse; width: 100%; font: 12px/1.5 ui-monospace, Menlo, monospace; }
+  .jobs th, .jobs td { text-align: left; vertical-align: top; padding: 6px 10px 6px 0; border-bottom: 1px solid #eee3d3; }
+  .jobs th { color: #7a5a1f; font-weight: 600; }
+  .jobs pre { margin: 0; white-space: pre-wrap; max-height: 9rem; overflow: hidden; color: #5a4a36; }
+  .jobs tr.failed td { background: #fdf1ee; }
+</style>

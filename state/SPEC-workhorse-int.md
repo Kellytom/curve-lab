@@ -27,7 +27,8 @@ So workhorse is **not a chat**. It is a queue with one runner:
       stays a chat message to DeepSeek1.
 - [x] The queue and the logs are local state; a job that writes records is still the
       committer's responsibility, not the workhorse's.
-- [ ] A `/jobs/` page on the Astro server, so the queue is readable without a terminal.
+- [x] A `/jobs/` page on the Astro server, so the queue is readable without a terminal.
+      It reads `state/jobs/queue.json` per request and shows the last lines of each log.
 
 ## Enqueue examples
 
