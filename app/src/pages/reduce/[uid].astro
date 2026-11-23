@@ -26,6 +26,15 @@ const registry = JSON.parse(
   readFileSync(path.join(repo, "workbench", "curve-registry.json"), "utf8"),
 );
 const index = registry.curves.findIndex((c) => c.uid === uid);
+// the sibling map (cache): this curve's same-construction recipe at the
+// ceiling, with its miss in curve units — or why none exists
+let sibling: Record<string, unknown> | null = null;
+try {
+  const map = JSON.parse(readFileSync(path.join(repo, "workbench", "sibling-map.json"), "utf8"));
+  sibling = (map.curves || []).find((r: { uid: string }) => r.uid === uid) ?? null;
+} catch {
+  sibling = null;
+}
 const curve = index >= 0 ? registry.curves[index] : null;
 const prevUid =
   index > 0
@@ -230,6 +239,26 @@ const payload = JSON.stringify({
           <strong>{refused ? "refused" : "verified"}</strong>
           {refused ? " — a self-check failed; the verdict is withheld" : " — measured ≤ proven, not degenerate"}
         </td></tr>
+        {sibling && (
+          <tr><th>sibling recipe</th><td>
+            {sibling.miss_units !== undefined ? (
+              <>
+                {plainNumber(sibling.miss_units as number)} units from this curve ·{" "}
+                {sibling.sibling_roots as string}
+                  {sibling.in_catalogue
+                    ? (() => {
+                        const found = registry.curves.find((c) => c.name === sibling.in_catalogue);
+                        return <> · stored as {found
+                          ? <a href={`/reduce/${found.uid}`}>{sibling.in_catalogue as string}</a>
+                          : (sibling.in_catalogue as string)};</>
+                      })()
+                    : " · a new curve, in the sandbox"}
+              </>
+            ) : (
+              sibling.verdict as string
+            )}
+          </td></tr>
+        )}
       </table>
       <p class="reduce-links">
         <a href="/reduce/">the reduction index</a> ·

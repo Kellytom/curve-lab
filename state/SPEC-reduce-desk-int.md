@@ -90,3 +90,16 @@ much?* — and refuses to answer when its own checks fail.
   the fact prints a dash, the cards still draw).
 - Numbers are plain (`plain-number.js`); no exponent anywhere.
 - Sort: smallest miss first — the reducible curves are the reading order.
+
+## The sibling row (added 2026-11-23)
+
+- The reduced panel's facts carry a **sibling recipe** row: this curve's
+  same-construction version at the ceiling, from `workbench/sibling-map.json`
+  (cache; absent → the row is omitted).
+- When a recipe exists: the miss in curve units, the recipe's roots, and
+  either the stored curve's own name with a **link to its desk**, or "a new
+  curve, in the sandbox" (the 53 posted candidates).
+- When none exists: the map's verdict in words ("no candidate reaches the
+  ceiling", "v does not factor…", "u itself is over the ceiling").
+- A sibling is never silent: a stored sibling one click away prints what the
+  click is for.

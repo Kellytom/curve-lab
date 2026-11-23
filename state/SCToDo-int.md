@@ -113,6 +113,14 @@ decided. `Proves:` a sweep with calibrated counters only.
 
 ## Immediate queue (top first)
 
+0. **DONE 2026-11-23 · The sibling map and its candidates** — the operator's
+   call applied: no curve lost; the 53 distinct new curves at the ceiling
+   posted to the sandbox with their miss in units; the 18 in-catalogue ones
+   linked from their desks; the finding written in
+   `state/SC-SIBLING-FINDING-int.md` (the stack is load-bearing; the ceiling
+   binds the record, not the drawing).
+   `Proves:` tests/test_sibling_map.py (6); scripts/sibling_candidates.py
+   prints 53 POST 200; /reduce/c-0086 links its sibling to /reduce/c-0065.
 1. **DONE 2026-11-22 · The Inkscape round trip, hardest part first** — the
    drag→action map, proven through Inkscape 1.4.4's own runtime and file
    precision; the variant proposal; register rows 54/55.
