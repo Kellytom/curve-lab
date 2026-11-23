@@ -17,7 +17,25 @@ function draw() {
     readout.textContent = "the trim leaves nothing to join";
     return;
   }
-  const ghost = el("v-ghost").checked ? half({ from: -to, to, samples: 500 }) : [];
+  // the matrix: turn about the arch's own centre, then stretch y by the slider
+  const turnDeg = Number(el("v-turn").value);
+  const stretch = Number(el("v-stretch").value);
+  el("v-stretch-out").textContent = `${stretch.toFixed(1)}×`;
+  const box = [...built.left, ...built.right];
+  const cx = (Math.min(...box.map((p) => p.x)) + Math.max(...box.map((p) => p.x))) / 2;
+  const cy = (Math.min(...box.map((p) => p.y)) + Math.max(...box.map((p) => p.y))) / 2;
+  const theta = (turnDeg * Math.PI) / 180;
+  const cos = Math.cos(theta), sin = Math.sin(theta);
+  const place = (p) => {
+    const x = p.x - cx, y = p.y - cy;
+    // screen turn: +y is up, so a positive turn is counter-clockwise on the page
+    return { x: cx + x * cos - y * sin, y: cy + (x * sin + y * cos) * stretch };
+  };
+  built.left = built.left.map(place);
+  built.right = built.right.map(place);
+  built.apex = place(built.apex);
+  const ghostRaw = el("v-ghost").checked ? half({ from: -to, to, samples: 500 }) : [];
+  const ghost = ghostRaw.map(place);
   const spine = archPath(built);
   const bandWidth = Number(el("v-band").value);
   const bandOn = el("v-bandon").checked;
@@ -45,7 +63,7 @@ function draw() {
     ${path(built.right, "#2b2b2b", 2.4)}
     <circle cx="${apex[0].toFixed(1)}" cy="${apex[1].toFixed(1)}" r="4" fill="#b03a2e"/>
     <text x="12" y="20" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#8a7a62">
-      trim ${(trim * 100).toFixed(0)} % each end · length ${to.toFixed(1)} · joined ${joinAt === "tip" ? "at the tip" : "at the node"}</text>
+      trim ${(trim * 100).toFixed(0)} % · length ${to.toFixed(1)} · joined ${joinAt === "tip" ? "at the tip" : "at the node"} · turned ${turnDeg}° · stretched y ×${stretch.toFixed(1)}</text>
     <text x="12" y="${h - 10}" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#5a4a36">
       apex ${apexAngle(built).toFixed(1)}° · width ${sizeOf(built).width.toFixed(2)} · height ${sizeOf(built).height.toFixed(2)}${bandOn ? ` · band ${bandWidth.toFixed(1)} %` : ""}</text>
   </svg>`;
@@ -62,7 +80,7 @@ function draw() {
 }
 
 function mount() {
-  for (const id of ["v-trim", "v-to", "v-join", "v-ghost", "v-band", "v-bandon"]) {
+  for (const id of ["v-trim", "v-to", "v-join", "v-ghost", "v-band", "v-bandon", "v-turn", "v-stretch"]) {
     el(id)?.addEventListener("input", draw);
     el(id)?.addEventListener("change", draw);
   }

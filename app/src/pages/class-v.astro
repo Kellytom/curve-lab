@@ -20,6 +20,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <option value="tip">at the tip (pointed)</option>
         <option value="node">at the node (round)</option>
       </select></label>
+      <label>turn <select id="v-turn">
+        <option value="0">0°</option>
+        <option value="90" selected>90° (legs at the bottom)</option>
+        <option value="180">180°</option>
+        <option value="270">270°</option>
+      </select></label>
+      <label>stretch y <input id="v-stretch" type="range" min="0.5" max="3" step="0.1" value="2" />
+        <output id="v-stretch-out">2.0×</output></label>
       <label class="v-check"><input id="v-bandon" type="checkbox" checked /> side curves</label>
       <label>band <input id="v-band" type="range" min="0.5" max="6" step="0.1" value="2" />
         <output id="v-band-out">2.0 %</output></label>
@@ -39,7 +47,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   .v-preview svg { display: block; width: 100%; height: auto; }
   .v-controls { display: grid; gap: 8px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
   .v-controls label { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) 3.2rem; gap: 6px; align-items: center; }
-  .v-controls select { min-width: 9rem; }
+  .v-controls select { min-width: 11rem; }
   .v-controls .v-check { grid-template-columns: auto 1fr; }
   .v-controls input[type="range"] { width: 100%; }
   .v-note { grid-column: 1 / -1; margin: 6px 0 0; color: #5a4a36; line-height: 1.6; }
