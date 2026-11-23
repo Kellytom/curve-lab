@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 161,
+ "count": 213,
  "rows": [
   {
    "name": "c-0001",
@@ -256,6 +256,974 @@
    "savedAt": "2026-11-22T13:47:14.487Z"
   },
   {
+   "name": "c-0034-ceil",
+   "curveName": "wave-9of10-1of2-mid",
+   "base_uid": "c-0034",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.099789,
+   "note": "the same construction as c-0034 with a shorter ½ stack · position degree 11 · rails 9 · grid 693 · bend 1.571 · miss 1.099789 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.464Z"
+  },
+  {
+   "name": "c-0037-ceil",
+   "curveName": "wave-5of6-1of2-mid",
+   "base_uid": "c-0037",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.333267,
+   "note": "the same construction as c-0037 with a shorter ½ stack · position degree 11 · rails 9 · grid 77 · bend 4.080 · miss 0.333267 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.925Z"
+  },
+  {
+   "name": "c-0038-ceil",
+   "curveName": "wave-4of5-1of2-mid-2",
+   "base_uid": "c-0038",
+   "speedX": [
+    1,
+    -1,
+    1
+   ],
+   "speedY": [
+    -4,
+    49,
+    -223,
+    482,
+    -500,
+    200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.248418,
+   "note": "the same construction as c-0038 with a shorter ½ stack · position degree 11 · rails 9 · grid 385 · bend 4.116 · miss 0.248418 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.774Z"
+  },
+  {
+   "name": "c-0040-ceil",
+   "curveName": "wave-3of4-1of2-mid",
+   "base_uid": "c-0040",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    -3,
+    34,
+    -148,
+    312,
+    -320,
+    128
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.166323,
+   "note": "the same construction as c-0040 with a shorter ½ stack · position degree 11 · rails 9 · grid 693 · bend 5.861 · miss 0.166323 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.659Z"
+  },
+  {
+   "name": "c-0041-ceil",
+   "curveName": "wave-2of3-1of2-mid-2",
+   "base_uid": "c-0041",
+   "speedX": [
+    1,
+    -2,
+    2
+   ],
+   "speedY": [
+    -2,
+    21,
+    -87,
+    178,
+    -180,
+    72
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.087512,
+   "note": "the same construction as c-0041 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 6.618 · miss 0.087512 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.616Z"
+  },
+  {
+   "name": "c-0042-ceil",
+   "curveName": "wave-1of2-1of2-mid-2",
+   "base_uid": "c-0042",
+   "speedX": [
+    1,
+    -2,
+    2
+   ],
+   "speedY": [
+    -1,
+    10,
+    -40,
+    80,
+    -80,
+    32
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.035469,
+   "note": "the same construction as c-0042 with a shorter ½ stack · position degree 11 · rails 9 · grid 165 · bend 1.484 · miss 0.035469 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.544Z"
+  },
+  {
+   "name": "c-0055-ceil",
+   "curveName": "lace-9of10-1of2-mid",
+   "base_uid": "c-0055",
+   "speedX": [
+    1,
+    -2,
+    2
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.316351,
+   "note": "the same construction as c-0055 with a shorter ½ stack · position degree 11 · rails 9 · grid 3465 · bend 1.231 · miss 1.316351 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.561Z"
+  },
+  {
+   "name": "c-0056-ceil",
+   "curveName": "wave-11of12-1of2-mid",
+   "base_uid": "c-0056",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    -11,
+    210,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.628763,
+   "note": "the same construction as c-0056 with a shorter ½ stack · position degree 11 · rails 9 · grid 77 · bend 1.328 · miss 1.628763 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.620Z"
+  },
+  {
+   "name": "c-0071-ceil",
+   "curveName": "wave-9of10-3of4-mid",
+   "base_uid": "c-0071",
+   "speedX": [
+    7,
+    -25,
+    25
+   ],
+   "speedY": [
+    -27,
+    498,
+    -2932,
+    7288,
+    -8000,
+    3200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 7.197869,
+   "note": "the same construction as c-0071 with a shorter ½ stack · position degree 11 · rails 9 · grid 6930 · bend 1.948 · miss 7.197869 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.324Z"
+  },
+  {
+   "name": "c-0073-ceil",
+   "curveName": "wave-9of10-2of3-mid",
+   "base_uid": "c-0073",
+   "speedX": [
+    3,
+    -16,
+    16
+   ],
+   "speedY": [
+    -18,
+    317,
+    -1743,
+    4162,
+    -4500,
+    1800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 3.314863,
+   "note": "the same construction as c-0073 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.204 · miss 3.314863 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.956Z"
+  },
+  {
+   "name": "c-0074-ceil",
+   "curveName": "lace-11of12-2of3-mid",
+   "base_uid": "c-0074",
+   "speedX": [
+    4,
+    -16,
+    16
+   ],
+   "speedY": [
+    -22,
+    431,
+    -2457,
+    5958,
+    -6480,
+    2592
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 6.379887,
+   "note": "the same construction as c-0074 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.297 · miss 6.379887 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.292Z"
+  },
+  {
+   "name": "c-0076-ceil",
+   "curveName": "wave-5of6-3of5-mid",
+   "base_uid": "c-0076",
+   "speedX": [
+    7,
+    -25,
+    25
+   ],
+   "speedY": [
+    -30,
+    401,
+    -1923,
+    4282,
+    -4500,
+    1800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 11.661716,
+   "note": "the same construction as c-0076 with a shorter ½ stack · position degree 11 · rails 9 · grid 1155 · bend 1.488 · miss 11.661716 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.397Z"
+  },
+  {
+   "name": "c-0078-ceil",
+   "curveName": "wave-11of12-4of5-mid",
+   "base_uid": "c-0078",
+   "speedX": [
+    7,
+    -25,
+    25
+   ],
+   "speedY": [
+    -44,
+    939,
+    -6153,
+    16102,
+    -18000,
+    7200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 46.415584,
+   "note": "the same construction as c-0078 with a shorter ½ stack · position degree 11 · rails 9 · grid 231 · bend 1.226 · miss 46.415584 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.582Z"
+  },
+  {
+   "name": "c-0084-ceil",
+   "curveName": "lace-9of10-4of5-mid",
+   "base_uid": "c-0084",
+   "speedX": [
+    6,
+    -25,
+    25
+   ],
+   "speedY": [
+    -36,
+    697,
+    -4375,
+    11250,
+    -12500,
+    5000
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 22.054168,
+   "note": "the same construction as c-0084 with a shorter ½ stack · position degree 11 · rails 9 · grid 693 · bend 1.213 · miss 22.054168 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.472Z"
+  },
+  {
+   "name": "c-0085-ceil",
+   "curveName": "lace-7of8-5of6-mid",
+   "base_uid": "c-0085",
+   "speedX": [
+    6,
+    -36,
+    36
+   ],
+   "speedY": [
+    -35,
+    642,
+    -4020,
+    10360,
+    -11520,
+    4608
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 24.660939,
+   "note": "the same construction as c-0085 with a shorter ½ stack · position degree 11 · rails 9 · grid 385 · bend 1.216 · miss 24.660939 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.506Z"
+  },
+  {
+   "name": "c-0153-ceil",
+   "curveName": "wave-4of5-2of3-mid",
+   "base_uid": "c-0153",
+   "speedX": [
+    1,
+    1,
+    -1
+   ],
+   "speedY": [
+    -8,
+    102,
+    -483,
+    1072,
+    -1125,
+    450
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.923477,
+   "note": "the same construction as c-0153 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.895 · miss 0.923477 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.295Z"
+  },
+  {
+   "name": "c-0156-ceil",
+   "curveName": "wave-3of4-3of4-mid",
+   "base_uid": "c-0156",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    -9,
+    114,
+    -544,
+    1216,
+    -1280,
+    512
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.209191,
+   "note": "the same construction as c-0156 with a shorter ½ stack · position degree 11 · rails 9 · grid 3465 · bend 1.428 · miss 1.209191 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.497Z"
+  },
+  {
+   "name": "c-0157-ceil",
+   "curveName": "wave-5of6-2of3-mid",
+   "base_uid": "c-0157",
+   "speedX": [
+    1,
+    1,
+    -1
+   ],
+   "speedY": [
+    -10,
+    137,
+    -675,
+    1530,
+    -1620,
+    648
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.233034,
+   "note": "the same construction as c-0157 with a shorter ½ stack · position degree 11 · rails 9 · grid 1155 · bend 1.548 · miss 1.233034 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.532Z"
+  },
+  {
+   "name": "c-0158-ceil",
+   "curveName": "wave-2of3-3of5-mid",
+   "base_uid": "c-0158",
+   "speedX": [
+    1,
+    4,
+    -4
+   ],
+   "speedY": [
+    -12,
+    128,
+    -537,
+    1108,
+    -1125,
+    450
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 3.053791,
+   "note": "the same construction as c-0158 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.616 · miss 3.053791 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.824Z"
+  },
+  {
+   "name": "c-0160-ceil",
+   "curveName": "wave-3of5-1of2-mid",
+   "base_uid": "c-0160",
+   "speedX": [
+    1,
+    -2,
+    2
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.843379,
+   "note": "the same construction as c-0160 with a shorter ½ stack · position degree 11 · rails 9 · grid 6930 · bend 1.340 · miss 0.843379 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.233Z"
+  },
+  {
+   "name": "c-0161-ceil",
+   "curveName": "wave-3of4-2of3-mid",
+   "base_uid": "c-0161",
+   "speedX": [
+    1,
+    -2,
+    2
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.613564,
+   "note": "the same construction as c-0161 with a shorter ½ stack · position degree 11 · rails 9 · grid 462 · bend 1.416 · miss 0.613564 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.120Z"
+  },
+  {
+   "name": "c-0178-ceil",
+   "curveName": "wave-7of8-2of3-mid",
+   "base_uid": "c-0178",
+   "speedX": [
+    1,
+    1,
+    -1
+   ],
+   "speedY": [
+    -14,
+    219,
+    -1149,
+    2686,
+    -2880,
+    1152
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 2.593421,
+   "note": "the same construction as c-0178 with a shorter ½ stack · position degree 11 · rails 9 · grid 1155 · bend 1.289 · miss 2.593421 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.778Z"
+  },
+  {
+   "name": "c-0179-ceil",
+   "curveName": "wave-7of8-1of2",
+   "base_uid": "c-0179",
+   "speedX": [
+    1,
+    -2,
+    2
+   ],
+   "speedY": [
+    7,
+    -92,
+    348,
+    -512,
+    256
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.033236,
+   "note": "the same construction as c-0179 with a shorter ½ stack · position degree 9 · rails 7 · grid 315 · bend 1.275 · miss 1.033236 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.430Z"
+  },
+  {
+   "name": "c-0180-ceil",
+   "curveName": "wave-5of6-2of3",
+   "base_uid": "c-0180",
+   "speedX": [
+    1,
+    -1,
+    1
+   ],
+   "speedY": [
+    10,
+    -117,
+    441,
+    -648,
+    324
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.801463,
+   "note": "the same construction as c-0180 with a shorter ½ stack · position degree 9 · rails 7 · grid 105 · bend 1.136 · miss 1.801463 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.649Z"
+  },
+  {
+   "name": "c-0181-ceil",
+   "curveName": "wave-3of4-3of5-mid",
+   "base_uid": "c-0181",
+   "speedX": [
+    1,
+    4,
+    -4
+   ],
+   "speedY": [
+    -18,
+    207,
+    -913,
+    1942,
+    -2000,
+    800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 6.180097,
+   "note": "the same construction as c-0181 with a shorter ½ stack · position degree 11 · rails 9 · grid 6930 · bend 1.258 · miss 6.180097 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.249Z"
+  },
+  {
+   "name": "c-0183-ceil",
+   "curveName": "wave-4of5-2of3",
+   "base_uid": "c-0183",
+   "speedX": [
+    1,
+    1,
+    -1
+   ],
+   "speedY": [
+    8,
+    -86,
+    311,
+    -450,
+    225
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.392511,
+   "note": "the same construction as c-0183 with a shorter ½ stack · position degree 9 · rails 7 · grid 210 · bend 1.441 · miss 1.392511 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.590Z"
+  },
+  {
+   "name": "c-0187-ceil",
+   "curveName": "wave-5of6-1of2",
+   "base_uid": "c-0187",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    5,
+    -56,
+    200,
+    -288,
+    144
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.452799,
+   "note": "the same construction as c-0187 with a shorter ½ stack · position degree 9 · rails 7 · grid 105 · bend 2.231 · miss 0.452799 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.041Z"
+  },
+  {
+   "name": "c-0188-ceil",
+   "curveName": "wave-2of3-1of2-mid",
+   "base_uid": "c-0188",
+   "speedX": [
+    0,
+    2,
+    -2
+   ],
+   "speedY": [
+    -2,
+    21,
+    -87,
+    178,
+    -180,
+    72
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.07597,
+   "note": "the same construction as c-0188 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 2.265 · miss 0.07597 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.581Z"
+  },
+  {
+   "name": "c-0189-ceil",
+   "curveName": "wave-4of5-1of2-mid",
+   "base_uid": "c-0189",
+   "speedX": [
+    0,
+    4,
+    -4
+   ],
+   "speedY": [
+    -4,
+    49,
+    -223,
+    482,
+    -500,
+    200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.196961,
+   "note": "the same construction as c-0189 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 2.732 · miss 0.196961 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.734Z"
+  },
+  {
+   "name": "c-0191-ceil",
+   "curveName": "wave-3of4-1of2-mid-2",
+   "base_uid": "c-0191",
+   "speedX": [
+    0,
+    4,
+    -4
+   ],
+   "speedY": [
+    -3,
+    34,
+    -148,
+    312,
+    -320,
+    128
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.168314,
+   "note": "the same construction as c-0191 with a shorter ½ stack · position degree 11 · rails 9 · grid 3465 · bend 7.089 · miss 0.168314 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.700Z"
+  },
+  {
+   "name": "c-0192-ceil",
+   "curveName": "wave-5of8-1of2-mid",
+   "base_uid": "c-0192",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    -15,
+    154,
+    -628,
+    1272,
+    -1280,
+    512
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 5.118222,
+   "note": "the same construction as c-0192 with a shorter ½ stack · position degree 11 · rails 9 · grid 693 · bend 1.106 · miss 5.118222 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.131Z"
+  },
+  {
+   "name": "c-0194-ceil",
+   "curveName": "wave-5of6-4of5-mid-2",
+   "base_uid": "c-0194",
+   "speedX": [
+    1,
+    4,
+    -4
+   ],
+   "speedY": [
+    -20,
+    309,
+    -1707,
+    4138,
+    -4500,
+    1800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 5.940133,
+   "note": "the same construction as c-0194 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.281 · miss 5.940133 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.207Z"
+  },
+  {
+   "name": "c-0195-ceil",
+   "curveName": "wave-5of6-3of4-mid-2",
+   "base_uid": "c-0195",
+   "speedX": [
+    1,
+    2,
+    -2
+   ],
+   "speedY": [
+    -15,
+    218,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 3.631553,
+   "note": "the same construction as c-0195 with a shorter ½ stack · position degree 11 · rails 9 · grid 1155 · bend 1.306 · miss 3.631553 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.984Z"
+  },
+  {
+   "name": "c-0196-ceil",
+   "curveName": "wave-4of5-3of4-mid",
+   "base_uid": "c-0196",
+   "speedX": [
+    1,
+    2,
+    -2
+   ],
+   "speedY": [
+    -12,
+    163,
+    -817,
+    1878,
+    -2000,
+    800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 3.07313,
+   "note": "the same construction as c-0196 with a shorter ½ stack · position degree 11 · rails 9 · grid 6930 · bend 1.477 · miss 3.07313 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.874Z"
+  },
+  {
+   "name": "c-0197-ceil",
+   "curveName": "wave-4of5-4of5-mid-2",
+   "base_uid": "c-0197",
+   "speedX": [
+    1,
+    4,
+    -4
+   ],
+   "speedY": [
+    -16,
+    232,
+    -1225,
+    2900,
+    -3125,
+    1250
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 4.596115,
+   "note": "the same construction as c-0197 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.448 · miss 4.596115 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.047Z"
+  },
+  {
+   "name": "c-0198-ceil",
+   "curveName": "wave-3of4-3of4",
+   "base_uid": "c-0198",
+   "speedX": [
+    1,
+    2,
+    -2
+   ],
+   "speedY": [
+    9,
+    -96,
+    352,
+    -512,
+    256
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 2.206987,
+   "note": "the same construction as c-0198 with a shorter ½ stack · position degree 9 · rails 7 · grid 315 · bend 1.400 · miss 2.206987 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.690Z"
+  },
+  {
+   "name": "c-0199-ceil",
+   "curveName": "wave-3of4-2of3",
+   "base_uid": "c-0199",
+   "speedX": [
+    1,
+    2,
+    -2
+   ],
+   "speedY": [
+    6,
+    -59,
+    203,
+    -288,
+    144
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 1.013424,
+   "note": "the same construction as c-0199 with a shorter ½ stack · position degree 9 · rails 7 · grid 210 · bend 1.930 · miss 1.013424 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.358Z"
+  },
+  {
+   "name": "c-0200-ceil",
+   "curveName": "wave-2of3-2of3-mid",
+   "base_uid": "c-0200",
+   "speedX": [
+    0,
+    4,
+    -4
+   ],
+   "speedY": [
+    -4,
+    44,
+    -189,
+    396,
+    -405,
+    162
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.276934,
+   "note": "the same construction as c-0200 with a shorter ½ stack · position degree 11 · rails 9 · grid 770 · bend 2.376 · miss 0.276934 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.813Z"
+  },
+  {
    "name": "c-0201-ceil",
    "curveName": "wave-1of2-1of2-mid",
    "base_uid": "c-0201",
@@ -279,7 +1247,364 @@
    "origin": "sibling-map",
    "miss": 0.021156,
    "note": "the same construction as c-0201 with a shorter ½ stack · position degree 11 · rails 9 · grid 330 · bend 2.158 · miss 0.021156 units from its parent",
-   "savedAt": "2026-11-23T12:57:19.357Z"
+   "savedAt": "2026-11-23T12:57:53.502Z"
+  },
+  {
+   "name": "c-0218-ceil",
+   "curveName": "wave-7of8-1of2-mid",
+   "base_uid": "c-0218",
+   "speedX": [
+    -1,
+    2
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.567841,
+   "note": "the same construction as c-0218 with a shorter ½ stack · position degree 11 · rails 9 · grid 1155 · bend 1.180 · miss 0.567841 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.080Z"
+  },
+  {
+   "name": "c-0220-ceil",
+   "curveName": "wave-3of4-2of3-mid-2",
+   "base_uid": "c-0220",
+   "speedX": [
+    -1,
+    2
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.669008,
+   "note": "the same construction as c-0220 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.096 · miss 0.669008 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.194Z"
+  },
+  {
+   "name": "c-0227-ceil",
+   "curveName": "wave-5of6-3of4-mid",
+   "base_uid": "c-0227",
+   "speedX": [
+    3,
+    -16,
+    16
+   ],
+   "speedY": [
+    -15,
+    218,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 2.578133,
+   "note": "the same construction as c-0227 with a shorter ½ stack · position degree 11 · rails 9 · grid 1155 · bend 1.255 · miss 2.578133 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.731Z"
+  },
+  {
+   "name": "c-0231-ceil",
+   "curveName": "lace-7of8-4of5-mid",
+   "base_uid": "c-0231",
+   "speedX": [
+    5,
+    -36,
+    36
+   ],
+   "speedY": [
+    -28,
+    487,
+    -2893,
+    7262,
+    -8000,
+    3200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 10.132934,
+   "note": "the same construction as c-0231 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.473 · miss 10.132934 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.359Z"
+  },
+  {
+   "name": "c-0236-ceil",
+   "curveName": "lace-7of8-3of4-mid",
+   "base_uid": "c-0236",
+   "speedX": [
+    5,
+    -36,
+    36
+   ],
+   "speedY": [
+    -21,
+    346,
+    -1936,
+    4704,
+    -5120,
+    2048
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 4.281674,
+   "note": "the same construction as c-0236 with a shorter ½ stack · position degree 11 · rails 9 · grid 3465 · bend 2.074 · miss 4.281674 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.015Z"
+  },
+  {
+   "name": "c-0237-ceil",
+   "curveName": "wave-5of6-4of5-mid",
+   "base_uid": "c-0237",
+   "speedX": [
+    5,
+    -36,
+    36
+   ],
+   "speedY": [
+    -20,
+    309,
+    -1707,
+    4138,
+    -4500,
+    1800
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 4.658941,
+   "note": "the same construction as c-0237 with a shorter ½ stack · position degree 11 · rails 9 · grid 770 · bend 2.088 · miss 4.658941 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.091Z"
+  },
+  {
+   "name": "c-0238-ceil",
+   "curveName": "lace-2of3-5of8-mid",
+   "base_uid": "c-0238",
+   "speedX": [
+    6,
+    -36,
+    36
+   ],
+   "speedY": [
+    -30,
+    323,
+    -1365,
+    2830,
+    -2880,
+    1152
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 18.731979,
+   "note": "the same construction as c-0238 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.211 · miss 18.731979 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.440Z"
+  },
+  {
+   "name": "c-0240-ceil",
+   "curveName": "wave-5of8-1of2-mid-2",
+   "base_uid": "c-0240",
+   "speedX": [
+    3,
+    -9,
+    9
+   ],
+   "speedY": [
+    -15,
+    154,
+    -628,
+    1272,
+    -1280,
+    512
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 5.163992,
+   "note": "the same construction as c-0240 with a shorter ½ stack · position degree 11 · rails 9 · grid 6930 · bend 1.315 · miss 5.163992 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.168Z"
+  },
+  {
+   "name": "c-0241-ceil",
+   "curveName": "wave-3of4-5of8-mid",
+   "base_uid": "c-0241",
+   "speedX": [
+    7,
+    -25,
+    25
+   ],
+   "speedY": [
+    -45,
+    522,
+    -2320,
+    4960,
+    -5120,
+    2048
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 35.839094,
+   "note": "the same construction as c-0241 with a shorter ½ stack · position degree 11 · rails 9 · grid 1386 · bend 1.160 · miss 35.839094 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.540Z"
+  },
+  {
+   "name": "c-0246-ceil",
+   "curveName": "wave-4of5-4of5-mid",
+   "base_uid": "c-0246",
+   "speedX": [
+    3,
+    -16,
+    16
+   ],
+   "speedY": [
+    -16,
+    232,
+    -1225,
+    2900,
+    -3125,
+    1250
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 3.077589,
+   "note": "the same construction as c-0246 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.217 · miss 3.077589 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.925Z"
+  },
+  {
+   "name": "c-0249-ceil",
+   "curveName": "wave-5of6-1of2-mid-2",
+   "base_uid": "c-0249",
+   "speedX": [
+    -1,
+    2
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.352318,
+   "note": "the same construction as c-0249 with a shorter ½ stack · position degree 11 · rails 9 · grid 1155 · bend 1.212 · miss 0.352318 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.967Z"
+  },
+  {
+   "name": "c-0250-ceil",
+   "curveName": "wave-4of5-1of2-mid-3",
+   "base_uid": "c-0250",
+   "speedX": [
+    -1,
+    2
+   ],
+   "speedY": [
+    -4,
+    49,
+    -223,
+    482,
+    -500,
+    200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.284996,
+   "note": "the same construction as c-0250 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.231 · miss 0.284996 units from its parent",
+   "savedAt": "2026-11-23T12:57:53.847Z"
+  },
+  {
+   "name": "c-0252-ceil",
+   "curveName": "wave-2of3-2of3-mid-2",
+   "base_uid": "c-0252",
+   "speedX": [
+    -1,
+    2
+   ],
+   "speedY": [
+    -4,
+    44,
+    -189,
+    396,
+    -405,
+    162
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.381445,
+   "note": "the same construction as c-0252 with a shorter ½ stack · position degree 11 · rails 9 · grid 2310 · bend 1.153 · miss 0.381445 units from its parent",
+   "savedAt": "2026-11-23T12:57:54.007Z"
+  },
+  {
+   "name": "c-0259-ceil",
+   "curveName": "loop-11of12-4of5-mid",
+   "base_uid": "c-0259",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    -44,
+    939,
+    -6153,
+    16102,
+    -18000,
+    7200
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 46.415584,
+   "note": "the same construction as c-0259 with a shorter ½ stack · position degree 11 · rails 9 · grid 154 · bend 1.018 · miss 46.415584 units from its parent",
+   "savedAt": "2026-11-23T12:57:55.614Z"
   },
   {
    "name": "double-1-NW-1",
