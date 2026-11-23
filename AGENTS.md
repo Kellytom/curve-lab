@@ -45,6 +45,11 @@ each answer fixed something on the server without clicking the button on the pag
   new messages into `state/SAID-CHECKLIST-int.md`; the check fails on a missing row, changed
   words, or a `done` row with no real commit or file. It is local, like `data/said.json`,
   because the history is personal. Proof is the place the operator looks.
+- **Sidechat keeps its own roll, by the same rule.** `data/said-deep2.json` is the sidechat's
+  said file and `state/SAID-DEEP2-CHECKLIST-int.md` is its checklist: run
+  `scripts/said_checklist.py --who deep2 --write`, tick each statement with the commit that
+  proves it, and run the check with no `--write` before a handoff. The sidechat does this for
+  its own work; DeepSeek1 does not tick sidechat's rows.
 
 ## Achievements are logged, not remembered
 

@@ -342,18 +342,27 @@ class RepeatedAskTest(unittest.TestCase):
 
 
 class SaidRollTest(unittest.TestCase):
-    def test_the_said_roll_holds_every_message_with_proof(self):
+    def test_the_said_rolls_hold_every_message_with_proof(self):
         """The operator, 2026-11-23: "check http://127.0.0.1:4321/said/ on a regular basis and
         make a rolling checklist from it in md and then prove that you did the work and check
-        it off." The roll is `state/SAID-CHECKLIST-int.md`, local only like the history in
-        `data/said.json`; this check fails when a message has no row, a row's words differ from
-        the message, or a `done` row names no real commit or file."""
-        if not (ROOT / "data" / "said.json").exists() or not (
-                ROOT / "state" / "SAID-CHECKLIST-int.md").exists():
-            self.skipTest("the /said/ history and its roll are local only")
-        run = subprocess.run([sys.executable, str(ROOT / "scripts" / "said_checklist.py")],
-                             capture_output=True, text=True, cwd=ROOT)
-        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+        it off." Both chats have a file and a roll: `data/said.json` →
+        `state/SAID-CHECKLIST-int.md` for the main chat, `data/said-deep2.json` →
+        `state/SAID-DEEP2-CHECKLIST-int.md` for sidechat. Each check fails when a message has
+        no row, a row's words differ from the message, or a `done` row names no real commit or
+        file. Local only, like the history."""
+        checked = 0
+        for who in ("me", "deep2"):
+            said = ROOT / "data" / f"said{'' if who == 'me' else '-deep2'}.json"
+            roll = ROOT / "state" / f"SAID{'' if who == 'me' else '-DEEP2'}-CHECKLIST-int.md"
+            if not said.exists() or not roll.exists():
+                continue
+            run = subprocess.run(
+                [sys.executable, str(ROOT / "scripts" / "said_checklist.py"), "--who", who],
+                capture_output=True, text=True, cwd=ROOT)
+            self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+            checked += 1
+        if not checked:
+            self.skipTest("the /said/ histories and their rolls are local only")
 
 
 class DevServerHostTest(unittest.TestCase):

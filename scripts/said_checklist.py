@@ -32,8 +32,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SAID = ROOT / "data" / "said.json"
-ROLL = ROOT / "state" / "SAID-CHECKLIST-int.md"
+# Two rolls, one script: the main chat's and the sidechat's own. The sidechat has its own
+# said file and its own checklist, so it is checked the same way, by the same rule.
+ROLLS = {
+    "me": (ROOT / "data" / "said.json", ROOT / "state" / "SAID-CHECKLIST-int.md"),
+    "deep2": (ROOT / "data" / "said-deep2.json", ROOT / "state" / "SAID-DEEP2-CHECKLIST-int.md"),
+}
+SAID, ROLL = ROLLS["me"]
 STATES = {"ask", "open", "done", "chat", "command", "dropped"}
 SHA = re.compile(r"\b[0-9a-f]{7,40}\b")
 TICKED = re.compile(r"`([^`]+)`")
@@ -95,16 +100,17 @@ def write_roll():
         added.append(f"| {key} | {message['at']} | {cell(message['text'])} "
                      f"| open | | |")
     if not added:
-        print(f"said roll: no new messages ({len(messages)} on /said/)")
+        print(f"said roll: no new messages ({len(messages)} in {SAID.name})")
         return 0
     if not ROLL.exists():
         ROLL.parent.mkdir(parents=True, exist_ok=True)
         ROLL.write_text(
-            "# SAID-CHECKLIST-int — the rolling checklist from /said/\n\n"
+            f"# {ROLL.stem} — the rolling checklist from {SAID.name}\n\n"
             "One row per message the operator sent, newest first. Written by\n"
-            "`scripts/said_checklist.py --write`; the state and the proof are edited by hand\n"
-            "and checked by `scripts/said_checklist.py`. Local only: the history in\n"
-            "`data/said.json` is personal and gitignored.\n\n"
+            "`scripts/said_checklist.py --who [me|deep2] --write`; the state and the proof are edited\n"
+            "by hand and checked by the same script.\n"
+            "Local only: the history in\n"
+            f"`{SAID.name}` is personal and gitignored.\n\n"
             "States: `ask` (a request, not started), `open` (started or blocked, next step in\n"
             "proof), `done` (a commit or file proves it), `chat` (nothing asked), `command`\n"
             "(a slash command or a paste), `dropped` (the operator dropped it).\n\n" + HEAD)
@@ -130,7 +136,7 @@ def check_roll():
     bad = []
     seen = set()
     for number, cells in rows(ROLL.read_text()):
-        where = f"SAID-CHECKLIST-int.md line {number}"
+        where = f"{ROLL.name} line {number}"
         if len(cells) != 6:
             bad.append(f"{where}: expected 6 columns, found {len(cells)}")
             continue
@@ -168,7 +174,11 @@ def check_roll():
 def main():
     parser = argparse.ArgumentParser(add_help=True)
     parser.add_argument("--write", action="store_true", help="append new messages as open rows")
+    parser.add_argument("--who", choices=["me", "deep2"], default="me",
+                        help="whose said file and roll: the main chat or the sidechat")
     args = parser.parse_args()
+    global SAID, ROLL
+    SAID, ROLL = ROLLS[args.who]
     return write_roll() if args.write else check_roll()
 
 
