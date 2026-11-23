@@ -1,0 +1,59 @@
+---
+// The glue sandbox: a connector between two curves whose end slopes differ.
+// Spec: state/SPEC-glue-int.md. Maths: app/src/lib/glue.js.
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="glue" pageTitle="The glue sandbox">
+  <p class="lead">Two curves in a row have different end slopes — say <code>3/4</code> then
+    <code>−7/24</code>. A connector joins them: it leaves along the first slope and arrives
+    along the second. The ends are exact by construction, so the printed slopes match the
+    typed ones. Lengthen a handle and the connector swells; where it crosses itself the sandbox
+    prints the loop point. A true Tschirnhausen flourish — a loop at the join — needs more
+    control than a cubic has, so it is the next action, with G3.</p>
+
+  <div class="glue-lab">
+    <div id="glue-preview" class="glue-preview"></div>
+    <div class="glue-controls">
+      <label>slope 1 <input id="g-slope0" type="text" value="3/4" inputmode="text" /></label>
+      <label>slope 2 <input id="g-slope1" type="text" value="-7/24" inputmode="text" /></label>
+      <label>gap <input id="g-gap" type="range" min="0.3" max="3" step="0.05" value="1" />
+        <output id="g-gap-out">1.00</output></label>
+      <label>handle 1 <input id="g-h0" type="range" min="1" max="60" step="1" value="10" />
+        <output id="g-h0-out">10 %</output></label>
+      <label>handle 2 <input id="g-h1" type="range" min="1" max="60" step="1" value="10" />
+        <output id="g-h1-out">10 %</output></label>
+      <p class="g-note" id="g-readout"></p>
+    </div>
+  </div>
+
+  <h2>What this can and cannot join</h2>
+  <ul class="g-facts">
+    <li><b>G1 is exact here.</b> Each end of the connector lies on the typed direction, so the
+      slope at the join is the typed slope, not an approximation. The readout prints both.</li>
+    <li><b>G2 and G3 are not.</b> A cubic has eight numbers and G3 needs ten conditions, so a
+      cubic cannot be G3. G2 needs the neighbouring curve's curvature at the join; G3 also
+      needs how fast that curvature changes.</li>
+    <li><b>G3, and the loop, are quintic work</b> — six control points, twelve numbers — and
+      they are the next action: a connector that matches the neighbours' curvature and its rate
+      at both ends, and can loop where a leg wants a flourish. Every join defect will be
+      measured and printed, never assumed.</li>
+  </ul>
+</BaseLayout>
+
+<script>
+  import "../scripts/glue-sandbox.js";
+</script>
+
+<style is:global>
+  .glue-lab { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: start; margin: 12px 0 18px; }
+  .glue-preview { border: 1px solid #e6dccb; background: #fff; }
+  .glue-preview svg { display: block; width: 100%; height: auto; }
+  .glue-controls { display: grid; gap: 8px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  .glue-controls label { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.2rem; gap: 6px; align-items: center; }
+  .glue-controls input[type="text"] { width: 100%; }
+  .glue-controls input[type="range"] { width: 100%; }
+  .g-note { grid-column: 1 / -1; margin: 6px 0 0; color: #5a4a36; line-height: 1.6; }
+  .g-facts { font-size: 14px; line-height: 1.7; max-width: 70ch; }
+  @media (max-width: 760px) { .glue-lab { grid-template-columns: minmax(0, 1fr); } }
+</style>
