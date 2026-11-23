@@ -82,6 +82,24 @@ export const slopeAt = (p, t) => {
   return Math.abs(d.x) < 1e-12 ? Infinity : d.y / d.x;
 };
 
+// A rational Bézier: the same control points with weights. A negative or very large weight
+// bends the curve and can make it loop, which is the "rational loop" the operator asked for.
+export function rationalPoints(p, w, n = 240) {
+  const out = [];
+  for (let i = 0; i <= n; i += 1) {
+    const t = i / n;
+    const mt = 1 - t;
+    const b = [mt ** 3, 3 * mt ** 2 * t, 3 * mt * t ** 2, t ** 3];
+    const den = b[0] * w[0] + b[1] * w[1] + b[2] * w[2] + b[3] * w[3];
+    if (Math.abs(den) < 1e-12) continue;
+    out.push({
+      x: (b[0] * w[0] * p[0].x + b[1] * w[1] * p[1].x + b[2] * w[2] * p[2].x + b[3] * w[3] * p[3].x) / den,
+      y: (b[0] * w[0] * p[0].y + b[1] * w[1] * p[1].y + b[2] * w[2] * p[2].y + b[3] * w[3] * p[3].y) / den,
+    });
+  }
+  return out;
+}
+
 export function cubicPoints(p, n = 240) {
   const out = [];
   for (let i = 0; i <= n; i += 1) {

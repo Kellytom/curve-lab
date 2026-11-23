@@ -23,6 +23,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <output id="g-h0-out">10 %</output></label>
       <label>handle 2 <input id="g-h1" type="range" min="1" max="60" step="1" value="10" />
         <output id="g-h1-out">10 %</output></label>
+      <label>kind <select id="g-kind">
+        <option value="cubic">cubic (G1)</option>
+        <option value="rational">rational (weights)</option>
+        <option value="levien">Levien parallel fit</option>
+      </select></label>
+      <label id="g-weight-row">weight <input id="g-weight" type="range" min="-3" max="4" step="0.1" value="1" />
+        <output id="g-weight-out">1.0</output></label>
+      <label id="g-distance-row">offset <input id="g-distance" type="range" min="0.02" max="0.3" step="0.01" value="0.08" />
+        <output id="g-distance-out">0.08</output></label>
+      <label class="g-check"><input id="g-band" type="checkbox" /> band — glue the side curves too</label>
+      <label id="g-band-row">band width <input id="g-band-w" type="range" min="0.5" max="6" step="0.1" value="2" />
+        <output id="g-band-out">2.0 %</output></label>
       <p class="g-note" id="g-readout"></p>
     </div>
   </div>
@@ -34,6 +46,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <li><b>G2 and G3 are not.</b> A cubic has eight numbers and G3 needs ten conditions, so a
       cubic cannot be G3. G2 needs the neighbouring curve's curvature at the join; G3 also
       needs how fast that curvature changes.</li>
+    <li><b>Rational curves can loop with a negative weight.</b> The middle weight at −2 bends the
+      connector back through itself; the crossing is printed. A rational curve also carries exact
+      conics, which a plain cubic cannot.</li>
+    <li><b>Levien's parallel fit</b> offsets the connector with cubic spans and reports the worst
+      error and the cusp ranges — the repository's own port, not a second implementation.</li>
     <li><b>G3, and the loop, are quintic work</b> — six control points, twelve numbers — and
       they are the next action: a connector that matches the neighbours' curvature and its rate
       at both ends, and can loop where a leg wants a flourish. Every join defect will be
@@ -53,6 +70,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   .glue-controls label { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.2rem; gap: 6px; align-items: center; }
   .glue-controls input[type="text"] { width: 100%; }
   .glue-controls input[type="range"] { width: 100%; }
+  .glue-controls .g-check { grid-template-columns: auto 1fr; }
   .g-note { grid-column: 1 / -1; margin: 6px 0 0; color: #5a4a36; line-height: 1.6; }
   .g-facts { font-size: 14px; line-height: 1.7; max-width: 70ch; }
   @media (max-width: 760px) { .glue-lab { grid-template-columns: minmax(0, 1fr); } }

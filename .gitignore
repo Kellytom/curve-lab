@@ -106,3 +106,6 @@ app/public/plates-rgba/
 # the operator's own chat history, for /said/ only
 data/said.json
 data/said-deep2.json
+
+# the workhorse queue and its logs are local state
+state/jobs/
