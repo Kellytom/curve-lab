@@ -67,6 +67,9 @@ await prisma.$transaction([
   prisma.curveSet.deleteMany({ where: { innerUid: { in: uids } } }),
   prisma.note.deleteMany({ where: { uid: { in: uids } } }),
   prisma.curve.deleteMany({ where: { uid: { in: uids } } }),
+  // the removed curve's own desk row (its name is the uid). Left behind, it keeps the curve's
+  // name taken: a cut named <curve>-cut could never be made again.
+  prisma.sandboxCurve.deleteMany({ where: { name: { in: uids } } }),
   prisma.star.deleteMany({ where: { name: { in: names } } }),
 ]);
 

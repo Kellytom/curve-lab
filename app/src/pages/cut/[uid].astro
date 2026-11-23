@@ -97,6 +97,9 @@ const sidePreview = (side) => {
 };
 const topHalf = sidePreview("top");
 const bottomHalf = sidePreview("bottom");
+const saved = q.get("saved");
+const savedUid = q.get("new");
+const warning = q.get("warning");
 const hasLine = true;
 ---
 
@@ -105,6 +108,14 @@ const hasLine = true;
     <a href={`/tune/${record.uid}`}>tune it</a>. Two cuts: at a numbered dot, or across the red
     line — the top and bottom halves are drawn below, with their side curves, before you save.
     A cut adds a curve beside its parent; the parent stays as it is.</p>
+
+  {saved && (
+    <p class="cut-saved">saved: {saved}
+      {savedUid && <> · <a href={`/plates#${savedUid}`}>see {savedUid} on the plates</a> ·
+        <a href={`/tune/${savedUid}`}>tune its side curves or rename it</a></>}
+      {warning && <span class="cut-note"> ({warning})</span>}
+    </p>
+  )}
 
   <div class="cut-one">
     <div class="cut-figure" set:html={svg} />
@@ -182,6 +193,7 @@ const hasLine = true;
   .cut-state.bad { color: #9b2c2c; }
   .cut-state.busy { color: #7a6a55; }
   .cut-note { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .cut-saved { font: 13px/1.5 ui-monospace, Menlo, monospace; color: #2f6f3a; }
   .cut-halves { margin: 16px 0 0; }
   .cut-halves h2 { font-size: 1rem; margin: 0 0 6px; }
   .cut-halves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }

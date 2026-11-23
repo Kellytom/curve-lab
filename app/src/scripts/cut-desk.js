@@ -47,16 +47,15 @@ if (form) {
         ? `${result.cut.kept} units kept, ${result.cut.dropped} dropped`
         : `${result.cut.runs} open curve${result.cut.runs === 1 ? "" : "s"} from the ` +
           `${result.cut.side} half`;
-      say(`${result.uid} ${result.name} saved — ${what}` +
-        `${result.warning ? ` (${result.warning})` : ""}`, "ok");
-      const link = document.createElement("a");
-      link.href = `/plates#${result.uid}`;
-      link.textContent = ` see ${result.uid} on the plates →`;
-      state.appendChild(link);
-      const tune = document.createElement("a");
-      tune.href = `/tune/${result.uid}`;
-      tune.textContent = " tune its side curves or rename it →";
-      state.appendChild(tune);
+      // A save writes the registry and the plate, and the dev server reloads the page when the
+      // files change, so the message is carried in the URL instead of in the DOM: the reloaded
+      // page shows it, and so does a bookmark or a refresh.
+      const query = new URLSearchParams({
+        saved: `${result.uid} ${result.name} saved — ${what}`,
+        new: result.uid,
+      });
+      if (result.warning) query.set("warning", result.warning);
+      location.href = `/cut/${body.uid}?${query}`;
     } catch (error) {
       say(`not saved: ${error.message}`, "bad");
     } finally {

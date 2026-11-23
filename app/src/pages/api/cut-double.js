@@ -93,10 +93,15 @@ export const POST = async ({ request }) => {
     }
 
     const askedName = String(body.name || "").trim();
-    const base = askedName || `${record.name}-cut`;
+    const defaultName = `${record.name}-cut`;
+    // The prefilled name is a suggestion, not a typed name: when it is the default (or the
+    // default with a number) a collision takes the next free number. A name the operator
+    // typed is honoured, and its collision is reported with the owner.
+    const autoNumber = !askedName || askedName === defaultName
+      || askedName.startsWith(`${defaultName}-`);
+    const base = askedName || defaultName;
     // Cutting several dots of one curve is the normal use; the default name takes the next
-    // free number instead of refusing the second cut. A name the operator typed is honoured
-    // and its collision is reported.
+    // free number instead of refusing the second cut.
     let result = null;
     let lastError = null;
     for (let attempt = 1; attempt <= 9; attempt += 1) {
@@ -109,7 +114,7 @@ export const POST = async ({ request }) => {
       } catch (error) {
         lastError = error;
         const collision = error instanceof DeskError && error.status === 409;
-        if (askedName || !collision) throw error;
+        if (!autoNumber || !collision) throw error;
       }
     }
     if (!result) throw lastError || new DeskError("could not name the cut", 400);
