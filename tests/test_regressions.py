@@ -213,6 +213,28 @@ class PlateRailCrossingTest(unittest.TestCase):
         self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
 
 
+class SidePillarTest(unittest.TestCase):
+    """2026-11-23, found in the build, not by the operator: the side-pillar figure drew one bow
+    across the page with its labels at the edges.
+
+    The path strings are model units (x around ±150, y up); they were written into the SVG as if
+    they were already SVG coordinates, so nothing was offset or flipped, and the Q control point
+    ignored the pillar's axis. This runs the page's own tests: each line stays beside its axis,
+    the first paint on the page puts it there, the labels sit in the empty field, and the swell
+    can never make the shaft wider than its foot.
+    """
+
+    def test_each_pillar_stays_beside_its_axis(self):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "side-pillars.test.js")],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+
+
 class BranchDrawTest(unittest.TestCase):
     """2026-11-23: "the multi-branch records c-0416 (cruciform) and c-0418 (absx-gerono) draw as
     fragments."

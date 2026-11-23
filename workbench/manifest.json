@@ -381,6 +381,15 @@
    "outputs": "the minimum width of one half and of the full pair"
   },
   {
+   "key": "side-pillars",
+   "file": "side-pillars.html",
+   "group": "curve",
+   "title": "Side pillar",
+   "purpose": "The illustration border's two sides: one thin pillar each, with a base, a swelling shaft and a capital.",
+   "inputs": "height in diameters, top/foot ratio, swell and its station, base and capital heights",
+   "outputs": "two one-line pillars, the entasis measured against the taper line"
+  },
+  {
    "key": "lac-parallel",
    "file": "lac-parallel.html",
    "group": "curve",
