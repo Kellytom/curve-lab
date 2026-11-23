@@ -99,10 +99,10 @@ for (const route of ROUTES) {
         draft: document.querySelector(".draft")?.textContent.trim() || "",
         main: Boolean(document.querySelector("main#main")),
         selfLinks,
-        // the hub's windows: four, each with a still or a live frame, never an empty hole
-        windows: document.querySelectorAll("[data-window]").length,
-        holes: [...document.querySelectorAll("[data-window]")]
-          .filter((win) => !win.querySelector("img, iframe")).length,
+        // the hub's windows: four stills, and the pages themselves are not loaded in them
+        windows: document.querySelectorAll(".window").length,
+        stills: document.querySelectorAll(".window img").length,
+        frames: document.querySelectorAll(".window iframe").length,
       };
     });
     if (response?.status() !== 200) failures.push(`${route}: HTTP ${response?.status()}`);
@@ -112,9 +112,10 @@ for (const route of ROUTES) {
     if (!found.main) failures.push(`${route}: no <main id="main">`);
     if (found.selfLinks.length) failures.push(`${route}: links to itself (${found.selfLinks.join(", ")})`);
     if (route === "/") {
-      // the hub opens as four stills and loads each page when its window is reached
+      // the hub shows four stills and does not run the pages inside the cards
       if (found.windows !== 4) failures.push(`/: ${found.windows} hub windows, not 4`);
-      if (found.holes) failures.push(`/: ${found.holes} hub window(s) with no still and no frame`);
+      if (found.stills !== 4) failures.push(`/: ${found.stills} stills, not 4`);
+      if (found.frames) failures.push(`/: ${found.frames} live frame(s) on the hub; use the stills`);
     }
     if (errors.length) failures.push(`${route}: ${errors.slice(0, 3).join(" | ")}`);
   } catch (error) {

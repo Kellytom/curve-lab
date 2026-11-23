@@ -20,6 +20,7 @@ const older = hub.total - app.length;
 
 <!doctype html>
 <html lang="en" data-theme="light"><head><meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Curve Hub: draft A</title>
 <link rel="stylesheet" href="/vendor/pico.min.css">
@@ -54,8 +55,8 @@ const older = hub.total - app.length;
   <p>This Astro app (port 4321) is the product; the small Python server on
     port 8003 is the render MVP, not the deliverable. Four pages, a still each, live
     when the window is reached. {older} older pages behind one link.</p>
-  <p class="hint">Each window opens as a still; the live page loads when the window is reached,
-    and the small print under it says which. Click a still to load it now.</p>
+  <p class="hint">Each window is a still picture. Open it in a tab for the live page — the hub
+    never loads the pages itself (operator, 2026-11-23: "just use the pngs").</p>
   <p class="phone">{tunnel.url
     ? <>phone: <a href={tunnel.url}>{tunnel.url}</a></>
     : <>phone: no tunnel running — <code>scripts/service.sh status</code></>}
@@ -69,13 +70,13 @@ const older = hub.total - app.length;
           <p class="purpose">{page.purpose}</p>
           <a class="open" href={page.src} target="_blank" rel="noopener">open in a tab ↗</a>
         </header>
-        <div class="window" data-window data-src={page.src} data-title={page.title}>
+        <div class="window">
           <a class="shot" href={page.src} target="_blank" rel="noopener">
             <img src={`/hub/${page.key}.png`} width="1200" height="800"
               alt={`a still of ${page.title}`} loading="lazy" />
           </a>
         </div>
-        <p class="hint" data-hint>still picture · the live page loads when the window is reached</p>
+        <p class="hint">still picture · open in a tab for the live page</p>
       </article>
     ))}
   </div>
@@ -130,5 +131,4 @@ const older = hub.total - app.length;
     <p><a class="button" href="/everything" role="button">the full page list →</a></p>
   </article>
 </main>
-<script>import "../scripts/hub-windows.js";</script>
 </body></html>

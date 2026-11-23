@@ -692,18 +692,18 @@ a link to the same file in the header; all industry standard best practice".
 
 The operator: "for the hub, take a screenshot of each window and use that png to load, and
 lazy load the real thing in the window... put 'loading...' in small print below the window."
+Then, after the live window proved slow: "just use the pngs. we dont need to see the pages live
+inside the cards."
 
-- **Four stills first.** `app/public/hub/<page>.png`, one per app page, so the hub does not
-  render four heavy pages before it appears (the hub serves in 0.01 s; before, four live
-  iframes loaded at once).
-- **The live page loads when its window is reached**, or when the still is clicked. The still
-  is also a plain link, so a no-JavaScript browser still gets through.
-- **The small print under the window says the state**: "still picture · …", "loading…", then
-  "live page · scroll inside the frame for more".
+- **Four stills, and that is the card.** `app/public/hub/<page>.png`, one per app page. The
+  page is never loaded inside the card; the still is a link that opens the real page in a tab.
+  Four live iframes made the hub render four heavy pages before it appeared.
+- **The small print says so:** "still picture · open in a tab for the live page".
 - **The stills are generated**, never drawn by hand: `node scripts/hub_shots.mjs` (needs the
-  app on 4321). Rerun it after a page's look changes.
-- **The guard** is `app/scripts/check-pages.mjs`: the hub has four windows, and no window is
-  left with neither a still nor a frame.
+  app on 4321). Rerun it after a page's look changes; `tests/test_hub_stills.py` fails when a
+  still is older than its page.
+- **The guard** is `app/scripts/check-pages.mjs`: four windows, four stills, and no live frame
+  on the hub.
 
 ## Figures are files, not inlined SVG — 2026-11-19
 
