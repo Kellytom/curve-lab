@@ -16,16 +16,17 @@ A session that reads only the files named in the message has skipped Tier 0.
 | # | file | lines | why |
 |---|---|---|---|
 | 0 | `state/SPRINT-int.md` | 170 | the sprint plan: found curves → integers → offsets → plates, one session per sprint |
-| 1 | `senior-dev.md` | 53 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
-| 2 | `LTMemory-int.md` | 319 | the map, the invariants, what is settled and what is open |
-| 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
-| 4 | `state/PLAN-int.md` | 237 | the next few sessions, one action each, with what is parked and why |
-| 5 | `state/HANDOFF-int.md` | 3,761 | current truth — **read the tail (~80 lines), not the whole file** |
-| 6 | `TODO.md` | 1010 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
-| 7 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
-| 8 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
-| 9 | `state/DESIGN-int.md` | 1058 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
-| 10 | `state/REGRESSIONS-int.md` | 125 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
+| 1 | `state/ASKS-int.md` | 35 | the operator's asks in their own words, with status and proof; a repeated ask means the first answer failed |
+| 2 | `senior-dev.md` | 53 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
+| 3 | `LTMemory-int.md` | 319 | the map, the invariants, what is settled and what is open |
+| 4 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
+| 5 | `state/PLAN-int.md` | 234 | the next few sessions, one action each, with what is parked and why |
+| 6 | `state/HANDOFF-int.md` | 3,893 | current truth — **read the tail (~80 lines), not the whole file** |
+| 7 | `TODO.md` | 1035 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 8 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
+| 9 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
+| 10 | `state/DESIGN-int.md` | 1133 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 11 | `state/REGRESSIONS-int.md` | 129 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 
@@ -75,6 +76,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | book plates (PNG export) | `book/README.md`, `book/kept.json` (the kept print manifest), `book/plates.json`, `workbench/real-curves.json`, `scripts/real_curves.mjs`, `scripts/plates_export.mjs`, `workbench/plate_math.js`, `tests/js/plates.test.js` |
 | the tuning desk (`/tune/`, `/tune/<uid>`) | `state/SPEC-tune-lab-int.md`, `state/PROBLEMS-tune-lab-int.md`, `app/src/lib/desk-tune.js`, `app/src/scripts/tune-render.js`, `app/src/scripts/tune-uid.js`, `app/tests/desk-tune.test.mjs`, `scripts/check-tune-lab.mjs` |
 | the cut desk (`/cut/`, `/cut/<uid>`) | `state/SPEC-cut-int.md`, `app/src/lib/cut-doubles.js`, `app/src/pages/api/cut-double.js`, `tests/js/cut-doubles.test.mjs` |
+| the gothic desk (`/gothic/`, `/gothic/<uid>`) | `state/SPEC-gothic-int.md`, `state/PROBLEMS-gothic-int.md`, `app/src/lib/gothic.js`, `app/src/scripts/gothic-tuner.js`, `app/src/pages/api/gothic-arch.js`, `tests/js/gothic.test.js` |
 | the review desk (bulk approval) | `state/SPEC-review-int.md`, `state/PROBLEMS-review-int.md`, `app/src/pages/review.astro`, `app/src/scripts/review.js`, `app/src/pages/api/curve-stars.js`, `app/scripts/check-review.mjs` |
 | the docs ornament theme (Marginalia) | `app/src/theme/marginalia/README.md`, `app/src/theme/marginalia/marginalia.css`, `app/src/theme/marginalia/Head.astro`, `app/src/theme/marginalia/ornaments.json`, `scripts/marginalia.mjs`, `app/src/pages/ornaments.astro`, `app/src/content/docs/docs/marginalia.md`, `tests/test_marginalia.py` |
 | the side-curve partners sandbox | `docs/SIDE-CURVES.md`, `scripts/side_curves.mjs`, `workbench/side-curves.html`, `app/src/pages/api/d3js.js`, `app/src/lib/parallel-bezier.ts` |

@@ -20,6 +20,28 @@ Jargon is allowed only when it is the name of something real in the project
 - The operator may not be a mathematician: explain the result in words first,
   the formula second.
 
+## Listening — the operator's asks are a register
+
+The operator, 2026-11-23: "i should not have to repeat myself". A repeated ask is a
+process failure — the first answer was wrong, or the ask was never written down where
+the next session could see it. "Save the cut curves" was asked two or three times and
+each answer fixed something on the server without clicking the button on the page.
+
+- **Write the ask down when it arrives**, in the operator's own words, in
+  `state/ASKS-int.md` — not paraphrased into a plan. It is Tier 0 of
+  `state/READING-int.md` and read at the start of every session.
+- **Answer where the operator looks first.** Before reading code, open the page and
+  use the control that failed. A fix proved by a test that never reproduces the
+  operator's click is not proved.
+- **A second mention is a fault, not a nudge.** Do not reply with a new plan. Read the
+  row, say what blocked the first answer, test it again, and close the row.
+- **Close a row only with a commit, a file or a command** in its proof column. No
+  proof, no close. `scripts/check_asks.py` and `RepeatedAskTest` fail the register when
+  a row has no verbatim ask, no status, or no evidence.
+- **When the ask is ambiguous, say so and act on the literal sentence.** Guessing a
+  bigger, easier ask is how a two-line save request turned into two sessions of server
+  work.
+
 ## Achievements are logged, not remembered
 
 Hours go into fixing a fault, and a fault fixed twice is a process failure. So:

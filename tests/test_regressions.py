@@ -328,6 +328,19 @@ print("ok")
         self.assertEqual(0, run.returncode, run.stdout + run.stderr)
 
 
+class RepeatedAskTest(unittest.TestCase):
+    def test_every_operator_ask_is_written_down_and_closed_honestly(self):
+        """The operator, 2026-11-23: "i should not have to repeat myself", after asking
+        for a way to save the cut curves two or three times. Each session read the code
+        and fixed something adjacent, because the ask was only in the chat. The register
+        is `state/ASKS-int.md`, read at Tier 0; this check fails when a row has no
+        verbatim ask, a fixed row names no real commit or file, or an open row names no
+        next step."""
+        run = subprocess.run([sys.executable, str(ROOT / "scripts" / "check_asks.py")],
+                             capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at
