@@ -422,6 +422,14 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   overlap the curve or each other.
 - Exports stay under 150 KB and 1000 px on the long side, so they can be looked at.
 
+## Above the fold — measure it, do not guess
+
+The operator's definition (2026-11-23): "above the fold" is what the reader sees before
+scrolling — a height in CSS pixels at the window they use, not a breakpoint. The anchor words
+and the measured numbers are in `state/FOLD-int.md`; `node scripts/fold_report.mjs <width>`
+re-measures them. Do not add a `--fold` variable or a page rule for it. When an opening is too
+tall, shorten or widen the opening, and say what the change cost or bought.
+
 ## Reading discipline
 
 - Probe once with a single shell call; grep before reading; do not re-read a

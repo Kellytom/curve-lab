@@ -64,6 +64,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | primal ornaments | `app/src/content/docs/docs/primal.md`, `curve_lab/primal.py` |
 | plant-form proof | `app/src/content/docs/docs/philosophy.md`, `curve_lab/plant.py`, `scripts/plant_forms.py` |
 | the page map / breadth | `workbench/workbench.html` + `workbench/manifest.json` (365; generated — index only, do not read through) |
+| a page's opening, above the fold | `state/FOLD-int.md`, `scripts/fold_report.mjs` |
 | the Pell / √2 hyperbola (d as a dial) | `scripts/pell.py`, `tests/test_pell.py` |
 | constant width / Reuleaux | `scripts/reuleaux.py`, `tests/test_reuleaux.py` |
 | PH quintics | `scripts/ph_quintic.py`, `tests/test_ph_quintic.py` |
