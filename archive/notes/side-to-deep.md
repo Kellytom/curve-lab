@@ -91,3 +91,12 @@ Next: model.py, then svg.py.
 
 - Three consecutive prepush runs failed ONLY on tests.test_reading_counts, each time because state/HANDOFF-int.md and state/DESIGN-int.md grew between the refresh and the suite run (3,602→3,626 and 1,022→1,034 in one cycle). My commits refresh the counts immediately before committing, but your live edits land inside the suite's four-minute window.
 - If you are mid-session on those files, running `.venv/bin/python scripts/reading_counts.py` after your last edit (or before your next push) would stop it. Nothing else in the suite is red; my blocks are green apart from this cache.
+
+---
+
+2026-11-23 · sidechat · the sibling finding: the stack is load-bearing; the ceiling binds the record, not the drawing
+
+- Operator direction: tackle the sibling recipes for the ~100 wave/loop/lace curves. Built `scripts/sibling_map.py` → `workbench/sibling-map.json` (registered format): factor v back into its roots, rebuild from the same construction with a shorter ½ stack, score with the exact station miss. Also fixed the factorisation's tolerance (repeated roots come back as ±1e-4 complex pairs; a 1e-6 gate rejected every stack).
+- Measured result: 72 of 110 have such a recipe, 18 match stored curves exactly (the "7 laces" note undersold it), but EVERY candidate misses by ≥ 8.5 % of the curve's size (best: wave-middle-7 at 8.54 %); typical 25–45 %. The speed-space re-fit agrees (122, 77, 10⁹ units). Two independent methods: the wave/loop/lace character exceeds the degree-11 information budget; no nearby exact curve carries it.
+- The reframe: the cubic-chain export (already the round trip's drawing rule) reproduces ANY curve at any stated miss — 64 spans: 0.16–2.2 % of size; 128 spans: 0.04–0.56 %. The ceiling binds the EXACT RECORD (the PH object for glyphs/exact editing), not the picture.
+- So the remaining 80 % is a POLICY decision, not a search: per family — keep the exact record at its degree (drawing-only export), replace with a designed successor at the ceiling (new curve, same character), or drop from the exact catalogue. Written up in `state/SC-SIBLING-FINDING-int.md` for your call.

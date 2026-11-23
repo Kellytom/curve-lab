@@ -1,0 +1,1810 @@
+{
+ "format": "curve-lab.sibling-map/1",
+ "curves": [
+  {
+   "uid": "c-0201",
+   "name": "wave-middle-6",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "1of2-1of2-mid",
+   "sibling_v": [
+    "-1",
+    "10",
+    "-40",
+    "80",
+    "-80",
+    "32"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.021156,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0042",
+   "name": "wave-middle-7",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "1of2-1of2-mid",
+   "sibling_v": [
+    "-1",
+    "10",
+    "-40",
+    "80",
+    "-80",
+    "32"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.035469,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0188",
+   "name": "wave-1of3-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "2of3-1of2-mid",
+   "sibling_v": [
+    "-2",
+    "21",
+    "-87",
+    "178",
+    "-180",
+    "72"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.07597,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0041",
+   "name": "wave-1of3-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "2of3-1of2-mid",
+   "sibling_v": [
+    "-2",
+    "21",
+    "-87",
+    "178",
+    "-180",
+    "72"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.087512,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0040",
+   "name": "wave-1of4-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of4-1of2-mid",
+   "sibling_v": [
+    "-3",
+    "34",
+    "-148",
+    "312",
+    "-320",
+    "128"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.166323,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0191",
+   "name": "wave-1of4-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "3of4-1of2-mid",
+   "sibling_v": [
+    "-3",
+    "34",
+    "-148",
+    "312",
+    "-320",
+    "128"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.168314,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0189",
+   "name": "wave-1of5-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "4of5-1of2-mid",
+   "sibling_v": [
+    "-4",
+    "49",
+    "-223",
+    "482",
+    "-500",
+    "200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.196961,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0251",
+   "name": "wave-1of4-5-2",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of4-1of2-mid",
+   "sibling_v": [
+    "-3",
+    "34",
+    "-148",
+    "312",
+    "-320",
+    "128"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.217197,
+   "in_catalogue": "wave-1of4-3-2",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0038",
+   "name": "wave-1of5-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "4of5-1of2-mid",
+   "sibling_v": [
+    "-4",
+    "49",
+    "-223",
+    "482",
+    "-500",
+    "200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.248418,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0200",
+   "name": "wave-2x1of3-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "2of3-2of3-mid",
+   "sibling_v": [
+    "-4",
+    "44",
+    "-189",
+    "396",
+    "-405",
+    "162"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.276934,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0250",
+   "name": "wave-1of5-5-2",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "4of5-1of2-mid",
+   "sibling_v": [
+    "-4",
+    "49",
+    "-223",
+    "482",
+    "-500",
+    "200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.284996,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0039",
+   "name": "wave-2x1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "2of3-2of3-mid",
+   "sibling_v": [
+    "-4",
+    "44",
+    "-189",
+    "396",
+    "-405",
+    "162"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.318748,
+   "in_catalogue": "wave-2x1of3-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0037",
+   "name": "wave-1of6-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-1of2-mid",
+   "sibling_v": [
+    "-5",
+    "66",
+    "-312",
+    "688",
+    "-720",
+    "288"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.333267,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0249",
+   "name": "wave-1of6-5-2",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-1of2-mid",
+   "sibling_v": [
+    "-5",
+    "66",
+    "-312",
+    "688",
+    "-720",
+    "288"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.352318,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0252",
+   "name": "wave-2x1of3-3-2",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "2of3-2of3-mid",
+   "sibling_v": [
+    "-4",
+    "44",
+    "-189",
+    "396",
+    "-405",
+    "162"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.381445,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0187",
+   "name": "wave-1of6-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "5of6-1of2",
+   "sibling_v": [
+    "5",
+    "-56",
+    "200",
+    "-288",
+    "144"
+   ],
+   "sibling_speed_degree": 4,
+   "sibling_position_degree": 9,
+   "miss_units": 0.452799,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0036",
+   "name": "wave-1of8-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of8-1of2-mid",
+   "sibling_v": [
+    "-7",
+    "106",
+    "-532",
+    "1208",
+    "-1280",
+    "512"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.567699,
+   "in_catalogue": "lace-2-eight-3",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0218",
+   "name": "wave-1of8-5-2",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of8-1of2-mid",
+   "sibling_v": [
+    "-7",
+    "106",
+    "-532",
+    "1208",
+    "-1280",
+    "512"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.567841,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0161",
+   "name": "wave-1of4-1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of4-2of3-mid",
+   "sibling_v": [
+    "-6",
+    "71",
+    "-321",
+    "694",
+    "-720",
+    "288"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.613564,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0220",
+   "name": "wave-1of4-1of3-3-2",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of4-2of3-mid",
+   "sibling_v": [
+    "-6",
+    "71",
+    "-321",
+    "694",
+    "-720",
+    "288"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.669008,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0024",
+   "name": "cusp7-deep",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "mid",
+   "sibling_v": [
+    "-1",
+    "2"
+   ],
+   "sibling_speed_degree": 1,
+   "sibling_position_degree": 3,
+   "miss_units": 0.733333,
+   "in_catalogue": "u-bowl",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0160",
+   "name": "wave-2of5-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of5-1of2-mid",
+   "sibling_v": [
+    "-6",
+    "61",
+    "-247",
+    "498",
+    "-500",
+    "200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.843379,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0153",
+   "name": "wave-1of5-1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "4of5-2of3-mid",
+   "sibling_v": [
+    "-8",
+    "102",
+    "-483",
+    "1072",
+    "-1125",
+    "450"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 0.923477,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0199",
+   "name": "wave-1of4-1of3-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "3of4-2of3",
+   "sibling_v": [
+    "6",
+    "-59",
+    "203",
+    "-288",
+    "144"
+   ],
+   "sibling_speed_degree": 4,
+   "sibling_position_degree": 9,
+   "miss_units": 1.013424,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0179",
+   "name": "wave-1of8-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "7of8-1of2",
+   "sibling_v": [
+    "7",
+    "-92",
+    "348",
+    "-512",
+    "256"
+   ],
+   "sibling_speed_degree": 4,
+   "sibling_position_degree": 9,
+   "miss_units": 1.033236,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0034",
+   "name": "wave-1of10-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "9of10-1of2-mid",
+   "sibling_v": [
+    "-9",
+    "154",
+    "-808",
+    "1872",
+    "-2000",
+    "800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.099789,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0156",
+   "name": "wave-2x1of4-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of4-3of4-mid",
+   "sibling_v": [
+    "-9",
+    "114",
+    "-544",
+    "1216",
+    "-1280",
+    "512"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.209191,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0157",
+   "name": "wave-1of6-1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-2of3-mid",
+   "sibling_v": [
+    "-10",
+    "137",
+    "-675",
+    "1530",
+    "-1620",
+    "648"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.233034,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0219",
+   "name": "wave-1of6-1of3-3-2",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-2of3-mid",
+   "sibling_v": [
+    "-10",
+    "137",
+    "-675",
+    "1530",
+    "-1620",
+    "648"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.26154,
+   "in_catalogue": "wave-1of6-1of3-1-2",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0193",
+   "name": "wave-2of5-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "3of5-1of2",
+   "sibling_v": [
+    "6",
+    "-49",
+    "149",
+    "-200",
+    "100"
+   ],
+   "sibling_speed_degree": 4,
+   "sibling_position_degree": 9,
+   "miss_units": 1.283474,
+   "in_catalogue": "wave-2of5-2",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0055",
+   "name": "lace-1of10-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "9of10-1of2-mid",
+   "sibling_v": [
+    "-9",
+    "154",
+    "-808",
+    "1872",
+    "-2000",
+    "800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.316351,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0183",
+   "name": "wave-1of5-1of3-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "4of5-2of3",
+   "sibling_v": [
+    "8",
+    "-86",
+    "311",
+    "-450",
+    "225"
+   ],
+   "sibling_speed_degree": 4,
+   "sibling_position_degree": 9,
+   "miss_units": 1.392511,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0056",
+   "name": "wave-1of12-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "11of12-1of2-mid",
+   "sibling_v": [
+    "-11",
+    "210",
+    "-1140",
+    "2680",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.628763,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0180",
+   "name": "wave-1of6-1of3-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "5of6-2of3",
+   "sibling_v": [
+    "10",
+    "-117",
+    "441",
+    "-648",
+    "324"
+   ],
+   "sibling_speed_degree": 4,
+   "sibling_position_degree": 9,
+   "miss_units": 1.801463,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0154",
+   "name": "wave-1of5-1of4-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "4of5-3of4-mid",
+   "sibling_v": [
+    "-12",
+    "163",
+    "-817",
+    "1878",
+    "-2000",
+    "800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.872749,
+   "in_catalogue": "wave-1of5-1of4-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0086",
+   "name": "lace-1of8-1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of8-2of3-mid",
+   "sibling_v": [
+    "-14",
+    "219",
+    "-1149",
+    "2686",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 1.954446,
+   "in_catalogue": "lace-1of8-1of3-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0198",
+   "name": "wave-2x1of4-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "3of4-3of4",
+   "sibling_v": [
+    "9",
+    "-96",
+    "352",
+    "-512",
+    "256"
+   ],
+   "sibling_speed_degree": 4,
+   "sibling_position_degree": 9,
+   "miss_units": 2.206987,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0035",
+   "name": "lace-1of12-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "11of12-1of2-mid",
+   "sibling_v": [
+    "-11",
+    "210",
+    "-1140",
+    "2680",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 2.347253,
+   "in_catalogue": "lace-balloon-3",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0227",
+   "name": "wave-1of6-1of4-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-3of4-mid",
+   "sibling_v": [
+    "-15",
+    "218",
+    "-1140",
+    "2680",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 2.578133,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0178",
+   "name": "wave-1of8-1of3-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "7of8-2of3-mid",
+   "sibling_v": [
+    "-14",
+    "219",
+    "-1149",
+    "2686",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 2.593421,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0158",
+   "name": "wave-1of3-2of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "2of3-3of5-mid",
+   "sibling_v": [
+    "-12",
+    "128",
+    "-537",
+    "1108",
+    "-1125",
+    "450"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 3.053791,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0196",
+   "name": "wave-1of5-1of4-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "4of5-3of4-mid",
+   "sibling_v": [
+    "-12",
+    "163",
+    "-817",
+    "1878",
+    "-2000",
+    "800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 3.07313,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0246",
+   "name": "wave-2x1of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "4of5-4of5-mid",
+   "sibling_v": [
+    "-16",
+    "232",
+    "-1225",
+    "2900",
+    "-3125",
+    "1250"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 3.077589,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0073",
+   "name": "wave-1of10-1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "9of10-2of3-mid",
+   "sibling_v": [
+    "-18",
+    "317",
+    "-1743",
+    "4162",
+    "-4500",
+    "1800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 3.314863,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0195",
+   "name": "wave-1of6-1of4-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "5of6-3of4-mid",
+   "sibling_v": [
+    "-15",
+    "218",
+    "-1140",
+    "2680",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 3.631553,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0236",
+   "name": "lace-1of8-1of4-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of8-3of4-mid",
+   "sibling_v": [
+    "-21",
+    "346",
+    "-1936",
+    "4704",
+    "-5120",
+    "2048"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 4.281674,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0182",
+   "name": "wave-1of3-2of5-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "2of3-3of5-mid",
+   "sibling_v": [
+    "-12",
+    "128",
+    "-537",
+    "1108",
+    "-1125",
+    "450"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 4.295648,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0197",
+   "name": "wave-2x1of5-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "4of5-4of5-mid",
+   "sibling_v": [
+    "-16",
+    "232",
+    "-1225",
+    "2900",
+    "-3125",
+    "1250"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 4.596115,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0237",
+   "name": "wave-1of6-1of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-4of5-mid",
+   "sibling_v": [
+    "-20",
+    "309",
+    "-1707",
+    "4138",
+    "-4500",
+    "1800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 4.658941,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0192",
+   "name": "wave-3of8-4",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "5of8-1of2-mid",
+   "sibling_v": [
+    "-15",
+    "154",
+    "-628",
+    "1272",
+    "-1280",
+    "512"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 5.118222,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0240",
+   "name": "wave-3of8-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of8-1of2-mid",
+   "sibling_v": [
+    "-15",
+    "154",
+    "-628",
+    "1272",
+    "-1280",
+    "512"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 5.163992,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0234",
+   "name": "lace-1of4-2of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of4-3of5-mid",
+   "sibling_v": [
+    "-18",
+    "207",
+    "-913",
+    "1942",
+    "-2000",
+    "800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 5.827905,
+   "in_catalogue": "wave-1of4-2of5-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0194",
+   "name": "wave-1of6-1of5-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "5of6-4of5-mid",
+   "sibling_v": [
+    "-20",
+    "309",
+    "-1707",
+    "4138",
+    "-4500",
+    "1800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 5.940133,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0181",
+   "name": "wave-1of4-2of5-2",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "sibling_roots": "3of4-3of5-mid",
+   "sibling_v": [
+    "-18",
+    "207",
+    "-913",
+    "1942",
+    "-2000",
+    "800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 6.180097,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0074",
+   "name": "lace-1of12-1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "11of12-2of3-mid",
+   "sibling_v": [
+    "-22",
+    "431",
+    "-2457",
+    "5958",
+    "-6480",
+    "2592"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 6.379887,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0071",
+   "name": "wave-1of10-1of4-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "9of10-3of4-mid",
+   "sibling_v": [
+    "-27",
+    "498",
+    "-2932",
+    "7288",
+    "-8000",
+    "3200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 7.197869,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0232",
+   "name": "wave-2x1of6-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-5of6-mid",
+   "sibling_v": [
+    "-25",
+    "410",
+    "-2376",
+    "5904",
+    "-6480",
+    "2592"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 8.195271,
+   "in_catalogue": "lace-arch-x-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0225",
+   "name": "lace-1of5-2of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "4of5-3of5-mid",
+   "sibling_v": [
+    "-24",
+    "298",
+    "-1375",
+    "3000",
+    "-3125",
+    "1250"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 8.720835,
+   "in_catalogue": "lace-1of5-2of5-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0228",
+   "name": "lace-3of10-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of10-1of2-mid",
+   "sibling_v": [
+    "-21",
+    "226",
+    "-952",
+    "1968",
+    "-2000",
+    "800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 9.145077,
+   "in_catalogue": "lace-3of10-3",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0231",
+   "name": "lace-1of8-1of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of8-4of5-mid",
+   "sibling_v": [
+    "-28",
+    "487",
+    "-2893",
+    "7262",
+    "-8000",
+    "3200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 10.132934,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0076",
+   "name": "wave-1of6-2of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "5of6-3of5-mid",
+   "sibling_v": [
+    "-30",
+    "401",
+    "-1923",
+    "4282",
+    "-4500",
+    "1800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 11.661716,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0075",
+   "name": "wave-1of12-1of4-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "11of12-3of4-mid",
+   "sibling_v": [
+    "-33",
+    "674",
+    "-4128",
+    "10432",
+    "-11520",
+    "4608"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 13.074303,
+   "in_catalogue": "lace-1of12-1of4-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0238",
+   "name": "lace-1of3-3of8-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "2of3-5of8-mid",
+   "sibling_v": [
+    "-30",
+    "323",
+    "-1365",
+    "2830",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 18.731979,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0083",
+   "name": "wave-1of8-2of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of8-3of5-mid",
+   "sibling_v": [
+    "-42",
+    "643",
+    "-3277",
+    "7518",
+    "-8000",
+    "3200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 19.274015,
+   "in_catalogue": "lace-1of8-2of5-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0084",
+   "name": "lace-1of10-1of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "9of10-4of5-mid",
+   "sibling_v": [
+    "-36",
+    "697",
+    "-4375",
+    "11250",
+    "-12500",
+    "5000"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 22.054168,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0085",
+   "name": "lace-1of8-1of6-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of8-5of6-mid",
+   "sibling_v": [
+    "-35",
+    "642",
+    "-4020",
+    "10360",
+    "-11520",
+    "4608"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 24.660939,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0247",
+   "name": "wave-5of12-5",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of12-1of2-mid",
+   "sibling_v": [
+    "-35",
+    "354",
+    "-1428",
+    "2872",
+    "-2880",
+    "1152"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 29.008591,
+   "in_catalogue": "wave-5of12-3",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0243",
+   "name": "wave-2x2of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of5-3of5-mid",
+   "sibling_v": [
+    "-36",
+    "372",
+    "-1525",
+    "3100",
+    "-3125",
+    "1250"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 29.371295,
+   "in_catalogue": "wave-2x2of5-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0242",
+   "name": "wave-3of10-1of3-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "7of10-2of3-mid",
+   "sibling_v": [
+    "-42",
+    "473",
+    "-2067",
+    "4378",
+    "-4500",
+    "1800"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 33.455389,
+   "in_catalogue": "wave-3of10-1of3-1",
+   "verdict": "an in-catalogue sibling exists"
+  },
+  {
+   "uid": "c-0241",
+   "name": "wave-1of4-3of8-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "3of4-5of8-mid",
+   "sibling_v": [
+    "-45",
+    "522",
+    "-2320",
+    "4960",
+    "-5120",
+    "2048"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 35.839094,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0078",
+   "name": "wave-1of12-1of5-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "11of12-4of5-mid",
+   "sibling_v": [
+    "-44",
+    "939",
+    "-6153",
+    "16102",
+    "-18000",
+    "7200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 46.415584,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0259",
+   "name": "loop-5-12-mid-3",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "sibling_roots": "11of12-4of5-mid",
+   "sibling_v": [
+    "-44",
+    "939",
+    "-6153",
+    "16102",
+    "-18000",
+    "7200"
+   ],
+   "sibling_speed_degree": 5,
+   "sibling_position_degree": 11,
+   "miss_units": 46.415584,
+   "in_catalogue": null,
+   "verdict": "a sibling recipe is found by shortening the stack"
+  },
+  {
+   "uid": "c-0011",
+   "name": "gumdrop",
+   "speed_degree": 8,
+   "position_degree": 17,
+   "rails": 15,
+   "verdict": "u itself is over the ceiling — not this family's sibling"
+  },
+  {
+   "uid": "c-0015",
+   "name": "involute-fit",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "u itself is over the ceiling — not this family's sibling"
+  },
+  {
+   "uid": "c-0016",
+   "name": "catenary-fit",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "u itself is over the ceiling — not this family's sibling"
+  },
+  {
+   "uid": "c-0017",
+   "name": "euler-fit",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "u itself is over the ceiling — not this family's sibling"
+  },
+  {
+   "uid": "c-0018",
+   "name": "logspiral-fit",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "u itself is over the ceiling — not this family's sibling"
+  },
+  {
+   "uid": "c-0025",
+   "name": "twin-cusp",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0072",
+   "name": "lace-1of12-2x1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0077",
+   "name": "wave-1of10-2x1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0079",
+   "name": "wave-2x1of6-1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0080",
+   "name": "wave-2x1of5-1of4-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0081",
+   "name": "wave-1of6-2x1of4-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0082",
+   "name": "wave-1of8-1of4-1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0155",
+   "name": "wave-1of4-2x1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0159",
+   "name": "wave-3x1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0184",
+   "name": "wave-1of5-2x1of3-0",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0185",
+   "name": "wave-2x1of4-1of3-0",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0186",
+   "name": "wave-1of4-2x1of3-0",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0190",
+   "name": "wave-3x1of3-0",
+   "speed_degree": 6,
+   "position_degree": 13,
+   "rails": 11,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0221",
+   "name": "lace-1of4-1of3-2of5-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0222",
+   "name": "lace-2x1of5-1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0223",
+   "name": "lace-2x1of3-2of5-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0224",
+   "name": "lace-1of5-1of4-1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0226",
+   "name": "lace-3x1of4-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0229",
+   "name": "wave-1of6-1of4-1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0230",
+   "name": "lace-1of8-2x1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0233",
+   "name": "lace-2x1of4-1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0235",
+   "name": "wave-1of6-2x1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0239",
+   "name": "lace-1of5-2x1of4-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0244",
+   "name": "wave-1of6-1of5-1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0245",
+   "name": "lace-1of5-2x1of3-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0248",
+   "name": "wave-1of5-1of3-2of5-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0253",
+   "name": "loop-12-13-15-mid-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0254",
+   "name": "loop-12-15-18-mid-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0255",
+   "name": "loop-13-15-17-mid-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0256",
+   "name": "loop-3-5-11-mid-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0257",
+   "name": "loop-3-7-11-mid-3",
+   "speed_degree": 9,
+   "position_degree": 19,
+   "rails": 17,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0258",
+   "name": "loop-3-8-13-mid-1",
+   "speed_degree": 7,
+   "position_degree": 15,
+   "rails": 13,
+   "verdict": "no candidate reaches the ceiling"
+  },
+  {
+   "uid": "c-0260",
+   "name": "loop-5-8-12-mid-5",
+   "speed_degree": 11,
+   "position_degree": 23,
+   "rails": 21,
+   "verdict": "no candidate reaches the ceiling"
+  }
+ ]
+}
