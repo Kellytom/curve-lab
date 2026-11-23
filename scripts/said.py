@@ -40,6 +40,8 @@ def rows(limit, session=None, every=False, here=True):
         if here:
             conditions.append("s.directory = ?")
             args.append(cwd)
+        # a subagent's prompt is not the operator's message
+        conditions.append("s.parent_id is null")
         for prefix in HELPER_PREFIXES:
             conditions.append("m.session_id not like ?")
             args.append(f"{prefix}%")
@@ -49,7 +51,11 @@ def rows(limit, session=None, every=False, here=True):
         "from session_message m left join session_v2 s on s.id = m.session_id "
         f"where {where}"
     )
-    total = con.execute(f"select count(*) from ({base})", args).fetchone()[0]
+    # one message can be several rows (its parts); count distinct texts, not rows
+    total = con.execute(
+        "select count(distinct json_extract(data, '$.text')) from "
+        f"(select m.data as data from session_message m left join session_v2 s "
+        f"on s.id = m.session_id where {where})", args).fetchone()[0]
     sql = base + " order by m.time_created desc limit ?"
     out = []
     for row in con.execute(sql, args + [max(limit * 3, 30)]):
@@ -175,9 +181,7 @@ def main():
         print(f"{n} messages -> {Path(args.html).expanduser()}")
         return 0
     print(markdown(items) if args.md else plain(items))
-    if total > len(items):
-        print(f"\n(showing {len(items)} of {total}; 'said {min(total, 30)}' for more, "
-              f"'said --html ~/said.html' for a page)")
+    print(f"\n(showing {len(items)}; 'said 30' for more, or http://127.0.0.1:4321/said/)")
     return 0
 
 
