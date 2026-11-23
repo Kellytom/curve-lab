@@ -4015,3 +4015,30 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   grew) where `state/FRAMES-int.md` records **90**. A `--write` would render 924 thumbnails and
   triple the tracked frames set; not run.
 - **Next:** the book set or the frames decision, whichever the operator prefers.
+
+## 2026-11-23 (the measures: all 403, the peak, the lock)
+
+- **Every curve is measured.** `scripts/analyse_curves.py` ran over the whole set (it was a
+  262-curve snapshot): **403 rows, 214 exact**, loaded into the database (403 written, 0
+  removed). `state/SIMILARITY-int.md` and `state/GAPS-int.md` regenerated from 403 curves. The
+  empty cells survive the full measurement: **77 of 117**, same examples (0,4), (0,6), (0,7),
+  (0,8), (1,7), (1,8), (2,0), (2,2).
+- **The (0,4) cell is not empty in nature.** 0 of 600 looping candidates and 0 of 600
+  small-coefficient graphs had 4 inflections; a constructed `p''` with roots 1/10, 3/10, 1/2,
+  7/10, 2 integrated twice gives **4 inflections, 0 crossings**, grid 2162160000000, bend 1.0.
+  Written in `state/EXPLORATION-int.md` §7 with the polynomial. Whether to record a plain graph
+  is the operator's design call.
+- **`maxCurvature` was 0.0 on all 403 curves** — a documented placeholder that read as data;
+  `curvature_max` existed and was never called. Now computed: 400 numeric, 3 null at cusps, 389
+  distinct, median 95, max 665k. `MaxCurvatureTest`, register row 69.
+- **The save renders one at a time.** The detached render child made overlapping saves possible;
+  two `--only` runs would merge the figure index from a stale read and drop a curve. A lock
+  directory (`scripts/lib/render-lock.mjs`) serialises the two renders; the request still
+  answers at once. `tests/js/render-lock.test.mjs`, register row 72; proved on c-0420.
+- **Data docs guarded:** `data/README.md` said curves.json has 272 rows (403 now), metrics 262
+  (403), jobs 3 (2), messages 6 (8). `DataReadmeCountsTest` compares each heading with its file.
+- **`scripts/recheck.py`: 65/65 pass**; `state/ACHIEVEMENTS-int.md` regenerated.
+- **Another agent is in the same files:** register rows 70–71 (the gothic sampled cut, 31 sampled
+  extra-curves records) are theirs, and their page edits keep `test_hub_stills` and
+  `test_data_audit` red (emblem-stations.json). Nothing of theirs was staged or reverted.
+- **Next:** the frames decision (90 vs 231) or the book set, whichever the operator names.
