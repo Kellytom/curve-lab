@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 160,
+ "count": 161,
  "rows": [
   {
    "name": "c-0001",
@@ -254,6 +254,32 @@
    "miss": 0.392942,
    "note": "speed-space re-fit at degree 5 · miss 0.392942 curve units on size 41.3245 · position degree 11, rails 9",
    "savedAt": "2026-11-22T13:47:14.487Z"
+  },
+  {
+   "name": "c-0201-ceil",
+   "curveName": "wave-1of2-1of2-mid",
+   "base_uid": "c-0201",
+   "speedX": [
+    0,
+    1,
+    -1
+   ],
+   "speedY": [
+    -1,
+    10,
+    -40,
+    80,
+    -80,
+    32
+   ],
+   "kind": "rows",
+   "variant": "sibling",
+   "source": "sibling-map",
+   "candidate": true,
+   "origin": "sibling-map",
+   "miss": 0.021156,
+   "note": "the same construction as c-0201 with a shorter ½ stack · position degree 11 · rails 9 · grid 330 · bend 2.158 · miss 0.021156 units from its parent",
+   "savedAt": "2026-11-23T12:57:19.357Z"
   },
   {
    "name": "double-1-NW-1",
