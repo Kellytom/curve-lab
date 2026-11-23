@@ -13,6 +13,8 @@
     "aliases": "string",
     "starred": "boolean",
     "candidate": "boolean",
+    "status": "string",
+    "pngIgnored": "boolean",
     "createdAt": "string",
     "stars": "number",
     "formula": "object",

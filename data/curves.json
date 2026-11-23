@@ -11,6 +11,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.855Z",
    "stars": 5,
    "formula": {
@@ -81,6 +83,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-21T15:59:17.081Z",
    "stars": null,
    "formula": {
@@ -125,6 +129,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.862Z",
    "stars": 3,
    "formula": {
@@ -195,6 +201,8 @@
    "aliases": "[\"swan-2\"]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.866Z",
    "stars": 4,
    "formula": {
@@ -265,6 +273,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.869Z",
    "stars": 3,
    "formula": {
@@ -335,6 +345,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.873Z",
    "stars": 3,
    "formula": {
@@ -405,6 +417,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.877Z",
    "stars": 3,
    "formula": {
@@ -475,6 +489,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.880Z",
    "stars": 3,
    "formula": {
@@ -545,6 +561,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.883Z",
    "stars": 2,
    "formula": {
@@ -615,6 +633,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T22:13:53.330Z",
    "stars": null,
    "formula": {
@@ -659,6 +679,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.894Z",
    "stars": 2,
    "formula": {
@@ -729,6 +751,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.900Z",
    "stars": 4,
    "formula": {
@@ -799,6 +823,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.902Z",
    "stars": 2,
    "formula": {
@@ -869,6 +895,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.904Z",
    "stars": 3,
    "formula": {
@@ -939,6 +967,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.908Z",
    "stars": 3,
    "formula": {
@@ -1009,6 +1039,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.912Z",
    "stars": 8,
    "formula": {
@@ -1079,6 +1111,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.915Z",
    "stars": 2,
    "formula": {
@@ -1149,6 +1183,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.917Z",
    "stars": 3,
    "formula": {
@@ -1219,6 +1255,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.921Z",
    "stars": 3,
    "formula": {
@@ -1289,6 +1327,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.924Z",
    "stars": 3,
    "formula": {
@@ -1359,6 +1399,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.927Z",
    "stars": 2,
    "formula": {
@@ -1429,6 +1471,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.930Z",
    "stars": 2,
    "formula": {
@@ -1499,6 +1543,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.933Z",
    "stars": 2,
    "formula": {
@@ -1569,6 +1615,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.935Z",
    "stars": 10,
    "formula": {
@@ -1639,6 +1687,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.939Z",
    "stars": 2,
    "formula": {
@@ -1709,6 +1759,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.941Z",
    "stars": 2,
    "formula": {
@@ -1779,6 +1831,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.945Z",
    "stars": 3,
    "formula": {
@@ -1849,6 +1903,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.948Z",
    "stars": 2,
    "formula": {
@@ -1919,6 +1975,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.951Z",
    "stars": 4,
    "formula": {
@@ -1989,6 +2047,8 @@
    "aliases": "[\"lace-1of8-3\"]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.954Z",
    "stars": 10,
    "formula": {
@@ -2059,6 +2119,8 @@
    "aliases": "[\"lace-1of12-3\"]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.958Z",
    "stars": 10,
    "formula": {
@@ -2129,6 +2191,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.961Z",
    "stars": 10,
    "formula": {
@@ -2199,6 +2263,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.965Z",
    "stars": 3,
    "formula": {
@@ -2269,6 +2335,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.968Z",
    "stars": null,
    "formula": {
@@ -2339,6 +2407,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.970Z",
    "stars": 2,
    "formula": {
@@ -2409,6 +2479,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.974Z",
    "stars": 10,
    "formula": {
@@ -2479,6 +2551,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.976Z",
    "stars": 9,
    "formula": {
@@ -2549,6 +2623,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.979Z",
    "stars": null,
    "formula": {
@@ -2619,6 +2695,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.982Z",
    "stars": null,
    "formula": {
@@ -2689,6 +2767,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.985Z",
    "stars": null,
    "formula": {
@@ -2759,6 +2839,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.987Z",
    "stars": null,
    "formula": {
@@ -2829,6 +2911,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.991Z",
    "stars": null,
    "formula": {
@@ -2899,6 +2983,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.993Z",
    "stars": 5,
    "formula": {
@@ -2969,6 +3055,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.996Z",
    "stars": null,
    "formula": {
@@ -3039,6 +3127,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:00.999Z",
    "stars": 10,
    "formula": {
@@ -3109,6 +3199,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.002Z",
    "stars": null,
    "formula": {
@@ -3179,6 +3271,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.009Z",
    "stars": null,
    "formula": {
@@ -3249,6 +3343,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.011Z",
    "stars": 10,
    "formula": {
@@ -3319,6 +3415,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.014Z",
    "stars": 3,
    "formula": {
@@ -3389,6 +3487,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.015Z",
    "stars": 3,
    "formula": {
@@ -3459,6 +3559,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.017Z",
    "stars": null,
    "formula": {
@@ -3529,6 +3631,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.020Z",
    "stars": null,
    "formula": {
@@ -3599,6 +3703,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.022Z",
    "stars": null,
    "formula": {
@@ -3669,6 +3775,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.028Z",
    "stars": null,
    "formula": {
@@ -3739,6 +3847,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.031Z",
    "stars": 7,
    "formula": {
@@ -3809,6 +3919,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.033Z",
    "stars": null,
    "formula": {
@@ -3879,6 +3991,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.039Z",
    "stars": 2,
    "formula": {
@@ -3949,6 +4063,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.042Z",
    "stars": 9,
    "formula": {
@@ -4019,6 +4135,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.046Z",
    "stars": 10,
    "formula": {
@@ -4089,6 +4207,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.049Z",
    "stars": 10,
    "formula": {
@@ -4159,6 +4279,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.052Z",
    "stars": 10,
    "formula": {
@@ -4229,6 +4351,8 @@
    "aliases": "[\"lace-2x1of6-1\"]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.057Z",
    "stars": 10,
    "formula": {
@@ -4299,6 +4423,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.062Z",
    "stars": 10,
    "formula": {
@@ -4369,6 +4495,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.065Z",
    "stars": 10,
    "formula": {
@@ -4439,6 +4567,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.071Z",
    "stars": 10,
    "formula": {
@@ -4509,6 +4639,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.075Z",
    "stars": 10,
    "formula": {
@@ -4579,6 +4711,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.079Z",
    "stars": 10,
    "formula": {
@@ -4649,6 +4783,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.082Z",
    "stars": 10,
    "formula": {
@@ -4719,6 +4855,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.085Z",
    "stars": 10,
    "formula": {
@@ -4789,6 +4927,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.090Z",
    "stars": 10,
    "formula": {
@@ -4859,6 +4999,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.099Z",
    "stars": 10,
    "formula": {
@@ -4929,6 +5071,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.112Z",
    "stars": null,
    "formula": {
@@ -4999,6 +5143,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.116Z",
    "stars": 10,
    "formula": {
@@ -5069,6 +5215,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.134Z",
    "stars": 10,
    "formula": {
@@ -5139,6 +5287,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.143Z",
    "stars": 10,
    "formula": {
@@ -5209,6 +5359,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.162Z",
    "stars": 10,
    "formula": {
@@ -5279,6 +5431,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.165Z",
    "stars": 10,
    "formula": {
@@ -5349,6 +5503,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.167Z",
    "stars": null,
    "formula": {
@@ -5419,6 +5575,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.173Z",
    "stars": 10,
    "formula": {
@@ -5489,6 +5647,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.177Z",
    "stars": 10,
    "formula": {
@@ -5559,6 +5719,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.181Z",
    "stars": null,
    "formula": {
@@ -5629,6 +5791,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.183Z",
    "stars": null,
    "formula": {
@@ -5699,6 +5863,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.189Z",
    "stars": null,
    "formula": {
@@ -5769,6 +5935,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.193Z",
    "stars": null,
    "formula": {
@@ -5839,6 +6007,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.198Z",
    "stars": null,
    "formula": {
@@ -5909,6 +6079,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.201Z",
    "stars": 10,
    "formula": {
@@ -5979,6 +6151,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.205Z",
    "stars": 10,
    "formula": {
@@ -6049,6 +6223,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.210Z",
    "stars": 9,
    "formula": {
@@ -6119,6 +6295,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.215Z",
    "stars": 10,
    "formula": {
@@ -6189,6 +6367,8 @@
    "aliases": "[\"PH 3-4-5 rotated, mirror slope -3/4 (loadable)\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.217Z",
    "stars": null,
    "formula": {
@@ -6259,6 +6439,8 @@
    "aliases": "[\"45deg at t=1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.221Z",
    "stars": null,
    "formula": {
@@ -6329,6 +6511,8 @@
    "aliases": "[\"45deg, b=1 at t=1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.224Z",
    "stars": null,
    "formula": {
@@ -6399,6 +6583,8 @@
    "aliases": "[\"loop t=1/2,3/4\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.227Z",
    "stars": 5,
    "formula": {
@@ -6469,6 +6655,8 @@
    "aliases": "[\"loop t=1/3,2/3\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.232Z",
    "stars": 5,
    "formula": {
@@ -6539,6 +6727,8 @@
    "aliases": "[\"loop t=1/4,3/4\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.234Z",
    "stars": 5,
    "formula": {
@@ -6609,6 +6799,8 @@
    "aliases": "[\"cross+45deg at t=1/4\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.239Z",
    "stars": 5,
    "formula": {
@@ -6679,6 +6871,8 @@
    "aliases": "[\"a +1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.242Z",
    "stars": null,
    "formula": {
@@ -6749,6 +6943,8 @@
    "aliases": "[\"c -1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.260Z",
    "stars": null,
    "formula": {
@@ -6819,6 +7015,8 @@
    "aliases": "[\"e +1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.273Z",
    "stars": null,
    "formula": {
@@ -6889,6 +7087,8 @@
    "aliases": "[\"a,c,e mixed\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.277Z",
    "stars": null,
    "formula": {
@@ -6959,6 +7159,8 @@
    "aliases": "[\"line (Q=0)\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.282Z",
    "stars": null,
    "formula": {
@@ -7029,6 +7231,8 @@
    "aliases": "[\"c=10 middle\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.284Z",
    "stars": null,
    "formula": {
@@ -7099,6 +7303,8 @@
    "aliases": "[\"cross 2/5–4/5\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.286Z",
    "stars": 5,
    "formula": {
@@ -7169,6 +7375,8 @@
    "aliases": "[\"cross 1/5–4/5\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.290Z",
    "stars": null,
    "formula": {
@@ -7239,6 +7447,8 @@
    "aliases": "[\"cross 1/3–3/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.293Z",
    "stars": null,
    "formula": {
@@ -7309,6 +7519,8 @@
    "aliases": "[\"cross 1/4–3/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.298Z",
    "stars": null,
    "formula": {
@@ -7379,6 +7591,8 @@
    "aliases": "[\"cross 1/2–3/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.301Z",
    "stars": null,
    "formula": {
@@ -7449,6 +7663,8 @@
    "aliases": "[\"cross 1/3–2/3\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.304Z",
    "stars": null,
    "formula": {
@@ -7519,6 +7735,8 @@
    "aliases": "[\"cross 1/5–3/5\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.307Z",
    "stars": null,
    "formula": {
@@ -7589,6 +7807,8 @@
    "aliases": "[\"cross 2/5–3/5\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.312Z",
    "stars": null,
    "formula": {
@@ -7659,6 +7879,8 @@
    "aliases": "[\"exp balance at t=1/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.317Z",
    "stars": null,
    "formula": {
@@ -7729,6 +7951,8 @@
    "aliases": "[\"exp balance at t=1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.320Z",
    "stars": null,
    "formula": {
@@ -7799,6 +8023,8 @@
    "aliases": "[\"exp balance at t=3/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.324Z",
    "stars": null,
    "formula": {
@@ -7869,6 +8095,8 @@
    "aliases": "[\"parabola balance at t=1/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.327Z",
    "stars": null,
    "formula": {
@@ -7939,6 +8167,8 @@
    "aliases": "[\"parabola balance at t=1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.329Z",
    "stars": null,
    "formula": {
@@ -8009,6 +8239,8 @@
    "aliases": "[\"parabola balance at t=3/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.332Z",
    "stars": null,
    "formula": {
@@ -8079,6 +8311,8 @@
    "aliases": "[\"flat balance at t=1/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.335Z",
    "stars": null,
    "formula": {
@@ -8149,6 +8383,8 @@
    "aliases": "[\"flat balance at t=1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.340Z",
    "stars": null,
    "formula": {
@@ -8219,6 +8455,8 @@
    "aliases": "[\"flat balance at t=3/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.343Z",
    "stars": null,
    "formula": {
@@ -8289,6 +8527,8 @@
    "aliases": "[\"3-4-5, gentle\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.347Z",
    "stars": null,
    "formula": {
@@ -8359,6 +8599,8 @@
    "aliases": "[\"3-4-5, crossed\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.350Z",
    "stars": null,
    "formula": {
@@ -8429,6 +8671,8 @@
    "aliases": "[\"5-12-13, gentle\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.354Z",
    "stars": null,
    "formula": {
@@ -8499,6 +8743,8 @@
    "aliases": "[\"5-12-13, crossed\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.359Z",
    "stars": null,
    "formula": {
@@ -8569,6 +8815,8 @@
    "aliases": "[\"8-15-17, crossed\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.363Z",
    "stars": null,
    "formula": {
@@ -8639,6 +8887,8 @@
    "aliases": "[\"3-4-5, tight\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.366Z",
    "stars": null,
    "formula": {
@@ -8709,6 +8959,8 @@
    "aliases": "[\"limacon 1+2cos\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.388Z",
    "stars": null,
    "formula": {
@@ -8779,6 +9031,8 @@
    "aliases": "[\"limacon 1+3cos\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.400Z",
    "stars": null,
    "formula": {
@@ -8849,6 +9103,8 @@
    "aliases": "[\"limacon 2+3cos\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.419Z",
    "stars": null,
    "formula": {
@@ -8919,6 +9175,8 @@
    "aliases": "[\"two vanes, 1:1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.424Z",
    "stars": null,
    "formula": {
@@ -8989,6 +9247,8 @@
    "aliases": "[\"two vanes, 1:1/3\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.428Z",
    "stars": null,
    "formula": {
@@ -9059,6 +9319,8 @@
    "aliases": "[\"three vanes, 1:1/2:1/4\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.436Z",
    "stars": null,
    "formula": {
@@ -9129,6 +9391,8 @@
    "aliases": "[\"three vanes, big small\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.443Z",
    "stars": null,
    "formula": {
@@ -9199,6 +9463,8 @@
    "aliases": "[\"one vane, 3-4-5\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.447Z",
    "stars": null,
    "formula": {
@@ -9269,6 +9535,8 @@
    "aliases": "[\"3-4-5 + half, 2 turns\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.452Z",
    "stars": null,
    "formula": {
@@ -9339,6 +9607,8 @@
    "aliases": "[\"3-4-5 + third, 3 turns\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.454Z",
    "stars": null,
    "formula": {
@@ -9409,6 +9679,8 @@
    "aliases": "[\"1, 1/2, 1/5 at 1, 2, 5\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.460Z",
    "stars": 5,
    "formula": {
@@ -9479,6 +9751,8 @@
    "aliases": "[\"arc 0 to 1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.464Z",
    "stars": null,
    "formula": {
@@ -9549,6 +9823,8 @@
    "aliases": "[\"arc -1/2 to 1/2\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.473Z",
    "stars": null,
    "formula": {
@@ -9619,6 +9895,8 @@
    "aliases": "[\"arc 0 to 1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.476Z",
    "stars": null,
    "formula": {
@@ -9689,6 +9967,8 @@
    "aliases": "[\"arc -1 to 1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.481Z",
    "stars": null,
    "formula": {
@@ -9759,6 +10039,8 @@
    "aliases": "[\"rose k=2, a=1 b=1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.485Z",
    "stars": null,
    "formula": {
@@ -9829,6 +10111,8 @@
    "aliases": "[\"rose k=2, a=1 b=-1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.490Z",
    "stars": null,
    "formula": {
@@ -9899,6 +10183,8 @@
    "aliases": "[\"rose k=3, a=1 b=1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.499Z",
    "stars": null,
    "formula": {
@@ -9969,6 +10255,8 @@
    "aliases": "[\"rose k=4, a=1 b=1\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.504Z",
    "stars": null,
    "formula": {
@@ -10039,6 +10327,8 @@
    "aliases": "[\"y=x^2 as t^2 cover\"]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.508Z",
    "stars": null,
    "formula": {
@@ -10109,6 +10399,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.512Z",
    "stars": null,
    "formula": {
@@ -10179,6 +10471,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.519Z",
    "stars": null,
    "formula": {
@@ -10249,6 +10543,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.523Z",
    "stars": null,
    "formula": {
@@ -10319,6 +10615,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.526Z",
    "stars": null,
    "formula": {
@@ -10389,6 +10687,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.530Z",
    "stars": null,
    "formula": {
@@ -10459,6 +10759,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.538Z",
    "stars": null,
    "formula": {
@@ -10529,6 +10831,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.541Z",
    "stars": null,
    "formula": {
@@ -10599,6 +10903,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.545Z",
    "stars": null,
    "formula": {
@@ -10669,6 +10975,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.548Z",
    "stars": null,
    "formula": {
@@ -10739,6 +11047,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.553Z",
    "stars": null,
    "formula": {
@@ -10809,6 +11119,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.556Z",
    "stars": null,
    "formula": {
@@ -10879,6 +11191,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.558Z",
    "stars": null,
    "formula": {
@@ -10949,6 +11263,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.561Z",
    "stars": null,
    "formula": {
@@ -11019,6 +11335,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.564Z",
    "stars": null,
    "formula": {
@@ -11089,6 +11407,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.567Z",
    "stars": 2,
    "formula": {
@@ -11159,6 +11479,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.571Z",
    "stars": null,
    "formula": {
@@ -11229,6 +11551,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.574Z",
    "stars": null,
    "formula": {
@@ -11299,6 +11623,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.576Z",
    "stars": 9,
    "formula": {
@@ -11369,6 +11695,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.579Z",
    "stars": null,
    "formula": {
@@ -11439,6 +11767,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.582Z",
    "stars": 9,
    "formula": {
@@ -11509,6 +11839,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.585Z",
    "stars": null,
    "formula": {
@@ -11579,6 +11911,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.590Z",
    "stars": 6,
    "formula": {
@@ -11649,6 +11983,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.594Z",
    "stars": null,
    "formula": {
@@ -11719,6 +12055,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.596Z",
    "stars": null,
    "formula": {
@@ -11789,6 +12127,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.599Z",
    "stars": null,
    "formula": {
@@ -11859,6 +12199,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.607Z",
    "stars": null,
    "formula": {
@@ -11929,6 +12271,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.610Z",
    "stars": null,
    "formula": {
@@ -11999,6 +12343,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.614Z",
    "stars": null,
    "formula": {
@@ -12069,6 +12415,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.619Z",
    "stars": 7,
    "formula": {
@@ -12139,6 +12487,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.622Z",
    "stars": 10,
    "formula": {
@@ -12209,6 +12559,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.628Z",
    "stars": null,
    "formula": {
@@ -12279,6 +12631,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.630Z",
    "stars": null,
    "formula": {
@@ -12349,6 +12703,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.633Z",
    "stars": 4,
    "formula": {
@@ -12419,6 +12775,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.635Z",
    "stars": 3,
    "formula": {
@@ -12489,6 +12847,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.637Z",
    "stars": 4,
    "formula": {
@@ -12559,6 +12919,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.641Z",
    "stars": 2,
    "formula": {
@@ -12629,6 +12991,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.644Z",
    "stars": null,
    "formula": {
@@ -12699,6 +13063,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.649Z",
    "stars": null,
    "formula": {
@@ -12769,6 +13135,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.652Z",
    "stars": null,
    "formula": {
@@ -12839,6 +13207,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.655Z",
    "stars": null,
    "formula": {
@@ -12909,6 +13279,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.659Z",
    "stars": null,
    "formula": {
@@ -12979,6 +13351,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.662Z",
    "stars": null,
    "formula": {
@@ -13049,6 +13423,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.664Z",
    "stars": null,
    "formula": {
@@ -13119,6 +13495,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.668Z",
    "stars": null,
    "formula": {
@@ -13189,6 +13567,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.671Z",
    "stars": null,
    "formula": {
@@ -13259,6 +13639,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.675Z",
    "stars": null,
    "formula": {
@@ -13329,6 +13711,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.677Z",
    "stars": null,
    "formula": {
@@ -13399,6 +13783,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.680Z",
    "stars": null,
    "formula": {
@@ -13469,6 +13855,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.684Z",
    "stars": null,
    "formula": {
@@ -13539,6 +13927,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.686Z",
    "stars": null,
    "formula": {
@@ -13609,6 +13999,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.690Z",
    "stars": null,
    "formula": {
@@ -13679,6 +14071,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.694Z",
    "stars": null,
    "formula": {
@@ -13749,6 +14143,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.699Z",
    "stars": null,
    "formula": {
@@ -13819,6 +14215,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.702Z",
    "stars": null,
    "formula": {
@@ -13889,6 +14287,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.706Z",
    "stars": null,
    "formula": {
@@ -13959,6 +14359,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.711Z",
    "stars": null,
    "formula": {
@@ -14029,6 +14431,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.714Z",
    "stars": null,
    "formula": {
@@ -14099,6 +14503,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.717Z",
    "stars": null,
    "formula": {
@@ -14169,6 +14575,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.720Z",
    "stars": null,
    "formula": {
@@ -14239,6 +14647,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.724Z",
    "stars": null,
    "formula": {
@@ -14309,6 +14719,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.727Z",
    "stars": null,
    "formula": {
@@ -14379,6 +14791,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.730Z",
    "stars": null,
    "formula": {
@@ -14449,6 +14863,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.735Z",
    "stars": null,
    "formula": {
@@ -14519,6 +14935,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.737Z",
    "stars": null,
    "formula": {
@@ -14589,6 +15007,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.740Z",
    "stars": null,
    "formula": {
@@ -14659,6 +15079,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.744Z",
    "stars": null,
    "formula": {
@@ -14729,6 +15151,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.747Z",
    "stars": null,
    "formula": {
@@ -14799,6 +15223,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.751Z",
    "stars": null,
    "formula": {
@@ -14869,6 +15295,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.756Z",
    "stars": 8,
    "formula": {
@@ -14939,6 +15367,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.758Z",
    "stars": 5,
    "formula": {
@@ -15009,6 +15439,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.762Z",
    "stars": null,
    "formula": {
@@ -15079,6 +15511,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.766Z",
    "stars": null,
    "formula": {
@@ -15149,6 +15583,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.770Z",
    "stars": null,
    "formula": {
@@ -15219,6 +15655,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.773Z",
    "stars": 9,
    "formula": {
@@ -15289,6 +15727,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.777Z",
    "stars": null,
    "formula": {
@@ -15359,6 +15799,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.781Z",
    "stars": null,
    "formula": {
@@ -15429,6 +15871,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.785Z",
    "stars": 3,
    "formula": {
@@ -15499,6 +15943,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.789Z",
    "stars": null,
    "formula": {
@@ -15569,6 +16015,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.793Z",
    "stars": null,
    "formula": {
@@ -15639,6 +16087,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.797Z",
    "stars": null,
    "formula": {
@@ -15709,6 +16159,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.799Z",
    "stars": null,
    "formula": {
@@ -15779,6 +16231,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.803Z",
    "stars": null,
    "formula": {
@@ -15849,6 +16303,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.807Z",
    "stars": null,
    "formula": {
@@ -15919,6 +16375,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.810Z",
    "stars": null,
    "formula": {
@@ -15989,6 +16447,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.814Z",
    "stars": null,
    "formula": {
@@ -16059,6 +16519,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.817Z",
    "stars": null,
    "formula": {
@@ -16129,6 +16591,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.821Z",
    "stars": null,
    "formula": {
@@ -16199,6 +16663,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.825Z",
    "stars": 10,
    "formula": {
@@ -16269,6 +16735,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.830Z",
    "stars": null,
    "formula": {
@@ -16339,6 +16807,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.833Z",
    "stars": null,
    "formula": {
@@ -16409,6 +16879,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.840Z",
    "stars": null,
    "formula": {
@@ -16479,6 +16951,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.843Z",
    "stars": null,
    "formula": {
@@ -16549,6 +17023,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.846Z",
    "stars": 10,
    "formula": {
@@ -16619,6 +17095,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.849Z",
    "stars": null,
    "formula": {
@@ -16689,6 +17167,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.854Z",
    "stars": null,
    "formula": {
@@ -16759,6 +17239,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.858Z",
    "stars": null,
    "formula": {
@@ -16829,6 +17311,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.862Z",
    "stars": null,
    "formula": {
@@ -16899,6 +17383,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.865Z",
    "stars": null,
    "formula": {
@@ -16969,6 +17455,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.873Z",
    "stars": null,
    "formula": {
@@ -17039,6 +17527,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.875Z",
    "stars": null,
    "formula": {
@@ -17109,6 +17599,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.878Z",
    "stars": null,
    "formula": {
@@ -17179,6 +17671,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.881Z",
    "stars": null,
    "formula": {
@@ -17249,6 +17743,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.884Z",
    "stars": null,
    "formula": {
@@ -17319,6 +17815,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.891Z",
    "stars": null,
    "formula": {
@@ -17389,6 +17887,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.894Z",
    "stars": null,
    "formula": {
@@ -17459,6 +17959,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.898Z",
    "stars": null,
    "formula": {
@@ -17529,6 +18031,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.902Z",
    "stars": null,
    "formula": {
@@ -17599,6 +18103,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.907Z",
    "stars": null,
    "formula": {
@@ -17669,6 +18175,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.910Z",
    "stars": null,
    "formula": {
@@ -17739,6 +18247,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.913Z",
    "stars": null,
    "formula": {
@@ -17809,6 +18319,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.916Z",
    "stars": null,
    "formula": {
@@ -17879,6 +18391,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.939Z",
    "stars": null,
    "formula": {
@@ -17949,6 +18463,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:01.948Z",
    "stars": null,
    "formula": {
@@ -18019,6 +18535,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:02.001Z",
    "stars": null,
    "formula": {
@@ -18089,6 +18607,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:02.015Z",
    "stars": null,
    "formula": {
@@ -18159,6 +18679,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:02.018Z",
    "stars": null,
    "formula": {
@@ -18229,6 +18751,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:02.025Z",
    "stars": null,
    "formula": {
@@ -18299,6 +18823,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:02.028Z",
    "stars": 3,
    "formula": {
@@ -18369,6 +18895,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-18T23:28:02.032Z",
    "stars": null,
    "formula": {
@@ -18439,6 +18967,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-19T16:28:44.035Z",
    "stars": 9,
    "formula": {
@@ -18483,6 +19013,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-19T16:28:44.047Z",
    "stars": 9,
    "formula": {
@@ -18527,6 +19059,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-19T16:28:44.049Z",
    "stars": 9,
    "formula": {
@@ -18571,6 +19105,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-19T16:28:44.051Z",
    "stars": 9,
    "formula": {
@@ -18615,6 +19151,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-19T16:28:44.055Z",
    "stars": 9,
    "formula": {
@@ -18659,6 +19197,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-19T16:28:44.057Z",
    "stars": 9,
    "formula": {
@@ -18703,6 +19243,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-19T16:28:44.060Z",
    "stars": 8,
    "formula": {
@@ -18747,6 +19289,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T03:44:37.482Z",
    "stars": 7,
    "formula": {
@@ -18791,6 +19335,8 @@
    "aliases": "[]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T03:45:30.570Z",
    "stars": 7,
    "formula": {
@@ -18835,6 +19381,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T04:54:59.171Z",
    "stars": null,
    "formula": {
@@ -18879,6 +19427,8 @@
    "aliases": "[\"double-1-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.294Z",
    "stars": 10,
    "formula": {
@@ -18923,6 +19473,8 @@
    "aliases": "[\"double-1-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.301Z",
    "stars": 10,
    "formula": {
@@ -18967,6 +19519,8 @@
    "aliases": "[\"double-10-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.306Z",
    "stars": 10,
    "formula": {
@@ -19011,6 +19565,8 @@
    "aliases": "[\"double-10-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.311Z",
    "stars": 10,
    "formula": {
@@ -19055,6 +19611,8 @@
    "aliases": "[\"double-11-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.318Z",
    "stars": 10,
    "formula": {
@@ -19099,6 +19657,8 @@
    "aliases": "[\"double-11-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.323Z",
    "stars": 10,
    "formula": {
@@ -19143,6 +19703,8 @@
    "aliases": "[\"double-12-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.328Z",
    "stars": 10,
    "formula": {
@@ -19187,6 +19749,8 @@
    "aliases": "[\"double-12-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.334Z",
    "stars": 10,
    "formula": {
@@ -19231,6 +19795,8 @@
    "aliases": "[\"double-13-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.339Z",
    "stars": 10,
    "formula": {
@@ -19275,6 +19841,8 @@
    "aliases": "[\"double-13-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.344Z",
    "stars": 10,
    "formula": {
@@ -19319,6 +19887,8 @@
    "aliases": "[\"double-14-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.349Z",
    "stars": 10,
    "formula": {
@@ -19363,6 +19933,8 @@
    "aliases": "[\"double-14-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.353Z",
    "stars": 10,
    "formula": {
@@ -19407,6 +19979,8 @@
    "aliases": "[\"double-15-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.358Z",
    "stars": 10,
    "formula": {
@@ -19451,6 +20025,8 @@
    "aliases": "[\"double-15-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.362Z",
    "stars": 10,
    "formula": {
@@ -19495,6 +20071,8 @@
    "aliases": "[\"double-16-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.367Z",
    "stars": 10,
    "formula": {
@@ -19539,6 +20117,8 @@
    "aliases": "[\"double-16-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.373Z",
    "stars": 10,
    "formula": {
@@ -19583,6 +20163,8 @@
    "aliases": "[\"double-17-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.376Z",
    "stars": 10,
    "formula": {
@@ -19627,6 +20209,8 @@
    "aliases": "[\"double-17-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.382Z",
    "stars": 10,
    "formula": {
@@ -19671,6 +20255,8 @@
    "aliases": "[\"double-18-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.387Z",
    "stars": 10,
    "formula": {
@@ -19715,6 +20301,8 @@
    "aliases": "[\"double-18-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.391Z",
    "stars": 10,
    "formula": {
@@ -19759,6 +20347,8 @@
    "aliases": "[\"double-19-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.394Z",
    "stars": 10,
    "formula": {
@@ -19803,6 +20393,8 @@
    "aliases": "[\"double-19-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.399Z",
    "stars": 10,
    "formula": {
@@ -19847,6 +20439,8 @@
    "aliases": "[\"double-2-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.405Z",
    "stars": 10,
    "formula": {
@@ -19891,6 +20485,8 @@
    "aliases": "[\"double-2-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.411Z",
    "stars": 10,
    "formula": {
@@ -19935,6 +20531,8 @@
    "aliases": "[\"double-20-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.416Z",
    "stars": 10,
    "formula": {
@@ -19979,6 +20577,8 @@
    "aliases": "[\"double-20-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.420Z",
    "stars": 10,
    "formula": {
@@ -20023,6 +20623,8 @@
    "aliases": "[\"double-21-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.426Z",
    "stars": 10,
    "formula": {
@@ -20067,6 +20669,8 @@
    "aliases": "[\"double-21-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.430Z",
    "stars": 10,
    "formula": {
@@ -20111,6 +20715,8 @@
    "aliases": "[\"double-22-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.434Z",
    "stars": 10,
    "formula": {
@@ -20155,6 +20761,8 @@
    "aliases": "[\"double-22-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.438Z",
    "stars": 10,
    "formula": {
@@ -20199,6 +20807,8 @@
    "aliases": "[\"double-23-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.442Z",
    "stars": 10,
    "formula": {
@@ -20243,6 +20853,8 @@
    "aliases": "[\"double-23-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.448Z",
    "stars": 10,
    "formula": {
@@ -20287,6 +20899,8 @@
    "aliases": "[\"double-24-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.452Z",
    "stars": 10,
    "formula": {
@@ -20331,6 +20945,8 @@
    "aliases": "[\"double-24-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.455Z",
    "stars": 10,
    "formula": {
@@ -20375,6 +20991,8 @@
    "aliases": "[\"double-25-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.458Z",
    "stars": 10,
    "formula": {
@@ -20419,6 +21037,8 @@
    "aliases": "[\"double-25-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.461Z",
    "stars": 10,
    "formula": {
@@ -20463,6 +21083,8 @@
    "aliases": "[\"double-26-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.466Z",
    "stars": 10,
    "formula": {
@@ -20507,6 +21129,8 @@
    "aliases": "[\"double-26-SE-2\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.469Z",
    "stars": 10,
    "formula": {
@@ -20551,6 +21175,8 @@
    "aliases": "[\"double-27-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.474Z",
    "stars": 10,
    "formula": {
@@ -20595,6 +21221,8 @@
    "aliases": "[\"double-27-SE-2\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.480Z",
    "stars": 10,
    "formula": {
@@ -20639,6 +21267,8 @@
    "aliases": "[\"double-28-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.483Z",
    "stars": 10,
    "formula": {
@@ -20683,6 +21313,8 @@
    "aliases": "[\"double-28-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.487Z",
    "stars": 10,
    "formula": {
@@ -20727,6 +21359,8 @@
    "aliases": "[\"double-3-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.492Z",
    "stars": 10,
    "formula": {
@@ -20771,6 +21405,8 @@
    "aliases": "[\"double-3-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.496Z",
    "stars": 10,
    "formula": {
@@ -20815,6 +21451,8 @@
    "aliases": "[\"double-4-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.506Z",
    "stars": 10,
    "formula": {
@@ -20859,6 +21497,8 @@
    "aliases": "[\"double-4-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.513Z",
    "stars": 10,
    "formula": {
@@ -20903,6 +21543,8 @@
    "aliases": "[\"double-5-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.516Z",
    "stars": 10,
    "formula": {
@@ -20947,6 +21589,8 @@
    "aliases": "[\"double-5-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.520Z",
    "stars": 10,
    "formula": {
@@ -20991,6 +21635,8 @@
    "aliases": "[\"double-6-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.525Z",
    "stars": 10,
    "formula": {
@@ -21035,6 +21681,8 @@
    "aliases": "[\"double-6-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.529Z",
    "stars": 10,
    "formula": {
@@ -21079,6 +21727,8 @@
    "aliases": "[\"double-7-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.533Z",
    "stars": 10,
    "formula": {
@@ -21123,6 +21773,8 @@
    "aliases": "[\"double-7-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.538Z",
    "stars": 10,
    "formula": {
@@ -21167,6 +21819,8 @@
    "aliases": "[\"double-8-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.544Z",
    "stars": 10,
    "formula": {
@@ -21211,6 +21865,8 @@
    "aliases": "[\"double-8-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.549Z",
    "stars": 10,
    "formula": {
@@ -21255,6 +21911,8 @@
    "aliases": "[\"double-9-NW-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.553Z",
    "stars": 10,
    "formula": {
@@ -21299,6 +21957,8 @@
    "aliases": "[\"double-9-SE-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.557Z",
    "stars": 10,
    "formula": {
@@ -21343,6 +22003,8 @@
    "aliases": "[\"h-colour-1-1\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.563Z",
    "stars": 7,
    "formula": {
@@ -21387,6 +22049,8 @@
    "aliases": "[\"h-colour-1-2\"]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.567Z",
    "stars": null,
    "formula": {
@@ -21431,6 +22095,8 @@
    "aliases": "[\"h-colour-7-2\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.572Z",
    "stars": 1,
    "formula": {
@@ -21475,6 +22141,8 @@
    "aliases": "[\"h-colour-7-3\"]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.579Z",
    "stars": null,
    "formula": {
@@ -21519,6 +22187,8 @@
    "aliases": "[\"h-radius-1-1-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.584Z",
    "stars": 10,
    "formula": {
@@ -21563,6 +22233,8 @@
    "aliases": "[\"h-radius-1-1-cubic-and-quintic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.588Z",
    "stars": 10,
    "formula": {
@@ -21607,6 +22279,8 @@
    "aliases": "[\"h-radius-1-1-every-term\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.593Z",
    "stars": 10,
    "formula": {
@@ -21651,6 +22325,8 @@
    "aliases": "[\"h-radius-1-1-quintic-all-four\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.598Z",
    "stars": 10,
    "formula": {
@@ -21695,6 +22371,8 @@
    "aliases": "[\"h-radius-1-1-quintic-central\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.603Z",
    "stars": 10,
    "formula": {
@@ -21739,6 +22417,8 @@
    "aliases": "[\"h-radius-1-2-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.608Z",
    "stars": 10,
    "formula": {
@@ -21783,6 +22463,8 @@
    "aliases": "[\"h-radius-1-2-cubic-and-quintic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.615Z",
    "stars": 1,
    "formula": {
@@ -21827,6 +22509,8 @@
    "aliases": "[\"h-radius-1-2-every-term\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.618Z",
    "stars": 10,
    "formula": {
@@ -21871,6 +22555,8 @@
    "aliases": "[\"h-radius-1-2-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.621Z",
    "stars": 2,
    "formula": {
@@ -21915,6 +22601,8 @@
    "aliases": "[\"h-radius-1-2-quintic-all-four\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.625Z",
    "stars": 2,
    "formula": {
@@ -21959,6 +22647,8 @@
    "aliases": "[\"h-radius-1-3-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.643Z",
    "stars": 10,
    "formula": {
@@ -22003,6 +22693,8 @@
    "aliases": "[\"h-radius-1-4-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.656Z",
    "stars": 10,
    "formula": {
@@ -22047,6 +22739,8 @@
    "aliases": "[\"h-radius-1-4-every-term\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.660Z",
    "stars": 10,
    "formula": {
@@ -22091,6 +22785,8 @@
    "aliases": "[\"h-radius-1-4-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.665Z",
    "stars": 10,
    "formula": {
@@ -22135,6 +22831,8 @@
    "aliases": "[\"h-radius-1-5-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.684Z",
    "stars": 10,
    "formula": {
@@ -22179,6 +22877,8 @@
    "aliases": "[\"h-radius-1-6-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.697Z",
    "stars": 5,
    "formula": {
@@ -22223,6 +22923,8 @@
    "aliases": "[\"h-radius-1-6-cubic-and-quintic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.702Z",
    "stars": 8,
    "formula": {
@@ -22267,6 +22969,8 @@
    "aliases": "[\"h-radius-1-6-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.705Z",
    "stars": 10,
    "formula": {
@@ -22311,6 +23015,8 @@
    "aliases": "[\"h-radius-1-7-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.724Z",
    "stars": 10,
    "formula": {
@@ -22355,6 +23061,8 @@
    "aliases": "[\"h-radius-2-1-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.734Z",
    "stars": 10,
    "formula": {
@@ -22399,6 +23107,8 @@
    "aliases": "[\"h-radius-2-1-every-term\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.738Z",
    "stars": 10,
    "formula": {
@@ -22443,6 +23153,8 @@
    "aliases": "[\"h-radius-2-1-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.741Z",
    "stars": 5,
    "formula": {
@@ -22487,6 +23199,8 @@
    "aliases": "[\"h-radius-2-1-quintic-central\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.745Z",
    "stars": 8,
    "formula": {
@@ -22531,6 +23245,8 @@
    "aliases": "[\"h-radius-3-1-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.759Z",
    "stars": 10,
    "formula": {
@@ -22575,6 +23291,8 @@
    "aliases": "[\"h-radius-3-2-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.771Z",
    "stars": 2,
    "formula": {
@@ -22619,6 +23337,8 @@
    "aliases": "[\"h-radius-3-2-cubic-and-quintic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.776Z",
    "stars": 3,
    "formula": {
@@ -22663,6 +23383,8 @@
    "aliases": "[\"h-radius-3-3-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.780Z",
    "stars": 2,
    "formula": {
@@ -22707,6 +23429,8 @@
    "aliases": "[\"h-radius-3-3-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.786Z",
    "stars": 3,
    "formula": {
@@ -22751,6 +23475,8 @@
    "aliases": "[\"h-radius-4-1-every-term\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.788Z",
    "stars": 10,
    "formula": {
@@ -22795,6 +23521,8 @@
    "aliases": "[\"h-radius-4-1-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.794Z",
    "stars": 2,
    "formula": {
@@ -22839,6 +23567,8 @@
    "aliases": "[\"h-radius-4-1-quintic-all-four\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.799Z",
    "stars": 7,
    "formula": {
@@ -22883,6 +23613,8 @@
    "aliases": "[\"h-radius-4-1-quintic-central\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.802Z",
    "stars": 10,
    "formula": {
@@ -22927,6 +23659,8 @@
    "aliases": "[\"h-radius-5-1-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.813Z",
    "stars": 10,
    "formula": {
@@ -22971,6 +23705,8 @@
    "aliases": "[\"h-radius-6-1-cubic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.830Z",
    "stars": 8,
    "formula": {
@@ -23015,6 +23751,8 @@
    "aliases": "[\"h-radius-6-1-every-term\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.833Z",
    "stars": 10,
    "formula": {
@@ -23059,6 +23797,8 @@
    "aliases": "[\"h-radius-6-1-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.837Z",
    "stars": 4,
    "formula": {
@@ -23103,6 +23843,8 @@
    "aliases": "[\"h-radius-6-1-quintic-central\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.841Z",
    "stars": 8,
    "formula": {
@@ -23147,6 +23889,8 @@
    "aliases": "[\"h-radius-7-1-quadratic\"]",
    "starred": true,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-20T17:40:28.857Z",
    "stars": 10,
    "formula": {
@@ -23191,6 +23935,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "in-progress",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T02:50:25.856Z",
    "stars": null,
    "formula": {
@@ -23235,6 +23981,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "in-progress",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T02:50:25.864Z",
    "stars": null,
    "formula": {
@@ -23279,6 +24027,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "in-progress",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T02:50:25.869Z",
    "stars": null,
    "formula": {
@@ -23323,6 +24073,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "in-progress",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T02:50:25.874Z",
    "stars": null,
    "formula": {
@@ -23367,6 +24119,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:22:05.630Z",
    "stars": null,
    "formula": {
@@ -23411,6 +24165,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:22:05.645Z",
    "stars": null,
    "formula": {
@@ -23455,6 +24211,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:22:05.650Z",
    "stars": null,
    "formula": {
@@ -23499,6 +24257,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:22:05.664Z",
    "stars": null,
    "formula": {
@@ -23543,6 +24303,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:22:05.671Z",
    "stars": null,
    "formula": {
@@ -23587,6 +24349,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:22:05.682Z",
    "stars": null,
    "formula": {
@@ -23631,6 +24395,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:25:43.902Z",
    "stars": null,
    "formula": {
@@ -23675,6 +24441,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:25:43.912Z",
    "stars": null,
    "formula": {
@@ -23719,6 +24487,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:25:43.923Z",
    "stars": null,
    "formula": {
@@ -23763,6 +24533,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:25:43.932Z",
    "stars": null,
    "formula": {
@@ -23807,6 +24579,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:25:43.938Z",
    "stars": null,
    "formula": {
@@ -23851,6 +24625,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T13:25:43.945Z",
    "stars": null,
    "formula": {
@@ -23895,6 +24671,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T15:36:27.224Z",
    "stars": null,
    "formula": {
@@ -23939,6 +24717,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T15:36:27.234Z",
    "stars": null,
    "formula": {
@@ -23983,6 +24763,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T15:36:27.238Z",
    "stars": null,
    "formula": {
@@ -24027,6 +24809,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T15:36:27.245Z",
    "stars": null,
    "formula": {
@@ -24071,6 +24855,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T15:36:27.251Z",
    "stars": null,
    "formula": {
@@ -24115,6 +24901,8 @@
    "aliases": "[]",
    "starred": false,
    "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
    "createdAt": "2026-11-23T15:36:27.256Z",
    "stars": null,
    "formula": {
