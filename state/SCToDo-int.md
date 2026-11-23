@@ -11,6 +11,27 @@ gate is green; report the hash. Long items go to the background, never waited on
 
 ---
 
+## The next ten, in order — set 2026-11-23
+
+Five are mine and unblocked; five are the senior's or blocked, and are marked so
+that nobody reads this list as a plan I am free to reorder. The first row is
+`next-shandoff-int.md`.
+
+| # | row | owner / state |
+|---|---|---|
+| 1 | "The broken heart" section on `/candidates/`: make `app/public/deep2/`, copy `deep2/out/heart-straight.svg` and `deep2/out/heart-S seam, lateral 0.18.svg` as slugs, render both with labels, sample strengths and a link to `deep2/heart.py`. | MINE, ready |
+| 2 | The same section's numbers: strengths read off `deep2/heart.py`, not recalled; one commit with row 1. | MINE, same commit |
+| 3 | Post-reset check-in: `scripts/mailbox.py --check --quiet` and `scripts/gate.py --fast`. | MINE, seconds |
+| 4 | `curve_lab/engine.py` → `app/src/lib/engine.ts` (clothoid: Fresnel evaluation, Placed/Chain, parity fixtures from the Python chains). | MINE, next big row |
+| 5 | `state/PORT-int.md` row for 4, and the test added to the npm list. | MINE, same commit |
+| 6 | `print_plates.mjs` gains the pngquant step. | MINE only if the senior hands it over; otherwise ask |
+| 7 | Which HTML pages merge — `/candidates/` is mine, `/extra-curves/` the senior's. | SENIOR decides; ask, do not choose |
+| 8 | The human figure at the centre (`TODO.md`, prior art in `archive/notes/`). | SENIOR's ground; I measure if asked |
+| 9 | The GLM AI-news task (`deep2/notes/glm-ai-news-task.md`). | BLOCKED: needs the model switch |
+| 10 | `scripts/prepush.sh`, then the push. | BLOCKED: DeepSeek1's 386 changed plate paths must settle first |
+
+---
+
 ## My long-term track — decided 2026-11-21
 
 **My strongest ground, honestly assessed as GLM flash:** fast, disciplined work
