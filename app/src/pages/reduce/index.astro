@@ -12,7 +12,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { curvePolynomials, evaluate, fr } from "../../lib/measure.ts";
 import { plainNumber } from "../../lib/plain-number.js";
-import { catmullRomD } from "../../lib/svg.ts";
+import { curveThumbnail } from "../../lib/curve-thumbnail.ts";
 const repo = path.resolve(import.meta.dirname, "../../../..");
 const registry = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-registry.json"), "utf8"));
 const metrics = JSON.parse(readFileSync(path.join(repo, "workbench", "curve-analysis.json"), "utf8"));
@@ -27,31 +27,6 @@ try {
 
 const num = (a: { n: bigint; d: bigint }): number => Number(a.n) / Number(a.d);
 
-/** The exact curve through 33 stations, as a card-sized SVG (y flipped). */
-function thumbnail(speedX: number[], speedY: number[]) {
-  const { x, y } = curvePolynomials(speedX, speedY);
-  const pts: Array<[number, number]> = [];
-  for (let k = 0; k <= 32; k += 1) {
-    const t = fr(BigInt(k), 32n);
-    pts.push([num(evaluate(x, t)), num(evaluate(y, t))]);
-  }
-  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-  for (const [px, py] of pts) {
-    x0 = Math.min(x0, px); x1 = Math.max(x1, px);
-    y0 = Math.min(y0, py); y1 = Math.max(y1, py);
-  }
-  const w = x1 - x0 || 1, h = y1 - y0 || 1;
-  const pad = Math.max(w, h) * 0.08;
-  // SVG's y is down; the design is y-up, so the flip happens here and only here
-  const flipped: Array<[number, number]> = pts.map(([px, py]) => [px, y1 - py]);
-  const d = catmullRomD(flipped, 2);
-  const view = `${plainNumber(x0 - pad)} ${plainNumber(-pad)} ${plainNumber(w + 2 * pad)} ${plainNumber(h + 2 * pad)}`;
-  // the stroke is a fraction of the curve's own extent — a fixed 1.5 user
-  // units is 60 px thick on a 4.7-unit curve (the first render's blobs) and
-  // a hairline on a 40-unit one
-  const stroke = Math.max(w, h) / 55;
-  return `<svg viewBox="${view}" width="100%" height="130" preserveAspectRatio="xMidYMid meet" role="img"><path d="${d}" fill="none" stroke="#3b2d1c" stroke-width="${plainNumber(stroke)}" stroke-linecap="round"/></svg>`;
-}
 
 // the population: position degree = 2·speed + 1, speed read from the
 // TRIMMED rows (a row's length minus one). Not 2·length+1 — that +2 error is
@@ -74,7 +49,7 @@ const cards = registry.curves
       crossings: (byUid.get(c.uid) || {}).crossings ?? 0,
       miss: fit ? (fit.max_miss as number) : null,
       size: fit ? (fit.size as number) : null,
-      svg: thumbnail(c.speedX, c.speedY),
+      svg: curveThumbnail(c.speedX, c.speedY),
     };
   })
   .filter((c: { degree: number }) => c.degree > 11);
@@ -92,7 +67,9 @@ const served = withFit.filter((c: { miss: number | null; size: number | null }) 
     and the reduced form side by side, with the proven miss bound. The{" "}
     <b>speed → 5 miss</b> is the curve's own unit count from
     <code>reduction/speed_fit.py</code> — {served} of {withFit.length} can live
-    at the ceiling by the re-fit alone; the rest need the sibling map.
+    at the ceiling by the re-fit alone; the rest need the sibling map. The new
+    curves these efforts produced are on <a href="/candidates/">the candidates
+    page</a> — pictures and misses, waiting for a look.
   </p>
 
   <div class="grid">
