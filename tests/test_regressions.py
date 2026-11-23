@@ -414,6 +414,19 @@ class RegistryRebuildTest(unittest.TestCase):
         self.assertEqual(before, path.read_bytes(), "the registry was written anyway")
 
 
+class BookPlateTest(unittest.TestCase):
+    def test_every_curve_has_a_3000_px_300_dpi_plate(self):
+        """book/README.md: a 3000 px long side (10 in at 300 dpi) and a 300 dpi pHYs. The check
+        reads each PNG header; a curve with no plate, a short plate or a plate without the dpi
+        fails, because the book is drawn from all of them."""
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run([node, str(ROOT / "scripts" / "check_book_plates.mjs")],
+                             capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at
