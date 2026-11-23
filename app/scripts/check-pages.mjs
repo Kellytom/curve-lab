@@ -99,6 +99,10 @@ for (const route of ROUTES) {
         draft: document.querySelector(".draft")?.textContent.trim() || "",
         main: Boolean(document.querySelector("main#main")),
         selfLinks,
+        // the hub's windows: four, each with a still or a live frame, never an empty hole
+        windows: document.querySelectorAll("[data-window]").length,
+        holes: [...document.querySelectorAll("[data-window]")]
+          .filter((win) => !win.querySelector("img, iframe")).length,
       };
     });
     if (response?.status() !== 200) failures.push(`${route}: HTTP ${response?.status()}`);
@@ -107,6 +111,11 @@ for (const route of ROUTES) {
     if (!found.draft) failures.push(`${route}: no draft mark`);
     if (!found.main) failures.push(`${route}: no <main id="main">`);
     if (found.selfLinks.length) failures.push(`${route}: links to itself (${found.selfLinks.join(", ")})`);
+    if (route === "/") {
+      // the hub opens as four stills and loads each page when its window is reached
+      if (found.windows !== 4) failures.push(`/: ${found.windows} hub windows, not 4`);
+      if (found.holes) failures.push(`/: ${found.holes} hub window(s) with no still and no frame`);
+    }
     if (errors.length) failures.push(`${route}: ${errors.slice(0, 3).join(" | ")}`);
   } catch (error) {
     failures.push(`${route}: ${String(error).split("\n")[0]}`);

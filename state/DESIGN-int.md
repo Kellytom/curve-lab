@@ -688,6 +688,23 @@ a link to the same file in the header; all industry standard best practice".
 - The check is `app/scripts/check-pages.mjs`: 12 pages, one header, one main,
   the draft mark, no self-link.
 
+### The hub opens as stills — 2026-11-23
+
+The operator: "for the hub, take a screenshot of each window and use that png to load, and
+lazy load the real thing in the window... put 'loading...' in small print below the window."
+
+- **Four stills first.** `app/public/hub/<page>.png`, one per app page, so the hub does not
+  render four heavy pages before it appears (the hub serves in 0.01 s; before, four live
+  iframes loaded at once).
+- **The live page loads when its window is reached**, or when the still is clicked. The still
+  is also a plain link, so a no-JavaScript browser still gets through.
+- **The small print under the window says the state**: "still picture · …", "loading…", then
+  "live page · scroll inside the frame for more".
+- **The stills are generated**, never drawn by hand: `node scripts/hub_shots.mjs` (needs the
+  app on 4321). Rerun it after a page's look changes.
+- **The guard** is `app/scripts/check-pages.mjs`: the hub has four windows, and no window is
+  left with neither a still nor a frame.
+
 ## Figures are files, not inlined SVG — 2026-11-19
 
 `/illuminations` inlined 238 bordered drawings into one document: **82,689,119

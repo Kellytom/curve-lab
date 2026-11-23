@@ -26,16 +26,25 @@ const older = hub.total - app.length;
 <link rel="stylesheet" href="/vendor/curve-lab-theme.css">
 <link rel="stylesheet" href="/vendor/app-shell.css">
 <style is:global>
-/* only what Pico cannot know: the preview frame height and a two-column grid */
+/* only what Pico cannot know: the window height, the still, and the two-column menu */
 .app-grid{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(26rem,1fr))}
 .app-grid article{margin:0}
-.app-grid iframe{display:block;width:100%;height:30rem;border:0;background:#fff}
 .app-grid h3{margin:0}
 .app-grid .purpose{font-size:.8rem;color:var(--pico-muted-color);margin:.2rem 0 .6rem}
 .app-grid .open{font-size:.78rem}
+.window{position:relative;height:30rem;background:#fff}
+.window .shot{display:block;width:100%;height:100%}
+.window img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
+.window iframe{display:block;width:100%;height:100%;border:0;background:#fff}
 .phone{font-size:.85rem}
 .hint{font-size:.72rem;color:var(--pico-muted-color);margin:.35rem .1rem 0}
-@media (max-width:600px){.app-grid iframe{height:22rem}}
+/* the desks: the item, then its note in italics on the same line — wider, never longer */
+.desks{display:grid;grid-template-columns:max-content max-content;gap:.3rem 1.2rem;
+  margin:.7rem 0 0;padding:0;list-style:none;max-width:100%;overflow-x:auto}
+.desks li{display:contents}
+.desks a{white-space:nowrap}
+.desks em{font-style:italic;color:var(--pico-muted-color);white-space:nowrap}
+@media (max-width:600px){.window{height:22rem}}
 </style>
 </head><body>
 <div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
@@ -43,8 +52,10 @@ const older = hub.total - app.length;
 <main id="main" class="container">
   <h1>curve-lab</h1>
   <p>This Astro app (port 4321) is the product; the small Python server on
-    port 8003 is the render MVP, not the deliverable. Four pages, live. {older}
-    older pages behind one link.</p>
+    port 8003 is the render MVP, not the deliverable. Four pages, a still each, live
+    when the window is reached. {older} older pages behind one link.</p>
+  <p class="hint">Each window opens as a still; the live page loads when the window is reached,
+    and the small print under it says which. Click a still to load it now.</p>
   <p class="phone">{tunnel.url
     ? <>phone: <a href={tunnel.url}>{tunnel.url}</a></>
     : <>phone: no tunnel running — <code>scripts/service.sh status</code></>}
@@ -58,8 +69,13 @@ const older = hub.total - app.length;
           <p class="purpose">{page.purpose}</p>
           <a class="open" href={page.src} target="_blank" rel="noopener">open in a tab ↗</a>
         </header>
-        <iframe src={page.src} title={page.title} loading="lazy"></iframe>
-        <p class="hint">(scroll inside the frame for more)</p>
+        <div class="window" data-window data-src={page.src} data-title={page.title}>
+          <a class="shot" href={page.src} target="_blank" rel="noopener">
+            <img src={`/hub/${page.key}.png`} width="1200" height="800"
+              alt={`a still of ${page.title}`} loading="lazy" />
+          </a>
+        </div>
+        <p class="hint" data-hint>still picture · the live page loads when the window is reached</p>
       </article>
     ))}
   </div>
@@ -68,15 +84,15 @@ const older = hub.total - app.length;
     <h2>The desks</h2>
     <p>Every catalog page, as a plain link — they are relative, so they work from whatever
       address you opened this on.</p>
-    <ul>
-      <li><a href="/plates">the print plates</a> — 300 dpi, two greys, ready for the book</li>
-      <li><a href="/figures">every curve</a> — the figures, 397 of them</li>
-      <li><a href="/names">the naming desk</a> — names and stars</li>
-      <li><a href="/hybrids">the hybrid desk</a> — the shortlist, with turns and mirrors</li>
-      <li><a href="/hybrids-wonk">the wonks</a> — the staging page, a wonk and its pieces</li>
-      <li><a href="/prime-mover">the prime mover</a> — the walk, and the circle taken out</li>
-      <li><a href="/sandbox">the sandboxes</a> — the visual adder and the quadrature</li>
-      <li><a href="/everything">everything</a> — every page, one list</li>
+    <ul class="desks">
+      <li><a href="/plates">the print plates</a><em>300 dpi, two greys, a dot at every rail crossing</em></li>
+      <li><a href="/figures">every curve</a><em>one figure per record, the whole collection</em></li>
+      <li><a href="/names">the naming desk</a><em>names, stars and the chosen curves</em></li>
+      <li><a href="/hybrids">the hybrid desk</a><em>the shortlist, with turns and mirrors</em></li>
+      <li><a href="/hybrids-wonk">the wonks</a><em>the staging page, a wonk and its pieces</em></li>
+      <li><a href="/prime-mover">the prime mover</a><em>the walk, and the circle taken out</em></li>
+      <li><a href="/sandbox">the sandboxes</a><em>the visual adder and the quadrature</em></li>
+      <li><a href="/everything">everything</a><em>every page, one list, by kind</em></li>
     </ul>
   </article>
 
@@ -114,4 +130,5 @@ const older = hub.total - app.length;
     <p><a class="button" href="/everything" role="button">the full page list →</a></p>
   </article>
 </main>
+<script>import "../scripts/hub-windows.js";</script>
 </body></html>
