@@ -6,26 +6,26 @@ It proposes; nothing here is created until the operator says so.
 ## The set
 
 - **403 curves**, 213 as speed rows and 190 as stored paths.
-- **192** are rated 2/10 or more; 262 have a recorded exact measurement.
+- **192** are rated 2/10 or more; 403 have a recorded exact measurement.
 
 ## Families
 
 | family | curves | rated 2+ | speed rows | paths | grids |
 |---|---|---|---|---|---|
 | wave | 123 | 28 | 123 | 0 | 7, 14, 15, 63, 70, 105, 110, 210, 231, 315, 330, 429, 462, 630, 693, 770, 1155, 1365, 1386, 1430, 1638, 2145, 2310, 2730, 3003, 3465, 4095, 4290, 5005, 6006, 6435, 6930, 8190, 9009, 15015, 18018, 30030, 45045, 60060, 90090, 180180 |
-| hybrid | 98 | 94 | 0 | 98 | — |
-| lace | 47 | 27 | 46 | 1 | 22, 42, 231, 273, 315, 385, 462, 630, 1155, 2145, 2310, 2730, 3465, 5005, 6930, 8190, 10010, 30030, 45045, 60060, 90090 |
+| hybrid | 98 | 94 | 0 | 98 | 0 |
+| lace | 47 | 27 | 46 | 1 | 0, 22, 42, 231, 273, 315, 385, 462, 630, 1155, 2145, 2310, 2730, 3465, 5005, 6930, 8190, 10010, 30030, 45045, 60060, 90090 |
 | septic | 12 | 4 | 0 | 12 | 0 |
 | loop | 10 | 1 | 10 | 0 | 6, 36, 42, 66, 90, 12012, 19399380, 74364290 |
 | weighted-balance | 9 | 0 | 0 | 9 | 0 |
 | bounded | 9 | 0 | 0 | 9 | 0 |
 | solved-crossings | 8 | 1 | 0 | 8 | 0 |
-| bezier | 6 | 6 | 6 | 0 | — |
+| bezier | 6 | 6 | 6 | 0 | 21, 77 |
 | mobile | 4 | 0 | 0 | 4 | 0 |
 | mobile-exact | 4 | 1 | 0 | 4 | 0 |
 | mobile-arcs | 4 | 0 | 0 | 4 | 0 |
 | roses-rational | 4 | 0 | 0 | 4 | 0 |
-| tschirnhausen | 4 | 0 | 0 | 4 | — |
+| tschirnhausen | 4 | 0 | 0 | 4 | 0 |
 | amper | 2 | 1 | 2 | 0 | 105 |
 | euler | 2 | 2 | 2 | 0 | 126000, 180180000000000000 |
 | u | 2 | 1 | 1 | 1 | 3 |
@@ -52,36 +52,36 @@ It proposes; nothing here is created until the operator says so.
 | wide | 1 | 1 | 1 | 0 | 693 |
 | ph-symmetric | 1 | 0 | 0 | 1 | 0 |
 | graphs | 1 | 0 | 0 | 1 | 0 |
-| mobile-k3 | 1 | 1 | 0 | 1 | — |
-| lens | 1 | 1 | 0 | 1 | — |
-| four-fold | 1 | 1 | 0 | 1 | — |
-| astroid | 1 | 0 | 0 | 1 | — |
-| cardioid | 1 | 0 | 0 | 1 | — |
-| deltoid | 1 | 0 | 0 | 1 | — |
-| nephroid | 1 | 0 | 0 | 1 | — |
-| trifolium | 1 | 0 | 0 | 1 | — |
-| quadrifolium | 1 | 0 | 0 | 1 | — |
-| epicycloid k=3 | 1 | 0 | 0 | 1 | — |
-| epicycloid k=5 | 1 | 0 | 0 | 1 | — |
-| hypocycloid k=5 | 1 | 0 | 0 | 1 | — |
-| bow | 1 | 0 | 0 | 1 | — |
-| bicorn | 1 | 0 | 0 | 1 | — |
-| gerono | 1 | 0 | 0 | 1 | — |
-| nodal | 1 | 0 | 0 | 1 | — |
-| bernoulli | 1 | 0 | 0 | 1 | — |
-| cruciform | 1 | 0 | 0 | 1 | — |
-| piriform | 1 | 0 | 0 | 1 | — |
-| abs(x) gerono | 1 | 0 | 0 | 1 | — |
-| cissoid | 1 | 0 | 0 | 1 | — |
-| semicubical | 1 | 0 | 0 | 1 | — |
-| kappa | 1 | 0 | 0 | 1 | — |
-| strophoid | 1 | 0 | 0 | 1 | — |
-| pear | 1 | 0 | 0 | 1 | — |
-| piriform 2x | 1 | 0 | 0 | 1 | — |
-| bean | 1 | 0 | 0 | 1 | — |
-| heart | 1 | 0 | 0 | 1 | — |
-| squircle | 1 | 0 | 0 | 1 | — |
-| rounded square | 1 | 0 | 0 | 1 | — |
+| mobile-k3 | 1 | 1 | 0 | 1 | 0 |
+| lens | 1 | 1 | 0 | 1 | 0 |
+| four-fold | 1 | 1 | 0 | 1 | 0 |
+| astroid | 1 | 0 | 0 | 1 | 0 |
+| cardioid | 1 | 0 | 0 | 1 | 0 |
+| deltoid | 1 | 0 | 0 | 1 | 0 |
+| nephroid | 1 | 0 | 0 | 1 | 0 |
+| trifolium | 1 | 0 | 0 | 1 | 0 |
+| quadrifolium | 1 | 0 | 0 | 1 | 0 |
+| epicycloid k=3 | 1 | 0 | 0 | 1 | 0 |
+| epicycloid k=5 | 1 | 0 | 0 | 1 | 0 |
+| hypocycloid k=5 | 1 | 0 | 0 | 1 | 0 |
+| bow | 1 | 0 | 0 | 1 | 0 |
+| bicorn | 1 | 0 | 0 | 1 | 0 |
+| gerono | 1 | 0 | 0 | 1 | 0 |
+| nodal | 1 | 0 | 0 | 1 | 0 |
+| bernoulli | 1 | 0 | 0 | 1 | 0 |
+| cruciform | 1 | 0 | 0 | 1 | 0 |
+| piriform | 1 | 0 | 0 | 1 | 0 |
+| abs(x) gerono | 1 | 0 | 0 | 1 | 0 |
+| cissoid | 1 | 0 | 0 | 1 | 0 |
+| semicubical | 1 | 0 | 0 | 1 | 0 |
+| kappa | 1 | 0 | 0 | 1 | 0 |
+| strophoid | 1 | 0 | 0 | 1 | 0 |
+| pear | 1 | 0 | 0 | 1 | 0 |
+| piriform 2x | 1 | 0 | 0 | 1 | 0 |
+| bean | 1 | 0 | 0 | 1 | 0 |
+| heart | 1 | 0 | 0 | 1 | 0 |
+| squircle | 1 | 0 | 0 | 1 | 0 |
+| rounded square | 1 | 0 | 0 | 1 | 0 |
 
 ## The crossings × inflections grid
 
@@ -89,8 +89,8 @@ Measured curves run to **19 crossing pairs** and **8 inflections**. **139 of the
 
 | crossing pairs | inflections | curves |
 |---|---|---|
-| 0 | 0:61 · 1:16 · 2:1 · 3:36 · 4:0 · 5:18 · 6:0 · 7:0 · 8:0 |
-| 1 | 0:2 · 1:2 · 2:3 · 3:15 · 4:15 · 5:16 · 6:7 · 7:0 · 8:0 |
+| 0 | 0:195 · 1:19 · 2:1 · 3:36 · 4:0 · 5:18 · 6:0 · 7:0 · 8:0 |
+| 1 | 0:3 · 1:5 · 2:3 · 3:15 · 4:15 · 5:16 · 6:7 · 7:0 · 8:0 |
 | 2 | 0:0 · 1:1 · 2:0 · 3:6 · 4:0 · 5:0 · 6:2 · 7:0 · 8:0 |
 | 3 | 0:0 · 1:0 · 2:2 · 3:7 · 4:3 · 5:3 · 6:5 · 7:3 · 8:5 |
 | 4 | 0:0 · 1:2 · 2:0 · 3:2 · 4:0 · 5:0 · 6:0 · 7:0 · 8:0 |
@@ -137,19 +137,22 @@ Empty cells with a plain reading:
 | family | mirror | half turn | neither |
 |---|---|---|---|
 | wave | 67 | 56 | 0 |
-| lace | 42 | 4 | 0 |
+| hybrid | 4 | 7 | 87 |
+| lace | 43 | 4 | 0 |
 | septic | 0 | 3 | 9 |
 | loop | 9 | 1 | 0 |
 | weighted-balance | 0 | 0 | 9 |
 | bounded | 0 | 6 | 3 |
 | solved-crossings | 0 | 0 | 8 |
+| bezier | 0 | 0 | 6 |
 | mobile | 0 | 0 | 4 |
 | mobile-exact | 0 | 0 | 4 |
 | mobile-arcs | 0 | 0 | 4 |
 | roses-rational | 0 | 0 | 4 |
-| amper | 0 | 0 | 1 |
+| tschirnhausen | 0 | 0 | 4 |
+| amper | 0 | 0 | 2 |
 | euler | 0 | 0 | 2 |
-| u | 1 | 0 | 0 |
+| u | 2 | 0 | 0 |
 | m | 0 | 1 | 1 |
 | knot | 0 | 0 | 2 |
 | swan | 0 | 0 | 1 |
@@ -173,6 +176,36 @@ Empty cells with a plain reading:
 | wide | 1 | 0 | 0 |
 | ph-symmetric | 0 | 0 | 1 |
 | graphs | 0 | 0 | 1 |
+| mobile-k3 | 0 | 0 | 1 |
+| lens | 1 | 0 | 0 |
+| four-fold | 1 | 0 | 0 |
+| astroid | 0 | 0 | 1 |
+| cardioid | 0 | 0 | 1 |
+| deltoid | 0 | 0 | 1 |
+| nephroid | 0 | 0 | 1 |
+| trifolium | 0 | 0 | 1 |
+| quadrifolium | 0 | 0 | 1 |
+| epicycloid k=3 | 0 | 0 | 1 |
+| epicycloid k=5 | 0 | 0 | 1 |
+| hypocycloid k=5 | 0 | 0 | 1 |
+| bow | 0 | 0 | 1 |
+| bicorn | 1 | 0 | 0 |
+| gerono | 0 | 1 | 0 |
+| nodal | 0 | 0 | 1 |
+| bernoulli | 0 | 1 | 0 |
+| cruciform | 1 | 0 | 0 |
+| piriform | 0 | 0 | 1 |
+| abs(x) gerono | 0 | 0 | 1 |
+| cissoid | 0 | 0 | 1 |
+| semicubical | 0 | 0 | 1 |
+| kappa | 0 | 0 | 1 |
+| strophoid | 0 | 0 | 1 |
+| pear | 0 | 0 | 1 |
+| piriform 2x | 0 | 0 | 1 |
+| bean | 0 | 0 | 1 |
+| heart | 1 | 0 | 0 |
+| squircle | 1 | 0 | 0 |
+| rounded square | 0 | 0 | 1 |
 
 ## Named classical curves not present
 

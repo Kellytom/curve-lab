@@ -427,6 +427,21 @@ class BookPlateTest(unittest.TestCase):
         self.assertEqual(0, run.returncode, run.stdout + run.stderr)
 
 
+class MaxCurvatureTest(unittest.TestCase):
+    def test_the_sharpest_bend_is_computed_and_not_a_placeholder(self):
+        """2026-11-23, found in the build: `maxCurvature` read 0.0 on all 403 curves — a
+        documented placeholder ("0 when not yet computed") that looked like data and was
+        compared by nothing. The function existed but was never called. It is now the sharpest
+        bend times the curve's size, and null past 1e6 where a cusp's polyline number would be
+        the sampling, not the curve."""
+        rows = json.loads((ROOT / "workbench" / "curve-analysis.json").read_text())["curves"]
+        values = [row.get("maxCurvature") for row in rows]
+        numeric = [value for value in values if isinstance(value, (int, float))]
+        self.assertGreater(len(numeric), len(values) * 3 // 4, "most curves must have a reading")
+        self.assertGreater(len({round(value, 3) for value in numeric}), 50,
+                           "a constant placeholder has one value, not fifty")
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at

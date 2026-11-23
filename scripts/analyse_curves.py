@@ -124,7 +124,7 @@ def curvature_max(points):
         # the area of the triangle over the three sides is 4R; kappa = 1/R
         cross = abs((x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0))
         peak = max(peak, 2 * cross / (a * b * c))
-    return peak
+    return None if peak > 1e6 else peak
 
 
 def mirror_gap(points, axis="y"):
@@ -198,6 +198,10 @@ def analyse(row):
         record["area"] = round(polygon_area(points), 4)
         size = max(x1 - x0, y1 - y0) or 1
         record["curvatureMedian"] = round(curvature_median(points) * size, 4)
+        peak = curvature_max(points)
+        scaled = None if peak is None else peak * size
+        # the cap is on the number that is compared (curvature times size), not the raw 1/length
+        record["maxCurvature"] = None if scaled is None or scaled > 1e6 else round(scaled, 4)
         record["mirrorY"] = mirror_gap(points, "y")
         record["mirrorYX"] = mirror_gap(points, "yx")
         record["halfTurn"] = mirror_gap(points, "half")
@@ -242,7 +246,7 @@ def main(argv=None) -> int:
     crossed = sum(1 for r in rows if r.get("crossings"))
     print(f"{len(rows)} curves · {exact} exact · {crossed} with crossings")
     for key in ("crossings", "inflections", "maxCurvature", "mirrorY"):
-        values = [r.get(key, 0) for r in rows]
+        values = [r.get(key) for r in rows if isinstance(r.get(key), (int, float))] or [0]
         print(f"  {key}: min {min(values)} median {sorted(values)[len(values)//2]} max {max(values)}")
 
     if args.check:
