@@ -3843,27 +3843,52 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 
 ## 2026-11-23 (the gothic desk) — the middle cut, the arch, the save
 
-- **Built:** `/gothic/` — the `/plates` set with the cuttable curves first, each card carrying its
-  measured mirror and gap — and `/gothic/<uid>`: the cut slider, the live arch, the readout and
-  the save.
-- **Maths:** `app/src/lib/gothic.js`. Four rational mirrors are measured on the stored path (over
-  0.5 % of the size is "not mirrored"); the cut is a symmetric pair about the stored middle; the
-  arch is one arm mirrored about the vertical through the cut, turned 0° or 180° (exact). The
-  first build joined the two mirrored cut ends and was not symmetric — recorded in
-  `state/PROBLEMS-gothic-int.md` with the guard.
+- **Built:** `/gothic/` — **every stored curve** (394 at the block), with the mirrored ones first,
+  then the one-arm cuts, and the default order by name so the page is not the doubles family;
+  `stars` and `uid` are one click away — and `/gothic/<uid>`: the cut slider, the two-panel
+  figure, the readout and the save. The figure puts the new arch on top and the original below at
+  one scale: the two cut points in red, the removed middle in red, the middle hollow, the integer
+  hits in gold, labelled `(x, y)`.
+- **Maths:** `app/src/lib/gothic.js`. Four rational mirrors are measured on the points (over 0.5 %
+  of the size is "not mirrored"); the cut is a symmetric pair about the stored middle; the arch
+  is one arm mirrored about the vertical through the cut, turned 0° or 180° (exact). A curve with
+  no mirror is offered as one arm with the gap printed (`force`), never silently refused.
+  `integerHits` is the house's sampled rule (0.01); `asFraction` prints the cut's exact `t` pair.
+  The first build joined the two mirrored cut ends and was not symmetric — recorded in
+  `state/PROBLEMS-gothic-int.md` with the guard; the rails were `NaN` until the page check found
+  them, also recorded there.
 - **Save:** `POST /api/gothic-arch` → `createVariant`; the record is `kind: path`, `source: cut`,
-  `params.cut.mode: "gothic"` with the share, the parent's axis and the apex angle. Proved on
-  c-0273 at 20 % → c-0273a, plate 200, then removed; registry and database back to 393/393/393.
+  `params.cut.mode: "gothic"` with the share, the `t` pair, the mirror flag, the gap and the apex.
+  Proved on c-0273 at 20 % → c-0273a (removed) and c-0022 (rows) at 15 % → c-0022a (removed);
+  kept: c-0008 (u-bowl) at 10 % → **c-0008a u-bowl-gothic**.
 - **Correction (operator, 2026-11-23):** the "rows only" records are high-degree parametric
   polynomials; the equation is the record's `speedX` / `speedY`, not a missing path. The desk
   samples them with the plate's `spine` (`app/src/lib/curve-points.js`: 300 stations to measure,
   700 to cut and save), so they are cuttable too.
-- **Measured at the block:** 110 of 193 kept curves can be cut (90 of them sampled from the
-  rows); 83 have no mirror within 0.5 %; none is without points. The page measures the live set,
-  so the count moves with the data sync. It says which, and why.
-- **Guards:** `tests/js/gothic.test.js` (13), `check-pages.mjs /gothic/`, `npm --prefix app run
+- **Measured at the block:** 394 records: 244 at their own mirror, 150 offered as one arm
+  (no mirror, gap printed); 213 sampled from the rows; none without points. c-0134 (the helmet,
+  gap 9.97 %) gives a 12.4° point at a 10 % cut. The page measures the live set, so the count
+  moves with the data sync.
+- **Guards:** `tests/js/gothic.test.js` (17), `check-pages.mjs /gothic/`, `npm --prefix app run
   check` (0 errors).
-- **Next:** the operator's look.
+- **Also repaired:** c-0274a (the cut desk's save) was in the registry with no figure and turned
+  the register red; `curve_pngs.mjs --only c-0274a` restored it (figure index 395). Register
+  26/26 OK.
+- **Next:** the operator's look; the rational-`t` control replaces the percent slider later.
+
+## 2026-11-23 (the glue-ready Tschirnhausen pieces) — the sources named
+
+- **Finished `workbench/side-tests.html`'s Tschirnhausen section** (`scripts/side_kinds.mjs`):
+  six pieces — the whole curve, the loop (node at t = ±√3), the two outer arms, an arm trimmed at
+  t = 2, and the mirrored arm — each with its ends as exact fractions and its slope printed. At
+  a rational t the point and the slope are both rational, so a piece can be cut there; the
+  node's slope is ±√3, so a join there needs the quintic (`state/SPEC-glue-int.md`).
+- **No written spec existed for side-tests.** Searched `state/`, `docs/`, `TODO.md`, the handoff
+  and the plan; the page is generated and was a comparison bed. The literal ask was followed.
+- **`/gothic/` now names the four source pages**: extra-curves, side-tests, glue and class V, so
+  the place the operator looks for curves says where the non-records live.
+- **Open:** the pieces, the glue connectors and class V are constructions, not records; whether
+  to make them records (so the desk and plates use them) is the operator's call.
 
 ## 2026-11-23 (the cut desk landed; the fold, the tune strip, the hub stills)
 
@@ -3892,3 +3917,31 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   the session title, so the AX name match never finds it (use the process id); authoring a cut as
   a closed shape — every cut is open runs, stored as branches; reporting a cut save from the DOM —
   the dev server reloads on the registry write, so the result travels in the URL.
+
+## 2026-11-23 (the save that answers, the dot cut, the flags, the two rolls)
+
+- **The cut save was dead, not missing.** `createVariant` wrote the record and then awaited the
+  plate and figure renders inside the request (up to 180 s each); the browser sat on a pending
+  POST, the dev server reloaded, and the operator saw "cutting…". It now returns after the
+  database and the exports; `scripts/render_saved_curve.mjs` renders both in a detached child
+  and logs to `state/jobs/render-saved.log`. Clicked at `c-0274`: POST 200, banner
+  "c-0274a saved — 5.458 units kept, 3.426 dropped", plate 11 s and figure 22 s later. Probe
+  removed; 394/394/394. Commits `f6c99a02`, rows 64–65.
+- **A dot cut shows the arc.** The preview was hard-wired to the line halves, so "at dot 1"
+  drew a line cut. `previewCut` now returns the chosen cut (deep-equal to `cutAt`); the form
+  restores its mode, arc and name after a preview. `tests/js/cut-doubles.test.mjs`: 9 pass.
+- **The PNG flag.** `Curve.pngIgnored` (default true) and `Curve.status` (kept, in-progress,
+  temporary, proposed); a `Study` table for page-only curves. `scripts/curve_pngs_git.mjs`
+  follows the flag: **764 tracked PNGs untracked** (371 plates, 393 figures), files kept on
+  disk; 766 files, 411 rows, 0 kept in git. 17 studies: 11 `/extra-curves/` proposals and six
+  Tschirnhausen pieces on `workbench/side-tests.html`; `c-0398`–`c-0401` are in-progress
+  (`/class-v/`). `/glue/` stores no curve — computed from two typed slopes — and the check says
+  so. Commit `61979159`.
+- **Listening, made durable.** `state/ASKS-int.md` (Tier 0) + `scripts/check_asks.py`; the
+  /said/ rolls use `scripts/said_checklist.py --who me|deep2`, and sidechat has its own
+  `state/SAID-DEEP2-CHECKLIST-int.md` (30 statements, 4 proved, 11 open). Commits `2afea416`,
+  `7deef14a`, `2a050b05`.
+- **At the block:** register **28 tests OK**; database 394/394/394 plus 17 studies; local 4321
+  **200**, health `node v24.22.3`, `astro 7.4.13`.
+- **Next:** the 11 classical curves still missing (`state/GAPS-int.md`): name them, add three as
+  sampled records with figures and plates.
