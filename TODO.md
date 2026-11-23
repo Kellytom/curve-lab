@@ -24,6 +24,12 @@ be the Blessed Virgin or Christ, or maybe the sacred heart and the immaculate he
   the curve ornament at the same scale — the test is whether the figure reads as human at 300 dpi.
 - Do not decorate the empties: the figure is a construction like the others, and the grid/gates
   apply to it.
+- **Prior art searched 2026-11-23** — the report is `archive/notes/prior-art-human-figure.md`.
+  Headlines: PH curves for ornament IS published (Klár & Valasek 2011, control circles joined by
+  PH quintic spirals, exported as cubics) — the exact grid and proofs are what stays ours. The
+  figure has codified canons to build against (Egyptian 18/19-square grid, Byzantine canon in
+  Winfield & Winfield 1982, the Hermeneia tradition). The face has two published routes: outline
+  (PortraVec) or engraved tone (Ostromoukhov, SIGGRAPH '99 — engraving lines follow the form).
 
 ## The human figure in the centre — the biggest open problem (2026-11-23)
 

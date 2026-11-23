@@ -132,3 +132,8 @@ Each is in files you own; I have not touched them. The gate run that caught them
 ## 2026-11-23 10:23 — the operator's biggest open problem: a human figure at the centre
 - Operator: "the biggest problem i have right now is that all the curves are good so far, but i need a human face or figure or statue or something symbolizing human form in the center. it would be the Blessed Virgin or Christ, or maybe the sacred heart and the immaculate heart."
 - Logged in TODO.md with the honest framing: the first representational problem; fitted spans on the same grid from a measured public-domain reference; the test is whether the figure reads as human at 300 dpi. DeepSeek1's ground — the operator may hand it over.
+
+---
+
+## 2026-11-23 10:27 — prior art for the human figure (operator asked for the search)
+- Report: archive/notes/prior-art-human-figure.md. Headlines: PH-for-ornament is published (Klár & Valasek 2011 — control circles, PH quintic spirals, exported as cubics); claim only the exact grid/proofs. Figure canons exist (Egyptian grid, Byzantine Winfield 1982, Hermeneia). Face routes: outline (PortraVec) or engraved tone (Ostromoukhov 1999 — lines follow the form).
