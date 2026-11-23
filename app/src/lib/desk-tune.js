@@ -328,11 +328,19 @@ export async function createVariant({ spine, name, values, path: cutPath = null,
     } catch (error) {
       warnings.push(`the plate did not render: ${String(error.message || error)}`);
     }
+    // The figure render has failed once in the dev server and passed when run by hand; a
+    // second attempt after a breath is cheaper than a warning on a good save.
     try {
       await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
         { cwd: ROOT, timeout: 180000 });
-    } catch (error) {
-      warnings.push(`the figure did not render: ${String(error.message || error)}`);
+    } catch {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 400));
+        await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
+          { cwd: ROOT, timeout: 180000 });
+      } catch (error) {
+        warnings.push(`the figure did not render: ${String(error.message || error)}`);
+      }
     }
     const warning = warnings.length ? `the curve is saved; ${warnings.join("; ")}` : undefined;
     return { uid, name: record.name, spine: plan.root, created: true, values,

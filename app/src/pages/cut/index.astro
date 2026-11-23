@@ -1,0 +1,56 @@
+---
+// The cutting desk: the double-wonks, each with its plate and a door to its cusps.
+//
+// The operator, 2026-11-23: "i dont really like many of the double-wonkies because they are too
+// anthropomorphic or zoomorphic. many of them i want to cut at the big blue dot."
+//
+// This page lists only the records that can be cut: a name beginning "double-" with stored
+// points. The list comes from the registry, never from a typed set of uids. The rule and the
+// cut itself are app/src/lib/cut-doubles.js; the save is /api/cut-double.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadRegistry } from "../../lib/registry.ts";
+import { cuspsOf, doublesOf } from "../../lib/cut-doubles.js";
+
+const registry = await loadRegistry();
+const doubles = doublesOf(registry.curves).map((curve) => ({
+  uid: curve.uid,
+  name: curve.name,
+  cusps: cuspsOf(curve.path).length,
+}));
+const ready = doubles.filter((curve) => curve.cusps > 0);
+---
+
+<BaseLayout title="the cut desk" pageTitle="The cut desk">
+  <p class="lead">The double-wonkies, {doubles.length} of them, and the dot to cut at. A double
+    is cut where it crosses <code>y = x</code> and mirrored back, so each carries a seam of
+    cusps; the plate marks each one with a bigger blue dot. Open one and choose the dot: the
+    long arc is kept, the lobe the dot closes is dropped, and the cut is saved as a new curve
+    beside its parent — the parent is never changed.</p>
+  <p class="lead">{ready.length} have a cusp to cut at; the others are listed but say so.</p>
+
+  <div class="cut-grid">
+    {doubles.map((curve) => (
+      <figure class="cut-card">
+        <a href={`/cut/${curve.uid}`}>
+          <img src={`/plates-web/${curve.uid}-1600-grey.png`} alt={`the plate of ${curve.uid} ${curve.name}`}
+            width="1600" height="800" loading="lazy" />
+        </a>
+        <figcaption>
+          <a href={`/cut/${curve.uid}`}><code>{curve.uid}</code> {curve.name}</a>
+          <span class="cut-note">{curve.cusps > 0
+            ? `${curve.cusps} cusp${curve.cusps === 1 ? "" : "s"}`
+            : "no cusp"}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .cut-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 14px; }
+  .cut-card { margin: 0; border: 1px solid #e6dccb; background: #fff; padding: 6px; }
+  .cut-card img { display: block; width: 100%; height: 150px; object-fit: contain; background: #fff; }
+  .cut-card figcaption { display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+    margin-top: 6px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  .cut-note { color: #7a6a55; }
+</style>

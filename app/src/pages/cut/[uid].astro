@@ -1,0 +1,101 @@
+---
+// One double, its numbered cusps, and the cut.
+//
+// The picture is drawn here in the first paint so the numbers on the dots are the numbers the
+// form offers. The cut runs on the server (/api/cut-double), which is the only place that
+// writes a record; this page never cuts by itself.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadRegistry } from "../../lib/registry.ts";
+import { cuspsOf } from "../../lib/cut-doubles.js";
+
+const { uid } = Astro.params;
+const registry = await loadRegistry();
+const record = registry.curves.find((curve) => curve.uid === uid);
+if (!record) return Astro.redirect("/cut/");
+if (!/^double-/i.test(record.name || "") || !Array.isArray(record.path)) {
+  return Astro.redirect("/cut/");
+}
+
+const points = record.path;
+const cusps = cuspsOf(points);
+const xs = points.map((p) => p[0]);
+const ys = points.map((p) => p[1]);
+const x0 = Math.min(...xs), x1 = Math.max(...xs);
+const y0 = Math.min(...ys), y1 = Math.max(...ys);
+const W = 860, PAD = 26;
+const spanX = x1 - x0 || 1, spanY = y1 - y0 || 1;
+const k = Math.min((W - 2 * PAD) / spanX, (W - 2 * PAD) / spanY);
+const H = Math.round(spanY * k + 2 * PAD);
+// +y is up: the screen flip is here, once
+const px = ([x, y]) => [PAD + (x - x0) * k, H - PAD - (y - y0) * k];
+const line = points.map((p, i) => `${i ? "L" : "M"}${px(p)[0].toFixed(1)},${px(p)[1].toFixed(1)}`).join("");
+const dots = cusps.map((cusp, index) => {
+  const [cx, cy] = px(cusp.point);
+  return `<g><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="13" fill="#7290c0" ` +
+    `fill-opacity="0.9"/><text x="${cx.toFixed(1)}" y="${(cy + 4.5).toFixed(1)}" ` +
+    `text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" ` +
+    `fill="#ffffff">${index + 1}</text></g>`;
+}).join("");
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%">
+  <rect width="${W}" height="${H}" fill="#ffffff"/>
+  <path d="${line}" fill="none" stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round"/>
+  ${dots}
+</svg>`;
+const suggested = `${record.name}-cut`;
+---
+
+<BaseLayout title="the cut desk" pageTitle="The cut desk">
+  <p class="lead"><b>{record.uid}</b> {record.name} · <a href="/cut/">all the doubles</a> ·
+    <a href={`/tune/${record.uid}`}>tune it</a>. The numbered dots are the cusps the plate marks
+    in blue. A cut keeps the long arc and drops the small lobe the dot closes; the parent stays
+    as it is and the cut is saved beside it.</p>
+
+  <div class="cut-one">
+    <div class="cut-figure" set:html={svg} />
+    <form class="cut-form" id="cut-form">
+      <input type="hidden" name="uid" value={record.uid} />
+      <label>cut at dot
+        <select name="cusp">
+          {cusps.map((cusp, index) => (
+            <option value={index}>{index + 1} · {cusp.angle.toFixed(0)}°</option>
+          ))}
+        </select>
+      </label>
+      <label>keep
+        <select name="keep">
+          <option value="long">the long arc</option>
+          <option value="short">the short arc</option>
+        </select>
+      </label>
+      <label>new name
+        <input name="name" type="text" maxlength="120" value={suggested} />
+      </label>
+      <button type="submit" disabled={!cusps.length}>cut and save</button>
+      <p class="cut-state" id="cut-state" role="status" aria-live="polite">
+        {cusps.length ? "" : "this curve has no cusp to cut at"}
+      </p>
+      <p class="cut-note">A cut is a sampled record ({points.length} stored points on the parent);
+        its plate is rebuilt when it saves.</p>
+    </form>
+  </div>
+</BaseLayout>
+
+<script>
+  import "../../scripts/cut-desk.js";
+</script>
+
+<style is:global>
+  .cut-one { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start; }
+  .cut-figure { border: 1px solid #e6dccb; background: #fff; padding: 6px; }
+  .cut-figure svg { display: block; width: 100%; height: auto; }
+  .cut-form label { display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+    font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 0 0 8px; }
+  .cut-form input, .cut-form select { width: 10rem; padding: 2px 4px; font-size: 13px; }
+  .cut-form button { width: 100%; margin: 4px 0 0; }
+  .cut-state { min-height: 1.4em; margin: 8px 0 0; font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .cut-state.ok { color: #2f6f3a; }
+  .cut-state.bad { color: #9b2c2c; }
+  .cut-state.busy { color: #7a6a55; }
+  .cut-note { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  @media (max-width: 860px) { .cut-one { grid-template-columns: 1fr; } }
+</style>
