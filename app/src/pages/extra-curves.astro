@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 const FIGURES = fileURLToPath(new URL("../../public/extra-curves/", import.meta.url));
 const slugOf = (key) => key.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-const { missingNamed, emptyCells, familiesWithoutRating, count } = gaps;
+const { missingNamed, emptyCells, familiesWithoutRating, count, addedOnRequest = [] } = gaps;
 const cellsByCrossings = new Map();
 for (const cell of emptyCells) {
   if (!cellsByCrossings.has(cell.crossings)) cellsByCrossings.set(cell.crossings, []);
@@ -20,10 +20,33 @@ for (const cell of emptyCells) {
 ---
 
 <BaseLayout title="extra curves" pageTitle="Extra curves">
-  <p class="lead">What the collection of {count.curves} curves does not have. Two lists:
-    named classical curves whose equations are already written in the generators, and the
-    crossing × inflection cells with no curve at all. Nothing here is created; this page is
-    the shopping list.</p>
+  <p class="lead">What the collection of {count.curves} curves does not have: named classical
+    curves whose equations are already written in the generators, and the crossing ×
+    inflection cells with no curve at all. Nothing here is created by visiting it; this page is
+    the shopping list. The Tschirnhausen family at the top is the one proposal already made
+    real.</p>
+
+  {addedOnRequest.length > 0 && (
+    <>
+      <h2>Added on request · Tschirnhausen</h2>
+      <p class="note">This family was proposed here and has since been created. The plates are
+        the collection's own, side curves and all; the equation is
+        <code>x = t² − 3, y = t(t² − 3)</code>, and the node sits at t = ±√3, so the crossing
+        point has no rational parameter and the records are sampled.</p>
+      <div class="gaps">
+        {addedOnRequest.map((curve) => (
+          <article class="gap">
+            <a href={`/tune/${curve.uid}`} title="open the tuning page">
+              <img class="thumb" src={`/api/print-plate/${curve.uid}?format=svg`}
+                alt={curve.name} loading="lazy" />
+            </a>
+            <h3>{curve.name}</h3>
+            <p class="tag">{curve.uid} · in the collection</p>
+          </article>
+        ))}
+      </div>
+    </>
+  )}
 
   <h2>Named classical curves not in the collection · {count.missingNamed}</h2>
   <p class="note">Each equation already exists in <code>scripts/generators.py</code>, so a

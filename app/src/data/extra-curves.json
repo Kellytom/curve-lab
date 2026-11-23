@@ -176,6 +176,28 @@
    "deg": 6
   }
  ],
+ "addedOnRequest": [
+  {
+   "uid": "c-0398",
+   "name": "tschirnhausen",
+   "turn": 0
+  },
+  {
+   "uid": "c-0399",
+   "name": "tschirnhausen-half",
+   "turn": 0
+  },
+  {
+   "uid": "c-0400",
+   "name": "tschirnhausen-rot45",
+   "turn": 0
+  },
+  {
+   "uid": "c-0401",
+   "name": "tschirnhausen-mirror",
+   "turn": 0
+  }
+ ],
  "emptyCells": [
   {
    "crossings": 0,

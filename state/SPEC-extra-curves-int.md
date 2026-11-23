@@ -22,6 +22,8 @@ list, not a gallery of drawings.
   equations are parsed from `scripts/generators.py`, never retyped here.
 - **The empty crossing × inflection cells.** One row per crossing count, listing the
   inflection counts with no curve. "Crossing" means a crossing *pair*, never a place.
+- **Added on request.** A proposal that has since become a record keeps a card here, with its
+  plate, so the page does not silently forget it. Today: the four Tschirnhausen records.
 - **Families with no curve rated 2/10 or more**, with their count.
 
 Rules with a check each:
