@@ -41,6 +41,10 @@ each answer fixed something on the server without clicking the button on the pag
 - **When the ask is ambiguous, say so and act on the literal sentence.** Guessing a
   bigger, easier ask is how a two-line save request turned into two sessions of server
   work.
+- **The /said/ roll is checked at every boundary.** `scripts/said_checklist.py --write` folds
+  new messages into `state/SAID-CHECKLIST-int.md`; the check fails on a missing row, changed
+  words, or a `done` row with no real commit or file. It is local, like `data/said.json`,
+  because the history is personal. Proof is the place the operator looks.
 
 ## Achievements are logged, not remembered
 
@@ -242,6 +246,9 @@ Start the one server if it is not already up (this is idempotent — it says
 ```sh
 .venv/bin/python -m unittest discover tests
 .venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
+.venv/bin/python scripts/check_asks.py               # the operator's asks are recorded and closed
+.venv/bin/python scripts/said_checklist.py --write   # fold new /said/ messages into the roll
+.venv/bin/python scripts/said_checklist.py           # the roll: every message a row, every done proved
 npm --prefix app run check                        # astro check + eslint: the static gate
 npm --prefix app run test:pages                   # the 12 pages, stars and names, in a browser
 npm --prefix app run gate                         # check + the unit tests

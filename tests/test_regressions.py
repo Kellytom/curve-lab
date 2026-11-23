@@ -341,6 +341,21 @@ class RepeatedAskTest(unittest.TestCase):
         self.assertEqual(0, run.returncode, run.stdout + run.stderr)
 
 
+class SaidRollTest(unittest.TestCase):
+    def test_the_said_roll_holds_every_message_with_proof(self):
+        """The operator, 2026-11-23: "check http://127.0.0.1:4321/said/ on a regular basis and
+        make a rolling checklist from it in md and then prove that you did the work and check
+        it off." The roll is `state/SAID-CHECKLIST-int.md`, local only like the history in
+        `data/said.json`; this check fails when a message has no row, a row's words differ from
+        the message, or a `done` row names no real commit or file."""
+        if not (ROOT / "data" / "said.json").exists() or not (
+                ROOT / "state" / "SAID-CHECKLIST-int.md").exists():
+            self.skipTest("the /said/ history and its roll are local only")
+        run = subprocess.run([sys.executable, str(ROOT / "scripts" / "said_checklist.py")],
+                             capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at
