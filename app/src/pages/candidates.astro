@@ -47,6 +47,17 @@ const sections = [
 ];
 
 const cell = (v: number) => (typeof v === "number" ? plainNumber(v) : "—");
+
+// The broken heart: a construction, not a candidate (2026-11-23). The drawings
+// are deep2/heart.py's own output, copied to app/public/deep2/. The reach
+// numbers are that script's measurement of the seam's lateral span, in heart
+// heights (heart.py, main(): max(x) - min(x) over the seam's control points):
+// lateral 1/10 -> 0.200, 9/50 -> 0.360, 13/50 -> 0.520.
+const breakStrengths = [
+  { slug: "1of10", label: "1/10", reach: "0.20", src: "/deep2/heart-s-1of10.svg" },
+  { slug: "9of50", label: "9/50", reach: "0.36", src: "/deep2/heart-s-9of50.svg" },
+  { slug: "13of50", label: "13/50", reach: "0.52", src: "/deep2/heart-s-13of50.svg" },
+];
 ---
 <BaseLayout title="the new curves" pageTitle="The new curves">
 <div class="cands">
@@ -79,6 +90,60 @@ const cell = (v: number) => (typeof v === "number" ? plainNumber(v) : "—");
       </div>
     </section>
   ))}
+
+  <section class="sect heart" id="broken-heart">
+    <h2>The broken heart <span class="tag">a construction, not a candidate</span></h2>
+    <p class="note">
+      A heart split along a curve, not a jagged cut. The seam is one curve, and
+      the same curve sits in both halves — reversed, not mirrored — so what is
+      missing on the left is exactly what is left on the right. The halves are
+      drawn apart below; the join closes because the seam matches itself.
+      Built by <code>deep2/heart.py</code>.
+    </p>
+
+    <h3 class="sub">The strength of the break</h3>
+    <p class="note">
+      The seam is <span class="mono">x(t) = A·sin(2πt)</span>: it leans one way
+      above the waist and the other below, so neither half is favoured. A is the
+      lean to each side, so the reach across the seam is 2A — 0.36 of the
+      heart's height at A = 9/50. A larger A is a wider split.
+    </p>
+    <div class="heart-strip">
+      {breakStrengths.map((b) => (
+        <figure class="heart-fig">
+          <img src={b.src} alt={`the broken heart, halves apart, S seam with lateral ${b.label} of the heart height`} />
+          <figcaption>
+            <strong>lateral {b.label}</strong>
+            <span class="mono">reach {b.reach} of the height · halves apart</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <h3 class="sub">The reference, and the join</h3>
+    <div class="heart-pair">
+      <figure class="heart-fig">
+        <img src="/deep2/heart-straight.svg" alt="the broken heart with a straight vertical seam, halves apart: the reference the curved seams are judged against" />
+        <figcaption>
+          <strong>the straight seam</strong>
+          <span class="mono">reach 0.00 · the reference</span>
+        </figcaption>
+      </figure>
+      <figure class="heart-fig">
+        <img src="/deep2/heart-s-9of50-joined.svg" alt="the same broken heart with the lateral 9/50 seam pushed back together: one continuous outline" />
+        <figcaption>
+          <strong>lateral 9/50, rejoined</strong>
+          <span class="mono">the same curve in both halves · the join closes</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="note fine">
+      The seam and the halves are drawn from stations joined by cubic spans, so
+      the drawing between the stations is approximate; the seam itself is the
+      same in both pieces by construction. Nothing here is in the catalogue.
+    </p>
+  </section>
 </div>
 </BaseLayout>
 
@@ -111,4 +176,41 @@ const cell = (v: number) => (typeof v === "number" ? plainNumber(v) : "—");
   .card .note-cell { font-size: 11px; color: #5a4a36; margin: 0 0 6px; }
   .card .links { font-size: 12px; margin: auto 0 0; }
   .card .links a { color: #2f6fa8; text-decoration: underline; }
+
+  .sect.heart {
+    margin-top: 40px; border-top: 1px solid #e6dccb; padding-top: 24px;
+  }
+  .sect.heart h2 .tag {
+    font: italic 13px Georgia, serif; color: #7a6a55; margin-left: 6px;
+  }
+  .sect.heart h3.sub {
+    font-size: 14px; font-weight: 600; letter-spacing: .04em;
+    text-transform: uppercase; color: #7a6a55; margin: 22px 0 4px;
+  }
+  .heart-strip, .heart-pair { display: grid; gap: 16px; }
+  .heart-strip { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+  .heart-pair { grid-template-columns: repeat(2, 1fr); }
+  .heart-fig {
+    margin: 0; border: 1px solid #e6dccb; background: #fffef9; padding: 8px;
+    display: flex; flex-direction: column;
+  }
+  .heart-fig img {
+    display: block; width: 100%; height: auto; aspect-ratio: 900 / 520;
+    /* The five display copies in app/public/deep2/ have the SVG's own <text>
+       label removed: at card width it rendered about 6 px high, while the
+       figcaption says the same words at reading size. The source drawings in
+       deep2/out/ are untouched and still carry it. */
+  }
+  .heart-fig figcaption {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 10px;
+    font-size: 12px; color: #5a4a36; margin-top: 8px;
+  }
+  .heart-fig figcaption strong { font-weight: 600; color: #3b2d1c; }
+  .cands .mono { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+  .cands .note code { font-family: ui-monospace, Menlo, monospace; font-size: 12px;
+    background: #f6efe3; padding: 0 4px; }
+  .cands .note.fine { font-size: 12px; color: #7a6a55; margin-top: 14px; }
+  @media (max-width: 760px) {
+    .heart-strip, .heart-pair { grid-template-columns: 1fr; }
+  }
 </style>

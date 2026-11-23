@@ -19,8 +19,8 @@ that nobody reads this list as a plan I am free to reorder. The first row is
 
 | # | row | owner / state |
 |---|---|---|
-| 1 | "The broken heart" section on `/candidates/`: make `app/public/deep2/`, copy `deep2/out/heart-straight.svg` and `deep2/out/heart-S seam, lateral 0.18.svg` as slugs, render both with labels, sample strengths and a link to `deep2/heart.py`. | MINE, ready |
-| 2 | The same section's numbers: strengths read off `deep2/heart.py`, not recalled; one commit with row 1. | MINE, same commit |
+| 1 | "The broken heart" section on `/candidates/`: make `app/public/deep2/`, copy `deep2/out/heart-straight.svg` and `deep2/out/heart-S seam, lateral 0.18.svg` as slugs, render both with labels, sample strengths and a link to `deep2/heart.py`. | DONE 2026-11-23 |
+| 2 | The same section's numbers: strengths read off `deep2/heart.py`, not recalled; one commit with row 1. | DONE 2026-11-23 — reach 0.20 / 0.36 / 0.52, i.e. 2A |
 | 3 | Post-reset check-in: `scripts/mailbox.py --check --quiet` and `scripts/gate.py --fast`. | MINE, seconds |
 | 4 | `curve_lab/engine.py` → `app/src/lib/engine.ts` (clothoid: Fresnel evaluation, Placed/Chain, parity fixtures from the Python chains). | MINE, next big row |
 | 5 | `state/PORT-int.md` row for 4, and the test added to the npm list. | MINE, same commit |
