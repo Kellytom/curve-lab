@@ -3773,4 +3773,12 @@ pinch cap (a second construction; `docs/SIDE-CURVES.md` §2).
   is the separate slow pass (`node scripts/print_plates.mjs`).
 - **Also written, nothing built:** `state/SPEC-side-pillars-int.md` — thin side pillars for the
   illustration border, one outside-edge line each, base and capital.
+- **The tune page, same day (operator: "tighten up the vertical css, and put some more curves
+  below it to confirm it works for all kinds"):** the readout moved under the preview so the
+  left column has no empty band, the grid stacks below 860 px, and a six-figure strip draws the
+  page's own four values on a row curve, a stored path, a branch record and a wonk double —
+  each caption carries the measured crossing count. The readout names the fold instead of a
+  cut. The first paint now draws the amber guide, so a redraw with unchanged values is the same
+  picture; `scripts/check-tune-lab.mjs` had failed on that difference and now passes.
+  `state/SPEC-tune-lab-int.md` updated in the same commit.
 - **Next:** the human figure in the centre (`TODO.md`), then the book set.

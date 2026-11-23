@@ -3,7 +3,8 @@
 The clean description of one page: what it is for, what it shows, and the rules it must
 keep. Faults, with their guards, are in `state/PROBLEMS-tune-lab-int.md`.
 
-**Status, 2026-11-21:** built, live on both pages; a new curve is a record with a uid.
+**Status, 2026-11-23:** the rail is uncapped, the readout names the fold, and the page carries a
+strip of the same values on every kind. Built and live on both pages.
 
 **The page:** `app/src/pages/tune/index.astro`
 **The drivers:** `app/src/scripts/tune-lab.js` and `app/src/scripts/tune-uid.js`
@@ -43,11 +44,17 @@ It is the sandbox; `/tune/<uid>` is the page that writes.
 
 ## 3 · What the readout says
 
-    Right edge 1.5 % → 4.5 % of the curve's size (3.00× at the belly). Left edge the same.
-    Band width 1.5 % — asked 6 %, cut so the band cannot fold over itself.
+    Right edge 0.50 % → 0.66 % of the curve's size (1.32× at the belly). Left edge the same.
+    Band width 0.50 %. The rail folds through itself here; the plate dots the crossing.
 
 - [x] Distances are shares of the curve's own size, never bare units.
-- [x] When the fold guard cuts the width, the readout says so and gives the asked value.
+- [x] The band is never cut (2026-11-23): the rail is the ask at every station, and the readout
+      reports the drawn width, not a cut number. Check: `scripts/check-tune-lab.mjs` reads
+      `Band width <n> %` and finds no cut sentence; `tests/js/plate-guard.test.mjs` measures it.
+- [x] When the rail folds through itself the readout says so, and says the plate dots the
+      crossing and hides the loop. Check: the readout on `c-0046` at 0.5 %.
+- [x] The amber guide to 1.5× is drawn on the first paint as well as on a redraw, so a redraw
+      with unchanged values draws the same picture. Check: `scripts/check-tune-lab.mjs`.
 - [x] The ratio is the variation along the curve: `1.00×` means parallel, and that is
       named as the flat case in the legend.
 
@@ -83,19 +90,39 @@ from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
 - [x] Every stored outline (`path` or `polyline`) draws the plate's character law over the
       refined walk; the page draws the same band. Check: `scripts/check-tune-lab.mjs` selects
       `c-0273` and `c-0143` and expects a band for each.
-- [x] The rail's fold cap is continuous, so the edge cannot step or cross the spine. The
-      readout says how many stored points and, when the cap narrows it, the pinched width.
-      Check: `tests/js/plate-path.test.mjs`.
+- [x] The rail is the asked offset at every station, with no inside cap (2026-11-23). Where it
+      folds through itself the page draws the crossing and the readout says the plate hides the
+      loop. Check: `tests/js/plate-holes.test.mjs` and `tests/js/plate-gap.test.mjs`.
 - [x] Fewer than three stored points: the spine only, and the page says so.
 - [x] The outline is stored at six decimals. Identity may round to two; the drawing may not
       (`state/DESIGN-int.md`, register row 44).
 
 ## 6 · Layout
 
-- [x] Preview left, controls right, legend below the readout. The legend defines every
-      control in plain words, including the flat case.
+- [x] Preview left, controls right; the readout sits under the preview in the same column, so
+      the left column's height matches the form and no empty band is left between them. The
+      preview fills its column and centres the drawing.
 - [x] The page uses the shell margin; no width of its own.
+- [x] Below 860 px the page stacks to one column: the preview, the readout, then the form.
 - [x] Width, plus and minus each have a number box and a slider; moving one moves the other.
       The slider carries no name, so only the number is submitted. Check:
       `scripts/check-tune-lab.mjs` (the slider reaches the number and redraws).
-- [x] The version list sits under the readout, with one row per saved version.
+- [x] The version list sits under the strip, with one row per saved version.
+
+## 7 · The same values on other kinds
+
+The operator, 2026-11-23, after tuning `c-0046` to 0.5 %: "put some more curves below it to
+confirm it works for all kinds."
+
+- [x] Six figures under the grid, drawn at the page's own four values, so one setting is
+      checked across the collection rather than on one curve.
+- [x] The kinds come from the records, never from a typed list of uids: a row curve (two), a
+      stored path (two), a path with branches, a wonk double. The first curve of each kind
+      that draws is shown; the current curve is skipped.
+- [x] Each caption names the uid (a link to its page), the kind, the name, and the measured
+      crossing count on its rail. "No crossing at this width" is a result, not a failure.
+- [x] Three figures across, one below 720 px; each figure is 130 px tall so the captions line
+      up. Check: `scripts/check-tune-lab.mjs` (five or more figures, every named kind present,
+      every caption gives a crossing count).
+- [ ] A per-kind choice by the operator (which row curve, which double) is not built; the
+      rule is first-in-registry for now.

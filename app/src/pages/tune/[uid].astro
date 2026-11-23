@@ -10,7 +10,7 @@ import { repoRoot } from "../../lib/gallery.js";
 import { prisma } from "../../lib/db.js";
 import { loadRegistry } from "../../lib/registry.ts";
 import { starsLabel } from "../../lib/provenance.js";
-import { bandSvg, frame } from "../../scripts/tune-render.js";
+import { bandSvg, frame, widerGuide } from "../../scripts/tune-render.js";
 
 // plate_math.js is CommonJS and lives outside app/, so Vite's import interop hands back no
 // default. require() reads it from disk as Node sees it, which is the same module the plate
@@ -87,6 +87,15 @@ const row = {
   character: { plus: values.plus, minus: values.minus, profile: values.profile },
 };
 
+// the desk's turn is clockwise on screen, so the model turns the other way; one helper for the
+// preview and for the strip of other kinds below it
+const rotatePaths = (paths, degrees) => {
+  if (!degrees) return paths;
+  const a = (-degrees * Math.PI) / 180;
+  const c = Math.cos(a), s = Math.sin(a);
+  return paths.map((line) => line.map(([x, y]) => [x * c - y * s, x * s + y * c]));
+};
+
 // the preview is the same three paths the plate uses, turned and framed here in the page
 let paths = [];
 let note = "";
@@ -100,8 +109,8 @@ if (row.speedX.length) {
       ? ` (the rail folds through itself where the curve turns tight: fold ` +
         `${group.fold.toFixed(2)}; the plate dots the crossing and hides the loop)`
       : "";
-    note = `rails: each edge ${group.width} % of the curve's size away from the spine${fold}; ` +
-      `plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
+    note = `rails: each edge ${Number(group.width).toFixed(2)} % of the curve's size away ` +
+      `from the spine${fold}; plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
   } catch {
     // the rail routine declined this curve: draw the spine rather than nothing
     paths = [PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y])];
@@ -128,15 +137,80 @@ if (!paths.length && record.path) {
   }
 }
 if (values.degrees) {
-  const a = (-values.degrees * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
-  paths = paths.map((line) => line.map(([x, y]) => [x * c - y * s, x * s + y * c]));
+  paths = rotatePaths(paths, values.degrees);
 }
 // the first paint uses the same drawing function as the live redraw, so touching a control
 // changes the picture only when a value changed
 const box = frame(paths);
+// the first paint carries the amber guide too: a redraw with unchanged values must draw the
+// same picture (the check caught the two differ; a change of values is what may change it)
+const guide = box ? widerGuide(paths) : null;
 const svg = box
-  ? bandSvg(paths, box)
+  ? bandSvg(paths, box, guide)
   : `<p class="tune-note">No drawable points for this curve at these values.</p>`;
+if (guide) {
+  note += ". The amber dashed line is the wide side at 1.5× the drawn width: a guide to judge " +
+    "how far it could go, not a saved value";
+}
+
+// The same four values on other kinds, so one setting is checked across the collection rather
+// than on one curve. The kinds come from the records (row curve, stored path, a path with
+// branches, a wonk double, a polyline), never from a typed list of uids; the first curve of
+// each kind that draws at these values is shown.
+const kindOf = (curve) => ((curve.branches || []).length > 1
+  ? "branches"
+  : /^double-/i.test(curve.name || "")
+    ? "wonk double"
+    : Array.isArray(curve.path) && curve.path.length > 2
+      ? "stored path"
+      : (curve.speedX || []).length ? "row curve" : "polyline");
+
+const figureFor = (curve, kindLabel) => {
+  if (curve.uid === record.uid) return null;
+  let drawn = [];
+  try {
+    if (Array.isArray(curve.path) && curve.path.length > 2) {
+      const group = PLATE.pathGroup(curve.path, {
+        widthPercent: values.widthPct, plus: values.plus,
+        minus: values.minus, profile: values.profile,
+      });
+      if (group) drawn = group.paths.slice(0, 3);
+    } else if ((curve.speedX || []).length) {
+      const group = PLATE.group({
+        name: curve.name, speedX: curve.speedX, speedY: curve.speedY || [],
+        width: { percent: values.widthPct },
+        character: { plus: values.plus, minus: values.minus, profile: values.profile },
+      });
+      drawn = group.paths.slice(0, 3);
+    }
+  } catch { drawn = []; }
+  if (!drawn.length) return null;
+  const turned = rotatePaths(drawn, values.degrees);
+  const kindBox = frame(turned);
+  if (!kindBox) return null;
+  // the crossings are a measured number, so the strip says whether the law reached this kind
+  const crossings = drawn.slice(1, 3)
+    .reduce((count, rail) => count + PLATE.railHoles(rail).crossings.length, 0);
+  return {
+    uid: curve.uid, name: curve.name, kind: kindLabel,
+    svg: bandSvg(turned, kindBox), crossings,
+  };
+};
+
+const kinds = [];
+const seen = new Map();
+for (const curve of registry.curves) {
+  if (kinds.length >= 6) break;
+  const label = kindOf(curve);
+  // two of the commonest kinds (a row curve, a stored path), one of the rarer ones, so the
+  // strip fills its three columns and still covers every kind
+  const limit = label === "row curve" || label === "stored path" ? 2 : 1;
+  if ((seen.get(label) || 0) >= limit) continue;
+  const figure = figureFor(curve, label);
+  if (!figure) continue;
+  seen.set(label, (seen.get(label) || 0) + 1);
+  kinds.push(figure);
+}
 ---
 
 <BaseLayout title="the tuning engine" pageTitle="The tuning engine">
@@ -149,7 +223,11 @@ const svg = box
   {q.get("error") && <p class="tune-bad">not saved: {q.get("error")}</p>}
 
   <div class="tune-grid">
-    <div class="tune-preview" id="tune-preview" set:html={svg} />
+    <div class="tune-left">
+      <div class="tune-preview" id="tune-preview" set:html={svg} />
+      <p class="tune-readout" id="tune-readout">{note}. The picture redraws as you type; the
+        preview button is only for a no-JavaScript browser.</p>
+    </div>
     <form class="tune-form" id="tune-form" method="get">
       <div class="tune-stars" id="tune-stars" data-stars={record.stars || 0}
         role="group" aria-label="stars">
@@ -185,8 +263,28 @@ const svg = box
       <p class="tune-status" id="tune-status" role="status" aria-live="polite"></p>
     </form>
   </div>
-  <p class="tune-readout" id="tune-readout">{note}. The picture redraws as you type; the
-    preview button is only for a no-JavaScript browser.</p>
+
+  <section class="tune-kinds">
+    <h2>The same values on other kinds</h2>
+    <p class="tune-note">width {values.widthPct} %, plus {values.plus}, minus {values.minus},
+      {values.profile}. Each figure is drawn by the same law at the values above, so one
+      setting is checked across the collection; the crossing count is measured on the rail,
+      not typed.</p>
+    <div class="tune-kind-grid">
+      {kinds.map((figure) => (
+        <figure class="tune-kind">
+          <div set:html={figure.svg} />
+          <figcaption>
+            <a href={`/tune/${figure.uid}`}><code>{figure.uid}</code></a>
+            {` · ${figure.kind} · ${figure.name} · `}
+            {figure.crossings
+              ? `${figure.crossings} crossing${figure.crossings === 1 ? "" : "s"}`
+              : "no crossing at this width"}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
 
   <section class="tune-versions">
     <h2>Curves from this spine</h2>
@@ -222,31 +320,45 @@ const svg = box
 </script>
 
 <style is:global>
-  .tune-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: start; }
-  .tune-preview { border: 1px solid #e6dccb; background: #fff; padding: 8px; }
+  .tune-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 12px 16px; align-items: stretch; }
+  .tune-left { display: flex; flex-direction: column; min-width: 0; }
+  .tune-preview { flex: 1; display: flex; align-items: center; justify-content: center; border: 1px solid #e6dccb; background: #fff; padding: 4px; }
   .tune-preview svg { width: 100%; height: auto; display: block; }
-  .tune-form label { display: flex; justify-content: space-between; gap: 8px; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 0 0 8px; }
+  .tune-preview svg { width: 100%; height: auto; display: block; }
+  .tune-readout { margin: 6px 0 0; }
+  .tune-form label { display: flex; justify-content: space-between; gap: 8px; font: 13px/1.4 ui-monospace, Menlo, monospace; margin: 0 0 5px; }
   .tune-form input, .tune-form select { width: 8rem; margin: 0; padding: 2px 4px; font-size: 13px; }
-  .tune-form button { width: 100%; margin: 6px 0 0; }
-  .tune-slider { width: 100%; margin: -4px 0 8px; }
-  .tune-stars { display: flex; align-items: center; gap: 2px; margin: 0 0 12px; }
+  .tune-form button { width: 100%; margin: 4px 0 0; }
+  .tune-slider { width: 100%; margin: -4px 0 6px; }
+  .tune-stars { display: flex; align-items: center; gap: 2px; margin: 0 0 8px; }
   .tune-stars .star { background: none; border: 0; padding: 0 1px; margin: 0; width: auto;
     font-size: 22px; line-height: 1; color: #d8c9a8; cursor: pointer; }
   .tune-stars .star.on { color: #8a6a1f; }
   .tune-stars .star-none { background: none; border: 0; margin: 0 0 0 8px; width: auto;
     font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; cursor: pointer; }
-  .tune-note { font: 13px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; }
-  .tune-ok { font: 14px/1.5 ui-monospace, Menlo, monospace; color: #2f6f3a; }
-  .tune-bad { font: 14px/1.5 ui-monospace, Menlo, monospace; color: #9b2c2c; }
-  .tune-hint { margin: 10px 0 0; font: 12px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; }
-  .tune-status { min-height: 1.4em; margin: 8px 0 0; font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .tune-note { font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; margin: 4px 0 0; }
+  .tune-ok { font: 14px/1.4 ui-monospace, Menlo, monospace; color: #2f6f3a; margin: 4px 0 0; }
+  .tune-bad { font: 14px/1.4 ui-monospace, Menlo, monospace; color: #9b2c2c; margin: 4px 0 0; }
+  .tune-hint { margin: 6px 0 0; font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .tune-status { min-height: 1.3em; margin: 4px 0 0; font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
   .tune-status.ok { color: #2f6f3a; }
   .tune-status.bad { color: #9b2c2c; }
   .tune-status.busy { color: #7a6a55; }
-  .tune-versions { margin: 28px 0 0; }
-  .tune-versions h2 { font-size: 1rem; margin: 0 0 8px; }
+  .tune-kinds { margin: 16px 0 0; }
+  .tune-kinds h2 { font-size: 1rem; margin: 0 0 4px; }
+  .tune-kind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 6px; }
+  .tune-kind { margin: 0; border: 1px solid #e6dccb; background: #fff; padding: 3px; display: flex; flex-direction: column; }
+  .tune-kind svg { width: 100%; height: 130px; display: block; }
+  .tune-kind figcaption { margin-top: 3px; flex: 1; font: 12px/1.35 ui-monospace, Menlo, monospace; color: #6b5b46; }
+  .tune-versions { margin: 14px 0 0; }
+  .tune-versions h2 { font-size: 1rem; margin: 0 0 4px; }
   .tune-versions ul { list-style: none; margin: 0; padding: 0; }
-  .tune-version { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 6px 0; border-top: 1px solid #eee3d3; }
-  .tune-version .mono { font: 12px/1.5 ui-monospace, Menlo, monospace; color: #6b5b46; }
+  .tune-version { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; padding: 4px 0; border-top: 1px solid #eee3d3; }
+  .tune-version .mono { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #6b5b46; }
   .tune-version.current { background: #fbf6ec; }
+  @media (max-width: 860px) {
+    .tune-grid { grid-template-columns: 1fr; gap: 10px; }
+    .tune-preview { flex: none; }
+  }
+  @media (max-width: 720px) { .tune-kind-grid { grid-template-columns: 1fr; } }
 </style>

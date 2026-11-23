@@ -81,8 +81,8 @@ export function bandSvg(paths, box, guide = null) {
 }
 
 // ask the plate maths for the spine and its two rails. Every stored outline takes the
-// plate's rail branch: the same character law over the refined walk, with the same
-// continuous fold cap, so the page and the plate draw one picture.
+// plate's rail branch: the same one character law over the refined walk, so the page and the
+// plate draw one picture.
 function drawing(P, curve, values) {
   if (curve.path) {
     if (P.pathGroup) {
@@ -121,8 +121,7 @@ function readout(drawn, values, paths) {
       "rail is settled";
   }
   if (paths.length < 3) {
-    return "at this width the rails would fold through themselves, so only the spine is " +
-      "drawn. Lower the width %.";
+    return "this curve has no band at these values, so only the spine is drawn";
   }
 
   const spine = paths[0];
@@ -141,15 +140,17 @@ function readout(drawn, values, paths) {
   const same = Math.abs(right.ratio - left.ratio) < 0.005 && Math.abs(right.max - left.max) < 1e-9;
   const asked = values.widthPct;
   const used = number(drawn.width, asked);
-  const cut = used < Math.abs(asked) - 1e-9
-    ? ` Band width ${used.toFixed(1)} % — asked ${asked} %, cut so the band cannot fold ` +
-      "over itself. Buckles above that: tune the width by hand."
-    : ` Band width ${used.toFixed(1)} %.`;
+  // 2026-11-23: the band is not cut. The rail keeps the ask and folds through itself where the
+  // curve turns tight; the plate dots the crossing and hides the loop.
+  const band = ` Band width ${used.toFixed(1)} %.`;
+  const fold = drawn.buckles
+    ? " The rail folds through itself here; the plate dots the crossing and hides the loop."
+    : "";
   const stored = drawn.kind === "stored"
     ? ` Built from the ${drawn.stored} stored points: exact there, approximate between them.`
     : "";
   return `${side("Right", right)}. ${same ? "Left edge the same" : side("Left", left)}.` +
-    cut + stored;
+    band + fold + stored;
 }
 
 // draw one curve; returns false (and says why) if the maths did not load

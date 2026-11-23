@@ -160,8 +160,8 @@ try {
     problems.push(`the star row and its label disagree: ${stars} vs ${label}`);
   }
 
-  // the per-curve page redraws in place: no navigation, no submit. The width is still cut
-  // by the original fold guard, and the readout must say the number it was cut to.
+  // the per-curve page redraws in place: no navigation, no submit. The band is the ask now
+  // (2026-11-23: no inside cap), and the readout must still name the width it drew.
   await page.goto(`${BASE}/tune/c-0001`, { waitUntil: "networkidle" });
   await page.waitForSelector("#tune-preview svg", { timeout: 8000 });
   const uidBefore = await svgOf("#tune-preview svg");
@@ -174,9 +174,20 @@ try {
   if (!/Band width [\d.]+ %/.test(uidReadout)) {
     problems.push(`/tune/c-0001 readout does not name the band width: ${uidReadout}`);
   }
-  // "asked" appears only when the fold guard cut the width; the band width is always named
-  if (!/Band width [\d.]+ %/.test(uidReadout)) {
-    problems.push(`/tune/c-0001 readout does not name the band width: ${uidReadout}`);
+
+  // the same-values strip: more than one kind, each caption named and measured
+  const kindCards = await page.$$eval(".tune-kind figcaption", (nodes) =>
+    nodes.map((node) => node.textContent.replace(/\s+/g, " ").trim()));
+  if (kindCards.length < 5) {
+    problems.push(`the other-kinds strip has ${kindCards.length} figures, not 5+`);
+  }
+  for (const kind of ["row curve", "stored path", "branches", "wonk double"]) {
+    if (!kindCards.some((text) => text.includes(kind))) {
+      problems.push(`the other-kinds strip has no ${kind}`);
+    }
+  }
+  if (!kindCards.every((text) => /crossing/.test(text))) {
+    problems.push("a strip caption gives no crossing count");
   }
 
   // the desk: a name for a new curve, a save, a new curve, and the family list
