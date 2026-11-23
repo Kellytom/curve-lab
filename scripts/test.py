@@ -110,7 +110,8 @@ def run(names, jobs=1):
     return code, time.perf_counter() - t0, done
 
 
-BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs", "check-tune-lab.mjs")
+BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs", "check-tune-lab.mjs",
+                  "check-side-pillars.mjs")
 
 
 def node_binary() -> str:

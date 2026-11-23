@@ -9,7 +9,9 @@
 **The maths (when built):** `scripts/side_pillars.py` in Python, or `app/src/lib/side-pillars.js`
 if the page moves to Astro
 **The test:** `tests/test_side_pillars.py` (Python) or `tests/js/side-pillars.test.mjs` (Astro)
-**The check:** `app/scripts/check-pages.mjs /side-pillars` when it has a route
+**The check:** `node scripts/check-side-pillars.mjs` (runs in `--browser`): loads the
+page, moves each of the six real sliders, and requires the figure and the printed
+numbers to change, two open lines with a Q each, and no page error
 
 ## What it is
 

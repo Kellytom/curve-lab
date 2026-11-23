@@ -58,6 +58,29 @@ calls; the third is a rights question.
 a cross, drawn at plate size with its own side curves, labelled exact-or-sampled, and shown on
 `/extra-curves/` for judgement before any record is created.
 
+## Blocked on a decision — do not guess (2026-11-23)
+
+Two rows of `state/PLAN-int.md` cannot be worked until the operator answers, and both have been
+started once and lost. Written here so the next session reads the question instead of re-deriving it.
+
+- [ ] **The offset start-point shift.** The operator, 2026-11-21: "the offset curves should look
+      the same on both sides of the curve, not thin on the right and wide on the left ... if the
+      difference at the end is 10x 10y, then move the starting position by 5 x and 5 y to
+      balance". The two sides already take one strength (`plate-offset.test.mjs`), but the shift is
+      not in the tree: `tests/js/plate-offset.test.mjs` has no shift case and neither
+      `plate_math.js` nor `print_plates.mjs` moves a start.
+      **The question:** *which two endpoints* is "the difference at the end" measured between —
+      (a) the two rails at the curve's end, or (b) the rail's own start gap against its end gap?
+      Both readings fit the sentence, and they move every plate a different way.
+      **Why it is blocked:** the answer changes every plate, so a wrong guess is a full re-render
+      of 393 plates and a wrong book. One word from the operator unblocks it.
+- [ ] **The named scrollwork and select exceptions.** The operator has said the plates migrate per
+      family and that the scrollwork and "select" curves are exceptions, but has not said which.
+      The candidates in the plan are the six flourish, the curlicue, the log spiral and the
+      involute. **The question:** name the curves that are exceptions, and say how a scrollwork
+      plate differs (spine only? the whole curve railed? something else?).
+      **Why it is blocked:** picking the set silently would migrate the wrong plates.
+
 ## Rich chat display — after the curves and the books (2026-11-23)
 
 The operator: "since you have a server running, you could use that to display plots, designs,
