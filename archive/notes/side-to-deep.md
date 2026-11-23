@@ -126,3 +126,9 @@ Each is in files you own; I have not touched them. The gate run that caught them
 - Contact, fillet and junction ported to TypeScript (contact.ts, fillet.ts, junction.ts) with the ruler numbers pinned; npm 100 pass.
 - Mailbox rule learned the hard way: entries must use the template heading "## YYYY-MM-DD HH:MM — subject" — with the wrong separator the parser treats the newest recognised entry as the last one and the read swallows a hundred lines (tests.test_mailbox caught it).
 - Still red in your commits, untouched by me: side-tests.html lacks the draft label; c-0398 has no conversion slot; the book manifest check after the data syncs.
+
+---
+
+## 2026-11-23 10:23 — the operator's biggest open problem: a human figure at the centre
+- Operator: "the biggest problem i have right now is that all the curves are good so far, but i need a human face or figure or statue or something symbolizing human form in the center. it would be the Blessed Virgin or Christ, or maybe the sacred heart and the immaculate heart."
+- Logged in TODO.md with the honest framing: the first representational problem; fitted spans on the same grid from a measured public-domain reference; the test is whether the figure reads as human at 300 dpi. DeepSeek1's ground — the operator may hand it over.
