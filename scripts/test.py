@@ -68,6 +68,7 @@ FAST = {
     "test_pyth_triples", "test_pyth_cubic",
     "test_regressions", "test_data_audit", "test_exact_numbers", "test_operator_list",
     "test_memory_freshness", "test_registry_paths", "test_curve_stars", "test_marginalia",
+    "test_hub_stills",
 }
 
 # Only the two modules that write the same page compete for it:
