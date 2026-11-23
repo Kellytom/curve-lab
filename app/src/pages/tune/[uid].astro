@@ -96,13 +96,17 @@ const rotatePaths = (paths, degrees) => {
   return paths.map((line) => line.map(([x, y]) => [x * c - y * s, x * s + y * c]));
 };
 
-// the preview is the same three paths the plate uses, turned and framed here in the page
-let paths = [];
+// the preview is the same paths the plate uses, turned and framed here in the page. A curve
+// stored in branches is drawn one group per branch: never one polyline across a jump (c-0416
+// drew as fragments that way).
+let groups = [];     // each entry is [spine, plusRail, minusRail] or [spine]
+let paths = [];      // the flat list, for the frame and the guide
 let note = "";
 if (row.speedX.length) {
   try {
     const group = PLATE.group(row);
     paths = group.paths.slice(0, 3);
+    groups = [paths];
     // the band is the ask, unedited; say where it folds through itself, and that the plate
     // hides the loop (2026-11-23: the inside cap is withdrawn)
     const fold = group.buckles && Number.isFinite(group.fold)
@@ -114,39 +118,47 @@ if (row.speedX.length) {
   } catch {
     // the rail routine declined this curve: draw the spine rather than nothing
     paths = [PLATE.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y])];
+    groups = [paths];
     note = "this curve's rows could not make rails, so the plate prints the spine only";
   }
 }
-if (!paths.length && record.path) {
-  // the plate draws the character law over every stored outline; the page must match it
-  if (PLATE.pathGroup) {
-    const group = PLATE.pathGroup(record.path, {
+if (!groups.length && record.path) {
+  // the plate draws the character law over every stored outline; the page must match it, and
+  // one group per branch is what "match" means for a multi-branch record
+  const branches = PLATE.branchesOf(record);
+  const built = [];
+  let folded = "";
+  for (const branch of branches) {
+    const group = PLATE.pathGroup(branch, {
       widthPercent: values.widthPct, plus: values.plus,
       minus: values.minus, profile: values.profile,
     });
     if (group) {
-      paths = group.paths;
-      const fold = group.buckleNote ? ` (${group.buckleNote})` : "";
-      note = `rails from the ${record.path.length} stored points: exact there, approximate ` +
-        `between them${fold}; plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
+      built.push(group.paths.slice(0, 3));
+      if (group.buckleNote) folded = group.buckleNote;
+    } else {
+      built.push([branch]);
     }
   }
-  if (!paths.length) {
-    paths = [record.path];
-    note = "this curve is stored as a path, so the plate prints the spine only";
-  }
+  groups = built;
+  paths = groups.flat();
+  note = `rails from the ${record.path.length} stored points` +
+    (branches.length > 1 ? ` in ${branches.length} branches` : "") +
+    `: exact there, approximate between them${folded ? ` (${folded})` : ""}; ` +
+    `plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
 }
 if (values.degrees) {
-  paths = rotatePaths(paths, values.degrees);
+  groups = groups.map((group) => rotatePaths(group, values.degrees));
+  paths = groups.flat();
 }
 // the first paint uses the same drawing function as the live redraw, so touching a control
 // changes the picture only when a value changed
 const box = frame(paths);
 // the first paint carries the amber guide too: a redraw with unchanged values must draw the
 // same picture (the check caught the two differ; a change of values is what may change it)
-const guide = box ? widerGuide(paths) : null;
+const guide = box && groups.length === 1 ? widerGuide(paths) : null;
 const svg = box
-  ? bandSvg(paths, box, guide)
+  ? bandSvg(groups.length === 1 ? groups[0] : groups, box, guide)
   : `<p class="tune-note">No drawable points for this curve at these values.</p>`;
 if (guide) {
   note += ". The amber dashed line is the wide side at 1.5× the drawn width: a guide to judge " +
@@ -167,33 +179,41 @@ const kindOf = (curve) => ((curve.branches || []).length > 1
 
 const figureFor = (curve, kindLabel) => {
   if (curve.uid === record.uid) return null;
+  let drawnGroups = [];
   let drawn = [];
   try {
     if (Array.isArray(curve.path) && curve.path.length > 2) {
-      const group = PLATE.pathGroup(curve.path, {
-        widthPercent: values.widthPct, plus: values.plus,
-        minus: values.minus, profile: values.profile,
+      const branches = PLATE.branchesOf ? PLATE.branchesOf(curve) : [curve.path];
+      drawnGroups = branches.map((branch) => {
+        const group = PLATE.pathGroup(branch, {
+          widthPercent: values.widthPct, plus: values.plus,
+          minus: values.minus, profile: values.profile,
+        });
+        return group ? group.paths.slice(0, 3) : [branch];
       });
-      if (group) drawn = group.paths.slice(0, 3);
+      drawn = drawnGroups.flat();
     } else if ((curve.speedX || []).length) {
       const group = PLATE.group({
         name: curve.name, speedX: curve.speedX, speedY: curve.speedY || [],
         width: { percent: values.widthPct },
         character: { plus: values.plus, minus: values.minus, profile: values.profile },
       });
-      drawn = group.paths.slice(0, 3);
+      drawnGroups = [group.paths.slice(0, 3)];
+      drawn = drawnGroups[0];
     }
-  } catch { drawn = []; }
+  } catch { drawnGroups = []; drawn = []; }
   if (!drawn.length) return null;
-  const turned = rotatePaths(drawn, values.degrees);
+  const turnedGroups = drawnGroups.map((group) => rotatePaths(group, values.degrees));
+  const turned = turnedGroups.flat();
   const kindBox = frame(turned);
   if (!kindBox) return null;
   // the crossings are a measured number, so the strip says whether the law reached this kind
-  const crossings = drawn.slice(1, 3)
-    .reduce((count, rail) => count + PLATE.railHoles(rail).crossings.length, 0);
+  const crossings = turnedGroups.reduce((count, group) => count + group.slice(1, 3)
+    .reduce((inner, rail) => inner + PLATE.railHoles(rail).crossings.length, 0), 0);
   return {
     uid: curve.uid, name: curve.name, kind: kindLabel,
-    svg: bandSvg(turned, kindBox), crossings,
+    svg: bandSvg(turnedGroups.length === 1 ? turnedGroups[0] : turnedGroups, kindBox),
+    crossings,
   };
 };
 

@@ -62,21 +62,26 @@ export function widerGuide(paths, factor = 1.5) {
 }
 
 export function bandSvg(paths, box, guide = null) {
-  const [spine, plusRail, minusRail] = paths;
-  if (paths.length < 3) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${box.W} ${box.H}">
-      <rect width="${box.W}" height="${box.H}" fill="#fff"/>
-      <path d="M${box.toPath(spine)}" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
-    </svg>`;
-  }
+  // one group ([spine, plus, minus]) or several — a multi-branch curve is drawn one group per
+  // branch, so two branches are never joined by a chord
+  const groups = Array.isArray(paths?.[0]?.[0]?.[0]) ? paths : [paths];
+  const body = groups.map((group) => {
+    const [spine, plusRail, minusRail] = group;
+    if (!spine || spine.length < 2) return "";
+    const band = group.length >= 3 && plusRail && minusRail
+      ? `<path d="M${box.toPath([...spine, ...[...plusRail].reverse()])}Z" fill="#e2e2e2"/>` +
+        `<path d="M${box.toPath([...spine, ...[...minusRail].reverse()])}Z" fill="#8a8a8a"/>` +
+        `<path d="M${box.toPath(plusRail)}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>` +
+        `<path d="M${box.toPath(minusRail)}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>`
+      : "";
+    return band + `<path d="M${box.toPath(spine)}" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>`;
+  }).join("");
+  const guides = guide ? (Array.isArray(guide[0]?.[0]) ? guide : [guide]) : [];
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${box.W} ${box.H}">
     <rect width="${box.W}" height="${box.H}" fill="#fff"/>
-    <path d="M${box.toPath([...spine, ...[...plusRail].reverse()])}Z" fill="#e2e2e2"/>
-    <path d="M${box.toPath([...spine, ...[...minusRail].reverse()])}Z" fill="#8a8a8a"/>
-    <path d="M${box.toPath(plusRail)}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
-    <path d="M${box.toPath(minusRail)}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
-    <path d="M${box.toPath(spine)}" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
-    ${guide ? `<path d="M${box.toPath(guide)}" fill="none" stroke="#b26a00" stroke-width="1.6" stroke-dasharray="7 5"/>` : ""}
+    ${body}
+    ${guides.map((line) => `<path d="M${box.toPath(line)}" fill="none" stroke="#b26a00" ` +
+      `stroke-width="1.6" stroke-dasharray="7 5"/>`).join("")}
   </svg>`;
 }
 
@@ -86,16 +91,31 @@ export function bandSvg(paths, box, guide = null) {
 function drawing(P, curve, values) {
   if (curve.path) {
     if (P.pathGroup) {
-      const group = P.pathGroup(curve.path, {
-        widthPercent: values.widthPct, plus: values.plus,
-        minus: values.minus, profile: values.profile,
-      });
-      if (group && group.paths.length >= 3) {
-        return { paths: group.paths, kind: "stored", stored: curve.path.length,
-                 width: group.width, buckles: group.buckles, buckleNote: group.buckleNote };
+      // one group per branch: a multi-branch record must never be drawn as one polyline
+      const branches = P.branchesOf ? P.branchesOf(curve) : [curve.path];
+      const groups = [];
+      let width = 0, buckles = false, buckleNote = null;
+      for (const branch of branches) {
+        const group = P.pathGroup(branch, {
+          widthPercent: values.widthPct, plus: values.plus,
+          minus: values.minus, profile: values.profile,
+        });
+        if (group && group.paths.length >= 3) {
+          groups.push(group.paths.slice(0, 3));
+          width = group.width;
+          buckles = buckles || group.buckles;
+          buckleNote = group.buckleNote || buckleNote;
+        } else {
+          groups.push([branch]);
+        }
+      }
+      if (groups.length) {
+        return { paths: groups.flat(), groups, kind: "stored", stored: curve.path.length,
+                 width, buckles, buckleNote };
       }
     }
-    return { paths: [curve.path], kind: "path-spine", stored: curve.path.length };
+    return { paths: [curve.path], groups: [[curve.path]], kind: "path-spine",
+             stored: curve.path.length };
   }
 
   const row = {
@@ -108,11 +128,12 @@ function drawing(P, curve, values) {
   let group = null;
   try { group = P.group(row); } catch { group = null; }
   if (group && group.paths.length >= 3) {
-    return { paths: group.paths.slice(0, 3), kind: "rows", width: group.width,
+    const paths = group.paths.slice(0, 3);
+    return { paths, groups: [paths], kind: "rows", width: group.width,
              buckles: group.buckles, buckleNote: group.buckleNote };
   }
   const spine = P.spine(row.speedX, row.speedY, 400).map((s) => [s.x, s.y]);
-  return { paths: [spine], kind: "spine" };
+  return { paths: [spine], groups: [[spine]], kind: "spine" };
 }
 
 function readout(drawn, values, paths) {
@@ -162,14 +183,16 @@ export function render(preview, readoutEl, curve, values) {
     return false;
   }
   const drawn = drawing(P, curve, values);
-  const turned = turn(drawn.paths.filter((line) => line && line.length), number(values.degrees, 0));
+  const groups = (drawn.groups || [drawn.paths])
+    .map((group) => turn(group.filter((line) => line && line.length), number(values.degrees, 0)));
+  const turned = groups.flat();
   const box = frame(turned);
   if (!box) {
     readoutEl.textContent = "no drawable points for this curve at these values";
     return false;
   }
-  const guide = widerGuide(turned);
-  preview.innerHTML = bandSvg(turned, box, guide);
+  const guide = groups.length === 1 ? widerGuide(groups[0]) : null;
+  preview.innerHTML = bandSvg(groups.length === 1 ? groups[0] : groups, box, guide);
   readoutEl.textContent = readout(drawn, values, turned) +
     (guide ? " The amber dashed line is the wide side at 1.5× the drawn width: a guide to " +
       "judge how far it could go, not a saved value." : "");

@@ -537,6 +537,29 @@
     return out.filter((run) => run.points.length > 1);
   }
 
+  // A record may hold its branches separately (`branches`, the multi-branch curves) or as one
+  // path with jumps between them (c-0416's four). Drawing the concatenated path joins two
+  // branches with a chord and reads as fragments; every drawing asks here first. The split
+  // rule is the plate's: a jump over a quarter of the curve's own size is a new branch.
+  function branchesOf(record, share = 0.25) {
+    const stored = (record.branches || []).filter((branch) => Array.isArray(branch) && branch.length > 2);
+    if (stored.length > 1) return stored;
+    const path = (record.path || []).filter((point) => Number.isFinite(point[0]) && Number.isFinite(point[1]));
+    if (path.length < 3) return path.length ? [path] : [];
+    const xs = path.map((point) => point[0]), ys = path.map((point) => point[1]);
+    const size = Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) || 1;
+    const runs = [];
+    let run = [path[0]];
+    for (let i = 1; i < path.length; i += 1) {
+      const step = Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]);
+      if (step > share * size) { runs.push(run); run = [path[i]]; }
+      else run.push(path[i]);
+    }
+    runs.push(run);
+    const kept = runs.filter((points) => points.length > 2);
+    return kept.length ? kept : [path];
+  }
+
   // The rail on a path: the refined walk, then the same law as a row curve —
   // distance = base * (1 + strength * profile(u)), u by arclength, one sign per side.
   function pathGroup(points, options) {
@@ -659,7 +682,7 @@
   }
 
   return { value, spine, curvaturePeak, curvatureWorst, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
-           selfIntersections, railHoles, railRuns,
+           selfIntersections, railHoles, railRuns, branchesOf,
            profileAt,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };

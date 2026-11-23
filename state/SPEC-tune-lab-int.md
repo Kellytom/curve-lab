@@ -94,6 +94,10 @@ from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
       folds through itself the page draws the crossing and the readout says the plate hides the
       loop. Check: `tests/js/plate-holes.test.mjs` and `tests/js/plate-gap.test.mjs`.
 - [x] Fewer than three stored points: the spine only, and the page says so.
+- [x] A record stored in branches is drawn one group per branch, never one polyline across the
+      jump between them (`PLATE.branchesOf`, a jump over a quarter of the size starts a branch).
+      c-0416 drew as fragments when its four branches were joined by chords. Check:
+      `tests/js/plate-branches.test.mjs`.
 - [x] The outline is stored at six decimals. Identity may round to two; the drawing may not
       (`state/DESIGN-int.md`, register row 44).
 
