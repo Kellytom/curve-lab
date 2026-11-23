@@ -20,7 +20,12 @@ main handoff; this one reads OUR files, so a reset lands in the right list.
    - `state/SC-HANDOFF-int.md` — where the work stands and the next action;
    - `state/SCToDo-int.md` — the queue, the long-term track, the parked items;
    - `state/SCmemory-int.md` — the environment facts that cost time;
-   - `state/READING-int.md` only if a question turns out to be project-wide.
+   - `next-shandoff-int.md` — the one next action, and the docs to read first;
+   - `state/SC-READING-int.md` only if a question turns out to be project-wide.
+
+   Never step outside the `s` family on a focus: `next-fhandoff-int.md`,
+   `state/HANDOFF-int.md`, `state/PLAN-int.md`, `state/SPRINT-int.md` and the
+   `f*` commands are DeepSeek1's, not ours.
 
 4. Restate the handoff's **one next action** in one or two lines of your own
    words. If the handoff is missing, read `state/SCToDo-int.md`'s immediate

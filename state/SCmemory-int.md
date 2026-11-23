@@ -16,6 +16,13 @@ entries at the bottom of each section.
   beyond an approved job, and for brew (which is banned outright — see AGENTS).
 - Replies: plain English, `---` between exchanges, links on their own lines at
   the end, never open a page for the operator.
+- **The `s` family is mine, the `f` family is not** (operator, 2026-11-23). My
+  admin is `state/SC-HANDOFF-int.md`, `next-shandoff-int.md`,
+  `state/SCToDo-int.md`, `state/SCmemory-int.md`, `state/SC-READING-int.md`, and
+  `/sfocus` + `/shandoff`. `next-fhandoff-int.md`, `state/HANDOFF-int.md`,
+  `state/PLAN-int.md`, `state/SPRINT-int.md` and the `f*` commands are
+  DeepSeek1's; I do not read them, and the repo `AGENTS.md` Tier 0 does not
+  apply to me.
 
 ## The environment, as learned the hard way
 
