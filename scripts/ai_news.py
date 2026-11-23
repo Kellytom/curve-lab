@@ -1,0 +1,231 @@
+#!/usr/bin/env python3
+"""Build ai-news/: the pack another AI reads to get up to speed on this repository.
+
+    .venv/bin/python scripts/ai_news.py
+
+The prose that needs judgement is hand-written in ai-news/ and not touched here:
+README.md, 00-start-here.md, 01-map.md, 07-questions.md, 08-glossary.md.
+This script regenerates the parts that must not drift from the data:
+
+    02-recent-work.md      the last 40 commits, newest first
+    03-data.md             counts, families, stars, measured vs sampled
+    04-plots/*.svg         families, shape grid, grids, stars
+    05-svgs/*.svg          four representative plates, copied small
+    06-code.md             the small number of functions that matter, with file:line
+"""
+import json
+import math
+import re
+import shutil
+import subprocess
+from collections import Counter
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "ai-news"
+PLOTS = OUT / "04-plots"
+SVGS = OUT / "05-svgs"
+
+INK = "#2b2620"
+MUTED = "#7a6a55"
+ACCENT = "#b06a1f"
+PAPER = "#fffef9"
+
+
+def read_json(rel):
+    return json.loads((ROOT / rel).read_text())
+
+
+def esc(text):
+    return (str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+
+def svg_open(w, h):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w} {h}" font-family="ui-sans-serif, system-ui, sans-serif">'
+            f'<rect width="{w}" height="{h}" fill="{PAPER}"/>')
+
+
+def text(x, y, s, size=12, fill=INK, anchor="start", weight="normal"):
+    return (f'<text x="{x:.1f}" y="{y:.1f}" font-size="{size}" fill="{fill}" '
+            f'text-anchor="{anchor}" font-weight="{weight}">{esc(s)}</text>')
+
+
+def bars(rows, title, w=760, row_h=22, label_w=190, value_w=44):
+    h = 60 + row_h * len(rows)
+    body = [svg_open(w, h), text(16, 26, title, 15, INK, weight="600")]
+    top = max(v for _, v in rows) or 1
+    for i, (label, value) in enumerate(rows):
+        y = 48 + i * row_h
+        bar_w = (w - label_w - value_w - 40) * value / top
+        body.append(text(16, y + 15, label, 12, SCRIPT_MUTED))
+        body.append(f'<rect x="{label_w}" y="{y + 3}" width="{bar_w:.1f}" height="{row_h - 8}" '
+                    f'fill="{ACCENT}" opacity="0.75"/>')
+        body.append(text(label_w + bar_w + 8, y + 15, str(value), 12, INK))
+    body.append("</svg>")
+    return "\n".join(body)
+
+
+SCRIPT_MUTED = MUTED
+
+
+def heat(cell_counts, x_max, y_max, title, w=760, cell=30):
+    left, top = 90, 70
+    h = top + (y_max + 1) * cell + 50
+    body = [svg_open(w, h), text(16, 26, title, 15, INK, weight="600")]
+    for x in range(x_max + 1):
+        body.append(text(left + x * cell + cell / 2, top - 10, str(x), 11, MUTED, "middle"))
+    body.append(text(left + (x_max + 1) * cell / 2, top - 28, "crossing pairs", 12, MUTED, "middle"))
+    for y in range(y_max + 1):
+        body.append(text(left - 10, top + (y + 0.7) * cell, str(y), 11, MUTED, "end"))
+        for x in range(x_max + 1):
+            n = cell_counts.get((x, y), 0)
+            alpha = 0 if n == 0 else min(0.9, 0.18 + 0.13 * math.log2(n + 1))
+            fill = f'fill="{ACCENT}" fill-opacity="{alpha:.2f}"' if n else f'fill="none" stroke="#e6dccb"'
+            body.append(f'<rect x="{left + x * cell + 1}" y="{top + y * cell + 1}" '
+                        f'width="{cell - 2}" height="{cell - 2}" {fill}/>')
+            if n:
+                body.append(text(left + x * cell + cell / 2, top + (y + 0.7) * cell, str(n), 10,
+                                 "#fff" if alpha > 0.55 else INK, "middle"))
+    body.append(text(left - 10, top + (y_max + 1.4) * cell + 6, "inflections", 12, MUTED, "start"))
+    body.append("</svg>")
+    return "\n".join(body)
+
+
+def main():
+    OUT.mkdir(exist_ok=True)
+    PLOTS.mkdir(exist_ok=True)
+    SVGS.mkdir(exist_ok=True)
+
+    registry = read_json("workbench/curve-registry.json")
+    curves = registry["curves"]
+    rows = read_json("data/curves.json")["rows"]
+    by_uid = {row["uid"]: row for row in rows}
+
+    families = Counter((c.get("family") or c.get("family_id") or "(none)") for c in curves)
+    measured = [r for r in rows if (r.get("metric") or {}).get("grid") is not None]
+    stars = Counter(int((r.get("note") or {}).get("importance") or 0) for r in rows)
+    def grid_value(value):
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            match = re.search(r"(\d+)", str(value or ""))
+            return float(match.group(1)) if match else None
+
+    grids = [grid_value((r.get("metric") or {}).get("grid")) for r in measured]
+    grids = [g for g in grids if g and g > 0]
+
+    # ---- 02 recent work -----------------------------------------------------------------
+    log = subprocess.run(
+        ["git", "log", "--pretty=format:%h %ad %s", "--date=short", "-40"],
+        cwd=ROOT, capture_output=True, text=True, check=False).stdout.strip()
+    recent = ["# Recent work — the last 40 commits, newest first", "",
+              "Generated by `scripts/ai_news.py`. Each commit is one action; the subject says what",
+              "landed. Read `03-data.md` for what the data now is.",
+              "", "```text", log, "```", ""]
+    (OUT / "02-recent-work.md").write_text("\n".join(recent))
+
+    # ---- 03 data ------------------------------------------------------------------------
+    lines = ["# The data, as it stands", "",
+             "Generated by `scripts/ai_news.py` from `workbench/curve-registry.json` and",
+             "`data/curves.json`.", "",
+             "| what | count |", "|---|---|",
+             f"| curves in the registry | {len(curves)} |",
+             f"| speed-row curves (equation as `u`, `v`) | {sum(1 for c in curves if c.get('speedX'))} |",
+             f"| stored paths (sampled outline) | {sum(1 for c in curves if c.get('path'))} |",
+             f"| records with several branches stored separately | {sum(1 for c in curves if c.get('branches'))} |",
+             f"| curves with an exact measurement | {len(measured)} |",
+             f"| curves rated 2/10 or more | {sum(1 for r in rows if int((r.get('note') or {}).get('importance') or 0) >= 2)} |",
+             f"| plates on disk (`book/print/*.svg`) | {len(list((ROOT / 'book' / 'print').glob('*.svg')))} |",
+             "", "## Families", "",
+             "| family | curves |", "|---|---|"]
+    for family, count in families.most_common():
+        lines.append(f"| {family} | {count} |")
+    lines += ["", "## The trap in the data", "",
+              "- The registry is the **seed** and holds the geometry; SQLite holds names, notes,",
+              "  stars and measurements; `data/*.json` are exports. Editing an export does not",
+              "  survive a save.",
+              "- `workbench/curve-registry.json` is what the plate writer reads. The database note",
+              "  can drift from it (it did, by 45°, for days) — `app/scripts/sync-turns.mjs` fixes that.",
+              "- A stored path is sampled, never exact. Only a speed-row curve or a named rational",
+              "  curve can claim exactness, and the note must say which.", ""]
+    (OUT / "03-data.md").write_text("\n".join(lines))
+
+    # ---- 04 plots -----------------------------------------------------------------------
+    (PLOTS / "families.svg").write_text(bars(
+        [(f, n) for f, n in families.most_common(24)], f"Curves per family ({len(curves)} curves)"))
+    cell_counts = Counter()
+    for row in measured:
+        metric = row.get("metric") or {}
+        cell_counts[(metric.get("crossings") or 0, metric.get("inflections") or 0)] += 1
+    x_max = max([x for x, _ in cell_counts] or [0])
+    y_max = max([y for _, y in cell_counts] or [0])
+    (PLOTS / "shape-grid.svg").write_text(heat(
+        cell_counts, x_max, y_max, "Crossing pairs x inflections (measured curves only)"))
+    bins = Counter()
+    for g in grids:
+        power = int(math.log10(g))
+        bins[power] = bins.get(power, 0) + 1
+    (PLOTS / "grids.svg").write_text(bars(
+        [(f"10^{k}", bins[k]) for k in sorted(bins)], "Grids, by power of ten (exact measurements)"))
+    (PLOTS / "stars.svg").write_text(bars(
+        [(f"{k}/10" if k else "none", stars.get(k, 0)) for k in range(10, -1, -1)],
+        "Ratings, 10 down to none"))
+
+    # ---- 05 svgs ------------------------------------------------------------------------
+    picks = ["c-0001", "c-0046"]
+    copied = []
+    for uid in picks:
+        src = ROOT / "book" / "print" / f"{uid}.svg"
+        if src.exists():
+            shutil.copyfile(src, SVGS / f"{uid}.svg")
+            copied.append(uid)
+
+    # ---- 06 code ------------------------------------------------------------------------
+    def excerpt(rel, start, end, note):
+        text_lines = (ROOT / rel).read_text().splitlines()
+        start_i = next((i for i, line in enumerate(text_lines) if start in line), None)
+        end_i = next((i for i, line in enumerate(text_lines) if end in line), None)
+        if start_i is None or end_i is None:
+            return f"### {note}\n\n(file moved: `{rel}`)\n"
+        block = "\n".join(text_lines[start_i:end_i + 1])
+        return (f"### {note}\n\n`{rel}:{start_i + 1}-{end_i + 1}`\n\n"
+                f"```js\n{block}\n```\n")
+
+    code = ["# The code that matters, and where it is", "",
+            "Short excerpts with exact file and line numbers; read the file around them.",
+            "The house rules are in `AGENTS.md` and `senior-dev.md`; the map in `LTMemory-int.md`.",
+            ""]
+    code.append(excerpt("workbench/plate_math.js", "function curvatureWorstSide", "function integrate",
+                        "Which side of a turn folds — the plate's inside/outside rule"))
+    code.append(excerpt("workbench/plate_math.js", "function roundSpikes", "const rotate",
+                        "Rounding a rail's cusp spike"))
+    code.append(excerpt("app/src/lib/glue.js", "export function controls", "// the derivative",
+                        "The glue connector: a cubic whose ends lie on typed slopes"))
+    code.append(excerpt("app/src/lib/class-v.js", "export function archPath", "// side curves for a sampled outline",
+                        "Class V: the arch as one stroke"))
+    code.append(excerpt("scripts/lib/plate-row.mjs", "export function presetWidthPercent", "export function rowFor",
+                        "The plate preset: a measured gap, not a fixed width"))
+    code.append(excerpt("scripts/jobq.py", "def run(", "def main(",
+                        "The workhorse queue: one runner, a lock, one log per job"))
+    (OUT / "06-code.md").write_text("\n".join(code))
+
+    # ---- manifest -----------------------------------------------------------------------
+    manifest = {
+        "format": "curve-lab.ai-news/1",
+        "purpose": "A bootstrap pack for another AI: summaries, plots, a few SVGs, code excerpts, "
+                   "file references, and the pointer to LTMemory. The files themselves are the record.",
+        "reading_order": ["README.md", "00-start-here.md", "01-map.md", "02-recent-work.md",
+                          "03-data.md", "07-questions.md", "08-glossary.md", "06-code.md"],
+        "plots": sorted(p.name for p in PLOTS.glob("*.svg")),
+        "svgs": copied,
+        "curves": len(curves),
+        "measured": len(measured),
+    }
+    (OUT / "manifest.json").write_text(json.dumps(manifest, indent=1) + "\n")
+    total = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file())
+    print(f"ai-news: {len(list(OUT.rglob('*')))} files, {total // 1024} KB")
+
+
+if __name__ == "__main__":
+    main()

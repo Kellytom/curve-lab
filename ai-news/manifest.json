@@ -1,0 +1,26 @@
+{
+ "format": "curve-lab.ai-news/1",
+ "purpose": "A bootstrap pack for another AI: summaries, plots, a few SVGs, code excerpts, file references, and the pointer to LTMemory. The files themselves are the record.",
+ "reading_order": [
+  "README.md",
+  "00-start-here.md",
+  "01-map.md",
+  "02-recent-work.md",
+  "03-data.md",
+  "07-questions.md",
+  "08-glossary.md",
+  "06-code.md"
+ ],
+ "plots": [
+  "families.svg",
+  "grids.svg",
+  "shape-grid.svg",
+  "stars.svg"
+ ],
+ "svgs": [
+  "c-0001",
+  "c-0046"
+ ],
+ "curves": 393,
+ "measured": 262
+}
