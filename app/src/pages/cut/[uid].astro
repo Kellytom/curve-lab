@@ -5,8 +5,18 @@
 // form offers. The cut runs on the server (/api/cut-double), which is the only place that
 // writes a record; this page never cuts by itself.
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { createRequire } from "node:module";
+import path from "node:path";
+import { repoRoot } from "../../lib/gallery.js";
 import { loadRegistry } from "../../lib/registry.ts";
-import { cuspsOf, lineY, turnPoints } from "../../lib/cut-doubles.js";
+import { cuspsOf, lineRuns, lineY, turnPoints } from "../../lib/cut-doubles.js";
+import { bandSvg, frame } from "../../scripts/tune-render.js";
+
+// the one plate maths, read from disk as Node sees it (the same file the plate loads)
+const require = createRequire(import.meta.url);
+const plateFile = path.join(repoRoot(), "workbench", "plate_math.js");
+delete require.cache[require.resolve(plateFile)];
+const PLATE = require(plateFile);
 
 const { uid } = Astro.params;
 const registry = await loadRegistry();
@@ -51,14 +61,35 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" wid
   ${dots}
 </svg>`;
 const suggested = `${record.name}-cut`;
+
+// The two curves the line makes, drawn here: each side's open runs with the same side curves
+// the plate will draw, so the operator sees what he is choosing before saving. This is a view;
+// the save is still the server's.
+const sidePreview = (side) => {
+  const runs = lineRuns(points, side);
+  if (!runs.length) return { svg: "", runs: 0 };
+  const groups = runs.map((run) => {
+    const group = PLATE.pathGroup(run, {
+      widthPercent: 1.5, plus: 2.5, minus: 0.1, profile: "bow",
+    });
+    return group ? group.paths.slice(0, 3) : [run];
+  });
+  const box = frame(groups.flat());
+  return {
+    svg: box ? bandSvg(groups.length === 1 ? groups[0] : groups, box) : "",
+    runs: runs.length,
+  };
+};
+const topHalf = sidePreview("top");
+const bottomHalf = sidePreview("bottom");
 const hasLine = true;
 ---
 
 <BaseLayout title="the cut desk" pageTitle="The cut desk">
   <p class="lead"><b>{record.uid}</b> {record.name} · <a href="/cut/">all the doubles</a> ·
-    <a href={`/tune/${record.uid}`}>tune it</a>. The numbered dots are the cusps the plate marks
-    in blue. A cut keeps the long arc and drops the small lobe the dot closes; the parent stays
-    as it is and the cut is saved beside it.</p>
+    <a href={`/tune/${record.uid}`}>tune it</a>. Two cuts: at a numbered dot, or across the red
+    line — the top and bottom halves are drawn below, with their side curves, before you save.
+    A cut adds a curve beside its parent; the parent stays as it is.</p>
 
   <div class="cut-one">
     <div class="cut-figure" set:html={svg} />
@@ -85,10 +116,27 @@ const hasLine = true;
       <button type="submit">cut and save</button>
       <p class="cut-state" id="cut-state" role="status" aria-live="polite"></p>
       <p class="cut-note">The red dashed line is the horizontal cut: the top or bottom half is
-        kept as open curves, not one closed shape. A cut is a sampled record ({points.length}
-        stored points on the parent); its plate is rebuilt when it saves.</p>
+        kept as open curves, not one closed shape. A cut is a sampled record
+        ({points.length} stored points on the parent); its plate is rebuilt when it saves.</p>
     </form>
   </div>
+
+  <section class="cut-halves">
+    <h2>The two curves the line makes</h2>
+    <div class="cut-halves-grid">
+      <figure class="cut-half">
+        <div set:html={topHalf.svg} />
+        <figcaption>the top half · {topHalf.runs} open curve{topHalf.runs === 1 ? "" : "s"}</figcaption>
+      </figure>
+      <figure class="cut-half">
+        <div set:html={bottomHalf.svg} />
+        <figcaption>the bottom half · {bottomHalf.runs} open curve{bottomHalf.runs === 1 ? "" : "s"}</figcaption>
+      </figure>
+    </div>
+    <p class="cut-note">Each is the original cut at the red line, with the same side curves the
+      plate draws; a side with more than one run is saved as more than one curve. Choose one in
+      the form above to save it.</p>
+  </section>
 </BaseLayout>
 
 <script>
@@ -109,5 +157,12 @@ const hasLine = true;
   .cut-state.bad { color: #9b2c2c; }
   .cut-state.busy { color: #7a6a55; }
   .cut-note { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .cut-halves { margin: 16px 0 0; }
+  .cut-halves h2 { font-size: 1rem; margin: 0 0 6px; }
+  .cut-halves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cut-half { margin: 0; border: 1px solid #e6dccb; background: #fff; padding: 4px; }
+  .cut-half svg { display: block; width: 100%; height: 300px; }
+  .cut-half figcaption { margin-top: 4px; font: 12px/1.4 ui-monospace, Menlo, monospace; color: #6b5b46; }
+  @media (max-width: 720px) { .cut-halves-grid { grid-template-columns: 1fr; } }
   @media (max-width: 860px) { .cut-one { grid-template-columns: 1fr; } }
 </style>

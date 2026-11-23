@@ -55,8 +55,11 @@ are cut at, one curve at a time.
   stored points. Each card is its plate, its uid and name, and how many cusps it has; a curve
   with no cusp is listed and says so.
 - **`/cut/<uid>`** draws the curve once, in the page's first paint, with the cusps numbered in
-  the plate's blue; the form's dot numbers are the picture's numbers. It offers the dot, the
-  arc (long or short), a name, and one button.
+  the plate's blue and the red dashed line across its middle; the form's numbers are the
+  picture's numbers. It offers the dot or the line, the arc or the side, a name, and one
+  button. Under it, **the two curves the line makes** are drawn with their side curves — the
+  top and bottom halves as they would be saved — so the choice is made from the result, not
+  from a description.
 - **The save is the server's.** The page posts to `/api/cut-double`; the record write, the
   database rows, the exports and the plate all happen there, so a page that fails half way
   cannot leave a half-made curve.
