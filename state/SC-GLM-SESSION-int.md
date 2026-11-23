@@ -46,12 +46,13 @@ If you write a different task by hand, keep the same shape — three lines:
 ## The headless fallback (only if you are not at the keyboard)
 
 The agent `~/.config/opencode/agents/glm-scan.md` already carries the task, has
-`edit: deny` and `shell: deny`, and runs from a neutral directory so no
-`AGENTS.md` is loaded:
+`shell: deny`, and runs from a neutral directory so no `AGENTS.md` is loaded. A
+headless run cannot answer a permission prompt, so it needs `--auto` to be
+allowed its one write:
 
 ```sh
-cd "$TMPDIR" && opencode run --agent glm-scan --model opencode-go/glm-5.3 \
-  "Begin the scan now." > deep2/notes/ai-news-scan-glm-5.3.md 2>"$TMPDIR/glm-scan.err"
+cd "$TMPDIR" && opencode run --auto --agent glm-scan --model opencode-go/glm-5.3 \
+  "Run the scan and write the report."
 ```
 
 **Read the model line it prints** — `> <agent> · <model>`. A run that says
