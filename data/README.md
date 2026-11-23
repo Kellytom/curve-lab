@@ -21,7 +21,7 @@ the exporter overwrites the file from the database.
 Every file is an object with `format`, `note`, `count` and `rows`. `rows` is an
 array (or, for `jobs.json`, an object with `sessions` and `jobs`).
 
-### `curves.json` — 272 rows — `curve-lab.data.curves/1`
+### `curves.json` — 403 rows — `curve-lab.data.curves/1`
 
 One object per curve: the `Curve` row, its `Note`, its `CurveSet` and its
 `CurveMetric`, with the formula. The speed rows and polyline stations come from
@@ -109,7 +109,7 @@ inside the JSON.
 
 Lost without it: every keep/later/reject decision on the hybrid desk.
 
-### `metrics.json` — 262 rows — `curve-lab.data.metrics/1`
+### `metrics.json` — 403 rows — `curve-lab.data.metrics/1`
 
 The measurements, one row per measured curve, produced by
 `scripts/analyse_curves.py` — a number here is generated, never typed.
@@ -141,7 +141,7 @@ The measurements, one row per measured curve, produced by
 
 Lost without it: no comparison between curves, and the pages must re-measure.
 
-### `jobs.json` — 3 rows (1 session, 2 jobs) — `curve-lab.data.jobs/1`
+### `jobs.json` — 2 rows (1 session, 2 jobs) — `curve-lab.data.jobs/1`
 
 `sessions`: `id`, `role`, `model`, `state` (`idle`/`working`), `job`, `lastSeen`.
 `jobs`: `id`, `owner`, `files` (JSON array of paths), `state` (`queued`,
@@ -151,7 +151,7 @@ An active job owns its files; a second active job naming the same file is
 refused. Lost without it: nobody can tell who holds a file, and two sessions
 write over each other.
 
-### `messages.json` — 6 rows — `curve-lab.data.messages/1`
+### `messages.json` — 8 rows — `curve-lab.data.messages/1`
 
 The agent bus: `id`, `fromAgent`, `toAgent`, `topic`, `body`, `createdAt`,
 `ackedAt`, `attempts`. Lost without it: the bus history, but not the mailbox

@@ -442,6 +442,29 @@ class MaxCurvatureTest(unittest.TestCase):
                            "a constant placeholder has one value, not fifty")
 
 
+class DataReadmeCountsTest(unittest.TestCase):
+    def test_the_row_counts_in_the_data_readme_are_the_files_own(self):
+        """2026-11-23: four headings in `data/README.md` were stale — curves.json said 272 rows
+        when it held 403, metrics.json 262 when it held 403. A count in a table is read as a
+        fact, so it is checked against the file."""
+        import re
+        text = (ROOT / "data" / "README.md").read_text()
+        checked = 0
+        for match in re.finditer(r"### `([^`]+)` — ([\d,]+) rows", text):
+            name = match.group(1)
+            stated = int(match.group(2).replace(",", ""))
+            path = ROOT / "data" / name
+            if not path.exists():
+                continue
+            data = json.loads(path.read_text())
+            rows = data.get("curves") or data.get("candidates") or data.get("rows") or []
+            if not isinstance(rows, list) or not rows:
+                continue
+            self.assertEqual(stated, len(rows), f"data/README.md says {name} has {stated} rows")
+            checked += 1
+        self.assertGreaterEqual(checked, 4, "the counts stopped being readable")
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at
