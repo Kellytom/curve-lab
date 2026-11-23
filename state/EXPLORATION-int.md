@@ -145,13 +145,33 @@ row-based search can reach them.
 and see whether the cell fills. If it does not, the cell may be arithmetically
 empty — which is a result worth writing down.
 
-**Run 2026-11-23:** `.venv/bin/python scripts/parametric_search.py --cell 0,4 --n 600`
-found **0** candidates in the cell (0 crossing pairs, 4 inflections) out of 600.
-The `--cell C,I` option scans every candidate with the exact core, not only the
-2+ crossing winners. This is a sample of one family, not a proof: the family's
-low terms are turned, so it mostly makes loops. Next: a graph-shaped family
-(real coefficients, degree 5 and up) is the natural one for 0 crossings with 4
-inflections; 600 random draws of the looping family is not the test.
+**Run 2026-11-23:** three answers, in order.
+
+1. `parametric_search.py --cell 0,4 --n 600` (the looping family): **0 of 600**.
+2. `--family graph --cell 0,4 --n 600` (y = p(t), x = t, small whole coefficients):
+   **0 of 600**; the measured inflections in (0, 1) never went above 3.
+3. **The cell fills, by construction.** Take `p''(t) = (t − 1/10)(t − 3/10)(t − 1/2)
+   (t − 7/10)(t − 2)` — four roots inside (0, 1), one outside — and integrate twice
+   with zero constant and linear terms:
+
+       x = t
+       y = t²·(−21/2000) + t³·(29/480) + t⁴·(−79/500) + t⁵·(203/1000) + t⁶·(−3/25) + t⁷·(1/42)
+
+   `curve_lab/measure.py` reads **4 inflections**, grid 2162160000000, bend 1.0000
+   (a graph), and x = t is monotone so the crossing count is **0**. The cell is
+   empty in the collection, not in the arithmetic.
+
+**What that means.** The empty cells are empty because no record has those numbers,
+not because the shape is impossible. Adding this graph would fill (0, 4) with a
+plain polynomial, which is not a plant form — so the question for the operator is
+whether a cell is worth filling with a shape that carries no design idea. A better
+test is whether a *family we want* (a stem, a petal) can be pushed into the cell.
+
+**Tool notes.** `--cell C,I` scans every candidate with the exact core, not only the
+2+ crossing winners; `--family graph` draws y = p(t), x = t. Crossings are counted
+on t ∈ [−1, 1] and inflections are read in (0, 1) by `measure.inflections`, so the
+two numbers describe the same curve but not the same parameter window — worth
+remembering when a cell match looks surprising.
 
 ---
 

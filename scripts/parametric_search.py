@@ -133,23 +133,36 @@ def main(argv=None) -> int:
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--cell", default=None,
                         help="C,I: keep only candidates with exactly C crossing pairs and I inflections")
+    parser.add_argument("--family", choices=["loop", "graph"], default="loop",
+                        help="loop: the turned-coefficient family; graph: y = p(t), x = t, for low crossings")
     args = parser.parse_args(argv)
 
     rng = random.Random(7)
     pool = []
-    for _ in range(args.n):
-        degree = rng.choice([5, 7, 7, 9])
-        terms = []
-        # one real low term, one turned term, and a tail: the shape that loops
-        terms.append((1, rng.choice([-1, 1]), 0))
-        terms.append((rng.choice([3, 5]), rng.choice([-2, -1, 1, 2]), 0))
-        terms.append((rng.choice([4, 6]), rng.choice([-1, 1]), 0))
-        power = rng.choice([5, 6, 7, 8, 9])
-        terms.append((power, 0, rng.choice([-2, -1, 1, 2])))
-        if degree == 9 and rng.random() < 0.5:
-            terms.append((rng.choice([8, 9]), 0, rng.choice([-1, 1])))
-        x, y = complex_rows(terms)
-        pool.append({"terms": terms, "x": x, "y": y})
+    if args.family == "graph":
+        # A graph cannot cross itself: x = t is monotone, so the crossing count is 0 by
+        # construction. Inflections are the roots of p''; a degree-7 p has p'' of degree 5, so
+        # four roots are reachable. This family is the honest test of a (0, I) cell.
+        for _ in range(args.n):
+            degree = rng.choice([5, 7, 7, 9])
+            y = [0.0] * (degree + 1)
+            for power in range(2, degree + 1):
+                y[power] = rng.choice([-2, -1, -0.5, 0.5, 1, 2])
+            pool.append({"terms": [], "x": [0.0, 1.0], "y": y, "graph": True})
+    else:
+        for _ in range(args.n):
+            degree = rng.choice([5, 7, 7, 9])
+            terms = []
+            # one real low term, one turned term, and a tail: the shape that loops
+            terms.append((1, rng.choice([-1, 1]), 0))
+            terms.append((rng.choice([3, 5]), rng.choice([-2, -1, 1, 2]), 0))
+            terms.append((rng.choice([4, 6]), rng.choice([-1, 1]), 0))
+            power = rng.choice([5, 6, 7, 8, 9])
+            terms.append((power, 0, rng.choice([-2, -1, 1, 2])))
+            if degree == 9 and rng.random() < 0.5:
+                terms.append((rng.choice([8, 9]), 0, rng.choice([-1, 1])))
+            x, y = complex_rows(terms)
+            pool.append({"terms": terms, "x": x, "y": y})
 
     for candidate in pool:
         candidate.update(score(candidate))
