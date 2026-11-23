@@ -18,10 +18,26 @@ model Curve {
   aliases   String  // JSON array of former names
   starred   Boolean @default(false)
   candidate Boolean @default(false)
+  status    String  @default("kept")     // kept, in-progress, temporary
+  pngIgnored Boolean @default(true)      // its plate and figure PNG stay out of git
   createdAt DateTime @default(now())
   note      Note?
   metric    CurveMetric?
   sets      CurveSet[]
+}
+
+// A curve that lives on a study page only, not in the collection: a proposal, a variation, a
+// sandbox piece. It is still a database row, with the same two flags, so no figure escapes the
+// rule (operator, 2026-11-23: "make sure even the temporary or in progress curves are in the
+// database labeled as such").
+model Study {
+  uid        String   @id
+  name       String
+  page       String   // the page it appears on, e.g. /extra-curves/ or workbench/side-tests.html
+  status     String   @default("in-progress")  // proposed, in-progress, temporary
+  pngIgnored Boolean  @default(true)
+  note       String?
+  createdAt  DateTime @default(now())
 }
 
 model Note {

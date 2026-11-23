@@ -109,6 +109,11 @@ app/public/ornaments/
 # the uncompressed RGBA plates, served for the compare desks only
 app/public/plates-rgba/
 
+# plate and figure renders are derived: the records, the generator and the index are in git.
+# A curve can keep its PNG in git with pngIgnored=false (scripts/curve_pngs_git.mjs adds it).
+app/public/plates-web/*.png
+app/public/figures/*.png
+
 # the operator's own chat history, for /said/ only
 data/said.json
 data/said-deep2.json

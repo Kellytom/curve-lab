@@ -365,6 +365,24 @@ class SaidRollTest(unittest.TestCase):
             self.skipTest("the /said/ histories and their rolls are local only")
 
 
+class CurveFlagsTest(unittest.TestCase):
+    def test_every_curve_has_a_status_and_its_png_follows_the_flag(self):
+        """The operator, 2026-11-23: "put a flag in the database for every curve that indicates
+        whether its png should be git ignored... and then make sure they are", and "make sure
+        even the temporary or in progress curves are in the database labeled as such". Three
+        checks: every page curve is a Curve or Study row with a known status
+        (`check_page_curves.mjs`), every plate and figure PNG is tracked exactly when its row
+        says `pngIgnored: false` (`curve_pngs_git.mjs`), and the study rows are registered
+        (`register_studies.mjs`)."""
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        for script in ("register_studies.mjs", "curve_pngs_git.mjs", "check_page_curves.mjs"):
+            run = subprocess.run([node, str(ROOT / "scripts" / script)],
+                                 capture_output=True, text=True, cwd=ROOT)
+            self.assertEqual(0, run.returncode, f"{script}:\n{run.stdout}{run.stderr}")
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at

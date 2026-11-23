@@ -1095,8 +1095,9 @@ EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
 - **The side curve is the per-construction partner.** A parallel offset is not the general
   route: it is too mechanical, and at high curvature it is where an offset is least valid
   (the normal changes fastest, and the edge wobbles or folds).
-- **Exceptions:** scrollwork, and a short list of select cases the operator will name. Only
-  there may a parallel rail stay.
+- **Exceptions: none in the current set** (operator, 2026-11-23). Scrollwork was the example, but
+  no selected curve needs a parallel curve; the parallel route is kept for special diagram plates
+  only — see *A parallel rail is for a special diagram* below.
 - **The character/width rails are legacy on the general set.** The plates and the tune page
   keep them only as a labelled reference until each family's partner rule lands. Nothing is
   stripped from the curated book plates silently; the migration is per family.
@@ -1114,3 +1115,37 @@ EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
 - **The row family's parameter is the speed scale.** The 212 row curves are PH in the speed
   pair (u, v); scaling the speed by (1 ∓ d) scales the position by (1 ∓ d)² about the origin —
   the same construction, one parameter, no offset. `c-0001` is the sandbox's worked row.
+
+## A parallel rail is for a special diagram, not the set — 2026-11-23
+
+The operator: "none of the curves selected so far technically need parallel curves. we solved
+that and it is stored in grid-8 or somewhere, and will only call that up when we need a special
+diagram, eg jesus reading a scroll in the temple for the 5th joyful mystery: not jesus, but the
+scroll, the temple, and other signs that indicate the mystery.. that is coming...."
+
+- **The set is closed on parallel.** No curve among the selected 393 takes a parallel side curve;
+  the select list is empty. The character band stays as the labelled legacy reference until each
+  family's partner rule lands (see *Side curves are per-construction partners*).
+- **The method is solved and stored elsewhere.** The operator names the `grid-8` project
+  (`~/developer/grid-8`) as where the parallel-curve solution lives. Read it there when a diagram
+  needs one; do not rebuild it here.
+- **The use is diagrammatic, not decorative.** A special plate states the mystery through its
+  objects — the scroll, the temple, the signs — not the figure. That set is still to come.
+
+## The PNG flag and the study labels (2026-11-23)
+
+The operator asked for a flag on every curve saying whether its PNG should be gitignored, and
+for the temporary and in-progress curves to be database rows with a label.
+
+- **`Curve.pngIgnored` (default true)** — the plate and figure PNGs are derived; the record, the
+  generator and the index are the record. `scripts/curve_pngs_git.mjs` makes git follow the flag:
+  an ignored PNG is untracked (`git rm --cached`), a kept PNG is force-added. A PNG with no row
+  is a fault, so no figure can escape the rule.
+- **`Curve.status`** (kept / in-progress / temporary / proposed) and **`Study`** for a curve
+  that lives on a study page only. A study names its page, so `/extra-curves/` proposals and the
+  Tschirnhausen pieces on `workbench/side-tests.html` are rows, not loose drawings.
+- **Why the study table and not fake records.** A proposed curve has no stored geometry; putting
+  it in the collection would make it a plate. The Study row carries the label and the flag, which
+  is what the operator asked for, and leaves the collection honest.
+- **Measured when it landed:** 394 curves, 17 studies; 764 PNGs untracked, 766 on disk; the
+  register's `CurveFlagsTest` runs all three checks.
