@@ -14,28 +14,26 @@ The sequence below is the whole shape. Steps 1 and 7 are DeepSeek; 2–5 are GLM
 | 1 | `/shandoff` | the current DeepSeek session | commits the work, writes `state/SC-HANDOFF-int.md` and `next-shandoff-int.md`. Nothing is left living only in the context you are about to drop. |
 | 2 | `/new` | — | an empty context. Do this **before** changing the model, so GLM's first turn is the task and not a 40,000-token history. |
 | 3 | model picker → `opencode-go/glm-5.3` | the new session | `glm-5.3-flash` is the cheaper pass. An agent file's `model:` line is **not** enough: the TUI picker (or `--model` on a command) is what sets it. |
-| 4 | paste the task | GLM session | one self-contained message. `deep2/notes/glm-ai-news-task.md` is already written that way. |
-| 5 | copy the answer out, then `/new` | GLM session | the answer is the value; the context is now the expensive part. `/new` does not delete the old session, it just never reads it again — so save the answer to a file the next session opens. |
-| 6 | `/sfocus` | DeepSeek | moves the session to the repo, runs the register, reads `state/SC-HANDOFF-int.md`, `state/SCToDo-int.md`, `state/SCmemory-int.md` and `next-shandoff-int.md`, and restates one action. |
+| 4 | one line: `run the scan and write the report` | GLM session | no paste: the task and the output path are already in `~/.config/opencode/agents/glm-scan.md`. Choose that agent (`--agent glm-scan` on a command, or the agent picker) so the short line is enough. |
+| 5 | let GLM write the md, approve it once, then `/new` | GLM session | GLM writes `deep2/notes/ai-news-scan-glm-5.3.md` itself; the permission prompt is the review. No copying. |
+| 6 | model picker → back to `deepseek-v4.1-flash`, then `/sfocus` | DeepSeek | `/new` keeps the last model, so switch back first. Then: move to the repo, run the register, read `state/SC-HANDOFF-int.md`, `state/SCToDo-int.md`, `state/SCmemory-int.md` and `next-shandoff-int.md`, restate one action. |
 | 7 | `/shandoff` | DeepSeek | writes the handoff again, now with whatever the GLM answer changed. |
 
-## What to paste at step 4
+## What to type at step 4
 
-The task file, unchanged and whole:
+    run the scan and write the report
 
-```
-deep2/notes/glm-ai-news-task.md
-```
+That is all. The task text and the output path both live in
+`~/.config/opencode/agents/glm-scan.md`, so nothing is pasted and no repo file is
+read: a GLM turn that opens one project file pays for that file on every later
+turn.
 
-Its own opening says it is self-contained and needs no project context, and that
-is the point: a GLM turn that reads one repo file pays for that file on every
-later turn. Paste it; do not tell GLM to go and open it.
+If you write a different task by hand, keep the same shape — three lines:
 
-If you write a task by hand, keep the same shape — three lines:
-
-1. what to do, with a budget ("at most 15 searches, 30 minutes");
+1. what to do, with a budget ("at most 15 searches, 30 minutes") and the exact
+   path to write;
 2. what the project is, in one paragraph;
-3. the exact output format, and "do not edit any project file".
+3. the output format, and "write nothing except that file".
 
 ## Where the answers land
 
@@ -45,7 +43,7 @@ If you write a task by hand, keep the same shape — three lines:
 | `deep2/notes/ai-news-scan-deepseek-review.md` | the finished scan on `deepseek-v4.1-flash`, 13:22 today — the baseline to compare GLM against |
 | `deep2/notes/ai-news-scan-glm-5.3.md` | where the GLM answer goes (paste it, or redirect the headless run) |
 
-## The same run without typing, in one command
+## The headless fallback (only if you are not at the keyboard)
 
 The agent `~/.config/opencode/agents/glm-scan.md` already carries the task, has
 `edit: deny` and `shell: deny`, and runs from a neutral directory so no
@@ -66,17 +64,18 @@ review.
 - **A GLM session never runs `/sfocus`.** That reads five files and the register.
 - **One run, one question.** A follow-up in the same session re-reads the whole
   prefix; `/new` plus a short prompt is cheaper, even though it looks wasteful.
-- **GLM returns text, not diffs.** No edits: a write is a diff that you then pay
-  to re-read, and it is a change nobody senior has reviewed.
+- **GLM writes exactly one file — its report.** Not a diff, not a second note:
+  one `write` call to the path you named. Anything else is a change nobody
+  senior has reviewed, and it costs tokens to re-read.
 - **Nothing survives the session.** The old session is not deleted — it is on
   disk and `opencode session list` / `opencode session export` still reach it —
   but the next session never reads it, and it is not a project file. The answer
   has to be in a file the next session opens (`deep2/notes/…`), or it is lost to
   the work even though it still exists on disk.
-- **The scan agent cannot save by itself**: `edit: deny`, `shell: deny`, cwd
-  `$TMPDIR`. That is deliberate — a GLM write is a diff nobody senior has
-  reviewed, and it also pays to re-read what it wrote. So the answer is copied
-  out, or redirected with `>`, by you.
-- **If you run GLM in the TUI as a normal agent**, it *can* write a file. Then
-  the rule changes from "copy it out" to "commit it, or the write is
-  uncommitted and the next `/sfocus` sees a dirty tree".
+- **The run is interactive, on purpose.** You are at the keyboard, so the one
+  `write` prompt is the approval step; `--auto` is unnecessary and was the wrong
+  turn on 2026-11-23. A headless run *cannot* answer that prompt, so it must be
+  given `--auto` — which is why the headless route is the fallback, not the
+  default.
+- **The written file is untracked until you commit it.** Left alone, the next
+  `/sfocus` sees a dirty tree and two agents see a file only one of them wrote.
