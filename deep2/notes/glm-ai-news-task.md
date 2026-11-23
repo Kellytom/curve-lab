@@ -10,6 +10,12 @@ project files.*
 one project.** Spend at most ~30 minutes and ~15 searches/fetches. Quality of
 judgement beats coverage.
 
+**Use plain English throughout.** Short sentences, everyday words, one idea
+per sentence. If a sentence needs a diagram to parse, rewrite it. A technical
+term is allowed only when it is the name of something real, and then it is
+defined in the same breath. No hype words ("robust", "seamless", "powerful",
+"game-changing") — say what the thing does.
+
 **The project, in one paragraph:** a private lab building *exact* mathematical
 curves (integer/rational coefficients, no floating point in the record) for
 ornament design — Christian iconography and plant-form ornament — rendered as
