@@ -122,6 +122,22 @@ function halves(points) {
   return { left, right };
 }
 
+// A record may hold several branches joined end to start. Drawn as one polyline they make a
+// chord across the shape, so a jump bigger than 2 % of the curve's size is a break.
+function splitBranches(points) {
+  const xs = points.map((p) => p[0]), ys = points.map((p) => p[1]);
+  const size = Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) || 1;
+  const runs = [];
+  let run = [points[0]];
+  for (let i = 1; i < points.length; i += 1) {
+    const [x0, y0] = points[i - 1], [x1, y1] = points[i];
+    if (Math.hypot(x1 - x0, y1 - y0) > 0.02 * size) { runs.push(run); run = [points[i]]; }
+    else run.push(points[i]);
+  }
+  runs.push(run);
+  return runs.filter((line) => line.length > 2);
+}
+
 function plateSvg(record) {
   const row = rowFor(record, extra);
   const degrees = Number(record.transform?.degrees || 0);
@@ -145,6 +161,19 @@ function plateSvg(record) {
   // to buckle, and i will manually adjust"). The guard already answers that: the band is cut
   // to the largest width that does not fold, and the tuning page names the cut.
   if (Array.isArray(record.path) && record.path.length > 2) {
+    const branches = splitBranches(record.path);
+    if (branches.length > 1) {
+      segments = branches.map((branch) => {
+        const group = PLATE.pathGroup(branch, {
+          widthPercent, plus: strength, minus: strength, profile: row.character.profile,
+        });
+        return group && group.paths.length
+          ? { spine: group.paths[0], rails: group.paths.slice(1) }
+          : { spine: branch, rails: [] };
+      });
+    }
+  }
+  if (!segments.length && Array.isArray(record.path) && record.path.length > 2) {
     const group = PLATE.pathGroup(record.path, {
       widthPercent, plus: strength, minus: strength,
       profile: row.character.profile,
@@ -154,7 +183,7 @@ function plateSvg(record) {
     } else {
       segments = [{ spine: record.path.map(([x, y]) => [x, y]), rails: [] }];
     }
-  } else {
+  } else if (!segments.length) {
     let group = null;
     try { group = PLATE.group ? PLATE.group({ ...row, width: { percent: widthPercent }, character }) : null; } catch { group = null; }
     if (group && group.paths && group.paths.length > 1) {
