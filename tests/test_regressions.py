@@ -465,6 +465,20 @@ class DataReadmeCountsTest(unittest.TestCase):
         self.assertGreaterEqual(checked, 4, "the counts stopped being readable")
 
 
+class RenderLockTest(unittest.TestCase):
+    def test_two_renders_never_write_the_index_at_once(self):
+        """2026-11-23: the save renders in a detached child, so two quick saves can overlap and
+        each would merge the same index from a stale read — the fault register 29 records. The
+        lock directory serialises them; this runs the node test that holds two jobs open."""
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "render-lock.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at

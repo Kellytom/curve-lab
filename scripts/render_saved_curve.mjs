@@ -7,12 +7,14 @@
 // for minutes and the operator reported, twice, that there was no way to save the cut curves
 // (2026-11-23). The record is written before this runs; a failed render is logged, not lost.
 // The dev server reloads when the files land, which is harmless: the page is already showing
-// the saved banner.
+// the saved banner. One run at a time: two saves rendering at once would each merge the
+// figure index from a stale read (scripts/lib/render-lock.mjs).
 
 import { execFile } from "node:child_process";
 import { appendFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { promisify } from "node:util";
+import { withLock } from "./lib/render-lock.mjs";
 
 const run = promisify(execFile);
 const ROOT = path.resolve(import.meta.dirname, "..");
@@ -33,12 +35,20 @@ const note = (line) => {
 const cleanEnv = { ...process.env };
 delete cleanEnv.CURVE_LAB_ROOT;
 
-for (const script of ["print_plates.mjs", "curve_pngs.mjs"]) {
-  try {
-    await run(process.execPath, [path.join(ROOT, "scripts", script), "--only", uid],
-      { cwd: ROOT, timeout: 240000, env: cleanEnv });
-    note(`${script} ok`);
-  } catch (error) {
-    note(`${script} failed: ${String(error.message || error).slice(0, 300)}`);
-  }
+// One render at a time: the plate and figure indexes are merged, not replaced, so two saves
+// rendering at once would each read the old list and the second would drop the first's entry.
+try {
+  await withLock(path.join(ROOT, "state", "jobs", "render.lock"), async () => {
+    for (const script of ["print_plates.mjs", "curve_pngs.mjs"]) {
+      try {
+        await run(process.execPath, [path.join(ROOT, "scripts", script), "--only", uid],
+          { cwd: ROOT, timeout: 240000, env: cleanEnv });
+        note(`${script} ok`);
+      } catch (error) {
+        note(`${script} failed: ${String(error.message || error).slice(0, 300)}`);
+      }
+    }
+  });
+} catch (error) {
+  note(`lock failed: ${String(error.message || error).slice(0, 300)}`);
 }
