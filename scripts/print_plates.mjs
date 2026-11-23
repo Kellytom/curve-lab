@@ -259,7 +259,11 @@ function plateSvg(record) {
   const [y0, y1] = d3.extent(all, (p) => p[1]);
   const w = x1 - x0 || 1, h = y1 - y0 || 1;
   const long = Math.max(w, h);
-  const margin = 0.012 * long;
+  const isWonkDouble = /^double-/i.test(record.name || "");
+  // A cusp dot is deliberately larger than the working dots (three times, 2026-11-23) and it
+  // sits at the cusp, which is often the outermost station: the margin must carry its radius,
+  // or the dot is clipped by the canvas edge.
+  const margin = 0.012 * long + (isWonkDouble ? 0.055 * long : 0);
   const boxW = w + 2 * margin, boxH = h + 2 * margin;
   const scale = LONG_SIDE / Math.max(boxW, boxH);      // the canvas long side is exactly 3000
   const pxW = Math.round(boxW * scale);
@@ -317,7 +321,6 @@ function plateSvg(record) {
   // light grey, so a grey print sees a neutral grey, not a dark spot. #7290c0 -> 141, the same
   // as #8d8d8d. Detection is on the source stations, before the plate's smoothing, or a cusp is
   // rounded away and never seen.
-  const isWonkDouble = /^double-/i.test(record.name || "");
   const cuspPoints = [];
   if (isWonkDouble) {
     const source = Array.isArray(record.path) && record.path.length > 2
@@ -352,7 +355,10 @@ function plateSvg(record) {
   const cuspDots = cuspPoints.map(([x, y]) => {
     const turned = turn([[x, y]], degrees)[0];
     const [cx, cy] = px(turned);
-    const r = Math.max(6, 0.017 * LONG_SIDE);
+    // A cusp dot is three times the working-dot size (operator, 2026-11-23: "make those dots
+    // triple that size"): at 3000 px it is 153 px across, large enough to read as a deliberate
+    // stop at the cusp rather than a spot.
+    const r = Math.max(18, 0.051 * LONG_SIDE);
     return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="#7290c0" fill-opacity="0.85"/>`;
   }).join("");
   const endLines = coincident
