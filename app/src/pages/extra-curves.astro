@@ -85,6 +85,34 @@ for (const cell of emptyCells) {
     ))}
   </div>
 
+  <h2>Loop ends · append a loop to a leg</h2>
+  <p class="note">A curve like Tschirnhausen ends in a loop. These are the family
+    <code>x = t² − c, y = t(t² − c)</code>: <code>c</code> sets the loop's size, the tail stays
+    the same shape. The slider turns the loop to the leg's angle — a rotation changes a
+    tangent's direction and never its length, so the join is exact at every angle. Set the
+    slider to the angle a leg leaves at and the loop continues it without a kink.</p>
+  <div class="loop-lab">
+    <div id="loop-preview" class="loop-preview"></div>
+    <div class="loop-controls">
+      <label>leg angle <input id="loop-angle" type="range" min="-90" max="90" step="0.5" value="60" />
+        <output id="loop-angle-out">60.0°</output></label>
+      <label>loop size <input id="loop-size" type="range" min="0.3" max="2" step="0.05" value="1" />
+        <output id="loop-size-out">1.00×</output></label>
+      <label>tail <input id="loop-tail" type="range" min="0.2" max="3" step="0.05" value="1" />
+        <output id="loop-tail-out">1.00</output></label>
+      <label>or type the angle <input id="loop-angle-type" type="number" min="-90" max="90" step="0.5" value="60" />
+        <button type="button" id="loop-apply">set</button></label>
+    </div>
+  </div>
+  <div class="gaps">
+    {["loop-end-small", "loop-end", "loop-end-large", "loop-end-mirror"].map((slug) => (
+      <article class="gap">
+        <img class="thumb" src={`/extra-curves/${slug}.svg`} alt={slug} loading="lazy" />
+        <h3>{slug}</h3>
+      </article>
+    ))}
+  </div>
+
   <h2>The empty crossing × inflection cells · {count.emptyCells}</h2>
   <p class="note">A <b>crossing pair</b> is two parameters t₁ &lt; t₂ where the stroke passes
     through the same place (three passes through one point count as three pairs). An
@@ -117,6 +145,28 @@ for (const cell of emptyCells) {
   </ul>
 </BaseLayout>
 
+<script>
+  import { mount } from "../scripts/loop-join.js";
+
+  const host = document.getElementById("loop-preview");
+  const controls = {
+    angle: document.getElementById("loop-angle"),
+    size: document.getElementById("loop-size"),
+    tail: document.getElementById("loop-tail"),
+    angleOut: document.getElementById("loop-angle-out"),
+    sizeOut: document.getElementById("loop-size-out"),
+    tailOut: document.getElementById("loop-tail-out"),
+  };
+  const lab = mount(host, controls);
+  const typed = document.getElementById("loop-angle-type");
+  document.getElementById("loop-apply").addEventListener("click", () => {
+    const value = Number(typed.value);
+    if (!Number.isFinite(value)) return;
+    controls.angle.value = String(Math.max(-90, Math.min(90, value)));
+    lab.repaint();
+  });
+</script>
+
 <style is:global>
   .lead { font-size: 17px; line-height: 1.6; color: #3c352c; max-width: 70ch; }
   .note { font-size: 14px; line-height: 1.6; color: #6b5d49; max-width: 70ch; }
@@ -134,4 +184,13 @@ for (const cell of emptyCells) {
   .cells { border-collapse: collapse; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 10px 0 26px; }
   .cells th, .cells td { padding: 4px 14px 4px 0; text-align: left; border-bottom: 1px solid #eee3d3; }
   .families { columns: 2; font-size: 14px; line-height: 1.7; }
+  .loop-lab { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 16px; align-items: start; margin: 12px 0 18px; }
+  .loop-preview { border: 1px solid #e6dccb; background: #fff; }
+  .loop-preview svg { display: block; width: 100%; height: auto; }
+  .loop-controls { display: grid; gap: 8px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  .loop-controls label { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr) 3rem; gap: 6px; align-items: center; }
+  .loop-controls label:nth-child(4) { grid-template-columns: 6.5rem 4rem auto; }
+  .loop-controls button { padding: 2px 10px; white-space: nowrap; }
+  .loop-controls input[type="range"] { width: 100%; }
+  @media (max-width: 760px) { .loop-lab { grid-template-columns: minmax(0, 1fr); } }
 </style>
