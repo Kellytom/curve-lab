@@ -160,7 +160,19 @@ function plateSvg(record) {
   // just keep the side curves with tight thin, but as thick as reasonable until they start
   // to buckle, and i will manually adjust"). The guard already answers that: the band is cut
   // to the largest width that does not fold, and the tuning page names the cut.
-  if (Array.isArray(record.path) && record.path.length > 2) {
+  // a record that carries its branches separately gets one stroke per branch, which is what
+  // the curve actually is; the single path stays for readers that expect it
+  if (Array.isArray(record.branches) && record.branches.length > 1) {
+    segments = record.branches.map((branch) => {
+      const group = PLATE.pathGroup(branch, {
+        widthPercent, plus: strength, minus: strength, profile: row.character.profile,
+      });
+      return group && group.paths.length
+        ? { spine: group.paths[0], rails: group.paths.slice(1) }
+        : { spine: branch.map(([x, y]) => [x, y]), rails: [] };
+    });
+  }
+  if (!segments.length && Array.isArray(record.path) && record.path.length > 2) {
     const branches = splitBranches(record.path);
     if (branches.length > 1) {
       segments = branches.map((branch) => {
