@@ -1,0 +1,47 @@
+---
+// Class V: the gothic arch from a halved Tschirnhausen. Spec: state/SPEC-class-v-int.md.
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="class V" pageTitle="Class V — the arch">
+  <p class="lead">Half a Tschirnhausen, trimmed at each end and mirrored, joined at the tip:
+    a pointed arch. The trim takes a share of the half's length off each end — a quarter at
+    most — and the two halves meet at the top. The apex angle and the foot spread are printed
+    so a row of these can be spaced without guesswork.</p>
+
+  <div class="v-lab">
+    <div id="v-preview" class="v-preview"></div>
+    <div class="v-controls">
+      <label>trim <input id="v-trim" type="range" min="0" max="25" step="1" value="10" />
+        <output id="v-trim-out">10 %</output></label>
+      <label>length <input id="v-to" type="range" min="1.2" max="4" step="0.1" value="2.4" />
+        <output id="v-to-out">2.4</output></label>
+      <label>join <select id="v-join">
+        <option value="tip">at the tip (pointed)</option>
+        <option value="node">at the node (round)</option>
+      </select></label>
+      <label class="v-check"><input id="v-bandon" type="checkbox" checked /> side curves</label>
+      <label>band <input id="v-band" type="range" min="0.5" max="6" step="0.1" value="2" />
+        <output id="v-band-out">2.0 %</output></label>
+      <label class="v-check"><input id="v-ghost" type="checkbox" checked /> show the whole Tschirnhausen</label>
+      <p class="v-note" id="v-readout"></p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import "../scripts/class-v-sandbox.js";
+</script>
+
+<style is:global>
+  .v-lab { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: start; margin: 12px 0 18px; }
+  .v-preview { border: 1px solid #e6dccb; background: #fff; }
+  .v-preview svg { display: block; width: 100%; height: auto; }
+  .v-controls { display: grid; gap: 8px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  .v-controls label { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) 3.2rem; gap: 6px; align-items: center; }
+  .v-controls select { min-width: 9rem; }
+  .v-controls .v-check { grid-template-columns: auto 1fr; }
+  .v-controls input[type="range"] { width: 100%; }
+  .v-note { grid-column: 1 / -1; margin: 6px 0 0; color: #5a4a36; line-height: 1.6; }
+  @media (max-width: 760px) { .v-lab { grid-template-columns: minmax(0, 1fr); } }
+</style>

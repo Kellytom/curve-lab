@@ -267,10 +267,10 @@ function plateSvg(record) {
   const coincident = Math.hypot(endX - startX, endY - startY) < marker * 1.5;
   const endLines = coincident
     ? `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${(marker * 1.7).toFixed(1)}" ` +
-      `fill="none" stroke="#1e7a3c" stroke-width="${(marker * 0.55).toFixed(1)}"/>` +
+      `fill="none" stroke="#e8890c" stroke-width="${(marker * 0.55).toFixed(1)}"/>` +
       `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#1f5fbf"/>`
     : `<circle cx="${startX.toFixed(1)}" cy="${startY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#1f5fbf"/>` +
-      `<circle cx="${endX.toFixed(1)}" cy="${endY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#1e7a3c"/>`;
+      `<circle cx="${endX.toFixed(1)}" cy="${endY.toFixed(1)}" r="${marker.toFixed(1)}" fill="#e8890c"/>`;
   const body = singleTone
     ? [bands, railLines, spineLeft, dotLines, endLines].join("")
     : [
