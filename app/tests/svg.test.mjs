@@ -1,7 +1,7 @@
 // The SVG text layer's tests, pinned to curve_lab/svg.py's laws.
 import assert from "node:assert/strict";
 import test from "node:test";
-import { bbox, escapeXml, gridLines, gridStep, metadataDesign, parseD, pathD, slug, spanEval, svgNum } from "../src/lib/svg.ts";
+import { bbox, catmullRomD, escapeXml, gridLines, gridStep, metadataDesign, parseD, pathD, slug, spanEval, svgNum } from "../src/lib/svg.ts";
 
 const span = { p0: [0, 0], c1: [1, 2], c2: [3, 2], p3: [4, 0] };
 
@@ -45,6 +45,17 @@ test("the grid lines run through every multiple of the step, on both axes", () =
   assert.equal(lines.length, 6);
   assert.ok(lines[0].includes('x1="0.000"'));
   assert.ok(lines[0].includes('stroke="#ece4cf"'));
+});
+
+test("a Catmull-Rom chain passes through its points with cubic spans", () => {
+  const points = [[0, 0], [1, 1], [2, 0], [3, -1]];
+  const d = catmullRomD(points);
+  assert.ok(d.startsWith("M 0 0 C "));
+  assert.equal((d.match(/C /g) || []).length, 3); // one span per segment
+  // the curve passes through every inner point (the endpoint of each span)
+  const parsed = parseD(d);
+  assert.deepEqual(parsed[1].values.slice(4, 6), [1, 1]);
+  assert.deepEqual(parsed[2].values.slice(4, 6), [2, 0]);
 });
 
 test("the bounding box counts control points (the writer's own rule)", () => {

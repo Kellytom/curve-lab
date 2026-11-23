@@ -114,6 +114,39 @@ export function parseD(d: string): Array<{ command: string; values: number[] }> 
   return out;
 }
 
+/** A Catmull-Rom cubic chain through the points: the house drawing rule for
+ * a plotted sequence (exact stations, cubic spans between them). Central
+ * differences give the tangents; the ends use one-sided ones. */
+export function catmullRomD(points: Point[], prec = 3): string {
+  if (points.length < 2) throw new Error("a chain needs at least two points");
+  const tangent = (k: number): Point => {
+    if (k === 0) return [points[1][0] - points[0][0], points[1][1] - points[0][1]];
+    if (k === points.length - 1) {
+      const n = points.length;
+      return [points[n - 1][0] - points[n - 2][0], points[n - 1][1] - points[n - 2][1]];
+    }
+    return [
+      (points[k + 1][0] - points[k - 1][0]) / 2,
+      (points[k + 1][1] - points[k - 1][1]) / 2,
+    ];
+  };
+  const parts = [`M ${svgNum(points[0][0], prec)} ${svgNum(points[0][1], prec)}`];
+  for (let k = 0; k < points.length - 1; k += 1) {
+    const p0 = points[k];
+    const p3 = points[k + 1];
+    const m0 = tangent(k);
+    const m1 = tangent(k + 1);
+    const c1: Point = [p0[0] + m0[0] / 3, p0[1] + m0[1] / 3];
+    const c2: Point = [p3[0] - m1[0] / 3, p3[1] - m1[1] / 3];
+    parts.push(
+      `C ${svgNum(c1[0], prec)} ${svgNum(c1[1], prec)} ` +
+        `${svgNum(c2[0], prec)} ${svgNum(c2[1], prec)} ` +
+        `${svgNum(p3[0], prec)} ${svgNum(p3[1], prec)}`,
+    );
+  }
+  return parts.join(" ");
+}
+
 /** The bounding box of the spans' control points — the writer's own rule:
  * control points count, so the box is the algebra's, not the ink's. */
 export function bbox(spans: Span[]): [number, number, number, number] {

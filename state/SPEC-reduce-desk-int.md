@@ -75,14 +75,18 @@ much?* — and refuses to answer when its own checks fail.
 
 ## The index (`/reduce/`)
 
-- Rows: every curve whose position degree (read from the speed rows) is
-  above 11 — the desk's population, not the stored `degree` field.
-- Columns: uid, name, position degree, **speed → 5 miss (units)**, curve
-  size (units), crossings, desk link. The miss column comes from
-  `workbench/speed-fit-census.json` (cache; the page works without it —
-  a missing census prints "—", it never breaks the page).
+- The operator, 2026-11-23: "curve pictures and the name etc. underneath."
+  The index is a GALLERY of cards, not a table.
+- Population: every curve whose position degree — `2·speed + 1`, speed =
+  trimmed row length − 1 — is above 11. Not `2·length + 1`: that +2 error
+  put 63 curves in a population they were not in (register 57).
+- A card: the picture (the exact curve through 33 exact stations, Catmull-Rom
+  cubic spans, y flipped only at this output), the name, the uid and
+  crossing count, the facts (degree, rail, speed → 5 miss in units, size),
+  and links (the desk, the plate).
+- The stroke is a fraction of the curve's own extent (`max(w, h)/55`) — a
+  fixed width fattens a 0.4-unit curve into a blob and thins a 40-unit one.
+- The miss comes from `workbench/speed-fit-census.json` (cache; without it
+  the fact prints a dash, the cards still draw).
 - Numbers are plain (`plain-number.js`); no exponent anywhere.
-- The summary sentence states how many curves can live at the ceiling by the
-  re-fit alone (miss under one per cent of the curve's size — an
-  informational cut, the decision is by units per curve).
 - Sort: smallest miss first — the reducible curves are the reading order.
