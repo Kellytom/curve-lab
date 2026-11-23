@@ -37,6 +37,8 @@ the names, the notes and the measurements.
 | `aliases` | JSON array text | former display names, so a search by the old name still finds it. |
 | `starred` | boolean | kept in the lab. |
 | `candidate` | boolean | found but not yet promoted. |
+| `status` | string | `kept`, `in-progress`, `temporary` or `proposed`: whether the curve is final, still a study, or a proposal. |
+| `pngIgnored` | boolean | true: the plate and figure PNGs are derived and stay out of git; false: they are part of the record. |
 | `createdAt` | ISO date | when the row was made. |
 | `formula.plain` | string | the curve as a polynomial: `x(t) = …, y(t) = …`. Exact fractions. |
 | `formula.rational` | string | the same curve stated as a rational: every coefficient is a fraction over one integer. |

@@ -567,6 +567,37 @@ Jargon is allowed only when it is the name of something real in the project
 - The operator may not be a mathematician: explain the result in words first,
   the formula second.
 
+## Listening — the operator's asks are a register
+
+The operator, 2026-11-23: "i should not have to repeat myself". A repeated ask is a
+process failure — the first answer was wrong, or the ask was never written down where
+the next session could see it. "Save the cut curves" was asked two or three times and
+each answer fixed something on the server without clicking the button on the page.
+
+- **Write the ask down when it arrives**, in the operator's own words, in
+  `state/ASKS-int.md` — not paraphrased into a plan. It is Tier 0 of
+  `state/READING-int.md` and read at the start of every session.
+- **Answer where the operator looks first.** Before reading code, open the page and
+  use the control that failed. A fix proved by a test that never reproduces the
+  operator's click is not proved.
+- **A second mention is a fault, not a nudge.** Do not reply with a new plan. Read the
+  row, say what blocked the first answer, test it again, and close the row.
+- **Close a row only with a commit, a file or a command** in its proof column. No
+  proof, no close. `scripts/check_asks.py` and `RepeatedAskTest` fail the register when
+  a row has no verbatim ask, no status, or no evidence.
+- **When the ask is ambiguous, say so and act on the literal sentence.** Guessing a
+  bigger, easier ask is how a two-line save request turned into two sessions of server
+  work.
+- **The /said/ roll is checked at every boundary.** `scripts/said_checklist.py --write` folds
+  new messages into `state/SAID-CHECKLIST-int.md`; the check fails on a missing row, changed
+  words, or a `done` row with no real commit or file. It is local, like `data/said.json`,
+  because the history is personal. Proof is the place the operator looks.
+- **Sidechat keeps its own roll, by the same rule.** `data/said-deep2.json` is the sidechat's
+  said file and `state/SAID-DEEP2-CHECKLIST-int.md` is its checklist: run
+  `scripts/said_checklist.py --who deep2 --write`, tick each statement with the commit that
+  proves it, and run the check with no `--write` before a handoff. The sidechat does this for
+  its own work; DeepSeek1 does not tick sidechat's rows.
+
 ## Achievements are logged, not remembered
 
 Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
@@ -593,8 +624,9 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
 take longer goes to the background, and the work continues; report it when it
 lands. The operator does not sit and watch a test run.
 
-- The fast loop is `.venv/bin/python scripts/test.py --fast` — 10 modules, about
-  **3 seconds**. Run it after every change.
+- The fast loop is `.venv/bin/python scripts/test.py --fast` — 15 modules, **75 s**
+  measured on 2026-11-23 (the plate renders in the register are most of it), so it is a
+  background job too, not a 3-second loop. Run it once per change, then work.
 - The commit gate and `--full` are **background** jobs. Start one, keep working,
   read the result at the next natural boundary.
 - A page rebuild, a plate export, an image raster, a dependency install: all
@@ -723,7 +755,7 @@ and documentation alike.
 | `curve_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `curve_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `workbench/*.html`) |
-| `tests/` | 305 tests; run the whole suite |
+| `tests/` | the suite; `scripts/test.py` runs it (never count the tests by hand) |
 | `app/src/content/docs/docs/review.md` | architecture/print review — act after the current work |
 | `app/src/content/docs/docs/philosophy.md` | the design philosophy: glyph, full line, sections, joints |
 | `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |
@@ -767,12 +799,16 @@ Start the one server if it is not already up (this is idempotent — it says
 ```sh
 .venv/bin/python -m unittest discover tests
 .venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
+.venv/bin/python scripts/check_asks.py               # the operator's asks are recorded and closed
+.venv/bin/python scripts/said_checklist.py --write   # fold new /said/ messages into the roll
+.venv/bin/python scripts/said_checklist.py           # the roll: every message a row, every done proved
+node scripts/set_png_flag.mjs <uid> keep|ignore   # flip one curve's PNG in git, then apply the flag
 npm --prefix app run check                        # astro check + eslint: the static gate
 npm --prefix app run test:pages                   # the 12 pages, stars and names, in a browser
 npm --prefix app run gate                         # check + the unit tests
-.venv/bin/python scripts/test.py --fast           # tight loop: engine, data, register, ~15 s
+.venv/bin/python scripts/test.py --fast           # engine, data, register: background (75 s on 2026-11-23)
 .venv/bin/python scripts/test.py --slim          # engine only, ~3 s
-.venv/bin/python scripts/test.py                 # commit gate, ~40 s
+.venv/bin/python scripts/test.py                 # commit gate: background
 .venv/bin/python scripts/test.py --browser       # the gate plus the headless page checks
 .venv/bin/python scripts/test.py --full          # before a push
 .venv/bin/python scripts/build-pages.py          # rebuild every page that loads the shared JS
@@ -968,6 +1004,14 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - Check the rendered figure at full width before committing; labels must not
   overlap the curve or each other.
 - Exports stay under 150 KB and 1000 px on the long side, so they can be looked at.
+
+## Above the fold — measure it, do not guess
+
+The operator's definition (2026-11-23): "above the fold" is what the reader sees before
+scrolling — a height in CSS pixels at the window they use, not a breakpoint. The anchor words
+and the measured numbers are in `state/FOLD-int.md`; `node scripts/fold_report.mjs <width>`
+re-measures them. Do not add a `--fold` variable or a page rule for it. When an opening is too
+tall, shorten or widen the opening, and say what the change cost or bought.
 
 ## Reading discipline
 
@@ -3866,6 +3910,23 @@ a link to the same file in the header; all industry standard best practice".
 - The check is `app/scripts/check-pages.mjs`: 12 pages, one header, one main,
   the draft mark, no self-link.
 
+### The hub opens as stills — 2026-11-23
+
+The operator: "for the hub, take a screenshot of each window and use that png to load, and
+lazy load the real thing in the window... put 'loading...' in small print below the window."
+Then, after the live window proved slow: "just use the pngs. we dont need to see the pages live
+inside the cards."
+
+- **Four stills, and that is the card.** `app/public/hub/<page>.png`, one per app page. The
+  page is never loaded inside the card; the still is a link that opens the real page in a tab.
+  Four live iframes made the hub render four heavy pages before it appeared.
+- **The small print says so:** "still picture · open in a tab for the live page".
+- **The stills are generated**, never drawn by hand: `node scripts/hub_shots.mjs` (needs the
+  app on 4321). Rerun it after a page's look changes; `tests/test_hub_stills.py` fails when a
+  still is older than its page.
+- **The guard** is `app/scripts/check-pages.mjs`: four windows, four stills, and no live frame
+  on the hub.
+
 ## Figures are files, not inlined SVG — 2026-11-19
 
 `/illuminations` inlined 238 bordered drawings into one document: **82,689,119
@@ -4040,6 +4101,10 @@ curve in /plates ... all with UIDs".
 
 ## A band is never broken; the inside of a turn is cut, the outside stays wide — 2026-11-22
 
+**Superseded 2026-11-23:** the inside cap is withdrawn; the rail keeps the ask and crosses
+itself (see *The rail crosses itself; the plate dots and hides the loop*). What still holds:
+the band is never broken, and the outside keeps the asked width.
+
 Tried and withdrawn the same day: breaking the band at every sharp turn ("it breaks too many
 places"). Tried and withdrawn too: one width for both sides, which made the whole band a
 hairline whenever one side was tight. What stands is the operator's own explanation:
@@ -4066,6 +4131,9 @@ hairline whenever one side was tight. What stands is the operator's own explanat
 
 ## The outside rail's self-crossings are cut points — 2026-11-22
 
+**Extended 2026-11-23:** every crossing on *either* rail is a dot now, and the small loop is
+hidden and recorded in `book/print/rail-holes.json` (see *The rail crosses itself*).
+
 The operator: "find the intersection points of the outside curve with itself on curves like
 c-0273 to c-0337 and mark with a dot. that is a future cut point".
 
@@ -4081,6 +4149,40 @@ c-0273 to c-0337 and mark with a dot. that is a future cut point".
 - **A corner's outside offset is a miter.** Smoothing the normal over a few stations rounds the
   common corners; the very sharpest still show a barb, because rounding a cusp's offset needs
   an inserted arc around the corner. That is the next step if the operator wants it.
+
+## The rail crosses itself; the plate dots and hides the loop — 2026-11-23
+
+**Supersedes the inside cap** in *A band is never broken* below.
+
+The operator: "removing the inside cap and the roundSpikes bevel from the character rails,
+letting each rail cross itself at a tight turn, marking every crossing with a red dot, hiding
+the small loop as an invisible span, and recording the spans in `book/print/rail-holes.json`."
+
+- **One law, no second construction.** `distance = base × (1 + strength × profile(t))` at every
+  station, on the curve's own normal, with no smoothing. The cap shortened the rail wherever the
+  spine turned; the smoothed normal was the `roundSpikes` bevel. Both replaced the curve the
+  operator asked for with a different one.
+- **A fold is shown.** `distance × κ > 1` means the rail loops through itself. The group reports
+  `fold`, `buckles` (fold > 0.9) and a note naming the crossing. Nothing is cut.
+- **Every crossing is a dot.** Both rails, both sides. On the full set: **299 curves with a
+  crossing place**, each marked `#b03a2e` at 1 % of the long side, the same working dot as
+  before; the points are in `book/print/cuts.json` in model coordinates.
+- **The loop is hidden.** The span between the two passes of a crossing is removed from the
+  drawing — the band is filled run by run, so the lobe is empty paper — and recorded in
+  `book/print/rail-holes.json`: **263 curves**, with the rail indices and both endpoints in
+  model coordinates.
+- **Only the loop, never the long way round.** A span is hidden only when it is at most 35 % of
+  the rail's arc. `c-0273`'s minus rail crosses itself with its other pass at the far end
+  (99.7 % of the arc); hiding that would delete the rail. The share limit is the rule that keeps
+  the two apart.
+- **A partial run merges.** `--only` replaces only the curves it measured, in both indexes
+  (register 37's rule). Before this, a three-curve run wrote a three-curve index over the set.
+- **The tuner is told.** `/tune/<uid>` prints the fold value and says the plate dots the
+  crossing and hides the loop.
+
+**Measured:** 393 plates; 299 with a crossing, 263 with a hidden span; the preset law elsewhere
+is untouched — the median drawn gap on an unedited curve is still the 1 % target, and no rail is
+narrower than the ask.
 
 ## The unsaved preset is a measured 1 % gap — 2026-11-22
 
@@ -4215,8 +4317,9 @@ EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
 - **The side curve is the per-construction partner.** A parallel offset is not the general
   route: it is too mechanical, and at high curvature it is where an offset is least valid
   (the normal changes fastest, and the edge wobbles or folds).
-- **Exceptions:** scrollwork, and a short list of select cases the operator will name. Only
-  there may a parallel rail stay.
+- **Exceptions: none in the current set** (operator, 2026-11-23). Scrollwork was the example, but
+  no selected curve needs a parallel curve; the parallel route is kept for special diagram plates
+  only — see *A parallel rail is for a special diagram* below.
 - **The character/width rails are legacy on the general set.** The plates and the tune page
   keep them only as a labelled reference until each family's partner rule lands. Nothing is
   stripped from the curated book plates silently; the migration is per family.
@@ -4234,6 +4337,54 @@ EXCEPT FOR SCROLLWORK, AND A FEW SELECT CASES."
 - **The row family's parameter is the speed scale.** The 212 row curves are PH in the speed
   pair (u, v); scaling the speed by (1 ∓ d) scales the position by (1 ∓ d)² about the origin —
   the same construction, one parameter, no offset. `c-0001` is the sandbox's worked row.
+
+## A parallel rail is for a special diagram, not the set — 2026-11-23
+
+The operator: "none of the curves selected so far technically need parallel curves. we solved
+that and it is stored in grid-8 or somewhere, and will only call that up when we need a special
+diagram, eg jesus reading a scroll in the temple for the 5th joyful mystery: not jesus, but the
+scroll, the temple, and other signs that indicate the mystery.. that is coming...."
+
+- **The set is closed on parallel.** No curve among the selected 393 takes a parallel side curve;
+  the select list is empty. The character band stays as the labelled legacy reference until each
+  family's partner rule lands (see *Side curves are per-construction partners*).
+- **The method is solved and stored elsewhere.** The operator names the `grid-8` project
+  (`~/developer/grid-8`) as where the parallel-curve solution lives. Read it there when a diagram
+  needs one; do not rebuild it here.
+- **The use is diagrammatic, not decorative.** A special plate states the mystery through its
+  objects — the scroll, the temple, the signs — not the figure. That set is still to come.
+
+## The PNG flag and the study labels (2026-11-23)
+
+The operator asked for a flag on every curve saying whether its PNG should be gitignored, and
+for the temporary and in-progress curves to be database rows with a label.
+
+- **`Curve.pngIgnored` (default true)** — the plate and figure PNGs are derived; the record, the
+  generator and the index are the record. `scripts/set_png_flag.mjs <uid> keep|ignore` flips one row and applies it;
+  `scripts/curve_pngs_git.mjs` makes git follow the flag:
+  an ignored PNG is untracked (`git rm --cached`), a kept PNG is force-added. A PNG with no row
+  is a fault, so no figure can escape the rule.
+- **`Curve.status`** (kept / in-progress / temporary / proposed) and **`Study`** for a curve
+  that lives on a study page only. A study names its page, so `/extra-curves/` proposals and the
+  Tschirnhausen pieces on `workbench/side-tests.html` are rows, not loose drawings.
+- **Why the study table and not fake records.** A proposed curve has no stored geometry; putting
+  it in the collection would make it a plate. The Study row carries the label and the flag, which
+  is what the operator asked for, and leaves the collection honest.
+- **Measured when it landed:** 394 curves, 17 studies; 764 PNGs untracked, 766 on disk; the
+  register's `CurveFlagsTest` runs all three checks.
+
+## The gothic cut is exact t values — 2026-11-23
+
+The operator: "we will not use percent in the end, but you can leave it for now. we will use
+rational fraction values of the parametric. if that is t, then t".
+
+- **The cut is `t = 1/2 ∓ q`.** q comes from the menu (`1/40 … 1/6` each side); the percent of
+  the half (`2q`) is the echo, never the source.
+- **The drawn cut is the nearest stored station.** The record keeps both `t` (drawn) and
+  `tRequested` (asked), plus `q`, so a station rounding is visible, not hidden.
+- **A variant writer must copy all three.** The first probe saved `share`, `t`, `axis` and the
+  apex but not `q` / `tRequested`; fixed in `planVariant` and recorded in
+  `state/PROBLEMS-gothic-int.md`.
 
 
 <!-- source: state/REGRESSIONS-int.md -->
@@ -4355,14 +4506,25 @@ spine, the fit is under tolerance, and the cap name is not double-prefixed.
 | 48 | 2026-11-21 | every browser check failed with `net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4321/` while `curl localhost:4321` answered; a fresh `npm --prefix app run dev` bound Astro's `localhost` (IPv6 ::1) only, so every documented 127.0.0.1 link and every check using it was refused | `tests/test_regressions.py` (`test_the_dev_server_answers_on_ipv4_loopback`: the dev script names 127.0.0.1) | the dev server's host is explicit, and it is the address the links and checks use |
 | 49 | 2026-11-21 | `/ph-nth-sandbox/` threw `Cannot read properties of undefined (reading 'length')`, intermittently, in the framed gallery: a saved record can be a **pair** with the name on its primary, so the pair entered the list with no name and the numberer called `uidOf(undefined)` | `scripts/check-pages.mjs` (every route records a `pageerror`, and `/ph-nth-sandbox/` is in its list; the fix was also probed with a seeded nameless pair) | saved records are flattened to their primary before they reach the gallery, and a nameless record is dropped rather than counted |
 | 50 | 2026-11-21 | "6% is way too much, look at the first two curves i did for a better preset level" and "tiny or no offset for others": the note migration wrote 0 into width, plus and minus for untouched curves, and the note won over the desk row, so those plates drew a 0 % band (plus = minus = 0 is a parallel offset); the default was still 1.5 % | `tests/js/plate-row.test.mjs` (the preset is 4 % / 2.5 / 0.1 for the review, doubled on 2026-11-21 and again on 2026-11-22; a saved width wins; a placeholder zero in a note falls through to the desk row) | note → desk → defaults, with a zero note treated as unset; the preset is the first two tuned curves |
-| 51 | 2026-11-21 | "the ones where the rails are wrong need work too": at `c-0001`'s preset (1 %, plus 2.5) the widest rail reached **1.28 ×** the fold limit, because the guard capped the base width and then added the character bow; the rail crossed at the loop | `tests/js/plate-guard.test.mjs` (`c-0001 at the operator's preset keeps a band and does not fold at the loop`: used 0.7 %, fold ≤ 0.9, the next 0.01 % folds) | the guard measures the station-wise offset × curvature **including the bow**, not the base width × peak curvature |
+| 51 | 2026-11-21 | "the ones where the rails are wrong need work too": at `c-0001`'s preset (1 %, plus 2.5) the widest rail reached **1.28 ×** the fold limit, because the guard capped the base width and then added the character bow; the rail crossed at the loop | `tests/js/plate-guard.test.mjs` (`c-0001 at the operator's preset keeps a band and marks its crossings`: the band is the asked 1 % and the crossings are found) | **Amended 2026-11-23:** the inside-cap law is withdrawn (row 60); the test now guards the new law — the rail keeps the ask, and a fold must be marked as a crossing rather than measured for cutting. The 2026-11-21 lesson still holds: the guard saw the bow, not only the base width |
 | 52 | 2026-11-21 | "it looks to me like you went backwards with c-0275 to 368", then "i didnt ask for spines only. i asked for clean curves like the first two": the preset on stored paths first drew a tangle, then the path zero was read as spine-only; either way half the review was wrong, and the plate PNG batch took ten minutes for 371 | `tests/js/plate-row.test.mjs` (a stored path with a zero **or missing** width takes the preset; a saved width wins) and `node scripts/print_plates.mjs --svg-only` (all 371 SVGs in **10.8 s**) | one preset for every curve that has no saved width; the SVG is the plate and the review's card; the 300 dpi PNG is a separate, slow export |
 | 53 | 2026-11-21 | "it looks like you just took the original curve and scaled it ... the offset curves should look the same on both sides of the curve, not thin on the right and wide on the left ... if the difference at the end is 10x 10y, then move the starting position by 5 x and 5 y to balance": the plates drew the side curves as scaled copies about the origin, so the right side was thin and the left wide and the start and end did not balance | `tests/test_regressions.py` (`test_the_offset_curves_are_equal_on_both_sides`, running `tests/js/plate-offset.test.mjs`: the two sides take the average strength; the gaps match station for station; the start and end gaps match) | the offset curves are the character rails with one strength (the average of plus/minus) and the profile zero at both ends; no scaling of the drawn curve. The starting-point shift is the next focus |
 | 55 | 2026-11-21 | the round-trip's translate shifted node 8 (t = 0.25) by 0.1333 for a declared 0.1: the offset was added to every position coefficient, so the shift grew as 1 + t + t² + … and the "translation" was a different curve; the first unit test passed because it checked the coefficient difference, which the wrong form also satisfies | `tests/test_ph_actions.py` (`test_translate_moves_the_offset_and_not_the_rows`: only the constant term moves; every other coefficient equal) and `tests/test_ph_roundtrip.py` (the snap against Inkscape 1.4.4's own re-serialized file, fixture `tests/fixtures/through-inkscape-c-0002.svg`) found while snapping a real drag through Inkscape | a translation enters the constant term alone; the drag→action snap is tested against Inkscape's own file precision, not just against self-produced numbers |
 | 56 | 2026-11-22 | the speed-space re-fit's verdict floor was the quantization, not the fit: rows were quantized at six decimals in NORMALIZED coordinates, so on the large-coefficient families (c-0253's rows ~5e7) one row carried 50 units of rounding error, the derivative is quadratic in the rows, and the "best fit" at the curve's OWN degree reported l2 2e11 and a station miss of 1.4e5 — the fit had recovered the curve, the verdict was measuring its own rounding | `tests/test_speed_fit.py` (`test_a_large_coefficient_curve_recovers_at_its_own_degree`: c-0253 at speed 7 recovers with l2 exactly 0; and the six-decimal assertion was removed from the lower-degree test because it encoded the fault) | the quantization precision must sit far below the rows' own scale (15 places now); the recovery-at-own-degree law is the guard for any future change to the verdict side |
 | 58 | 2026-11-22 | "i cant see how many curves to do because the page keeps refreshing constantly": the launch agent re-ran `npm run dev` every ten seconds; it failed on Node 22, but its `predev` step still ran the ornament writer, which **deleted the folder and rewrote all 371 SVGs** each time, and the dev server watches that folder | `tests/test_regressions.py` (`OrnamentWriterTest`: an unchanged file keeps its inode and mtime; the writer does not wipe its folder) running `tests/js/write-if-changed.test.mjs` | the ornament writer touches only files whose bytes change, so a restart or a re-run cannot reload the operator's page |
-| 59 | 2026-11-22 | "half are too thin and half are too thick ... check the thickness": the plate preset was a fixed number, so a curve the fold guard bound drew a hairline (0.4 %) and a curve it did not drew a slab (9 %), with nothing measuring the result. The first fix broke the band at each sharp turn; the operator corrected it ("it breaks too many places") | `tests/js/plate-gap.test.mjs` (no preset plate is thicker than the 2 % target; a cut band reports `buckles`; the operator's good curves c-0001a and c-0161 match the target) run by `tests/test_regressions.py` (`PlateGapTest`) | the preset is a measured 1 % drawn gap on unedited curves (2 % until the operator said "reduce the width to 1% on the ones i have not edited"), one continuous band cut to the safe width, with a buckle note for the tuner |
+| 59 | 2026-11-22 | "half are too thin and half are too thick ... check the thickness": the plate preset was a fixed number, so a curve the fold guard bound drew a hairline (0.4 %) and a curve it did not drew a slab (9 %), with nothing measuring the result. The first fix broke the band at each sharp turn; the operator corrected it ("it breaks too many places") | `tests/js/plate-gap.test.mjs` (no preset plate is thicker than the target; the operator's good curves c-0001a and c-0161 match it; a folded rail is reported, and its crossing is the cut point) run by `tests/test_regressions.py` (`PlateGapTest`) | **Amended 2026-11-23:** the band is not cut any more — the preset is still a measured 1 % drawn gap on unedited curves, and a fold is a dotted crossing with a hidden span (row 60) |
+| 60 | 2026-11-23 | "letting each rail cross itself at a tight turn, marking every crossing with a red dot, hiding the small loop as an invisible span, and recording the spans in `book/print/rail-holes.json`" — the inside cap and the roundSpikes bevel replaced the rail the operator asked for with a shorter, rounded one, and the crossing the cut has to use was invisible | `tests/js/plate-holes.test.mjs` (c-0046, c-0065 and c-0273 each draw a rail that crosses itself; the loop is a span under 35 % of the rail; the dots drawn in the SVG equal the crossings recorded in `rail-holes.json`), run by `tests/test_regressions.py` (`PlateRailCrossingTest`); `tests/js/plate-guard.test.mjs` and `plate-gap.test.mjs` amended to the new law | one character law (no cap, no smoothed normal); the hidden span is the loop between two passes and never the long way round; a partial `--only` run merges the two indexes instead of replacing them (register 37) |
+| 61 | 2026-11-23 | "the multi-branch records c-0416 (cruciform) and c-0418 (absx-gerono) draw as fragments" — and on the figures page the jump between the arms filled as one blob, because four branches look to the code like "spine + two rails" | `tests/js/plate-branches.test.mjs` (c-0416 splits into four; no branch carries the jump; the points are the stored ones) and `tests/js/figure-branches.test.mjs` (four arms, each with no step over a quarter of the figure, their centres apart; the single-path leaf unchanged), run by `BranchDrawTest` | one rule for a branch — `PLATE.branchesOf`: stored branches first, else split a path on a jump over a quarter of its size; every drawing and the figure generator ask it |
 | 57 | 2026-11-23 | the reduction index claimed 173 over-ceiling curves — a population 63 too large — and the very first desk session printed c-0260 as "degree 25": both used the formula 2·(trimmed length) + 1 for the position degree, where the row length is speed degree + 1, so the true formula is 2·(length − 1) + 1 = 2·length − 1 — always two too high, which moved every degree-9 curve (position 11) into the over-limit set | the gallery card's own arithmetic (`2·speed+1` with speed = trimmed length − 1, `app/src/pages/reduce/index.astro`) and the census threshold (`speed > 5` ⇔ position > 11, 110 curves); the degrees printed on the desk come from the POLYNOMIAL length, not the formula, so the desk was never affected — cross-checked against it | a degree is read as 2·speed+1 with speed = trimmed length − 1; the two independent counts (index, census) must agree, and 110 is the checked number |
+| 62 | 2026-11-23 | found in the build, not by the operator: the side-pillar figure drew **one bow across the page** with its labels at the edges — the path strings are model units, and they were written into the SVG with no offset and no flip; with that fixed the Q control point still ignored the pillar's axis, and the swell ceiling was twice too loose (a shaft could out-width its own foot) | `tests/js/side-pillars.test.js` (each line stays within one foot width of its own axis; the foot is widest at every ratio and swell; labels in the empty field and 12 units apart), `tests/test_side_pillars.py` (the first paint on the page puts each line at x 140–170 on the right and its mirror on the left), run by `tests/test_regressions.py` (`SidePillarTest`); `scripts/check-side-pillars.mjs` (in `--browser`) moves the six real sliders and requires the drawing and the numbers to change | one mapping per figure — model units to SVG through one flip group, the same one the labels use; and the first version of the guard passed while the figure was wrong because it read two of seven numbers |
+| 63 | 2026-11-23 | "still doesnt have a way to save the cut curves" — asked two or three times, and answered each time by reading the code and changing the server, so the ask lived only in the chat and the next session could not see it; only clicking the page's own button proved it | `tests/test_regressions.py` (`RepeatedAskTest`, running `scripts/check_asks.py`: every row carries the operator's words, a status, and a real commit or file when fixed, a next step when open) with `state/ASKS-int.md` | the operator's asks are a register read at Tier 0 and written in the same turn they arrive; a repeated ask names what blocked the first answer, and the proof is the place the operator looks, not the code |
+| 64 | 2026-11-23 | "still doesnt have a way to save the cut curves": the save wrote the curve and then **awaited the plate and figure renders inside the request** (up to 180 s each), so the browser sat on a pending POST, the dev server reloaded the page and the operator saw "cutting…" with no result — the record was in the registry, the save looked dead | the click itself: POST 200 and the `?saved=…` banner on `/cut/c-0274`, with the plate landed 11 s later from `scripts/render_saved_curve.mjs`; `state/PROBLEMS-cut-int.md` §1 | the request writes the record, the database and the exports, and returns; the renders are a detached child, so no save waits on a picture |
+| 65 | 2026-11-23 | "does not cut at the dotted line. it cuts at 1 and 2 the blue dots, remember? algorithmically, not looking at the plot and cutting it in half": the page's preview was hard-wired to the line halves, so a form set to "at dot 1" showed a line cut and the picture disagreed with the cut that would be saved | `tests/js/cut-doubles.test.mjs` (`a dot cut previews the arc, never the line's halves`: one run, deep-equal to `cutAt`, and the line modes still give 2 and 1 runs) | the preview draws the cut the form names; `previewCut` is the one choice, and a dot cut is the stored arc, never the picture split in half |
+| 66 | 2026-11-23 | found in the build while adding the named curves: `curve_gaps.mjs` counted every `dict(key=…)` block in `generators.py` as a named classical curve, so the speed-family examples "quartic" and "sextic" were proposed as missing curves that were never named at all — the list said 11 missing when there were 9 real ones | `tests/test_regressions.py` (`GapsNamedTest`: every `missingNamed` key is in the NAMED table, and every `addedOnRequest` uid is in the registry) | a named curve is a NAMED block with an equation; the gaps page cannot propose a curve the generators do not name |
+| 67 | 2026-11-23 | from the TODO, before it could happen: `scripts/curve_registry.py --write` rebuilds and renumbers the registry from its sources, so it would drop the seven curated finds and every hand-added record — 141 rows today | `tests/test_regressions.py` (`RegistryRebuildTest`: the real `--write` exits 2, says `refusing to write`, and the registry bytes are unchanged) | a rebuild compares the uids it would make with the uids already there and refuses unless `--force`; curated rows have to be moved into a source first |
+| 70 | 2026-11-23 | found in the full gate, not by the operator: the gothic variant writer set `transform` with `degrees` and `exact` but no `matrix`, so the saved arch c-0008a failed "every record carries its transform" and the record needed a repair | `tests/test_hybrids.py` (`TransformSlot.test_every_record_carries_its_transform`) | the transform slot on every saved record: the writer now builds the exact quarter-turn matrix (0/90/180/270) or a six-decimal display matrix, and `exact` is the quarter-turn flag |
+| 71 | 2026-11-23 | found in the full gate: 31 sampled extra-curves records were saved with no `conversion` slot keys, so the conversion-slot check named them one by one | `tests/test_hybrids.py` (`ConversionSlot.test_every_record_reserves_the_conversion_slot`) | the conversion slot on every record: `algorithm`, `status`, `target`, `formulaNext`; the 31 records were repaired to the slot, which the save path must now carry |
+| 68 | 2026-11-23 | found while finishing the book set: 22 curves had no 3000 px plate (c-0398..c-0419, the Tschirnhausen family and the other additions) — every `print_plates --only` run writes the plate for the curves it names, and nothing checked the whole set | `tests/test_regressions.py` (`BookPlateTest`, running `scripts/check_book_plates.mjs`: every registry curve has a plate, long side 3000 px, pHYs 300 dpi, read from the PNG header) | the book set is checked as a whole, not per render; 403/403 pass |
 
 
 <!-- source: state/DATA-int.md -->
@@ -4663,10 +4825,8 @@ Astro 5.18 with `@astrojs/node`, on **http://localhost:4321**.
 - **`/lab` is the lab; `/book` is the book gallery.** The lab page is ported; its
   stars are saved by the page itself to `workbench/starred.json`.
 
-- **Why 5.18, not 7:** this machine's Node is 22.4.1; Astro 7 needs >=22.23.4.
-  Astro 5 supports >=22.0. A **global Astro 5.18.2** is installed; Astro still
-  needs the adapter (`@astrojs/node`) local to each project, so the shared thing
-  is the version and the CLI, not one `node_modules` for every folder.
+- **The stack now:** Astro **7.4.13** on Node **24** (`~/node24/bin`); `/api/health`
+  reports both. Astro 5 needed this machine's older Node 22; that constraint is gone.
 - **Shared code:** `../workbench/plate_math.js` and `../workbench/real-curves.json`
   through Vite's `server.fs.allow`; one copy of the maths and the data.
 - **The design is remembered:** the lab writes its controls to
@@ -4682,6 +4842,12 @@ Astro 5.18 with `@astrojs/node`, on **http://localhost:4321**.
   the same call the exporter makes. The PNGs are served by
   `src/pages/api/plate/[id].js` from `../book/plates/`, so nothing is copied.
   The generated `book/index.html` is gone.
+- **The database:** `npx prisma db push` after a schema change. `node
+  scripts/migrate.mjs` seeds an **empty** database from `workbench/curve-registry.json`
+  and does nothing when rows exist; the additive path is
+  `node scripts/add-registry-curves.mjs` (insert the registry curves the database is
+  missing — used after `scripts/add_classical.py`). `node scripts/check-db.mjs` prints
+  the expected counts and compares them. Snapshots: `npm run backup`, `npm run restore`.
 - **The endpoint:** `POST /api/stars` with `{ "plates": [...] }` wrote
   `workbench/starred.json` in the test run.
 
