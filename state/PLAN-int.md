@@ -35,20 +35,17 @@ Neither reserves files; the rule is the operator's latest words and the register
 `docs/SIDE-CURVES.md` before changing a rail or the preset.
 
 
-## Current (2026-11-23, end) — the offset crossings, then the figure
+## Current (2026-11-23, end) — the offset crossings landed; next, the missing classical curves
 
-- **Landed today:** the plate band (inside capped, outside wide, 1 % preset), the working dots
-  (red cut points, blue start, orange end, blue cusp dots), turns and bearings with the note
-  synced, all notes filled, the readable JSON, the gap report and `/extra-curves/`, Tschirnhausen
-  and twelve classical curves (393 in all), `/glue/`, `/class-v/` with types A and B, `/hearts/`,
-  `/chat-display/` with KaTeX, `ai-news/`, `workhorse` and `ding`.
-- **Not landed:** the start-point shift from the previous handoff. `tests/js/plate-offset.test.mjs`
-  has no shift case and no shift code is in the tree; it stays behind the offset work below.
-- **Focus — the offset crossings (steps 1–4).** Remove the inside cap and the `roundSpikes` bevel;
-  let the character rail cross itself; mark each crossing with a red dot; hide the little loop as
-  an invisible span; record the spans in `book/print/rail-holes.json`. The register's plate-guard
-  tests encode the old law, so tests and `DESIGN-int.md` are amended in the same commit.
-- **Next:** the human figure in the centre (see `TODO.md`), then the book set.
+- **Landed 2026-11-23:** the rail crossings (`1f4ce27f`: dots, hidden spans, `rail-holes.json`),
+  the tune page's readout and other-kinds strip (`39308c52`), the hub's stills and notes menu
+  (`595cb33b`, `cedd703b`), the fold record (`9f832662`), the branch rule (`d791a41e`), the cut
+  desk (`5d0208f6`, `c1c69719`, `1f7cbf59`, `69b490c0`, `6e458d6d`) and the shell's half-inch
+  margin (`3dd2fca0`).
+- **Not landed:** the start-point shift (needs the operator's word on the two endpoints); the
+  human figure (needs the composition and the source image).
+- **Next:** the 11 classical curves still missing from the collection (the count from
+  `state/GAPS-int.md`), then the book set.
 
 ## Current (2026-11-22) — the side curves: equal offsets, then the starting point
 

@@ -3810,3 +3810,84 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 - **The rule this session follows:** stage the paths of its own action only, never
   `git add -A`; do not revert or commit anything of theirs. A shared file is not a conflict
   (`state/RESPONSIBILITIES-int.md`); a lost edit is.
+
+## 2026-11-23 (sidechat check) — the named action was already landed
+
+- **`next-fhandoff-int.md` is stale.** It names the offset crossings (steps 1–4); that work is in
+  the tree at **`1f4ce27f`** (12:46 today), register row 60, and
+  `node --test tests/js/plate-holes.test.mjs` passes **10/10** (c-0046, c-0065, c-0273:
+  cross, hidden span, dots = record). Nothing of that action was left to do.
+- **Not this session's tree:** 402 uncommitted paths, of which 371 are
+  `app/public/plates-web/*.png` with a **2026-11-21** mtime (the un-rastered PNG set, register 52)
+  and the rest include the untracked figure sprint (`app/src/pages/figure-desk.astro`,
+  `scripts/figure_sprint1.py`, `deep2/notes/figure-sprint-1.md`, `tests/js/emblem-dots.test.js`).
+  Left alone; nothing staged.
+- **Next row, not started:** the start-point shift. It needs one word from the operator — *which
+  two endpoints* "the difference at the end" is measured between (the two rails at the end? the
+  rail's start gap against its end gap?) — because the note's arithmetic ("10x 10y at the end,
+  move the start by 5x 5y") supports either reading, and a wrong reading changes every plate.
+
+## 2026-11-23 (the two blocked rows, answered) — parallel is for a diagram; the cut is symmetric
+
+- **Parallel curves: the list is empty.** "None of the curves selected so far technically need
+  parallel curves." The method was solved and is stored with `grid-8` (`~/developer/grid-8`); it is
+  called up only for special diagram plates — the fifth joyful mystery (the scroll, the temple and
+  the signs, not the figure). Those plates are a later set. `TODO.md` row closed; decision in
+  `DESIGN-int.md` §A parallel rail is for a special diagram.
+- **The start-point shift is re-stated as a symmetric cut.** The operator: the curve's middle is
+  `t = 0.5`; step back a little for the first cut and the same step forward for the second, and the
+  interactive pages exist to find the amount. Because the curve is mirrored about its middle, the
+  speed is mirrored too, so the two steps are equal in length. **Still open, do not guess:** (i)
+  the middle piece is kept or removed, and (ii) whether this replaces the shift row or runs beside
+  it.
+
+## 2026-11-23 (the gothic desk) — the middle cut, the arch, the save
+
+- **Built:** `/gothic/` — the `/plates` set with the cuttable curves first, each card carrying its
+  measured mirror and gap — and `/gothic/<uid>`: the cut slider, the live arch, the readout and
+  the save.
+- **Maths:** `app/src/lib/gothic.js`. Four rational mirrors are measured on the stored path (over
+  0.5 % of the size is "not mirrored"); the cut is a symmetric pair about the stored middle; the
+  arch is one arm mirrored about the vertical through the cut, turned 0° or 180° (exact). The
+  first build joined the two mirrored cut ends and was not symmetric — recorded in
+  `state/PROBLEMS-gothic-int.md` with the guard.
+- **Save:** `POST /api/gothic-arch` → `createVariant`; the record is `kind: path`, `source: cut`,
+  `params.cut.mode: "gothic"` with the share, the parent's axis and the apex angle. Proved on
+  c-0273 at 20 % → c-0273a, plate 200, then removed; registry and database back to 393/393/393.
+- **Correction (operator, 2026-11-23):** the "rows only" records are high-degree parametric
+  polynomials; the equation is the record's `speedX` / `speedY`, not a missing path. The desk
+  samples them with the plate's `spine` (`app/src/lib/curve-points.js`: 300 stations to measure,
+  700 to cut and save), so they are cuttable too.
+- **Measured at the block:** 110 of 193 kept curves can be cut (90 of them sampled from the
+  rows); 83 have no mirror within 0.5 %; none is without points. The page measures the live set,
+  so the count moves with the data sync. It says which, and why.
+- **Guards:** `tests/js/gothic.test.js` (13), `check-pages.mjs /gothic/`, `npm --prefix app run
+  check` (0 errors).
+- **Next:** the operator's look.
+
+## 2026-11-23 (the cut desk landed; the fold, the tune strip, the hub stills)
+
+- **Landed this session, each with its hash:** the rail crossings (`1f4ce27f`), the tune page's
+  readout and other-kinds strip (`39308c52`), the hub's stills, notes menu and no live frames
+  (`595cb33b`, `cedd703b`, `fa86202a`), the fold record and measure (`9f832662`), the branch rule
+  in every drawing and the figure (`d791a41e`, `7091f369`), the cut desk at `/cut/` and
+  `/cut/<uid>` (`5d0208f6`, `c1c69719`, `1f7cbf59`), side values before saving and the safe
+  rename (`69b490c0`), and the save that survives the reload (`6e458d6d`); the shell's half-inch
+  margin is `3dd2fca0`.
+- **Measured this session:** register **25 tests OK** (15:5x); a cut saved in a browser, the page
+  reloaded and the banner named the new uid; a cut saved with 3 / 4 / 0.5 / s kept those values;
+  a rename to `tulip-top` followed the registry, the set, the export and the figure index, and
+  `amper` was refused by `c-0001`. c-0274's line cut: top 2 open runs, bottom 1.
+- **Carried (2026-11-23, earlier that day):** the fast suite, 14 modules green; the database
+  393/393/393. The block-time runs of `scripts/test.py --fast` and the register were launched
+  and were still in flight when the session ended, so nothing newer is claimed.
+- **At the block:** HEAD `87cf66c7` (the other agent's gothic desk, after this session's
+  `6e458d6d`); local 4321 **200**, 8003 **200**. The working tree carries the other agent's
+  uncommitted plate renders, `ai-news/`, `AppNav`, `piece.ts`, `plates.astro` and the figure
+  sprint; none of it was staged or reverted.
+- **Next move:** the 11 classical curves still missing (`state/GAPS-int.md`): name them, add
+  three as sampled records with figures and plates.
+- **Tried and rejected:** matching the sidechat window by its title — OpenCode replaces it with
+  the session title, so the AX name match never finds it (use the process id); authoring a cut as
+  a closed shape — every cut is open runs, stored as branches; reporting a cut save from the DOM —
+  the dev server reloads on the registry write, so the result travels in the URL.
