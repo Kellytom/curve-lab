@@ -16,8 +16,10 @@ missing any obvious ones … if so we can go back and create them". The page is 
 list, not a gallery of drawings.
 
 - **Named classical curves not in the collection.** Each card: the name, the equation in
-  human-readable form, the generator's one-line shape description, the degree. The equations
-  are parsed from `scripts/generators.py`, never retyped here.
+  human-readable form, the generator's one-line shape description, the degree, and the
+  curve drawn in black with its **side curves** in ochre at a 2 % gap (`scripts/lib/fig_sides.py`:
+  outside at the ask, inside capped where it would fold at 0.9 / κ, the plate's own law). The
+  equations are parsed from `scripts/generators.py`, never retyped here.
 - **The empty crossing × inflection cells.** One row per crossing count, listing the
   inflection counts with no curve. "Crossing" means a crossing *pair*, never a place.
 - **Families with no curve rated 2/10 or more**, with their count.

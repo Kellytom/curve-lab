@@ -13,8 +13,11 @@ the equation, not a curve for the collection.
 """
 
 from pathlib import Path
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts" / "lib"))
+from fig_sides import side_curves, line_path  # noqa: E402
 OUT = ROOT / "app" / "public" / "extra-curves"
 SIZE = (600, 400)
 
@@ -100,12 +103,13 @@ def svg_for(name, lines, note):
         # +y is up in the model, so the pixel y is flipped here
         return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k) - 22
 
-    path = "".join(
-        '<path d="M ' + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in line) + '" '
-        'fill="none" stroke="#2b2b2b" stroke-width="2.4" stroke-linecap="round" '
-        'stroke-linejoin="round"/>'
-        for line in lines if len(line) > 1
-    )
+    sides = ""
+    for line in lines:
+        if len(line) < 4:
+            continue
+        left, right = side_curves(line)
+        sides += line_path(left, put, "#a06a2c", 1.1) + line_path(right, put, "#a06a2c", 1.1)
+    path = sides + "".join(line_path(line, put, "#2b2b2b", 2.4) for line in lines if len(line) > 1)
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" '
         f'width="{w}" height="{h}" role="img" aria-label="{name}, sampled">'
