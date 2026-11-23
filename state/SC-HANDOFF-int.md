@@ -1,7 +1,8 @@
 # SC-HANDOFF-int — the sidechat's handoff (read this first after a reset)
 
 *Rewritten 2026-11-23 at the operator's `/shandoff`, before a model switch to GLM.
-Everything below is committed (last `af090664`); the push is reported at the foot.*
+Everything below is committed and pushed: this file is `7c36bfe7` on `main`,
+pushed the same minute, with no unpushed work left behind.*
 
 ## 1. Where the work stands
 
