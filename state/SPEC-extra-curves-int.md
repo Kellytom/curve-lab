@@ -32,6 +32,8 @@ Rules with a check each:
       source has no `<script>`.
 - [x] One header and one `<main id="main">`, from the shared shell. Check: `check-pages.mjs`.
 - [x] The counts on the page equal the data file's counts. Check: read the file, read the page.
+- [x] When no named curve is missing, the page says so in one line and does not show an empty
+      grid under a zero header. Check: the page reads `missingNamed.length` (0 on 2026-11-23).
 - [x] A missing named curve is never invented: the list is exactly the generator's keys minus
       the registry's names and aliases. Check: `scripts/curve_gaps.mjs` prints both counts.
 - [x] Nothing is created by visiting the page.

@@ -23,8 +23,7 @@ for (const cell of emptyCells) {
   <p class="lead">What the collection of {count.curves} curves does not have: named classical
     curves whose equations are already written in the generators, and the crossing ×
     inflection cells with no curve at all. Nothing here is created by visiting it; this page is
-    the shopping list. The Tschirnhausen family at the top is the one proposal already made
-    real.</p>
+    the shopping list. The Tschirnhausen family was the first proposal made real.</p>
 
   {addedOnRequest.length > 0 && (
     <>
@@ -49,13 +48,21 @@ for (const cell of emptyCells) {
   )}
 
   <h2>Named classical curves not in the collection · {count.missingNamed}</h2>
-  <p class="note">Each equation already exists in <code>scripts/generators.py</code>, so a
-    record is data entry and a figure, not new mathematics. The <em>shape</em> line is the
-    generator's own one-line description.</p>
-  <p class="note">Each figure shows the proposed curve in black with its <b>side curves</b> in
-    ochre, at a 2 % gap: the same law the plates use — outside at the ask, inside capped where
-    it would fold at 0.9 / κ. The stations are sampled from the equation, so the sides are a
-    drawing of what the plate would do, not a record.</p>
+  {missingNamed.length === 0 ? (
+    <p class="note">Every named classical curve the generators know is in the collection now.
+      The last nine were added on 2026-11-23 as sampled records, each with a plate: semicubical,
+      kappa, strophoid, pear, piriform 2×, bean, heart, squircle, rounded square.</p>
+  ) : (
+    <>
+      <p class="note">Each equation already exists in <code>scripts/generators.py</code>, so a
+        record is data entry and a figure, not new mathematics. The <em>shape</em> line is the
+        generator's own one-line description.</p>
+      <p class="note">Each figure shows the proposed curve in black with its <b>side curves</b>
+        in ochre, at a 2 % gap: the same law the plates use — outside at the ask, inside capped
+        where it would fold at 0.9 / κ. The stations are sampled from the equation, so the sides
+        are a drawing of what the plate would do, not a record.</p>
+    </>
+  )}
   <div class="gaps">
     {missingNamed.map((curve) => (
       <article class="gap">
