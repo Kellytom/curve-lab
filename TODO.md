@@ -117,8 +117,9 @@ The main families are done; these are loose ends, not new work:
   and the index and fails when a registry curve has no figure.
 - **Done 2026-11-23: the two database paths are named in `app/README.md`** — `migrate.mjs`
   seeds only an empty database, `add-registry-curves.mjs` is the additive path.
-- **`scripts/curve_registry.py` would rebuild the registry and lose the seven finds.**
-  It must learn to keep curated rows before it is run again.
+- **Done 2026-11-23: `scripts/curve_registry.py` refuses to lose curated rows.** `--write`
+  compares the uids it would make with the uids already present and exits 2 naming them;
+  `--force` is the only way past. Register row 67, `RegistryRebuildTest`.
 
 ## Senior-dev pass — the measures and the claims (2026-11-19)
 

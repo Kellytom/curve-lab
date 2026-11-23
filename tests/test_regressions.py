@@ -399,6 +399,21 @@ class GapsNamedTest(unittest.TestCase):
                 (ROOT / "workbench" / "curve-registry.json").read_text())["curves"]})
 
 
+class RegistryRebuildTest(unittest.TestCase):
+    def test_the_registry_rebuild_refuses_to_drop_curated_rows(self):
+        """2026-11-23, from the TODO: `scripts/curve_registry.py` rebuilds and renumbers the
+        registry from its sources, so it would lose the seven curated finds (c-0263..c-0269)
+        and every record added by hand. It now refuses and names the difference unless
+        --force; this runs the real --write and requires the file to be untouched."""
+        path = ROOT / "workbench" / "curve-registry.json"
+        before = path.read_bytes()
+        run = subprocess.run([sys.executable, str(ROOT / "scripts" / "curve_registry.py"),
+                              "--write"], capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(2, run.returncode, run.stdout + run.stderr)
+        self.assertIn("refusing to write", run.stdout + run.stderr)
+        self.assertEqual(before, path.read_bytes(), "the registry was written anyway")
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at

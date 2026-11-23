@@ -77,8 +77,9 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
 take longer goes to the background, and the work continues; report it when it
 lands. The operator does not sit and watch a test run.
 
-- The fast loop is `.venv/bin/python scripts/test.py --fast` — 10 modules, about
-  **3 seconds**. Run it after every change.
+- The fast loop is `.venv/bin/python scripts/test.py --fast` — 15 modules, **75 s**
+  measured on 2026-11-23 (the plate renders in the register are most of it), so it is a
+  background job too, not a 3-second loop. Run it once per change, then work.
 - The commit gate and `--full` are **background** jobs. Start one, keep working,
   read the result at the next natural boundary.
 - A page rebuild, a plate export, an image raster, a dependency install: all
@@ -207,7 +208,7 @@ and documentation alike.
 | `curve_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `curve_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `workbench/*.html`) |
-| `tests/` | 305 tests; run the whole suite |
+| `tests/` | the suite; `scripts/test.py` runs it (never count the tests by hand) |
 | `app/src/content/docs/docs/review.md` | architecture/print review — act after the current work |
 | `app/src/content/docs/docs/philosophy.md` | the design philosophy: glyph, full line, sections, joints |
 | `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |
@@ -257,9 +258,9 @@ Start the one server if it is not already up (this is idempotent — it says
 npm --prefix app run check                        # astro check + eslint: the static gate
 npm --prefix app run test:pages                   # the 12 pages, stars and names, in a browser
 npm --prefix app run gate                         # check + the unit tests
-.venv/bin/python scripts/test.py --fast           # tight loop: engine, data, register, ~15 s
+.venv/bin/python scripts/test.py --fast           # engine, data, register: background (75 s on 2026-11-23)
 .venv/bin/python scripts/test.py --slim          # engine only, ~3 s
-.venv/bin/python scripts/test.py                 # commit gate, ~40 s
+.venv/bin/python scripts/test.py                 # commit gate: background
 .venv/bin/python scripts/test.py --browser       # the gate plus the headless page checks
 .venv/bin/python scripts/test.py --full          # before a push
 .venv/bin/python scripts/build-pages.py          # rebuild every page that loads the shared JS

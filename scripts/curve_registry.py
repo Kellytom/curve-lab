@@ -1,7 +1,14 @@
 """One registry for every curve: a uid, one name, and its lists.
 
     .venv/bin/python scripts/curve_registry.py           # report only
-    .venv/bin/python scripts/curve_registry.py --write   # write the registry
+    .venv/bin/python scripts/curve_registry.py --write   # write, if no record would be lost
+    .venv/bin/python scripts/curve_registry.py --write --force   # renumber anyway
+
+A rebuild assigns uids in its own order, so it cannot reproduce a curated row
+(the seven finds, a record added by hand). Before writing, it compares the uids
+it would make with the uids already in the registry and refuses, naming the
+difference, unless --force is given (the operator, 2026-11-23: the script "must
+learn to keep curated rows before it is run again").
 
 The sources (workbench/real-curves.json, finder.json, operator-list.json) are
 read, not changed. Curves are grouped by shape: the rows normalised by their
@@ -156,6 +163,7 @@ def family_of(name: str, item: dict) -> str:
 
 def main(argv: list[str]) -> int:
     write = "--write" in argv
+    force = "--force" in argv
     groups: dict[tuple, list[dict]] = {}
     order: list[tuple] = []
     for list_name, path, key in SOURCES:
@@ -282,6 +290,18 @@ def main(argv: list[str]) -> int:
     if not write:
         print("report only: add --write to keep the registry")
         return 0
+
+    if write and not force and OUT.exists():
+        old = json.loads(OUT.read_text(encoding="utf-8"))
+        kept = {row["uid"] for row in old.get("curves", [])}
+        made = {row["uid"] for row in records}
+        lost = sorted(kept - made)
+        if lost:
+            print(f"refusing to write: {len(lost)} existing records would be lost, for example "
+                  f"{lost[:6]}")
+            print("a rebuild renumbers uids; it cannot reproduce curated rows. Move them into a "
+                  "source first, or pass --force.")
+            return 2
 
     backup = ROOT / "workbench" / "backups"
     backup.mkdir(parents=True, exist_ok=True)
