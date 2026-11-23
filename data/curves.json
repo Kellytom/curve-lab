@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.curves/1",
  "note": "One object per curve: the Curve row, its Note, its CurveSet, its metric and its formula.",
- "count": 393,
+ "count": 394,
  "rows": [
   {
    "uid": "c-0001",
@@ -18911,6 +18911,50 @@
     "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-1 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
     "updatedAt": "2026-11-22T21:00:48.666Z"
+   },
+   "set": null,
+   "metric": null
+  },
+  {
+   "uid": "c-0274a",
+   "name": "double-1-se-1-cut",
+   "family": "hybrid",
+   "lists": "[\"found\",\"hybrid\",\"double\",\"variant\"]",
+   "aliases": "[]",
+   "starred": false,
+   "candidate": false,
+   "createdAt": "2026-11-23T21:10:17.809Z",
+   "stars": null,
+   "formula": {
+    "plain": "polyline through 39 stations, (0, 0) to (0.47867562366154537, -0.06300912366154562)",
+    "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+    "parameter": "k = 0 … station count − 1",
+    "search": "polyline 39 stations from (0, 0) to (0.47867562366154537, -0.06300912366154562); no metric yet",
+    "use": "no metric yet"
+   },
+   "note": {
+    "uid": "c-0274a",
+    "name": "double-1-se-1-cut",
+    "importance": 0,
+    "rotation": 0,
+    "pieces": 1,
+    "borderUid": null,
+    "perSide": 9,
+    "borderTurn": 0,
+    "offsets": 0,
+    "widthPct": 1,
+    "plus": 2,
+    "minus": 0,
+    "profile": "bow",
+    "formula": "{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-1, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"}",
+    "params": "{\"kind\":\"double\",\"parent\":\"c-0274\",\"parentName\":\"double-1-se-1\",\"half\":\"SE-1\",\"p\":1,\"q\":3,\"use\":\"radius\",\"block\":\"cubic\",\"cuts\":[{\"t\":-1.892936,\"x\":0.2474,\"y\":0.2474},{\"t\":0.52828,\"x\":0.9636,\"y\":0.9636}],\"ends\":[[0.247398,0.247398],[0.247398,0.247398]],\"crossings\":0,\"variantOf\":\"c-0274\",\"tuned\":{\"widthPct\":1.5,\"plus\":2.5,\"minus\":0.1,\"profile\":\"bow\",\"transform\":{\"degrees\":135},\"degrees\":135},\"cut\":{\"of\":\"c-0274\",\"ofName\":\"double-1-se-1\",\"side\":\"top\",\"runs\":2}}",
+    "grid": null,
+    "stationRule": null,
+    "algorithm": "cut across a line",
+    "conversion": "{\"algorithm\":\"cut across a line\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null,\"exact\":false,\"note\":\"sampled: the top runs of c-0274, open curves, exact at the stored points\"}",
+    "transform": "{\"degrees\":135,\"exact\":false}",
+    "note": "cut from c-0274 (double-1-se-1) across a line · the top half · 2 open curves, not a closed shape",
+    "updatedAt": "2026-11-23T21:10:17.809Z"
    },
    "set": null,
    "metric": null

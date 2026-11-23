@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 218,
+ "count": 219,
  "rows": [
   {
    "name": "c-0001",
@@ -1605,6 +1605,21 @@
    "miss": 46.415584,
    "note": "the same construction as c-0259 with a shorter ½ stack · position degree 11 · rails 9 · grid 154 · bend 1.018 · miss 46.415584 units from its parent",
    "savedAt": "2026-11-23T12:57:55.614Z"
+  },
+  {
+   "name": "c-0274a",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 135
+   },
+   "spine": "c-0274",
+   "curveName": "double-1-se-1-cut",
+   "tune": true,
+   "variant": "c-0274a",
+   "savedAt": "2026-11-23T21:10:17.815Z"
   },
   {
    "name": "c-0288a",
