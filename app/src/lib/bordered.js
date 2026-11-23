@@ -13,7 +13,6 @@
 import { statSync } from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
-import { loadRegistry } from "./registry.ts";
 
 import { repoRoot } from "./gallery.js";
 
@@ -163,9 +162,20 @@ function frameBorder(record, perSide, turn = 0) {
 // the note turns the character offsets on.
 function centralPaths(record, rotation) {
   if (record.offsets && record.speedX && record.speedY) {
-    return P.group(record).paths.map((path) => rotatePoints(path, rotation));
+    return {
+      paths: P.group(record).paths.map((path) => rotatePoints(path, rotation)),
+      offset: true,
+      branched: false,
+    };
   }
-  return [rotatePoints(pointsOf(record), rotation)];
+  // A multi-branch record is already whole (c-0416's four arms). Drawn as one path its jumps
+  // become chords and fill as a blob, so every branch is its own path here.
+  const branches = P.branchesOf ? P.branchesOf(record) : [pointsOf(record)];
+  return {
+    paths: branches.map((path) => rotatePoints(path, rotation)),
+    offset: false,
+    branched: branches.length > 1,
+  };
 }
 
 function marginPercent(border, central) {
@@ -214,47 +224,71 @@ export function figureFor(record, all, borderRecord) {
     let centralCount;
     let fills;
     if (pieces === 1) {
-      // The leaf: the curve and its mirror across the chord through its feet.
-      // With offsets on, each half is the rail band, not the spine.
-      const half = centralPaths(record, rotation);
-      const mirror = half.map((path) => reflectAcrossChord(path));
-      const halves = [half, mirror];
-      const bands = [];
-      if (half.length >= 3) {
-        const band = [...half[1], ...half[2].slice().reverse()];
-        band.push(band[0]);
-        const mirrorBand = [...mirror[1], ...mirror[2].slice().reverse()];
-        mirrorBand.push(mirrorBand[0]);
-        bands.push(band, mirrorBand);
+      const centralInfo = centralPaths(record, rotation);
+      const half = centralInfo.paths;
+      if (centralInfo.branched) {
+        // branches are already whole: scale the set about its common centre, no mirror, no
+        // fill. (Centring each branch on its own box would pile the arms on one point.)
+        const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
+        const bbox0 = P.bbox(half.flat());
+        const size0 = Math.max(bbox0[2] - bbox0[0], bbox0[3] - bbox0[1]) || 1;
+        const scale0 = target / size0;
+        const mx = (bbox0[0] + bbox0[2]) / 2;
+        const my = (bbox0[1] + bbox0[3]) / 2;
+        central = half.map((path) =>
+          path.map(([x, y]) => [(x - mx) * scale0 + cx, (y - my) * scale0 + cy]));
+        centralCount = central.length;
+        fills = [...borderFills];
       } else {
-        const leaf = [...half[0], ...mirror[0].slice().reverse()];
-        leaf.push(leaf[0]);
-        bands.push(leaf);
+        const mirror = half.map((path) => reflectAcrossChord(path));
+        const halves = [half, mirror];
+        const bands = [];
+        if (half.length >= 3) {
+          const band = [...half[1], ...half[2].slice().reverse()];
+          band.push(band[0]);
+          const mirrorBand = [...mirror[1], ...mirror[2].slice().reverse()];
+          mirrorBand.push(mirrorBand[0]);
+          bands.push(band, mirrorBand);
+        } else {
+          const leaf = [...half[0], ...mirror[0].slice().reverse()];
+          leaf.push(leaf[0]);
+          bands.push(leaf);
+        }
+        const all = halves.flat();
+        const pairBox = P.bbox(all.flat());
+        const size = Math.max(pairBox[2] - pairBox[0], pairBox[3] - pairBox[1]) || 1;
+        const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
+        const scale = target / size;
+        const scaledHalves = halves.map((h) => h.map((p) => scaleAbout(p, scale)));
+        const scaledBands = bands.map((b) => scaleAbout(b, scale));
+        const box = P.bbox(scaledHalves.flat().flat());
+        const dx = cx - (box[0] + box[2]) / 2;
+        const dy = cy - (box[1] + box[3]) / 2;
+        const movedHalves = scaledHalves.map((h) => h.map((p) => p.map(([x, y]) => [x + dx, y + dy])));
+        const movedBands = scaledBands.map((b) => b.map(([x, y]) => [x + dx, y + dy]));
+        central = movedHalves.flat();
+        centralCount = movedHalves.length;
+        fills = [...movedBands, ...borderFills];
       }
-      const all = halves.flat();
-      const pairBox = P.bbox(all.flat());
-      const size = Math.max(pairBox[2] - pairBox[0], pairBox[3] - pairBox[1]) || 1;
-      const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
-      const scale = target / size;
-      const scaledHalves = halves.map((h) => h.map((p) => scaleAbout(p, scale)));
-      const scaledBands = bands.map((b) => scaleAbout(b, scale));
-      const box = P.bbox(scaledHalves.flat().flat());
-      const dx = cx - (box[0] + box[2]) / 2;
-      const dy = cy - (box[1] + box[3]) / 2;
-      const movedHalves = scaledHalves.map((h) => h.map((p) => p.map(([x, y]) => [x + dx, y + dy])));
-      const movedBands = scaledBands.map((b) => b.map(([x, y]) => [x + dx, y + dy]));
-      central = movedHalves.flat();
-      centralCount = movedHalves.length;
-      fills = [...movedBands, ...borderFills];
     } else {
-      const inner = rotatePoints(pointsOf(record), rotation);
-      const ibox = P.bbox(inner);
+      const centralInfo = centralPaths(record, rotation);
+      const innerPaths = centralInfo.paths;
+      const ibox = P.bbox(innerPaths.flat());
       const size = Math.max(ibox[2] - ibox[0], ibox[3] - ibox[1]) || 1;
       const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
-      central = mirroredPieces(scaleAbout(inner, target / size), pieces)
-        .map((line) => moveToCentre(line, cx, cy));
-      centralCount = central.length;
-      fills = borderFills;
+      if (centralInfo.branched) {
+        // pieces of a branched record stay branches: tile nothing, draw the set once
+        central = innerPaths.map((path) =>
+          path.map(([x, y]) => [(x - (ibox[0] + ibox[2]) / 2) * (target / size) + cx,
+            (y - (ibox[1] + ibox[3]) / 2) * (target / size) + cy]));
+        centralCount = central.length;
+        fills = [...borderFills];
+      } else {
+        central = mirroredPieces(scaleAbout(innerPaths[0], target / size), pieces)
+          .map((line) => moveToCentre(line, cx, cy));
+        centralCount = central.length;
+        fills = borderFills;
+      }
     }
     const margin = marginPercent(border, central);
     return {
@@ -357,6 +391,10 @@ export async function buildIlluminations(root) {
   const base = root || repoRoot();
   const stamp = dataStamp(base);
   if (cache && cache.base === base && cache.stamp === stamp) return cache;
+  // the database-backed registry is loaded here, not at import: figureFor and the SVG writers
+  // are pure and must import under plain Node (the tests do), and a static .ts import blocked
+  // that with ERR_UNKNOWN_FILE_EXTENSION.
+  const { loadRegistry } = await import("./registry.ts");
   const registry = (await loadRegistry(base)).curves;
   const rows = Object.fromEntries(registry.map((record) => [record.name, record]));
   const byUid = Object.fromEntries(registry.map((record) => [record.uid, record]));

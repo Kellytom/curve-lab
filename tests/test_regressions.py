@@ -213,6 +213,27 @@ class PlateRailCrossingTest(unittest.TestCase):
         self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
 
 
+class BranchDrawTest(unittest.TestCase):
+    """2026-11-23: "the multi-branch records c-0416 (cruciform) and c-0418 (absx-gerono) draw as
+    fragments."
+
+    Two faults, one rule. The tune page joined c-0416's four arms with chords, and the figure
+    page read them as spine + two rails and filled the jump as a blob. `PLATE.branchesOf` is the
+    one rule: stored branches first, else a path splits on a jump over a quarter of its size.
+    """
+
+    def test_a_branch_record_is_drawn_as_branches(self):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        for name in ("plate-branches.test.mjs", "figure-branches.test.mjs"):
+            run = subprocess.run(
+                [node, "--test", str(ROOT / "tests" / "js" / name)],
+                capture_output=True, text=True, cwd=ROOT,
+            )
+            self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+
+
 class OrnamentWriterTest(unittest.TestCase):
     """2026-11-22, the operator: "i cant see how many curves to do because the page
     keeps refreshing constantly."
