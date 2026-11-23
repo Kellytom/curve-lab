@@ -35,7 +35,6 @@ def main(argv):
     path = Path(argv[0]) if argv else HERE / "spans" / "redeemer.json"
     data = json.loads(path.read_text())
     spans = data["curves"]
-    curves = spans  # each span is one curve here
     kinks = []
     for i in range(len(spans) - 1):
         end = spans[i]["p3"]
@@ -51,8 +50,10 @@ def main(argv):
     steps = [k for k in smooth if 5 < k <= 35]
     print(f"{path.name}: {len(spans)} spans")
     if smooth:
-        print(f"  joins: {len(smooth)} seamless; smooth kinks ≤5°: {sum(1 for k in smooth if k <= 5)}; "
-              f"small kinks 5–35°: {len(steps)}; corners >35°: {len(corners)}")
+        print(
+            f"  joins: {len(smooth)} seamless; smooth kinks ≤5°: {sum(1 for k in smooth if k <= 5)}; "  # noqa: E501
+            f"small kinks 5–35°: {len(steps)}; corners >35°: {len(corners)}"
+        )
         print(f"  worst smooth kink: {max(smooth):.2f}°")
 
     # snap every coordinate to a 1/1000 grid and measure the largest move
@@ -75,11 +76,15 @@ def main(argv):
 
     parts = [f"M {f(snapped[0]['p0'][0])} {f(snapped[0]['p0'][1])}"]
     for s in snapped:
-        parts.append(f"C {f(s['c1'][0])} {f(s['c1'][1])} {f(s['c2'][0])} {f(s['c2'][1])} "
-                     f"{f(s['p3'][0])} {f(s['p3'][1])}")
-    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.05 1 1.1" '
-           'width="600" height="660"><rect x="0" y="-0.05" width="1" height="1.1" fill="#fffef9"/>'
-           f'<path d="{" ".join(parts)}" fill="none" stroke="#3b2d1c" stroke-width="0.004"/></svg>')
+        parts.append(
+            f"C {f(s['c1'][0])} {f(s['c1'][1])} {f(s['c2'][0])} {f(s['c2'][1])} "
+            f"{f(s['p3'][0])} {f(s['p3'][1])}"
+        )
+    svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.05 1 1.1" '
+        'width="600" height="660"><rect x="0" y="-0.05" width="1" height="1.1" fill="#fffef9"/>'
+        f'<path d="{" ".join(parts)}" fill="none" stroke="#3b2d1c" stroke-width="0.004"/></svg>'
+    )
     out_svg = HERE / "out" / f"{path.stem}-snapped.svg"
     out_svg.write_text(svg)
     print(f"  snapped drawing: out/{out_svg.name}")

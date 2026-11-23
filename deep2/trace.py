@@ -38,6 +38,7 @@ def lithograph_mask(image: Image.Image) -> np.ndarray:
     anything the cream fill cannot reach. Robust to the printed border and
     the rays, which are inside the paper region but part of the drawing."""
     from scipy import ndimage as ndi
+
     rgb = np.asarray(image.convert("RGB"), dtype=np.int16)
     r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
     paper = (r > 195) & (g > 180) & (b > 140) & (r >= b + 15)
@@ -81,6 +82,7 @@ def silhouette_mask(image: Image.Image) -> np.ndarray:
     """Dark figure against a bright sky, cut by Otsu on luminance — the case
     that needs no colour reasoning at all."""
     from scipy import ndimage as ndi
+
     gray = np.asarray(image.convert("L"), dtype=np.float64)
     cut = otsu(gray)
     mask = gray < cut
@@ -97,7 +99,7 @@ def figure_mask(image: Image.Image) -> np.ndarray:
     """True where the figure is: not the green, bright-focus background."""
     rgb = np.asarray(image.convert("RGB"), dtype=np.int16)
     r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
-    green = (g - np.maximum(r, b)) > 8           # the foliage is green-dominant
+    green = (g - np.maximum(r, b)) > 8  # the foliage is green-dominant
     # the bokeh is foliage-lit white (g >= r); the pale statue is pink-beige
     # (r > g by ten levels). Brightness alone cannot separate them — the first
     # runs masked the statue as background.
@@ -106,6 +108,7 @@ def figure_mask(image: Image.Image) -> np.ndarray:
     mask = ~background
     # close small holes and drop specks, then keep the biggest component
     from scipy import ndimage as ndi
+
     mask = ndi.binary_closing(mask, iterations=3)
     mask = ndi.binary_opening(mask, iterations=1)
     labels, count = ndi.label(mask)
@@ -123,8 +126,7 @@ def write_pbm(mask: np.ndarray, path: Path) -> None:
     figure's True pixels are written as 1 — not inverted (the first run
     traced the background by getting this backwards)."""
     h, w = mask.shape
-    rows = [np.packbits(mask[y].astype(np.uint8), bitorder="big").tobytes()
-            for y in range(h)]
+    rows = [np.packbits(mask[y].astype(np.uint8), bitorder="big").tobytes() for y in range(h)]
     header = f"P4\n{w} {h}\n".encode()
     path.write_bytes(header + b"".join(rows))
 
@@ -136,6 +138,7 @@ def parse_svg_cubics(svg_text: str):
     with repeated coordinate sets implying a repeat of the last command — a
     real token walk, not a grep for 'C'."""
     import re
+
     d = re.search(r'<path[^>]*\sd="([^"]+)"', svg_text)
     if not d:
         raise SystemExit("no path in the potrace SVG")
@@ -169,7 +172,7 @@ def parse_svg_cubics(svg_text: str):
             i += 1
         elif cmd in ("c", "C"):
             rel = cmd.islower()
-            vals = [float(v) for v in raw[i:i + 6]]
+            vals = [float(v) for v in raw[i : i + 6]]
             if rel:
                 c1 = (cur[0] + vals[0], cur[1] + vals[1])
                 c2 = (cur[0] + vals[2], cur[1] + vals[3])
@@ -204,9 +207,13 @@ def main(argv):
         image = image.crop(tuple(box))
     if "--outname" in argv:
         stem_override = argv[argv.index("--outname") + 1]
-    mask = (lithograph_mask(image) if mode == "lithograph"
-            else silhouette_mask(image) if mode == "silhouette"
-            else figure_mask(image))
+    mask = (
+        lithograph_mask(image)
+        if mode == "lithograph"
+        else silhouette_mask(image)
+        if mode == "silhouette"
+        else figure_mask(image)
+    )
 
     stem = locals().get("stem_override") or ref.stem
     (HERE / "out").mkdir(exist_ok=True)
@@ -215,9 +222,19 @@ def main(argv):
 
     svg_path = HERE / "out" / f"{stem}-potrace.svg"
     subprocess.run(
-        ["/usr/local/bin/potrace", "-s", "-o", str(svg_path),
-         "--turdsize", "40", "--alphamax", "1.0", str(pbm)],
-        check=True, capture_output=True,
+        [
+            "/usr/local/bin/potrace",
+            "-s",
+            "-o",
+            str(svg_path),
+            "--turdsize",
+            "40",
+            "--alphamax",
+            "1.0",
+            str(pbm),
+        ],
+        check=True,
+        capture_output=True,
     )
     spans_px = parse_svg_cubics(svg_path.read_text())
 
@@ -230,8 +247,10 @@ def main(argv):
     def norm(p):
         return [round((p[0] - x0) / height, 5), round((y1 - p[1]) / height, 5)]
 
-    spans = [{"p0": norm(s["p0"]), "c1": norm(s["c1"]),
-              "c2": norm(s["c2"]), "p3": norm(s["p3"])} for s in spans_px]
+    spans = [
+        {"p0": norm(s["p0"]), "c1": norm(s["c1"]), "c2": norm(s["c2"]), "p3": norm(s["p3"])}
+        for s in spans_px
+    ]
 
     payload = {
         "reference": ref.name,
@@ -250,13 +269,17 @@ def main(argv):
 
     parts = [f"M {f(spans[0]['p0'][0])} {f(spans[0]['p0'][1])}"] if spans else []
     for s in spans:
-        parts.append(f"C {f(s['c1'][0])} {f(s['c1'][1])} {f(s['c2'][0])} {f(s['c2'][1])} "
-                     f"{f(s['p3'][0])} {f(s['p3'][1])}")
-    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.05 1 1.1" '
-           'width="600" height="660">'
-           '<rect x="0" y="-0.05" width="1" height="1.1" fill="#fffef9"/>'
-           f'<path d="{" ".join(parts)}" fill="none" stroke="#3b2d1c" stroke-width="0.004"/>'
-           '</svg>')
+        parts.append(
+            f"C {f(s['c1'][0])} {f(s['c1'][1])} {f(s['c2'][0])} {f(s['c2'][1])} "
+            f"{f(s['p3'][0])} {f(s['p3'][1])}"
+        )
+    svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.05 1 1.1" '
+        'width="600" height="660">'
+        '<rect x="0" y="-0.05" width="1" height="1.1" fill="#fffef9"/>'
+        f'<path d="{" ".join(parts)}" fill="none" stroke="#3b2d1c" stroke-width="0.004"/>'
+        "</svg>"
+    )
     out_svg = HERE / "out" / f"{stem}-spans.svg"
     out_svg.write_text(svg)
 
