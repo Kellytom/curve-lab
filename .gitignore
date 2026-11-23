@@ -102,3 +102,6 @@ app/public/ornaments/
 
 # the uncompressed RGBA plates, served for the compare desks only
 app/public/plates-rgba/
+
+# the operator's own chat history, for /said/ only
+data/said.json

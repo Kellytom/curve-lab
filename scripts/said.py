@@ -1,48 +1,61 @@
 #!/usr/bin/env python3
 """Print your recent messages to OpenCode, so one can be copied into a new chat.
 
-The command is ~/bin/said, a three-line wrapper around this file; the tool lives here so it is
-backed up with the project.
+The command is ~/bin/said, a three-line wrapper around this file, so the tool is backed up with
+the project.
 
-    said                 the last 12
-
-    said                 the last 12
-    said 30              the last 30
-    said --session abc   only that session (id prefix)
-    said --html ~/said.html   write a page with a copy button per message
+    said                 the last 5 in this project, not the helper chats
+    said 20              the last 20
+    said --md 10         markdown, ready to paste into a chat
+    said --all           every project and every helper chat
+    said --session abc   one conversation (id prefix)
+    said --html ~/said.html   a page with a copy button per message
 
 Reads the local OpenCode database read-only. Nothing is written there.
 """
 
 import argparse
 import html
+import json
+import os
 import sqlite3
 import sys
 from datetime import datetime
 from pathlib import Path
 
 DB = Path.home() / ".local" / "share" / "opencode" / "opencode.db"
+HELPER_PREFIXES = ("ses-sidechat",)     # the side chat is another agent, not DeepSeek1
 
 
-def rows(limit, session=None):
+def rows(limit, session=None, every=False, here=True):
     con = sqlite3.connect(f"file:{DB}?mode=ro", uri=True, timeout=2)
     con.row_factory = sqlite3.Row
-    sql = (
-        "select m.session_id, m.time_created, m.data, s.title, s.directory "
-        "from session_message m left join session_v2 s on s.id = m.session_id "
-        "where m.type = 'user'"
-    )
+    cwd = os.getcwd()
+    conditions = ["m.type = 'user'"]
     args = []
     if session:
-        sql += " and m.session_id like ?"
+        conditions.append("m.session_id like ?")
         args.append(f"{session}%")
-    sql += " order by m.time_created desc limit ?"
-    args.append(limit * 3)
+    elif not every:
+        if here:
+            conditions.append("s.directory = ?")
+            args.append(cwd)
+        for prefix in HELPER_PREFIXES:
+            conditions.append("m.session_id not like ?")
+            args.append(f"{prefix}%")
+    where = " and ".join(conditions)
+    base = (
+        "select m.session_id, m.time_created, m.data, s.title, s.directory "
+        "from session_message m left join session_v2 s on s.id = m.session_id "
+        f"where {where}"
+    )
+    total = con.execute(f"select count(*) from ({base})", args).fetchone()[0]
+    sql = base + " order by m.time_created desc limit ?"
     out = []
-    for row in con.execute(sql, args):
+    for row in con.execute(sql, args + [max(limit * 3, 30)]):
         try:
-            text = sqlite3.connect(":memory:").execute("select json_extract(?, '$.text')",
-                                                       (row["data"],)).fetchone()[0]
+            text = sqlite3.connect(":memory:").execute(
+                "select json_extract(?, '$.text')", (row["data"],)).fetchone()[0]
         except sqlite3.Error:
             text = None
         if not text or not text.strip():
@@ -60,25 +73,35 @@ def rows(limit, session=None):
         if len(out) >= limit:
             break
     con.close()
-    return list(reversed(out))
+    return list(reversed(out)), total
+
+
+def label(item):
+    where = Path(item["directory"]).name if item["directory"] else ""
+    return f"{item['at']} · {where or item['title'] or item['session'][:12]}"
 
 
 def plain(items):
+    return "\n\n".join(f"── {label(i)} ──\n{i['text']}" for i in items)
+
+
+def markdown(items):
     chunks = []
     for item in items:
-        where = Path(item["directory"]).name if item["directory"] else ""
-        head = f"── {item['at']} · {where or item['title'] or item['session'][:12]} ──"
-        chunks.append(f"{head}\n{item['text']}")
+        body = item["text"]
+        # a message that already carries Markdown is pasted as it is; a plain one is quoted
+        if any(mark in body for mark in ("\n#", "\n- ", "\n1. ", "```", "|")):
+            chunks.append(f"### {label(item)}\n\n{body}")
+        else:
+            chunks.append(f"### {label(item)}\n\n{body}\n")
     return "\n\n".join(chunks)
 
 
 def page(items, out):
     cards = []
     for i, item in enumerate(items):
-        where = Path(item["directory"]).name if item["directory"] else ""
         cards.append(
-            f'<article><header><span>{html.escape(item["at"])} · '
-            f'{html.escape(where or item["title"])}</span>'
+            f'<article><header><span>{html.escape(label(item))}</span>'
             f'<button data-i="{i}">copy</button></header>'
             f'<pre id="t{i}">{html.escape(item["text"])}</pre></article>'
         )
@@ -113,20 +136,48 @@ for (const b of document.querySelectorAll("button[data-i]")) {{
     return len(items)
 
 
+def push(items, out):
+    """Write the messages for the Astro route /said/, which reads this file per request."""
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({
+        "format": "curve-lab.said/1",
+        "note": "The operator's own messages, newest last. Written by scripts/said.py; "
+                "personal, gitignored, never committed.",
+        "count": len(items),
+        "messages": items,
+    }, ensure_ascii=False, indent=1) + "\n")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(add_help=True)
-    ap.add_argument("count", nargs="?", type=int, default=12)
+    ap.add_argument("count", nargs="?", type=int, default=5)
     ap.add_argument("--session", default=None)
     ap.add_argument("--html", default=None)
+    ap.add_argument("--md", action="store_true")
+    ap.add_argument("--push", action="store_true",
+                    help="write data/said.json for the Astro page at /said/")
+    ap.add_argument("--all", action="store_true", help="every project and helper chat")
     args = ap.parse_args()
     if not DB.exists():
         print(f"no OpenCode database at {DB}", file=sys.stderr)
         return 1
-    items = rows(max(1, args.count), args.session)
+    items, total = rows(max(1, args.count), args.session, args.all)
+    if args.push:
+        target = Path(os.environ.get("CURVE_LAB_ROOT", os.getcwd())) / "data" / "said.json"
+        if not Path(target).parent.exists():
+            target = Path("/Users/thomaskelly/developer/curve-lab/data/said.json")
+        push(items, target)
+        print(f"{len(items)} messages -> {target}\nhttp://127.0.0.1:4321/said/")
+        return 0
     if args.html:
-        print(f"{page(items, args.html)} messages -> {Path(args.html).expanduser()}")
-    else:
-        print(plain(items))
+        n = page(items, args.html)
+        print(f"{n} messages -> {Path(args.html).expanduser()}")
+        return 0
+    print(markdown(items) if args.md else plain(items))
+    if total > len(items):
+        print(f"\n(showing {len(items)} of {total}; 'said {min(total, 30)}' for more, "
+              f"'said --html ~/said.html' for a page)")
     return 0
 
 

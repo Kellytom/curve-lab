@@ -1,0 +1,57 @@
+---
+// The operator's own recent messages, so one can be copied into a new chat.
+// Data: data/said.json, written by scripts/said.py --push (personal, gitignored).
+// Spec: state/SPEC-said-int.md.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const FILE = fileURLToPath(new URL("../../../data/said.json", import.meta.url));
+const said = existsSync(FILE)
+  ? JSON.parse(readFileSync(FILE, "utf8"))
+  : { messages: [], note: "" };
+const messages = (said.messages || []).slice().reverse();
+const when = (iso) => iso;
+---
+
+<BaseLayout title="said" pageTitle="My recent messages">
+  <p class="lead">Your own messages, newest first. Each has a copy button, so one can go
+    straight into a new chat. Regenerate with <code>said --push 40</code>; the page reads the
+    file on every request, so a reload shows the newest list.</p>
+
+  {messages.length === 0 && (
+    <p class="note">No list yet. Run <code>said --push</code> once; it writes
+      <code>data/said.json</code> and this page picks it up.</p>
+  )}
+
+  <ol class="said">
+    {messages.map((message, index) => (
+      <li>
+        <article>
+          <header>
+            <span>{message.at} · {path.basename(message.directory || "") || message.title}</span>
+            <button type="button" class="copy" data-index={index}>copy</button>
+          </header>
+          <pre id={`said-${index}`}>{message.text}</pre>
+        </article>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>
+
+<script>
+  import "../scripts/said-copy.js";
+</script>
+
+<style is:global>
+  .said { list-style: none; margin: 0; padding: 0; }
+  .said > li { margin: 0 0 12px; }
+  .said article { background: #fffef9; border: 1px solid #eee3d3; padding: 10px 12px; }
+  .said header { display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    font: 11px/1.4 ui-monospace, Menlo, monospace; color: #7a5a1f; margin-bottom: 6px; }
+  .said pre { margin: 0; white-space: pre-wrap; font: inherit; }
+  .said .copy { font: 11px/1 ui-monospace, Menlo, monospace; padding: 4px 8px; cursor: pointer;
+    border: 1px solid #d9c9a8; background: #fdf9f0; color: #2b2620; }
+  .said .copy.ok { background: #e6f3e6; }
+</style>
