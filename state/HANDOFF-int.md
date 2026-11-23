@@ -3781,4 +3781,32 @@ pinch cap (a second construction; `docs/SIDE-CURVES.md` §2).
   cut. The first paint now draws the amber guide, so a redraw with unchanged values is the same
   picture; `scripts/check-tune-lab.mjs` had failed on that difference and now passes.
   `state/SPEC-tune-lab-int.md` updated in the same commit.
+- **The hub, same day:** four windows open as stills (`app/public/hub/`, made by
+  `scripts/hub_shots.mjs`) and the live page loads when its window is reached or is clicked;
+  the small print under each says still, loading, or live. The desks menu lists each item with
+  an italic note on the same line, so it is wider and not longer. `check-pages.mjs` now guards
+  the four windows and no empty one.
+- **Branches, same day:** `PLATE.branchesOf` is the one rule — a record stored in `branches`, or
+  a `path` with a jump over a quarter of its size, is drawn one group per branch. The tune page,
+  its strip and the live redraw ask it first; c-0416's four arms no longer draw as fragments
+  joined by chords. Guard: `tests/js/plate-branches.test.mjs`.
 - **Next:** the human figure in the centre (`TODO.md`), then the book set.
+
+## 2026-11-23 (who built what — the split, stated once)
+
+The operator: "make sure your handoff and deep2s stuff are not mixed together."
+
+- **This session (DeepSeek1), today:** the rail crossings (dots, hidden spans, `rail-holes.json`),
+  the tune page's readout and other-kinds strip, the hub's stills and notes menu, the fold
+  record (`state/FOLD-int.md`), `PLATE.branchesOf`, and `state/SPEC-side-pillars-int.md`. The
+  paths are in the blocks above; each was committed on its own.
+- **DeepSeek2 (the other main agent):** the NURBS reduction and `/reduce/`, the
+  Inkscape round-trip, the plain-number formatter, and their untracked scripts
+  (`app/scripts/parity-reduce.mjs`, `app/scripts/probe-clean.mjs`, `state/SC-READING-int.md`).
+  The split is written in `state/PLAN-int.md` §Split.
+- **The two blocks "2026-11-23 (later still)" and "(end)"** above record that agent's work —
+  hearts, class V, cusp dots, `ai-news/`, `/chat-display/`, `workhorse`, `ding` — as project
+  truth. They are not this session's work and this session did not claim them.
+- **The rule this session follows:** stage the paths of its own action only, never
+  `git add -A`; do not revert or commit anything of theirs. A shared file is not a conflict
+  (`state/RESPONSIBILITIES-int.md`); a lost edit is.
