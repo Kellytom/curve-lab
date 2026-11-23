@@ -6,6 +6,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { renderMarkdown } from "../lib/markdown.js";
 
 const FILE = fileURLToPath(new URL("../../../data/said.json", import.meta.url));
 const said = existsSync(FILE)
@@ -33,7 +34,8 @@ const when = (iso) => iso;
             <span>{message.at} · {path.basename(message.directory || "") || message.title}</span>
             <button type="button" class="copy" data-target={`said-${index}`}>copy</button>
           </header>
-          <pre id={`said-${index}`}>{message.text}</pre>
+          <div class="md" set:html={renderMarkdown(message.text) || `<pre>${message.text}</pre>`} />
+          <pre hidden id={`said-${index}`}>{message.text}</pre>
         </article>
       </li>
     ))}
@@ -51,6 +53,24 @@ const when = (iso) => iso;
   .said header { display: flex; justify-content: space-between; align-items: center; gap: 10px;
     font: 11px/1.4 ui-monospace, Menlo, monospace; color: #7a5a1f; margin-bottom: 6px; }
   .said pre { margin: 0; white-space: pre-wrap; font: inherit; }
+  .said .md { font: inherit; }
+  .said .md > :first-child { margin-top: 0; }
+  .said .md > :last-child { margin-bottom: 0; }
+  .said .md h1, .said .md h2, .said .md h3, .said .md h4 { margin: 12px 0 6px; line-height: 1.3; }
+  .said .md h1 { font-size: 20px; } .said .md h2 { font-size: 17px; }
+  .said .md h3 { font-size: 15px; } .said .md h4 { font-size: 14px; }
+  .said .md p { margin: 0 0 8px; }
+  .said .md ul, .said .md ol { margin: 0 0 8px; padding-left: 22px; }
+  .said .md li { margin: 0 0 3px; }
+  .said .md code { font: 12px/1.5 ui-monospace, Menlo, monospace; background: #f3ecdd; padding: 1px 4px; }
+  .said .md pre { background: #f6f0e2; padding: 8px 10px; overflow-x: auto; }
+  .said .md pre code { background: none; padding: 0; }
+  .said .md blockquote { margin: 0 0 8px; padding-left: 12px; border-left: 3px solid #e6dccb; color: #5a4a36; }
+  .said .md table { border-collapse: collapse; margin: 0 0 8px; font-size: 14px; }
+  .said .md th, .said .md td { border-bottom: 1px solid #eee3d3; padding: 3px 10px 3px 0; text-align: left; }
+  .said .md hr { border: none; border-top: 1px solid #e6dccb; margin: 12px 0; }
+  .said .md a, .said .md .url { color: #1f5fbf; text-decoration: underline; text-underline-offset: 2px; }
+  .said .md .url { word-break: break-all; }
   .said .copy { font: 11px/1 ui-monospace, Menlo, monospace; padding: 4px 8px; cursor: pointer;
     border: 1px solid #d9c9a8; background: #fdf9f0; color: #2b2620; }
   .said .copy.ok { background: #e6f3e6; }

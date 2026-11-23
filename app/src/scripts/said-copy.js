@@ -5,7 +5,7 @@ export function mountCopyButtons(root = document) {
       const text = document.getElementById(button.dataset.target);
       if (!text) return;
       try {
-        await navigator.clipboard.writeText(text.textContent);
+        await globalThis.navigator.clipboard.writeText(text.textContent);
         button.textContent = "copied";
         button.classList.add("ok");
       } catch {
