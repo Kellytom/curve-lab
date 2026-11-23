@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 220,
+ "count": 221,
  "rows": [
   {
    "name": "c-0001",
@@ -1635,6 +1635,21 @@
    "tune": true,
    "variant": "c-0274b",
    "savedAt": "2026-11-23T21:11:29.770Z"
+  },
+  {
+   "name": "c-0274c",
+   "widthPct": 3,
+   "plus": 4,
+   "minus": 0.5,
+   "profile": "s",
+   "transform": {
+    "degrees": 135
+   },
+   "spine": "c-0274",
+   "curveName": "cut-values-check",
+   "tune": true,
+   "variant": "c-0274c",
+   "savedAt": "2026-11-23T21:26:23.231Z"
   },
   {
    "name": "c-0288a",
