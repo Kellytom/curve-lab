@@ -72,7 +72,7 @@
     "halfTurn": 0.1909,
     "mirrorYX": 0.1703,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -91,8 +91,8 @@
     "plain": "x(t) = −12t + 78t² − 611/3t³ + 232t⁴ − 546/5t⁵ + 50/3t⁶ − 3/7t⁷;  y(t) = 16t − 64t² + 356/3t³ − 121t⁴ + 48t⁵ + 10/3t⁶ − 4/7t⁷",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 105",
     "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
-    "search": "PH x=−12t + 78t^2 − 611/3t^3 + 232t^4 − 546/5t^5 + 50/3t^6 − 3/7t^7; y=16t − 64t^2 + 356/3t^3 − 121t^4 + 48t^5 + 10/3t^6 − 4/7t^7; no metric yet",
-    "use": "no metric yet"
+    "search": "PH x=−12t + 78t^2 − 611/3t^3 + 232t^4 − 546/5t^5 + 50/3t^6 − 3/7t^7; y=16t − 64t^2 + 356/3t^3 − 121t^4 + 48t^5 + 10/3t^6 − 4/7t^7; 1 node, 1 inflection, bend 4.163",
+    "use": "1 node, 1 inflection, bend 4.163"
    },
    "note": {
     "uid": "c-0001a",
@@ -119,7 +119,33 @@
     "updatedAt": "2026-11-21T16:29:52.974Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0001a",
+    "family": "amper",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 5,
+    "step": 1,
+    "grid": 105,
+    "bend": 4.162593,
+    "arc": 5.980952,
+    "chord": 1.436833,
+    "inflections": 1,
+    "inflectionMax": 9,
+    "closest": 1.151029,
+    "crossings": 1,
+    "meetingPoints": 1,
+    "bboxW": 2.1693,
+    "bboxH": 1.9866,
+    "area": 1.2381,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.3814,
+    "mirrorY": 0.2339,
+    "halfTurn": 0.1909,
+    "mirrorYX": 0.1703,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0002",
@@ -190,7 +216,7 @@
     "halfTurn": 0.1478,
     "mirrorYX": 0.0973,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -262,7 +288,7 @@
     "halfTurn": 0.0863,
     "mirrorYX": 0.3362,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -334,7 +360,7 @@
     "halfTurn": 0.1767,
     "mirrorYX": 0.3621,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -406,7 +432,7 @@
     "halfTurn": 0.1645,
     "mirrorYX": 0.7634,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -478,7 +504,7 @@
     "halfTurn": 0.0658,
     "mirrorYX": 0.2226,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -550,7 +576,7 @@
     "halfTurn": 0.0796,
     "mirrorYX": 0.2669,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -622,7 +648,7 @@
     "halfTurn": 0.2071,
     "mirrorYX": 0.7634,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -641,8 +667,8 @@
     "plain": "polyline through 631 stations, (-0.28350030612244914, 0.49500000000000005) to (0.28350030612244914, 0.49500000000000005)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 631 stations from (-0.28350030612244914, 0.49500000000000005) to (0.28350030612244914, 0.49500000000000005); no metric yet",
-    "use": "no metric yet"
+    "search": "polyline 631 stations from (-0.28350030612244914, 0.49500000000000005) to (0.28350030612244914, 0.49500000000000005); bend 2.000",
+    "use": "bend 2.000"
    },
    "note": {
     "uid": "c-0008a",
@@ -669,7 +695,33 @@
     "updatedAt": "2026-11-23T23:18:52.706Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0008a",
+    "family": "u",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 5,
+    "step": 1,
+    "grid": 3,
+    "bend": 2,
+    "arc": 1.333333,
+    "chord": 0.666667,
+    "inflections": 0,
+    "inflectionMax": 9,
+    "closest": 1,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 0.6667,
+    "bboxH": 0.5,
+    "area": 0.2667,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7066,
+    "mirrorY": 0,
+    "halfTurn": 0.2071,
+    "mirrorYX": 0.7634,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0009",
@@ -740,7 +792,7 @@
     "halfTurn": 0.1836,
     "mirrorYX": 0.5756,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -812,7 +864,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6614,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -884,7 +936,7 @@
     "halfTurn": 0.1423,
     "mirrorYX": 0.1515,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -956,7 +1008,7 @@
     "halfTurn": 0.2256,
     "mirrorYX": 0.0748,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1028,7 +1080,7 @@
     "halfTurn": 0.0982,
     "mirrorYX": 0.3226,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1100,7 +1152,7 @@
     "halfTurn": 0.0746,
     "mirrorYX": 0.0781,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1172,7 +1224,7 @@
     "halfTurn": 0.073,
     "mirrorYX": 0.0755,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1244,7 +1296,7 @@
     "halfTurn": 0.2071,
     "mirrorYX": 0.6147,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1316,7 +1368,7 @@
     "halfTurn": 0.1286,
     "mirrorYX": 0.1481,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1388,7 +1440,7 @@
     "halfTurn": 0.1219,
     "mirrorYX": 0.0771,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1460,7 +1512,7 @@
     "halfTurn": 0.1594,
     "mirrorYX": 0.4235,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1532,7 +1584,7 @@
     "halfTurn": 0.1315,
     "mirrorYX": 0.2351,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1604,7 +1656,7 @@
     "halfTurn": 0.0344,
     "mirrorYX": 0.8419,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1676,7 +1728,7 @@
     "halfTurn": 0.0855,
     "mirrorYX": 0.1314,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1748,7 +1800,7 @@
     "halfTurn": 0.0976,
     "mirrorYX": 0.5128,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1820,7 +1872,7 @@
     "halfTurn": 0.1405,
     "mirrorYX": 0.3352,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1892,7 +1944,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.4793,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -1964,7 +2016,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.1492,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2036,7 +2088,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.2275,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2108,7 +2160,7 @@
     "halfTurn": 0.127,
     "mirrorYX": 0.357,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2180,7 +2232,7 @@
     "halfTurn": 0.0351,
     "mirrorYX": 0.4825,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2252,7 +2304,7 @@
     "halfTurn": 0.0445,
     "mirrorYX": 0.3255,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2324,7 +2376,7 @@
     "halfTurn": 0.1199,
     "mirrorYX": 0.6457,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2396,7 +2448,7 @@
     "halfTurn": 0.0948,
     "mirrorYX": 0.4737,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2468,7 +2520,7 @@
     "halfTurn": 0.1862,
     "mirrorYX": 0.5651,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2540,7 +2592,7 @@
     "halfTurn": 0.0727,
     "mirrorYX": 0.2834,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2612,7 +2664,7 @@
     "halfTurn": 0.0803,
     "mirrorYX": 0.2841,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2684,7 +2736,7 @@
     "halfTurn": 0.1377,
     "mirrorYX": 0.2668,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2756,7 +2808,7 @@
     "halfTurn": 0.1289,
     "mirrorYX": 0.1406,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2828,7 +2880,7 @@
     "halfTurn": 0.1307,
     "mirrorYX": 0.243,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2900,7 +2952,7 @@
     "halfTurn": 0.1698,
     "mirrorYX": 0.0929,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -2972,7 +3024,7 @@
     "halfTurn": 0.0981,
     "mirrorYX": 0.4744,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3044,7 +3096,7 @@
     "halfTurn": 0.132,
     "mirrorYX": 0.6971,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3116,7 +3168,7 @@
     "halfTurn": 0.2187,
     "mirrorYX": 0.576,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3188,7 +3240,7 @@
     "halfTurn": 0.0553,
     "mirrorYX": 0.3374,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3260,7 +3312,7 @@
     "halfTurn": 0.115,
     "mirrorYX": 0.1326,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3332,7 +3384,7 @@
     "halfTurn": 0.0998,
     "mirrorYX": 0.3142,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3404,7 +3456,7 @@
     "halfTurn": 0.0558,
     "mirrorYX": 0.5109,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3476,7 +3528,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5292,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3548,7 +3600,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.187,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3620,7 +3672,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5346,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3692,7 +3744,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5799,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3764,7 +3816,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5182,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3836,7 +3888,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5401,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3908,7 +3960,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5176,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -3980,7 +4032,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5182,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4052,7 +4104,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5172,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4124,7 +4176,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5049,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4196,7 +4248,7 @@
     "halfTurn": 0.1366,
     "mirrorYX": 0.0791,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4268,7 +4320,7 @@
     "halfTurn": 0.2002,
     "mirrorYX": 0.2285,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4340,7 +4392,7 @@
     "halfTurn": 0.2633,
     "mirrorYX": 0.0464,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4412,7 +4464,7 @@
     "halfTurn": 0.1462,
     "mirrorYX": 0.2682,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4484,7 +4536,7 @@
     "halfTurn": 0.1544,
     "mirrorYX": 0.3319,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4556,7 +4608,7 @@
     "halfTurn": 0.1388,
     "mirrorYX": 0.0746,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4628,7 +4680,7 @@
     "halfTurn": 0.1706,
     "mirrorYX": 0.2442,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4700,7 +4752,7 @@
     "halfTurn": 0.1593,
     "mirrorYX": 0.2588,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4772,7 +4824,7 @@
     "halfTurn": 0.2118,
     "mirrorYX": 0.2405,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4844,7 +4896,7 @@
     "halfTurn": 0.218,
     "mirrorYX": 0.0369,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4916,7 +4968,7 @@
     "halfTurn": 0.1981,
     "mirrorYX": 0.2723,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -4988,7 +5040,7 @@
     "halfTurn": 0.1572,
     "mirrorYX": 0.2254,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5060,7 +5112,7 @@
     "halfTurn": 0.1671,
     "mirrorYX": 0.349,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5132,7 +5184,7 @@
     "halfTurn": 0.1964,
     "mirrorYX": 0.2792,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5204,7 +5256,7 @@
     "halfTurn": 0.2144,
     "mirrorYX": 0.0367,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5276,7 +5328,7 @@
     "halfTurn": 0.1491,
     "mirrorYX": 0.3179,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5348,7 +5400,7 @@
     "halfTurn": 0.174,
     "mirrorYX": 0.3243,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5420,7 +5472,7 @@
     "halfTurn": 0.1677,
     "mirrorYX": 0.2796,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5492,7 +5544,7 @@
     "halfTurn": 0.1772,
     "mirrorYX": 0.0621,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5564,7 +5616,7 @@
     "halfTurn": 0.2289,
     "mirrorYX": 0.0481,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5636,7 +5688,7 @@
     "halfTurn": 0.1863,
     "mirrorYX": 0.1535,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5708,7 +5760,7 @@
     "halfTurn": 0.1706,
     "mirrorYX": 0.2773,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5780,7 +5832,7 @@
     "halfTurn": 0.1615,
     "mirrorYX": 0.3473,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5852,7 +5904,7 @@
     "halfTurn": 0.1655,
     "mirrorYX": 0.3358,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5924,7 +5976,7 @@
     "halfTurn": 0.175,
     "mirrorYX": 0.304,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -5996,7 +6048,7 @@
     "halfTurn": 0.1794,
     "mirrorYX": 0.2591,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6068,7 +6120,7 @@
     "halfTurn": 0.176,
     "mirrorYX": 0.281,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6140,7 +6192,7 @@
     "halfTurn": 0.1844,
     "mirrorYX": 0.279,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6212,7 +6264,7 @@
     "halfTurn": 0.1769,
     "mirrorYX": 0.2787,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6284,7 +6336,7 @@
     "halfTurn": 0.2154,
     "mirrorYX": 0.1706,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6356,7 +6408,7 @@
     "halfTurn": 0.1863,
     "mirrorYX": 0.3395,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6419,16 +6471,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 3.3,
-    "bboxH": 3.63,
-    "area": 5.7542,
+    "bboxW": 3.2965,
+    "bboxH": 3.6345,
+    "area": 5.7537,
     "maxCurvature": 0,
-    "curvatureMedian": 45.9163,
-    "mirrorY": 0.13,
-    "halfTurn": 0.0525,
-    "mirrorYX": 0.3958,
+    "curvatureMedian": 2.7581,
+    "mirrorY": 0.1297,
+    "halfTurn": 0.0526,
+    "mirrorYX": 0.3955,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6491,16 +6543,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.04,
-    "bboxH": 1.04,
+    "bboxW": 1.0417,
+    "bboxH": 1.0417,
     "area": 0,
     "maxCurvature": 0,
     "curvatureMedian": 0,
-    "mirrorY": 0.3492,
+    "mirrorY": 0.3488,
     "halfTurn": 0,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6563,16 +6615,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 2.2,
-    "bboxH": 2.2,
+    "bboxW": 2.2083,
+    "bboxH": 2.2083,
     "area": 0,
     "maxCurvature": 0,
     "curvatureMedian": 0,
-    "mirrorY": 0.2071,
+    "mirrorY": 0.2066,
     "halfTurn": 0,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6635,16 +6687,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.47,
-    "bboxH": 1.47,
-    "area": 0.2405,
+    "bboxW": 1.4692,
+    "bboxH": 1.4692,
+    "area": 0.2429,
     "maxCurvature": 0,
-    "curvatureMedian": 25.7855,
-    "mirrorY": 0.2775,
-    "halfTurn": 0.3953,
+    "curvatureMedian": 3.0768,
+    "mirrorY": 0.2788,
+    "halfTurn": 0.4009,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6707,16 +6759,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.33,
-    "bboxH": 1.33,
-    "area": 0.1312,
+    "bboxW": 1.3303,
+    "bboxH": 1.3303,
+    "area": 0.1347,
     "maxCurvature": 0,
-    "curvatureMedian": 84.1166,
-    "mirrorY": 0.1331,
-    "halfTurn": 0.2517,
+    "curvatureMedian": 3.2005,
+    "mirrorY": 0.1349,
+    "halfTurn": 0.2566,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6779,16 +6831,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.23,
-    "bboxH": 1.23,
-    "area": 0.0938,
+    "bboxW": 1.2229,
+    "bboxH": 1.2229,
+    "area": 0.0971,
     "maxCurvature": 0,
-    "curvatureMedian": 77.792,
-    "mirrorY": 0.1275,
-    "halfTurn": 0.2184,
+    "curvatureMedian": 4.2566,
+    "mirrorY": 0.1279,
+    "halfTurn": 0.2179,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6851,16 +6903,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 7.51,
-    "bboxH": 7.51,
-    "area": 0.1109,
+    "bboxW": 7.5087,
+    "bboxH": 7.5087,
+    "area": 0.1119,
     "maxCurvature": 0,
-    "curvatureMedian": 94.9948,
-    "mirrorY": 0.123,
-    "halfTurn": 0.1359,
+    "curvatureMedian": 8.7409,
+    "mirrorY": 0.1231,
+    "halfTurn": 0.1362,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6925,14 +6977,14 @@
     "meetingPoints": 0,
     "bboxW": 4,
     "bboxH": 4,
-    "area": 1.2739,
+    "area": 1.2747,
     "maxCurvature": 0,
-    "curvatureMedian": 86.7722,
-    "mirrorY": 0.2684,
-    "halfTurn": 0.531,
+    "curvatureMedian": 0.6084,
+    "mirrorY": 0.2685,
+    "halfTurn": 0.5313,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -6997,14 +7049,14 @@
     "meetingPoints": 0,
     "bboxW": 4,
     "bboxH": 4,
-    "area": 0.6558,
+    "area": 0.6546,
     "maxCurvature": 0,
-    "curvatureMedian": 86.7722,
-    "mirrorY": 0.246,
-    "halfTurn": 0.4824,
+    "curvatureMedian": 0.9008,
+    "mirrorY": 0.2463,
+    "halfTurn": 0.4829,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7069,14 +7121,14 @@
     "meetingPoints": 0,
     "bboxW": 4,
     "bboxH": 4,
-    "area": 0.4435,
+    "area": 0.4443,
     "maxCurvature": 0,
-    "curvatureMedian": 8.4281,
-    "mirrorY": 0.2151,
-    "halfTurn": 0.3863,
+    "curvatureMedian": 1.4853,
+    "mirrorY": 0.2156,
+    "halfTurn": 0.3867,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7141,14 +7193,14 @@
     "meetingPoints": 0,
     "bboxW": 4,
     "bboxH": 4,
-    "area": 0.1761,
+    "area": 0.1757,
     "maxCurvature": 0,
-    "curvatureMedian": 86.7722,
-    "mirrorY": 0.2473,
-    "halfTurn": 0.4458,
+    "curvatureMedian": 0.4344,
+    "mirrorY": 0.2475,
+    "halfTurn": 0.4463,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7216,11 +7268,11 @@
     "area": 0,
     "maxCurvature": 0,
     "curvatureMedian": 0,
-    "mirrorY": 0.2241,
+    "mirrorY": 0.224,
     "halfTurn": 0,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7283,16 +7335,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 10.47,
-    "bboxH": 10.47,
-    "area": 7.4201,
+    "bboxW": 10.4658,
+    "bboxH": 10.4658,
+    "area": 7.4348,
     "maxCurvature": 0,
-    "curvatureMedian": 6.8823,
-    "mirrorY": 0.3401,
-    "halfTurn": 0.2296,
+    "curvatureMedian": 3.1827,
+    "mirrorY": 0.3404,
+    "halfTurn": 0.2298,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7355,16 +7407,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.33,
-    "bboxH": 1.33,
-    "area": 1.0909,
+    "bboxW": 1.3361,
+    "bboxH": 1.3361,
+    "area": 1.0974,
     "maxCurvature": 0,
-    "curvatureMedian": 84.1166,
-    "mirrorY": 0.2671,
-    "halfTurn": 0.3846,
+    "curvatureMedian": 3.7462,
+    "mirrorY": 0.2673,
+    "halfTurn": 0.3833,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7427,16 +7479,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.13,
-    "bboxH": 1.13,
-    "area": 0.7159,
+    "bboxW": 1.1286,
+    "bboxH": 1.1286,
+    "area": 0.726,
     "maxCurvature": 0,
-    "curvatureMedian": 71.4675,
-    "mirrorY": 0.1393,
-    "halfTurn": 0.1657,
+    "curvatureMedian": 4.7343,
+    "mirrorY": 0.1385,
+    "halfTurn": 0.172,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7499,16 +7551,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.34,
-    "bboxH": 1.34,
-    "area": 0.9923,
+    "bboxW": 1.3379,
+    "bboxH": 1.3379,
+    "area": 0.9822,
     "maxCurvature": 0,
-    "curvatureMedian": 84.749,
-    "mirrorY": 0.2025,
-    "halfTurn": 0.3356,
+    "curvatureMedian": 3.8808,
+    "mirrorY": 0.2032,
+    "halfTurn": 0.3351,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7571,16 +7623,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.23,
-    "bboxH": 1.23,
-    "area": 0.7962,
+    "bboxW": 1.2229,
+    "bboxH": 1.2229,
+    "area": 0.7845,
     "maxCurvature": 0,
-    "curvatureMedian": 77.792,
-    "mirrorY": 0.1275,
-    "halfTurn": 0.2184,
+    "curvatureMedian": 4.2566,
+    "mirrorY": 0.1279,
+    "halfTurn": 0.2179,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7643,16 +7695,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.47,
-    "bboxH": 1.47,
-    "area": 1.2295,
+    "bboxW": 1.4692,
+    "bboxH": 1.4692,
+    "area": 1.2263,
     "maxCurvature": 0,
-    "curvatureMedian": 25.7855,
-    "mirrorY": 0.2775,
-    "halfTurn": 0.3953,
+    "curvatureMedian": 3.0768,
+    "mirrorY": 0.2788,
+    "halfTurn": 0.4009,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7715,16 +7767,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.33,
-    "bboxH": 1.33,
-    "area": 0.8488,
+    "bboxW": 1.3303,
+    "bboxH": 1.3303,
+    "area": 0.8459,
     "maxCurvature": 0,
-    "curvatureMedian": 84.1166,
-    "mirrorY": 0.1331,
-    "halfTurn": 0.2517,
+    "curvatureMedian": 3.2005,
+    "mirrorY": 0.1349,
+    "halfTurn": 0.2566,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7787,16 +7839,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 0.97,
-    "bboxH": 0.97,
-    "area": 0.0395,
+    "bboxW": 0.9669,
+    "bboxH": 0.9669,
+    "area": 0.0305,
     "maxCurvature": 0,
-    "curvatureMedian": 27.4357,
-    "mirrorY": 0.0964,
-    "halfTurn": 0.1189,
+    "curvatureMedian": 1.3479,
+    "mirrorY": 0.0959,
+    "halfTurn": 0.1181,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7861,14 +7913,14 @@
     "meetingPoints": 0,
     "bboxW": 1.38,
     "bboxH": 1.38,
-    "area": 0.8687,
+    "area": 0.8711,
     "maxCurvature": 0,
-    "curvatureMedian": 87.2789,
-    "mirrorY": 0.1375,
-    "halfTurn": 0.2689,
+    "curvatureMedian": 2.6767,
+    "mirrorY": 0.1381,
+    "halfTurn": 0.2698,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -7931,16 +7983,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 17.16,
-    "bboxH": 17.16,
-    "area": 8.2482,
+    "bboxW": 17.1654,
+    "bboxH": 17.1654,
+    "area": 8.2216,
     "maxCurvature": 0,
-    "curvatureMedian": 7.2642,
-    "mirrorY": 0.1292,
-    "halfTurn": 0.1832,
+    "curvatureMedian": 16.8529,
+    "mirrorY": 0.1293,
+    "halfTurn": 0.1835,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8003,16 +8055,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 17.18,
-    "bboxH": 17.18,
-    "area": 14.3432,
+    "bboxW": 17.1738,
+    "bboxH": 17.1738,
+    "area": 14.3366,
     "maxCurvature": 0,
-    "curvatureMedian": 6.9337,
+    "curvatureMedian": 13.236,
     "mirrorY": 0.1356,
-    "halfTurn": 0.2434,
+    "halfTurn": 0.2436,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8075,16 +8127,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 17.43,
-    "bboxH": 17.43,
-    "area": 23.4311,
+    "bboxW": 17.4383,
+    "bboxH": 17.4383,
+    "area": 23.4573,
     "maxCurvature": 0,
-    "curvatureMedian": 2.3636,
-    "mirrorY": 0.1408,
-    "halfTurn": 0.3226,
+    "curvatureMedian": 9.5184,
+    "mirrorY": 0.1406,
+    "halfTurn": 0.3223,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8147,16 +8199,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 36.64,
-    "bboxH": 36.64,
-    "area": 0.9428,
+    "bboxW": 36.6382,
+    "bboxH": 36.6382,
+    "area": 0.7955,
     "maxCurvature": 0,
-    "curvatureMedian": 2.9473,
+    "curvatureMedian": 12.6982,
     "mirrorY": 0.1212,
-    "halfTurn": 0.054,
+    "halfTurn": 0.0538,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8219,16 +8271,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 33.21,
-    "bboxH": 33.21,
-    "area": 4.0948,
+    "bboxW": 33.2086,
+    "bboxH": 33.2086,
+    "area": 4.1997,
     "maxCurvature": 0,
-    "curvatureMedian": 1.8601,
-    "mirrorY": 0.1239,
-    "halfTurn": 0.0742,
+    "curvatureMedian": 14.8305,
+    "mirrorY": 0.1238,
+    "halfTurn": 0.074,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8291,16 +8343,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 29.45,
-    "bboxH": 29.45,
-    "area": 13.9883,
+    "bboxW": 29.4512,
+    "bboxH": 29.4512,
+    "area": 13.9269,
     "maxCurvature": 0,
-    "curvatureMedian": 4.7192,
+    "curvatureMedian": 16.5775,
     "mirrorY": 0.1302,
-    "halfTurn": 0.1211,
+    "halfTurn": 0.1213,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8363,16 +8415,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.59,
-    "bboxH": 1.59,
-    "area": 1.4653,
+    "bboxW": 1.5832,
+    "bboxH": 1.5832,
+    "area": 1.4527,
     "maxCurvature": 0,
-    "curvatureMedian": 100.5604,
-    "mirrorY": 0.1752,
-    "halfTurn": 0.2943,
+    "curvatureMedian": 0.7821,
+    "mirrorY": 0.1764,
+    "halfTurn": 0.2944,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8435,16 +8487,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.11,
-    "bboxH": 1.11,
-    "area": 1.0169,
+    "bboxW": 1.1179,
+    "bboxH": 1.1179,
+    "area": 1.0173,
     "maxCurvature": 0,
-    "curvatureMedian": 70.2026,
-    "mirrorY": 0.375,
-    "halfTurn": 0.2203,
+    "curvatureMedian": 1.9184,
+    "mirrorY": 0.3717,
+    "halfTurn": 0.2183,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8507,16 +8559,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.49,
-    "bboxH": 1.49,
-    "area": 1.6698,
+    "bboxW": 1.4939,
+    "bboxH": 1.4939,
+    "area": 1.6697,
     "maxCurvature": 0,
-    "curvatureMedian": 42.1436,
-    "mirrorY": 0.0618,
-    "halfTurn": 0.0421,
+    "curvatureMedian": 2.1309,
+    "mirrorY": 0.0629,
+    "halfTurn": 0.0431,
     "mirrorYX": 0,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8580,15 +8632,15 @@
     "crossings": 0,
     "meetingPoints": 0,
     "bboxW": 2,
-    "bboxH": 4.12,
-    "area": 1.5707,
+    "bboxH": 4.1231,
+    "area": 1.5661,
     "maxCurvature": 0,
-    "curvatureMedian": 89.3753,
-    "mirrorY": 0.2314,
+    "curvatureMedian": 0.4773,
+    "mirrorY": 0.2317,
     "halfTurn": 0.0011,
-    "mirrorYX": 0.1855,
+    "mirrorYX": 0.1852,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8651,16 +8703,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 5.38,
-    "bboxH": 3.6,
-    "area": 12.5658,
+    "bboxW": 5.3851,
+    "bboxH": 3.6055,
+    "area": 12.5442,
     "maxCurvature": 0,
-    "curvatureMedian": 68.0522,
-    "mirrorY": 0.1388,
-    "halfTurn": 0.0012,
-    "mirrorYX": 0.3194,
+    "curvatureMedian": 1.7808,
+    "mirrorY": 0.1386,
+    "halfTurn": 0.0013,
+    "mirrorYX": 0.3191,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8724,15 +8776,15 @@
     "crossings": 0,
     "meetingPoints": 0,
     "bboxW": 3,
-    "bboxH": 12.16,
-    "area": 4.7109,
+    "bboxH": 12.1655,
+    "area": 4.6966,
     "maxCurvature": 0,
-    "curvatureMedian": 26.4567,
+    "curvatureMedian": 0.2102,
     "mirrorY": 0.138,
     "halfTurn": 0.001,
-    "mirrorYX": 0.3205,
+    "mirrorYX": 0.3203,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8795,16 +8847,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 10.82,
-    "bboxH": 10.78,
-    "area": 75.2304,
+    "bboxW": 10.8166,
+    "bboxH": 10.7703,
+    "area": 75.2527,
     "maxCurvature": 0,
-    "curvatureMedian": 22.7979,
+    "curvatureMedian": 1.6457,
     "mirrorY": 0.1739,
-    "halfTurn": 0.0016,
-    "mirrorYX": 0.5804,
+    "halfTurn": 0.0015,
+    "mirrorYX": 0.5806,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8867,16 +8919,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 17.2,
-    "bboxH": 13.42,
-    "area": 159.8353,
+    "bboxW": 17.2046,
+    "bboxH": 13.4164,
+    "area": 159.9081,
     "maxCurvature": 0,
-    "curvatureMedian": 19.1318,
+    "curvatureMedian": 1.906,
     "mirrorY": 0.1277,
     "halfTurn": 0.0014,
-    "mirrorYX": 0.3941,
+    "mirrorYX": 0.394,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -8939,16 +8991,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 9.44,
-    "bboxH": 5.38,
-    "area": 39.2003,
+    "bboxW": 9.434,
+    "bboxH": 5.3851,
+    "area": 39.2144,
     "maxCurvature": 0,
-    "curvatureMedian": 47.9359,
+    "curvatureMedian": 2.0707,
     "mirrorY": 0.0413,
     "halfTurn": 0.0013,
-    "mirrorYX": 0.326,
+    "mirrorYX": 0.3263,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9011,16 +9063,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 3.12,
-    "bboxH": 3.52,
-    "area": 9.4259,
+    "bboxW": 3.125,
+    "bboxH": 3.5203,
+    "area": 9.4213,
     "maxCurvature": 0,
-    "curvatureMedian": 43.6602,
+    "curvatureMedian": 2.8219,
     "mirrorY": 0.0824,
     "halfTurn": 0.0824,
-    "mirrorYX": 0.19,
+    "mirrorYX": 0.1901,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9083,16 +9135,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 4.08,
-    "bboxH": 4.48,
-    "area": 17.2557,
+    "bboxW": 4.0833,
+    "bboxH": 4.4887,
+    "area": 17.2654,
     "maxCurvature": 0,
-    "curvatureMedian": 27.4429,
-    "mirrorY": 0.0521,
-    "halfTurn": 0.0521,
-    "mirrorYX": 0.217,
+    "curvatureMedian": 2.6972,
+    "mirrorY": 0.0518,
+    "halfTurn": 0.0518,
+    "mirrorYX": 0.2165,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9155,16 +9207,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 5.33,
-    "bboxH": 6.1,
-    "area": 26.7038,
+    "bboxW": 5.3333,
+    "bboxH": 6.0977,
+    "area": 26.6995,
     "maxCurvature": 0,
-    "curvatureMedian": 30.6343,
-    "mirrorY": 0.0665,
-    "halfTurn": 0.0665,
-    "mirrorYX": 0.1875,
+    "curvatureMedian": 2.8608,
+    "mirrorY": 0.0667,
+    "halfTurn": 0.0667,
+    "mirrorYX": 0.1877,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9227,16 +9279,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 2.77,
-    "bboxH": 2.86,
-    "area": 5.5139,
+    "bboxW": 2.773,
+    "bboxH": 2.8503,
+    "area": 5.5144,
     "maxCurvature": 0,
-    "curvatureMedian": 35.4739,
-    "mirrorY": 0.0573,
-    "halfTurn": 0.0573,
-    "mirrorYX": 0.0354,
+    "curvatureMedian": 1.9157,
+    "mirrorY": 0.0571,
+    "halfTurn": 0.0571,
+    "mirrorYX": 0.0353,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9299,16 +9351,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 2.46,
-    "bboxH": 2.42,
-    "area": 4.1187,
+    "bboxW": 2.4585,
+    "bboxH": 2.4271,
+    "area": 4.1135,
     "maxCurvature": 0,
-    "curvatureMedian": 31.1168,
-    "mirrorY": 0.066,
-    "halfTurn": 0.066,
-    "mirrorYX": 0.0442,
+    "curvatureMedian": 1.9408,
+    "mirrorY": 0.0684,
+    "halfTurn": 0.0684,
+    "mirrorYX": 0.0447,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9371,16 +9423,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 3.27,
-    "bboxH": 3.14,
-    "area": 7.1538,
+    "bboxW": 3.2695,
+    "bboxH": 3.1438,
+    "area": 7.147,
     "maxCurvature": 0,
-    "curvatureMedian": 57.3596,
-    "mirrorY": 0.0588,
-    "halfTurn": 0.0588,
-    "mirrorYX": 0.0417,
+    "curvatureMedian": 1.9559,
+    "mirrorY": 0.0587,
+    "halfTurn": 0.0587,
+    "mirrorYX": 0.0419,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9443,16 +9495,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 6.15,
-    "bboxH": 6.26,
-    "area": 25.7073,
+    "bboxW": 6.1472,
+    "bboxH": 6.2675,
+    "area": 25.7293,
     "maxCurvature": 0,
-    "curvatureMedian": 31.788,
-    "mirrorY": 0.0904,
-    "halfTurn": 0.0904,
-    "mirrorYX": 0.0502,
+    "curvatureMedian": 1.9689,
+    "mirrorY": 0.0897,
+    "halfTurn": 0.0897,
+    "mirrorYX": 0.0501,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9517,14 +9569,14 @@
     "meetingPoints": 0,
     "bboxW": 1.6,
     "bboxH": 1.8,
-    "area": 1.5709,
+    "area": 1.5708,
     "maxCurvature": 0,
-    "curvatureMedian": 254.5584,
-    "mirrorY": 0.2739,
+    "curvatureMedian": 1.7969,
+    "mirrorY": 0.2744,
     "halfTurn": 0.2199,
-    "mirrorYX": 0.0143,
+    "mirrorYX": 0.0144,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9587,16 +9639,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 2.47,
-    "bboxH": 2.54,
+    "bboxW": 2.4656,
+    "bboxH": 2.5385,
     "area": 3.8562,
     "maxCurvature": 0,
-    "curvatureMedian": 160.6437,
-    "mirrorY": 0.1039,
-    "halfTurn": 0.0696,
-    "mirrorYX": 0.0286,
+    "curvatureMedian": 2.1285,
+    "mirrorY": 0.1038,
+    "halfTurn": 0.0693,
+    "mirrorYX": 0.0289,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9659,16 +9711,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.68,
-    "bboxH": 1.79,
-    "area": 2.0932,
+    "bboxW": 1.6865,
+    "bboxH": 1.7889,
+    "area": 2.0944,
     "maxCurvature": 0,
-    "curvatureMedian": 113.2095,
-    "mirrorY": 0.0941,
-    "halfTurn": 0.0549,
-    "mirrorYX": 0.0731,
+    "curvatureMedian": 2.6405,
+    "mirrorY": 0.0956,
+    "halfTurn": 0.0541,
+    "mirrorYX": 0.074,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9731,16 +9783,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 2.7,
-    "bboxH": 2.72,
-    "area": 3.9363,
+    "bboxW": 2.7029,
+    "bboxH": 2.7212,
+    "area": 3.937,
     "maxCurvature": 0,
-    "curvatureMedian": 172.0279,
-    "mirrorY": 0.1593,
-    "halfTurn": 0.115,
+    "curvatureMedian": 2.8586,
+    "mirrorY": 0.1588,
+    "halfTurn": 0.1151,
     "mirrorYX": 0.0373,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9803,16 +9855,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.57,
-    "bboxH": 0.67,
-    "area": 1.3489,
+    "bboxW": 1.5754,
+    "bboxH": 0.6695,
+    "area": 1.3509,
     "maxCurvature": 0,
-    "curvatureMedian": 222.0315,
-    "mirrorY": 0.1549,
-    "halfTurn": 0.1993,
-    "mirrorYX": 0.25,
+    "curvatureMedian": 1.1939,
+    "mirrorY": 0.1555,
+    "halfTurn": 0.1988,
+    "mirrorYX": 0.2495,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9875,16 +9927,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 1.74,
-    "bboxH": 2.24,
-    "area": 2.5505,
+    "bboxW": 1.748,
+    "bboxH": 2.2387,
+    "area": 2.554,
     "maxCurvature": 0,
-    "curvatureMedian": 141.67,
-    "mirrorY": 0.315,
-    "halfTurn": 0.2615,
-    "mirrorYX": 0.0372,
+    "curvatureMedian": 1.7341,
+    "mirrorY": 0.3144,
+    "halfTurn": 0.26,
+    "mirrorYX": 0.037,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -9947,16 +9999,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 2.32,
-    "bboxH": 0.85,
-    "area": 2.0888,
+    "bboxW": 2.3231,
+    "bboxH": 0.8541,
+    "area": 2.0896,
     "maxCurvature": 0,
-    "curvatureMedian": 146.7297,
-    "mirrorY": 0.0154,
-    "halfTurn": 0.1706,
-    "mirrorYX": 0.4323,
+    "curvatureMedian": 1.8423,
+    "mirrorY": 0.0153,
+    "halfTurn": 0.1711,
+    "mirrorYX": 0.4324,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10019,16 +10071,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 2.49,
-    "bboxH": 2.48,
-    "area": 3.8068,
+    "bboxW": 2.4957,
+    "bboxH": 2.484,
+    "area": 3.81,
     "maxCurvature": 0,
-    "curvatureMedian": 70.4278,
-    "mirrorY": 0.109,
+    "curvatureMedian": 2.0806,
+    "mirrorY": 0.1086,
     "halfTurn": 0.0699,
-    "mirrorYX": 0.0313,
+    "mirrorYX": 0.0311,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10092,15 +10144,15 @@
     "crossings": 0,
     "meetingPoints": 0,
     "bboxW": 2,
-    "bboxH": 1.54,
-    "area": 2.3566,
+    "bboxH": 1.5396,
+    "area": 2.3561,
     "maxCurvature": 0,
-    "curvatureMedian": 126.4911,
-    "mirrorY": 0.0225,
-    "halfTurn": 0.0225,
-    "mirrorYX": 0.2829,
+    "curvatureMedian": 2.157,
+    "mirrorY": 0.0218,
+    "halfTurn": 0.0218,
+    "mirrorYX": 0.2836,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10163,16 +10215,16 @@
     "closest": 0,
     "crossings": 0,
     "meetingPoints": 0,
-    "bboxW": 0.77,
+    "bboxW": 0.7698,
     "bboxH": 4,
-    "area": 2.3565,
+    "area": 2.3562,
     "maxCurvature": 0,
-    "curvatureMedian": 252.9822,
-    "mirrorY": 0.0861,
-    "halfTurn": 0.0861,
+    "curvatureMedian": 4.4281,
+    "mirrorY": 0.0863,
+    "halfTurn": 0.0863,
     "mirrorYX": 0.2162,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10239,12 +10291,12 @@
     "bboxH": 2,
     "area": 1.6894,
     "maxCurvature": 0,
-    "curvatureMedian": 56.5685,
-    "mirrorY": 0.0621,
-    "halfTurn": 0.0621,
-    "mirrorYX": 0.1942,
+    "curvatureMedian": 1.5693,
+    "mirrorY": 0.062,
+    "halfTurn": 0.062,
+    "mirrorYX": 0.1947,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10309,14 +10361,14 @@
     "meetingPoints": 0,
     "bboxW": 2,
     "bboxH": 4,
-    "area": 2.3541,
+    "area": 2.3561,
     "maxCurvature": 0,
-    "curvatureMedian": 113.1371,
-    "mirrorY": 0.1218,
-    "halfTurn": 0.1218,
-    "mirrorYX": 0.1045,
+    "curvatureMedian": 3.0086,
+    "mirrorY": 0.1219,
+    "halfTurn": 0.1219,
+    "mirrorYX": 0.1046,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10381,14 +10433,14 @@
     "meetingPoints": 0,
     "bboxW": 1,
     "bboxH": 1,
-    "area": 0.1672,
+    "area": 0.1667,
     "maxCurvature": 0,
-    "curvatureMedian": 63.2456,
-    "mirrorY": 0.3819,
-    "halfTurn": 0.1627,
-    "mirrorYX": 0.1741,
+    "curvatureMedian": 1.247,
+    "mirrorY": 0.3842,
+    "halfTurn": 0.1639,
+    "mirrorYX": 0.1757,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10460,7 +10512,7 @@
     "halfTurn": 0.1223,
     "mirrorYX": 0.2698,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10532,7 +10584,7 @@
     "halfTurn": 0.101,
     "mirrorYX": 0.2781,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10604,7 +10656,7 @@
     "halfTurn": 0.1515,
     "mirrorYX": 0.1531,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10676,7 +10728,7 @@
     "halfTurn": 0.0866,
     "mirrorYX": 0.2758,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10748,7 +10800,7 @@
     "halfTurn": 0.1291,
     "mirrorYX": 0.1133,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10820,7 +10872,7 @@
     "halfTurn": 0.1218,
     "mirrorYX": 0.0902,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10892,7 +10944,7 @@
     "halfTurn": 0.1895,
     "mirrorYX": 0.0356,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -10964,7 +11016,7 @@
     "halfTurn": 0.1739,
     "mirrorYX": 0.0451,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11036,7 +11088,7 @@
     "halfTurn": 0.0636,
     "mirrorYX": 0.2809,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11108,7 +11160,7 @@
     "halfTurn": 0.0983,
     "mirrorYX": 0.1606,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11180,7 +11232,7 @@
     "halfTurn": 0.0707,
     "mirrorYX": 0.2335,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11252,7 +11304,7 @@
     "halfTurn": 0.0804,
     "mirrorYX": 0.2385,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11324,7 +11376,7 @@
     "halfTurn": 0.1116,
     "mirrorYX": 0.2936,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11396,7 +11448,7 @@
     "halfTurn": 0.0938,
     "mirrorYX": 0.2852,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11468,7 +11520,7 @@
     "halfTurn": 0.0729,
     "mirrorYX": 0.2624,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11540,7 +11592,7 @@
     "halfTurn": 0.1306,
     "mirrorYX": 0.3024,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11612,7 +11664,7 @@
     "halfTurn": 0.1657,
     "mirrorYX": 0.2098,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11684,7 +11736,7 @@
     "halfTurn": 0.1648,
     "mirrorYX": 0.1822,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11756,7 +11808,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.599,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11828,7 +11880,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.4789,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11900,7 +11952,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5266,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -11972,7 +12024,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5708,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12044,7 +12096,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.517,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12116,7 +12168,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.4003,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12188,7 +12240,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5404,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12260,7 +12312,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5462,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12332,7 +12384,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6828,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12404,7 +12456,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5394,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12476,7 +12528,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.4997,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12548,7 +12600,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.59,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12620,7 +12672,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5181,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12692,7 +12744,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5175,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12764,7 +12816,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5195,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12836,7 +12888,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5192,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12908,7 +12960,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5159,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -12980,7 +13032,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5546,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13052,7 +13104,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5352,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13124,7 +13176,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5192,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13196,7 +13248,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5664,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13268,7 +13320,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.623,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13340,7 +13392,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5158,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13412,7 +13464,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5179,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13484,7 +13536,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5414,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13556,7 +13608,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5993,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13628,7 +13680,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5497,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13700,7 +13752,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5158,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13772,7 +13824,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6387,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13844,7 +13896,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.2574,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13916,7 +13968,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5172,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -13988,7 +14040,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6016,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14060,7 +14112,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.519,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14132,7 +14184,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5242,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14204,7 +14256,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5453,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14276,7 +14328,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5323,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14348,7 +14400,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6193,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14420,7 +14472,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.567,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14492,7 +14544,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5528,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14564,7 +14616,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5491,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14636,7 +14688,7 @@
     "halfTurn": 0.1251,
     "mirrorYX": 0.6899,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14708,7 +14760,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5258,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14780,7 +14832,7 @@
     "halfTurn": 0.1271,
     "mirrorYX": 0.0567,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14852,7 +14904,7 @@
     "halfTurn": 0.0785,
     "mirrorYX": 0.0864,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14924,7 +14976,7 @@
     "halfTurn": 0.1919,
     "mirrorYX": 0.2824,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -14996,7 +15048,7 @@
     "halfTurn": 0.1752,
     "mirrorYX": 0.2366,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15068,7 +15120,7 @@
     "halfTurn": 0.1922,
     "mirrorYX": 0.0978,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15140,7 +15192,7 @@
     "halfTurn": 0.1902,
     "mirrorYX": 0.2025,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15212,7 +15264,7 @@
     "halfTurn": 0.186,
     "mirrorYX": 0.0719,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15284,7 +15336,7 @@
     "halfTurn": 0.1195,
     "mirrorYX": 0.2311,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15356,7 +15408,7 @@
     "halfTurn": 0.2224,
     "mirrorYX": 0.1726,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15428,7 +15480,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5062,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15500,7 +15552,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5639,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15572,7 +15624,7 @@
     "halfTurn": 0.1735,
     "mirrorYX": 0.3462,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15644,7 +15696,7 @@
     "halfTurn": 0.1928,
     "mirrorYX": 0.2896,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15716,7 +15768,7 @@
     "halfTurn": 0.2972,
     "mirrorYX": 0.618,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15788,7 +15840,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5608,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15860,7 +15912,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5303,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -15932,7 +15984,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6012,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16004,7 +16056,7 @@
     "halfTurn": 0.1725,
     "mirrorYX": 0.3446,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16076,7 +16128,7 @@
     "halfTurn": 0.1481,
     "mirrorYX": 0.3106,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16148,7 +16200,7 @@
     "halfTurn": 0.1757,
     "mirrorYX": 0.1867,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16220,7 +16272,7 @@
     "halfTurn": 0.1669,
     "mirrorYX": 0.1314,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16292,7 +16344,7 @@
     "halfTurn": 0.1719,
     "mirrorYX": 0.1535,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16364,7 +16416,7 @@
     "halfTurn": 0.1633,
     "mirrorYX": 0.2149,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16436,7 +16488,7 @@
     "halfTurn": 0.2052,
     "mirrorYX": 0.2273,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16508,7 +16560,7 @@
     "halfTurn": 0.18,
     "mirrorYX": 0.1147,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16580,7 +16632,7 @@
     "halfTurn": 0.1556,
     "mirrorYX": 0.2703,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16652,7 +16704,7 @@
     "halfTurn": 0.1549,
     "mirrorYX": 0.2033,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16724,7 +16776,7 @@
     "halfTurn": 0.152,
     "mirrorYX": 0.1883,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16796,7 +16848,7 @@
     "halfTurn": 0.164,
     "mirrorYX": 0.1325,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16868,7 +16920,7 @@
     "halfTurn": 0.1529,
     "mirrorYX": 0.0804,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -16940,7 +16992,7 @@
     "halfTurn": 0.1546,
     "mirrorYX": 0.0756,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17012,7 +17064,7 @@
     "halfTurn": 0.1475,
     "mirrorYX": 0.085,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17084,7 +17136,7 @@
     "halfTurn": 0.1466,
     "mirrorYX": 0.0885,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17156,7 +17208,7 @@
     "halfTurn": 0.1461,
     "mirrorYX": 0.088,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17228,7 +17280,7 @@
     "halfTurn": 0.1948,
     "mirrorYX": 0.2702,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17300,7 +17352,7 @@
     "halfTurn": 0.1731,
     "mirrorYX": 0.3164,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17372,7 +17424,7 @@
     "halfTurn": 0.1989,
     "mirrorYX": 0.1674,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17444,7 +17496,7 @@
     "halfTurn": 0.1707,
     "mirrorYX": 0.3356,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17516,7 +17568,7 @@
     "halfTurn": 0.1797,
     "mirrorYX": 0.3063,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17588,7 +17640,7 @@
     "halfTurn": 0.2006,
     "mirrorYX": 0.2324,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17660,7 +17712,7 @@
     "halfTurn": 0.1706,
     "mirrorYX": 0.3434,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17732,7 +17784,7 @@
     "halfTurn": 0.1951,
     "mirrorYX": 0.2785,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17804,7 +17856,7 @@
     "halfTurn": 0.1978,
     "mirrorYX": 0.266,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17876,7 +17928,7 @@
     "halfTurn": 0.2042,
     "mirrorYX": 0.2179,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -17948,7 +18000,7 @@
     "halfTurn": 0.1645,
     "mirrorYX": 0.3542,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18020,7 +18072,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6654,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18092,7 +18144,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.6316,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18164,7 +18216,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5356,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18236,7 +18288,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.641,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18308,7 +18360,7 @@
     "halfTurn": 0.0001,
     "mirrorYX": 0.5,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18380,7 +18432,7 @@
     "halfTurn": 0.0001,
     "mirrorYX": 0.5,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18452,7 +18504,7 @@
     "halfTurn": 0.0001,
     "mirrorYX": 0.5,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18524,7 +18576,7 @@
     "halfTurn": 0.0176,
     "mirrorYX": 0.5004,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18596,7 +18648,7 @@
     "halfTurn": 0.0133,
     "mirrorYX": 0.5002,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18668,7 +18720,7 @@
     "halfTurn": 0.009,
     "mirrorYX": 0.5001,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18740,7 +18792,7 @@
     "halfTurn": 0.0294,
     "mirrorYX": 0.5013,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18812,7 +18864,7 @@
     "halfTurn": 0.0054,
     "mirrorYX": 0.5,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18884,7 +18936,7 @@
     "halfTurn": 0,
     "mirrorYX": 0.5524,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18956,7 +19008,7 @@
     "halfTurn": 0.0171,
     "mirrorYX": 0.4995,
     "computedAt": "2026-11-19T06:18:38.211Z",
-    "updatedAt": "2026-11-19T06:18:38.211Z"
+    "updatedAt": "2026-11-23T23:34:22.846Z"
    }
   },
   {
@@ -18975,8 +19027,8 @@
     "plain": "x(t) = 27900t − 121500t² + 186900t³ − 81000t⁴ − 70200t⁵ + 80460t⁶ − 115200/7t⁷ − 11430t⁸ + 7740t⁹ − 1728t¹⁰ + 1296/11t¹¹;  y(t) = −432000t + 736200t² − 448800t³ − 173700t⁴ + 360000t⁵ − 121200t⁶ − 328320/7t⁷ + 43740t⁸ − 11360t⁹ + 1080t¹⁰",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 77",
     "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
-    "search": "PH x=27900t − 121500t^2 + 186900t^3 − 81000t^4 − 70200t^5 + 80460t^6 − 115200/7t^7 − 11430t^8 + 7740t^9 − 1728t^10 + 1296/11t^11; y=−432000t + 736200t^2 − 448800t^3 − 173700t^4 + 360000t^5 − 121200t^6 − 328320/7t^7 + 43740t^8 − 11360t^9 + 1080t^10; no metric yet",
-    "use": "no metric yet"
+    "search": "PH x=27900t − 121500t^2 + 186900t^3 − 81000t^4 − 70200t^5 + 80460t^6 − 115200/7t^7 − 11430t^8 + 7740t^9 − 1728t^10 + 1296/11t^11; y=−432000t + 736200t^2 − 448800t^3 − 173700t^4 + 360000t^5 − 121200t^6 − 328320/7t^7 + 43740t^8 − 11360t^9 + 1080t^10; 1 inflection, bend 1.005",
+    "use": "1 inflection, bend 1.005"
    },
    "note": {
     "uid": "c-0263",
@@ -19003,7 +19055,33 @@
     "updatedAt": "2026-11-22T22:32:36.391Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0263",
+    "family": "bezier",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 7,
+    "step": 1,
+    "grid": 77,
+    "bend": 1.005371,
+    "arc": 93445.532468,
+    "chord": 92946.32312,
+    "inflections": 1,
+    "inflectionMax": 13,
+    "closest": 30.166988,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2079.6962,
+    "bboxH": 93098.6303,
+    "area": 96374257.3419,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.4089,
+    "mirrorY": 0.0097,
+    "halfTurn": 0.0151,
+    "mirrorYX": 0.8234,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0264",
@@ -19021,8 +19099,8 @@
     "plain": "x(t) = −23625t + 26400t² − 17900t³ + 1200t⁴ + 13760t⁵ − 13400t⁶ + 42200/7t⁷ − 1350t⁸ + 100t⁹;  y(t) = 46800t − 27000t² − 114100/3t³ + 45750t⁴ − 5420t⁵ − 11000t⁶ + 34200/7t⁷ − 600t⁸",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 21",
     "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
-    "search": "PH x=−23625t + 26400t^2 − 17900t^3 + 1200t^4 + 13760t^5 − 13400t^6 + 42200/7t^7 − 1350t^8 + 100t^9; y=46800t − 27000t^2 − 114100/3t^3 + 45750t^4 − 5420t^5 − 11000t^6 + 34200/7t^7 − 600t^8; no metric yet",
-    "use": "no metric yet"
+    "search": "PH x=−23625t + 26400t^2 − 17900t^3 + 1200t^4 + 13760t^5 − 13400t^6 + 42200/7t^7 − 1350t^8 + 100t^9; y=46800t − 27000t^2 − 114100/3t^3 + 45750t^4 − 5420t^5 − 11000t^6 + 34200/7t^7 − 600t^8; 1 inflection, bend 1.048",
+    "use": "1 inflection, bend 1.048"
    },
    "note": {
     "uid": "c-0264",
@@ -19049,7 +19127,33 @@
     "updatedAt": "2026-11-22T22:32:36.393Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0264",
+    "family": "bezier",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 7,
+    "step": 1,
+    "grid": 21,
+    "bend": 1.047636,
+    "arc": 18558.809524,
+    "chord": 17714.936376,
+    "inflections": 1,
+    "inflectionMax": 13,
+    "closest": 43.090638,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 8813.1654,
+    "bboxH": 15697.0866,
+    "area": 10926890.9481,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.6578,
+    "mirrorY": 0.2974,
+    "halfTurn": 0.0491,
+    "mirrorYX": 0.8662,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0265",
@@ -19067,8 +19171,8 @@
     "plain": "x(t) = 660960t − 1943100t² + 3314700t³ − 3599640t⁴ + 2569392t⁵ − 1215108t⁶ + 385920t⁷ − 87480t⁸ + 15680t⁹ − 1944t¹⁰ + 1296/11t¹¹;  y(t) = 310248t − 590940t² + 363360t³ + 378900t⁴ − 874512t⁵ + 730068t⁶ − 2330640/7t⁷ + 87480t⁸ − 13320t⁹ + 1080t¹⁰",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 77",
     "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
-    "search": "PH x=660960t − 1943100t^2 + 3314700t^3 − 3599640t^4 + 2569392t^5 − 1215108t^6 + 385920t^7 − 87480t^8 + 15680t^9 − 1944t^10 + 1296/11t^11; y=310248t − 590940t^2 + 363360t^3 + 378900t^4 − 874512t^5 + 730068t^6 − 2330640/7t^7 + 87480t^8 − 13320t^9 + 1080t^10; no metric yet",
-    "use": "no metric yet"
+    "search": "PH x=660960t − 1943100t^2 + 3314700t^3 − 3599640t^4 + 2569392t^5 − 1215108t^6 + 385920t^7 − 87480t^8 + 15680t^9 − 1944t^10 + 1296/11t^11; y=310248t − 590940t^2 + 363360t^3 + 378900t^4 − 874512t^5 + 730068t^6 − 2330640/7t^7 + 87480t^8 − 13320t^9 + 1080t^10; 1 node, 1 inflection, bend 1.004",
+    "use": "1 node, 1 inflection, bend 1.004"
    },
    "note": {
     "uid": "c-0265",
@@ -19095,7 +19199,33 @@
     "updatedAt": "2026-11-22T22:32:36.396Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0265",
+    "family": "bezier",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 7,
+    "step": 1,
+    "grid": 77,
+    "bend": 1.003591,
+    "arc": 116304.103896,
+    "chord": 115887.91557,
+    "inflections": 1,
+    "inflectionMax": 13,
+    "closest": 12.566116,
+    "crossings": 1,
+    "meetingPoints": 1,
+    "bboxW": 99494.9943,
+    "bboxH": 59414.5663,
+    "area": 282910753.8005,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7988,
+    "mirrorY": 0.4351,
+    "halfTurn": 0.0229,
+    "mirrorYX": 0.5034,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0266",
@@ -19113,8 +19243,8 @@
     "plain": "x(t) = 53856t − 52920t² − 71760t³ + 239580t⁴ − 244944t⁵ + 94008t⁶ + 120240/7t⁷ − 28440t⁸ + 10320t⁹ − 1728t¹⁰ + 1296/11t¹¹;  y(t) = −14040t − 78840t² + 181440t³ − 75060t⁴ − 155664t⁵ + 233640t⁶ − 990720/7t⁷ + 44460t⁸ − 7040t⁹ + 432t¹⁰",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 77",
     "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
-    "search": "PH x=53856t − 52920t^2 − 71760t^3 + 239580t^4 − 244944t^5 + 94008t^6 + 120240/7t^7 − 28440t^8 + 10320t^9 − 1728t^10 + 1296/11t^11; y=−14040t − 78840t^2 + 181440t^3 − 75060t^4 − 155664t^5 + 233640t^6 − 990720/7t^7 + 44460t^8 − 7040t^9 + 432t^10; no metric yet",
-    "use": "no metric yet"
+    "search": "PH x=53856t − 52920t^2 − 71760t^3 + 239580t^4 − 244944t^5 + 94008t^6 + 120240/7t^7 − 28440t^8 + 10320t^9 − 1728t^10 + 1296/11t^11; y=−14040t − 78840t^2 + 181440t^3 − 75060t^4 − 155664t^5 + 233640t^6 − 990720/7t^7 + 44460t^8 − 7040t^9 + 432t^10; 1 inflection, bend 1.040",
+    "use": "1 inflection, bend 1.040"
    },
    "note": {
     "uid": "c-0266",
@@ -19141,7 +19271,33 @@
     "updatedAt": "2026-11-22T22:32:36.399Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0266",
+    "family": "bezier",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 7,
+    "step": 1,
+    "grid": 77,
+    "bend": 1.040451,
+    "arc": 20335.532468,
+    "chord": 19544.916686,
+    "inflections": 1,
+    "inflectionMax": 13,
+    "closest": 40.651768,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 15266.8923,
+    "bboxH": 12418.9943,
+    "area": 18112160.2247,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.8297,
+    "mirrorY": 0.5117,
+    "halfTurn": 0.0786,
+    "mirrorYX": 0.9663,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0267",
@@ -19159,8 +19315,8 @@
     "plain": "x(t) = −296676t + 820800t² − 1210320t³ + 1054080t⁴ − 575712t⁵ + 213984t⁶ − 432000/7t⁷ + 13140t⁸ − 460t⁹ − 648t¹⁰ + 1296/11t¹¹;  y(t) = −191520t + 241920t² − 4320t³ − 253080t⁴ + 226008t⁵ − 57960t⁶ − 172080/7t⁷ + 20340t⁸ − 5040t⁹ + 432t¹⁰",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 77",
     "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
-    "search": "PH x=−296676t + 820800t^2 − 1210320t^3 + 1054080t^4 − 575712t^5 + 213984t^6 − 432000/7t^7 + 13140t^8 − 460t^9 − 648t^10 + 1296/11t^11; y=−191520t + 241920t^2 − 4320t^3 − 253080t^4 + 226008t^5 − 57960t^6 − 172080/7t^7 + 20340t^8 − 5040t^9 + 432t^10; no metric yet",
-    "use": "no metric yet"
+    "search": "PH x=−296676t + 820800t^2 − 1210320t^3 + 1054080t^4 − 575712t^5 + 213984t^6 − 432000/7t^7 + 13140t^8 − 460t^9 − 648t^10 + 1296/11t^11; y=−191520t + 241920t^2 − 4320t^3 − 253080t^4 + 226008t^5 − 57960t^6 − 172080/7t^7 + 20340t^8 − 5040t^9 + 432t^10; 1 node, bend 1.034",
+    "use": "1 node, bend 1.034"
    },
    "note": {
     "uid": "c-0267",
@@ -19187,7 +19343,33 @@
     "updatedAt": "2026-11-22T22:32:36.401Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0267",
+    "family": "bezier",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 7,
+    "step": 1,
+    "grid": 77,
+    "bend": 1.034213,
+    "arc": 66780.103896,
+    "chord": 64570.954806,
+    "inflections": 0,
+    "inflectionMax": 13,
+    "closest": 13.533872,
+    "crossings": 1,
+    "meetingPoints": 1,
+    "bboxW": 43675.5178,
+    "bboxH": 47802.4962,
+    "area": 276476899.4262,
+    "maxCurvature": 0,
+    "curvatureMedian": 5.0484,
+    "mirrorY": 0.6307,
+    "halfTurn": 0.0807,
+    "mirrorYX": 0.0914,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0268",
@@ -19205,8 +19387,8 @@
     "plain": "x(t) = 44352t − 223560t² + 565920t³ − 793620t⁴ + 686376t⁵ − 406308t⁶ + 1276560/7t⁷ − 62910t⁸ + 14660t⁹ − 1944t¹⁰ + 1296/11t¹¹;  y(t) = 47736t − 272880t² + 812760t³ − 1385460t⁴ + 1426968t⁵ − 912324t⁶ + 2547360/7t⁷ − 89460t⁸ + 12960t⁹ − 864t¹⁰",
     "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 77",
     "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
-    "search": "PH x=44352t − 223560t^2 + 565920t^3 − 793620t^4 + 686376t^5 − 406308t^6 + 1276560/7t^7 − 62910t^8 + 14660t^9 − 1944t^10 + 1296/11t^11; y=47736t − 272880t^2 + 812760t^3 − 1385460t^4 + 1426968t^5 − 912324t^6 + 2547360/7t^7 − 89460t^8 + 12960t^9 − 864t^10; no metric yet",
-    "use": "no metric yet"
+    "search": "PH x=44352t − 223560t^2 + 565920t^3 − 793620t^4 + 686376t^5 − 406308t^6 + 1276560/7t^7 − 62910t^8 + 14660t^9 − 1944t^10 + 1296/11t^11; y=47736t − 272880t^2 + 812760t^3 − 1385460t^4 + 1426968t^5 − 912324t^6 + 2547360/7t^7 − 89460t^8 + 12960t^9 − 864t^10; 1 node, 1 inflection, bend 1.085",
+    "use": "1 node, 1 inflection, bend 1.085"
    },
    "note": {
     "uid": "c-0268",
@@ -19233,7 +19415,33 @@
     "updatedAt": "2026-11-22T22:32:36.405Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0268",
+    "family": "bezier",
+    "kind": "rows",
+    "method": "exact",
+    "degree": 7,
+    "step": 1,
+    "grid": 77,
+    "bend": 1.084645,
+    "arc": 6935.246753,
+    "chord": 6394.025505,
+    "inflections": 1,
+    "inflectionMax": 13,
+    "closest": 1.647761,
+    "crossings": 1,
+    "meetingPoints": 1,
+    "bboxW": 5449.214,
+    "bboxH": 3640.5826,
+    "area": 4074656.2576,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.9321,
+    "mirrorY": 0.2711,
+    "halfTurn": 0.1669,
+    "mirrorYX": 0.1195,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0269",
@@ -19279,7 +19487,33 @@
     "updatedAt": "2026-11-22T22:32:36.408Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0269",
+    "family": "mobile-k3",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.933,
+    "bboxH": 3.4517,
+    "area": 10.566,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.7008,
+    "mirrorY": 0.0692,
+    "halfTurn": 0.0568,
+    "mirrorYX": 0.0392,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0270",
@@ -19325,7 +19559,33 @@
     "updatedAt": "2026-11-22T22:32:36.410Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0270",
+    "family": "lens",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2,
+    "area": 2.3541,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7767,
+    "mirrorY": 0.0001,
+    "halfTurn": 0,
+    "mirrorYX": 0.032,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0271",
@@ -19371,7 +19631,33 @@
     "updatedAt": "2026-11-22T22:32:36.414Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0271",
+    "family": "four-fold",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2,
+    "area": 1.1811,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7841,
+    "mirrorY": 0.0001,
+    "halfTurn": 0,
+    "mirrorYX": 0.0001,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0272",
@@ -19417,7 +19703,33 @@
     "updatedAt": "2026-11-22T22:32:36.416Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0272",
+    "family": "lace",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.3775,
+    "bboxH": 0.6093,
+    "area": 0.4997,
+    "maxCurvature": 0,
+    "curvatureMedian": 30.3862,
+    "mirrorY": 0,
+    "halfTurn": 0.1301,
+    "mirrorYX": 0.3584,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0273",
@@ -19463,7 +19775,33 @@
     "updatedAt": "2026-11-22T21:00:48.663Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0273",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.5275,
+    "bboxH": 2.5275,
+    "area": 2.4258,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.1891,
+    "mirrorY": 0.0941,
+    "halfTurn": 0.0665,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0274",
@@ -19509,7 +19847,33 @@
     "updatedAt": "2026-11-22T21:00:48.666Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0274",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2775,
+    "bboxH": 2.2775,
+    "area": 2.0255,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.0553,
+    "mirrorY": 0.0903,
+    "halfTurn": 0.1469,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0275",
@@ -19555,7 +19919,33 @@
     "updatedAt": "2026-11-22T21:00:48.668Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0275",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2,
+    "area": 0.8117,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7301,
+    "mirrorY": 0.0353,
+    "halfTurn": 0.0379,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0276",
@@ -19601,7 +19991,33 @@
     "updatedAt": "2026-11-22T21:00:48.671Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0276",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.1002,
+    "bboxH": 2.1002,
+    "area": 1.4781,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.8222,
+    "mirrorY": 0.0685,
+    "halfTurn": 0.0967,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0277",
@@ -19647,7 +20063,33 @@
     "updatedAt": "2026-11-22T21:00:48.673Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0277",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.1909,
+    "bboxH": 3.1909,
+    "area": 3.9314,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.2759,
+    "mirrorY": 0.1416,
+    "halfTurn": 0.0708,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0278",
@@ -19693,7 +20135,33 @@
     "updatedAt": "2026-11-22T21:00:48.676Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0278",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.7123,
+    "bboxH": 2.7123,
+    "area": 2.5616,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.0268,
+    "mirrorY": 0.0686,
+    "halfTurn": 0.0848,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0279",
@@ -19739,7 +20207,33 @@
     "updatedAt": "2026-11-22T21:00:48.678Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0279",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.7035,
+    "bboxH": 2.7035,
+    "area": 1.984,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.2048,
+    "mirrorY": 0.111,
+    "halfTurn": 0.0583,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0280",
@@ -19785,7 +20279,33 @@
     "updatedAt": "2026-11-22T21:00:48.680Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0280",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.3014,
+    "bboxH": 2.3014,
+    "area": 1.1885,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.9717,
+    "mirrorY": 0.0833,
+    "halfTurn": 0.1419,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0281",
@@ -19831,7 +20351,33 @@
     "updatedAt": "2026-11-22T21:00:48.682Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0281",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.5053,
+    "bboxH": 2.5053,
+    "area": 1.2997,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.8394,
+    "mirrorY": 0.0885,
+    "halfTurn": 0.0514,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0282",
@@ -19877,7 +20423,33 @@
     "updatedAt": "2026-11-22T21:00:48.684Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0282",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2445,
+    "bboxH": 2.2445,
+    "area": 0.7829,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.6932,
+    "mirrorY": 0.0681,
+    "halfTurn": 0.1169,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0283",
@@ -19923,7 +20495,33 @@
     "updatedAt": "2026-11-22T21:00:48.687Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0283",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.7142,
+    "bboxH": 2.7142,
+    "area": 2.5674,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7224,
+    "mirrorY": 0.0794,
+    "halfTurn": 0.0969,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0284",
@@ -19969,7 +20567,33 @@
     "updatedAt": "2026-11-22T21:00:48.689Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0284",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.1897,
+    "bboxH": 3.1897,
+    "area": 3.9381,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.188,
+    "mirrorY": 0.118,
+    "halfTurn": 0.0828,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0285",
@@ -20015,7 +20639,33 @@
     "updatedAt": "2026-11-22T21:00:48.692Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0285",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2994,
+    "bboxH": 2.2994,
+    "area": 1.1942,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.3625,
+    "mirrorY": 0.0864,
+    "halfTurn": 0.1413,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0286",
@@ -20061,7 +20711,33 @@
     "updatedAt": "2026-11-22T21:00:48.694Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0286",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.7026,
+    "bboxH": 2.7026,
+    "area": 1.9895,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.748,
+    "mirrorY": 0.0913,
+    "halfTurn": 0.0648,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0287",
@@ -20107,7 +20783,33 @@
     "updatedAt": "2026-11-22T21:00:48.697Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0287",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2485,
+    "bboxH": 2.2485,
+    "area": 0.7885,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.0213,
+    "mirrorY": 0.0679,
+    "halfTurn": 0.1124,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0288",
@@ -20153,7 +20855,33 @@
     "updatedAt": "2026-11-22T21:00:48.699Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0288",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.5041,
+    "bboxH": 2.5041,
+    "area": 1.3048,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.2371,
+    "mirrorY": 0.0724,
+    "halfTurn": 0.053,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0289",
@@ -20199,7 +20927,33 @@
     "updatedAt": "2026-11-22T21:00:48.701Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0289",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.0315,
+    "bboxH": 3.0315,
+    "area": 6.21,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7182,
+    "mirrorY": 0.1202,
+    "halfTurn": 0.1555,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0290",
@@ -20245,7 +20999,33 @@
     "updatedAt": "2026-11-22T21:00:48.704Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0290",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.6868,
+    "bboxH": 3.6868,
+    "area": 4.4374,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.6707,
+    "mirrorY": 0.0679,
+    "halfTurn": 0.0845,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0291",
@@ -20291,7 +21071,33 @@
     "updatedAt": "2026-11-22T21:00:48.707Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0291",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.2725,
+    "bboxH": 3.2725,
+    "area": 3.3631,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.7089,
+    "mirrorY": 0.1301,
+    "halfTurn": 0.0969,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0292",
@@ -20337,7 +21143,33 @@
     "updatedAt": "2026-11-22T21:00:48.710Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0292",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.6329,
+    "bboxH": 2.6329,
+    "area": 1.9165,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.1341,
+    "mirrorY": 0.1112,
+    "halfTurn": 0.2259,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0293",
@@ -20383,7 +21215,33 @@
     "updatedAt": "2026-11-22T21:00:48.712Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0293",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.9428,
+    "bboxH": 2.9428,
+    "area": 2.112,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.7089,
+    "mirrorY": 0.1257,
+    "halfTurn": 0.1004,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0294",
@@ -20429,7 +21287,33 @@
     "updatedAt": "2026-11-22T21:00:48.714Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0294",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.5044,
+    "bboxH": 2.5044,
+    "area": 1.1868,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.4506,
+    "mirrorY": 0.1018,
+    "halfTurn": 0.2143,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0295",
@@ -20475,7 +21359,33 @@
     "updatedAt": "2026-11-22T21:00:48.716Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0295",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.3127,
+    "bboxH": 2.3127,
+    "area": 1.4546,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.4304,
+    "mirrorY": 0.0763,
+    "halfTurn": 0.0659,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0296",
@@ -20521,7 +21431,33 @@
     "updatedAt": "2026-11-22T21:00:48.719Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0296",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.1935,
+    "bboxH": 2.1935,
+    "area": 1.1522,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.0709,
+    "mirrorY": 0.0642,
+    "halfTurn": 0.098,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0297",
@@ -20567,7 +21503,33 @@
     "updatedAt": "2026-11-22T21:00:48.721Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0297",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.6923,
+    "bboxH": 3.6923,
+    "area": 4.4472,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.5981,
+    "mirrorY": 0.0732,
+    "halfTurn": 0.0942,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0298",
@@ -20613,7 +21575,33 @@
     "updatedAt": "2026-11-22T21:00:48.724Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0298",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.7244,
+    "bboxH": 1.7244,
+    "area": 1.8016,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.1818,
+    "mirrorY": 0.0877,
+    "halfTurn": 0.1096,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0299",
@@ -20659,7 +21647,33 @@
     "updatedAt": "2026-11-22T21:00:48.726Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0299",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.64,
+    "bboxH": 2.64,
+    "area": 1.9265,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.2505,
+    "mirrorY": 0.115,
+    "halfTurn": 0.219,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0300",
@@ -20705,7 +21719,33 @@
     "updatedAt": "2026-11-22T21:00:48.729Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0300",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.2692,
+    "bboxH": 3.2692,
+    "area": 3.3762,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.1641,
+    "mirrorY": 0.1015,
+    "halfTurn": 0.0881,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0301",
@@ -20751,7 +21791,33 @@
     "updatedAt": "2026-11-22T21:00:48.731Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0301",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.5016,
+    "bboxH": 2.5016,
+    "area": 1.1968,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.8828,
+    "mirrorY": 0.0982,
+    "halfTurn": 0.2001,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0302",
@@ -20797,7 +21863,33 @@
     "updatedAt": "2026-11-22T21:00:48.733Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0302",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.9484,
+    "bboxH": 2.9484,
+    "area": 2.1235,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.1894,
+    "mirrorY": 0.0983,
+    "halfTurn": 0.0934,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0303",
@@ -20843,7 +21935,33 @@
     "updatedAt": "2026-11-22T21:00:48.735Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0303",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.4912,
+    "bboxH": 3.4912,
+    "area": 8.2962,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.5954,
+    "mirrorY": 0.1178,
+    "halfTurn": 0.1502,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0304",
@@ -20889,7 +22007,33 @@
     "updatedAt": "2026-11-22T21:00:48.738Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0304",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.8063,
+    "bboxH": 1.8063,
+    "area": 0.77,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.4428,
+    "mirrorY": 0.2618,
+    "halfTurn": 0.2653,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0305",
@@ -20935,7 +22079,33 @@
     "updatedAt": "2026-11-22T21:00:48.740Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0305",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.1167,
+    "bboxH": 1.1167,
+    "area": 0.1597,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.366,
+    "mirrorY": 0.3097,
+    "halfTurn": 0.2329,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0306",
@@ -20981,7 +22151,33 @@
     "updatedAt": "2026-11-22T21:00:48.743Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0306",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.3087,
+    "bboxH": 1.3087,
+    "area": 1.3442,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.4568,
+    "mirrorY": 0.0606,
+    "halfTurn": 0.0901,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0307",
@@ -21027,7 +22223,33 @@
     "updatedAt": "2026-11-22T21:00:48.746Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0307",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.0769,
+    "bboxH": 1.0769,
+    "area": 0.0903,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.1816,
+    "mirrorY": 0.3078,
+    "halfTurn": 0.2863,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0308",
@@ -21073,7 +22295,33 @@
     "updatedAt": "2026-11-22T21:00:48.748Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0308",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.0178,
+    "bboxH": 1.0178,
+    "area": 0.6141,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.1197,
+    "mirrorY": 0.0841,
+    "halfTurn": 0.1129,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0309",
@@ -21119,7 +22367,33 @@
     "updatedAt": "2026-11-22T21:00:48.750Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0309",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.2102,
+    "bboxH": 1.2102,
+    "area": 0.355,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.6287,
+    "mirrorY": 0.2926,
+    "halfTurn": 0.1723,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0310",
@@ -21165,7 +22439,33 @@
     "updatedAt": "2026-11-22T21:00:48.752Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0310",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.4966,
+    "bboxH": 3.4966,
+    "area": 8.3201,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.4585,
+    "mirrorY": 0.1046,
+    "halfTurn": 0.1334,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0311",
@@ -21211,7 +22511,33 @@
     "updatedAt": "2026-11-22T21:00:48.755Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0311",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.1162,
+    "bboxH": 1.1162,
+    "area": 0.1598,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.7024,
+    "mirrorY": 0.2777,
+    "halfTurn": 0.287,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0312",
@@ -21257,7 +22583,33 @@
     "updatedAt": "2026-11-22T21:00:48.758Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0312",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.6545,
+    "bboxH": 2.6545,
+    "area": 4.1837,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.0466,
+    "mirrorY": 0.1308,
+    "halfTurn": 0.1619,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0313",
@@ -21303,7 +22655,33 @@
     "updatedAt": "2026-11-22T21:00:48.761Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0313",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.0178,
+    "bboxH": 1.0178,
+    "area": 0.6145,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.2152,
+    "mirrorY": 0.0867,
+    "halfTurn": 0.1219,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0314",
@@ -21349,7 +22727,33 @@
     "updatedAt": "2026-11-22T21:00:48.763Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0314",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.0772,
+    "bboxH": 1.0772,
+    "area": 0.0905,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.2104,
+    "mirrorY": 0.2732,
+    "halfTurn": 0.3496,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0315",
@@ -21395,7 +22799,33 @@
     "updatedAt": "2026-11-22T21:00:48.765Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0315",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2204,
+    "bboxH": 2.2204,
+    "area": 1.0388,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.6184,
+    "mirrorY": 0.0598,
+    "halfTurn": 0.0561,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0316",
@@ -21441,7 +22871,33 @@
     "updatedAt": "2026-11-22T21:00:48.768Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0316",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.147,
+    "bboxH": 2.147,
+    "area": 0.8126,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.5396,
+    "mirrorY": 0.0514,
+    "halfTurn": 0.074,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0317",
@@ -21487,7 +22943,33 @@
     "updatedAt": "2026-11-22T21:00:48.770Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0317",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.279,
+    "bboxH": 2.279,
+    "area": 2.0291,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.8157,
+    "mirrorY": 0.0967,
+    "halfTurn": 0.1464,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0318",
@@ -21533,7 +23015,33 @@
     "updatedAt": "2026-11-22T21:00:48.772Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0318",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.5265,
+    "bboxH": 2.5265,
+    "area": 2.4282,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.067,
+    "mirrorY": 0.0936,
+    "halfTurn": 0.0698,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0319",
@@ -21579,7 +23087,33 @@
     "updatedAt": "2026-11-22T21:00:48.774Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0319",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.1933,
+    "bboxH": 2.1933,
+    "area": 1.156,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.5263,
+    "mirrorY": 0.0676,
+    "halfTurn": 0.1008,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0320",
@@ -21625,7 +23159,33 @@
     "updatedAt": "2026-11-22T21:00:48.776Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0320",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.3142,
+    "bboxH": 2.3142,
+    "area": 1.4571,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.9526,
+    "mirrorY": 0.0739,
+    "halfTurn": 0.0692,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0321",
@@ -21671,7 +23231,33 @@
     "updatedAt": "2026-11-22T21:00:48.780Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0321",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.1505,
+    "bboxH": 2.1505,
+    "area": 0.8166,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.2947,
+    "mirrorY": 0.0527,
+    "halfTurn": 0.073,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0322",
@@ -21717,7 +23303,33 @@
     "updatedAt": "2026-11-22T21:00:48.784Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0322",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2227,
+    "bboxH": 2.2227,
+    "area": 1.0415,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.2495,
+    "mirrorY": 0.0575,
+    "halfTurn": 0.0612,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0323",
@@ -21763,7 +23375,33 @@
     "updatedAt": "2026-11-22T21:00:48.786Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0323",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.4533,
+    "bboxH": 2.4533,
+    "area": 2.6135,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.8443,
+    "mirrorY": 0.1053,
+    "halfTurn": 0.0812,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0324",
@@ -21809,7 +23447,33 @@
     "updatedAt": "2026-11-22T21:00:48.789Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0324",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.0036,
+    "bboxH": 2.0036,
+    "area": 1.6074,
+    "maxCurvature": 0,
+    "curvatureMedian": 5.0321,
+    "mirrorY": 0.0588,
+    "halfTurn": 0.0576,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0325",
@@ -21855,7 +23519,33 @@
     "updatedAt": "2026-11-22T21:00:48.791Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0325",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.0983,
+    "bboxH": 2.0983,
+    "area": 1.4761,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.0048,
+    "mirrorY": 0.0649,
+    "halfTurn": 0.0898,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0326",
@@ -21901,7 +23591,33 @@
     "updatedAt": "2026-11-22T21:00:48.793Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0326",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2,
+    "area": 0.8089,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.3522,
+    "mirrorY": 0.0294,
+    "halfTurn": 0.0346,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0327",
@@ -21947,7 +23663,33 @@
     "updatedAt": "2026-11-22T21:00:48.796Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0327",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.0029,
+    "bboxH": 2.0029,
+    "area": 1.6105,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.3088,
+    "mirrorY": 0.069,
+    "halfTurn": 0.0673,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0328",
@@ -21993,7 +23735,33 @@
     "updatedAt": "2026-11-22T21:00:48.798Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0328",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.453,
+    "bboxH": 2.453,
+    "area": 2.6159,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.0277,
+    "mirrorY": 0.0989,
+    "halfTurn": 0.087,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0329",
@@ -22039,7 +23807,33 @@
     "updatedAt": "2026-11-20T17:40:28.563Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0329",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9996,
+    "bboxH": 1.9984,
+    "area": 3.1191,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.9995,
+    "mirrorY": 0,
+    "halfTurn": 0,
+    "mirrorYX": 0.008,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0330",
@@ -22085,7 +23879,33 @@
     "updatedAt": "2026-11-20T17:40:28.567Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0330",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9996,
+    "bboxH": 0.998,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.6683,
+    "mirrorY": 0,
+    "halfTurn": 0.2009,
+    "mirrorYX": 0.2382,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0331",
@@ -22131,7 +23951,33 @@
     "updatedAt": "2026-11-22T01:22:11.123Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0331",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9971,
+    "bboxH": 0.998,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.8691,
+    "mirrorY": 0,
+    "halfTurn": 0.2291,
+    "mirrorYX": 0.1465,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0332",
@@ -22177,7 +24023,33 @@
     "updatedAt": "2026-11-20T17:40:28.579Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0332",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9971,
+    "bboxH": 1.9952,
+    "area": 0.5192,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.2654,
+    "mirrorY": 0,
+    "halfTurn": 0,
+    "mirrorYX": 0.0139,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0333",
@@ -22223,7 +24095,33 @@
     "updatedAt": "2026-11-22T21:17:05.505Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0333",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.918,
+    "bboxH": 3.9142,
+    "area": 6.6118,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.098,
+    "mirrorY": 0.0773,
+    "halfTurn": 0.0793,
+    "mirrorYX": 0.0105,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0334",
@@ -22269,7 +24167,33 @@
     "updatedAt": "2026-11-22T21:17:05.509Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0334",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 8.5194,
+    "bboxH": 8.5147,
+    "area": 41.4439,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.0945,
+    "mirrorY": 0.1556,
+    "halfTurn": 0.0486,
+    "mirrorYX": 0.0133,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0335",
@@ -22315,7 +24239,33 @@
     "updatedAt": "2026-11-22T21:17:05.511Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0335",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 8.8055,
+    "bboxH": 8.8,
+    "area": 42.9995,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.2331,
+    "mirrorY": 0.1767,
+    "halfTurn": 0.0968,
+    "mirrorYX": 0.0128,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0336",
@@ -22361,7 +24311,33 @@
     "updatedAt": "2026-11-22T21:17:05.514Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0336",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 6.3836,
+    "bboxH": 6.3799,
+    "area": 21.9308,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.0214,
+    "mirrorY": 0.147,
+    "halfTurn": 0.0451,
+    "mirrorYX": 0.0122,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0337",
@@ -22407,7 +24383,33 @@
     "updatedAt": "2026-11-22T21:17:05.516Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0337",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 4.3763,
+    "bboxH": 4.3724,
+    "area": 10.3715,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.3004,
+    "mirrorY": 0.1239,
+    "halfTurn": 0.0721,
+    "mirrorYX": 0.0125,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0338",
@@ -22453,7 +24455,33 @@
     "updatedAt": "2026-11-22T21:17:05.519Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0338",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.5394,
+    "bboxH": 1.7747,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.2429,
+    "mirrorY": 0.1448,
+    "halfTurn": 0.1768,
+    "mirrorYX": 0.2316,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0339",
@@ -22499,7 +24527,33 @@
     "updatedAt": "2026-11-22T21:17:05.522Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0339",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 4.5631,
+    "bboxH": 4.0073,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.1283,
+    "mirrorY": 0.1348,
+    "halfTurn": 0.1259,
+    "mirrorYX": 0.128,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0340",
@@ -22545,7 +24599,33 @@
     "updatedAt": "2026-11-22T21:17:05.525Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0340",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 4.8188,
+    "bboxH": 5.0627,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.175,
+    "mirrorY": 0.1473,
+    "halfTurn": 0.0874,
+    "mirrorYX": 0.0715,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0341",
@@ -22591,7 +24671,33 @@
     "updatedAt": "2026-11-22T21:17:05.528Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0341",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.0795,
+    "bboxH": 1.3294,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.3365,
+    "mirrorY": 0.127,
+    "halfTurn": 0.1833,
+    "mirrorYX": 0.1351,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0342",
@@ -22637,7 +24743,33 @@
     "updatedAt": "2026-11-22T21:17:05.530Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0342",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.3729,
+    "bboxH": 2.8305,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.4932,
+    "mirrorY": 0.1474,
+    "halfTurn": 0.1604,
+    "mirrorYX": 0.1941,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0346",
@@ -22683,7 +24815,33 @@
     "updatedAt": "2026-11-22T21:17:05.533Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0346",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 2.4469,
+    "area": 1.9426,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.5387,
+    "mirrorY": 0.0622,
+    "halfTurn": 0,
+    "mirrorYX": 0.0441,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0349",
@@ -22729,7 +24887,33 @@
     "updatedAt": "2026-11-22T21:17:05.535Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0349",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 1.3904,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.1048,
+    "mirrorY": 0.0771,
+    "halfTurn": 0.2346,
+    "mirrorYX": 0.2706,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0350",
@@ -22775,7 +24959,33 @@
     "updatedAt": "2026-11-22T21:17:05.539Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0350",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.6632,
+    "bboxH": 3.3446,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.7308,
+    "mirrorY": 0.111,
+    "halfTurn": 0.1294,
+    "mirrorYX": 0.1195,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0351",
@@ -22821,7 +25031,33 @@
     "updatedAt": "2026-11-22T21:17:05.542Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0351",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 1.1603,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.3123,
+    "mirrorY": 0.0624,
+    "halfTurn": 0.2153,
+    "mirrorYX": 0.1585,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0355",
@@ -22867,7 +25103,33 @@
     "updatedAt": "2026-11-22T21:17:05.545Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0355",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 2.2679,
+    "area": 1.2036,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.5624,
+    "mirrorY": 0.0382,
+    "halfTurn": 0,
+    "mirrorYX": 0.0448,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0358",
@@ -22913,7 +25175,33 @@
     "updatedAt": "2026-11-22T21:17:05.547Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0358",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 1.2466,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.6097,
+    "mirrorY": 0.0463,
+    "halfTurn": 0.2355,
+    "mirrorYX": 0.2272,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0359",
@@ -22959,7 +25247,33 @@
     "updatedAt": "2026-11-22T21:17:05.549Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0359",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 2.0857,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.4301,
+    "mirrorY": 0.0719,
+    "halfTurn": 0.2537,
+    "mirrorYX": 0.2331,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0360",
@@ -23005,7 +25319,33 @@
     "updatedAt": "2026-11-22T21:17:05.551Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0360",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 1.1115,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.1292,
+    "mirrorY": 0.0393,
+    "halfTurn": 0.2238,
+    "mirrorYX": 0.1557,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0364",
@@ -23051,7 +25391,33 @@
     "updatedAt": "2026-11-22T21:17:05.554Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0364",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 2.179,
+    "area": 0.877,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.8314,
+    "mirrorY": 0.0275,
+    "halfTurn": 0,
+    "mirrorYX": 0.0438,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0366",
@@ -23097,7 +25463,33 @@
     "updatedAt": "2026-11-22T02:00:57.652Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0366",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.7775,
+    "bboxH": 2.5409,
+    "area": 0.0202,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.9329,
+    "mirrorY": 0.1533,
+    "halfTurn": 0.1573,
+    "mirrorYX": 0.2022,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0367",
@@ -23143,7 +25535,33 @@
     "updatedAt": "2026-11-20T17:40:28.738Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0367",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 5.0592,
+    "bboxH": 4.8301,
+    "area": 0.0196,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.5972,
+    "mirrorY": 0.1786,
+    "halfTurn": 0.0944,
+    "mirrorYX": 0.0656,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0368",
@@ -23189,7 +25607,33 @@
     "updatedAt": "2026-11-20T17:40:28.741Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0368",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.331,
+    "bboxH": 2.0753,
+    "area": 0.0201,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.4015,
+    "mirrorY": 0.1316,
+    "halfTurn": 0.1481,
+    "mirrorYX": 0.1152,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0369",
@@ -23235,7 +25679,33 @@
     "updatedAt": "2026-11-20T17:40:28.745Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0369",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9466,
+    "bboxH": 2.6136,
+    "area": 0.0203,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.0854,
+    "mirrorY": 0.115,
+    "halfTurn": 0.1371,
+    "mirrorYX": 0.1567,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0373",
@@ -23281,7 +25751,33 @@
     "updatedAt": "2026-11-23T18:11:07.449Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0373",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.4462,
+    "bboxH": 1.9955,
+    "area": 1.9296,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.4799,
+    "mirrorY": 0.0758,
+    "halfTurn": 0,
+    "mirrorYX": 0.0458,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0376",
@@ -23327,7 +25823,33 @@
     "updatedAt": "2026-11-20T17:40:28.771Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0376",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9988,
+    "bboxH": 0.995,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.6905,
+    "mirrorY": 0.0351,
+    "halfTurn": 0.2083,
+    "mirrorYX": 0.1627,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0377",
@@ -23373,7 +25895,33 @@
     "updatedAt": "2026-11-20T17:40:28.776Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0377",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.1938,
+    "bboxH": 0.9953,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.3303,
+    "mirrorY": 0.0568,
+    "halfTurn": 0.1581,
+    "mirrorYX": 0.1694,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0378",
@@ -23419,7 +25967,33 @@
     "updatedAt": "2026-11-20T17:40:28.780Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0378",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9964,
+    "bboxH": 1.986,
+    "area": 0.2967,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.79,
+    "mirrorY": 0.0139,
+    "halfTurn": 0.0168,
+    "mirrorYX": 0.0085,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0379",
@@ -23465,7 +26039,33 @@
     "updatedAt": "2026-11-20T17:40:28.786Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0379",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.9964,
+    "bboxH": 1.9859,
+    "area": 0.3075,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.8966,
+    "mirrorY": 0.018,
+    "halfTurn": 0,
+    "mirrorYX": 0.0087,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0380",
@@ -23511,7 +26111,33 @@
     "updatedAt": "2026-11-20T17:40:28.788Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0380",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 3.3331,
+    "bboxH": 2.6617,
+    "area": 0.0195,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.1475,
+    "mirrorY": 0.1534,
+    "halfTurn": 0.1263,
+    "mirrorYX": 0.1099,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0381",
@@ -23557,7 +26183,33 @@
     "updatedAt": "2026-11-20T17:40:28.794Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0381",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.1677,
+    "bboxH": 1.9952,
+    "area": 0.0201,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.3834,
+    "mirrorY": 0.1476,
+    "halfTurn": 0.1683,
+    "mirrorYX": 0.1322,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0382",
@@ -23603,7 +26255,33 @@
     "updatedAt": "2026-11-20T17:40:28.799Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0382",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.8836,
+    "bboxH": 1.9952,
+    "area": 0.0201,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.5663,
+    "mirrorY": 0.1951,
+    "halfTurn": 0.2003,
+    "mirrorYX": 0.2796,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0383",
@@ -23649,7 +26327,33 @@
     "updatedAt": "2026-11-20T17:40:28.802Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0383",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.2209,
+    "bboxH": 1.9952,
+    "area": 0.0203,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.1658,
+    "mirrorY": 0.1097,
+    "halfTurn": 0.1439,
+    "mirrorYX": 0.2042,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0386",
@@ -23695,7 +26399,33 @@
     "updatedAt": "2026-11-20T17:40:28.813Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0386",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2644,
+    "bboxH": 1.9952,
+    "area": 1.192,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.0913,
+    "mirrorY": 0.0505,
+    "halfTurn": 0,
+    "mirrorYX": 0.0442,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0389",
@@ -23741,7 +26471,33 @@
     "updatedAt": "2026-11-20T17:40:28.830Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0389",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.2613,
+    "bboxH": 1.9952,
+    "area": 0.0201,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.0636,
+    "mirrorY": 0.1773,
+    "halfTurn": 0.1889,
+    "mirrorYX": 0.1956,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0390",
@@ -23787,7 +26543,33 @@
     "updatedAt": "2026-11-20T17:40:28.833Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0390",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.6771,
+    "bboxH": 2.0432,
+    "area": 0.0195,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.142,
+    "mirrorY": 0.1379,
+    "halfTurn": 0.1734,
+    "mirrorYX": 0.1284,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0391",
@@ -23833,7 +26615,33 @@
     "updatedAt": "2026-11-20T17:40:28.837Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0391",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.1122,
+    "bboxH": 1.9952,
+    "area": 0.0201,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.5956,
+    "mirrorY": 0.1532,
+    "halfTurn": 0.1716,
+    "mirrorYX": 0.1254,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0392",
@@ -23879,7 +26687,33 @@
     "updatedAt": "2026-11-20T17:40:28.841Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0392",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.0345,
+    "bboxH": 1.9952,
+    "area": 0.0203,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.9733,
+    "mirrorY": 0.1241,
+    "halfTurn": 0.1429,
+    "mirrorYX": 0.178,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0396",
@@ -23925,7 +26759,33 @@
     "updatedAt": "2026-11-20T17:40:28.857Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0396",
+    "family": "hybrid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.1901,
+    "bboxH": 1.9952,
+    "area": 0.8664,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.3878,
+    "mirrorY": 0.0375,
+    "halfTurn": 0,
+    "mirrorYX": 0.0411,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0398",
@@ -23971,7 +26831,33 @@
     "updatedAt": "2026-11-23T23:21:11.674Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0398",
+    "family": "tschirnhausen",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 5.76,
+    "bboxH": 13.248,
+    "area": 9.8762,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.4371,
+    "mirrorY": 0.0871,
+    "halfTurn": 0.0871,
+    "mirrorYX": 0.0706,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0399",
@@ -24017,7 +26903,33 @@
     "updatedAt": "2026-11-23T23:21:11.692Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0399",
+    "family": "tschirnhausen",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.88,
+    "bboxH": 6.624,
+    "area": 2.4691,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.4371,
+    "mirrorY": 0.0871,
+    "halfTurn": 0.0871,
+    "mirrorYX": 0.0706,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0400",
@@ -24063,7 +26975,33 @@
     "updatedAt": "2026-11-23T23:21:11.698Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0400",
+    "family": "tschirnhausen",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 9.6537,
+    "bboxH": 9.6537,
+    "area": 9.8762,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.5047,
+    "mirrorY": 0.1685,
+    "halfTurn": 0.5073,
+    "mirrorYX": 0.0066,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0401",
@@ -24109,7 +27047,33 @@
     "updatedAt": "2026-11-23T23:21:11.699Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0401",
+    "family": "tschirnhausen",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 5.76,
+    "bboxH": 13.248,
+    "area": 9.8762,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.4371,
+    "mirrorY": 0.0871,
+    "halfTurn": 0.0871,
+    "mirrorYX": 0.0712,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0402",
@@ -24155,7 +27119,33 @@
     "updatedAt": "2026-11-23T23:21:11.701Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0402",
+    "family": "astroid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.8721,
+    "mirrorY": 0.0074,
+    "halfTurn": 0.0108,
+    "mirrorYX": 0.0047,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0403",
@@ -24201,7 +27191,33 @@
     "updatedAt": "2026-11-23T23:21:11.703Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0403",
+    "family": "cardioid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.25,
+    "bboxH": 1.299,
+    "area": 2.3561,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.2415,
+    "mirrorY": 0.0512,
+    "halfTurn": 0.1605,
+    "mirrorYX": 0.4027,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0404",
@@ -24247,7 +27263,33 @@
     "updatedAt": "2026-11-23T23:21:11.708Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0404",
+    "family": "deltoid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 4.5,
+    "bboxH": 5.1961,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.9039,
+    "mirrorY": 0.2166,
+    "halfTurn": 0.2166,
+    "mirrorYX": 0.1561,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0405",
@@ -24293,7 +27335,33 @@
     "updatedAt": "2026-11-23T23:21:11.711Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0405",
+    "family": "nephroid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 5.6568,
+    "bboxH": 8,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.2999,
+    "mirrorY": 0.0075,
+    "halfTurn": 0.011,
+    "mirrorYX": 0.1479,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0406",
@@ -24339,7 +27407,33 @@
     "updatedAt": "2026-11-23T23:21:11.714Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0406",
+    "family": "trifolium",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.5625,
+    "bboxH": 1.7602,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.2212,
+    "mirrorY": 0.168,
+    "halfTurn": 0.168,
+    "mirrorYX": 0.1142,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0407",
@@ -24385,7 +27479,33 @@
     "updatedAt": "2026-11-23T23:21:11.717Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0407",
+    "family": "quadrifolium",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2,
+    "area": 1.5706,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.509,
+    "mirrorY": 0.0116,
+    "halfTurn": 0.0059,
+    "mirrorYX": 0.0093,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0408",
@@ -24431,7 +27551,33 @@
     "updatedAt": "2026-11-23T23:21:11.718Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0408",
+    "family": "epicycloid k=3",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 9.0451,
+    "bboxH": 9.5104,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.1787,
+    "mirrorY": 0.1095,
+    "halfTurn": 0.1094,
+    "mirrorYX": 0.0833,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0409",
@@ -24477,7 +27623,33 @@
     "updatedAt": "2026-11-23T23:21:11.720Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0409",
+    "family": "epicycloid k=5",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 13.3067,
+    "bboxH": 13.6481,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 5.6282,
+    "mirrorY": 0.0802,
+    "halfTurn": 0.0802,
+    "mirrorYX": 0.0588,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0410",
@@ -24523,7 +27695,33 @@
     "updatedAt": "2026-11-23T23:21:11.722Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0410",
+    "family": "hypocycloid k=5",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 9.0451,
+    "bboxH": 9.5104,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.5189,
+    "mirrorY": 0.119,
+    "halfTurn": 0.1189,
+    "mirrorYX": 0.0841,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0411",
@@ -24569,7 +27767,33 @@
     "updatedAt": "2026-11-23T23:21:11.725Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0411",
+    "family": "bow",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 0.7698,
+    "bboxH": 0.25,
+    "area": 0.0762,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.8221,
+    "mirrorY": 0.0061,
+    "halfTurn": 0.0965,
+    "mirrorYX": 0.241,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0412",
@@ -24615,7 +27839,33 @@
     "updatedAt": "2026-11-23T23:21:11.727Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0412",
+    "family": "bicorn",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 1,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.211,
+    "mirrorY": 0.0031,
+    "halfTurn": 0.145,
+    "mirrorYX": 0.2232,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0413",
@@ -24661,7 +27911,33 @@
     "updatedAt": "2026-11-23T23:21:11.731Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0413",
+    "family": "gerono",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 1,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.8488,
+    "mirrorY": 0.1834,
+    "halfTurn": 0.0038,
+    "mirrorYX": 0.1703,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0414",
@@ -24707,7 +27983,33 @@
     "updatedAt": "2026-11-23T23:21:11.732Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0414",
+    "family": "nodal",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1,
+    "bboxH": 0.7698,
+    "area": 0.5333,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.1911,
+    "mirrorY": 0.0961,
+    "halfTurn": 0.0962,
+    "mirrorYX": 0.5318,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0415",
@@ -24753,7 +28055,33 @@
     "updatedAt": "2026-11-23T23:21:11.735Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0415",
+    "family": "bernoulli",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 0.7071,
+    "area": 0.9999,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.8054,
+    "mirrorY": 0.0097,
+    "halfTurn": 0.0033,
+    "mirrorYX": 0.1118,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0416",
@@ -24799,7 +28127,33 @@
     "updatedAt": "2026-11-23T23:21:11.737Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0416",
+    "family": "cruciform",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 9.1111,
+    "bboxH": 5.2,
+    "area": 19.4323,
+    "maxCurvature": 0,
+    "curvatureMedian": 3.5799,
+    "mirrorY": 0.0025,
+    "halfTurn": 0.0049,
+    "mirrorYX": 0.0229,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0417",
@@ -24845,7 +28199,33 @@
     "updatedAt": "2026-11-23T23:21:11.739Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0417",
+    "family": "piriform",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2.598,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.6645,
+    "mirrorY": 0.1206,
+    "halfTurn": 0.1206,
+    "mirrorYX": 0.2837,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0418",
@@ -24891,7 +28271,33 @@
     "updatedAt": "2026-11-23T23:21:11.741Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0418",
+    "family": "abs(x) gerono",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1,
+    "bboxH": 1,
+    "area": 0.6666,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.1997,
+    "mirrorY": 0.1325,
+    "halfTurn": 0.1326,
+    "mirrorYX": 0.4311,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0419",
@@ -24937,7 +28343,33 @@
     "updatedAt": "2026-11-23T23:21:11.742Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0419",
+    "family": "cissoid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.6,
+    "bboxH": 3.2,
+    "area": 1.0785,
+    "maxCurvature": 0,
+    "curvatureMedian": 0.8358,
+    "mirrorY": 0.2569,
+    "halfTurn": 0.1554,
+    "mirrorYX": 0.1641,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0420",
@@ -24983,7 +28415,33 @@
     "updatedAt": "2026-11-23T23:21:11.748Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0420",
+    "family": "semicubical",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1,
+    "bboxH": 2,
+    "area": 0.2,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.3404,
+    "mirrorY": 0.2051,
+    "halfTurn": 0.2051,
+    "mirrorYX": 0.1359,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0421",
@@ -25029,7 +28487,33 @@
     "updatedAt": "2026-11-23T23:21:11.749Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0421",
+    "family": "kappa",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1.6544,
+    "bboxH": 1.7647,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.0284,
+    "mirrorY": 0.2486,
+    "halfTurn": 0.2487,
+    "mirrorYX": 0.2267,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0422",
@@ -25075,7 +28559,33 @@
     "updatedAt": "2026-11-23T23:21:11.751Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0422",
+    "family": "strophoid",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1,
+    "bboxH": 0.6006,
+    "area": 0.4292,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.6994,
+    "mirrorY": 0.0603,
+    "halfTurn": 0.0601,
+    "mirrorYX": 0.4706,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0423",
@@ -25121,7 +28631,33 @@
     "updatedAt": "2026-11-23T23:21:11.752Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0423",
+    "family": "pear",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 0.6495,
+    "bboxH": 1,
+    "area": 0.3927,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.0179,
+    "mirrorY": 0.0064,
+    "halfTurn": 0.1102,
+    "mirrorYX": 0.3865,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0424",
@@ -25167,7 +28703,33 @@
     "updatedAt": "2026-11-23T23:21:11.754Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0424",
+    "family": "piriform 2x",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 4,
+    "bboxH": 2.598,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.2558,
+    "mirrorY": 0.1104,
+    "halfTurn": 0.1104,
+    "mirrorYX": 0.455,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0425",
@@ -25213,7 +28775,33 @@
     "updatedAt": "2026-11-23T23:21:11.756Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0425",
+    "family": "bean",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 1,
+    "bboxH": 1.3333,
+    "area": 0,
+    "maxCurvature": 0,
+    "curvatureMedian": 1.9947,
+    "mirrorY": 0.0548,
+    "halfTurn": 0.0552,
+    "mirrorYX": 0.3159,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0426",
@@ -25259,7 +28847,33 @@
     "updatedAt": "2026-11-23T23:21:11.759Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0426",
+    "family": "heart",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2.2781,
+    "bboxH": 2.2366,
+    "area": 0.3733,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.9636,
+    "mirrorY": 0,
+    "halfTurn": 0.1178,
+    "mirrorYX": 0.097,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0427",
@@ -25305,7 +28919,33 @@
     "updatedAt": "2026-11-23T23:21:11.767Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0427",
+    "family": "squircle",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 2,
+    "bboxH": 2,
+    "area": 3.7078,
+    "maxCurvature": 0,
+    "curvatureMedian": 2.733,
+    "mirrorY": 0,
+    "halfTurn": 0,
+    "mirrorYX": 0,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   },
   {
    "uid": "c-0428",
@@ -25351,7 +28991,33 @@
     "updatedAt": "2026-11-23T23:21:11.769Z"
    },
    "set": null,
-   "metric": null
+   "metric": {
+    "uid": "c-0428",
+    "family": "rounded square",
+    "kind": "path",
+    "method": "sampled",
+    "degree": 0,
+    "step": 1,
+    "grid": 0,
+    "bend": 0,
+    "arc": 0,
+    "chord": 0,
+    "inflections": 0,
+    "inflectionMax": 0,
+    "closest": 0,
+    "crossings": 0,
+    "meetingPoints": 0,
+    "bboxW": 6,
+    "bboxH": 6,
+    "area": 35.1416,
+    "maxCurvature": 0,
+    "curvatureMedian": 4.5953,
+    "mirrorY": 0.0061,
+    "halfTurn": 0.0093,
+    "mirrorYX": 0.0087,
+    "computedAt": "2026-11-23T23:34:22.846Z",
+    "updatedAt": "2026-11-23T23:34:22.846Z"
+   }
   }
  ]
 }
