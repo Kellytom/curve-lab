@@ -1,6 +1,7 @@
 // Draws the two hearts sandbox. The maths is in app/src/lib/hearts-emblems.js.
 import {
   heartPoints, flamePoints, crossPaths, rayPaths, swordPaths, rosePaths,
+  letterC, letterM,
 } from "../lib/hearts-emblems.js";
 
 const el = (id) => document.getElementById(id);
@@ -27,11 +28,12 @@ function draw() {
   const heart = heartPoints(400).map((p) => ({ x: p.x * scale, y: p.y * scale }));
   // the heart's own top notch is at y ≈ 0.7; the flame and cross rise from there
   const topY = Math.max(...heart.map((p) => p.y));
-  const flame = flameSize > 0.01
+  const sacred = kind === "sacred";
+  const flame = sacred && flameSize > 0.01
     ? flamePoints(flameSize * scale).map((p) => ({ x: p.x * scale, y: p.y * scale + topY * 0.92 }))
     : [];
   const flameTop = flame.length ? Math.max(...flame.map((p) => p.y)) : topY * 0.92;
-  const cross = crossHeight > 0.01
+  const cross = sacred && crossHeight > 0.01
     ? crossPaths(crossHeight * scale, 0.18 * scale).map((line) =>
       line.map((p) => ({ x: p.x * scale, y: p.y * scale + flameTop })))
     : [];
@@ -48,8 +50,15 @@ function draw() {
     return rosePaths(0.065 * scale, c);
   }) : [];
 
+  // the letter under the heart: C for the Sacred Heart, M for the Immaculate Heart
+  const bottomY = Math.min(...heart.map((p) => p.y));
+  const letterSize = 0.5 * scale;
+  const letter = kind === "sacred"
+    ? letterC(letterSize, { x: 0, y: bottomY - letterSize * 0.75 })
+    : letterM(letterSize, { x: 0, y: bottomY - letterSize * 0.75 });
+
   const all = [heart, flame, ...cross, ...rays.flat(), ...sword.flat(),
-    ...roses.flatMap((r) => [r.ring, ...r.petals])];
+    ...roses.flatMap((r) => [r.ring, ...r.petals]), ...letter];
   const pts = all.flat();
   const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y);
   const x0 = Math.min(...xs), x1 = Math.max(...xs);
@@ -71,6 +80,7 @@ function draw() {
     ${sword.map((s) => line(s, "#4a4a4a", 1.8)).join("")}
     ${roses.map((r) => line([...r.ring, r.ring[0]], "#a06a2c", 1.2)).join("")}
     ${roses.map((r) => r.petals.map((pt) => line(pt, "#a06a2c", 1.0)).join("")).join("")}
+    ${letter.map((l) => line(l, "#2b2b2b", 2.2)).join("")}
     <text x="12" y="20" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#8a7a62">
       ${kind === "sacred" ? "Sacred Heart" : "Immaculate Heart"} · heart ×${scale.toFixed(2)} · flame ${flameSize.toFixed(2)} · cross ${crossHeight.toFixed(2)} · rays ${raysCount}</text>
     <text x="12" y="${h - 10}" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#5a4a36">

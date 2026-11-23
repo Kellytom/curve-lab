@@ -111,3 +111,53 @@ export function rosePaths(radius = 0.09, centre = { x: -0.35, y: -0.62 }, petals
   }
   return { ring, petals: petalsOut };
 }
+
+
+// ---- the letters under the hearts -------------------------------------------------------
+//
+// A decorative C and M, drawn as outlines rather than set in a font: two concentric strokes
+// for the C (a ribbon with a thin inner line) and a pointed M with serifs. They are drawings,
+// like the rest of the emblem, and scale with the heart.
+
+export function letterC(size = 1, centre = { x: 0, y: 0 }) {
+  const outer = [];
+  const inner = [];
+  const r = 0.5 * size;
+  const open = Math.PI / 4;           // the mouth opens to the right
+  for (let i = 0; i <= 60; i += 1) {
+    const a = open + ((2 * Math.PI - 2 * open) * i) / 60;
+    outer.push({ x: centre.x + r * Math.cos(a), y: centre.y + r * Math.sin(a) });
+    const ri = r * 0.72;
+    inner.push({ x: centre.x + ri * Math.cos(a), y: centre.y + ri * Math.sin(a) });
+  }
+  // the two terminals, so the ribbon closes into a letter rather than an arc
+  const capTop = [outer[0], inner[0]];
+  const capBottom = [outer[outer.length - 1], inner[inner.length - 1]];
+  return [outer, inner, capTop, capBottom];
+}
+
+export function letterM(size = 1, centre = { x: 0, y: 0 }) {
+  const h = size;
+  const w = size * 0.95;
+  const left = centre.x - w / 2;
+  const right = centre.x + w / 2;
+  const top = centre.y + h / 2;
+  const bottom = centre.y - h / 2;
+  const serif = size * 0.13;
+  const stroke = [
+    { x: left, y: bottom },
+    { x: left, y: top },
+    { x: centre.x, y: top - h * 0.45 },
+    { x: right, y: top },
+    { x: right, y: bottom },
+  ];
+  const feet = [
+    [{ x: left - serif, y: bottom }, { x: left + serif, y: bottom }],
+    [{ x: right - serif, y: bottom }, { x: right + serif, y: bottom }],
+  ];
+  const tops = [
+    [{ x: left - serif * 0.7, y: top }, { x: left + serif * 0.7, y: top }],
+    [{ x: right - serif * 0.7, y: top }, { x: right + serif * 0.7, y: top }],
+  ];
+  return [stroke, ...feet, ...tops];
+}
