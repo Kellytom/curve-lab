@@ -5,7 +5,7 @@ It proposes; nothing here is created until the operator says so.
 
 ## The set
 
-- **375 curves**, 213 as speed rows and 162 as stored paths.
+- **381 curves**, 213 as speed rows and 168 as stored paths.
 - **192** are rated 2/10 or more; 262 have a recorded exact measurement.
 
 ## Families
@@ -55,6 +55,12 @@ It proposes; nothing here is created until the operator says so.
 | mobile-k3 | 1 | 1 | 0 | 1 | — |
 | lens | 1 | 1 | 0 | 1 | — |
 | four-fold | 1 | 1 | 0 | 1 | — |
+| astroid | 1 | 0 | 0 | 1 | — |
+| cardioid | 1 | 0 | 0 | 1 | — |
+| deltoid | 1 | 0 | 0 | 1 | — |
+| nephroid | 1 | 0 | 0 | 1 | — |
+| trifolium | 1 | 0 | 0 | 1 | — |
+| quadrifolium | 1 | 0 | 0 | 1 | — |
 
 ## The crossings × inflections grid
 
@@ -149,7 +155,7 @@ Empty cells with a plain reading:
 
 ## Named classical curves not present
 
-The generators already know 33 named curves; **28 have no record in the collection**:
+The generators already know 33 named curves; **22 have no record in the collection**:
 
 - bean
 - bicorn
@@ -158,15 +164,9 @@ The generators already know 33 named curves; **28 have no record in the collecti
 - nodal
 - epicycloid k=3
 - epicycloid k=5
-- deltoid
 - hypocycloid k=5
-- nephroid
-- astroid
-- trifolium
-- quadrifolium
 - rounded square
 - squircle
-- cardioid
 - bernoulli
 - gerono
 - cruciform
@@ -186,5 +186,5 @@ In the order they would fill the biggest holes:
 
 1. **The named classical curves above** — each has an equation already written in `scripts/generators.py`, so a record is data entry plus a figure, not new mathematics.
 2. **The empty crossing/inflection cells** — 139 cells, starting with the ones adjacent to a full cell (one more crossing, one more inflection), which are the cheapest new shapes to find.
-3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen
+3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen, astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium
 
