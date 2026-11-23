@@ -246,3 +246,9 @@ is newest first and starred pinned, so a future run lands on top by itself.
 
 Publish one existing answer as a page (`/talk/<date>-<slug>/`) and put the link in the chat
 reply. Spec: `state/SPEC-chat-display-int.md`. Parked behind the curves and the book.
+
+## The human figure in the centre — first step
+
+The Sacred Heart (and the Immaculate Heart) built from the existing heart form plus a flame and
+a cross, drawn at plate size with side curves, before any record. See `TODO.md`,
+"The human figure in the centre". A traced statue is the fallback, labelled sampled.
