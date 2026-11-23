@@ -1,0 +1,53 @@
+---
+// The side chat with DeepSeek2, so a message can be copied into a new one.
+// Data: data/said-deep2.json, written by scripts/said.py --who deep2 --push.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const FILE = fileURLToPath(new URL("../../../data/said-deep2.json", import.meta.url));
+const said = existsSync(FILE) ? JSON.parse(readFileSync(FILE, "utf8")) : { messages: [] };
+const messages = (said.messages || []).slice().reverse();
+---
+
+<BaseLayout title="deep2 said" pageTitle="The side chat with DeepSeek2">
+  <p class="lead">Your messages to DeepSeek2 and its plain-text replies, newest first, each
+    with a copy button. Code and tool calls are left out; the text is what was said.
+    Refresh with <code>said --who deep2 --push 40</code>.</p>
+
+  {messages.length === 0 && (
+    <p class="note">No transcript yet. Run <code>said --who deep2 --push</code> once.</p>
+  )}
+
+  <ol class="said">
+    {messages.map((message, index) => (
+      <li class={message.role === "deep2" ? "from-deep2" : "from-you"}>
+        <article>
+          <header>
+            <span>{message.at} · {message.role === "deep2" ? "DeepSeek2" : "you"}</span>
+            <button type="button" class="copy" data-target={`deep2-${index}`}>copy</button>
+          </header>
+          <pre id={`deep2-${index}`}>{message.text}</pre>
+        </article>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>
+
+<script>
+  import "../scripts/said-copy.js";
+</script>
+
+<style is:global>
+  .said { list-style: none; margin: 0; padding: 0; }
+  .said > li { margin: 0 0 12px; }
+  .said article { background: #fffef9; border: 1px solid #eee3d3; padding: 10px 12px; }
+  .said .from-deep2 article { background: #f6f3ea; }
+  .said header { display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    font: 11px/1.4 ui-monospace, Menlo, monospace; color: #7a5a1f; margin-bottom: 6px; }
+  .said pre { margin: 0; white-space: pre-wrap; font: inherit; }
+  .said .copy { font: 11px/1 ui-monospace, Menlo, monospace; padding: 4px 8px; cursor: pointer;
+    border: 1px solid #d9c9a8; background: #fdf9f0; color: #2b2620; }
+  .said .copy.ok { background: #e6f3e6; }
+</style>

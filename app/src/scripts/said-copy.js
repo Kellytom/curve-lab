@@ -1,8 +1,8 @@
 // The copy buttons on /said/. One job: put that message on the clipboard and say so.
 export function mountCopyButtons(root = document) {
-  for (const button of root.querySelectorAll("button.copy[data-index]")) {
+  for (const button of root.querySelectorAll("button.copy[data-target]")) {
     button.addEventListener("click", async () => {
-      const text = document.getElementById(`said-${button.dataset.index}`);
+      const text = document.getElementById(button.dataset.target);
       if (!text) return;
       try {
         await navigator.clipboard.writeText(text.textContent);

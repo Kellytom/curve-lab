@@ -82,13 +82,53 @@ def rows(limit, session=None, every=False, here=True):
     return list(reversed(out)), total
 
 
+def deep2_rows(limit):
+    """The side chat with DeepSeek2: the operator's messages and DeepSeek2's plain text."""
+    con = sqlite3.connect(f"file:{DB}?mode=ro", uri=True, timeout=2)
+    con.row_factory = sqlite3.Row
+    sql = (
+        "select m.session_id, m.type, m.time_created, m.data "
+        "from session_message m where m.type in ('user', 'assistant') "
+        "and m.session_id like 'ses-sidechat%' order by m.time_created desc limit ?"
+    )
+    out = []
+    for row in con.execute(sql, [max(limit * 4, 80)]):
+        try:
+            data = json.loads(row["data"])
+        except json.JSONDecodeError:
+            continue
+        if row["type"] == "user":
+            text = (data.get("text") or "").strip()
+            role = "you"
+        else:
+            parts = data.get("content") or []
+            text = "\n".join(p.get("text", "") for p in parts if p.get("type") == "text").strip()
+            role = "deep2"
+        if not text:
+            continue
+        out.append({
+            "role": role,
+            "session": row["session_id"],
+            "at": datetime.fromtimestamp(row["time_created"] / 1000).strftime("%Y-%m-%d %H:%M"),
+            "directory": "/Users/thomaskelly/developer/curve-lab",
+            "title": "side chat",
+            "text": text,
+        })
+        if len(out) >= limit:
+            break
+    con.close()
+    return list(reversed(out)), len(out)
+
+
 def label(item):
     where = Path(item["directory"]).name if item["directory"] else ""
     return f"{item['at']} · {where or item['title'] or item['session'][:12]}"
 
 
 def plain(items):
-    return "\n\n".join(f"── {label(i)} ──\n{i['text']}" for i in items)
+    return "\n\n".join(
+        f"── {label(i)}" + (f" · {i['role']}" if i.get("role") else "") + f" ──\n{i['text']}"
+        for i in items)
 
 
 def markdown(items):
@@ -163,18 +203,25 @@ def main():
     ap.add_argument("--md", action="store_true")
     ap.add_argument("--push", action="store_true",
                     help="write data/said.json for the Astro page at /said/")
+    ap.add_argument("--who", choices=["me", "deep2"], default="me",
+                    help="me (default) or the side chat with DeepSeek2")
     ap.add_argument("--all", action="store_true", help="every project and helper chat")
     args = ap.parse_args()
     if not DB.exists():
         print(f"no OpenCode database at {DB}", file=sys.stderr)
         return 1
-    items, total = rows(max(1, args.count), args.session, args.all)
+    if args.who == "deep2":
+        items, total = deep2_rows(max(1, args.count))
+    else:
+        items, total = rows(max(1, args.count), args.session, args.all)
     if args.push:
-        target = Path(os.environ.get("CURVE_LAB_ROOT", os.getcwd())) / "data" / "said.json"
+        name = "said-deep2.json" if args.who == "deep2" else "said.json"
+        target = Path(os.environ.get("CURVE_LAB_ROOT", os.getcwd())) / "data" / name
         if not Path(target).parent.exists():
             target = Path("/Users/thomaskelly/developer/curve-lab/data/said.json")
         push(items, target)
-        print(f"{len(items)} messages -> {target}\nhttp://127.0.0.1:4321/said/")
+        url = "/deep2-said/" if args.who == "deep2" else "/said/"
+        print(f"{len(items)} messages -> {target}\nhttp://127.0.0.1:4321{url}")
         return 0
     if args.html:
         n = page(items, args.html)

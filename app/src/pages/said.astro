@@ -31,7 +31,7 @@ const when = (iso) => iso;
         <article>
           <header>
             <span>{message.at} · {path.basename(message.directory || "") || message.title}</span>
-            <button type="button" class="copy" data-index={index}>copy</button>
+            <button type="button" class="copy" data-target={`said-${index}`}>copy</button>
           </header>
           <pre id={`said-${index}`}>{message.text}</pre>
         </article>

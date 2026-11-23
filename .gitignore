@@ -105,3 +105,4 @@ app/public/plates-rgba/
 
 # the operator's own chat history, for /said/ only
 data/said.json
+data/said-deep2.json
