@@ -39,7 +39,17 @@ and pushed unless a line says otherwise. Read this file first, then
    sidechat tone four times; the latest is the organ note.
 8. **The GLM AI-news task — written, ready to paste.**
    `deep2/notes/glm-ai-news-task.md` (plain-English rule included).
-9. **Compaction setup — active.** `sidechat.json`: keep 24k, buffer 20 %,
+9. **The sidechat's own focus commands exist:** `/sfocus` (move to the repo,
+   register, read OUR tier 0, restate the next action, stop), `/shandoff`
+   (refresh this file), `/precompact`. Eleven commands now in
+   `.opencode/commands/`.
+10. **Today's `/fhandon` was attempted and STOPPED, correctly:** the focus
+   action in `next-fhandoff-int.md` is plate-rail work whose files
+   (`workbench/plate_math.js`, `tests/js/plate-guard.test.mjs`,
+   `scripts/print_plates.mjs`) are DIRTY in the tree — DeepSeek1 is mid-job on
+   exactly that action. Nothing was touched. `check-db` says 393 curves/notes/
+   sets (the command's "expect 262" line is stale, not a fault).
+11. **Compaction setup — active.** `sidechat.json`: keep 24k, buffer 20 %,
    background false, summaries by deepseek-v4-pro. `/precompact` writes the
    in-flight note; `/shandoff` writes this file.
 
