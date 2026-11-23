@@ -241,3 +241,8 @@ as "the space is empty".
 
 `scripts/parametric_search.py` keeps its history and its serials; the page order
 is newest first and starred pinned, so a future run lands on top by itself.
+
+## Rich chat display — first step
+
+Publish one existing answer as a page (`/talk/<date>-<slug>/`) and put the link in the chat
+reply. Spec: `state/SPEC-chat-display-int.md`. Parked behind the curves and the book.
