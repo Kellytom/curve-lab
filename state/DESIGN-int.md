@@ -1138,7 +1138,8 @@ The operator asked for a flag on every curve saying whether its PNG should be gi
 for the temporary and in-progress curves to be database rows with a label.
 
 - **`Curve.pngIgnored` (default true)** — the plate and figure PNGs are derived; the record, the
-  generator and the index are the record. `scripts/curve_pngs_git.mjs` makes git follow the flag:
+  generator and the index are the record. `scripts/set_png_flag.mjs <uid> keep|ignore` flips one row and applies it;
+  `scripts/curve_pngs_git.mjs` makes git follow the flag:
   an ignored PNG is untracked (`git rm --cached`), a kept PNG is force-added. A PNG with no row
   is a fault, so no figure can escape the rule.
 - **`Curve.status`** (kept / in-progress / temporary / proposed) and **`Study`** for a curve
@@ -1149,3 +1150,16 @@ for the temporary and in-progress curves to be database rows with a label.
   is what the operator asked for, and leaves the collection honest.
 - **Measured when it landed:** 394 curves, 17 studies; 764 PNGs untracked, 766 on disk; the
   register's `CurveFlagsTest` runs all three checks.
+
+## The gothic cut is exact t values — 2026-11-23
+
+The operator: "we will not use percent in the end, but you can leave it for now. we will use
+rational fraction values of the parametric. if that is t, then t".
+
+- **The cut is `t = 1/2 ∓ q`.** q comes from the menu (`1/40 … 1/6` each side); the percent of
+  the half (`2q`) is the echo, never the source.
+- **The drawn cut is the nearest stored station.** The record keeps both `t` (drawn) and
+  `tRequested` (asked), plus `q`, so a station rounding is visible, not hidden.
+- **A variant writer must copy all three.** The first probe saved `share`, `t`, `axis` and the
+  apex but not `q` / `tRequested`; fixed in `planVariant` and recorded in
+  `state/PROBLEMS-gothic-int.md`.

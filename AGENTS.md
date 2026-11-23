@@ -255,6 +255,7 @@ Start the one server if it is not already up (this is idempotent — it says
 .venv/bin/python scripts/check_asks.py               # the operator's asks are recorded and closed
 .venv/bin/python scripts/said_checklist.py --write   # fold new /said/ messages into the roll
 .venv/bin/python scripts/said_checklist.py           # the roll: every message a row, every done proved
+node scripts/set_png_flag.mjs <uid> keep|ignore   # flip one curve's PNG in git, then apply the flag
 npm --prefix app run check                        # astro check + eslint: the static gate
 npm --prefix app run test:pages                   # the 12 pages, stars and names, in a browser
 npm --prefix app run gate                         # check + the unit tests
