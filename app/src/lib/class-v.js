@@ -58,7 +58,8 @@ export function apexAngle(arch) {
 // the arch as one stroke: left foot up to the apex, then the right side down to its foot
 export function archPath(built) {
   if (!built) return [];
-  return [...built.left.slice().reverse(), ...built.right.slice(1)];
+  // both halves run foot -> apex; the arch is the left half, then the right half reversed
+  return [...built.left, ...built.right.slice().reverse().slice(1)];
 }
 
 // side curves for a sampled outline, the plate's law: outside at the ask, inside capped at
