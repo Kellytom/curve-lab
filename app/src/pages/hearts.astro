@@ -1,0 +1,53 @@
+---
+// The two hearts: Sacred (flame, cross, rays) and Immaculate (sword, roses).
+// Spec: state/SPEC-hearts-int.md. Maths: app/src/lib/hearts-emblems.js.
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="hearts" pageTitle="The two hearts">
+  <p class="lead">The Sacred Heart and the Immaculate Heart, built from curves so the
+    proportions can be judged. The heart itself is the classical parametric heart, <b>sampled</b>
+    — a heart is not rational, so nothing here claims exactness. The parts are separate sliders:
+    flame, cross, rays, sword, roses.</p>
+
+  <div class="h-lab">
+    <div id="h-preview" class="h-preview"></div>
+    <div class="h-controls">
+      <label>emblem <select id="h-kind">
+        <option value="sacred">Sacred Heart</option>
+        <option value="immaculate">Immaculate Heart</option>
+      </select></label>
+      <label>heart size <input id="h-size" type="range" min="0.6" max="1.4" step="0.02" value="1" />
+        <output id="h-size-out">1.00</output></label>
+      <label>flame <input id="h-flame" type="range" min="0" max="0.45" step="0.01" value="0.22" />
+        <output id="h-flame-out">0.22</output></label>
+      <label>cross <input id="h-cross" type="range" min="0" max="0.6" step="0.02" value="0.32" />
+        <output id="h-cross-out">0.32</output></label>
+      <label>rays <input id="h-rays" type="range" min="0" max="32" step="2" value="16" />
+        <output id="h-rays-out">16</output></label>
+      <label>sword <input id="h-sword" type="range" min="0" max="2.2" step="0.05" value="1.5" />
+        <output id="h-sword-out">1.50</output></label>
+      <label>sword angle <input id="h-angle" type="range" min="-80" max="80" step="1" value="-28" />
+        <output id="h-angle-out">-28°</output></label>
+      <label>roses <input id="h-roses" type="range" min="0" max="5" step="1" value="3" />
+        <output id="h-roses-out">3</output></label>
+      <p class="h-note" id="h-readout"></p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import "../scripts/hearts-sandbox.js";
+</script>
+
+<style is:global>
+  .h-lab { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 16px; align-items: start; margin: 12px 0 18px; }
+  .h-preview { border: 1px solid #e6dccb; background: #fff; }
+  .h-preview svg { display: block; width: 100%; height: auto; }
+  .h-controls { display: grid; gap: 8px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  .h-controls label { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr) 3.2rem; gap: 6px; align-items: center; }
+  .h-controls select { min-width: 10rem; }
+  .h-controls input[type="range"] { width: 100%; }
+  .h-note { grid-column: 1 / -1; margin: 6px 0 0; color: #5a4a36; line-height: 1.6; }
+  @media (max-width: 760px) { .h-lab { grid-template-columns: minmax(0, 1fr); } }
+</style>

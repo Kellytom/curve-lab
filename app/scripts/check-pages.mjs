@@ -15,7 +15,7 @@ const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const ALL_ROUTES = [
   "/", "/about/", "/everything/", "/lab/", "/finder/", "/finder-candidates/",
-  "/illuminations/", "/figures/", "/names/", "/ph-nth-sandbox/", "/users/", "/blog/", "/sandbox/", "/roots/", "/bezier/", "/prime-mover/", "/reduce/", "/candidates/", "/problems/", "/hybrids/", "/hybrids-wonk/", "/plates/", "/extra-curves/", "/said/", "/deep2-said/", "/glue/", "/jobs/", "/class-v/",
+  "/illuminations/", "/figures/", "/names/", "/ph-nth-sandbox/", "/users/", "/blog/", "/sandbox/", "/roots/", "/bezier/", "/prime-mover/", "/reduce/", "/candidates/", "/problems/", "/hybrids/", "/hybrids-wonk/", "/plates/", "/extra-curves/", "/said/", "/deep2-said/", "/glue/", "/jobs/", "/class-v/", "/hearts/",
 ];
 
 // Only the pages you name, or a short list for the loop; with no argument, every page.
