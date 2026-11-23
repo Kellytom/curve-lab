@@ -7,7 +7,7 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { planOverwrite, planVariant, safeCurveName, valuesFrom, variantUid }
+import { planOverwrite, planRename, planVariant, safeCurveName, valuesFrom, variantUid }
   from "../src/lib/desk-tune.js";
 
 const uids = new Set(["c-0002", "c-0003"]);
@@ -105,4 +105,29 @@ test("values are clamped into the sliders' own ranges", () => {
   assert.equal(out.minus, 3);
   assert.equal(out.profile, "bow");
   assert.deepEqual(out.transform, { degrees: 360 });
+});
+
+test("a rename keeps the uid and its old name, and refuses a name already used", () => {
+  const plan = planRename({ curves, uid: "c-0002a", name: "euler-hook-thin-two" });
+  assert.equal(plan.ok, true);
+  assert.equal(plan.uid, "c-0002a");
+  assert.equal(plan.to, "euler-hook-thin-two");
+  assert.ok(plan.aliases.includes("euler-hook-thin"), "the old name is kept as an alias");
+
+  const clash = planRename({ curves, uid: "c-0002a", name: "euler-hook" });
+  assert.equal(clash.ok, false);
+  assert.equal(clash.status, 409);
+  assert.match(clash.error, /c-0002/, "the owner is named");
+
+  const same = planRename({ curves, uid: "c-0002a", name: "euler-hook-thin" });
+  assert.equal(same.ok, false);
+  assert.equal(same.status, 400);
+
+  const missing = planRename({ curves, uid: "c-9999", name: "x" });
+  assert.equal(missing.status, 404);
+
+  const desk = planRename({ curves, uid: "c-0002a", name: "taken-on-desk",
+                            deskNames: ["taken-on-desk"] });
+  assert.equal(desk.ok, false, "a desk row's name is a name too");
+  assert.equal(desk.status, 409);
 });

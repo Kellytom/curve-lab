@@ -1,4 +1,4 @@
-// POST /api/cut-double  { uid, mode, cusp, keep, name }
+// POST /api/cut-double  { uid, mode, cusp, keep, name, widthPct, plus, minus, profile }
 //
 // Cut a double-wonk and save the result as a new curve beside its parent. Two cuts:
 //
@@ -15,7 +15,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { repoRoot } from "../../lib/gallery.js";
 import { cuspsOf, cutAt, lineRuns, lineY, turnPoints } from "../../lib/cut-doubles.js";
-import { DeskError, createVariant } from "../../lib/desk-tune.js";
+import { DeskError, createVariant, valuesFrom } from "../../lib/desk-tune.js";
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { "content-type": "application/json" },
@@ -36,20 +36,24 @@ export const POST = async ({ request }) => {
       return json({ error: `${uid} has no stored path to cut` }, 422);
     }
 
-    // A zero in a record is the note migration's placeholder, not a choice (the plate's row
-    // rule treats it the same way), so a cut falls back to the presets instead of drawing a
-    // spine-only plate at width 0.
+    // The side curves are chosen here, before saving: the four values come from the form and
+    // fall back to the presets (a zero in a record is the note migration's placeholder, so a
+    // parent's zero is not a choice). valuesFrom clamps each to its range.
+    const asked = Number(body.cusp);
     const real = (value, fallback) => {
       const number = Number(value);
       return Number.isFinite(number) && number !== 0 ? number : fallback;
     };
-    const values = {
+    const values = valuesFrom({
+      widthPct: body.widthPct, plus: body.plus, minus: body.minus, profile: body.profile,
+      degrees: body.degrees,
+    }, {
       widthPct: real(record.widthPct, 1.5),
       plus: real(record.plus, 2.5),
       minus: real(record.minus, 0.1),
       profile: record.profile || "bow",
-      transform: { degrees: Number(record.transform?.degrees ?? 0) },
-    };
+      degrees: Number(record.transform?.degrees ?? 0),
+    });
 
     let cutPath;
     let cutBranches = null;

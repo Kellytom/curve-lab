@@ -75,6 +75,10 @@ from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
       the next letter uid on that spine, writes the registry, the database rows, the desk row,
       and renders the plate. Check: `a new curve is a record beside its parent` and
       `a variant of a variant lands in the original series`.
+- [x] **Rename** changes this curve's name only: the uid and geometry stay, the registry, the
+      database rows, the exports and the figure follow, and the old name is kept as an alias. A
+      name already used is refused with the owner named. Check: `app/tests/desk-tune.test.mjs`
+      (`a rename keeps the uid and its old name, and refuses a name already used`).
 - [x] **A name is checked against names, aliases and uids**, compared without case. A
       collision is refused and names the owning curve. Check: the collision tests in the
       same file.

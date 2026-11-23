@@ -60,6 +60,20 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" wid
     stroke="#b03a2e" stroke-width="1.2" stroke-dasharray="8 6"/>
   ${dots}
 </svg>`;
+// The side curves are chosen here: the preview and the saved record use the same four values,
+// read from the query string (the form's preview button reloads with them).
+const q = Astro.url.searchParams;
+const number = (name, fallback) => {
+  const raw = q.get(name);
+  return raw === null || raw === "" ? fallback : Number(raw);
+};
+const sideValues = {
+  widthPct: number("widthPct", 1.5),
+  plus: number("plus", 2.5),
+  minus: number("minus", 0.1),
+  profile: ["bow", "s", "taper"].includes(q.get("profile") || "") ? q.get("profile") : "bow",
+};
+
 const suggested = `${record.name}-cut`;
 
 // The two curves the line makes, drawn here: each side's open runs with the same side curves
@@ -70,7 +84,8 @@ const sidePreview = (side) => {
   if (!runs.length) return { svg: "", runs: 0 };
   const groups = runs.map((run) => {
     const group = PLATE.pathGroup(run, {
-      widthPercent: 1.5, plus: 2.5, minus: 0.1, profile: "bow",
+      widthPercent: sideValues.widthPct, plus: sideValues.plus,
+      minus: sideValues.minus, profile: sideValues.profile,
     });
     return group ? group.paths.slice(0, 3) : [run];
   });
@@ -110,14 +125,24 @@ const hasLine = true;
           <option value="short">the short arc</option>
         </select>
       </label>
+      <label>width % <input name="widthPct" type="number" min="0.5" max="20" step="0.05" value={sideValues.widthPct} /></label>
+      <label>plus <input name="plus" type="number" min="-8" max="8" step="0.05" value={sideValues.plus} /></label>
+      <label>minus <input name="minus" type="number" min="-8" max="8" step="0.05" value={sideValues.minus} /></label>
+      <label>profile
+        <select name="profile">
+          {["bow", "s", "taper"].map((name) => <option value={name} selected={sideValues.profile === name}>{name}</option>)}
+        </select>
+      </label>
       <label>new name
         <input name="name" type="text" maxlength="120" value={suggested} />
       </label>
-      <button type="submit">cut and save</button>
+      <button type="submit">preview the side curves</button>
+      <button type="submit" id="cut-save">cut and save</button>
       <p class="cut-state" id="cut-state" role="status" aria-live="polite"></p>
       <p class="cut-note">The red dashed line is the horizontal cut: the top or bottom half is
-        kept as open curves, not one closed shape. A cut is a sampled record
-        ({points.length} stored points on the parent); its plate is rebuilt when it saves.</p>
+        kept as open curves, not one closed shape. The four side values are the ones previewed
+        below and saved with the cut; after saving they can be tuned at the curve's own tuning
+        page. A cut is a sampled record ({points.length} stored points on the parent).</p>
     </form>
   </div>
 

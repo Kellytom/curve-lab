@@ -14,6 +14,9 @@ function say(text, kind = "") {
 
 if (form) {
   form.addEventListener("submit", async (event) => {
+    // the preview button is a plain GET of this page with the values; only the save is posted
+    const submitter = event.submitter || form.querySelector("#cut-save");
+    if (submitter && submitter.id && submitter.id !== "cut-save") return;
     event.preventDefault();
     const data = new window.FormData(form);
     const choice = String(data.get("mode") || "dot:0");
@@ -23,9 +26,13 @@ if (form) {
       mode: isDot ? "dot" : choice,
       cusp: isDot ? Number(choice.slice(4)) : 0,
       keep: data.get("keep") === "short" ? "short" : "long",
+      widthPct: Number(data.get("widthPct")),
+      plus: Number(data.get("plus")),
+      minus: Number(data.get("minus")),
+      profile: data.get("profile") || "bow",
       name: data.get("name") || "",
     };
-    const button = form.querySelector("button[type=submit]");
+    const button = form.querySelector("#cut-save");
     if (button) button.disabled = true;
     say("cutting…", "busy");
     try {
@@ -46,6 +53,10 @@ if (form) {
       link.href = `/plates#${result.uid}`;
       link.textContent = ` see ${result.uid} on the plates →`;
       state.appendChild(link);
+      const tune = document.createElement("a");
+      tune.href = `/tune/${result.uid}`;
+      tune.textContent = " tune its side curves or rename it →";
+      state.appendChild(tune);
     } catch (error) {
       say(`not saved: ${error.message}`, "bad");
     } finally {

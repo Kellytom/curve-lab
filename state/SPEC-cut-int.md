@@ -46,6 +46,14 @@ are cut at, one curve at a time.
 - **The cut is sampled and says so:** the record's `kind` is `path`, its `source` is `cut`, its
   conversion says the points are the parent's, exact there and approximate between them, and
   its note names the parent, the cusp and the arc kept.
+- **The side curves are chosen before saving.** The four values (width %, plus, minus, profile)
+  are on the form; the two previews are drawn with them, and the saved record's database row
+  carries them. After saving, the curve's own `/tune/<uid>` changes them.
+- **The name is checked, and can be changed later.** A cut's name must be free — records,
+  aliases and desk rows all count — and it is refused with the owner named, never silently
+  suffixed. `/tune/<uid>` carries a rename that changes the name in the registry, the database
+  rows, the exports and the figure, keeps the old name as an alias, and refuses a name already
+  used (`planRename`, `POST /api/rename-curve`).
 - **A zero is unset.** A parent with width, plus or minus at 0 (the note migration's
   placeholder) gives the cut the preset values, not a spine-only plate.
 

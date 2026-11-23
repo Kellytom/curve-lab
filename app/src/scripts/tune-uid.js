@@ -40,7 +40,8 @@ function start() {
   const saveButtons = [...form.querySelectorAll("button[formaction]")];
   const save = async (button) => {
     const target = new URL(button.getAttribute("formaction"), location.origin);
-    const payload = { ...valuesOf(inputs), curveName: form.elements.curveName?.value || "" };
+    const payload = { ...valuesOf(inputs), curveName: form.elements.curveName?.value || "",
+                      rename: form.elements.rename?.value || "" };
     if (target.searchParams.get("mode") === "new" && !String(payload.curveName).trim()) {
       say("type a name for the new curve", "bad");
       form.elements.curveName?.focus();
@@ -56,6 +57,12 @@ function start() {
       });
       const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body.error || `save failed: ${response.status}`);
+      if (target.pathname.endsWith("/api/rename-curve")) {
+        const query = new URLSearchParams({ saved: `renamed to ${body.name}` });
+        if (body.warning) query.set("warning", body.warning);
+        location.href = `/tune/${uid}?${query}`;
+        return;
+      }
       if (body.uid && body.uid !== uid) {
         location.href = `/tune/${body.uid}?saved=${encodeURIComponent(`saved as new: ${body.uid} ${body.name}`)}`;
         return;

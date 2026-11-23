@@ -176,19 +176,35 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
     record.kind = "path";
     record.source = "cut";
     record.grid = null;
+    // A gothic arch is the two outer arms joined at the cut; a cusp cut is one kept arc. Both
+    // are sampled paths, but the note has to say which cut made the curve.
+    const gothic = cut?.mode === "gothic";
     record.conversion = {
       ...(base.conversion || {}),
-      algorithm: "cut at a cusp",
+      algorithm: gothic ? "cut at the middle, mirrored into an arch" : "cut at a cusp",
       exact: false,
-      note: `sampled: the kept arc of ${base.uid}'s stored points, cut at a cusp`,
+      note: gothic
+        ? `sampled: the two arms of ${base.uid}'s stored points, cut ` +
+          `${Math.round((cut?.share || 0) * 100)}% each side of the middle and mirrored`
+        : `sampled: the kept arc of ${base.uid}'s stored points, cut at a cusp`,
     };
     record.params = {
       ...(record.params || {}),
-      cut: cut ? { of: base.uid, ofName: base.name, cusp: cut.cusp, keep: cut.keep || "long" } : null,
+      cut: cut
+        ? (gothic
+            ? { of: base.uid, ofName: base.name, mode: "gothic",
+                share: cut.share, axis: cut.axis, apexAngle: cut.apexAngle }
+            : { of: base.uid, ofName: base.name, cusp: cut.cusp, keep: cut.keep || "long" })
+        : null,
     };
-    record.note = `cut from ${base.uid} (${base.name}) at cusp ${cut ? cut.cusp : "?"} · ` +
-      `kept the ${cut && cut.keep === "short" ? "short" : "long"} arc · ` +
-      `${record.path.length} stored points, exact there, approximate between them`;
+    record.note = gothic
+      ? `gothic arch from ${base.uid} (${base.name}) · cut ` +
+        `${Math.round((cut?.share || 0) * 100)}% each side of the middle · ` +
+        `${cut?.axis || "?"} mirror · apex ${Number(cut?.apexAngle || 0).toFixed(1)}° · ` +
+        `${record.path.length} stored points, exact there, approximate between them`
+      : `cut from ${base.uid} (${base.name}) at cusp ${cut ? cut.cusp : "?"} · ` +
+        `kept the ${cut && cut.keep === "short" ? "short" : "long"} arc · ` +
+        `${record.path.length} stored points, exact there, approximate between them`;
   }
 
   // A cut across a line gives one or more open runs (a tulip has two petals above its line).
@@ -219,6 +235,46 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
     }
   }
   return { ok: true, uid, name: chosen, root, record, base };
+}
+
+// A renamed curve keeps its uid and its geometry; only the name changes, and the old name is
+// kept as an alias so an old link or note still finds it. A name is a key: the check is the
+// same one a new curve gets, with the curve itself excluded.
+export function planRename({ curves, uid, name, deskNames = [] }) {
+  const base = curves.find((curve) => curve.uid === uid);
+  if (!base) return { ok: false, status: 404, error: `${uid || "(no id)"} is not a curve` };
+  const chosen = safeCurveName(name);
+  if (!chosen) return { ok: false, status: 400, error: "a rename needs a name; type one in" };
+  if (chosen === base.name) {
+    return { ok: false, status: 400, error: `"${chosen}" is already its name` };
+  }
+
+  const own = new Set([base.name, ...(base.aliases || [])].map((label) => String(label).toLowerCase()));
+  const taken = new Map();
+  for (const curve of curves) {
+    if (curve.uid === uid) continue;
+    for (const label of [curve.name, ...(curve.aliases || [])]) {
+      const key = String(label || "").trim().toLowerCase();
+      if (key && !taken.has(key)) taken.set(key, curve);
+    }
+  }
+  for (const label of deskNames) {
+    const key = String(label || "").trim().toLowerCase();
+    if (key && !taken.has(key)) taken.set(key, null);
+  }
+  const owner = taken.get(chosen.toLowerCase());
+  if (owner !== undefined) {
+    const where = owner ? `${owner.uid} (${owner.name})` : "a desk row";
+    return { ok: false, status: 409, error: `name "${chosen}" is already used by ${where}` };
+  }
+  return {
+    ok: true,
+    uid,
+    from: base.name,
+    to: chosen,
+    aliases: [...new Set([...(base.aliases || []), base.name])],
+    own,
+  };
 }
 
 async function renderPlate(uid) {
@@ -260,7 +316,66 @@ export async function saveTune(input) {
            values: input.values, ...(warning ? { warning } : {}) };
 }
 
-// one writer at a time inside this process: two tabs cannot take the same uid
+// A rename is a name change only: uid and geometry stay, the old name becomes an alias, the
+// registry, the database rows, the exports and the figure follow. The seed is copied first, and
+// a failed write puts it back — the rule every desk write follows.
+export async function renameCurve({ uid, name }) {
+  return serial(async () => {
+    const registry = JSON.parse(readFileSync(REGISTRY, "utf8"));
+    const deskRows = await prisma.sandboxCurve.findMany();
+    const deskNames = deskRows.map((row) => parsed(row)?.curveName).filter(Boolean);
+    const plan = planRename({ curves: registry.curves, uid, name, deskNames });
+    if (!plan.ok) throw new DeskError(plan.error, plan.status);
+
+    mkdirSync(path.dirname(BACKUP), { recursive: true });
+    copyFileSync(REGISTRY, BACKUP);
+    const record = registry.curves.find((curve) => curve.uid === uid);
+    record.aliases = plan.aliases;
+    record.name = plan.to;
+    for (const set of registry.sets || []) {
+      if (set.uid === `set-${uid}` || set.inner_uid === uid || set.innerUid === uid) set.name = plan.to;
+    }
+    const temp = `${REGISTRY}.tmp`;
+    writeFileSync(temp, `${JSON.stringify(registry, null, 2)}\n`);
+    renameSync(temp, REGISTRY);
+
+    try {
+      await prisma.$transaction([
+        prisma.curve.update({
+          where: { uid },
+          data: { name: plan.to, aliases: JSON.stringify(plan.aliases) },
+        }),
+        prisma.note.update({ where: { uid }, data: { name: plan.to } }),
+        prisma.curveSet.updateMany({ where: { innerUid: uid }, data: { name: plan.to } }),
+      ]);
+      const deskRow = deskRows.find((row) => row.name === uid);
+      if (deskRow) {
+        const data = parsed(deskRow) || {};
+        data.curveName = plan.to;
+        await prisma.sandboxCurve.update({
+          where: { name: uid }, data: { data: JSON.stringify(data) },
+        });
+      }
+      await exportTable("curves");
+      await exportTable("sandbox-curves");
+    } catch (error) {
+      try { copyFileSync(BACKUP, REGISTRY); } catch { /* reported below */ }
+      throw new DeskError(`could not rename: ${String(error.message || error)}`, 500);
+    }
+
+    let warning;
+    try {
+      const cleanEnv = { ...process.env };
+      delete cleanEnv.CURVE_LAB_ROOT;
+      await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
+        { cwd: ROOT, timeout: 180000, env: cleanEnv });
+    } catch (error) {
+      warning = `renamed; the figure did not redraw: ${String(error.message || error)}`;
+    }
+    return { uid, name: plan.to, from: plan.from, ...(warning ? { warning } : {}) };
+  });
+}
+
 let queue = Promise.resolve();
 const serial = (work) => {
   const next = queue.then(work, work);
