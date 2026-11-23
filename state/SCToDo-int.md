@@ -1,5 +1,10 @@
 # SCToDo-int — the sidechat's own todo list
 
+I am **DeepSeek2, the junior developer and junior designer**. DeepSeek1, the
+senior, sets direction, design and scope; every row here is work I can do inside
+that scope, and a row that needs a design decision is a question for the senior,
+not a choice of mine.
+
 One list, one owner (me). Each item carries a `Proves:` line so it can be judged
 done without re-reading anything. Work the top row; commit per item when the
 gate is green; report the hash. Long items go to the background, never waited on.

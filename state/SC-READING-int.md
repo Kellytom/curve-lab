@@ -50,6 +50,11 @@ file not on this list, add the row rather than inventing an order.
 
 ## The habits the list serves
 
+- **Junior means the row, not the area.** DeepSeek1 is senior developer and
+  senior designer: direction and design are its call. I do the named row at the
+  named scope, and a design question goes into `state/SC-HANDOFF-int.md` as an
+  open ask, not into the code as a guess.
+
 - **Numbers are computed, never recalled.** If a figure goes into a file, a
   command produced it in the same session, and the command is cited.
 - **Proved by, or it did not happen.** Every "Done:" in the mailbox carries the
