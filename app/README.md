@@ -17,10 +17,8 @@ Astro 5.18 with `@astrojs/node`, on **http://localhost:4321**.
 - **`/lab` is the lab; `/book` is the book gallery.** The lab page is ported; its
   stars are saved by the page itself to `workbench/starred.json`.
 
-- **Why 5.18, not 7:** this machine's Node is 22.4.1; Astro 7 needs >=22.23.4.
-  Astro 5 supports >=22.0. A **global Astro 5.18.2** is installed; Astro still
-  needs the adapter (`@astrojs/node`) local to each project, so the shared thing
-  is the version and the CLI, not one `node_modules` for every folder.
+- **The stack now:** Astro **7.4.13** on Node **24** (`~/node24/bin`); `/api/health`
+  reports both. Astro 5 needed this machine's older Node 22; that constraint is gone.
 - **Shared code:** `../workbench/plate_math.js` and `../workbench/real-curves.json`
   through Vite's `server.fs.allow`; one copy of the maths and the data.
 - **The design is remembered:** the lab writes its controls to
@@ -36,6 +34,12 @@ Astro 5.18 with `@astrojs/node`, on **http://localhost:4321**.
   the same call the exporter makes. The PNGs are served by
   `src/pages/api/plate/[id].js` from `../book/plates/`, so nothing is copied.
   The generated `book/index.html` is gone.
+- **The database:** `npx prisma db push` after a schema change. `node
+  scripts/migrate.mjs` seeds an **empty** database from `workbench/curve-registry.json`
+  and does nothing when rows exist; the additive path is
+  `node scripts/add-registry-curves.mjs` (insert the registry curves the database is
+  missing — used after `scripts/add_classical.py`). `node scripts/check-db.mjs` prints
+  the expected counts and compares them. Snapshots: `npm run backup`, `npm run restore`.
 - **The endpoint:** `POST /api/stars` with `{ "plates": [...] }` wrote
   `workbench/starred.json` in the test run.
 

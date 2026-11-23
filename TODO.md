@@ -74,12 +74,14 @@ started once and lost. Written here so the next session reads the question inste
       Both readings fit the sentence, and they move every plate a different way.
       **Why it is blocked:** the answer changes every plate, so a wrong guess is a full re-render
       of 393 plates and a wrong book. One word from the operator unblocks it.
-- [ ] **The named scrollwork and select exceptions.** The operator has said the plates migrate per
-      family and that the scrollwork and "select" curves are exceptions, but has not said which.
-      The candidates in the plan are the six flourish, the curlicue, the log spiral and the
-      involute. **The question:** name the curves that are exceptions, and say how a scrollwork
-      plate differs (spine only? the whole curve railed? something else?).
-      **Why it is blocked:** picking the set silently would migrate the wrong plates.
+- [x] **The named scrollwork and select exceptions — answered 2026-11-23: the list is empty.**
+      "None of the curves selected so far technically need parallel curves." The parallel route was
+      solved already and is stored with the `grid-8` project (`~/developer/grid-8`); it is called
+      up only for special diagram plates — the operator's example is the fifth joyful mystery
+      (finding in the temple: the scroll, the temple and the signs that point to the mystery, not
+      the figure). Those plates are a later set. The candidates (six flourish, curlicue, log
+      spiral, involute) are not exceptions. Recorded in `state/DESIGN-int.md` §A parallel rail is
+      for a special diagram.
 
 ## Rich chat display — after the curves and the books (2026-11-23)
 
@@ -108,13 +110,13 @@ The main families are done; these are loose ends, not new work:
 - coupler curves: my first generator zigzagged between circle-intersection branches; the family still looks worth one careful attempt.
 
 
-- **The seven curated finds need plates.** `c-0263`..`c-0269` are in the registry,
-  the database and `/figures`, but not in the 90-frame set; `frames_build.mjs`
-  will pick them up on its next run (269 chosen now, so 97 plates).
-- **`curve_pngs.mjs --only` overwrote `figures/index.json` with a partial list.** The
-  guard was never added; the full rebuild restored it. Add the guard or drop the flag.
-- **`migrate.mjs` only seeds an empty database.** The additive path is
-  `app/scripts/add-registry-curves.mjs`; both should be named in the README.
+- **Done 2026-11-23: the seven curated finds have their plates.** `c-0263`..`c-0269` each
+  have a 3000 px plate and its SVG in `book/print/` (checked file by file).
+- **Done 2026-11-23: `curve_pngs.mjs --only` merges the index.** A partial run writes its
+  curves into the existing `figures/index.json`; `tests/test_regressions.py` reads the registry
+  and the index and fails when a registry curve has no figure.
+- **Done 2026-11-23: the two database paths are named in `app/README.md`** — `migrate.mjs`
+  seeds only an empty database, `add-registry-curves.mjs` is the additive path.
 - **`scripts/curve_registry.py` would rebuild the registry and lose the seven finds.**
   It must learn to keep curated rows before it is run again.
 

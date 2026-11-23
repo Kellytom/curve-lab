@@ -3845,8 +3845,9 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 
 - **Built:** `/gothic/` — **every stored curve** (394 at the block), with the mirrored ones first,
   then the one-arm cuts, and the default order by name so the page is not the doubles family;
-  `stars` and `uid` are one click away — and `/gothic/<uid>`: the cut slider, the two-panel
-  figure, the readout and the save. The figure puts the new arch on top and the original below at
+  `stars` and `uid` are one click away — and `/gothic/<uid>`: the cut **menu**, the two-panel
+  figure, the readout and the save. The cut is exact `t = 1/2 ∓ q` (`1/40 … 1/6`); the percent of
+  the half is the echo; the drawn cut is the nearest stored station and says so when it differs. The figure puts the new arch on top and the original below at
   one scale: the two cut points in red, the removed middle in red, the middle hollow, the integer
   hits in gold, labelled `(x, y)`.
 - **Maths:** `app/src/lib/gothic.js`. Four rational mirrors are measured on the points (over 0.5 %
@@ -3858,9 +3859,10 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   `state/PROBLEMS-gothic-int.md` with the guard; the rails were `NaN` until the page check found
   them, also recorded there.
 - **Save:** `POST /api/gothic-arch` → `createVariant`; the record is `kind: path`, `source: cut`,
-  `params.cut.mode: "gothic"` with the share, the `t` pair, the mirror flag, the gap and the apex.
-  Proved on c-0273 at 20 % → c-0273a (removed) and c-0022 (rows) at 15 % → c-0022a (removed);
-  kept: c-0008 (u-bowl) at 10 % → **c-0008a u-bowl-gothic**.
+  `params.cut.mode: "gothic"` with the share, `q`, the `t` pair, `tRequested`, the mirror flag,
+  the gap and the apex. Proved on c-0273 at 20 % → c-0273a (removed) and c-0022 (rows) at 15 % →
+  c-0022a (removed); kept: c-0008 (u-bowl) at 10 % → **c-0008a u-bowl-gothic**. The `q` probe
+  c-0008b was checked (q 0.05, t [0.45, 0.55]) and removed.
 - **Correction (operator, 2026-11-23):** the "rows only" records are high-degree parametric
   polynomials; the equation is the record's `speedX` / `speedY`, not a missing path. The desk
   samples them with the plate's `spine` (`app/src/lib/curve-points.js`: 300 stations to measure,
@@ -3869,11 +3871,19 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   (no mirror, gap printed); 213 sampled from the rows; none without points. c-0134 (the helmet,
   gap 9.97 %) gives a 12.4° point at a 10 % cut. The page measures the live set, so the count
   moves with the data sync.
-- **Guards:** `tests/js/gothic.test.js` (17), `check-pages.mjs /gothic/`, `npm --prefix app run
+- **Guards:** `tests/js/gothic.test.js` (18), `check-pages.mjs /gothic/`, `npm --prefix app run
   check` (0 errors).
 - **Also repaired:** c-0274a (the cut desk's save) was in the registry with no figure and turned
   the register red; `curve_pngs.mjs --only c-0274a` restored it (figure index 395). Register
   26/26 OK.
+- **Probe cleanup:** the q probe (c-0008b) was removed, but its figure PNG re-appeared after the
+  removal and turned the register red (`CurveFlagsTest`); deleted, and `curve_pngs_git.mjs` is ok
+  (778 files, 411 rows). The remover already lists the figure path, so the cause is a late
+  render, not a missing list entry.
+- **Data gaps while another agent saves:** c-0274a and c-0428 landed in the registry with no
+  figure and turned the figure-index test red; each was repaired with
+  `curve_pngs.mjs --only <uid>`. The registry moved from 394 to 403 during this block, so a red
+  run at a boundary may name their newest save; repair it, then re-run once.
 - **Next:** the operator's look; the rational-`t` control replaces the percent slider later.
 
 ## 2026-11-23 (the glue-ready Tschirnhausen pieces) — the sources named
@@ -3945,3 +3955,24 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   **200**, health `node v24.22.3`, `astro 7.4.13`.
 - **Next:** the 11 classical curves still missing (`state/GAPS-int.md`): name them, add three as
   sampled records with figures and plates.
+
+## 2026-11-23 (the named curves: 11 missing → 0)
+
+- **Nine records added, sampled from the generators' own equations:** c-0420 semicubical
+  (Neile's parabola), c-0421 kappa (Gutschoven), c-0422 strophoid (right, loop at the node),
+  c-0423 pear (cusp at the origin), c-0424 piriform 2x (two branches), c-0425 bean (two
+  branches), c-0426 heart (the smooth sextic, two sampled halves), c-0427 squircle (one closed
+  sampled path), c-0428 rounded square (3208 stations, four edges and four exact quarter arcs).
+- **`add_classical.py` reads the sampler branches, not only control rows.** The curves with no
+  parametrisation (heart, squircle, cruciform) were refused as "no drawable branch" before; a
+  multi-branch record stores `path` (concatenated) and `branches`, as c-0416 does.
+- **The count was wrong, and now it is not.** `curve_gaps.mjs` took every `dict(key=…)` block as
+  a named curve; the speed examples "quartic" and "sextic" were never named. It now takes NAMED
+  blocks with an equation: **29 named curves, 0 missing.** Register row 66, `GapsNamedTest`.
+- **At the block:** 403 curves, database 403/403/403, figure index 403, 8 studies. Plates and
+  figures rendered per curve; the crossing indexes merged, not replaced.
+- **Known reds, not this row:** `test_data_audit` (the other agent's uncommitted
+  `data/emblem-stations.json` has no registered stamp) and `test_hub_stills` (lab, book,
+  ph-nth-sandbox and finder stills older than their page sources). The figure-index failure seen
+  in one run was a race with the other agent writing the registry; it passes in isolation.
+- **Next:** the book set (`state/PLAN-int.md`), unless the operator sets another direction.
