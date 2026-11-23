@@ -39,7 +39,6 @@ export const POST = async ({ request }) => {
     const cut = cutAt(record.path, cusp.index, keep);
     if (cut.points.length < 3) return json({ error: "that cut leaves too little to draw" }, 422);
 
-    const name = String(body.name || `${record.name}-cut`).trim();
     // A zero in a record is the note migration's placeholder, not a choice (the plate's row
     // rule treats it the same way), so a cut falls back to the presets instead of drawing a
     // spine-only plate at width 0.
@@ -55,9 +54,27 @@ export const POST = async ({ request }) => {
       transform: { degrees: Number(record.transform?.degrees ?? 0) },
     };
 
-    const result = await createVariant({
-      spine: uid, name, values, path: cut.points, cut: { cusp: index, keep },
-    });
+    const askedName = String(body.name || "").trim();
+    const base = askedName || `${record.name}-cut`;
+    // Cutting several dots of one curve is the normal use; the default name takes the next
+    // free number instead of refusing the second cut. A name the operator typed is honoured
+    // and its collision is reported.
+    let result = null;
+    let lastError = null;
+    for (let attempt = 1; attempt <= 9; attempt += 1) {
+      const name = attempt === 1 ? base : `${base}-${attempt}`;
+      try {
+        result = await createVariant({
+          spine: uid, name, values, path: cut.points, cut: { cusp: index, keep },
+        });
+        break;
+      } catch (error) {
+        lastError = error;
+        const collision = error instanceof DeskError && error.status === 409;
+        if (askedName || !collision) throw error;
+      }
+    }
+    if (!result) throw lastError || new DeskError("could not name the cut", 400);
     return json({
       ...result,
       cut: {

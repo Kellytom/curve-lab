@@ -323,6 +323,11 @@ export async function createVariant({ spine, name, values, path: cutPath = null,
     // the plate is what /plates shows, and the figure index is a gate: render both.
     // A render failure is a warning, not a lost curve.
     const warnings = [];
+    // The dev server exports CURVE_LAB_ROOT=.., relative to app/. A child run from the repo
+    // root would resolve that one directory too high, so the figure script could not find the
+    // registry; the plate script uses its own path and was unaffected. Strip it for both.
+    const cleanEnv = { ...process.env };
+    delete cleanEnv.CURVE_LAB_ROOT;
     try {
       await renderPlate(uid);
     } catch (error) {
@@ -332,12 +337,12 @@ export async function createVariant({ spine, name, values, path: cutPath = null,
     // second attempt after a breath is cheaper than a warning on a good save.
     try {
       await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
-        { cwd: ROOT, timeout: 180000 });
+        { cwd: ROOT, timeout: 180000, env: cleanEnv });
     } catch {
       try {
         await new Promise((resolve) => setTimeout(resolve, 400));
         await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
-          { cwd: ROOT, timeout: 180000 });
+          { cwd: ROOT, timeout: 180000, env: cleanEnv });
       } catch (error) {
         warnings.push(`the figure did not render: ${String(error.message || error)}`);
       }
