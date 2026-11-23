@@ -15,7 +15,7 @@ The sequence below is the whole shape. Steps 1 and 7 are DeepSeek; 2–5 are GLM
 | 2 | `/new` | — | an empty context. Do this **before** changing the model, so GLM's first turn is the task and not a 40,000-token history. |
 | 3 | model picker → `opencode-go/glm-5.3` | the new session | `glm-5.3-flash` is the cheaper pass. An agent file's `model:` line is **not** enough: the TUI picker (or `--model` on a command) is what sets it. |
 | 4 | paste the task | GLM session | one self-contained message. `deep2/notes/glm-ai-news-task.md` is already written that way. |
-| 5 | copy the answer out, then `/new` | GLM session | the answer is the value; the context is now the expensive part. Save it to a file first, then drop the session. |
+| 5 | copy the answer out, then `/new` | GLM session | the answer is the value; the context is now the expensive part. `/new` does not delete the old session, it just never reads it again — so save the answer to a file the next session opens. |
 | 6 | `/sfocus` | DeepSeek | moves the session to the repo, runs the register, reads `state/SC-HANDOFF-int.md`, `state/SCToDo-int.md`, `state/SCmemory-int.md` and `next-shandoff-int.md`, and restates one action. |
 | 7 | `/shandoff` | DeepSeek | writes the handoff again, now with whatever the GLM answer changed. |
 
@@ -68,5 +68,15 @@ review.
   prefix; `/new` plus a short prompt is cheaper, even though it looks wasteful.
 - **GLM returns text, not diffs.** No edits: a write is a diff that you then pay
   to re-read, and it is a change nobody senior has reviewed.
-- **Nothing survives the session.** If it is worth keeping, it is in a file
-  before `/new`.
+- **Nothing survives the session.** The old session is not deleted — it is on
+  disk and `opencode session list` / `opencode session export` still reach it —
+  but the next session never reads it, and it is not a project file. The answer
+  has to be in a file the next session opens (`deep2/notes/…`), or it is lost to
+  the work even though it still exists on disk.
+- **The scan agent cannot save by itself**: `edit: deny`, `shell: deny`, cwd
+  `$TMPDIR`. That is deliberate — a GLM write is a diff nobody senior has
+  reviewed, and it also pays to re-read what it wrote. So the answer is copied
+  out, or redirected with `>`, by you.
+- **If you run GLM in the TUI as a normal agent**, it *can* write a file. Then
+  the rule changes from "copy it out" to "commit it, or the write is
+  uncommitted and the next `/sfocus` sees a dirty tree".
