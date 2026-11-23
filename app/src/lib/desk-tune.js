@@ -102,7 +102,7 @@ export function planOverwrite({ rows, uids, mode = "overwrite", rowId, spine, va
 
 // A new curve beside its parent. The parent's own parent is the spine, so a variant of a
 // variant still lands in the c-0002a, c-0002b series.
-export function planVariant({ curves, baseUid, name, values, deskNames = [], deskIds = [] }) {
+export function planVariant({ curves, baseUid, name, values, deskNames = [], deskIds = [], path: cutPath = null, cut = null }) {
   const base = curves.find((curve) => curve.uid === baseUid);
   if (!base) return { ok: false, status: 400, error: `${baseUid || "(no id)"} is not a curve id` };
   const root = String(base.params?.variantOf || base.uid);
@@ -166,6 +166,29 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
   };
   delete record.updated;
   delete record.savedName;
+
+  // A cut curve is a stored path, not the parent's rows: the points are the kept arc, in
+  // order, and the record says where it came from. It is sampled, so it claims no grid.
+  if (Array.isArray(cutPath) && cutPath.length > 2) {
+    record.path = cutPath.map(([x, y]) => [x, y]);
+    record.branches = undefined;
+    record.kind = "path";
+    record.source = "cut";
+    record.grid = null;
+    record.conversion = {
+      ...(base.conversion || {}),
+      algorithm: "cut at a cusp",
+      exact: false,
+      note: `sampled: the kept arc of ${base.uid}'s stored points, cut at a cusp`,
+    };
+    record.params = {
+      ...(record.params || {}),
+      cut: cut ? { of: base.uid, ofName: base.name, cusp: cut.cusp, keep: cut.keep || "long" } : null,
+    };
+    record.note = `cut from ${base.uid} (${base.name}) at cusp ${cut ? cut.cusp : "?"} · ` +
+      `kept the ${cut && cut.keep === "short" ? "short" : "long"} arc · ` +
+      `${record.path.length} stored points, exact there, approximate between them`;
+  }
   return { ok: true, uid, name: chosen, root, record, base };
 }
 
@@ -216,13 +239,14 @@ const serial = (work) => {
   return next;
 };
 
-export async function createVariant({ spine, name, values }) {
+export async function createVariant({ spine, name, values, path: cutPath = null, cut = null }) {
   return serial(async () => {
     const registry = JSON.parse(readFileSync(REGISTRY, "utf8"));
     const deskRows = await prisma.sandboxCurve.findMany();
     const deskNames = deskRows.map((row) => parsed(row)?.curveName).filter(Boolean);
     const plan = planVariant({ curves: registry.curves, baseUid: spine, name, values, deskNames,
-                               deskIds: deskRows.map((row) => row.name) });
+                               deskIds: deskRows.map((row) => row.name),
+                               path: cutPath, cut });
     if (!plan.ok) throw new DeskError(plan.error, plan.status);
 
     const record = plan.record;
