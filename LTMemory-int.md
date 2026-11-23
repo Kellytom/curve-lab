@@ -17,8 +17,9 @@ Nothing else unless the action names it. `app/src/content/docs/docs/handover.md`
 ## The rules that cost time
 
 - **No foreground command over 5 seconds.** Background it and continue. The fast
-  loop is `scripts/test.py --fast` (about 3 s); the commit gate is a background
-  job. The operator never waits for a test.
+  loop is `scripts/test.py --fast` (15 modules, 75 s on 2026-11-23 — the register's
+  plate renders dominate), so it is a background job too; so is the commit gate.
+  The operator never waits for a test.
 - **Think async.** Start independent jobs together instead of queueing them;
   a long job runs in the background and is reported when it lands, never waited on.
 - **A loop runs once per change.** Never re-run a check to confirm it. A second
@@ -33,6 +34,10 @@ Nothing else unless the action names it. `app/src/content/docs/docs/handover.md`
 - `workbench/curve-registry.json` is the seed; `curve-notes.json`,
   `finder-stars.json`, `starred.json` and `operator-list.json` are exports.
   Rebuild: `npx prisma db push && node scripts/migrate.mjs && node scripts/check-db.mjs`.
+  `migrate.mjs` fills an **empty** database; for new records use
+  `app/scripts/add-registry-curves.mjs`. Every curve has `status` and `pngIgnored`
+  (page-only curves are `Study` rows), and git follows the PNG flag:
+  `scripts/curve_pngs_git.mjs` (apply with `--write`), `scripts/set_png_flag.mjs <uid> keep|ignore`.
 - Snapshots and the GitHub sync are automatic; the book pages "Where the data
   lives" and "If something goes wrong" say how.
 
@@ -107,6 +112,11 @@ listed here rather than renamed, because the scripts are referenced elsewhere.
 | `scripts/check-rails.mjs` | rails draws, and the complementary controls exist, on five pages |
 | `scripts/hub.py` | rebuilds the hub and every page's bar — **run after any page generator** |
 | `scripts/monitor.py` | tells a local failure from a network one |
+| `scripts/curve_pngs_git.mjs` | every plate and figure PNG is tracked exactly when its row keeps it |
+| `scripts/check_page_curves.mjs` | every curve on the study pages is a Curve or Study row with a known status |
+| `scripts/check_book_plates.mjs` | every plate is 3000 px at 300 dpi, read from the PNG header |
+| `scripts/check_asks.py` | the operator's asks are in `state/ASKS-int.md` and closed with proof |
+| `scripts/said_checklist.py --who me` (or `deep2`) | each chat's `/said/` file has a row per statement, done rows proved |
 
 ## Working rules learned the hard way
 
