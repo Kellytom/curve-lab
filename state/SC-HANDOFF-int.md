@@ -1,18 +1,18 @@
 # SC-HANDOFF-int — the sidechat's handoff (read this first after a reset)
 
-*Refreshed 2026-11-23 at the operator's /shandoff, before a reset and a model
-switch. Everything below is committed and pushed unless the line says
-otherwise. Read this file first, then `state/SCToDo-int.md`.*
+*Refreshed 2026-11-23 at the operator's /shandoff (second call, after the
+sound work), before a reset and a model switch. Everything below is committed
+and pushed unless a line says otherwise. Read this file first, then
+`state/SCToDo-int.md`.*
 
 ## 1. Where the work stands
 
 1. **The Inkscape round trip — CLOSED, proven on Inkscape 1.4.4.** Files:
-   `inkscape/ph_actions.py`, `ph_svg.py`, `ph_handles.py`, `ph_variant.py`,
-   `ph_extension.py` + two `.inx`; doc `docs/INKSCAPE-ROUNDTRIP.md`; 27 tests
-   incl. an Inkscape-serialized fixture (`tests/fixtures/`). Operator's laws:
-   a translation is a view, not a curve; misses in curve units, never "the
-   dial".
-2. **The speed-space re-fit — works, census current.** Files
+   `inkscape/` (ph_actions, ph_svg, ph_handles, ph_variant, ph_extension + two
+   `.inx`); doc `docs/INKSCAPE-ROUNDTRIP.md`; 27 tests incl. an
+   Inkscape-serialized fixture (`tests/fixtures/`). Laws: a translation is a
+   view, not a curve; misses in curve units, never "the dial".
+2. **The speed-space re-fit — works, census current.**
    `reduction/speed_fit.py`, `reduction/speed_fit_census.py`,
    `workbench/speed-fit-census.json`; 5 tests incl. own-degree recovery on a
    5e7-coefficient curve. Fit family reduces ~free; wave/loop/lace refuse.
@@ -27,15 +27,16 @@ otherwise. Read this file first, then `state/SCToDo-int.md`.*
    masks → potrace → spans), `canon.py`, `measure_spans.py`, `heart.py`.
    First conversion: the Redeemer, 35 spans, joins ≤7.7°, snap 1/1000 costs
    ≤0.0005. Prior art: `archive/notes/prior-art-human-figure.md`.
-6. **The broken heart — construction done, samples approved pending.**
-   Same seam in both halves; the balanced S-seam (A·sin 2πt) gives both
-   pieces a matching lobe. `deep2/out/heart-S seam, lateral 0.18.svg` reads
-   right. **NOT on an HTML page yet** (open ask 1).
-7. **Attention sounds — done, operator said "good enough".** Sidechat tone:
-   A2+A3+A4 mix, 1.6 s, volume 0.18, at
-   `~/.config/opencode/sounds/ding-low.wav`, carried by the Side Chat
-   launcher's `OPENCODE_CLI_CONFIG_CONTENT`; main session keeps the bright
-   bell via global `cli.json`.
+6. **The broken heart — construction done; samples ready, page pending.**
+   Same seam both halves; the balanced S-seam (A·sin 2πt) gives both pieces a
+   matching lobe. `deep2/out/heart-S seam, lateral 0.18.svg` reads right.
+   **NOT on an HTML page yet** (open ask 1).
+7. **Attention sounds — settled by ear.** The sidechat tone is now a **soft
+   organ stop**: A2 + octaves + light quint, two pipes a few cents apart,
+   slow attack, 2.2 s, at `~/.config/opencode/sounds/ding-low.wav`, volume
+   0.18 via the launcher's `OPENCODE_CLI_CONFIG_CONTENT`. The main session
+   keeps its bright bell (global `cli.json`). The operator has iterated the
+   sidechat tone four times; the latest is the organ note.
 8. **The GLM AI-news task — written, ready to paste.**
    `deep2/notes/glm-ai-news-task.md` (plain-English rule included).
 9. **Compaction setup — active.** `sidechat.json`: keep 24k, buffer 20 %,
@@ -55,7 +56,9 @@ otherwise. Read this file first, then `state/SCToDo-int.md`.*
 3. **Run the GLM AI-news task** (file above) when the model is switched.
 4. **Housekeeping:** `scripts/prepush.sh`; last known reds were DeepSeek1's
    (`side-tests.html` label, c-0398 slot, book manifest) — verify before
-   pushing anything of ours.
+   pushing anything of ours. DeepSeek1's newest: `23c8c906` "next: the offset
+   crossings — cross, dot, hide, record" and `e56d1016` (their handoff rolled,
+   counts refreshed).
 
 ## 3. Environment facts a fresh session must not rediscover
 
@@ -80,5 +83,5 @@ section: copy `deep2/out/heart-straight.svg` and
 `heart-S seam, lateral 0.18.svg` (renamed to slugs) into
 `app/public/deep2/`, render them on the page with their labels and the
 sample strengths, and link back to `deep2/heart.py`. Then run the gate and
-push. Proves: the page shows the two drawings; `curl /candidates/` contains
-the section; the gate is green apart from DeepSeek1's known reds.
+push. Proves: `curl /candidates/` contains the section with both drawings;
+the gate is green apart from DeepSeek1's known reds.
