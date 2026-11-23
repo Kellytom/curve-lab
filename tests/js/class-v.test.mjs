@@ -38,3 +38,41 @@ test("the apex angle is a number and the trim moves it", () => {
   assert.ok(a > 0 && a < 180, `apex ${a}`);
   assert.ok(Math.abs(a - b) > 1, "a different trim must give a different point");
 });
+
+// Type A is the slice; type B is the shortcut, cut before the middle and joined at that point
+// with a sharp angle. Both must be mirror-symmetric: the left arm is the right arm reflected.
+
+import { midSplit, archOfHalf, shortcutArch } from "../../app/src/lib/class-v.js";
+
+const half = (() => {
+  const pts = [];
+  for (let i = 0; i <= 200; i += 1) {
+    const t = -2.4 + (4.8 * i) / 200;
+    pts.push({ x: t * t - 3, y: t * (t * t - 3) });
+  }
+  return midSplit(pts)[1];
+})();
+
+test("A and B are mirror-symmetric: the left arm is the right arm reflected", () => {
+  for (const built of [archOfHalf(half, { trim: 0.1, joinAt: "tip" }), shortcutArch(half, { cutFrac: 0.25 })]) {
+    assert.equal(built.left.length, built.right.length);
+    built.left.forEach((p, i) => {
+      const r = built.right[i];
+      assert.ok(Math.abs(p.x + r.x) < 1e-12, `not mirrored at station ${i}`);
+      assert.ok(Math.abs(p.y - r.y) < 1e-12, `height differs at station ${i}`);
+    });
+  }
+});
+
+test("both types give a point between a cusp and a straight join", () => {
+  const a = apexAngle(archOfHalf(half, { trim: 0.1, joinAt: "tip" }));
+  const b = apexAngle(shortcutArch(half, { cutFrac: 0.25 }));
+  for (const angle of [a, b]) assert.ok(angle > 0 && angle < 180, `apex ${angle}`);
+});
+
+test("the cut point sets the angle: nearer the start is the sharper point", () => {
+  // the angle is measured between the two arms, so a smaller number is a sharper point
+  const early = apexAngle(shortcutArch(half, { cutFrac: 0.1 }));
+  const late = apexAngle(shortcutArch(half, { cutFrac: 0.4 }));
+  assert.ok(early < late, `a cut near the start must be sharper: ${early.toFixed(1)} vs ${late.toFixed(1)}`);
+});

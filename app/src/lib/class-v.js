@@ -21,6 +21,66 @@ export function half({ from = 0, to = 2.4, samples = 300 } = {}) {
 }
 
 // trim = the share of the half's parameter range taken off EACH end, 0 … 0.25
+// Split a stored outline at its self-crossing — the Tschirnhausen's node — into the arm
+// before the crossing and the arm after it. This is the "cut it in half" of the operator's
+// instructions, done on the curve as it is stored rather than on the old parameter range.
+export function nodeSplit(points) {
+  const n = points.length;
+  for (let i = 0; i < n - 1; i += 1) {
+    for (let j = i + 3; j < n - 1; j += 1) {
+      const a = points[i], b = points[i + 1], c = points[j], d = points[j + 1];
+      const rx = b.x - a.x, ry = b.y - a.y;
+      const qx = d.x - c.x, qy = d.y - c.y;
+      const den = rx * qy - ry * qx;
+      if (Math.abs(den) < 1e-12) continue;
+      const t = ((c.x - a.x) * qy - (c.y - a.y) * qx) / den;
+      const u = ((c.x - a.x) * ry - (c.y - a.y) * rx) / den;
+      if (t < 0 || t > 1 || u < 0 || u > 1) continue;
+      const cross = { x: a.x + t * rx, y: a.y + t * ry };
+      return [points.slice(0, i + 1).concat([cross]), [cross].concat(points.slice(j + 1))];
+    }
+  }
+  return null;
+}
+
+// The plain cut in half: the stored outline split at its own middle station, which is the
+// operator's "cut it in half" on the curve as it now stands (the node-split gave only the short
+// tip arm, and the arch came out narrow).
+export function midSplit(points) {
+  const n = points.length;
+  if (n < 12) return null;
+  const mid = Math.floor(n / 2);
+  return [points.slice(0, mid + 1), points.slice(mid)];
+}
+
+// Type B, the shortcut: cut the curve at a point before the middle, drop the middle, and
+// continue on the mirrored point on the other side. The cut point is the apex, and because the
+// tangent is mirrored across the vertical through it, the two arms meet at a sharp angle: the
+// first curve stops, the point is the nadir, the second part carries on.
+export function shortcutArch(half, { cutFrac = 0.25, joinAt = "outer" } = {}) {
+  if (!half || half.length < 12) return null;
+  const i = Math.max(2, Math.round(half.length * Math.min(0.45, Math.max(0.02, cutFrac))));
+  let pts = half.slice(cutFrac >= 0.5 ? half.length - i : i);
+  if (pts.length < 4) return null;
+  if (joinAt === "outer") pts = pts.slice().reverse();
+  const apex = pts[0];
+  const moved = pts.map((p) => ({ x: p.x - apex.x, y: p.y - apex.y }));
+  const left = moved.map((p) => ({ x: -p.x, y: p.y }));
+  return { left, right: moved, apex: { x: 0, y: 0 } };
+}
+
+// The arch from a stored half: trim a share off each end, mirror, join at the chosen end.
+export function archOfHalf(half, { trim = 0.1, joinAt = "tip" } = {}) {
+  if (!half || half.length < 10) return null;
+  const cut = Math.max(1, Math.round(half.length * Math.min(0.25, trim)));
+  let pts = half.slice(cut, half.length - cut);
+  if (pts.length < 6) return null;
+  const joinEnd = joinAt === "tip" ? pts[pts.length - 1] : pts[0];
+  const moved = pts.map((p) => ({ x: p.x - joinEnd.x, y: p.y - joinEnd.y }));
+  const left = moved.map((p) => ({ x: -p.x, y: p.y }));
+  return { left, right: moved, apex: { x: 0, y: 0 } };
+}
+
 export function arch({ trim = 0.1, to = 2.4, joinAt = "tip", samples = 300 } = {}) {
   const span = to;
   const a = trim * span;
