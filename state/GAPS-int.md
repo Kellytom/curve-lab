@@ -5,7 +5,7 @@ It proposes; nothing here is created until the operator says so.
 
 ## The set
 
-- **381 curves**, 213 as speed rows and 168 as stored paths.
+- **387 curves**, 213 as speed rows and 174 as stored paths.
 - **192** are rated 2/10 or more; 262 have a recorded exact measurement.
 
 ## Families
@@ -61,6 +61,12 @@ It proposes; nothing here is created until the operator says so.
 | nephroid | 1 | 0 | 0 | 1 | — |
 | trifolium | 1 | 0 | 0 | 1 | — |
 | quadrifolium | 1 | 0 | 0 | 1 | — |
+| epicycloid k=3 | 1 | 0 | 0 | 1 | — |
+| epicycloid k=5 | 1 | 0 | 0 | 1 | — |
+| hypocycloid k=5 | 1 | 0 | 0 | 1 | — |
+| bow | 1 | 0 | 0 | 1 | — |
+| bicorn | 1 | 0 | 0 | 1 | — |
+| gerono | 1 | 0 | 0 | 1 | — |
 
 ## The crossings × inflections grid
 
@@ -155,20 +161,15 @@ Empty cells with a plain reading:
 
 ## Named classical curves not present
 
-The generators already know 33 named curves; **22 have no record in the collection**:
+The generators already know 33 named curves; **17 have no record in the collection**:
 
 - bean
-- bicorn
 - pear
 - heart
 - nodal
-- epicycloid k=3
-- epicycloid k=5
-- hypocycloid k=5
 - rounded square
 - squircle
 - bernoulli
-- gerono
 - cruciform
 - piriform
 - abs(x) gerono
@@ -186,5 +187,5 @@ In the order they would fill the biggest holes:
 
 1. **The named classical curves above** — each has an equation already written in `scripts/generators.py`, so a record is data entry plus a figure, not new mathematics.
 2. **The empty crossing/inflection cells** — 139 cells, starting with the ones adjacent to a full cell (one more crossing, one more inflection), which are the cheapest new shapes to find.
-3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen, astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium
+3. **Families with no 2+ rated curve** — ph-symmetric, weighted-balance, bounded, mobile, mobile-arcs, roses-rational, graphs, tschirnhausen, astroid, cardioid, deltoid, nephroid, trifolium, quadrifolium, epicycloid k=3, epicycloid k=5, hypocycloid k=5, bow, bicorn, gerono
 

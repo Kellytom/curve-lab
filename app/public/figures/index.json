@@ -3800,6 +3800,60 @@
    "failed": false,
    "reason": null,
    "tooWide": false
+  },
+  {
+   "uid": "c-0408",
+   "name": "epicycloid-k3",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0409",
+   "name": "epicycloid-k5",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0410",
+   "name": "hypocycloid-k5",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0411",
+   "name": "bow",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0412",
+   "name": "bicorn",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0413",
+   "name": "gerono",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
   }
  ]
 }

@@ -72,8 +72,11 @@ for (const block of generatorSource.split("dict(key=").slice(1)) {
     deg: Number((block.match(/deg=(\d+)/) || [])[1] || (block.match(/n=(\d+)/) || [])[1] || 0),
   });
 }
-const present = new Set(curves.flatMap((c) => [c.name.toLowerCase(), ...c.aliases.map((a) => a.toLowerCase())]));
-const missingNamed = named.filter((key) => ![...present].some((name) => name.includes(key.toLowerCase())));
+// names are compared with every non-alphanumeric removed, so "epicycloid k=3" matches the
+// record "epicycloid-k3" and a space or an equals sign cannot hide a curve from the list
+const norm = (text) => String(text).toLowerCase().replace(/[^a-z0-9]/g, "");
+const present = curves.flatMap((c) => [norm(c.name), ...c.aliases.map(norm)]);
+const missingNamed = named.filter((key) => !present.some((name) => name.includes(norm(key))));
 
 // ---- crossings × inflections --------------------------------------------------------------
 const crossingsMax = Math.max(...curves.map((c) => c.crossings ?? 0), 0);
