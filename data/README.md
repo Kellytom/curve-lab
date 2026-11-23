@@ -133,7 +133,7 @@ The measurements, one row per measured curve, produced by
 | `meetingPoints` | integer | distinct places where the stroke meets itself. |
 | `bboxW`, `bboxH` | number | the drawing's width and height. |
 | `area` | number | the enclosed area. |
-| `maxCurvature` | number | the sharpest bend (0 when not yet computed). |
+| `maxCurvature` | number or null | the sharpest bend, multiplied by the curve's size; null when a cusp sends it past 1e6, where a polyline's number would be the sampling, not the curve. |
 | `curvatureMedian` | number | typical bend, made dimensionless by the curve's size. |
 | `mirrorY`, `mirrorYX` | number | how close a mirror across the y (or the diagonal) reproduces the curve: 0 is exact. |
 | `halfTurn` | number | the drift after a 180° turn. |
