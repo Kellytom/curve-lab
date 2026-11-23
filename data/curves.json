@@ -664,9 +664,9 @@
     "stationRule": null,
     "algorithm": "cut at the middle, mirrored into an arch",
     "conversion": "{\"algorithm\":\"cut at the middle, mirrored into an arch\",\"status\":\"pending\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null,\"exact\":false,\"note\":\"sampled: the two arms of c-0008 (sampled from its speed rows), cut 10% each side of the middle and mirrored\"}",
-    "transform": "{\"degrees\":180,\"exact\":true}",
+    "transform": "{\"degrees\":180,\"matrix\":[[-1,0],[0,-1]],\"exact\":true}",
     "note": "gothic arch from c-0008 (u-bowl) · cut 10% each side of the middle · vertical mirror · apex 156.8° · 631 stored points, exact there, approximate between them",
-    "updatedAt": "2026-11-23T22:13:53.330Z"
+    "updatedAt": "2026-11-23T23:18:52.706Z"
    },
    "set": null,
    "metric": null
@@ -23965,10 +23965,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "the Tschirnhausen cubic · x = t² − 3, y = t(t² − 3) · the node is at t = ±√3, so its crossing point has no rational parameter",
-    "updatedAt": "2026-11-23T02:50:25.856Z"
+    "updatedAt": "2026-11-23T23:21:11.674Z"
    },
    "set": null,
    "metric": null
@@ -24011,10 +24011,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "the Tschirnhausen cubic at half size · same equation, every station halved",
-    "updatedAt": "2026-11-23T02:50:25.864Z"
+    "updatedAt": "2026-11-23T23:21:11.692Z"
    },
    "set": null,
    "metric": null
@@ -24057,10 +24057,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "the Tschirnhausen cubic turned 45° · sampled: the turn carries √2, so the stations are not exact",
-    "updatedAt": "2026-11-23T02:50:25.869Z"
+    "updatedAt": "2026-11-23T23:21:11.698Z"
    },
    "set": null,
    "metric": null
@@ -24103,10 +24103,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "the Tschirnhausen cubic mirrored across x = 0 · a file MIRROR_CURVE action reproduces it from the base record",
-    "updatedAt": "2026-11-23T02:50:25.874Z"
+    "updatedAt": "2026-11-23T23:21:11.699Z"
    },
    "set": null,
    "metric": null
@@ -24149,10 +24149,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "astroid — (x² + y² − 1)³ + 27x²y² = 0 · x^(2/3) + y^(2/3) = 1 · four cusps · rational sextic",
-    "updatedAt": "2026-11-23T13:22:05.630Z"
+    "updatedAt": "2026-11-23T23:21:11.701Z"
    },
    "set": null,
    "metric": null
@@ -24195,10 +24195,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "cardioid — (x² + y²)² + 2x(x² + y²) − y² = 0 · rational quartic · r = 1 − cos φ · one cusp, one scoop",
-    "updatedAt": "2026-11-23T13:22:05.645Z"
+    "updatedAt": "2026-11-23T23:21:11.703Z"
    },
    "set": null,
    "metric": null
@@ -24241,10 +24241,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "deltoid — x = 2cos θ + cos 2θ,  y = 2sin θ − sin 2θ · hypocycloid k = 3 · three cusps · r = 1 + 2cos θ",
-    "updatedAt": "2026-11-23T13:22:05.650Z"
+    "updatedAt": "2026-11-23T23:21:11.708Z"
    },
    "set": null,
    "metric": null
@@ -24287,10 +24287,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "nephroid — z ↦ z³ + 3z on the unit circle · two cusps · rational sextic · x = 6cos φ − 4cos³φ",
-    "updatedAt": "2026-11-23T13:22:05.664Z"
+    "updatedAt": "2026-11-23T23:21:11.711Z"
    },
    "set": null,
    "metric": null
@@ -24333,10 +24333,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "trifolium — (x² + y²)² − x³ + 3xy² = 0 · three-petaled rose · rational quartic · r = −cos 3θ",
-    "updatedAt": "2026-11-23T13:22:05.671Z"
+    "updatedAt": "2026-11-23T23:21:11.714Z"
    },
    "set": null,
    "metric": null
@@ -24379,10 +24379,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "quadrifolium — (x² + y²)³ = (x² − y²)² · four-petaled rose · r = cos 2θ · rational sextic",
-    "updatedAt": "2026-11-23T13:22:05.682Z"
+    "updatedAt": "2026-11-23T23:21:11.717Z"
    },
    "set": null,
    "metric": null
@@ -24425,10 +24425,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "epicycloid k=3 — x = 4cos θ − cos 4θ,  y = 4sin θ − sin 4θ · epicycloid R = 3r · four cusps · rational, degree 8",
-    "updatedAt": "2026-11-23T13:25:43.902Z"
+    "updatedAt": "2026-11-23T23:21:11.718Z"
    },
    "set": null,
    "metric": null
@@ -24471,10 +24471,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "epicycloid k=5 — x = 6cos θ − cos 6θ,  y = 6sin θ − sin 6θ · epicycloid R = 5r · six cusps · rational, degree 12",
-    "updatedAt": "2026-11-23T13:25:43.912Z"
+    "updatedAt": "2026-11-23T23:21:11.720Z"
    },
    "set": null,
    "metric": null
@@ -24517,10 +24517,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "hypocycloid k=5 — x = 4cos θ + cos 4θ,  y = 4sin θ − sin 4θ · hypocycloid k = 5 · five cusps · rational, degree 8",
-    "updatedAt": "2026-11-23T13:25:43.923Z"
+    "updatedAt": "2026-11-23T23:21:11.722Z"
    },
    "set": null,
    "metric": null
@@ -24563,10 +24563,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "bow — x⁴ = x²y − y³ · triple point at the origin · genus 0",
-    "updatedAt": "2026-11-23T13:25:43.932Z"
+    "updatedAt": "2026-11-23T23:21:11.725Z"
    },
    "set": null,
    "metric": null
@@ -24609,10 +24609,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "bicorn — y²(1 − x²) = (x² + 2y − 1)² · rational quartic · two branches, joined at (±1, 0) · closed",
-    "updatedAt": "2026-11-23T13:25:43.938Z"
+    "updatedAt": "2026-11-23T23:21:11.727Z"
    },
    "set": null,
    "metric": null
@@ -24655,10 +24655,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "gerono — x⁴ − x² + y² = 0 · lemniscate of Gerono · rational quartic · one figure eight",
-    "updatedAt": "2026-11-23T13:25:43.945Z"
+    "updatedAt": "2026-11-23T23:21:11.731Z"
    },
    "set": null,
    "metric": null
@@ -24701,10 +24701,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "nodal — y² = x²(x + 1) · nodal cubic · node angle 90° · not the PH one",
-    "updatedAt": "2026-11-23T15:36:27.224Z"
+    "updatedAt": "2026-11-23T23:21:11.732Z"
    },
    "set": null,
    "metric": null
@@ -24747,10 +24747,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "bernoulli — (x² + y²)² = x² − y² · lemniscate of Bernoulli · rational quartic · two lobes",
-    "updatedAt": "2026-11-23T15:36:27.234Z"
+    "updatedAt": "2026-11-23T23:21:11.735Z"
    },
    "set": null,
    "metric": null
@@ -24793,10 +24793,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "cruciform — x²y² − b²x² − a²y² = 0 · rational quartic · x = a sec t, y = b csc t · one full arm, mirrored four times · tails unbounded",
-    "updatedAt": "2026-11-23T15:36:27.238Z"
+    "updatedAt": "2026-11-23T23:21:11.737Z"
    },
    "set": null,
    "metric": null
@@ -24839,10 +24839,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "piriform — x⁴ − 2x³ + y² = 0 · a water drop · x = 2/(1+u²), y = 4u/(1+u²)² · mirrored on x",
-    "updatedAt": "2026-11-23T15:36:27.245Z"
+    "updatedAt": "2026-11-23T23:21:11.739Z"
    },
    "set": null,
    "metric": null
@@ -24885,10 +24885,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "abs(x) gerono — x⁴ − x² + y² = 0, x ≥ 0 · the figure-eight folded by |x| · one closed lobe · x = (1−u²)/(1+u²), y = 2u(1−u²)/(1+u²)²",
-    "updatedAt": "2026-11-23T15:36:27.251Z"
+    "updatedAt": "2026-11-23T23:21:11.741Z"
    },
    "set": null,
    "metric": null
@@ -24931,10 +24931,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "cissoid — y²(2 − x) = x³ · cissoid of Diocles · cusp at the origin · asymptote x = 2",
-    "updatedAt": "2026-11-23T15:36:27.256Z"
+    "updatedAt": "2026-11-23T23:21:11.742Z"
    },
    "set": null,
    "metric": null
@@ -24977,10 +24977,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "semicubical — y² = x³ · Neile's parabola · the evolute of a parabola · cusp at the origin",
-    "updatedAt": "2026-11-23T22:59:42.684Z"
+    "updatedAt": "2026-11-23T23:21:11.748Z"
    },
    "set": null,
    "metric": null
@@ -25023,10 +25023,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "kappa — (x² + y²)y² = x² · Gutschoven's kappa curve · r = cot θ · genus 0 · the radial of the tractrix",
-    "updatedAt": "2026-11-23T22:59:42.699Z"
+    "updatedAt": "2026-11-23T23:21:11.749Z"
    },
    "set": null,
    "metric": null
@@ -25069,10 +25069,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "strophoid — y²(1 + x) = x²(1 − x) · right strophoid · loop closes at the node t = ±1",
-    "updatedAt": "2026-11-23T22:59:42.704Z"
+    "updatedAt": "2026-11-23T23:21:11.751Z"
    },
    "set": null,
    "metric": null
@@ -25115,10 +25115,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "pear — x² = y³(1 − y) · rational after all · y = sin² t, x = sin³ t cos t",
-    "updatedAt": "2026-11-23T23:03:51.087Z"
+    "updatedAt": "2026-11-23T23:21:11.752Z"
    },
    "set": null,
    "metric": null
@@ -25161,10 +25161,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "piriform 2x — x⁴ − 2x³ + y² = 0, x → 2x · a longer water drop · the piriform stretched 2× on x",
-    "updatedAt": "2026-11-23T23:03:51.179Z"
+    "updatedAt": "2026-11-23T23:21:11.754Z"
    },
    "set": null,
    "metric": null
@@ -25207,10 +25207,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "bean — x⁴ + x²y² + y⁴ = x(x² + y²) · rational quartic · r = cosθ / (1 − ¼sin²2θ) · mirrored on x",
-    "updatedAt": "2026-11-23T23:06:37.742Z"
+    "updatedAt": "2026-11-23T23:21:11.756Z"
    },
    "set": null,
    "metric": null
@@ -25253,10 +25253,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "heart — (x² + y² − 1)³ = x²y³ · sextic, three cusps · genus 4 · sampled",
-    "updatedAt": "2026-11-23T23:06:37.771Z"
+    "updatedAt": "2026-11-23T23:21:11.759Z"
    },
    "set": null,
    "metric": null
@@ -25299,10 +25299,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "squircle — |x|⁴ + |y|⁴ = 1 · superellipse n = 4 · Lamé's special quartic · genus 3, sampled",
-    "updatedAt": "2026-11-23T23:06:37.792Z"
+    "updatedAt": "2026-11-23T23:21:11.767Z"
    },
    "set": null,
    "metric": null
@@ -25345,10 +25345,10 @@
     "grid": null,
     "stationRule": null,
     "algorithm": "polyline",
-    "conversion": null,
+    "conversion": "{\"algorithm\":\"sampled path\",\"status\":\"pending\",\"target\":null,\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "rounded square — four edges and four quarter arcs · assembled · every piece exact · corner radius 1, half-side 3",
-    "updatedAt": "2026-11-23T23:08:11.432Z"
+    "updatedAt": "2026-11-23T23:21:11.769Z"
    },
    "set": null,
    "metric": null
