@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { cuspsOf, cutAt, arcsAt, doublesOf, turnPoints } from "../../app/src/lib/cut-doubles.js";
+import { cuspsOf, cutAt, arcsAt, doublesOf, turnPoints, lineY, lineRuns } from "../../app/src/lib/cut-doubles.js";
 import { turn as plateTurn } from "../../scripts/lib/plate-frame.mjs";
 
 // The operator, 2026-11-23: "many of them i want to cut at the big blue dot." The big blue dot
@@ -58,6 +58,37 @@ test("the desk turns a curve exactly as its plate does", () => {
   // and the sign is the plate's: a 90 degree desk turn sends (1, 0) to (0, -1)
   const [x, y] = turnPoints([[1, 0]], 90)[0];
   assert.ok(Math.abs(x) < 1e-12 && Math.abs(y + 1) < 1e-12, `(1,0) turned to ${x},${y}`);
+});
+
+test("the line cut splits at the middle and keeps only the runs on one side", () => {
+  const diamond = [[0, 1], [1, 2], [2, 1], [1, 0], [0, 1]]; // a closed diamond, mid y = 1
+  assert.equal(lineY(diamond), 1);
+  const top = lineRuns(diamond, "top");
+  const bottom = lineRuns(diamond, "bottom");
+  assert.ok(top.length >= 1 && bottom.length >= 1);
+  for (const run of top) {
+    assert.ok(run.length > 2);
+    for (const [, y] of run) assert.ok(y >= 1 - 1e-9, `a top run dips to ${y}`);
+  }
+  for (const run of bottom) {
+    for (const [, y] of run) assert.ok(y <= 1 + 1e-9, `a bottom run rises to ${y}`);
+  }
+});
+
+test("c-0274's top half is two open petals, its bottom half one body", () => {
+  // The operator's example: "the top half and the bottom half ... as curves not closed
+  // shapes." A side with more than one run gives more than one curve, stored as branches.
+  const record = registry.curves.find((curve) => curve.uid === "c-0274");
+  const shown = turnPoints(record.path, Number(record.transform?.degrees || 0));
+  assert.equal(lineRuns(shown, "top").length, 2);
+  assert.equal(lineRuns(shown, "bottom").length, 1);
+  for (const side of ["top", "bottom"]) {
+    for (const run of lineRuns(shown, side)) {
+      const first = run[0], last = run[run.length - 1];
+      assert.ok(Math.hypot(first[0] - last[0], first[1] - last[1]) > 1e-9,
+        "a run is opened at the line, not closed on itself");
+    }
+  }
 });
 
 test("the two arcs of a cusp add up to the whole path", () => {

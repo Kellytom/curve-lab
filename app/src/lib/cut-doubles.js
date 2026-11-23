@@ -73,7 +73,46 @@ export function turnPoints(points, degrees) {
   return points.map(([x, y]) => [x * c - y * s, x * s + y * c]);
 }
 
-// The doubles, in the registry's order: a record whose name begins "double-", with stored
+// The horizontal cut: the line through the middle of the drawn curve, and the runs it
+// separates. The operator, 2026-11-23: "add a line and two more curves cut from the original:
+// the top half and the bottom half ... as curves not closed shapes." A side may hold more than
+// one run (a tulip has two petals above its line), so the answer is a list of open runs, not
+// one closed shape and not one long path with chords.
+export function lineY(points) {
+  const ys = points.map((point) => point[1]);
+  return (Math.min(...ys) + Math.max(...ys)) / 2;
+}
+
+export function lineRuns(points, side = "top", at = lineY(points)) {
+  const runs = [];
+  let run = [points[0]];
+  for (let i = 1; i < points.length; i += 1) {
+    const a = points[i - 1], b = points[i];
+    const da = a[1] - at, db = b[1] - at;
+    if ((da >= 0) !== (db >= 0) && da !== db) {
+      const t = da / (da - db);
+      const crossing = [a[0] + (b[0] - a[0]) * t, at];
+      run.push(crossing);
+      runs.push(run);
+      run = [crossing, b];
+    } else {
+      run.push(b);
+    }
+  }
+  runs.push(run);
+
+  const keep = side === "bottom" ? -1 : 1;
+  return runs
+    .map((pointsOfRun) => ({
+      points: pointsOfRun,
+      length: arcLength(pointsOfRun),
+      mean: pointsOfRun.reduce((sum, point) => sum + point[1], 0) / pointsOfRun.length,
+    }))
+    .filter((entry) => keep * (entry.mean - at) >= -1e-9 && entry.points.length > 2)
+    .sort((a, b) => b.length - a.length)
+    .map((entry) => entry.points);
+}
+
 // points to cut. The uid list is derived from the data, never typed.
 export function doublesOf(curves) {
   return (curves || []).filter((curve) =>

@@ -19,6 +19,17 @@ A double-wonk is a wonk curve cut where it crosses `y = x` and mirrored back, so
 seam of cusps; the plate marks each cusp with a bigger blue dot. This desk is where those dots
 are cut at, one curve at a time.
 
+## Two kinds of cut
+
+- **At a dot (a cusp).** The cusp splits the path into two arcs; the long one is kept unless
+  the short one is asked for. The dot numbers on the page are the plate's blue dots.
+- **Across a line.** The red dashed line is horizontal through the middle of the curve as the
+  plate draws it. The runs on the top (or bottom) of that line are kept. A side with more than
+  one run is more than one curve — c-0274's top half is two petals — so the runs are stored as
+  branches, each an open curve; no run is closed into a shape and no two runs are joined by a
+  chord. The line is horizontal on the plate, so the cut is made with the record turned and the
+  kept runs turned back to the record's frame.
+
 ## The rule
 
 - **A cusp is the plate's own rule**, on the source stations: the turn between the station
@@ -61,6 +72,10 @@ are cut at, one curve at a time.
 - [x] A cut keeps an arc that meets the cusp at one end. Check: the same test.
 - [x] Long and short are the two different arcs of the same dot. Check: the same test.
 - [x] The two arcs add up to the path. Check: the same test.
+- [x] A line cut keeps only the runs on one side, each open. Check: the same test (a diamond,
+      and c-0274's two petals above and one body below).
+- [x] A side with two runs is two branches, not one path. Check: the same test; a cut saved to
+      the registry carries `branches` (c-0274's top half: 2 runs, 78 points).
 - [x] A bad uid is refused, not written. Check: `POST /api/cut-double {"uid":"nope"}` → 404.
 - [x] A cut gets the presets when the parent's values are zero, so its plate has a band.
       Verified on c-0288 → a record with width 1.5, plus 2.5, minus 0.1 and a drawn band.

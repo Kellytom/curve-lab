@@ -102,7 +102,8 @@ export function planOverwrite({ rows, uids, mode = "overwrite", rowId, spine, va
 
 // A new curve beside its parent. The parent's own parent is the spine, so a variant of a
 // variant still lands in the c-0002a, c-0002b series.
-export function planVariant({ curves, baseUid, name, values, deskNames = [], deskIds = [], path: cutPath = null, cut = null }) {
+export function planVariant({ curves, baseUid, name, values, deskNames = [], deskIds = [],
+  path: cutPath = null, branches: cutBranches = null, cut = null }) {
   const base = curves.find((curve) => curve.uid === baseUid);
   if (!base) return { ok: false, status: 400, error: `${baseUid || "(no id)"} is not a curve id` };
   const root = String(base.params?.variantOf || base.uid);
@@ -189,6 +190,34 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
       `kept the ${cut && cut.keep === "short" ? "short" : "long"} arc · ` +
       `${record.path.length} stored points, exact there, approximate between them`;
   }
+
+  // A cut across a line gives one or more open runs (a tulip has two petals above its line).
+  // They are stored as branches, which every drawing already asks for first, so no run is
+  // joined to another by a chord and none is closed into a shape.
+  if (Array.isArray(cutBranches) && cutBranches.length) {
+    const runs = cutBranches.filter((run) => Array.isArray(run) && run.length > 2);
+    if (runs.length) {
+      record.branches = runs.map((run) => run.map(([x, y]) => [x, y]));
+      record.path = record.branches[0];
+      record.kind = "path";
+      record.source = "cut";
+      record.grid = null;
+      record.conversion = {
+        ...(base.conversion || {}),
+        algorithm: "cut across a line",
+        exact: false,
+        note: `sampled: the ${cut && cut.side ? cut.side : "kept"} runs of ${base.uid}, ` +
+          "open curves, exact at the stored points",
+      };
+      record.params = {
+        ...(record.params || {}),
+        cut: cut ? { of: base.uid, ofName: base.name, side: cut.side, runs: runs.length } : null,
+      };
+      record.note = `cut from ${base.uid} (${base.name}) across a line · the ` +
+        `${cut && cut.side === "bottom" ? "bottom" : "top"} half · ` +
+        `${runs.length} open curve${runs.length === 1 ? "" : "s"}, not a closed shape`;
+    }
+  }
   return { ok: true, uid, name: chosen, root, record, base };
 }
 
@@ -239,14 +268,15 @@ const serial = (work) => {
   return next;
 };
 
-export async function createVariant({ spine, name, values, path: cutPath = null, cut = null }) {
+export async function createVariant({ spine, name, values, path: cutPath = null,
+  branches: cutBranches = null, cut = null }) {
   return serial(async () => {
     const registry = JSON.parse(readFileSync(REGISTRY, "utf8"));
     const deskRows = await prisma.sandboxCurve.findMany();
     const deskNames = deskRows.map((row) => parsed(row)?.curveName).filter(Boolean);
     const plan = planVariant({ curves: registry.curves, baseUid: spine, name, values, deskNames,
                                deskIds: deskRows.map((row) => row.name),
-                               path: cutPath, cut });
+                               path: cutPath, branches: cutBranches, cut });
     if (!plan.ok) throw new DeskError(plan.error, plan.status);
 
     const record = plan.record;

@@ -6,7 +6,7 @@
 // writes a record; this page never cuts by itself.
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { loadRegistry } from "../../lib/registry.ts";
-import { cuspsOf, turnPoints } from "../../lib/cut-doubles.js";
+import { cuspsOf, lineY, turnPoints } from "../../lib/cut-doubles.js";
 
 const { uid } = Astro.params;
 const registry = await loadRegistry();
@@ -40,12 +40,18 @@ const dots = cusps.map((cusp, index) => {
     `text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" ` +
     `fill="#ffffff">${index + 1}</text></g>`;
 }).join("");
+// the line cut, drawn where it will cut: horizontal through the middle of the drawn curve
+const cutY = lineY(points);
+const cutLineY = H - PAD - (cutY - y0) * k;
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%">
   <rect width="${W}" height="${H}" fill="#ffffff"/>
   <path d="${line}" fill="none" stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round"/>
+  <line x1="${PAD}" x2="${W - PAD}" y1="${cutLineY.toFixed(1)}" y2="${cutLineY.toFixed(1)}"
+    stroke="#b03a2e" stroke-width="1.2" stroke-dasharray="8 6"/>
   ${dots}
 </svg>`;
 const suggested = `${record.name}-cut`;
+const hasLine = true;
 ---
 
 <BaseLayout title="the cut desk" pageTitle="The cut desk">
@@ -58,14 +64,16 @@ const suggested = `${record.name}-cut`;
     <div class="cut-figure" set:html={svg} />
     <form class="cut-form" id="cut-form">
       <input type="hidden" name="uid" value={record.uid} />
-      <label>cut at dot
-        <select name="cusp">
+      <label>cut
+        <select name="mode">
           {cusps.map((cusp, index) => (
-            <option value={index}>{index + 1} · {cusp.angle.toFixed(0)}°</option>
+            <option value={`dot:${index}`}>at dot {index + 1} · {cusp.angle.toFixed(0)}°</option>
           ))}
+          <option value="top">across the line · top half</option>
+          <option value="bottom">across the line · bottom half</option>
         </select>
       </label>
-      <label>keep
+      <label>keep <span class="cut-hint">(dot cuts)</span>
         <select name="keep">
           <option value="long">the long arc</option>
           <option value="short">the short arc</option>
@@ -74,12 +82,11 @@ const suggested = `${record.name}-cut`;
       <label>new name
         <input name="name" type="text" maxlength="120" value={suggested} />
       </label>
-      <button type="submit" disabled={!cusps.length}>cut and save</button>
-      <p class="cut-state" id="cut-state" role="status" aria-live="polite">
-        {cusps.length ? "" : "this curve has no cusp to cut at"}
-      </p>
-      <p class="cut-note">A cut is a sampled record ({points.length} stored points on the parent);
-        its plate is rebuilt when it saves.</p>
+      <button type="submit">cut and save</button>
+      <p class="cut-state" id="cut-state" role="status" aria-live="polite"></p>
+      <p class="cut-note">The red dashed line is the horizontal cut: the top or bottom half is
+        kept as open curves, not one closed shape. A cut is a sampled record ({points.length}
+        stored points on the parent); its plate is rebuilt when it saves.</p>
     </form>
   </div>
 </BaseLayout>
@@ -96,6 +103,7 @@ const suggested = `${record.name}-cut`;
     font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 0 0 8px; }
   .cut-form input, .cut-form select { width: 10rem; padding: 2px 4px; font-size: 13px; }
   .cut-form button { width: 100%; margin: 4px 0 0; }
+  .cut-hint { color: #7a6a55; font-size: 12px; }
   .cut-state { min-height: 1.4em; margin: 8px 0 0; font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
   .cut-state.ok { color: #2f6f3a; }
   .cut-state.bad { color: #9b2c2c; }

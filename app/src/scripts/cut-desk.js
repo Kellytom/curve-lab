@@ -16,9 +16,12 @@ if (form) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new window.FormData(form);
+    const choice = String(data.get("mode") || "dot:0");
+    const isDot = choice.startsWith("dot:");
     const body = {
       uid: data.get("uid"),
-      cusp: Number(data.get("cusp")),
+      mode: isDot ? "dot" : choice,
+      cusp: isDot ? Number(choice.slice(4)) : 0,
       keep: data.get("keep") === "short" ? "short" : "long",
       name: data.get("name") || "",
     };
@@ -33,8 +36,12 @@ if (form) {
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.error || `cut failed: ${response.status}`);
-      say(`${result.uid} ${result.name} saved — ${result.cut.kept} units kept, ` +
-        `${result.cut.dropped} dropped${result.warning ? ` (${result.warning})` : ""}`, "ok");
+      const what = result.cut.mode === "dot"
+        ? `${result.cut.kept} units kept, ${result.cut.dropped} dropped`
+        : `${result.cut.runs} open curve${result.cut.runs === 1 ? "" : "s"} from the ` +
+          `${result.cut.side} half`;
+      say(`${result.uid} ${result.name} saved — ${what}` +
+        `${result.warning ? ` (${result.warning})` : ""}`, "ok");
       const link = document.createElement("a");
       link.href = `/plates#${result.uid}`;
       link.textContent = ` see ${result.uid} on the plates →`;
