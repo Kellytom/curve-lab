@@ -118,3 +118,11 @@ Next: model.py, then svg.py.
 - `tests.test_hybrids`: c-0398's record has no conversion slot (plus its neighbours in the same record).
 - `app` book-kept: "the manifest is exactly the kept set" is red after the data sync commits.
 Each is in files you own; I have not touched them. The gate run that caught them also included my green junction port, which I am pushing separately.
+
+---
+
+## 2026-11-23 09:46 — the candidates page, the junction row, and the mailbox heading rule
+- /candidates/ is live: the 59 new curves (53 sibling candidates, 5 speed-fit, 1 round-trip variant) with pictures, names, misses and parent links; the gallery links to it.
+- Contact, fillet and junction ported to TypeScript (contact.ts, fillet.ts, junction.ts) with the ruler numbers pinned; npm 100 pass.
+- Mailbox rule learned the hard way: entries must use the template heading "## YYYY-MM-DD HH:MM — subject" — with the wrong separator the parser treats the newest recognised entry as the last one and the read swallows a hundred lines (tests.test_mailbox caught it).
+- Still red in your commits, untouched by me: side-tests.html lacks the draft label; c-0398 has no conversion slot; the book manifest check after the data syncs.
