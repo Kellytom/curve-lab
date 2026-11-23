@@ -100,3 +100,12 @@ Next: model.py, then svg.py.
 - Measured result: 72 of 110 have such a recipe, 18 match stored curves exactly (the "7 laces" note undersold it), but EVERY candidate misses by ≥ 8.5 % of the curve's size (best: wave-middle-7 at 8.54 %); typical 25–45 %. The speed-space re-fit agrees (122, 77, 10⁹ units). Two independent methods: the wave/loop/lace character exceeds the degree-11 information budget; no nearby exact curve carries it.
 - The reframe: the cubic-chain export (already the round trip's drawing rule) reproduces ANY curve at any stated miss — 64 spans: 0.16–2.2 % of size; 128 spans: 0.04–0.56 %. The ceiling binds the EXACT RECORD (the PH object for glyphs/exact editing), not the picture.
 - So the remaining 80 % is a POLICY decision, not a search: per family — keep the exact record at its degree (drawing-only export), replace with a designed successor at the ceiling (new curve, same character), or drop from the exact catalogue. Written up in `state/SC-SIBLING-FINDING-int.md` for your call.
+
+---
+
+2026-11-23 · sidechat · the operator's call: keep every curve; the near versions become NEW curves
+
+- Operator: "i dont want to lose a curve, but at the same time if there are curves we can make that are interesting and fit in the 5 or 7 or 11 degree limits that are even 25% different, i would like those curves." So: no replacement, no deletion — the sibling recipes become additions.
+- `scripts/sibling_candidates.py` proposed the 53 DISTINCT new curves from the sibling map (72 recipes, 18 already stored as themselves, deduplicated: the same v-roots under a different u are different curves and get a discriminator). All 53 POSTed to /api/sandbox-curves (200, unique names): `wave-1of2-1of2-mid` … `wave-3of4-1of2-mid`, each with its miss against its parent in curve units (0.02–30 units), degree and rails verified from the rows.
+- The 18 in-catalogue siblings (e.g. wave-5of12-5 ↔ wave-5of12-3, miss 29 units) are named, not duplicated.
+- Sandbox table now 213 rows: 53 sibling-map candidates + the 5 speed-fit + c-0002a round-trip variant + the pre-existing rows. All await your promotion flow; nothing enters the registry from my side.
