@@ -1,97 +1,79 @@
 # SC-HANDOFF-int — the sidechat's handoff (read this first after a reset)
 
-*Refreshed 2026-11-23 at the operator's /shandoff (second call, after the
-sound work), before a reset and a model switch. Everything below is committed
-and pushed unless a line says otherwise. Read this file first, then
-`state/SCToDo-int.md`.*
+*Rewritten 2026-11-23 at the operator's `/shandoff`, before a model switch to GLM.
+Everything below is committed (last `af090664`); the push is reported at the foot.*
 
 ## 1. Where the work stands
 
-1. **The Inkscape round trip — CLOSED, proven on Inkscape 1.4.4.** Files:
-   `inkscape/` (ph_actions, ph_svg, ph_handles, ph_variant, ph_extension + two
-   `.inx`); doc `docs/INKSCAPE-ROUNDTRIP.md`; 27 tests incl. an
-   Inkscape-serialized fixture (`tests/fixtures/`). Laws: a translation is a
-   view, not a curve; misses in curve units, never "the dial".
-2. **The speed-space re-fit — works, census current.**
-   `reduction/speed_fit.py`, `reduction/speed_fit_census.py`,
-   `workbench/speed-fit-census.json`; 5 tests incl. own-degree recovery on a
-   5e7-coefficient curve. Fit family reduces ~free; wave/loop/lace refuse.
-3. **The sibling map + candidates — posted.** `scripts/sibling_map.py`,
-   `workbench/sibling-map.json`, `scripts/sibling_candidates.py` (53 distinct
-   new curves → sandbox). Finding: the ½ stack is load-bearing (best miss
-   8.5 %) — `state/SC-SIBLING-FINDING-int.md`. `/candidates/` shows 59.
-4. **Conversion rows — landed:** `contact.ts`, `fillet.ts`, `junction.ts`,
-   `model.ts`, `svg.ts` (TEXT layer; `document()` stays Python). Row table in
-   `state/PORT-int.md`. npm 100 pass.
-5. **deep2/ — the figure pipeline.** `trace.py` (silhouette/lithograph/photo
-   masks → potrace → spans), `canon.py`, `measure_spans.py`, `heart.py`.
-   First conversion: the Redeemer, 35 spans, joins ≤7.7°, snap 1/1000 costs
-   ≤0.0005. Prior art: `archive/notes/prior-art-human-figure.md`.
-6. **The broken heart — construction done; samples ready, page pending.**
-   Same seam both halves; the balanced S-seam (A·sin 2πt) gives both pieces a
-   matching lobe. `deep2/out/heart-S seam, lateral 0.18.svg` reads right.
-   **NOT on an HTML page yet** (open ask 1).
-7. **Attention sounds — settled by ear.** The sidechat tone is now a **soft
-   organ stop**: A2 + octaves + light quint, two pipes a few cents apart,
-   slow attack, 2.2 s, at `~/.config/opencode/sounds/ding-low.wav`, volume
-   0.18 via the launcher's `OPENCODE_CLI_CONFIG_CONTENT`. The main session
-   keeps its bright bell (global `cli.json`). The operator has iterated the
-   sidechat tone four times; the latest is the organ note.
-8. **The GLM AI-news task — written, ready to paste.**
-   `deep2/notes/glm-ai-news-task.md` (plain-English rule included).
-9. **The sidechat's own focus commands exist:** `/sfocus` (move to the repo,
-   register, read OUR tier 0, restate the next action, stop), `/shandoff`
-   (refresh this file), `/precompact`. Eleven commands now in
-   `.opencode/commands/`.
-10. **Today's `/fhandon` was attempted and STOPPED, correctly:** the focus
-   action in `next-fhandoff-int.md` is plate-rail work whose files
-   (`workbench/plate_math.js`, `tests/js/plate-guard.test.mjs`,
-   `scripts/print_plates.mjs`) are DIRTY in the tree — DeepSeek1 is mid-job on
-   exactly that action. Nothing was touched. `check-db` says 393 curves/notes/
-   sets (the command's "expect 262" line is stale, not a fault).
-11. **Compaction setup — active.** `sidechat.json`: keep 24k, buffer 20 %,
-   background false, summaries by deepseek-v4-pro. `/precompact` writes the
-   in-flight note; `/shandoff` writes this file.
+1. **The Inkscape round trip — CLOSED, proven on Inkscape 1.4.4.** `inkscape/`
+   (send + receive `.inx`, actions, handles, variant), `docs/INKSCAPE-ROUNDTRIP.md`;
+   guard `tests/test_ph_actions.py` (14), `test_ph_roundtrip.py` (7, through an
+   Inkscape-serialised fixture), `test_ph_variant.py` (5).
+2. **The broken heart is on `/candidates/`** — the strength sweep (lateral 1/10,
+   9/50, 13/50 with reach 0.20 / 0.36 / 0.52, i.e. 2A), the straight seam as the
+   reference, and the 9/50 rejoined. Commit `730c0fc3`; page
+   `app/src/pages/candidates.astro`, five drawings in `app/public/deep2/`.
+3. **The GLM session runbook** — `state/SC-GLM-SESSION-int.md` (`af090664`): the
+   seven-step sequence, and the agent `~/.config/opencode/agents/glm-scan.md`,
+   which writes its own report to `deep2/notes/ai-news-scan-glm-5.3.md`.
+4. **The AI-news scan baseline** — `deep2/notes/ai-news-scan-deepseek-review.md`.
+   It ran on `deepseek-v4.1-flash`, not GLM, because `opencode run` ignored the
+   agent's `model:`; kept as the thing GLM is compared against.
+5. **The s/f split and the junior role** — `state/SC-READING-int.md`,
+   `state/SCmemory-int.md`, `state/SCToDo-int.md`, `next-shandoff-int.md`.
+   DeepSeek1 is senior dev and designer; the `f` family is not read here.
+6. **The queue of ten** — `state/SCToDo-int.md`, first table; rows 1–2 landed.
+7. **The book-plate gap, measured not fixed** — 393 SVGs, 371 PNGs, 22 with no
+   raster at all (`c-0398`–`c-0419`), and all 371 rasters older than their SVG.
+   Counted this session; not yet written to a state file.
 
 ## 2. The operator's open asks, in order
 
-1. **The heart attempts onto an existing HTML page, and consolidate our HTML
-   pages.** Their words: "put the heart attempts into an existing html page.
-   we need to consolidate our html pages." Open first: `app/src/pages/·`
-   (`/candidates/` is ours; `/extra-curves/` is DeepSeek1's, generated from
-   `app/src/data/extra-curves.json`). No new pages; consolidate existing.
-2. **A human figure at the centre** (the Virgin, Christ, the two Hearts).
-   Open first: `TODO.md` (their words, the canon route, prior art pointer);
-   samples in `deep2/`.
-3. **Run the GLM AI-news task** (file above) when the model is switched.
-4. **Housekeeping:** `scripts/prepush.sh`; last known reds were DeepSeek1's
-   (`side-tests.html` label, c-0398 slot, book manifest) — verify before
-   pushing anything of ours. DeepSeek1's newest: `23c8c906` "next: the offset
-   crossings — cross, dot, hide, record" and `e56d1016` (their handoff rolled,
-   counts refreshed).
+1. **Run the GLM scan.** Their words: "lets do the glm run now". Then: "i am
+   going to be on this side of the keyboard" — so it is interactive, GLM writes
+   the md itself, nothing is pasted. Open first: `state/SC-GLM-SESSION-int.md`.
+2. **The lens for everything next:** "getting the curves ready to move over to
+   inkscape and then to the books". Open first: `book/print/`,
+   `scripts/print_plates.mjs`, `book/README.md`.
+3. **Consolidate the HTML pages.** Their words: "put the heart attempts into an
+   existing html page. we need to consolidate our html pages." The heart landed
+   on `/candidates/`; the consolidation itself is open and is a design call.
+   Open first: `app/src/pages/candidates.astro`, `app/src/pages/hearts.astro`.
+4. **A human figure at the centre.** Their words: "i need a human face or figure
+   or statue … symbolizing human form in the center." DeepSeek1's ground; I
+   measure if asked. Open first: `archive/notes/prior-art-human-figure.md`.
+5. **Above the fold** (AGENTS.md, 2026-11-23): "what the reader sees before
+   scrolling — a height in CSS pixels at the window they use". Open first:
+   `state/FOLD-int.md`; re-measure with `node scripts/fold_report.mjs <width>`.
 
 ## 3. Environment facts a fresh session must not rediscover
 
-- Inkscape headless: `PYTHONPATH=/Applications/Inkscape.app/Contents/Resources/share/inkscape/extensions
-  /Applications/Inkscape.app/Contents/Resources/bin/python3 ph_extension.py
-  /tmp/blank.svg --mode=send|receive ...`. The `.inx` namespace must be
-  `http://www.inkscape.org/namespace/inkscape/extension`.
-- potrace is at `/usr/local/bin/potrace`; PIL/numpy/scipy are in `.venv`.
-- ruff is installed and configured (`pyproject.toml`); `deep2/` is clean.
-- DeepSeek1 edits state files live: the reading-counts cache races (refresh
-  from a CLEAN EXTRACTION of HEAD before pushing); the mailbox heading
-  format is `## YYYY-MM-DD HH:MM — subject` (a middle dot breaks the reader).
-- Mailbox: never edit `archive/notes/deep-to-side.md`; append to
-  `side-to-deep.md` after `---`.
-- The dev server is DeepSeek1's (`localhost:4321`); `astro dev logs` has
-  stderr. Never open pages for the operator; give links.
+- **Node 24 is at `~/node24/bin`**; the app is Astro on **4321** and its health
+  line must read `node v24` and `astro 7`. Python 8003 only for the generated lab
+  pages.
+- **`opencode run` ignores an agent file's `model:`** — pass `--model`, and read
+  the printed `> <agent> · <model>`. A run that says deepseek did not use GLM.
+- **A headless run cannot answer a permission prompt**, so a write needs
+  `--auto`; interactive is preferred because the prompt is the review.
+- **The register takes ~44 s here**, not the "tenth of a second" the prompt
+  claims. `check-db.mjs` prints the registry's 393, not the 262 in the `/fhandon`
+  text.
+- **`npm --prefix app run test:pages` runs every route when the tree is dirty**
+  (~9 min). `/problems/` is red (no header, title, draft mark or `<main>`) and is
+  DeepSeek1's, not ours.
+- **`loading="lazy"` makes images blank in an element screenshot** and in a
+  narrow-viewport shot; use `node scripts/shot.mjs <url> <out> <w> <h> viewport
+  "<css selector>"` with the images eager.
+- **`scripts/print_plates.mjs` has no pngquant step** (0 mentions); the binary is
+  `.venv/bin/pngquant`. The PNG pass is separate and slow.
+- Mailboxes are `archive/notes/`, heading `## YYYY-MM-DD HH:MM — subject`, 400
+  lines max; DeepSeek1's is read-only for me.
 
 ## 4. The one next action
 
-**Put the broken-heart samples into `/candidates/`** as a "The broken heart"
-section: copy `deep2/out/heart-straight.svg` and
-`heart-S seam, lateral 0.18.svg` (renamed to slugs) into
-`app/public/deep2/`, render them on the page with their labels and the
-sample strengths, and link back to `deep2/heart.py`. Then run the gate and
-push. Proves: `curl /candidates/` contains the section with both drawings;
-the gate is green apart from DeepSeek1's known reds.
+**Write the book-plate gap down and hand it over:** `state/SC-BOOK-GAP-int.md`
+listing the 22 uids with no raster (`c-0398`–`c-0419`), the fact that all 371
+existing PNGs are older than their SVG, and the command that counted them; then
+ask DeepSeek1 to authorise the one raster run, because `print_plates.mjs` is
+theirs and the tree currently carries their plate work. Do not edit that script
+or start a raster pass without the word.
