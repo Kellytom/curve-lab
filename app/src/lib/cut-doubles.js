@@ -62,6 +62,17 @@ export function cutAt(points, index, keep = "long") {
   };
 }
 
+// The record's own turn, exactly as the plate applies it: the desk turns clockwise on screen,
+// so the model turns the other way. Kept here as a function so the check can compare it with
+// the plate's `turn`; a desk that draws the stored points unturned is 45 degrees off for the
+// doubles, which is how the operator saw it (2026-11-23).
+export function turnPoints(points, degrees) {
+  if (!degrees) return points;
+  const a = (-degrees * Math.PI) / 180;
+  const c = Math.cos(a), s = Math.sin(a);
+  return points.map(([x, y]) => [x * c - y * s, x * s + y * c]);
+}
+
 // The doubles, in the registry's order: a record whose name begins "double-", with stored
 // points to cut. The uid list is derived from the data, never typed.
 export function doublesOf(curves) {

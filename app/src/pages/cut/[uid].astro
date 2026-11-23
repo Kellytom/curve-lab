@@ -6,7 +6,7 @@
 // writes a record; this page never cuts by itself.
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { loadRegistry } from "../../lib/registry.ts";
-import { cuspsOf } from "../../lib/cut-doubles.js";
+import { cuspsOf, turnPoints } from "../../lib/cut-doubles.js";
 
 const { uid } = Astro.params;
 const registry = await loadRegistry();
@@ -16,8 +16,12 @@ if (!/^double-/i.test(record.name || "") || !Array.isArray(record.path)) {
   return Astro.redirect("/cut/");
 }
 
-const points = record.path;
-const cusps = cuspsOf(points);
+// The plate draws the record turned by its own `transform.degrees` (screen clockwise, so the
+// model turns the other way). The desk must show the same orientation, or the curve the
+// operator cuts is not the curve he saw on /plates.
+const degrees = Number(record.transform?.degrees || 0);
+const points = turnPoints(record.path, degrees);
+const cusps = cuspsOf(record.path).map((cusp) => ({ ...cusp, point: turnPoints([cusp.point], degrees)[0] }));
 const xs = points.map((p) => p[0]);
 const ys = points.map((p) => p[1]);
 const x0 = Math.min(...xs), x1 = Math.max(...xs);

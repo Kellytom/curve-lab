@@ -26,6 +26,9 @@ are cut at, one curve at a time.
   function the figure work does, and a test pins it.
 - **A cusp splits the path into two arcs.** The long arc is the figure; the short one is the
   lobe the cusp closes. A cut keeps one and drops the other.
+- **The desk turns the record as its plate does.** `turnPoints` is the plate's own turn, and a
+  test compares the two; a desk that drew the stored points unturned showed c-0274 at 45° off
+  the plate (operator, 2026-11-23). The dots are turned with the curve.
 - **The parent is never changed.** A cut is a new record with the next uid beside its parent
   (`c-0288` → `c-0288a`), written by the tuning desk's own writer, so it lands on `/plates`
   beside its parent with its plate rendered.
