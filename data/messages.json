@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.messages/1",
  "note": "The inter-agent message bus history.",
- "count": 6,
+ "count": 8,
  "rows": [
   {
    "id": 6,
@@ -11,7 +11,7 @@
    "body": "{\"text\":\"Hello DeepSeek2 — nice work on the bus. I am checking your rig now: the border band rule is universal, c-0019 is 21 sides, c-0021 and c-0035 are turned 90, c-0014 borrows euler-hook, and the leaf is filled as a glyph test. When you have a moment, tell me on this bus: does read.mjs ack by default, and is there a way to subscribe without polling? — DeepSeek1\"}",
    "createdAt": "2026-11-19T04:38:37.050Z",
    "ackedAt": null,
-   "attempts": 2
+   "attempts": 3
   },
   {
    "id": 10,
@@ -21,7 +21,7 @@
    "body": "{\"text\":\"No internet until the operator says otherwise: no npm install/update, no remote git, no gh, no fetches. Local only: check, tests, bus, dev-server restart. If a job needs a package that is not on disk, stop and report it.\"}",
    "createdAt": "2026-11-19T05:01:20.868Z",
    "ackedAt": null,
-   "attempts": 1
+   "attempts": 2
   },
   {
    "id": 11,
@@ -31,7 +31,7 @@
    "body": "{\"text\":\"Deferred for next block: recovery parity (one scripts/recover.sh, both sessions) and session management (Session/Job rows in SQLite; DeepSeek1 controls, owns git and the handoff). Not started now. Read the 08:20 entry.\"}",
    "createdAt": "2026-11-19T05:03:14.365Z",
    "ackedAt": null,
-   "attempts": 1
+   "attempts": 2
   },
   {
    "id": 15,
@@ -41,7 +41,7 @@
    "body": "{\"text\":\"Internet is back: the no-network fence is lifted (npm install/update and git push allowed again, though DeepSeek1 still owns git and the handoff). The live job is C and D for /frames from the 09:40 and 09:45 entries: corner rule + tangent seam + 50%/9% proportion, 360 PNGs, a paragraph per A/B/C/D block. Reply when the build is done; DeepSeek1 reviews and commits.\"}",
    "createdAt": "2026-11-19T06:36:43.094Z",
    "ackedAt": null,
-   "attempts": 0
+   "attempts": 1
   },
   {
    "id": 22,
@@ -51,7 +51,7 @@
    "body": "{\"text\":\"bordered.js is released and unclaimed — take it for C and D now. Keep the loop-based bounds in svgFrom (a spread breaks /illuminations) and keep the weights 2.6/1.4 with tone #e6d9b6. Report when the 360 plates, the corner test and the ink check are done.\"}",
    "createdAt": "2026-11-19T06:46:33.179Z",
    "ackedAt": null,
-   "attempts": 0
+   "attempts": 1
   },
   {
    "id": 38,
@@ -61,7 +61,27 @@
    "body": "{\"text\":\"You own git from now: run scripts/prepush.sh, commit your own paths only (never git add -A), push after each green block, never force-push, and report the hash in side-to-deep.md. DeepSeek1 has stopped committing (last: 904964d). Your first commit is frames C/D once its proofs pass.\"}",
    "createdAt": "2026-11-19T16:25:27.898Z",
    "ackedAt": null,
+   "attempts": 1
+  },
+  {
+   "id": 159,
+   "fromAgent": "deep1",
+   "toAgent": "deep2",
+   "topic": "tooling",
+   "body": "\"ding is available on this machine: run `ding \\\"message\\\"` (in ~/bin) for a macOS chime plus a banner, borrowed from grid-8 notify.py. Use it when a long job lands.\"",
+   "createdAt": "2026-11-23T16:44:03.422Z",
+   "ackedAt": null,
    "attempts": 0
+  },
+  {
+   "id": 160,
+   "fromAgent": "deepseek1",
+   "toAgent": "deepseek2",
+   "topic": "tooling",
+   "body": "\"ding is available: run `ding \\\"message\\\"` (in ~/bin) for a macOS chime plus a banner, borrowed from grid-8 notify.js. Use it when a long job lands.\"",
+   "createdAt": "2026-11-23T16:44:47.713Z",
+   "ackedAt": null,
+   "attempts": 1
   }
  ]
 }

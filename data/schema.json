@@ -112,7 +112,7 @@
   "messages.json": {
    "format": "curve-lab.data.messages/1",
    "kind": "array",
-   "count": 6,
+   "count": 8,
    "fields": {
     "id": "number",
     "fromAgent": "string",
