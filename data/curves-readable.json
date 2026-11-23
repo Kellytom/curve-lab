@@ -7,7 +7,7 @@
     "cutPoints": "book/print/cuts.json",
     "exactCore": "curve_lab/measure.py"
   },
-  "count": 381,
+  "count": 387,
   "curves": [
     {
       "uid": "c-0001",
@@ -25394,6 +25394,348 @@
         "tune": "/tune/c-0407",
         "plateSvg": "/api/print-plate/c-0407?format=svg",
         "tuneDesk": "/tune/c-0407"
+      }
+    },
+    {
+      "uid": "c-0408",
+      "name": "epicycloid-k3",
+      "aliases": [],
+      "family": "epicycloid k=3",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 802,
+        "start": [
+          3,
+          0
+        ],
+        "end": [
+          -5,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 802 stations, (3, 0) to (-5, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "epicycloid k=3 — x = 4cos θ − cos 4θ,  y = 4sin θ − sin 4θ · epicycloid R = 3r · four cusps · rational, degree 8",
+      "description": "epicycloid-k3 (c-0408) is a stored outline from the epicycloid k=3 family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: epicycloid k=3 — x = 4cos θ − cos 4θ,  y = 4sin θ − sin 4θ · epicycloid R = 3r · four cusps · rational, degree 8",
+      "links": {
+        "tune": "/tune/c-0408",
+        "plateSvg": "/api/print-plate/c-0408?format=svg",
+        "tuneDesk": "/tune/c-0408"
+      }
+    },
+    {
+      "uid": "c-0409",
+      "name": "epicycloid-k5",
+      "aliases": [],
+      "family": "epicycloid k=5",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 802,
+        "start": [
+          5,
+          0
+        ],
+        "end": [
+          -7,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 802 stations, (5, 0) to (-7, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "epicycloid k=5 — x = 6cos θ − cos 6θ,  y = 6sin θ − sin 6θ · epicycloid R = 5r · six cusps · rational, degree 12",
+      "description": "epicycloid-k5 (c-0409) is a stored outline from the epicycloid k=5 family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: epicycloid k=5 — x = 6cos θ − cos 6θ,  y = 6sin θ − sin 6θ · epicycloid R = 5r · six cusps · rational, degree 12",
+      "links": {
+        "tune": "/tune/c-0409",
+        "plateSvg": "/api/print-plate/c-0409?format=svg",
+        "tuneDesk": "/tune/c-0409"
+      }
+    },
+    {
+      "uid": "c-0410",
+      "name": "hypocycloid-k5",
+      "aliases": [],
+      "family": "hypocycloid k=5",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 802,
+        "start": [
+          5,
+          0
+        ],
+        "end": [
+          -3,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 802 stations, (5, 0) to (-3, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "hypocycloid k=5 — x = 4cos θ + cos 4θ,  y = 4sin θ − sin 4θ · hypocycloid k = 5 · five cusps · rational, degree 8",
+      "description": "hypocycloid-k5 (c-0410) is a stored outline from the hypocycloid k=5 family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: hypocycloid k=5 — x = 4cos θ + cos 4θ,  y = 4sin θ − sin 4θ · hypocycloid k = 5 · five cusps · rational, degree 8",
+      "links": {
+        "tune": "/tune/c-0410",
+        "plateSvg": "/api/print-plate/c-0410?format=svg",
+        "tuneDesk": "/tune/c-0410"
+      }
+    },
+    {
+      "uid": "c-0411",
+      "name": "bow",
+      "aliases": [],
+      "family": "bow",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          0,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (0, 0) to (0, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "bow — x⁴ = x²y − y³ · triple point at the origin · genus 0",
+      "description": "bow (c-0411) is a stored outline from the bow family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: bow — x⁴ = x²y − y³ · triple point at the origin · genus 0",
+      "links": {
+        "tune": "/tune/c-0411",
+        "plateSvg": "/api/print-plate/c-0411?format=svg",
+        "tuneDesk": "/tune/c-0411"
+      }
+    },
+    {
+      "uid": "c-0412",
+      "name": "bicorn",
+      "aliases": [],
+      "family": "bicorn",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 802,
+        "start": [
+          0,
+          1
+        ],
+        "end": [
+          0,
+          0.333333
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 802 stations, (0, 1) to (0, 0.333333)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "bicorn — y²(1 − x²) = (x² + 2y − 1)² · rational quartic · two branches, joined at (±1, 0) · closed",
+      "description": "bicorn (c-0412) is a stored outline from the bicorn family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: bicorn — y²(1 − x²) = (x² + 2y − 1)² · rational quartic · two branches, joined at (±1, 0) · closed",
+      "links": {
+        "tune": "/tune/c-0412",
+        "plateSvg": "/api/print-plate/c-0412?format=svg",
+        "tuneDesk": "/tune/c-0412"
+      }
+    },
+    {
+      "uid": "c-0413",
+      "name": "gerono",
+      "aliases": [],
+      "family": "gerono",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          -1,
+          0
+        ],
+        "end": [
+          1,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (-1, 0) to (1, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "gerono — x⁴ − x² + y² = 0 · lemniscate of Gerono · rational quartic · one figure eight",
+      "description": "gerono (c-0413) is a stored outline from the gerono family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: gerono — x⁴ − x² + y² = 0 · lemniscate of Gerono · rational quartic · one figure eight",
+      "links": {
+        "tune": "/tune/c-0413",
+        "plateSvg": "/api/print-plate/c-0413?format=svg",
+        "tuneDesk": "/tune/c-0413"
       }
     }
   ]
