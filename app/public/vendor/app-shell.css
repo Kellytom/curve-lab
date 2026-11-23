@@ -164,12 +164,14 @@ img { height: auto; }
 }
 
 
-/* One margin for every page, with or without pico's container. */
-main {
+/* One margin for every page, with or without pico's container: a half inch each side
+   (the operator, 2026-11-23). The container is named too, because pico's class outranks a
+   bare element selector and would otherwise keep its own padding on the hub. */
+main, main.container {
   width: 100%;
   max-width: 1180px;
   margin-inline: auto;
-  padding: 0 1.25rem 3.5rem;
+  padding: 0 0.5in 3.5rem;
 }
 /* A panel of very large numbers scrolls inside itself; it never widens the page. */
 .pm-panel, .gd-panel, .st-panel, .pm-chart, .gd-plot, .st-plot {
