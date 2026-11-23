@@ -113,6 +113,16 @@ decided. `Proves:` a sweep with calibrated counters only.
 
 ## Immediate queue (top first)
 
+0. **DONE 2026-11-23 · The candidates page and the desk chrome** —
+   /candidates/ lists the 59 new curves (53 siblings, 5 speed-fit, 1
+   round-trip) with pictures, names, misses and parent links; /reduce/ and
+   it now render inside BaseLayout and are in check-pages' route list; the
+   card picture lives in app/src/lib/curve-thumbnail.ts for both pages.
+   `Proves:` check-pages /reduce /candidates → ok; npm 100 pass.
+   **Next big row: the clothoid engine** (`curve_lab/engine.py` → `engine.ts`
+   — Fresnel-based clothoid evaluation, Placed/Chain, parity fixtures from
+   the Python chains; it is what junction's spans and every grammar piece
+   stand on).
 0. **DONE 2026-11-23 · The sibling map and its candidates** — the operator's
    call applied: no curve lost; the 53 distinct new curves at the ceiling
    posted to the sandbox with their miss in units; the 18 in-catalogue ones
