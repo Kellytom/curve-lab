@@ -7,7 +7,7 @@
     "cutPoints": "book/print/cuts.json",
     "exactCore": "curve_lab/measure.py"
   },
-  "count": 387,
+  "count": 393,
   "curves": [
     {
       "uid": "c-0001",
@@ -25101,10 +25101,10 @@
         "plus": null,
         "minus": null,
         "profile": null,
-        "cutPoints": 4
+        "cutPoints": 0
       },
       "note": "astroid — (x² + y² − 1)³ + 27x²y² = 0 · x^(2/3) + y^(2/3) = 1 · four cusps · rational sextic",
-      "description": "astroid (c-0402) is a stored outline from the astroid family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 4 time(s); each crossing is a future cut point. Note: astroid — (x² + y² − 1)³ + 27x²y² = 0 · x^(2/3) + y^(2/3) = 1 · four cusps · rational sextic",
+      "description": "astroid (c-0402) is a stored outline from the astroid family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: astroid — (x² + y² − 1)³ + 27x²y² = 0 · x^(2/3) + y^(2/3) = 1 · four cusps · rational sextic",
       "links": {
         "tune": "/tune/c-0402",
         "plateSvg": "/api/print-plate/c-0402?format=svg",
@@ -25215,10 +25215,10 @@
         "plus": null,
         "minus": null,
         "profile": null,
-        "cutPoints": 3
+        "cutPoints": 0
       },
       "note": "deltoid — x = 2cos θ + cos 2θ,  y = 2sin θ − sin 2θ · hypocycloid k = 3 · three cusps · r = 1 + 2cos θ",
-      "description": "deltoid (c-0404) is a stored outline from the deltoid family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 3 time(s); each crossing is a future cut point. Note: deltoid — x = 2cos θ + cos 2θ,  y = 2sin θ − sin 2θ · hypocycloid k = 3 · three cusps · r = 1 + 2cos θ",
+      "description": "deltoid (c-0404) is a stored outline from the deltoid family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: deltoid — x = 2cos θ + cos 2θ,  y = 2sin θ − sin 2θ · hypocycloid k = 3 · three cusps · r = 1 + 2cos θ",
       "links": {
         "tune": "/tune/c-0404",
         "plateSvg": "/api/print-plate/c-0404?format=svg",
@@ -25272,10 +25272,10 @@
         "plus": null,
         "minus": null,
         "profile": null,
-        "cutPoints": 2
+        "cutPoints": 0
       },
       "note": "nephroid — z ↦ z³ + 3z on the unit circle · two cusps · rational sextic · x = 6cos φ − 4cos³φ",
-      "description": "nephroid (c-0405) is a stored outline from the nephroid family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point. Note: nephroid — z ↦ z³ + 3z on the unit circle · two cusps · rational sextic · x = 6cos φ − 4cos³φ",
+      "description": "nephroid (c-0405) is a stored outline from the nephroid family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: nephroid — z ↦ z³ + 3z on the unit circle · two cusps · rational sextic · x = 6cos φ − 4cos³φ",
       "links": {
         "tune": "/tune/c-0405",
         "plateSvg": "/api/print-plate/c-0405?format=svg",
@@ -25329,10 +25329,10 @@
         "plus": null,
         "minus": null,
         "profile": null,
-        "cutPoints": 6
+        "cutPoints": 0
       },
       "note": "trifolium — (x² + y²)² − x³ + 3xy² = 0 · three-petaled rose · rational quartic · r = −cos 3θ",
-      "description": "trifolium (c-0406) is a stored outline from the trifolium family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 6 time(s); each crossing is a future cut point. Note: trifolium — (x² + y²)² − x³ + 3xy² = 0 · three-petaled rose · rational quartic · r = −cos 3θ",
+      "description": "trifolium (c-0406) is a stored outline from the trifolium family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: trifolium — (x² + y²)² − x³ + 3xy² = 0 · three-petaled rose · rational quartic · r = −cos 3θ",
       "links": {
         "tune": "/tune/c-0406",
         "plateSvg": "/api/print-plate/c-0406?format=svg",
@@ -25386,10 +25386,10 @@
         "plus": null,
         "minus": null,
         "profile": null,
-        "cutPoints": 8
+        "cutPoints": 0
       },
       "note": "quadrifolium — (x² + y²)³ = (x² − y²)² · four-petaled rose · r = cos 2θ · rational sextic",
-      "description": "quadrifolium (c-0407) is a stored outline from the quadrifolium family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 8 time(s); each crossing is a future cut point. Note: quadrifolium — (x² + y²)³ = (x² − y²)² · four-petaled rose · r = cos 2θ · rational sextic",
+      "description": "quadrifolium (c-0407) is a stored outline from the quadrifolium family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: quadrifolium — (x² + y²)³ = (x² − y²)² · four-petaled rose · r = cos 2θ · rational sextic",
       "links": {
         "tune": "/tune/c-0407",
         "plateSvg": "/api/print-plate/c-0407?format=svg",
@@ -25736,6 +25736,348 @@
         "tune": "/tune/c-0413",
         "plateSvg": "/api/print-plate/c-0413?format=svg",
         "tuneDesk": "/tune/c-0413"
+      }
+    },
+    {
+      "uid": "c-0414",
+      "name": "nodal",
+      "aliases": [],
+      "family": "nodal",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          0,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (0, 0) to (0, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "nodal — y² = x²(x + 1) · nodal cubic · node angle 90° · not the PH one",
+      "description": "nodal (c-0414) is a stored outline from the nodal family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: nodal — y² = x²(x + 1) · nodal cubic · node angle 90° · not the PH one",
+      "links": {
+        "tune": "/tune/c-0414",
+        "plateSvg": "/api/print-plate/c-0414?format=svg",
+        "tuneDesk": "/tune/c-0414"
+      }
+    },
+    {
+      "uid": "c-0415",
+      "name": "bernoulli",
+      "aliases": [],
+      "family": "bernoulli",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 802,
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          0,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 802 stations, (0, 0) to (0, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 2
+      },
+      "note": "bernoulli — (x² + y²)² = x² − y² · lemniscate of Bernoulli · rational quartic · two lobes",
+      "description": "bernoulli (c-0415) is a stored outline from the bernoulli family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 2 time(s); each crossing is a future cut point. Note: bernoulli — (x² + y²)² = x² − y² · lemniscate of Bernoulli · rational quartic · two lobes",
+      "links": {
+        "tune": "/tune/c-0415",
+        "plateSvg": "/api/print-plate/c-0415?format=svg",
+        "tuneDesk": "/tune/c-0415"
+      }
+    },
+    {
+      "uid": "c-0416",
+      "name": "cruciform",
+      "aliases": [],
+      "family": "cruciform",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 1604,
+        "start": [
+          1.083333,
+          2.6
+        ],
+        "end": [
+          4.555556,
+          -1.025
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 1604 stations, (1.083333, 2.6) to (4.555556, -1.025)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "cruciform — x²y² − b²x² − a²y² = 0 · rational quartic · x = a sec t, y = b csc t · one full arm, mirrored four times · tails unbounded",
+      "description": "cruciform (c-0416) is a stored outline from the cruciform family. It is stored as 1604 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: cruciform — x²y² − b²x² − a²y² = 0 · rational quartic · x = a sec t, y = b csc t · one full arm, mirrored four times · tails unbounded",
+      "links": {
+        "tune": "/tune/c-0416",
+        "plateSvg": "/api/print-plate/c-0416?format=svg",
+        "tuneDesk": "/tune/c-0416"
+      }
+    },
+    {
+      "uid": "c-0417",
+      "name": "piriform",
+      "aliases": [],
+      "family": "piriform",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 802,
+        "start": [
+          2,
+          0
+        ],
+        "end": [
+          0,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 802 stations, (2, 0) to (0, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "piriform — x⁴ − 2x³ + y² = 0 · a water drop · x = 2/(1+u²), y = 4u/(1+u²)² · mirrored on x",
+      "description": "piriform (c-0417) is a stored outline from the piriform family. It is stored as 802 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: piriform — x⁴ − 2x³ + y² = 0 · a water drop · x = 2/(1+u²), y = 4u/(1+u²)² · mirrored on x",
+      "links": {
+        "tune": "/tune/c-0417",
+        "plateSvg": "/api/print-plate/c-0417?format=svg",
+        "tuneDesk": "/tune/c-0417"
+      }
+    },
+    {
+      "uid": "c-0418",
+      "name": "absx-gerono",
+      "aliases": [],
+      "family": "abs(x) gerono",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          0,
+          0
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (0, 0) to (0, 0)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 1
+      },
+      "note": "abs(x) gerono — x⁴ − x² + y² = 0, x ≥ 0 · the figure-eight folded by |x| · one closed lobe · x = (1−u²)/(1+u²), y = 2u(1−u²)/(1+u²)²",
+      "description": "absx-gerono (c-0418) is a stored outline from the abs(x) gerono family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. The outside rail crosses itself 1 time(s); each crossing is a future cut point. Note: abs(x) gerono — x⁴ − x² + y² = 0, x ≥ 0 · the figure-eight folded by |x| · one closed lobe · x = (1−u²)/(1+u²), y = 2u(1−u²)/(1+u²)²",
+      "links": {
+        "tune": "/tune/c-0418",
+        "plateSvg": "/api/print-plate/c-0418?format=svg",
+        "tuneDesk": "/tune/c-0418"
+      }
+    },
+    {
+      "uid": "c-0419",
+      "name": "cissoid",
+      "aliases": [],
+      "family": "cissoid",
+      "source": "named",
+      "stars": null,
+      "geometry": {
+        "kind": "stored-path",
+        "points": 401,
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          1.6,
+          3.2
+        ],
+        "definition": null
+      },
+      "formula": {
+        "plain": "polyline through 401 stations, (0, 0) to (1.6, 3.2)",
+        "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+        "parameter": "k = 0 … station count − 1"
+      },
+      "measured": {
+        "grid": null,
+        "bend": null,
+        "arc": null,
+        "chord": null,
+        "inflections": null,
+        "crossings": null,
+        "meetingPoints": null,
+        "closestApproach": null,
+        "mirrorGap": null,
+        "halfTurnGap": null,
+        "bbox": null
+      },
+      "turn": {
+        "degrees": 0,
+        "exact": true
+      },
+      "plate": {
+        "widthPercent": null,
+        "plus": null,
+        "minus": null,
+        "profile": null,
+        "cutPoints": 0
+      },
+      "note": "cissoid — y²(2 − x) = x³ · cissoid of Diocles · cusp at the origin · asymptote x = 2",
+      "description": "cissoid (c-0419) is a stored outline from the cissoid family. It is stored as 401 points; the exact points are in the registry. No exact measurement is recorded yet for this curve. The plate turns it 0° exactly. Note: cissoid — y²(2 − x) = x³ · cissoid of Diocles · cusp at the origin · asymptote x = 2",
+      "links": {
+        "tune": "/tune/c-0419",
+        "plateSvg": "/api/print-plate/c-0419?format=svg",
+        "tuneDesk": "/tune/c-0419"
       }
     }
   ]

@@ -3854,6 +3854,60 @@
    "failed": false,
    "reason": null,
    "tooWide": false
+  },
+  {
+   "uid": "c-0414",
+   "name": "nodal",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0415",
+   "name": "bernoulli",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0416",
+   "name": "cruciform",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0417",
+   "name": "piriform",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0418",
+   "name": "absx-gerono",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0419",
+   "name": "cissoid",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
   }
  ]
 }
