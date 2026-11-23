@@ -1,7 +1,7 @@
 ```text
 Read state/HANDOFF-int.md. Read app/src/content/docs/docs/handover.md only for durable detail.
-You are removing the inside cap and the roundSpikes bevel from the character rails, letting each rail cross itself at a tight turn, marking every crossing with a red dot, hiding the small loop as an invisible span, and recording the spans in book/print/rail-holes.json.
-Proves: c-0046, c-0065 and c-0273 each draw a rail that crosses itself with a dot at the crossing and a recorded invisible span, the register's plate-guard tests are amended to the new law with the reason, and the plate set is regenerated once.
+You are naming the 11 classical curves still missing from state/GAPS-int.md and adding three of them as sampled records with their figures and plates.
+Proves: three new records appear in workbench/curve-registry.json and app/public/figures/index.json with a plate on /plates, state/GAPS-int.md names the remaining eight, and the register is green.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-23, commit e56d1016.
+Source: state/HANDOFF-int.md, 2026-11-23, commit ceca652f.
