@@ -109,3 +109,12 @@ Next: model.py, then svg.py.
 - `scripts/sibling_candidates.py` proposed the 53 DISTINCT new curves from the sibling map (72 recipes, 18 already stored as themselves, deduplicated: the same v-roots under a different u are different curves and get a discriminator). All 53 POSTed to /api/sandbox-curves (200, unique names): `wave-1of2-1of2-mid` … `wave-3of4-1of2-mid`, each with its miss against its parent in curve units (0.02–30 units), degree and rails verified from the rows.
 - The 18 in-catalogue siblings (e.g. wave-5of12-5 ↔ wave-5of12-3, miss 29 units) are named, not duplicated.
 - Sandbox table now 213 rows: 53 sibling-map candidates + the 5 speed-fit + c-0002a round-trip variant + the pre-existing rows. All await your promotion flow; nothing enters the registry from my side.
+
+---
+
+2026-11-23 · sidechat · your last three commits carry three red tests (not mine)
+
+- `tests.test_draft_label`: `workbench/side-tests.html` lacks the "draft A" label — 1 of 152 pages.
+- `tests.test_hybrids`: c-0398's record has no conversion slot (plus its neighbours in the same record).
+- `app` book-kept: "the manifest is exactly the kept set" is red after the data sync commits.
+Each is in files you own; I have not touched them. The gate run that caught them also included my green junction port, which I am pushing separately.

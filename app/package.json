@@ -6,7 +6,7 @@
     "dev": "CURVE_LAB_ROOT=.. astro dev --host 127.0.0.1",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test tests/measure.test.mjs tests/finder-stars.test.mjs tests/users.test.mjs tests/curve-notes.test.mjs tests/stars.test.mjs tests/finder.test.mjs tests/star-list.test.mjs tests/finder-sections.test.mjs tests/name-parts.test.mjs tests/repopath.test.mjs tests/figure-leaf.test.mjs tests/bus.test.mjs tests/offsets.test.mjs tests/formula.test.mjs tests/frames.test.mjs tests/desk-tune.test.mjs tests/provenance.test.mjs tests/plate-order.test.mjs tests/figure-pages.test.mjs tests/book-kept.test.mjs tests/plain-number.test.mjs tests/chebyshev.test.mjs tests/model.test.mjs tests/svg.test.mjs",
+    "test": "node --test tests/measure.test.mjs tests/finder-stars.test.mjs tests/users.test.mjs tests/curve-notes.test.mjs tests/stars.test.mjs tests/finder.test.mjs tests/star-list.test.mjs tests/finder-sections.test.mjs tests/name-parts.test.mjs tests/repopath.test.mjs tests/figure-leaf.test.mjs tests/bus.test.mjs tests/offsets.test.mjs tests/formula.test.mjs tests/frames.test.mjs tests/desk-tune.test.mjs tests/provenance.test.mjs tests/plate-order.test.mjs tests/figure-pages.test.mjs tests/book-kept.test.mjs tests/plain-number.test.mjs tests/chebyshev.test.mjs tests/model.test.mjs tests/svg.test.mjs tests/fillet.test.mjs",
     "check": "astro check && eslint src/lib src/scripts tests scripts",
     "test:pages": "node scripts/check-all.mjs",
     "gate": "npm run check && npm test",
