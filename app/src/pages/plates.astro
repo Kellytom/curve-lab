@@ -65,7 +65,8 @@ const done = rows.filter((row) => row.exported).length;
                 <a href={`/api/print-plate/${row.uid}?format=svg`}>svg</a>{row.web
                   ? <> · <a href={`/plates-web/${row.uid}-1600-grey.png?v=${row.stamp}`}>1600 png</a></> : null} ·</>
             : <span>not exported yet ·</span>}
-          turn {row.turn}° · <a href={`/tune/${row.uid}`}>tune</a>
+          turn {row.turn}° · <a href={`/tune/${row.uid}`}>tune</a> ·
+          <a href={`/trim/${row.uid}`} title="cut this curve's legs off at a rational t">trim</a>
         </p>
         <p class="plate-formula">{row.formula}</p>
       </article>
