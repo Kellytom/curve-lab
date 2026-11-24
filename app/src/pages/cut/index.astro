@@ -41,7 +41,7 @@ const ready = doubles.filter((curve) => curve.cusps > 0);
           <a href={`/cut/${curve.uid}`}><code>{curve.uid}</code> {curve.name}</a>
           <span class="cut-note">{curve.cusps > 0
             ? `${curve.cusps} cusp${curve.cusps === 1 ? "" : "s"}`
-            : "no cusp"}</span>
+            : "no cusp"} · <a href={`/trim/${curve.uid}`}>trim the legs</a></span>
         </figcaption>
       </figure>
     ))}
