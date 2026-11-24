@@ -5,15 +5,15 @@ It proposes; nothing here is created until the operator says so.
 
 ## The set
 
-- **403 curves**, 213 as speed rows and 190 as stored paths.
-- **192** are rated 2/10 or more; 403 have a recorded exact measurement.
+- **405 curves**, 213 as speed rows and 192 as stored paths.
+- **192** are rated 2/10 or more; 405 have a recorded exact measurement.
 
 ## Families
 
 | family | curves | rated 2+ | speed rows | paths | grids |
 |---|---|---|---|---|---|
 | wave | 123 | 28 | 123 | 0 | 7, 14, 15, 63, 70, 105, 110, 210, 231, 315, 330, 429, 462, 630, 693, 770, 1155, 1365, 1386, 1430, 1638, 2145, 2310, 2730, 3003, 3465, 4095, 4290, 5005, 6006, 6435, 6930, 8190, 9009, 15015, 18018, 30030, 45045, 60060, 90090, 180180 |
-| hybrid | 98 | 94 | 0 | 98 | 0 |
+| hybrid | 100 | 94 | 0 | 100 | 0 |
 | lace | 47 | 27 | 46 | 1 | 0, 22, 42, 231, 273, 315, 385, 462, 630, 1155, 2145, 2310, 2730, 3465, 5005, 6930, 8190, 10010, 30030, 45045, 60060, 90090 |
 | septic | 12 | 4 | 0 | 12 | 0 |
 | loop | 10 | 1 | 10 | 0 | 6, 36, 42, 66, 90, 12012, 19399380, 74364290 |
@@ -89,7 +89,7 @@ Measured curves run to **19 crossing pairs** and **8 inflections**. **139 of the
 
 | crossing pairs | inflections | curves |
 |---|---|---|
-| 0 | 0:195 · 1:19 · 2:1 · 3:36 · 4:0 · 5:18 · 6:0 · 7:0 · 8:0 |
+| 0 | 0:197 · 1:19 · 2:1 · 3:36 · 4:0 · 5:18 · 6:0 · 7:0 · 8:0 |
 | 1 | 0:3 · 1:5 · 2:3 · 3:15 · 4:15 · 5:16 · 6:7 · 7:0 · 8:0 |
 | 2 | 0:0 · 1:1 · 2:0 · 3:6 · 4:0 · 5:0 · 6:2 · 7:0 · 8:0 |
 | 3 | 0:0 · 1:0 · 2:2 · 3:7 · 4:3 · 5:3 · 6:5 · 7:3 · 8:5 |
@@ -137,7 +137,7 @@ Empty cells with a plain reading:
 | family | mirror | half turn | neither |
 |---|---|---|---|
 | wave | 67 | 56 | 0 |
-| hybrid | 4 | 7 | 87 |
+| hybrid | 4 | 7 | 89 |
 | lace | 43 | 4 | 0 |
 | septic | 0 | 3 | 9 |
 | loop | 9 | 1 | 0 |

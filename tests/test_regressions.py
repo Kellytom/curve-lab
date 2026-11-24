@@ -22,6 +22,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+
+def node24():
+    """The Node the app runs on. `node` on PATH may be older and cannot run a .ts test."""
+    preferred = Path.home() / "node24" / "bin" / "node"
+    return str(preferred) if preferred.exists() else shutil.which("node")
+
 import curve_records as R  # noqa: E402
 
 PANELS = ROOT / "scripts" / "ph_nth_panels.js"
@@ -159,7 +165,7 @@ class TestRegressions(unittest.TestCase):
         two rails: the guarded side must widen along the curve, the other must not move
         much, and zero character must be the only parallel case.
         """
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -181,7 +187,7 @@ class PlateGapTest(unittest.TestCase):
     """
 
     def test_every_preset_plate_draws_the_target_gap(self):
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -203,7 +209,7 @@ class PlateRailCrossingTest(unittest.TestCase):
     """
 
     def test_each_probed_curve_crosses_and_records_a_span(self):
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -225,7 +231,7 @@ class SidePillarTest(unittest.TestCase):
     """
 
     def test_each_pillar_stays_beside_its_axis(self):
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -245,7 +251,7 @@ class BranchDrawTest(unittest.TestCase):
     """
 
     def test_a_branch_record_is_drawn_as_branches(self):
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         for name in ("plate-branches.test.mjs", "figure-branches.test.mjs"):
@@ -268,7 +274,7 @@ class OrnamentWriterTest(unittest.TestCase):
     """
 
     def test_an_unchanged_ornament_is_not_rewritten(self):
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -374,7 +380,7 @@ class CurveFlagsTest(unittest.TestCase):
         (`check_page_curves.mjs`), every plate and figure PNG is tracked exactly when its row
         says `pngIgnored: false` (`curve_pngs_git.mjs`), and the study rows are registered
         (`register_studies.mjs`)."""
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         for script in ("register_studies.mjs", "curve_pngs_git.mjs", "check_page_curves.mjs"):
@@ -419,7 +425,7 @@ class BookPlateTest(unittest.TestCase):
         """book/README.md: a 3000 px long side (10 in at 300 dpi) and a 300 dpi pHYs. The check
         reads each PNG header; a curve with no plate, a short plate or a plate without the dpi
         fails, because the book is drawn from all of them."""
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run([node, str(ROOT / "scripts" / "check_book_plates.mjs")],
@@ -470,7 +476,7 @@ class RenderLockTest(unittest.TestCase):
         """2026-11-23: the save renders in a detached child, so two quick saves can overlap and
         each would merge the same index from a stale read — the fault register 29 records. The
         lock directory serialises them; this runs the node test that holds two jobs open."""
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -485,7 +491,7 @@ class RootLabTest(unittest.TestCase):
         before it can find anything". The test pins the maths: v is anti-symmetric about t = ½
         and u symmetric, so the curve mirrors about x = x(1)/2; a second pair adds two roots to
         v and none to u; B = 0 still mirrors."""
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -500,7 +506,7 @@ class TrimCurveTest(unittest.TestCase):
         t". t = 0 is the first station, t = 1 the last; a cut given as p/q keeps the stations
         between the two cuts, drops the legs, and puts the two cut points exactly on the
         fractions. A decimal is refused on purpose."""
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
@@ -528,7 +534,7 @@ class SideCurveOffsetTest(unittest.TestCase):
         starting position by 5 x and 5 y to balance." The two sides take one strength (the
         average of plus and minus); the profile is zero at both ends, so the start and end gaps
         are equal. The next session moves the curve's starting point where they are not."""
-        node = shutil.which("node")
+        node = node24()
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
