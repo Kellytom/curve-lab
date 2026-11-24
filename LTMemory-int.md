@@ -16,6 +16,11 @@ Nothing else unless the action names it. `app/src/content/docs/docs/handover.md`
 
 ## The rules that cost time
 
+- **Language:** new code is TypeScript (AGENTS, 2026-11-24); legacy `.js` is DeepSeek2's
+  migration. `astro check` is the only real type check — Vite and Node strip types without
+  checking — and `prebuild` now runs it.
+- **The trim desk** (`/trim/`): cut a curve's legs off at rational `t = p/q`; the list leads with
+  the curves on `/plates`, the rest below; a rows record is sampled with the plate's sampler.
 - **No foreground command over 5 seconds.** Background it and continue. The fast
   loop is `scripts/test.py --fast` (15 modules, 75 s on 2026-11-23 — the register's
   plate renders dominate), so it is a background job too; so is the commit gate.
@@ -115,6 +120,7 @@ listed here rather than renamed, because the scripts are referenced elsewhere.
 | `scripts/curve_pngs_git.mjs` | every plate and figure PNG is tracked exactly when its row keeps it |
 | `scripts/check_page_curves.mjs` | every curve on the study pages is a Curve or Study row with a known status |
 | `scripts/check_book_plates.mjs` | every plate is 3000 px at 300 dpi, read from the PNG header |
+| `scripts/check-trim.ts` | the trim desk's fractions reach the cut, and a decimal is refused |
 | `scripts/check_asks.py` | the operator's asks are in `state/ASKS-int.md` and closed with proof |
 | `scripts/said_checklist.py --who me` (or `deep2`) | each chat's `/said/` file has a row per statement, done rows proved |
 

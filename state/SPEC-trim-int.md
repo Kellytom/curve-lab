@@ -42,14 +42,18 @@ two cut points are placed exactly on the fractions by interpolating the one segm
 
 ## The pages
 
-- **`/trim/`** lists every record with a stored path (190 at the time of writing), 50 a page,
-  with a uid/name search. Each card opens its trim page.
+- **`/trim/`** leads with the curves on `/plates` — the 196 the plates page draws, in its star
+  order — and the 209 other cuttable records follow, 50 a page, with a uid/name search. Each card
+  opens its trim page and says `plates` when it is one.
 - **`/trim/<uid>`** draws the whole curve grey, the dropped legs dashed ochre, the kept piece
   solid, and marks the two cut fractions in red. Under it, the cut piece is drawn with the side
   curves the plate will draw. The form carries the fractions, the four side values and a name.
 
 ## What it does not do
 
-- **No re-sampling between stations.** The cut is on the stored polyline; a curve stored as speed
-  rows has no stations until `curve_pngs`/the plate samples it, and this desk refuses it.
+- **A rows record is sampled, and says so.** A curve stored as speed rows is drawn from the
+  plate's own sampler (`app/src/lib/curve-points.js`, 700 stations); t is the fraction of that
+  sample, and the saved record says `fromRows` and "sampled from ... speed rows" in its note.
+- **No cut between sample stations.** The cut point is exact in t but lies on the straight segment
+  between two stations; the curve there is the record's sample, never a new curve.
 - **No batch trim.** One curve, one range at a time.

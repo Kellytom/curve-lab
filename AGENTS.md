@@ -248,6 +248,7 @@ and documentation alike.
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
 | `app/` | the Astro app: the lab and the save endpoint; see `app/README.md` |
 | `app/src/lib/stars.js` | the plain-Node star save; portable to Next and Hono |
+| `app/src/pages/trim/` | **the trim desk**: cut any curve's legs off at rational t = p/q; the list leads with the 196 curves on `/plates`, the rest follow; maths in `app/src/lib/trim-curve.ts`, save `/api/trim-curve` |
 | `curve_lab/square_assembly.py` | the same corner rule in Python, for static proofs |
 | `founder/LOG.md` | the founder's current focus, dated entries and priority tags |
 | `state/PORT-int.md` | the language boundary: browser JS, Node for tests, Python where debugged |

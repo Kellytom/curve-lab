@@ -1,32 +1,52 @@
 ---
-// The trim desk index: every curve with a stored path, one click from its legs.
+// The trim desk index: the curves on /plates first, then the rest.
 //
-// The trim itself is /trim/<uid>; the maths is app/src/lib/trim-curve.js; the save is
-// /api/trim-curve. This list comes from the registry, never from a typed set of uids.
+// The trim itself is /trim/<uid>; the maths is app/src/lib/trim-curve.ts; the save is
+// /api/trim-curve. A record with a stored path uses it; a rows record is sampled with the
+// plate's own sampler, so the desk covers the curves /plates draws as well as the stored lines.
+//
+// The operator, 2026-11-24: "those curves are ok; leave them at the bottom. put the curves from
+// /plates" — the plates' kept set leads, in the plates' own star order; everything else follows.
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { loadRegistry } from "../../lib/registry.ts";
+import { isKept } from "../../lib/provenance.js";
+import { orderPlates } from "../../lib/plate-order.js";
 
 const registry = await loadRegistry();
+const byUid = new Map(registry.curves.map((curve) => [curve.uid, curve]));
 const q = Astro.url.searchParams;
 const search = (q.get("q") || "").trim().toLowerCase();
 const page = Math.max(1, Number(q.get("page") || 1));
 const PAGE = 50;
 
-const cuttable = registry.curves
-  .filter((curve) => Array.isArray(curve.path) && curve.path.length > 2)
+// Cuttable = drawable from the registry: a stored path, or the speed rows the plate samples.
+const hasPoints = (curve) => (Array.isArray(curve.path) && curve.path.length > 2)
+  || (Array.isArray(curve.speedX) && Array.isArray(curve.speedY)
+    && curve.speedX.length > 0 && curve.speedY.length > 0);
+
+const all = registry.curves.filter(hasPoints)
   .filter((curve) => !search || curve.uid.toLowerCase().includes(search)
-    || String(curve.name || "").toLowerCase().includes(search))
+    || String(curve.name || "").toLowerCase().includes(search));
+
+const plates = orderPlates(all.filter((curve) => isKept(curve, byUid)), "stars");
+const onPlates = new Set(plates.map((curve) => curve.uid));
+const rest = all.filter((curve) => !onPlates.has(curve.uid))
   .sort((a, b) => a.uid.localeCompare(b.uid));
+const cuttable = [...plates, ...rest];
+
 const pages = Math.max(1, Math.ceil(cuttable.length / PAGE));
 const here = Math.min(page, pages);
 const shown = cuttable.slice((here - 1) * PAGE, here * PAGE);
+const card = { stations: (curve) => Array.isArray(curve.path) ? `${curve.path.length} stations`
+  : "sampled from rows" };
 ---
 
 <BaseLayout title="the trim desk" pageTitle="The trim desk">
   <p class="lead">Cut a curve's legs off at two rational fractions of its parameter. t = 0 is
     the first station, t = 1 the last; the stations between the cuts are kept, the legs outside
-    are dropped, and the cut points sit exactly on the fractions. {cuttable.length} curves have a
-    stored path to cut.</p>
+    are dropped, and the cut points sit exactly on the fractions. {plates.length} curves on
+    <a href="/plates">the plates</a> lead the list; {rest.length} others follow.
+    {all.length} cuttable{search ? " matching your search" : ""}.</p>
 
   <form class="trim-search" method="get">
     <input name="q" type="search" value={search} placeholder="uid or name, e.g. c-0274" />
@@ -44,8 +64,7 @@ const shown = cuttable.slice((here - 1) * PAGE, here * PAGE);
         </a>
         <figcaption>
           <a href={`/trim/${curve.uid}`}><code>{curve.uid}</code> {curve.name}</a>
-          <span class="trim-note">{Array.isArray(curve.branches) && curve.branches.length
-            ? `${curve.branches.length} branches` : `${curve.path.length} stations`}</span>
+          <span class="trim-note">{onPlates.has(curve.uid) ? "plates · " : ""}{card.stations(curve)}</span>
         </figcaption>
       </figure>
     ))}
