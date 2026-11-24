@@ -8,7 +8,7 @@
   // `base` allows JavaScript in the pages, because they are .astro files with
   // small scripts, not a TypeScript rewrite. Strict null checks are on; that
   // is where a missing value shows up before a browser does.
-  "extends": "astro/tsconfigs/base",
+  "extends": "astro/tsconfigs/strict",
   "include": [
     ".astro/types.d.ts",
     "src/**/*.ts"
@@ -21,8 +21,6 @@
     "checkJs": false,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "strictNullChecks": true,
-    "noImplicitAny": false,
     "noUnusedLocals": false
   }
 }
