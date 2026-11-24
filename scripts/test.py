@@ -112,7 +112,7 @@ def run(names, jobs=1):
 
 
 BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs", "check-tune-lab.mjs",
-                  "check-side-pillars.mjs", "check-gothic.mjs", "check-roots.mjs")
+                  "check-side-pillars.mjs", "check-gothic.mjs", "check-roots.mjs", "check-trim.mjs")
 
 
 def node_binary() -> str:

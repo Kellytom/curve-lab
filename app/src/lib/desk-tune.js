@@ -151,10 +151,20 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
     plus: values.plus,
     minus: values.minus,
     profile: values.profile,
-    transform: {
-      degrees: values.transform.degrees,
-      exact: [0, 90, 180, 270].includes(values.transform.degrees),
-    },
+    transform: (() => {
+      // The slot is on every record: degrees, a 2×2 matrix, and whether the turn is exact.
+      // A quarter turn is exact integers; any other angle is display only (register: c-0273).
+      const degrees = Number(values.transform.degrees) || 0;
+      const quarter = { 0: [[1, 0], [0, 1]], 90: [[0, -1], [1, 0]],
+                        180: [[-1, 0], [0, -1]], 270: [[0, 1], [-1, 0]] };
+      const radians = (degrees * Math.PI) / 180;
+      const round6 = (value) => Number(value.toFixed(6));
+      const matrix = quarter[degrees] || [
+        [round6(Math.cos(radians)), round6(-Math.sin(radians))],
+        [round6(Math.sin(radians)), round6(Math.cos(radians))],
+      ];
+      return { degrees, matrix, exact: Boolean(quarter[degrees]) };
+    })(),
     params: {
       ...(base.params || {}),
       parent: root,
@@ -179,28 +189,40 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
     // A gothic arch is the two outer arms joined at the cut; a cusp cut is one kept arc. Both
     // are sampled paths, but the note has to say which cut made the curve.
     const gothic = cut?.mode === "gothic";
+    const trim = cut?.mode === "trim";
     record.conversion = {
       ...(base.conversion || {}),
-      algorithm: gothic ? "cut at the middle, mirrored into an arch" : "cut at a cusp",
+      algorithm: gothic ? "cut at the middle, mirrored into an arch"
+        : trim ? "trimmed at rational fractions of t" : "cut at a cusp",
       exact: false,
       note: gothic
         ? `sampled: the two arms of ${base.uid}` +
           `${cut?.sampled ? " (sampled from its speed rows)" : ""}, cut ` +
           `${Math.round((cut?.share || 0) * 100)}% each side of the middle and mirrored`
-        : `sampled: the kept arc of ${base.uid}'s stored points, cut at a cusp`,
+        : trim
+          ? `sampled: ${base.uid}'s stored points between t ${cut.from} and t ${cut.to}; ` +
+            "the legs outside are dropped"
+          : `sampled: the kept arc of ${base.uid}'s stored points, cut at a cusp`,
     };
     record.params = {
       ...(record.params || {}),
       cut: cut
-        ? (gothic
+        ? (trim
+            ? { of: base.uid, ofName: base.name, mode: "trim",
+                from: cut.from, to: cut.to, sampled: true }
+            : gothic
             ? { of: base.uid, ofName: base.name, mode: "gothic",
-                share: cut.share, t: cut.t, axis: cut.axis, apexAngle: cut.apexAngle,
+                share: cut.share, q: cut.q, t: cut.t, tRequested: cut.tRequested,
+                axis: cut.axis, apexAngle: cut.apexAngle,
                 mirrored: cut.mirrored, gap: cut.gap,
                 sampled: Boolean(cut.sampled) }
             : { of: base.uid, ofName: base.name, cusp: cut.cusp, keep: cut.keep || "long" })
         : null,
     };
-    record.note = gothic
+    record.note = trim
+      ? `trimmed from ${base.uid} (${base.name}) · t ${cut.from} → ${cut.to} · ` +
+        `${record.path.length} stored points, exact there, approximate between them`
+      : gothic
       ? `gothic arch from ${base.uid} (${base.name}) · cut ` +
         `${Math.round((cut?.share || 0) * 100)}% each side of the middle` +
         `${cut?.tLabel ? ` (t ${cut.tLabel})` : ""} · ` +

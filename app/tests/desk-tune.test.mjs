@@ -66,6 +66,17 @@ test("a new curve is a record beside its parent", () => {
   assert.equal(plan.record.starred, false);
 });
 
+test("a trim keeps its rational bounds on the record", () => {
+  const plan = planVariant({ curves, baseUid: "c-0002", name: "trimmed", values: values(),
+    path: [[0, 0], [1, 0.2], [2, 0]], cut: { mode: "trim", from: "1/4", to: "3/4" } });
+  assert.equal(plan.ok, true);
+  assert.deepEqual(plan.record.params.cut,
+    { of: "c-0002", ofName: plan.record.params.cut.ofName, mode: "trim",
+      from: "1/4", to: "3/4", sampled: true });
+  assert.equal(plan.record.conversion.algorithm, "trimmed at rational fractions of t");
+  assert.match(plan.record.note, /t 1\/4 → 3\/4/);
+});
+
 test("a desk row that never became a record still holds its uid", () => {
   const plan = planVariant({ curves, baseUid: "c-0002", name: "spare", values: values(),
                              deskIds: ["c-0002b"] });

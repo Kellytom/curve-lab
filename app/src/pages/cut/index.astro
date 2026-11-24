@@ -26,7 +26,9 @@ const ready = doubles.filter((curve) => curve.cusps > 0);
     cusps; the plate marks each one with a bigger blue dot. Open one and choose the dot: the
     long arc is kept, the lobe the dot closes is dropped, and the cut is saved as a new curve
     beside its parent — the parent is never changed.</p>
-  <p class="lead">{ready.length} have a cusp to cut at; the others are listed but say so.</p>
+  <p class="lead">{ready.length} have a cusp to cut at; the others are listed but say so.
+    To cut a curve's legs off at a rational fraction of t instead, use
+    <a href="/trim/">the trim desk</a>.</p>
 
   <div class="cut-grid">
     {doubles.map((curve) => (

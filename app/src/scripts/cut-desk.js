@@ -15,8 +15,11 @@ function say(text, kind = "") {
 if (form) {
   form.addEventListener("submit", async (event) => {
     // the preview button is a plain GET of this page with the values; only the save is posted
-    const submitter = event.submitter || form.querySelector("#cut-save");
-    if (submitter && submitter.id && submitter.id !== "cut-save") return;
+    const save = form.querySelector("#cut-save");
+    const submitter = event.submitter || save;
+    // the preview button is a plain GET of the page; only the save button is posted. Compare the
+    // element, not its id: a button with no id used to fall through and save.
+    if (submitter && submitter !== save) return;
     event.preventDefault();
     const data = new window.FormData(form);
     const choice = String(data.get("mode") || "dot:0");

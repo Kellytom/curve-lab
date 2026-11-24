@@ -1,0 +1,71 @@
+---
+// The trim desk index: every curve with a stored path, one click from its legs.
+//
+// The trim itself is /trim/<uid>; the maths is app/src/lib/trim-curve.js; the save is
+// /api/trim-curve. This list comes from the registry, never from a typed set of uids.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadRegistry } from "../../lib/registry.ts";
+
+const registry = await loadRegistry();
+const q = Astro.url.searchParams;
+const search = (q.get("q") || "").trim().toLowerCase();
+const page = Math.max(1, Number(q.get("page") || 1));
+const PAGE = 50;
+
+const cuttable = registry.curves
+  .filter((curve) => Array.isArray(curve.path) && curve.path.length > 2)
+  .filter((curve) => !search || curve.uid.toLowerCase().includes(search)
+    || String(curve.name || "").toLowerCase().includes(search))
+  .sort((a, b) => a.uid.localeCompare(b.uid));
+const pages = Math.max(1, Math.ceil(cuttable.length / PAGE));
+const here = Math.min(page, pages);
+const shown = cuttable.slice((here - 1) * PAGE, here * PAGE);
+---
+
+<BaseLayout title="the trim desk" pageTitle="The trim desk">
+  <p class="lead">Cut a curve's legs off at two rational fractions of its parameter. t = 0 is
+    the first station, t = 1 the last; the stations between the cuts are kept, the legs outside
+    are dropped, and the cut points sit exactly on the fractions. {cuttable.length} curves have a
+    stored path to cut.</p>
+
+  <form class="trim-search" method="get">
+    <input name="q" type="search" value={search} placeholder="uid or name, e.g. c-0274" />
+    <button type="submit">find</button>
+  </form>
+
+  <p class="trim-count">page {here} of {pages}{search ? ` · filtered by “${search}”` : ""}</p>
+
+  <div class="trim-grid">
+    {shown.map((curve) => (
+      <figure class="trim-card">
+        <a href={`/trim/${curve.uid}`}>
+          <img src={`/figures/${curve.uid}.png`} alt={`the figure of ${curve.uid} ${curve.name}`}
+            loading="lazy" />
+        </a>
+        <figcaption>
+          <a href={`/trim/${curve.uid}`}><code>{curve.uid}</code> {curve.name}</a>
+          <span class="trim-note">{Array.isArray(curve.branches) && curve.branches.length
+            ? `${curve.branches.length} branches` : `${curve.path.length} stations`}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <nav class="trim-pages">
+    {here > 1 && <a href={`/trim/?page=${here - 1}${search ? `&q=${encodeURIComponent(search)}` : ""}`} rel="prev">previous</a>}
+    {page < pages && <a href={`/trim/?page=${here + 1}${search ? `&q=${encodeURIComponent(search)}` : ""}`} rel="next">next</a>}
+  </nav>
+</BaseLayout>
+
+<style is:global>
+  .trim-search { display: flex; gap: 8px; margin: 12px 0; }
+  .trim-search input { max-width: 24rem; }
+  .trim-count { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .trim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 12px; }
+  .trim-card { margin: 0; border: 1px solid #e6dccb; background: #fff; padding: 6px; }
+  .trim-card img { display: block; width: 100%; height: 130px; object-fit: contain; background: #fff; }
+  .trim-card figcaption { display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+    margin-top: 6px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
+  .trim-note { color: #7a6a55; }
+  .trim-pages { display: flex; gap: 18px; margin-top: 18px; }
+</style>

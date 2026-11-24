@@ -494,6 +494,21 @@ class RootLabTest(unittest.TestCase):
         self.assertEqual(0, run.returncode, run.stdout + run.stderr)
 
 
+class TrimCurveTest(unittest.TestCase):
+    def test_a_leg_cut_keeps_the_stations_between_the_fractions(self):
+        """The operator, 2026-11-24: "cutting the legs off the curves using rational fractions of
+        t". t = 0 is the first station, t = 1 the last; a cut given as p/q keeps the stations
+        between the two cuts, drops the legs, and puts the two cut points exactly on the
+        fractions. A decimal is refused on purpose."""
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "trim-curve.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at
