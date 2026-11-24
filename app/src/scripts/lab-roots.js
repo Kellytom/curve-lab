@@ -103,12 +103,16 @@ function multiply(a, b) {
   return out;
 }
 
-export function build(p, q, mid) {
-  // The pair as integers: (q t - p)(q t - (q - p)); the stack as (2t - 1)^m.
+export function build(p, q, mid, options = {}) {
+  // The pair as integers: (q t - p)(q t - (q - p)); the stack as (2t - 1)^m; an optional
+  // second mirrored pair for y. The x row is A + B(t² - t), which is symmetric about ½ for
+  // every A and B, so both rows stay mirror-symmetric.
   // No floats and no denominator clearing, so a zero coefficient cannot break it.
+  const { p2 = 0, q2 = 7, xA = 1, xB = 2 } = options;
   let v = multiply([-p, q], [-(q - p), q]);
+  if (p2 > 0 && q2 > p2) v = multiply(v, multiply([-p2, q2], [-(q2 - p2), q2]));
   for (let i = 0; i < mid; i += 1) v = multiply(v, [-1, 2]);
-  const u = [1, -2, 2];
+  const u = [xA, -xB, xB];
   const points = curvePoints(u, v);
   return {
     u, v, points,
@@ -118,11 +122,13 @@ export function build(p, q, mid) {
   };
 }
 
-export function explain(result, p, q, mid) {
+export function explain(result, p, q, mid, options = {}) {
+  const { p2 = 0, q2 = 7, xA = 1, xB = 2 } = options;
   const symmetry = "both speed rows are mirror-symmetric about t = ½";
-  const shared = "every curve here uses the same x row (1 − 2t + 2t²), so adding two changes only y — that is why sums stay proper and stay mirror-symmetric";
-  const difference = `at ${p}/${q} with ${mid} root${mid === 1 ? "" : "s"} at ½ it has ${result.crossings} crossing pair${result.crossings === 1 ? "" : "s"} and ${result.inflections} inflection${result.inflections === 1 ? "" : "s"}`;
-  return `${difference}, and passes within ${(result.grace * 100).toFixed(1)}% of its own centre. It is different because the pair ${p}/${q} and ${(q - p)}/${q} sets where the curve turns back, and the stack at ½ sets how flat the middle is. Why it adds well: ${symmetry} (the roots come in pairs r and 1 − r), and ${shared}.`;
+  const second = p2 > 0 && q2 > p2 ? `, plus the second pair ${p2}/${q2} and ${(q2 - p2)}/${q2}` : "";
+  const shared = `the x row is ${xA} + ${xB}(t² − t), which is symmetric about ½ for any A and B`;
+  const difference = `at ${p}/${q}${second} with ${mid} root${mid === 1 ? "" : "s"} at ½ it has ${result.crossings} crossing pair${result.crossings === 1 ? "" : "s"} and ${result.inflections} inflection${result.inflections === 1 ? "" : "s"}`;
+  return `${difference}, and passes within ${(result.grace * 100).toFixed(1)}% of its own centre. It is different because the ${p2 > 0 && q2 > p2 ? "pairs" : "pair"} set where the curve turns back, and the stack at ½ sets how flat the middle is. Why it adds well: ${symmetry} (the roots come in pairs r and 1 − r), and ${shared}.`;
 }
 
 // --- the page wiring -------------------------------------------------------
@@ -135,11 +141,19 @@ if (typeof document !== "undefined") {
     p: document.getElementById("p"),
     q: document.getElementById("q"),
     mid: document.getElementById("mid"),
+    p2: document.getElementById("p2"),
+    q2: document.getElementById("q2"),
+    xA: document.getElementById("x-a"),
+    xB: document.getElementById("x-b"),
   };
   const outs = {
     p: document.getElementById("p-out"),
     q: document.getElementById("q-out"),
     mid: document.getElementById("mid-out"),
+    p2: document.getElementById("p2-out"),
+    q2: document.getElementById("q2-out"),
+    xA: document.getElementById("x-a-out"),
+    xB: document.getElementById("x-b-out"),
   };
   const facts = document.getElementById("lab-facts");
   const note = document.getElementById("lab-note");
@@ -148,11 +162,20 @@ if (typeof document !== "undefined") {
     const p = Math.max(1, Number(controls.p.value));
     const q = Math.max(p + 1, Number(controls.q.value));
     const mid = Number(controls.mid.value);
+    const p2 = Math.max(0, Number(controls.p2.value));
+    const q2 = Math.max(2, Number(controls.q2.value));
+    const xA = Math.max(1, Number(controls.xA.value));
+    const xB = Math.max(0, Number(controls.xB.value));
     outs.p.textContent = String(p);
     outs.q.textContent = String(q);
     outs.mid.textContent = String(mid);
+    outs.p2.textContent = p2 === 0 ? "off" : String(p2);
+    outs.q2.textContent = String(q2);
+    outs.xA.textContent = String(xA);
+    outs.xB.textContent = String(xB);
 
-    const result = build(p, q, mid);
+    const options = { p2, q2, xA, xB };
+    const result = build(p, q, mid, options);
     const xs = result.points.map((point) => point[0]);
     const ys = result.points.map((point) => point[1]);
     const x0 = Math.min(...xs), x1 = Math.max(...xs);
@@ -171,18 +194,22 @@ if (typeof document !== "undefined") {
       <path d="${d}" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round"/>`;
 
     facts.textContent = `${result.crossings} crossing pairs · ${result.inflections} inflections · `
-      + `grace ${(result.grace * 100).toFixed(1)}% · x row 1 − 2t + 2t² · `
-      + `v = ${result.v.length - 1}th degree`;
-    note.textContent = explain(result, p, q, mid);
+      + `grace ${(result.grace * 100).toFixed(1)}% · x row ${xA} + ${xB}(t² − t) · `
+      + `pair 2 ${p2 === 0 ? "off" : `${p2}/${q2}`} · v = ${result.v.length - 1}th degree`;
+    note.textContent = explain(result, p, q, mid, options);
   };
 
-  [controls.p, controls.q, controls.mid].forEach((control) =>
-    control.addEventListener("input", draw));
+  [controls.p, controls.q, controls.mid, controls.p2, controls.q2, controls.xA, controls.xB]
+    .forEach((control) => control.addEventListener("input", draw));
   document.querySelectorAll(".suggest button").forEach((button) => {
     button.addEventListener("click", () => {
       controls.p.value = button.dataset.p;
       controls.q.value = button.dataset.q;
       controls.mid.value = button.dataset.mid;
+      controls.p2.value = "0";
+      controls.q2.value = "7";
+      controls.xA.value = "1";
+      controls.xB.value = "2";
       draw();
     });
   });

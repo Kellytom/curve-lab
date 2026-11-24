@@ -479,6 +479,21 @@ class RenderLockTest(unittest.TestCase):
         self.assertEqual(0, run.returncode, run.stdout + run.stderr)
 
 
+class RootLabTest(unittest.TestCase):
+    def test_the_second_pair_and_the_x_row_keep_the_curve_symmetric(self):
+        """2026-11-23, from the TODO: the root lab "needs a second pair and a variable x row
+        before it can find anything". The test pins the maths: v is anti-symmetric about t = ½
+        and u symmetric, so the curve mirrors about x = x(1)/2; a second pair adds two roots to
+        v and none to u; B = 0 still mirrors."""
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "root-lab.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT)
+        self.assertEqual(0, run.returncode, run.stdout + run.stderr)
+
+
 class DevServerHostTest(unittest.TestCase):
     def test_the_dev_server_answers_on_ipv4_loopback(self):
         """Every browser check failed with `net::ERR_CONNECTION_REFUSED at

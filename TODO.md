@@ -105,7 +105,9 @@ The main families are done; these are loose ends, not new work:
 
 - the tiny cheap knots, for a close look: `m-arch`/`w-arch` grid 15, `lace-1of8-1of3-0` grid 42, `loop-7-mid-2` grid 90 (8 pairs), `wave3` grid 105;
 - **Done 2026-11-21:** `/figures` is 50 a page, 8 pages (the last 21), with the arithmetic in `app/src/lib/figure-pages.js` and its own test; `/curves/<uid>` stays the close look;
-- the root lab (`/roots`) reproduces the `lace-*` family; it needs a second pair and a variable x row before it can find anything;
+- **Done 2026-11-23: the root lab has a second pair and a variable x row.** `/roots` now exposes
+  p₂/q₂ (0 = off) and the x row A + B(t² − t); `scripts/root_search.py` takes `--second p/q` and
+  `--x A,B`. The maths test pins the mirror; `check-roots.mjs` proves the sliders reach the curve.
 - the parity sweep (u even, v odd over t ∈ [−1,1]) gives symmetry but almost no crossings — recorded, not pursued;
 - coupler curves: my first generator zigzagged between circle-intersection branches; the family still looks worth one careful attempt.
 

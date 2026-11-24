@@ -24,10 +24,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </Fragment>
 
   <h1>The root lab</h1>
-  <p class="lead">A mirrored root pair at p/q and (q−p)/q, plus a stack at ½ — the
-    recipe. Drag the pair and the stack; the curve and its note follow. The same
-    numbers are built by <code>scripts/root_search.py</code>, so a find here can be
-    written down exactly.</p>
+  <p class="lead">A mirrored root pair at p/q and (q−p)/q, an optional second pair, plus a
+    stack at ½ — the recipe. The x row is A + B(t² − t): drag A and B, and the curve and its
+    note follow. The same numbers are built by <code>scripts/root_search.py</code>, so a find
+    here can be written down exactly.</p>
 
   <div class="lab">
     <div class="stage"><svg id="lab-plot" viewBox="0 0 600 600" role="img" aria-label="the curve"></svg></div>
@@ -38,6 +38,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <input id="q" type="range" min="5" max="12" step="1" value="9">
       <label for="mid">roots at ½ <output id="mid-out">3</output></label>
       <input id="mid" type="range" min="1" max="5" step="2" value="3">
+      <label for="p2">second pair numerator p₂ <output id="p2-out">off</output></label>
+      <input id="p2" type="range" min="0" max="11" step="1" value="0">
+      <label for="q2">second pair denominator q₂ <output id="q2-out">7</output></label>
+      <input id="q2" type="range" min="5" max="12" step="1" value="7">
+      <label for="x-a">x row A <output id="x-a-out">1</output></label>
+      <input id="x-a" type="range" min="1" max="6" step="1" value="1">
+      <label for="x-b">x row B <output id="x-b-out">2</output></label>
+      <input id="x-b" type="range" min="0" max="6" step="1" value="2">
       <div class="suggest" role="group" aria-label="suggested pairs">
         <button type="button" data-p="1" data-q="8" data-mid="3">1/8 · 3</button>
         <button type="button" data-p="1" data-q="9" data-mid="3">1/9 · 3</button>

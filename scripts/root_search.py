@@ -11,8 +11,11 @@ passes within 2.4% of its own centre without touching it (`state/HANDOFF-int.md`
 
 The construction, all in `Fraction` so the rows stay whole:
 
-    v(t) = (t - p/q)(t - (q-p)/q) · (t - 1/2)^m      the y speed
-    u(t) = 1 - 2t + 2t^2                            the x speed (the known good one)
+    v(t) = (t - p/q)(t - (q-p)/q) [· (t - p2/q2)(t - (q2-p2)/q2)] · (t - 1/2)^m
+    u(t) = A + B(t^2 - t), default 1 - 2t + 2t^2    the x speed (the known good one)
+
+`--second p/q` adds a second mirrored pair (the root lab's p2/q2); `--x A,B` sets the x row.
+Both keep the rows symmetric about 1/2, so the curve mirrors about its own vertical centre.
 
 and the pair is mirrored: every root r has a partner 1 - r, which is what keeps
 the curve symmetric about t = 1/2.
@@ -60,10 +63,15 @@ def _gcd(a, b):
     return abs(a) or 1
 
 
-def candidate(p, q, m):
-    roots = [Fraction(p, q), Fraction(q - p, q)] + [Fraction(1, 2)] * m
+def candidate(p, q, m, second=None, x_row=(1, 2)):
+    roots = [Fraction(p, q), Fraction(q - p, q)]
+    if second:
+        p2, q2 = second
+        roots += [Fraction(p2, q2), Fraction(q2 - p2, q2)]
+    roots += [Fraction(1, 2)] * m
     v = poly_from_roots(roots)
-    u = [1, -2, 2]                      # the x speed that pairs with these rows
+    a, b = x_row
+    u = [a, -b, b]                      # the x speed: A + B(t^2 - t)
     n = len(v)
     v += [0] * (len(u) - n) if len(u) > n else []
     u += [0] * (len(v) - len(u)) if len(v) > len(u) else []
@@ -88,7 +96,16 @@ def describe(u, v):
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--second", default=None,
+                        help="P/Q: a second mirrored root pair (the root lab's p2/q2)")
+    parser.add_argument("--x", default="1,2", help="A,B: the x row A + B(t^2 - t)")
     args = parser.parse_args(argv)
+    second = None
+    if args.second and args.second not in {"off", "0"}:
+        p2, q2 = (int(part) for part in args.second.split("/"))
+        if 0 < p2 < q2:
+            second = (p2, q2)
+    x_row = tuple(int(part) for part in args.x.split(","))
 
     rows = []
     for q in range(5, 13):
@@ -96,7 +113,7 @@ def main(argv=None) -> int:
             if _gcd(p, q) != 1:
                 continue
             for m in (1, 3, 5):
-                u, v = candidate(p, q, m)
+                u, v = candidate(p, q, m, second=second, x_row=x_row)
                 facts = describe(u, v)
                 if "error" in facts:
                     continue
