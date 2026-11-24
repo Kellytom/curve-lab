@@ -12,7 +12,8 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { repoRoot } from "../../lib/gallery.js";
 import { loadRegistry } from "../../lib/registry.ts";
-import { parseRange, trimRecord } from "../../lib/trim-curve.js";
+import { parseRange, trimRecord } from "../../lib/trim-curve.ts";
+import { pointsOf } from "../../lib/curve-points.js";
 import { turnPoints } from "../../lib/cut-doubles.js";
 import { bandSvg, frame } from "../../scripts/tune-render.js";
 
@@ -24,9 +25,12 @@ const PLATE = require(plateFile);
 const { uid } = Astro.params;
 const registry = await loadRegistry();
 const record = registry.curves.find((curve) => curve.uid === uid);
-if (!record || !Array.isArray(record.path) || record.path.length < 2) {
+const basePoints = record ? pointsOf(record) : null;
+if (!record || !basePoints || basePoints.length < 2) {
   return Astro.redirect("/trim/");
 }
+// A rows record has no stored line: its points are the plate's own sample of its speed rows.
+const fromRows = !Array.isArray(record.path);
 
 const q = Astro.url.searchParams;
 const number = (name, fallback) => {
@@ -48,7 +52,7 @@ let rangeError = "";
 let trimmed = null;
 try {
   range = parseRange(fromText, toText);
-  trimmed = trimRecord(record, range.from, range.to);
+  trimmed = trimRecord({ path: basePoints, branches: record.branches }, range.from, range.to);
   if (!trimmed || trimmed.path.length < 3) {
     rangeError = "that cut leaves too little to draw";
     trimmed = null;
@@ -61,7 +65,7 @@ try {
 const degrees = Number(record.transform?.degrees || 0);
 const turned = (points) => turnPoints(points, degrees);
 const whole = Array.isArray(record.branches) && record.branches.length
-  ? record.branches.map(turned) : [turned(record.path)];
+  ? record.branches.map(turned) : [turned(basePoints)];
 const kept = trimmed ? trimmed.branches.map(turned) : [];
 const head = trimmed ? turned(trimmed.head) : [];
 const tail = trimmed ? turned(trimmed.tail) : [];
@@ -175,7 +179,7 @@ const savedUid = q.get("new");
 </BaseLayout>
 
 <script>
-  import "../../scripts/trim-desk.js";
+  import "../../scripts/trim-desk.ts";
 </script>
 
 <style is:global>

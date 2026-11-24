@@ -11,17 +11,14 @@
   "extends": "astro/tsconfigs/base",
   "include": [
     ".astro/types.d.ts",
-    "src/lib/name-parts.ts",
-    "src/lib/star-list.ts",
-    "src/lib/finder-sections.ts",
-    "src/lib/duplicates.ts",
-    "src/lib/registry.ts",
-    "src/lib/curve-notes.ts"
+    "src/**/*.ts"
   ],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": true,
+    // Legacy .js is DeepSeek2's migration (AGENTS, 2026-11-24). Checking it here produced 782
+    // errors in old files and would hide a new .ts fault; every .ts under src is checked.
+    "checkJs": false,
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "strictNullChecks": true,

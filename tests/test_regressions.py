@@ -504,7 +504,7 @@ class TrimCurveTest(unittest.TestCase):
         if node is None:
             self.skipTest("node is not on PATH")
         run = subprocess.run(
-            [node, "--test", str(ROOT / "tests" / "js" / "trim-curve.test.mjs")],
+            [node, "--test", str(ROOT / "tests" / "js" / "trim-curve.test.ts")],
             capture_output=True, text=True, cwd=ROOT)
         self.assertEqual(0, run.returncode, run.stdout + run.stderr)
 

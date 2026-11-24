@@ -162,13 +162,16 @@ export function quantize(coeffs: Poly, fivePower = 0): { quantized: Poly; delta:
   return { quantized, delta };
 }
 
-export interface ReducedCurve {
+export interface ReducedBase {
   pieces: ReducedPieceResult[];
   degree: number;
   piecesCount: number;
   bound: Frac;          // the worst proven miss bound over the pieces
   boundShare: number;   // the bound as a share of the curve's size
   size: number;
+}
+
+export interface ReducedCurve extends ReducedBase {
   splits: number;       // how many halvings the bound loop chose
   met: boolean;         // false = the curve is genuinely over-degree; the
                         // bound is stated, not pretended
@@ -203,7 +206,7 @@ export function reduceCurve(exact: Poly, size: number, degree = 11,
 }
 
 function reduceAt(exact: Poly, size: number, degree: number, pieces: number,
-                  fivePower = 0): ReducedCurve {
+                  fivePower = 0): ReducedBase {
   const out: ReducedPieceResult[] = [];
   for (let i = 0; i < pieces; i += 1) {
     const lo = i / pieces, hi = (i + 1) / pieces;

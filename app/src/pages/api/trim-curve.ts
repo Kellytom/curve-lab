@@ -7,40 +7,47 @@
 //
 // The operator, 2026-11-24: "cutting the legs off the curves using rational fractions of t".
 
+import type { APIRoute } from "astro";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { repoRoot } from "../../lib/gallery.js";
-import { parseRange, trimRecord } from "../../lib/trim-curve.js";
+import { parseRange, trimRecord } from "../../lib/trim-curve.ts";
+import { pointsOf } from "../../lib/curve-points.js";
 import { DeskError, createVariant, valuesFrom } from "../../lib/desk-tune.js";
 
-const json = (body, status = 200) => new Response(JSON.stringify(body), {
+const json = (body: unknown, status = 200): Response => new Response(JSON.stringify(body), {
   status, headers: { "content-type": "application/json" },
 });
 
-export const POST = async ({ request }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.json().catch(() => ({}));
+    const body = await request.json().catch(() => ({})) as Record<string, unknown>;
     const uid = String(body.uid || "");
     const registry = JSON.parse(
       readFileSync(path.join(repoRoot(), "workbench", "curve-registry.json"), "utf8"));
-    const record = registry.curves.find((curve) => curve.uid === uid);
+    const record = registry.curves.find((curve: { uid: string }) => curve.uid === uid);
     if (!record) return json({ error: `${uid} is not a curve` }, 404);
-    if (!Array.isArray(record.path) || record.path.length < 2) {
-      return json({ error: `${uid} has no stored path to trim` }, 422);
+
+    // A stored path is used as it stands; a rows record is sampled with the plate's own
+    // sampler, so the trim desk covers the curves /plates draws as well as the stored lines.
+    const points = pointsOf(record);
+    if (!points || points.length < 2) {
+      return json({ error: `${uid} has no points to trim` }, 422);
     }
+    const subject = { path: points, branches: record.branches };
 
     let range;
     try {
       range = parseRange(body.from, body.to);
     } catch (error) {
-      return json({ error: String(error.message || error) }, 422);
+      return json({ error: (error as Error).message }, 422);
     }
-    const trimmed = trimRecord(record, range.from, range.to);
+    const trimmed = trimRecord(subject, range.from, range.to);
     if (!trimmed || trimmed.path.length < 3) {
       return json({ error: "that cut leaves too little to draw" }, 422);
     }
 
-    const real = (value, fallback) => {
+    const real = (value: unknown, fallback: number): number => {
       const number = Number(value);
       return Number.isFinite(number) && number !== 0 ? number : fallback;
     };
@@ -61,14 +68,19 @@ export const POST = async ({ request }) => {
       || askedName.startsWith(`${defaultName}-`);
     const base = askedName || defaultName;
     const cut = { mode: "trim", of: record.uid, ofName: record.name,
-                  from: range.from.text, to: range.to.text, sampled: true };
+                  from: range.from.text, to: range.to.text, sampled: true,
+                  fromRows: !Array.isArray(record.path) };
 
-    let result = null;
-    let lastError = null;
+    // desk-tune is still JS: its defaulted parameters infer as the literal null. Type the one
+    // call shape the desk uses; the migration to TypeScript will make this cast unnecessary.
+    const save = createVariant as unknown as (input: Record<string, unknown>) =>
+      Promise<{ uid: string; name: string; warning?: string }>;
+    let result: Awaited<ReturnType<typeof save>> | null = null;
+    let lastError: unknown = null;
     for (let attempt = 1; attempt <= 9; attempt += 1) {
       const name = attempt === 1 ? base : `${base}-${attempt}`;
       try {
-        result = await createVariant({
+        result = await save({
           spine: uid, name, values,
           path: trimmed.branches[0],
           branches: trimmed.branches.length > 1 ? trimmed.branches : null,
@@ -93,6 +105,6 @@ export const POST = async ({ request }) => {
     });
   } catch (error) {
     const status = error instanceof DeskError ? error.status : 400;
-    return json({ error: String(error.message || error) }, status);
+    return json({ error: String((error as Error).message || error) }, status);
   }
 };

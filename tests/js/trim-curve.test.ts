@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { parseFraction, parseRange, trimRun, trimRecord } from "../../app/src/lib/trim-curve.js";
+import { parseFraction, parseRange, trimRun, trimRecord } from "../../app/src/lib/trim-curve.ts";
 
 // The operator, 2026-11-24: "cutting the legs off the curves using rational fractions of t".
 // t = 0 is the first station, t = 1 the last; the cut is p/q, and the stations between the two

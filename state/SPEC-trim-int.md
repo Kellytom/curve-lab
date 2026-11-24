@@ -3,11 +3,11 @@
 **Status, 2026-11-24:** built; a trim saved end to end on c-0274 and removed.
 
 **The pages:** `app/src/pages/trim/index.astro` (the list), `app/src/pages/trim/[uid].astro`
-**The maths:** `app/src/lib/trim-curve.js` (pure, node-tested)
-**The save:** `app/src/pages/api/trim-curve.js` → `createVariant` in `app/src/lib/desk-tune.js`
-**The script:** `app/src/scripts/trim-desk.js`
-**The tests:** `tests/js/trim-curve.test.mjs`, `app/tests/desk-tune.test.mjs` (the record's cut
-metadata); the page check is `scripts/check-trim.mjs`
+**The maths:** `app/src/lib/trim-curve.ts` (pure, node-tested)
+**The save:** `app/src/pages/api/trim-curve.ts` → `createVariant` in `app/src/lib/desk-tune.js`
+**The script:** `app/src/scripts/trim-desk.ts`
+**The tests:** `tests/js/trim-curve.test.ts`, `app/tests/desk-tune.test.mjs` (the record's cut
+metadata); the page check is `scripts/check-trim.ts`
 
 ## What it is
 
@@ -21,7 +21,7 @@ two cut points are placed exactly on the fractions by interpolating the one segm
 ## The rules
 
 - **A fraction is whole numbers, `p/q`, in 0 … 1.** `1/4`, `3/4`, `1`; `0.25` is refused with a
-  message, `3/2` is past the end, `1/0` is refused. Check: `tests/js/trim-curve.test.mjs`.
+  message, `3/2` is past the end, `1/0` is refused. Check: `tests/js/trim-curve.test.ts`.
 - **The front cut comes before the back cut.** `from < to`; equal or reversed is refused.
 - **The kept stations are the record's own, and the two new ends lie on a stored segment.** The
   cut points are exact in `t`; the curve between stations is the record's sample, and the saved
@@ -37,7 +37,7 @@ two cut points are placed exactly on the fractions by interpolating the one segm
   the plate and the figure render in the detached child (`scripts/render_saved_curve.mjs`) under
   the render lock.
 - **The preview follows the form.** `preview the cut` is a plain GET carrying the fractions; only
-  `cut and save` is posted. Check: `scripts/check-trim.mjs` (a decimal is refused on the page, and
+  `cut and save` is posted. Check: `scripts/check-trim.ts` (a decimal is refused on the page, and
   the caption follows 1/3 → 2/3).
 
 ## The pages

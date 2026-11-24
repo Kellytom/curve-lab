@@ -112,7 +112,7 @@ def run(names, jobs=1):
 
 
 BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs", "check-tune-lab.mjs",
-                  "check-side-pillars.mjs", "check-gothic.mjs", "check-roots.mjs", "check-trim.mjs")
+                  "check-side-pillars.mjs", "check-gothic.mjs", "check-roots.ts", "check-trim.ts")
 
 
 def node_binary() -> str:
@@ -134,7 +134,9 @@ def run_js_tests() -> int:
         print("  JS tests skipped: no node")
         return 0
     files = sorted((ROOT / "tests" / "js").glob("*.test.js"))
+    files += sorted((ROOT / "tests" / "js").glob("*.test.ts"))
     files += sorted((ROOT / "app" / "tests").glob("*.test.mjs"))
+    files += sorted((ROOT / "app" / "tests").glob("*.test.ts"))
     if not files:
         return 0
     result = subprocess.run([node_binary(), "--test", *[str(f) for f in files]],

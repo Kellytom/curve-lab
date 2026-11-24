@@ -12,8 +12,8 @@ const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents
 
 const browser = await chromium.launch({ executablePath: EXE, headless: true });
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-const errors = [];
-page.on("pageerror", (error) => errors.push(error.message));
+const errors: string[] = [];
+page.on("pageerror", (error: Error) => errors.push(error.message));
 
 await page.goto(`${BASE}/trim/c-0274`, { waitUntil: "networkidle" });
 const caption = page.locator(".trim-half figcaption");

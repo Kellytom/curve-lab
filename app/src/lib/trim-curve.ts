@@ -10,12 +10,48 @@
 // Nothing here invents a curve: the kept stations are the record's own, and the two new endpoints
 // lie on the segment between stations, which the record already says is approximate there.
 
+export type Point = [number, number];
+
+export interface Fraction {
+  p: number;
+  q: number;
+  value: number;
+  text: string;
+}
+
+export interface Range {
+  from: Fraction;
+  to: Fraction;
+}
+
+export interface TrimRun {
+  kept: Point[];
+  head: Point[];
+  tail: Point[];
+  keptStations: number;
+  droppedStations: number;
+}
+
+export interface TrimmedRecord {
+  branches: Point[][];
+  path: Point[];
+  head: Point[];
+  tail: Point[];
+  keptStations: number;
+  droppedStations: number;
+}
+
+export interface CurveLike {
+  path?: Point[] | null;
+  branches?: Point[][] | null;
+}
+
 export class FractionError extends Error {}
 
-const integer = (text) => /^\d+$/.test(String(text).trim());
+const integer = (text: unknown): boolean => /^\d+$/.test(String(text).trim());
 
 // "1/4" or "3" — a decimal is refused on purpose: the cut is a rational fraction of t.
-export function parseFraction(text) {
+export function parseFraction(text: unknown): Fraction {
   const raw = String(text ?? "").trim();
   if (!raw) throw new FractionError("type a fraction, p/q");
   const parts = raw.split("/");
@@ -29,7 +65,7 @@ export function parseFraction(text) {
   return { p, q, value: p / q, text: q === 1 ? String(p) : `${p}/${q}` };
 }
 
-export function parseRange(fromText, toText) {
+export function parseRange(fromText: unknown, toText: unknown): Range {
   const from = parseFraction(fromText);
   const to = parseFraction(toText);
   if (!(from.value < to.value)) {
@@ -38,33 +74,31 @@ export function parseRange(fromText, toText) {
   return { from, to };
 }
 
-const at = (point, fraction) => point[0] + (point[1] - point[0]) * fraction;
-
 // The segment a fraction falls on, and the exact point there.
-function pointAt(points, fraction) {
+function pointAt(points: Point[], fraction: number): Point {
   const last = points.length - 1;
   const x = fraction * last;
   const i = Math.min(last - 1, Math.floor(x));
   const f = x - i;
   const a = points[i];
   const b = points[i + 1];
-  return [at([a[0], b[0]], f), at([a[1], b[1]], f)];
+  return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
 }
 
 // One run: the kept stations with exact endpoints, and the two legs that were dropped.
-export function trimRun(points, from, to) {
+export function trimRun(points: Point[], from: Fraction, to: Fraction): TrimRun | null {
   if (!Array.isArray(points) || points.length < 2) return null;
   const last = points.length - 1;
-  const kept = [];
+  const kept: Point[] = [];
   for (let i = 0; i <= last; i += 1) {
     const t = i / last;
     if (t > from.value && t < to.value) kept.push([points[i][0], points[i][1]]);
   }
   const start = pointAt(points, from.value);
   const end = pointAt(points, to.value);
-  const head = points.slice(0, Math.floor(from.value * last) + 1).map((p) => [p[0], p[1]]);
+  const head = points.slice(0, Math.floor(from.value * last) + 1).map((p): Point => [p[0], p[1]]);
   head.push(start);
-  const tail = [[...end]];
+  const tail: Point[] = [[...end] as Point];
   for (let i = Math.ceil(to.value * last); i <= last; i += 1) tail.push([points[i][0], points[i][1]]);
   return {
     kept: [start, ...kept, end],
@@ -75,11 +109,11 @@ export function trimRun(points, from, to) {
 }
 
 // The whole record: every branch is trimmed by the same fractions.
-export function trimRecord(record, from, to) {
+export function trimRecord(record: CurveLike, from: Fraction, to: Fraction): TrimmedRecord | null {
   const branches = Array.isArray(record.branches) && record.branches.length
     ? record.branches
-    : [record.path];
-  const runs = branches.map((branch) => trimRun(branch, from, to)).filter(Boolean);
+    : record.path ? [record.path] : [];
+  const runs = branches.map((branch) => trimRun(branch, from, to)).filter((run): run is TrimRun => Boolean(run));
   if (!runs.length) return null;
   const kept = runs.map((run) => run.kept);
   return {
@@ -92,9 +126,8 @@ export function trimRecord(record, from, to) {
   };
 }
 
-// The exact point at a fraction on the record's first run, for the readout: the cut lands on a
-// rational parameter, and its coordinates are printed from the stored segment, not re-sampled.
-export function pointAtFraction(record, fraction) {
+// The exact point at a fraction on the record's first run, for a readout.
+export function pointAtFraction(record: CurveLike, fraction: Fraction): Point | null {
   const points = Array.isArray(record.branches) && record.branches.length
     ? record.branches[0] : record.path;
   return points ? pointAt(points, fraction.value) : null;
