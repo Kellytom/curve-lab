@@ -29174,7 +29174,7 @@
    "status": "kept",
    "pngIgnored": true,
    "createdAt": "2026-11-24T16:09:31.272Z",
-   "stars": null,
+   "stars": 2,
    "formula": {
     "plain": "polyline through 721 stations, (1.933392, 2.10576) to (1.933392, 2.10576)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
@@ -29185,7 +29185,7 @@
    "note": {
     "uid": "c-0429",
     "name": "coupler-two-node",
-    "importance": 0,
+    "importance": 2,
     "rotation": 0,
     "pieces": 1,
     "borderUid": null,
@@ -29204,7 +29204,7 @@
     "conversion": null,
     "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
     "note": "four-bar coupler curve · crank 1.364 · coupler 4.102 · rocker 4.007 · ground 1.652 · point (2.322, 0.376) · two double points, mirror gap 1.7% of its size · sampled: the cos and sin of the crank angle, so the path is approximate between stations",
-    "updatedAt": "2026-11-24T16:09:31.272Z"
+    "updatedAt": "2026-11-24T16:19:02.995Z"
    },
    "set": null,
    "metric": null
