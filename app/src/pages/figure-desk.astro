@@ -1,0 +1,126 @@
+---
+// The figure desk — dot plots, algorithmic only. No cubic Bezier anywhere.
+//
+// The operator's direction, 2026-11-23: "make an algorithmic only attempt,
+// no cubic beziers. you can just plot the dots… use what you have available
+// from the whole repo." The plotting engine is the house one (Fig. 9's);
+// the stations come from app/src/lib/emblem-dots.js as exact rational
+// numbers. Spec: state/SPEC-figure-desk-int.md.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { figureSvg } from "../lib/plot-figure.js";
+import {
+  fishStations, heartStations, crossStations, chiRhoStations, toFloat,
+} from "../lib/emblem-dots.js";
+
+const STATION = "#c9761f";
+const LEGEND = [{ label: "stations — exact rational points, nothing drawn between", colour: STATION }];
+
+const panel = (key, title, bounds, stationLists, labels = [], legend = LEGEND) =>
+  figureSvg({
+    key, title,
+    bounds,
+    paths: [],
+    stations: stationLists.flat(),
+    labels: labels.map(([x, y, text]) => ({ x, y, text })),
+    legend,
+  });
+
+const fish = fishStations();
+const fishAll = toFloat([...fish.upper, ...fish.lower, fish.eye]);
+const heart = heartStations();
+const heartAll = toFloat([...heart.right, ...heart.left]);
+const cross = crossStations();
+const crossAll = toFloat([...cross.vertical, ...cross.horizontal]);
+const chi = chiRhoStations();
+const chiAll = toFloat([...chi.stem, ...chi.bowl, ...chi.xLeft, ...chi.xRight]);
+
+const fishPanel = panel(
+  "fish", "Fig. F — the ichthys: two mirrored parabola arcs, plotted dots",
+  [-80, 95, -45, 50], [fishAll],
+  [[-66, 8, "nose"], [-30, 22, "eye"], [70, -20, "tail"]],
+);
+const heartPanel = panel(
+  "heart", "Fig. H — the heart: rational arcs and bowed straight sides",
+  [-70, 70, -75, 90], [heartAll],
+  [[0, 50, "cleavage (cusp)"], [0, -62, "point (cusp)"], [30, 84, "lobe arc"]],
+);
+const crossPanel = panel(
+  "cross", "Fig. C — the Latin cross: two straight strokes",
+  [-60, 60, -95, 105], [crossAll],
+);
+const chiPanel = panel(
+  "chi-rho", "Fig. X — the chi-rho: stem, rational bowl, two X strokes",
+  [-60, 60, -95, 105], [chiAll],
+  [[0, 52, "bowl ring"]],
+);
+const fishRow = [
+  { flare: 28, tail: 78 }, { flare: 40, tail: 86 }, { flare: 52, tail: 94 },
+].map(({ flare, tail }, i) => {
+  const f = fishStations({ flare, tail, n: 20 });
+  return figureSvg({
+    key: `fish-row-${i}`, title: `flare ${flare} · tail ${tail}`,
+    bounds: [-80, 100, -45, 55], paths: [],
+    stations: toFloat([...f.upper, ...f.lower, f.eye]),
+    labels: [], legend: [],
+  });
+});
+---
+
+<BaseLayout title="figure desk" pageTitle="The figure desk: plotted stations, no curves">
+  <p class="lead">Algorithmic only, no cubic Béziers: every mark on this page is a
+    <b>station</b> — a point whose two coordinates are exact rational numbers,
+    computed in BigInt fractions and handed to the house figure engine. Nothing is
+    drawn <i>between</i> the stations; the dots are the drawing. Each emblem is
+    designed as one chain and mirrored — a reflection keeps every length, so the
+    mirror is exact too. This is the whole shape of the method: the plants were
+    built the same way.</p>
+
+  <div class="fd-grid">
+    <figure class="fd-card" set:html={fishPanel} />
+    <figure class="fd-card" set:html={heartPanel} />
+  </div>
+
+  <div class="fd-grid">
+    <figure class="fd-card" set:html={crossPanel} />
+    <figure class="fd-card" set:html={chiPanel} />
+  </div>
+
+  <h2>The fish parameter row</h2>
+  <p>One fish, three parameter sets — flare is the belly depth, tail the tail
+    length. The row is how a family is searched; every dot in every panel is
+    still an exact rational point.</p>
+  <div class="fd-row">
+    {fishRow.map((svg) => <figure class="fd-card fd-small" set:html={svg} />)}
+  </div>
+
+  <h2>What is exact here, and what is only a plot</h2>
+  <p><b>Exact:</b> every station. Each dot carries a fraction pair, reduced to
+    lowest terms; the mirror images are exact because reflection keeps every
+    length; the crossings (the fish's tail, the heart's cusps) are exact
+    stations, not found by eye.</p>
+  <p><b>Only a plot:</b> the pixel positions. A float is read from each fraction
+    when the dot is placed; the record is the fraction, the dot is its picture.</p>
+
+  <h2>What this proves, and what it does not</h2>
+  <p><b>Proves:</b> the emblems are computable with nothing but rational
+    arithmetic — parabola arcs, one rational circle family, straight strokes —
+    and the house engine renders them as figures, not squiggles.</p>
+  <p><b>Does not prove:</b> that dots alone make a plate; a plate needs the
+    band law, and the band needs the curve between stations. The jump from
+    this page to plates is exactly the cubic-chain question, and it stays open
+    on purpose.</p>
+
+  <p class="fd-fine">Dated 2026-11-23 · stations from
+    <code>app/src/lib/emblem-dots.js</code> (tested:
+    <code>tests/js/emblem-dots.test.js</code>) · engine
+    <code>app/src/lib/plot-figure.js</code> · spec
+    <code>state/SPEC-figure-desk-int.md</code>.</p>
+</BaseLayout>
+
+<style>
+  .fd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 12px 0; }
+  .fd-card { margin: 0; background: #fffef9; border: 1px solid var(--pico-muted-border-color, #ddd); padding: 6px; }
+  .fd-card :global(svg) { display: block; width: 100%; height: auto; }
+  .fd-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .fd-fine { font-size: 13px; color: var(--pico-muted-color, #777); }
+</style>
