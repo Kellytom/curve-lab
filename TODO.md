@@ -119,7 +119,9 @@ The main families are done; these are loose ends, not new work:
   the most symmetric is r2 1.364 · r3 4.102 · r4 4.007 · ground 1.652 · a 2.322 · b 0.376, mirror
   gap 1.7 %. So the family has nodes, at two of them, and the sandbox page's "none more than
   twice" is the shape of the family, not a sampling accident. The crossing counter was a separate
-  win: `curve_lab/crossings.py` took a 729-linkage sweep from minutes to 6.7 s.
+  win: `curve_lab/crossings.py` took a 729-linkage sweep from minutes to 6.7 s. **The most
+  symmetric one is a record:** `c-0429 coupler-two-node`, 721 sampled stations, two double
+  points, candidate (not on the plates until it is starred).
 
 
 - **Frames set: 90 or 231?** `state/FRAMES-int.md` records 90 chosen curves; the current
