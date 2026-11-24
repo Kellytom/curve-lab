@@ -51,6 +51,24 @@ each answer fixed something on the server without clicking the button on the pag
   proves it, and run the check with no `--write` before a handoff. The sidechat does this for
   its own work; DeepSeek1 does not tick sidechat's rows.
 
+## Language — TypeScript for new work (2026-11-24)
+
+The operator, 2026-11-24: "add to agents to write any new code or current js code in typescript
+directly". DeepSeek2 owns the migration of the Python/JS that already exists; do not start a
+sweep of old files.
+
+- **New code is TypeScript.** A new module, page script, API route or test is `.ts` (or `.tsx`),
+  not `.js`. Node 24 runs `.ts` directly with type stripping; Astro and Vite import `.ts`.
+- **When you change an existing `.js` for a feature, convert that file in the same commit** —
+  rename it, add the types its call sites need, update every import. Never leave a new `.js`
+  beside an old one.
+- **Python stays Python in `curve_lab/` and the root `scripts/`** until DeepSeek2 moves it; do
+  not rewrite a debugged Python module here. `state/PORT-int.md` holds the boundary.
+- **A page carries no rules.** The `trim` desk is the first example: maths in
+  `app/src/lib/trim-curve.ts`, wiring in `app/src/scripts/trim-desk.ts`, save in
+  `app/src/pages/api/trim-curve.ts`, test in `tests/js/trim-curve.test.ts`, page import with the
+  `.ts` specifier.
+
 ## Achievements are logged, not remembered
 
 Hours go into fixing a fault, and a fault fixed twice is a process failure. So:

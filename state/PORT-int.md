@@ -5,6 +5,10 @@ get dependent on Node for its own sake, and **do not rewrite code that is alread
 debugged**. This file turns that into a rule with a boundary, so the same
 argument is not had again.
 
+**Amended 2026-11-24:** new code is **TypeScript**, and a `.js` file being changed is converted
+in the same commit. DeepSeek2 owns moving the existing Python and JS; nobody starts a sweep of
+old files. Node 24 strips types for the tests, Astro and Vite import `.ts`.
+
 ## The rule
 
 1. **The browser is the product, so live maths is JS.** A number a control, a
