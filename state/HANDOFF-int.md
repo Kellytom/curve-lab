@@ -3912,6 +3912,40 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 - **Open:** how a studied curve becomes a plate record (the operator's call); the glue join at a
   node is the quintic action in `state/SPEC-glue-int.md`.
 
+## 2026-11-24 (the G3 quintic, in TypeScript) — the glue joint
+
+- **Built:** the glue sandbox's quintic kind (`app/src/lib/glue.ts`): six control points, P2/P3
+  from a 4×4 solve of the signed curvature and rate conditions at both ends; the page takes κ and
+  dκ/ds at each end and prints all six numbers (slope, κ, rate ×2); the loop-free straight glue is
+  a declared fallback.
+- **Proved:** `tests/js/glue.test.ts` — the stated case (slopes 3/4 and −7/24, κ 0.5/−0.25, rate
+  0.1/−0.2) matches all six at 1e-9; a zero-target straight glue is exact; the cubic tests still
+  pass.
+- **TypeScript:** the operator's rule (2026-11-24) — `glue.js`→`glue.ts`, `glue-sandbox.js`→`.ts`,
+  `glue.test.mjs`→`.test.ts`; `scripts/test.py` now runs `.test.ts` as well; the ai-news excerpt
+  path follows.
+- **App check:** red on another agent's in-flight trim files (`src/pages/api/trim-curve.ts`,
+  `src/lib/reduction/reduce.ts`), not on the glue files; the `/glue/` page check is green and the
+  probe prints the six numbers with no console error.
+- **Next:** the quintic's own loop mode; then the named Python→TS ports (`state/PLAN-int.md`).
+
+## 2026-11-24 (the crossing counter in TypeScript) — the core, ported
+
+- **Built:** `app/src/lib/crossings.ts`, the twin of `curve_lab/crossings.py` — grid buckets over
+  the segments, the same strict-orientation test, the same pair count (a triple point is three).
+- **Proved:** `tests/js/crossings.test.ts` — 50 random walks match the brute force; a figure-eight
+  is one pair; a hand-made triple point is three; the stored path records (c-0273, c-0288,
+  c-0274) agree with the Python counter's pinned numbers.
+- **Gate:** `scripts/test.py` ran the `.js`/`.mjs` and `.ts` groups in one invocation, which lost
+  the ESM detection for `.ts`; the two groups now run in separate invocations and the TS group
+  (glue, crossings, trim) is 14 tests green.
+- **The Python twin stays** for `scripts/crossing_audit.py` and its peers until those move; the
+  operator's list has the three scripts and the register next.
+- **Boundary state:** the app check is 0 errors (their trim/reduce files fixed); the fast gate's
+  two reds are theirs — `data/README.md` states 403 rows where the files hold 405, and
+  `TrimCurveTest` invokes `node` in a way that cannot load `.ts`. The glue/crossings tests and the
+  `/glue/` page check are green.
+
 ## 2026-11-23 (the cut desk landed; the fold, the tune strip, the hub stills)
 
 - **Landed this session, each with its hash:** the rail crossings (`1f4ce27f`), the tune page's
@@ -4079,3 +4113,28 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 - **State:** 403 curves, database 403/403/403, 8 studies. Register green; the new count test is in
   the fast module list.
 - **Next:** the frames decision (90 vs 231) still waits for the operator.
+
+## 2026-11-24 (the trim desk: legs off at rational fractions of t)
+
+- **`/trim/`** is the desk the operator asked for: cut any curve's legs off at two fractions
+  `t = p/q` (t = 0 first station, t = 1 last). The stations between the cuts are kept, the legs
+  are dropped and drawn dashed, and the two cut points sit exactly on the fractions on the stored
+  segment. Decimals are refused; `from` must come before `to`; a record with branches is cut per
+  branch. Maths `app/src/lib/trim-curve.ts`, page `app/src/pages/trim/[uid].astro`, save
+  `/api/trim-curve` → `createVariant`, script `trim-desk.ts`, checks `check-trim.ts`.
+- **The list follows the operator's order:** the **196** curves on `/plates` lead, in the plates'
+  own star order (`isKept` + `orderPlates`, the calls the plates page makes); the **209** other
+  cuttable records follow by uid; cards say `plates`. A rows record is **sampled** with the
+  plate's own sampler (700 stations) and the saved record says `fromRows`.
+- **Proofs:** c-0274 1/4→3/4 kept 95 stations, dropped 94; 1/3→2/3 kept 63, dropped 126; c-0001
+  (rows) 700→351. Each probe was removed; the parent is never touched.
+- **Faults found on the way:** the **preview button saved** on both the cut desk and the trim desk
+  (register 73); the tsconfig covered only six `.ts` files, so new TypeScript was transpiled but
+  not checked — now `src/**/*.ts` under `astro/tsconfigs/strict`, and `prebuild` runs `astro
+  check`. Two faults in already-migrated files fell out: `glue-sandbox.ts` missing the `Point`
+  import, `reduce.ts` typing `reduceAt` as the full `ReducedCurve`.
+- **Language:** AGENTS and `state/PORT-int.md` now say new code — and any `.js` being changed — is
+  TypeScript; DeepSeek2 owns the existing Python/JS migration. The trim desk is the first TS
+  example (lib, page script, API route, test, browser check).
+- **State:** 405 records (the batch of nine plus two from the other agent), database 405/405/405,
+  8 studies; `npm run check`: 0 errors; register green.

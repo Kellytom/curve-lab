@@ -6,6 +6,25 @@
 // fractions it shows and the cut piece is drawn for the range asked for.
 
 import { chromium } from "playwright-core";
+import { fileURLToPath } from "node:url";
+import { isKept } from "../app/src/lib/provenance.js";
+import { orderPlates } from "../app/src/lib/plate-order.js";
+
+// The pages read the registry through the database (loadRegistry), so the check does too.
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
+process.env.DATABASE_URL ||= `file:${fileURLToPath(new URL("../app/prisma/dev.db", import.meta.url))}`;
+const { loadRegistry } = await import("../app/src/lib/registry.ts");
+
+// The operator, 2026-11-24: "those curves are ok; leave them at the bottom. put the curves from
+// /plates". The list must lead with the plates' kept set, in the plates' star order, and the
+// counts it prints must be the ones the registry makes.
+const registry = await loadRegistry(ROOT);
+const byUid = new Map(registry.curves.map((curve: any) => [curve.uid, curve]));
+const cuttable = (curve: any) => (Array.isArray(curve.path) && curve.path.length > 2)
+  || (Array.isArray(curve.speedX) && Array.isArray(curve.speedY)
+    && curve.speedX.length > 0 && curve.speedY.length > 0);
+const plates = orderPlates(registry.curves.filter(cuttable).filter((curve: any) => isKept(curve, byUid)), "stars");
+const rest = registry.curves.filter(cuttable).filter((curve: any) => !plates.some((row: any) => row.uid === curve.uid));
 
 const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -14,6 +33,13 @@ const browser = await chromium.launch({ executablePath: EXE, headless: true });
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 const errors: string[] = [];
 page.on("pageerror", (error: Error) => errors.push(error.message));
+
+await page.goto(`${BASE}/trim/`, { waitUntil: "networkidle" });
+const lead = await page.locator("main .lead").innerText();
+if (!lead.includes(`${plates.length} curves on`)) throw new Error(`the plates count is missing: ${lead}`);
+if (!lead.includes(`${rest.length} others follow`)) throw new Error(`the rest count is missing: ${lead}`);
+const firstUid = await page.locator(".trim-card code").first().innerText();
+if (firstUid !== plates[0].uid) throw new Error(`the list leads with ${firstUid}, not ${plates[0].uid}`);
 
 await page.goto(`${BASE}/trim/c-0274`, { waitUntil: "networkidle" });
 const caption = page.locator(".trim-half figcaption");

@@ -598,6 +598,24 @@ each answer fixed something on the server without clicking the button on the pag
   proves it, and run the check with no `--write` before a handoff. The sidechat does this for
   its own work; DeepSeek1 does not tick sidechat's rows.
 
+## Language — TypeScript for new work (2026-11-24)
+
+The operator, 2026-11-24: "add to agents to write any new code or current js code in typescript
+directly". DeepSeek2 owns the migration of the Python/JS that already exists; do not start a
+sweep of old files.
+
+- **New code is TypeScript.** A new module, page script, API route or test is `.ts` (or `.tsx`),
+  not `.js`. Node 24 runs `.ts` directly with type stripping; Astro and Vite import `.ts`.
+- **When you change an existing `.js` for a feature, convert that file in the same commit** —
+  rename it, add the types its call sites need, update every import. Never leave a new `.js`
+  beside an old one.
+- **Python stays Python in `curve_lab/` and the root `scripts/`** until DeepSeek2 moves it; do
+  not rewrite a debugged Python module here. `state/PORT-int.md` holds the boundary.
+- **A page carries no rules.** The `trim` desk is the first example: maths in
+  `app/src/lib/trim-curve.ts`, wiring in `app/src/scripts/trim-desk.ts`, save in
+  `app/src/pages/api/trim-curve.ts`, test in `tests/js/trim-curve.test.ts`, page import with the
+  `.ts` specifier.
+
 ## Achievements are logged, not remembered
 
 Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
@@ -777,6 +795,7 @@ and documentation alike.
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
 | `app/` | the Astro app: the lab and the save endpoint; see `app/README.md` |
 | `app/src/lib/stars.js` | the plain-Node star save; portable to Next and Hono |
+| `app/src/pages/trim/` | **the trim desk**: cut any curve's legs off at rational t = p/q; the list leads with the 196 curves on `/plates`, the rest follow; maths in `app/src/lib/trim-curve.ts`, save `/api/trim-curve` |
 | `curve_lab/square_assembly.py` | the same corner rule in Python, for static proofs |
 | `founder/LOG.md` | the founder's current focus, dated entries and priority tags |
 | `state/PORT-int.md` | the language boundary: browser JS, Node for tests, Python where debugged |
@@ -4540,6 +4559,7 @@ spine, the fit is under tolerance, and the cap name is not double-prefixed.
 | 70 | 2026-11-23 | found in the full gate, not by the operator: the gothic variant writer set `transform` with `degrees` and `exact` but no `matrix`, so the saved arch c-0008a failed "every record carries its transform" and the record needed a repair | `tests/test_hybrids.py` (`TransformSlot.test_every_record_carries_its_transform`) | the transform slot on every saved record: the writer now builds the exact quarter-turn matrix (0/90/180/270) or a six-decimal display matrix, and `exact` is the quarter-turn flag |
 | 71 | 2026-11-23 | found in the full gate: 31 sampled extra-curves records were saved with no `conversion` slot keys, so the conversion-slot check named them one by one | `tests/test_hybrids.py` (`ConversionSlot.test_every_record_reserves_the_conversion_slot`) | the conversion slot on every record: `algorithm`, `status`, `target`, `formulaNext`; the 31 records were repaired to the slot, which the save path must now carry |
 | 72 | 2026-11-23 | found while making the save answer at once: the plate and figure renders now run in a detached child, so two quick saves can overlap, and both `--only` runs merge their indexes from the same read — the second would drop the first's curve (the fault of register 29, in a new place) | `tests/test_regressions.py` (`RenderLockTest`, running `tests/js/render-lock.test.mjs`: three jobs never share the lock, a held lock is waited for and released, the next job takes it) | one render at a time: `scripts/lib/render-lock.mjs` is a lock directory around both renders; the save itself never waits |
+| 73 | 2026-11-24 | found while building the trim desk: on both the cut desk and the trim desk the **preview** button saved the curve. The handler skipped only a button whose id was not the save id, and the preview button has no id, so the test `submitter.id && …` fell through and the GET became a POST | `scripts/check-trim.mjs` (the preview carries the fractions in the URL and no banner appears) and the same element comparison in both desks; the cut desk was proved by clicking its preview and reading a GET URL with no save | compare the submitter element with the save button, never its id; a button without an id is not the save |
 | 68 | 2026-11-23 | found while finishing the book set: 22 curves had no 3000 px plate (c-0398..c-0419, the Tschirnhausen family and the other additions) — every `print_plates --only` run writes the plate for the curves it names, and nothing checked the whole set | `tests/test_regressions.py` (`BookPlateTest`, running `scripts/check_book_plates.mjs`: every registry curve has a plate, long side 3000 px, pHYs 300 dpi, read from the PNG header) | the book set is checked as a whole, not per render; 403/403 pass |
 | 69 | 2026-11-23 | found in the build: `maxCurvature` read **0.0 on all 403 curves** — a documented placeholder ("0 when not yet computed") that looked like a measurement; `curvature_max` existed but was never called, and the field was in the analysis summary where a reader would trust it | `tests/test_regressions.py` (`MaxCurvatureTest`: most curves carry a reading and the values are not one constant — 400 numeric, 3 null at cusps, 389 distinct) | a field in the analysis is computed or it is null and said so; the sharpest bend is curvature × size, null past 1e6 where a cusp's polyline number would be the sampling |
 
@@ -4713,6 +4733,10 @@ The operator's position, 2026-11-17: **the page layer should be JS**, but do not
 get dependent on Node for its own sake, and **do not rewrite code that is already
 debugged**. This file turns that into a rule with a boundary, so the same
 argument is not had again.
+
+**Amended 2026-11-24:** new code is **TypeScript**, and a `.js` file being changed is converted
+in the same commit. DeepSeek2 owns moving the existing Python and JS; nobody starts a sweep of
+old files. Node 24 strips types for the tests, Astro and Vite import `.ts`.
 
 ## The rule
 
