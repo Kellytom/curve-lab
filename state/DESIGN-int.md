@@ -1163,3 +1163,17 @@ rational fraction values of the parametric. if that is t, then t".
 - **A variant writer must copy all three.** The first probe saved `share`, `t`, `axis` and the
   apex but not `q` / `tRequested`; fixed in `planVariant` and recorded in
   `state/PROBLEMS-gothic-int.md`.
+
+## Crossing pairs and crossing places (2026-11-24)
+
+Two numbers, two meanings, and both are used on purpose:
+
+- **A crossing pair** is two parameter intervals whose strokes meet. Three passes through one
+  point are three pairs. `curve_lab/crossings.py` counts pairs (the coupler, bezier knots).
+- **A crossing place** is one point, however many passes meet there. `character_search` and
+  `lattice_circle_mobile` count places because their reader sees a place. Dedup is by the rounded
+  meeting point.
+
+The registry's `features.crossing_pairs` is the pair count, kept honest by
+`scripts/crossing_audit.py`. A page that says "crosses itself 5" is quoting pairs; the count of
+places is smaller whenever a triple point exists. Do not replace one with the other in a refactor.

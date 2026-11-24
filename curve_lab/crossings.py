@@ -10,6 +10,11 @@ to the brute-force loop (the test compares them on random polylines).
 A pair is (i, j) with j >= i + 2 — adjacent segments share an endpoint by construction — and the
 meeting must be strictly inside both segments, so a vertex where the path merely touches does not
 count. Crossing pairs, not places: a triple point is three pairs.
+
+Two other counters in `scripts/` count **places** on purpose — `character_search.crossings` and
+`lattice_circle_mobile.crossings` dedupe by the rounded meeting point, because their readers see a
+place, not a pair. They are not duplicates of this one; do not "unify" them without changing what
+their pages say. (`bezier_knots.crossings` and the coupler's are pair counts with this meaning.)
 """
 
 from __future__ import annotations
