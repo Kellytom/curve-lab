@@ -3887,7 +3887,11 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 - **Full-gate repairs:** c-0008a lacked the 2×2 transform matrix (the variant writer now builds
   the exact quarter-turn matrix; record repaired) and 31 sampled extra-curves records lacked the
   conversion slot (repaired); `llms_full.py` was regenerated after AGENTS.md changed. Register
-  rows 68 and 69.
+  rows 70 and 71.
+- **Their emblem artifact:** `workbench/emblem-stations.json` was truncated mid-write because
+  `scripts/emblem_stations.py` serialized `Fraction` bounds; the generator now writes floats for
+  the bounds, the file is rebuilt, the format is in `FORMATS` and `state/DATA-int.md`. The data
+  audit is green.
 - **Next:** the operator's look; the rational-`t` control replaces the percent slider later.
 
 ## 2026-11-23 (the glue-ready Tschirnhausen pieces) — the sources named
@@ -4042,3 +4046,21 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   extra-curves records) are theirs, and their page edits keep `test_hub_stills` and
   `test_data_audit` red (emblem-stations.json). Nothing of theirs was staged or reverted.
 - **Next:** the frames decision (90 vs 231) or the book set, whichever the operator names.
+
+## 2026-11-24 (the root lab can search)
+
+- **`/roots` has the two axes the TODO asked for.** A second mirrored pair `p₂/q₂` (0 = off) and
+  the x row `A + B(t² − t)` (default 1, 2 — the known good one). The presets reset both new axes
+  so a known curve is still one click away.
+- **The maths is pinned.** `tests/js/root-lab.test.mjs` (5 pass): the default curve is unchanged;
+  v is anti-symmetric about t = ½ and u symmetric, so the curve mirrors about its vertical centre
+  (`x(t) + x(1−t) = x(1)`, `y(t) = y(1−t)`); a second pair adds two roots to v and none to u;
+  `B = 0` still mirrors.
+- **The page's controls reach the maths, proved in a browser:** `scripts/check-roots.mjs` moves
+  p₂ to 5 and B to 4 and requires the facts line to say `pair 2 5/7` and `x row 1 + 4(t² − t)`.
+  Added to the `--browser` checks.
+- **The Python twin follows:** `scripts/root_search.py --second P/Q --x A,B`. Its exact grid is
+  slow at the higher degree (a second pair makes v degree 8), so a `--second` run needs a longer
+  window than the default.
+- **State:** 403 curves, database 403/403/403, 8 studies; register green for the new test.
+- **Next:** the frames decision (90 vs 231) is still the operator's; the book set otherwise waits.

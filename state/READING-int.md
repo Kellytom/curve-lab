@@ -21,8 +21,8 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 3 | `LTMemory-int.md` | 329 | the map, the invariants, what is settled and what is open |
 | 4 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 5 | `state/PLAN-int.md` | 234 | the next few sessions, one action each, with what is parked and why |
-| 6 | `state/HANDOFF-int.md` | 4,044 | current truth — **read the tail (~80 lines), not the whole file** |
-| 7 | `TODO.md` | 1039 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 6 | `state/HANDOFF-int.md` | 4,066 | current truth — **read the tail (~80 lines), not the whole file** |
+| 7 | `TODO.md` | 1041 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 8 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
 | 9 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
 | 10 | `state/DESIGN-int.md` | 1165 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
