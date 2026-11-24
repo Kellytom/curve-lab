@@ -4141,5 +4141,11 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 - **Language:** AGENTS and `state/PORT-int.md` now say new code — and any `.js` being changed — is
   TypeScript; DeepSeek2 owns the existing Python/JS migration. The trim desk is the first TS
   example (lib, page script, API route, test, browser check).
-- **State:** 405 records (the batch of nine plus two from the other agent), database 405/405/405,
-  8 studies; `npm run check`: 0 errors; register green.
+- **Every branch's two cut points are marked** (eight marks on c-0416), not one pair for the first
+  branch; the test pins `marks.length === 2 × branches`.
+- **The data followed the two new records:** `analyse_curves` ran over 405 (it had stopped at
+  403), 405 metrics loaded, similarity and gaps regenerated; `data/README` counts are the files'
+  own. The register's node tests now use `~/node24` — a bare `node` on PATH could not run the
+  `.ts` test and failed it.
+- **State:** 405 records, database 405/405/405, 8 studies, 810 PNG files all accounted for;
+  `npm run check`: 0 errors; register 37 tests OK.
