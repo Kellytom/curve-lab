@@ -1,0 +1,167 @@
+---
+// Recent work: what changed, with a door to the page for each thing.
+//
+// Written 2026-11-24 for the operator after a long session. Not a generated catalogue: a dated
+// summary of the session's work, each item linking to the page where it lives. The commits are
+// read at request time, so the list cannot go stale.
+import { execFileSync } from "node:child_process";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { repoRoot } from "../lib/gallery.js";
+
+const commits = execFileSync("git", ["log", "--oneline", "-28"], { cwd: repoRoot(), encoding: "utf8" })
+  .trim().split("\n");
+
+const named = [
+  ["c-0420", "semicubical", "Neile's parabola; a cusp at the origin"],
+  ["c-0421", "kappa", "Gutschoven's kappa; r = cot θ"],
+  ["c-0422", "strophoid", "the right strophoid; the loop closes at the node"],
+  ["c-0423", "pear", "x² = y³(1 − y); the cusp at the origin"],
+  ["c-0424", "piriform 2×", "the water drop stretched 2× on x"],
+  ["c-0425", "bean", "the quartic bean, two branches"],
+  ["c-0426", "heart", "the smooth sextic heart, two sampled halves"],
+  ["c-0427", "squircle", "Lamé's quartic, |x|⁴ + |y|⁴ = 1"],
+  ["c-0428", "rounded square", "four edges and four exact quarter arcs"],
+];
+---
+
+<BaseLayout title="recent work" pageTitle="Recent work: 23–24 November 2026">
+  <style is:global>
+    .rw { display: grid; gap: 20px; margin-top: 18px; }
+    .rw section { border: 1px solid #e6dccb; background: #fffef9; padding: 14px 16px; }
+    .rw h2 { margin: 0 0 6px; }
+    .rw p, .rw li { line-height: 1.55; }
+    .rw .when { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #8a7a62; }
+    .rw .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 10px; margin-top: 10px; }
+    .rw figure { margin: 0; border: 1px solid #eee3d3; background: #fff; padding: 6px; }
+    .rw figure img { display: block; width: 100%; height: 130px; object-fit: contain; background: #fff; }
+    .rw figcaption { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #5a4a36; margin-top: 4px; }
+    .rw code { font-size: 0.92em; }
+    .rw .commits { columns: 2; font: 12px/1.5 ui-monospace, Menlo, monospace; color: #5a4a36; }
+    @media (max-width: 800px) { .rw .commits { columns: 1; } }
+  </style>
+
+  <h1>Recent work — 23–24 November 2026</h1>
+  <p class="lead">What was built and what was proved, newest first, with the page for each.
+    Every claim here is one a check or a printed number already backs.</p>
+
+  <div class="rw">
+    <section>
+      <h2>The trim desk — cut a curve's legs off at rational t</h2>
+      <p class="when">2026-11-24 · <a href="/trim/">/trim/</a> · <a href="/plates">/plates</a></p>
+      <p>Type two fractions, <code>p/q</code> and <code>r/s</code>: t = 0 is the first station,
+        t = 1 the last. The stations between the cuts are kept and the legs dropped; the cut
+        points sit exactly on the fractions. A decimal is refused on purpose.</p>
+      <ul>
+        <li>The list leads with the <b>196 curves on the plates</b> in their star order; the
+          209 other cuttable records follow. Every plate card carries a <b>trim</b> link.</li>
+        <li>A curve stored as speed rows is <b>sampled</b> with the plate's own sampler (700
+          stations) and the saved record says so; a four-branch curve is cut per branch and
+          every branch's two cut points are marked.</li>
+        <li>Saves beside the parent with the four side values; proved by clicking on
+          <code>c-0274</code> (1/5 → 4/5: 113 kept, 76 dropped).</li>
+      </ul>
+      <div class="cards">
+        <figure><img src="/figures/c-0274.png" alt="double-1-se-1, the trim example" />
+          <figcaption><a href="/trim/c-0274">c-0274</a> · cut its legs</figcaption></figure>
+        <figure><img src="/figures/c-0416.png" alt="the cruciform, four branches" />
+          <figcaption><a href="/trim/c-0416">c-0416</a> · four branches</figcaption></figure>
+        <figure><img src="/figures/c-0001.png" alt="amper, a rows record" />
+          <figcaption><a href="/trim/c-0001">c-0001</a> · sampled from rows</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>The cut desk answers, and the preview no longer saves</h2>
+      <p class="when">2026-11-23 · <a href="/cut/">/cut/</a> · <a href="/cut/c-0274">/cut/c-0274</a></p>
+      <ul>
+        <li>The save used to wait for the plate and figure renders inside the request (up to
+          180 s), so the button read "cutting…" while the record was already written. It now
+          returns at once; the renders run in a detached child under a lock.</li>
+        <li>A dot cut previews the kept arc, never the line's halves.</li>
+        <li>Both desks' <b>preview buttons were saving</b> (the handler checked an id that a
+          button without one does not have). Fixed on both, with a browser check.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Every named classical curve is now a record</h2>
+      <p class="when">2026-11-23/24 · <a href="/extra-curves/">/extra-curves/</a> ·
+        <a href="/figures/">/figures/</a></p>
+      <p>Nine added, sampled from the generators' own equations, each with a plate and a
+        figure. The missing list is <b>0 of 29</b>; the "quartic" and "sextic" it used to
+        propose were speed examples, never named curves.</p>
+      <div class="cards">
+        {named.map(([uid, name, why]) => (
+          <figure>
+            <img src={`/figures/${uid}.png`} alt={name} loading="lazy" />
+            <figcaption><a href={`/tune/${uid}`}>{uid}</a> {name}<br />{why}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2>The root lab has both missing axes</h2>
+      <p class="when">2026-11-24 · <a href="/roots/">/roots/</a></p>
+      <p>A second mirrored root pair (<code>p₂/q₂</code>) and a variable x row
+        <code>A + B(t² − t)</code>. The maths test pins the curve's mirror about its vertical
+        centre; a browser check moves both controls and requires the facts line to follow.</p>
+    </section>
+
+    <section>
+      <h2>A coupler curve with two nodes, and the bug that hid them</h2>
+      <p class="when">2026-11-24 · <a href="/sandbox/">/sandbox/</a> ·
+        <a href="/tune/c-0429">c-0429</a></p>
+      <p>The coupler search kept only "4+ crossing pairs" — impossible, since a four-bar
+        coupler curve has at most <b>three</b> double points. With the threshold at 2 and a
+        Grashof filter, 8,000 Grashof linkages give <b>nine</b> curves with two double points
+        and none with three. The most symmetric is a candidate record:
+        crank 1.364 · coupler 4.102 · rocker 4.007 · ground 1.652 · point (2.322, 0.376),
+        mirror gap 1.7 %.</p>
+      <div class="cards">
+        <figure><img src="/figures/c-0429.png" alt="the two-node coupler curve" />
+          <figcaption><a href="/tune/c-0429">c-0429</a> coupler-two-node · 721 sampled stations</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>The book set is whole and checked</h2>
+      <p class="when">2026-11-23 · <a href="/book">/book</a> · <a href="/plates">/plates</a></p>
+      <p>Twenty-two curves had no plate; rendered. <code>check_book_plates.mjs</code> reads
+        every PNG header: <b>406 plates, 3000 px on the long side, 300 dpi</b>.</p>
+    </section>
+
+    <section>
+      <h2>The records have a status and a PNG flag</h2>
+      <p class="when">2026-11-23 · <a href="/extra-curves/">/extra-curves/</a> ·
+        <a href="/class-v/">/class-v/</a></p>
+      <p>Every curve carries <code>status</code> (kept, in-progress, temporary, proposed) and
+        <code>pngIgnored</code>; page-only curves are <code>Study</code> rows. Git follows the
+        flag: 764 tracked renders were untracked, files kept on disk;
+        <code>set_png_flag.mjs &lt;uid&gt; keep|ignore</code> flips one.</p>
+    </section>
+
+    <section>
+      <h2>The working rules that changed</h2>
+      <p class="when">2026-11-24 · <code>AGENTS.md</code> · <code>state/PORT-int.md</code></p>
+      <ul>
+        <li><b>New code is TypeScript</b>, and any <code>.js</code> being changed is converted in
+          the same commit; DeepSeek2 owns moving what already exists. The app is under
+          <code>astro/tsconfigs/strict</code>, every <code>src/**/*.ts</code> is checked, and
+          <code>prebuild</code> runs <code>astro check</code>.</li>
+        <li><b>The operator's asks are a register</b> (<code>state/ASKS-int.md</code>), checked by
+          <code>scripts/check_asks.py</code>; a repeated ask is a fault, not a nudge.</li>
+        <li><b>Two said rolls</b>: the main chat's and the sidechat's own, each checked for a row
+          per statement and proof on every done row.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>The last commits</h2>
+      <p class="when">read from git at request time</p>
+      <ol class="commits">
+        {commits.map((line) => <li>{line}</li>)}
+      </ol>
+    </section>
+  </div>
+</BaseLayout>
