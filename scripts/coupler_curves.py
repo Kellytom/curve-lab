@@ -123,8 +123,48 @@ def main(argv=None) -> int:
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--wide", action="store_true",
                         help="wider link ratios and coupler fractions (about four minutes)")
+    parser.add_argument("--random", type=int, default=0,
+                        help="N random continuous linkages instead of the grid (a few hundred a second)")
+    parser.add_argument("--min-crossings", type=int, default=2,
+                        help="keep curves with at least this many crossing pairs (a coupler curve has at most 3 double points, so 4 is impossible)")
     args = parser.parse_args(argv)
 
+    if args.random:
+        # The grid is integers and a few fractions; the classic three-node couplers need their own
+        # ratios, so search the continuous space instead. The fast counter makes it cheap.
+        import random
+        rng = random.Random(20261124)
+        found = []
+        for _ in range(args.random):
+            r2 = round(rng.uniform(0.3, 4.0), 3)
+            r3 = round(rng.uniform(0.6, 7.0), 3)
+            r4 = round(rng.uniform(0.3, 6.0), 3)
+            ground = round(rng.uniform(0.6, 7.0), 3)
+            a = round(rng.uniform(-2.0, 3.0), 3)
+            b = round(rng.uniform(-2.0, 2.0), 3)
+            # Only a Grashof linkage with the crank shortest can turn a full circle; without that
+            # the trace is a partial arc and no coupler curve is drawn. Every classic multi-node
+            # coupler is Grashof, so the filter is the search, not a heuristic.
+            links = sorted((r2, r3, r4, ground))
+            if links[0] + links[3] > links[1] + links[2]:
+                continue
+            if r2 != links[0]:
+                continue
+            pts = trace(r2, r3, r4, ground, a, b)
+            if len(pts) < 700:
+                continue
+            n = crossings(pts)
+            if n >= args.min_crossings:
+                found.append({"r2": r2, "r3": r3, "r4": r4, "d": ground,
+                              "a": a, "b": b, "crossings": n,
+                              "mirror": symmetry_gap(pts), "points": pts})
+        found.sort(key=lambda item: (-item["crossings"], item["mirror"]))
+        print(f"{len(found)} of {args.random} random couplers with {args.min_crossings}+ crossings")
+        for item in found[:8]:
+            print(f"  r2 {item['r2']} r3 {item['r3']} r4 {item['r4']} ground {item['ground']} "
+                  f"a {item['a']} b {item['b']} -> {item['crossings']} crossings · "
+                  f"mirror {item['mirror']}")
+        return 0
     if args.wide:
         r2s, r3s, r4s, grounds = (1, 2, 3, 4), (2, 3, 4, 5, 6), (1, 2, 3, 4, 5), (2, 3, 4, 5, 6)
         a_s = (0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0)
@@ -144,15 +184,15 @@ def main(argv=None) -> int:
                             if len(pts) < 8:
                                 continue
                             n = crossings(pts)
-                            if n >= 4:
+                            if n >= args.min_crossings:
                                 found.append({
-                                    "r2": r2, "r3": r3, "r4": r4, "ground": ground,
+                                    "r2": r2, "r3": r3, "r4": r4, "d": ground,
                                     "a": a, "b": b, "crossings": n,
                                     "mirror": symmetry_gap(pts),
                                     "points": [[round(x, 4), round(y, 4)] for x, y in pts],
                                 })
     found.sort(key=lambda item: (-item["crossings"], item["mirror"]))
-    print(f"{len(found)} coupler curves with 4+ crossings")
+    print(f"{len(found)} coupler curves with {args.min_crossings}+ crossings")
     for item in found[:8]:
         print(f"  r2 {item['r2']} r3 {item['r3']} r4 {item['r4']} ground {item['ground']} "
               f"a {item['a']} b {item['b']} → {item['crossings']} crossings · mirror {item['mirror']}")
