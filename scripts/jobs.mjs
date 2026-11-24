@@ -2,7 +2,7 @@
 //
 //   node scripts/jobs.mjs session set --id deepseek2 --role assistant --model kimi --state working --job offsets
 //   node scripts/jobs.mjs session list
-//   node scripts/jobs.mjs job claim --id offsets --owner deepseek2 --files app/src/lib/bordered.js,scripts/frames_build.mjs
+//   node scripts/jobs.mjs job claim --id offsets --owner deepseek2 --files app/src/lib/bordered.js,scripts/frames_build.ts
 //   node scripts/jobs.mjs job release --id offsets --state done
 //   node scripts/jobs.mjs job list
 //

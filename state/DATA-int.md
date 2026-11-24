@@ -78,7 +78,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `finder-stars.json` | `curve-lab.finder-stars/1` | record | `app/src/lib/finder-stars.js` | the star list on the `/finder` page |
 | `finder-stars.backup.json` | `curve-lab.finder-stars/1` | backup | the `/finder` page, on save | `readSaved()` repair, then the page |
 | `found-curves.json` | `curve-lab.curves/2` | record | `scripts/real_curves.mjs` | the galleries, `ph_nth_panels.js` |
-| `frames.json` | `curve-lab.frames/1` | record | `scripts/frames_build.mjs` | the `/frames` page |
+| `frames.json` | `curve-lab.frames/1` | record | `scripts/frames_build.ts` | the `/frames` page |
 | `found-for-exp.json` | `curve-lab.curves/2` | orphan | — | — (no reader; archive when the public tree is cut) |
 | `g3-catalogue-cache.json` | `curve-lab.g3-catalogue-cache/1` | cache | `scripts/g3_catalogue.py` | `scripts/g3_catalogue.py` |
 | `g3-catalogue.json` | `curve-lab.g3-catalogue/1` | record | `scripts/g3_catalogue.py` | `scripts/g3_gate.py`, `g3_cubic_native.py` |

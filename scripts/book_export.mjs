@@ -5,7 +5,7 @@
 //   node scripts/book_export.mjs --only c-0001
 //
 // White ground, no text, tight to the marks, 300 dpi. The plate names and their
-// settings come from workbench/frames.json, which scripts/frames_build.mjs
+// settings come from workbench/frames.json, which scripts/frames_build.ts
 // writes; the figure comes from app/src/lib/bordered.js, so the book and the
 // screen cannot disagree.
 //
