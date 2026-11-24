@@ -20,8 +20,13 @@ two cut points are placed exactly on the fractions by interpolating the one segm
 
 ## The rules
 
-- **A fraction is whole numbers, `p/q`, in 0 … 1.** `1/4`, `3/4`, `1`; `0.25` is refused with a
-  message, `3/2` is past the end, `1/0` is refused. Check: `tests/js/trim-curve.test.ts`.
+- **A fraction is whole numbers, `p/q`, in 0 … 1, in lowest terms.** `1/4`, `3/4`, `1`; `2/4` is
+  shown and saved as `1/2`; `0.25` is refused with a message, `3/2` is past the end, `1/0` is
+  refused. Check: `tests/js/trim-curve.test.ts`.
+- **The presets are p-triple fractions, and a small cut is still a fraction.** `3/5`, `4/5`,
+  `5/13`, `12/13`, `8/17`, `15/17` use a hypotenuse as the denominator, so the cut keeps a
+  rational quarter-turn step; `0 → 1/17` and `0 → 1/25` are the tiny cuts — never snapped to 0,
+  never a decimal.
 - **The front cut comes before the back cut.** `from < to`; equal or reversed is refused.
 - **The kept stations are the record's own, and the two new ends lie on a stored segment.** The
   cut points are exact in `t`; the curve between stations is the record's sample, and the saved

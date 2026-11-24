@@ -64,10 +64,16 @@ export function parseFraction(text: unknown): Fraction {
   if (parts.length > 2 || !parts.every(integer)) {
     throw new FractionError(`${raw} is not a whole-number fraction; write p/q, like 1/4`);
   }
-  const p = Number(parts[0]);
-  const q = parts.length === 2 ? Number(parts[1]) : 1;
-  if (q === 0) throw new FractionError("the denominator cannot be zero");
-  if (p > q) throw new FractionError(`${raw} is past the end; t runs from 0 to 1`);
+  const p0 = Number(parts[0]);
+  const q0 = parts.length === 2 ? Number(parts[1]) : 1;
+  if (q0 === 0) throw new FractionError("the denominator cannot be zero");
+  if (p0 > q0) throw new FractionError(`${raw} is past the end; t runs from 0 to 1`);
+  // Lowest terms, always: 2/4 is shown and saved as 1/2, and 0 stays 0. The value is unchanged,
+  // so the cut is the same; the record does not carry two names for one fraction.
+  const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a || 1);
+  const divisor = gcd(p0, q0);
+  const p = p0 / divisor;
+  const q = q0 / divisor;
   return { p, q, value: p / q, text: q === 1 ? String(p) : `${p}/${q}` };
 }
 

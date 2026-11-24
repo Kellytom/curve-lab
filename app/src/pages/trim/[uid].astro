@@ -134,8 +134,11 @@ const qs = (from, to) => {
   if (label) params.set("name", label);
   return `/trim/${record.uid}?${params.toString()}`;
 };
-const presets = [["0", "1/2"], ["1/4", "1/2"], ["1/4", "3/4"], ["1/3", "2/3"],
-                 ["1/2", "1"], ["2/3", "1"]];
+// The presets are whole-number fractions, and the Pythagorean ones use a hypotenuse as their
+// denominator (5, 13, 17, 25): 3/5, 4/5, 5/13, 12/13, 8/17, 15/17 are rational quarter-turn
+// steps. A tiny cut is still a fraction, never 0 — 1/17 and 1/25 are here for that.
+const presets = [["0", "1/2"], ["1/4", "3/4"], ["3/5", "1"], ["3/5", "4/5"],
+                 ["5/13", "12/13"], ["8/17", "15/17"], ["0", "1/17"], ["0", "1/25"]];
 const saved = q.get("saved");
 const savedUid = q.get("new");
 ---
@@ -181,8 +184,10 @@ const savedUid = q.get("new");
       <button type="submit">preview the cut</button>
       <button type="submit" id="trim-save">cut and save</button>
       <p class="trim-state" id="trim-state" role="status" aria-live="polite"></p>
-      <p class="trim-note">A fraction is whole numbers, p/q, with 0 at the first station and 1 at
-        the last; a decimal is refused on purpose. {trimmed
+      <p class="trim-note">A fraction is whole numbers, p/q, in lowest terms, with 0 at the first
+        station and 1 at the last; a decimal is refused on purpose. The Pythagorean presets use a
+        p-triple hypotenuse as the denominator (3/5, 5/13, 8/17), so the cut keeps a rational
+        quarter-turn step, and a small cut stays a fraction of its own rather than 0. {trimmed
           ? `${trimmed.keptStations} stations kept, ${trimmed.droppedStations} dropped on the legs.`
           : ""}</p>
       {trimmed && (

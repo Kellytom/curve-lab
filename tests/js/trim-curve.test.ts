@@ -17,6 +17,10 @@ test("a fraction is whole numbers, inside 0 … 1, and a decimal is refused", ()
   assert.throws(() => parseFraction("3/2"), /past the end/);
   assert.throws(() => parseFraction("1/0"), /zero/);
   assert.throws(() => parseFraction(""), /type a fraction/);
+  assert.equal(parseFraction("2/4").text, "1/2", "a fraction is shown in lowest terms");
+  assert.equal(parseFraction("5/10").text, "1/2");
+  assert.equal(parseFraction("0").text, "0");
+  assert.equal(parseFraction("3/5").text, "3/5", "a p-triple fraction is already lowest terms");
 });
 
 test("the range refuses a front cut at or past the back cut", () => {
