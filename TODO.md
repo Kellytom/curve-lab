@@ -109,7 +109,12 @@ The main families are done; these are loose ends, not new work:
   p₂/q₂ (0 = off) and the x row A + B(t² − t); `scripts/root_search.py` takes `--second p/q` and
   `--x A,B`. The maths test pins the mirror; `check-roots.mjs` proves the sliders reach the curve.
 - the parity sweep (u even, v odd over t ∈ [−1,1]) gives symmetry but almost no crossings — recorded, not pursued;
-- coupler curves: my first generator zigzagged between circle-intersection branches; the family still looks worth one careful attempt.
+- **Coupler curves, the careful attempt (2026-11-24):** the generator now tracks the branch
+  (`circle_hit(..., previous)`), so a trace follows one intersection instead of zigzagging. A
+  sweep of 729 linkages (r2 1–3, r3 3–5, r4 2–4, ground 3–5, a 0.5–1.5, b 0.3–0.9, 720 steps)
+  found **0 curves with 4+ crossing pairs** — so the family as sampled has no knots to offer.
+  The sweep is also slow (~190M pair tests); widening the grid needs a faster crossing count
+  before another attempt, and the classic three-node couplers may sit outside these ranges.
 
 
 - **Frames set: 90 or 231?** `state/FRAMES-int.md` records 90 chosen curves; the current
