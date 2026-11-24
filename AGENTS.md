@@ -50,6 +50,9 @@ each answer fixed something on the server without clicking the button on the pag
   `scripts/said_checklist.py --who deep2 --write`, tick each statement with the commit that
   proves it, and run the check with no `--write` before a handoff. The sidechat does this for
   its own work; DeepSeek1 does not tick sidechat's rows.
+- **The sidechat is `deep2` is DeepSeek2 — one agent, three names** (operator, 2026-11-24).
+  DeepSeek1 is the other one. The `s` files, the sidechat's said roll and git for its own work
+  belong to DeepSeek2.
 
 ## Language — TypeScript for new work (2026-11-24)
 
