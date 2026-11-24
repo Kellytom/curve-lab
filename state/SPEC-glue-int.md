@@ -1,10 +1,11 @@
 # SPEC — the glue sandbox (`/glue/`)
 
-**Status, 2026-11-23:** the G1 cubic connector works and is checked; G3 and the loop are next.
+**Status, 2026-11-24:** the G1 cubic, the rational loop and the **G3 quintic** work; the quintic's
+own loop mode is next.
 
 **The page:** `app/src/pages/glue.astro`
-**The maths:** `app/src/lib/glue.js`; the drawing: `app/src/scripts/glue-sandbox.js`
-**The test:** `tests/js/glue.test.mjs`
+**The maths:** `app/src/lib/glue.ts`; the drawing: `app/src/scripts/glue-sandbox.ts`
+**The test:** `tests/js/glue.test.ts`
 **The check:** `app/scripts/check-pages.mjs /glue`
 
 ## What it is
@@ -22,19 +23,21 @@ slope of curve 1 will be different than curve 2, but a curve has to connect them
   directions are rational; the control points are fractions, not approximations. A pair whose
   hypotenuse is not whole falls back to a float and says so.
 - **Handles are shares of the gap**, 1–60 %, each side independent.
+- **The quintic is G3.** Six control points: `P0` and `P5` fixed, `P1`/`P4` on the typed
+  directions at the handle distances, and `P2`/`P3` solved so the signed curvature and its rate
+  match the typed targets at both ends. Four linear equations in `P2`/`P3` once the handles are
+  chosen; the page prints all six numbers (slope, κ, dκ/ds at each end). A straight glue
+  (zero targets, collinear ends) is underdetermined and uses the declared collinear fallback.
 
 ## What it does not do yet
 
-- **G2 and G3.** A cubic has eight numbers; G3 needs ten conditions (position, direction,
-  curvature and its rate at each end). G3 therefore needs a quintic (twelve numbers), and it
-  needs the neighbours' curvature and curvature rate at the join, which a record does not carry
-  at its leg today.
-- **A loop at the join** (the Tschirnhausen flourish). A cubic joining two directions that
-  point roughly forward is an S; a loop needs the extra control of the quintic.
+- **The quintic's own loop mode.** The rational cubic loops with a negative weight; the quintic
+  loop (a declared shape, not a wider handle) is the next action.
+- **The neighbours' curvature and rate are typed, not read.** The sandbox takes them as four
+  numbers; a record does not yet carry them at its leg.
 
 ## The next action
 
-A quintic connector with G3 at both ends: twelve control numbers, solved from the two end
-points, the two directions, the two curvatures and the two curvature rates; loop and no-loop
-modes. `Proves:` a test that prints all six end conditions at 1e-9 for a stated case, and the
-sandbox prints the same six numbers.
+The quintic's own loop mode: a declared loop at the join (a shape parameter, not a wider
+handle), with the crossing printed and the six G3 conditions still met. `Proves:` a test that
+prints the six end conditions at 1e-9 for a loop case and the sandbox draws it.

@@ -46,6 +46,7 @@ function draw(): void {
     return;
   }
   let curve = cubicPoints(ctrl);
+  let shownControls: Point[] = ctrl;
   let offset: Point[][] | null = null;
   let fit: { spans: unknown[]; error_max: number; cusps: unknown[] } | null = null;
   let conditions: ReturnType<typeof endConditions> | null = null;
@@ -63,6 +64,7 @@ function draw(): void {
       return;
     }
     curve = quinticPoints(q);
+    shownControls = q;
     conditions = endConditions(q);
   }
   if (kind === "levien") {
@@ -87,7 +89,7 @@ function draw(): void {
   if (bandOn) {
     const width = bandWidth * gap;
     const n = curve.length;
-    const normals = curve.map((p, i) => {
+    const normals = curve.map((_point, i) => {
       const a = curve[Math.max(0, i - 1)], b = curve[Math.min(n - 1, i + 1)];
       const tx = b.x - a.x, ty = b.y - a.y;
       const len = Math.hypot(tx, ty) || 1;
@@ -169,7 +171,7 @@ function draw(): void {
     `start slope ${fracText(s0)} (drawn ${typeof drawnSlope(0) === "number" ? (drawnSlope(0) as number).toFixed(6) : "∞"}) · ` +
     `end slope ${fracText(s1)} (drawn ${typeof drawnSlope(1) === "number" ? (drawnSlope(1) as number).toFixed(6) : "∞"})` +
     conditionText + "<br>" +
-    `control points: (${ctrl.map((p) => `${p.x.toFixed(4)}, ${p.y.toFixed(4)}`).join(") (")})<br>` +
+    `control points: (${shownControls.map((p) => `${p.x.toFixed(4)}, ${p.y.toFixed(4)}`).join(") (")})<br>` +
     `${loops.length ? `crosses itself at ${loops.map((p) => `${p.x.toFixed(2)}, ${p.y.toFixed(2)}`).join(" · ")}` : "does not cross itself at these handles"}` +
     (kind === "levien" ? `<br>offset ${distance.toFixed(2)} fitted with ${fit!.spans.length} cubic span(s); worst miss ${fit!.error_max.toFixed(5)}; ${fit!.cusps.length} cusp range(s)` : "") +
     (bandOn ? `<br>band ±${(bandWidth * gap).toFixed(3)} (${(bandWidth * 100).toFixed(1)} % of the gap); ` +

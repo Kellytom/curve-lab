@@ -200,7 +200,7 @@ def main():
                         "Which side of a turn folds — the plate's inside/outside rule"))
     code.append(excerpt("workbench/plate_math.js", "function roundSpikes", "const rotate",
                         "Rounding a rail's cusp spike"))
-    code.append(excerpt("app/src/lib/glue.js", "export function controls", "// the derivative",
+    code.append(excerpt("app/src/lib/glue.ts", "export function controls", "// the derivative",
                         "The glue connector: a cubic whose ends lie on typed slopes"))
     code.append(excerpt("app/src/lib/class-v.js", "export function archPath", "// side curves for a sampled outline",
                         "Class V: the arch as one stroke"))

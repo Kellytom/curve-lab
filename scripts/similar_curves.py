@@ -4,7 +4,7 @@
     .venv/bin/python scripts/similar_curves.py            # print the report
     .venv/bin/python scripts/similar_curves.py --write    # write state/SIMILARITY-int.md
 
-Reads `workbench/curve-analysis.json` (written by `scripts/analyse_curves.py`).
+Reads `workbench/curve-analysis.json` (written by `scripts/analyse_curves.ts`).
 No database: this is analysis of a file, so it can run anywhere.
 
 The distance is over the numbers that describe a curve's shape rather than its

@@ -1,0 +1,141 @@
+---
+// One curve at the gothic cut: the middle out, the two arms joined, the arch saved beside its
+// parent. Spec: state/SPEC-gothic-int.md.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadRegistry } from "../../lib/registry.ts";
+import {
+  bestAxis, cutArch, archFigure, integerHits, asFraction,
+  CUT_STEPS, DEFAULT_Q, MIRROR_GAP_LIMIT,
+} from "../../lib/gothic.ts";
+import { pointsOf } from "../../lib/curve-points.ts";
+import { formulaFor } from "../../lib/formula.js";
+
+const { uid } = Astro.params;
+const registry = await loadRegistry();
+const record = registry.curves.find((curve) => curve.uid === uid);
+if (!record) return Astro.redirect("/gothic/");
+
+const points = pointsOf(record);
+const sampled = !Array.isArray(record.path);
+const formula = formulaFor(record).plain;
+const axis = points && points.length >= 12 ? bestAxis(points) : null;
+const mirrored = Boolean(axis) && axis.gap <= MIRROR_GAP_LIMIT;
+const cuttable = Boolean(axis);
+const first = cuttable ? cutArch(points, { q: DEFAULT_Q, axis, force: !mirrored }) : null;
+const hits = points && points.length >= 12 ? integerHits(points) : [];
+const figure = first ? archFigure(first, { label: record.name, source: points, hits }) : "";
+const data = JSON.stringify({ uid: record.uid, name: record.name, points: points || [] });
+const suggested = `${record.name}-gothic`;
+const tText = first
+  ? `t = ${asFraction(first.t[0])} … ${asFraction(first.t[1])} ` +
+    `(step ${asFraction(first.q)})` +
+    (Math.abs(first.t[0] - first.tRequested[0]) > 1e-3
+      ? ` · asked ${asFraction(first.tRequested[0])} … ${asFraction(first.tRequested[1])}, ` +
+        "nearest station"
+      : "") +
+    ` · ${Math.round(first.share * 100)} % of the half`
+  : "";
+const hitText = hits.length
+  ? `integer hits ${hits.map((hit) => `(${hit.x}, ${hit.y}) at t = ${asFraction(hit.t)}`).join(", ")}`
+  : "no integer hit within 0.01";
+const initialReadout = first
+  ? `apex ${first.apexAngle.toFixed(1)}° · ${first.width.toFixed(2)} × ${first.height.toFixed(2)} ` +
+    `model units · feet level ${(first.feetLevel * 100).toFixed(2)} % · kept ` +
+    `${(first.keptShare * 100).toFixed(1)} % of the curve · turn ${first.degrees.toFixed(1)}° · ` +
+    `${tText} · ${hitText}`
+  : "";
+---
+
+<BaseLayout title="the gothic cut" pageTitle={`The gothic cut · ${record.uid}`}>
+  <p class="lead"><b>{record.uid}</b> {record.name} · <a href="/gothic/">all the curves</a> ·
+    <a href={`/plates#${record.uid}`}>its plate</a> · <a href={`/tune/${record.uid}`}>tune it</a>.
+    Cut the middle out and join the two outer arms at the cut: a pointed arch. The cut is a
+    symmetric pair about the curve's middle, and the arch is saved as a new curve beside its
+    parent.{sampled ? " The record is a rows record: its points are sampled from the speed pair" +
+      " (x′, y′) with the plate's own sampler." : ""}</p>
+  <p class="gothic-formula">{formula}</p>
+
+  {points && cuttable ? (
+    <div class="gothic-lab">
+      <div id="gothic-preview" class="gothic-preview" data-curve={data} set:html={figure} />
+      <div class="gothic-controls">
+        <label>cut at ±
+          <select id="gothic-q">
+            {CUT_STEPS.map((step) => (
+              <option value={step.q} selected={Math.abs(step.q - DEFAULT_Q) < 1e-12}>
+                {step.label}
+              </option>
+            ))}
+          </select>
+          <output id="gothic-q-out">{Math.round(DEFAULT_Q * 2 * 100)} %</output>
+        </label>
+        <p class="gothic-readout" id="gothic-readout">{initialReadout}</p>
+        {mirrored ? null : (
+          <p class="gothic-warn">The parent's two halves miss by{" "}
+            {(axis.gap * 100).toFixed(2)} % of its size. The arch is one arm mirrored: the other
+            half of the parent does not agree with it.</p>
+        )}
+        <form id="gothic-form" class="gothic-form">
+          <label>new name
+            <input name="name" type="text" maxlength="120" value={suggested} />
+          </label>
+          <button type="submit">cut and save</button>
+          <p class="gothic-state" id="gothic-state" role="status" aria-live="polite"></p>
+        </form>
+        <p class="gothic-note">The right arm is the left arm mirrored, so the two sides are equal.
+          A bigger cut removes more of the middle: a shorter, sharper arch. The turn is stored,
+          so the plate draws the apex up and the feet down.</p>
+      </div>
+    </div>
+  ) : (
+    <section class="gothic-no">
+      <h2>Not cuttable this way</h2>
+      {points
+        ? <p>{record.uid} has too few points to measure an axis.</p>
+        : <p>{record.uid} has neither a stored path nor speed rows, so there is nothing to cut.
+            Its plate is still on <a href="/plates">the plates</a>.</p>}
+      <p><a href="/gothic/">back to the gothic desk</a></p>
+    </section>
+  )}
+
+  <h2>What the numbers mean</h2>
+  <ul class="gothic-facts">
+    <li><b>The cut share</b> is the step each side of the middle, as a share of the half. For a
+      mirrored curve the speed is mirrored too, so the two steps are equal in length along the
+      curve; for a curve without a mirror the arch is one arm mirrored, and the gap between the
+      parent's two halves is printed.</li>
+    <li><b>The apex angle</b> is the angle between the arms at the join: 180° is a smooth
+      continuation, a small angle is a sharp point.</li>
+    <li><b>Feet level</b> is the height difference of the two feet as a share of the arch's size;
+      it is zero when the join is on the mirror line.</li>
+    <li><b>The turn</b> is stored in the record, so the plate draws the arch standing up; the
+      stored points are the parent's points, mirrored by an exact rational map.</li>
+  </ul>
+</BaseLayout>
+
+<script>
+  import "../../scripts/gothic-tuner.ts";
+</script>
+
+<style is:global>
+  .gothic-lab { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start; margin: 12px 0 18px; }
+  .gothic-preview { border: 1px solid #e6dccb; background: #fffef9; }
+  .gothic-preview svg { display: block; width: 100%; height: auto; }
+  .gothic-controls { display: grid; gap: 10px; font: 13px/1.5 ui-monospace, Menlo, monospace; }
+  .gothic-controls label { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr) 3.4rem; gap: 8px; align-items: center; }
+  .gothic-controls input[type="range"] { width: 100%; }
+  .gothic-readout { margin: 0; color: #5a4a36; }
+  .gothic-warn { margin: 0; color: #8a4b2a; font-size: 12px; }
+  .gothic-form label { display: grid; gap: 4px; }
+  .gothic-form input[type="text"] { width: 100%; padding: 2px 4px; font-size: 13px; }
+  .gothic-form button { width: 100%; margin-top: 6px; }
+  .gothic-state { min-height: 1.4em; margin: 6px 0 0; }
+  .gothic-state.ok { color: #2f6f3a; }
+  .gothic-state.bad { color: #9b2c2c; }
+  .gothic-state.busy { color: #7a6a55; }
+  .gothic-note { margin: 0; font-size: 12px; color: #7a6a55; }
+  .gothic-formula { margin: 4px 0 14px; font: 12px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; overflow-wrap: anywhere; }
+  .gothic-no { max-width: 74ch; }
+  .gothic-facts { font-size: 14px; line-height: 1.7; max-width: 74ch; }
+  @media (max-width: 760px) { .gothic-lab { grid-template-columns: minmax(0, 1fr); } }
+</style>

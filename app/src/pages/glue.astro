@@ -1,6 +1,6 @@
 ---
 // The glue sandbox: a connector between two curves whose end slopes differ.
-// Spec: state/SPEC-glue-int.md. Maths: app/src/lib/glue.js.
+// Spec: state/SPEC-glue-int.md. Maths: app/src/lib/glue.ts.
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -9,8 +9,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <code>−7/24</code>. A connector joins them: it leaves along the first slope and arrives
     along the second. The ends are exact by construction, so the printed slopes match the
     typed ones. Lengthen a handle and the connector swells; where it crosses itself the sandbox
-    prints the loop point. A true Tschirnhausen flourish — a loop at the join — needs more
-    control than a cubic has, so it is the next action, with G3.</p>
+    prints the loop point. A quintic connector matches the neighbours' curvature and its rate at
+    both ends (G3) and prints those six numbers; the loop at the join is the rational kind for
+    now. The Tschirnhausen pieces and their joinable ends are on
+    <a href="/pages/side-tests.html">the side-curve kinds page</a>.</p>
 
   <div class="glue-lab">
     <div id="glue-preview" class="glue-preview"></div>
@@ -26,8 +28,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <label>kind <select id="g-kind">
         <option value="cubic">cubic (G1)</option>
         <option value="rational">rational (weights)</option>
+        <option value="quintic">quintic (G3)</option>
         <option value="levien">Levien parallel fit</option>
       </select></label>
+      <label id="g-g3-row" style="display:none">G3 targets
+        <span class="g-g3">
+          <input id="g-k0" type="number" step="0.01" value="0" aria-label="start curvature" />
+          <input id="g-k1" type="number" step="0.01" value="0" aria-label="end curvature" />
+          <input id="g-r0" type="number" step="0.01" value="0" aria-label="start curvature rate" />
+          <input id="g-r1" type="number" step="0.01" value="0" aria-label="end curvature rate" />
+        </span>
+      </label>
       <label id="g-weight-row">weight <input id="g-weight" type="range" min="-3" max="4" step="0.1" value="1" />
         <output id="g-weight-out">1.0</output></label>
       <label id="g-distance-row">offset <input id="g-distance" type="range" min="0.02" max="0.3" step="0.01" value="0.08" />
@@ -43,28 +54,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <ul class="g-facts">
     <li><b>G1 is exact here.</b> Each end of the connector lies on the typed direction, so the
       slope at the join is the typed slope, not an approximation. The readout prints both.</li>
-    <li><b>G2 and G3 are not.</b> A cubic has eight numbers and G3 needs ten conditions, so a
-      cubic cannot be G3. G2 needs the neighbouring curve's curvature at the join; G3 also
-      needs how fast that curvature changes.</li>
+    <li><b>The quintic is G3.</b> Six control points (twelve numbers): the two ends, two handles
+      on the typed directions, and P2/P3 solved to match the signed curvature and its rate at
+      both ends. The readout prints all six numbers: slope, κ and dκ/ds at each end. A cubic
+      cannot do this — eight numbers, ten conditions.</li>
     <li><b>Rational curves can loop with a negative weight.</b> The middle weight at −2 bends the
       connector back through itself; the crossing is printed. A rational curve also carries exact
       conics, which a plain cubic cannot.</li>
     <li><b>Levien's parallel fit</b> offsets the connector with cubic spans and reports the worst
       error and the cusp ranges — the repository's own port, not a second implementation.</li>
-    <li><b>G3, and the loop, are quintic work</b> — six control points, twelve numbers — and
-      they are the next action: a connector that matches the neighbours' curvature and its rate
-      at both ends, and can loop where a leg wants a flourish. Every join defect will be
-      measured and printed, never assumed.</li>
+    <li><b>The loop at the join is the rational kind for now</b> — a negative weight bends the
+      cubic back through itself, and the crossing is printed. The quintic's own loop mode is
+      still to come; a loop needs the extra control, not a wider handle.</li>
   </ul>
 </BaseLayout>
 
 <script>
-  import "../scripts/glue-sandbox.js";
+  import "../scripts/glue-sandbox.ts";
 </script>
 
 <style is:global>
   .glue-lab { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: start; margin: 12px 0 18px; }
   .glue-preview { border: 1px solid #e6dccb; background: #fff; }
+  .glue-controls .g-g3 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .glue-controls .g-g3 input { width: 100%; padding: 1px 2px; }
   .glue-preview svg { display: block; width: 100%; height: auto; }
   .glue-controls { display: grid; gap: 8px; font: 12px/1.4 ui-monospace, Menlo, monospace; }
   .glue-controls label { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.2rem; gap: 6px; align-items: center; }

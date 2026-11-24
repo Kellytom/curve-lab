@@ -1,0 +1,128 @@
+---
+// The gothic desk: the /plates set, each with a door to the cut.
+//
+// The operator, 2026-11-23: "use class V and make an html page so i can see each curve that is
+// cut; model it on /plates with the same curves but a link to a tuner that will help us cut the
+// curve and save the new gothic type curve."
+//
+// The list is the same set and order as /plates, from the data. The mirror is measured on each
+// stored path, never assumed; a curve with no mirror says so and its door explains why.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadRegistry } from "../../lib/registry.ts";
+import { starsOf } from "../../lib/plate-order.js";
+import { bestAxis, asFraction, MIRROR_GAP_LIMIT } from "../../lib/gothic.ts";
+import { pointsOf } from "../../lib/curve-points.ts";
+
+const INDEX_STATIONS = 240; // enough to measure a mirror; the tuner samples 700
+const ORDER = ["name", "stars", "uid"];
+const asked = Astro.url.searchParams.get("order");
+const order = ORDER.includes(asked) ? asked : "name";
+const registry = await loadRegistry();
+const gothicOf = (curve) => (curve.params?.cut?.mode === "gothic" ? curve.params.cut : null);
+const gothicCount = registry.curves.filter((curve) => gothicOf(curve)).length;
+const set = Astro.url.searchParams.get("set") === "gothic" ? "gothic" : "all";
+const source = set === "gothic"
+  ? registry.curves.filter((curve) => gothicOf(curve))
+  : registry.curves;
+const rows = source.map((curve) => {
+  const points = pointsOf(curve, INDEX_STATIONS);
+  const axis = points && points.length >= 12 ? bestAxis(points) : null;
+  return {
+    uid: curve.uid,
+    name: curve.name,
+    sampled: !Array.isArray(curve.path),
+    points: points ? points.length : 0,
+    axis,
+    mirrored: Boolean(axis) && axis.gap <= MIRROR_GAP_LIMIT,
+    cuttable: Boolean(axis),
+    stars: starsOf(curve),
+    cut: gothicOf(curve),
+    // the record's equation as it is stored: the speed pair the plate integrates
+    formula: Array.isArray(curve.speedX) && curve.speedX.length
+      ? `x′ = [${curve.speedX.join(", ")}] · y′ = [${curve.speedY.join(", ")}]`
+      : (curve.formula?.plain || ""),
+  };
+});
+const ready = rows.filter((row) => row.cuttable).length;
+const atMirror = rows.filter((row) => row.mirrored).length;
+const oneArm = rows.filter((row) => row.cuttable && !row.mirrored).length;
+const sampled = rows.filter((row) => row.sampled).length;
+const none = rows.filter((row) => !row.points).length;
+// The cuttable curves first (mirror, then one arm), then any curve without points. Inside a
+// group the order is the operator's choice; the default is by name, so the page is not the
+// doubles family on every visit.
+rows.sort((a, b) => {
+  const rank = (row) => (row.mirrored ? 0 : row.cuttable ? 1 : 2);
+  if (rank(a) !== rank(b)) return rank(a) - rank(b);
+  if (order === "uid") return a.uid.localeCompare(b.uid);
+  if (order === "stars") return b.stars - a.stars || a.name.localeCompare(b.name);
+  return a.name.localeCompare(b.name);
+});
+---
+
+<BaseLayout title="the gothic desk" pageTitle="The gothic desk">
+  <p class="lead">Every stored curve, not only the plates set: a mirrored curve is cut a share
+    each side of its middle and the two outer arms are joined at the cut: a pointed arch. The
+    mirror is measured on each curve, and its gap is printed as a share of the curve's own size.
+    A rows record is sampled from its speed polynomials (<code>x′</code>, <code>y′</code>) with
+    the plate's own sampler; the equation is shown on the card. The cuttable curves come first,
+    then the one-arm cuts, then any curve without points, which says why.</p>
+  <p class="gothic-count">{ready} of {rows.length} can be cut · {atMirror} at their own mirror ·{" "}
+    {oneArm} from one arm, with the gap printed · {sampled} sampled from the speed rows ·{" "}
+    {none} without points · the arch is one arm mirrored, so a curve without a mirror is offered
+    too · {gothicCount} gothic arch{gothicCount === 1 ? "" : "es"}{set === "gothic"
+      ? <> · <a href="/gothic/">all curves</a></> : <> · <a href="/gothic/?set=gothic">show them</a></>} ·
+    order: {order === "name"
+      ? <><b>name</b> · <a href="/gothic/?order=stars">stars</a> · <a href="/gothic/?order=uid">uid</a></>
+      : order === "stars"
+        ? <><a href="/gothic/?order=name">name</a> · <b>stars</b> · <a href="/gothic/?order=uid">uid</a></>
+        : <><a href="/gothic/?order=name">name</a> · <a href="/gothic/?order=stars">stars</a> · <b>uid</b></>}</p>
+
+  <h2>Curves that live on their own pages</h2>
+  <p class="gothic-count">These families are constructions or studies, not registry records, so
+    they are not in the list below: <a href="/pages/side-tests.html">Tschirnhausen and
+    variations</a> (the glue-ready pieces, with their rational ends and slopes),
+    <a href="/glue/">the glue sandbox</a> (the connector curves),
+    <a href="/class-v/">class V</a> (the arch from a halved Tschirnhausen), and
+    <a href="/extra-curves/">the extra curves</a> (Tschirnhausen and the classical shapes — these
+    are records and do appear below).</p>
+
+  <div class="gothic-grid">
+    {rows.map((row) => (
+      <article class="gothic-card" id={row.uid}>
+        <a href={`/gothic/${row.uid}`} title="open the cut for this curve">
+          <img src={`/api/print-plate/${row.uid}?format=svg`} alt={`the plate of ${row.uid} ${row.name}`}
+            loading="lazy" />
+        </a>
+        <p class="gothic-name"><a href={`/gothic/${row.uid}`}><code>{row.uid}</code> {row.name}</a></p>
+        <p class="gothic-meta">
+          {row.cut
+            ? <span class="gothic-tag">gothic arch · cut {Math.round(Number(row.cut.share || 0) * 100)} %{
+                row.cut.t ? ` · t ${asFraction(row.cut.t[0])} … ${asFraction(row.cut.t[1])}` : ""} · </span>
+            : null}
+          {row.cuttable
+            ? row.mirrored
+              ? <>{row.axis.label} mirror · gap {(row.axis.gap * 100).toFixed(2)} %{row.sampled
+                  ? " · sampled from the rows" : ""} · <a href={`/gothic/${row.uid}`}>cut it</a></>
+              : <>no mirror · best gap {(row.axis.gap * 100).toFixed(2)} %{row.sampled
+                  ? " · sampled from the rows" : ""} · <a href={`/gothic/${row.uid}`}>cut one arm</a></>
+            : row.points
+              ? <>too few points to measure · <a href={`/gothic/${row.uid}`}>why not</a></>
+              : <>neither a path nor speed rows · <a href={`/gothic/${row.uid}`}>why not</a></>}
+        </p>
+        <p class="gothic-formula">{row.formula}</p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .gothic-count { font: 15px/1.4 ui-monospace, Menlo, monospace; color: #5a4a36; }
+  .gothic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .gothic-card { border: 1px solid #e6dccb; background: #fffef9; padding: 10px; margin: 0; }
+  .gothic-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; display: block; }
+  .gothic-name { margin: 8px 0 2px; font-size: 14px; }
+  .gothic-meta { margin: 0; font: 12px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .gothic-tag { color: #7a5a1f; font-weight: 600; }
+  .gothic-formula { margin: 2px 0 0; font: 11px/1.4 ui-monospace, Menlo, monospace; color: #8a7a63; overflow-wrap: anywhere; }
+</style>

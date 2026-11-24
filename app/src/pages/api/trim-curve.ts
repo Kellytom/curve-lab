@@ -12,7 +12,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { repoRoot } from "../../lib/gallery.js";
 import { parseRange, trimRecord } from "../../lib/trim-curve.ts";
-import { pointsOf } from "../../lib/curve-points.js";
+import { pointsOf } from "../../lib/curve-points.ts";
 import { DeskError, createVariant, valuesFrom } from "../../lib/desk-tune.js";
 
 const json = (body: unknown, status = 200): Response => new Response(JSON.stringify(body), {

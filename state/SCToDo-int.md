@@ -11,7 +11,22 @@ gate is green; report the hash. Long items go to the background, never waited on
 
 ---
 
-## The next ten, in order — set 2026-11-23
+## The next rows — set 2026-11-24
+
+I am DeepSeek2 (the sidechat, `deep2`); DeepSeek1 is the senior. The session that produced the
+gothic desk and the glue quintic ran as the main thread, so its detailed blocks are in the `f`
+files; the rows below are the sidechat's living queue.
+
+| # | row | `Proves:` | state |
+|---|---|---|---|
+| 1 | The gothic family to TypeScript (the last new JS, written before the 2026-11-24 rule): `gothic.js`, `gothic-tuner.js`, `curve-points.js`, `api/gothic-arch.js`, `tests/js/gothic.test.js` → `.ts`, imports updated. | the same 18 tests pass as `.ts`; no gothic `.js` remains; `/gothic/c-0008` opens with the menu and the six numbers; app check 0 errors | DONE 2026-11-24 |
+| 2 | `scripts/root_search.py` → TS: the twin is written (`app/src/lib/root-search.ts`, `scripts/root_search.ts`); the Python stays for `adder_roots.py` until that moves. | the search's 60 rows match the current Python's numbers; the test pins the ranked rows | DONE 2026-11-24 — the stale data file is regenerated from the TS; the pinned row (grid 105, bend 1.1696, inflections 2, crossings 3, places 3, grace 0.0445) matches the current Python; 4 tests, 0.5 s |
+| 3 | `scripts/coupler_curves.py` → TS: same algorithm, same JSON; check its importers first. | the TS output equals the current Python's `coupler-curves.json` for the same seed | DONE 2026-11-24 — `app/src/lib/coupler-curves.ts` + `scripts/coupler_curves.ts` + 2 tests; the data regenerated from the TS (20 rows of the 49 found). The Python stays for `tests/test_crossing_calibration.py` and had a real print bug (`KeyError: 'ground'`) fixed; its CLI now runs |
+| 4 | `tests/test_regressions.py` → a TS register running the Node and browser checks. | the same test names and results run from the TS register | MINE, next — 542 lines, 29 tests; read it first and list each test's mechanism (subprocess, browser, file) before moving one class |
+| 5 | The quintic's own loop mode (a declared shape, not a wider handle). | six G3 conditions at 1e-9 on a loop case; the sandbox draws it | after 1–2 |
+| 6 | The push. | `scripts/prepush.sh` green; the hash reported | BLOCKED: DeepSeek1's `data/README.md` (403 vs 405) and `TrimCurveTest` (node/`.ts`) |
+
+## The set of 2026-11-23 (history; row 4 stays in the long-term track)
 
 Five are mine and unblocked; five are the senior's or blocked, and are marked so
 that nobody reads this list as a plan I am free to reorder. The first row is

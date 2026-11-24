@@ -70,7 +70,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `flowers.json` | `curve-lab.flowers/1` | cache | `scripts/stems_print.py` | `scripts/stems_print.py` |
 | `curve-registry.json` | `curve-lab.curve-registry/1` | record | `scripts/curve_registry.py` | the registry and the naming pass |
 | `curve-notes.json` | `curve-lab.curve-notes/1` | record | `/api/curve-notes` | the registry build |
-| `curve-analysis.json` | `curve-lab.curve-analysis/1` | record | `scripts/analyse_curves.py` | `app/scripts/load-analysis.mjs`, `scripts/similar_curves.py` |
+| `curve-analysis.json` | `curve-lab.curve-analysis/1` | record | `scripts/analyse_curves.ts` | `app/scripts/load-analysis.mjs`, `scripts/similar_curves.py` |
 | `curve-notes.backup.json` | `curve-lab.curve-notes/1` | backup | `/api/curve-notes`, on every write | the naming pass after a damaged read |
 | `naming-todo.json` | `curve-lab.naming-todo/1` | working | `scripts/curve_registry.py` | the naming page |
 | `finder.json` | `curve-lab.finder/1` | cache | `scripts/curve_finder.py` | the Astro `/finder` page |
@@ -91,6 +91,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `mobile-curves.json` | `curve-lab.mobilecurves/1` | cache | `scripts/mobile_search.py` | the `/sandbox` mobile section |
 | `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
+| `emblem-stations.json` | `curve-lab.emblem-stations/1` | cache | `scripts/emblem_stations.py` | the emblem sheet: the fish, sprig, rosette and band panels, their stations and bounds |
 | `nurbs-inventory.json` | `curve-lab.nurbs-inventory/1` | cache | the session's degree sweep | the NURBS-readiness analysis (`state/SC-NURBS-int.md`) |
 | `speed-fit-census.json` | `curve-lab.speed-fit-census/1` | cache | `reduction/speed_fit_census.py` | the R1 decision: which over-ceiling curves a speed-space re-fit serves (the fit family) and which need a sibling |
 | `sibling-map.json` | `curve-lab.sibling-map/1` | cache | `scripts/sibling_map.py` | the sibling decision: per over-ceiling curve, the same-construction recipe at the ceiling and its miss in units, or why none exists |

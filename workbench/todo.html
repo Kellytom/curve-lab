@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:67.7%}
+.fill{height:100%;background:#8c6a21;width:68.2%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -35,7 +35,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">132 / 195 done · 68% · read-only twin of
+<div class="count">133 / 195 done · 68% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -62,8 +62,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>Two rows of <code>state/PLAN-int.md</code> cannot be worked until the operator answers, and both have been started once and lost. Written here so the next session reads the question instead of re-deriving it.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>The offset start-point shift.</strong> The operator, 2026-11-21: &quot;the offset curves should look</span></label>
 <p>the same on both sides of the curve, not thin on the right and wide on the left ... if the difference at the end is 10x 10y, then move the starting position by 5 x and 5 y to balance&quot;. The two sides already take one strength (<code>plate-offset.test.mjs</code>), but the shift is not in the tree: <code>tests/js/plate-offset.test.mjs</code> has no shift case and neither <code>plate_math.js</code> nor <code>print_plates.mjs</code> moves a start. <strong>The question:</strong> *which two endpoints* is &quot;the difference at the end&quot; measured between — (a) the two rails at the curve&#x27;s end, or (b) the rail&#x27;s own start gap against its end gap? Both readings fit the sentence, and they move every plate a different way. <strong>Why it is blocked:</strong> the answer changes every plate, so a wrong guess is a full re-render of 393 plates and a wrong book. One word from the operator unblocks it.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>The named scrollwork and select exceptions.</strong> The operator has said the plates migrate per</span></label>
-<p>family and that the scrollwork and &quot;select&quot; curves are exceptions, but has not said which. The candidates in the plan are the six flourish, the curlicue, the log spiral and the involute. <strong>The question:</strong> name the curves that are exceptions, and say how a scrollwork plate differs (spine only? the whole curve railed? something else?). <strong>Why it is blocked:</strong> picking the set silently would migrate the wrong plates.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>The named scrollwork and select exceptions — answered 2026-11-23: the list is empty.</strong></span></label>
+<p>&quot;None of the curves selected so far technically need parallel curves.&quot; The parallel route was solved already and is stored with the <code>grid-8</code> project (<code>~/developer/grid-8</code>); it is called up only for special diagram plates — the operator&#x27;s example is the fifth joyful mystery (finding in the temple: the scroll, the temple and the signs that point to the mystery, not the figure). Those plates are a later set. The candidates (six flourish, curlicue, log spiral, involute) are not exceptions. Recorded in <code>state/DESIGN-int.md</code> §A parallel rail is for a special diagram.</p>
 <h2>Rich chat display — after the curves and the books (2026-11-23)</h2>
 <p>The operator: &quot;since you have a server running, you could use that to display plots, designs, graphics, little interactive panes just like google chat and gemini and xai, etc. and then say in your chat response (see full chat response in browser)&quot;. <strong>Parked behind the curves and the book</strong>, deliberately: it is a presentation layer, and the catalogue is the work. The design and its first measurable step are in <code>state/SPEC-chat-display-int.md</code>; <code>/said/</code> and <code>/deep2-said/</code> are the first two pages of the pattern.</p>
 <h2>Future exploration — see <code>state/EXPLORATION-int.md</code></h2>

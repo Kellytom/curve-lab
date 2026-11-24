@@ -119,46 +119,79 @@ function panel(record) {
 
 const sections = UIDS.map((uid) => byUid.get(uid)).filter(Boolean).map(panel).join("\n");
 
-// ---- Tschirnhausen, and four variations --------------------------------------------------
-// y^2 = x^2 (x + 3), parametrised x = t^2 - 3, y = t (t^2 - 3). The node sits at t = ±√3,
-// which is irrational, so the curve has no integer parameter for its crossing point.
-const tschirnhausen = (n = 700, lo = -2.4, hi = 2.4) => {
-  const pts = [];
-  for (let i = 0; i <= n; i += 1) {
-    const t = lo + ((hi - lo) * i) / n;
-    pts.push([t * t - 3, t * (t * t - 3)]);
+// ---- Tschirnhausen, and its glue-ready pieces ---------------------------------------------
+// y^2 = x^2 (x + 3), parametrised x = t^2 - 3, y = t (t^2 - 3). The node sits at t = ±√3, which
+// is irrational. Every other rational t gives a rational point AND a rational slope, so a piece
+// can be cut there and the glue desk can join it:
+//   the operator, 2026-11-23: "Tschirnhausen and variations that would allow me to glue curves
+//   together".
+const SQ3 = Math.sqrt(3);
+const tschPoint = (t) => [t * t - 3, t * (t * t - 3)];
+const tschSlope = (t) => {
+  const dx = 2 * t;
+  const dy = 3 * t * t - 3;
+  if (Math.abs(dx) < 1e-12) return null; // vertical
+  if (Math.abs(Math.abs(t) - SQ3) < 1e-9) return Math.sqrt(3) * Math.sign(t); // irrational
+  return dy / dx;
+};
+const fraction = (value, maxDenominator = 2000) => {
+  if (!Number.isFinite(value)) return "—";
+  for (let denominator = 1; denominator <= maxDenominator; denominator += 1) {
+    const numerator = Math.round(value * denominator);
+    if (Math.abs(value - numerator / denominator) < 1e-9) {
+      const text = denominator === 1 ? String(numerator) : `${numerator}/${denominator}`;
+      return text.replace("-", "−");
+    }
   }
+  return value.toFixed(3).replace("-", "−");
+};
+const tLabel = (t) => (Math.abs(Math.abs(t) - SQ3) < 1e-9
+  ? (t > 0 ? "√3" : "−√3")
+  : fraction(t));
+const slopeLabel = (t) => {
+  const slope = tschSlope(t);
+  if (slope === null) return "vertical";
+  if (Math.abs(Math.abs(t) - SQ3) < 1e-9) return `${t > 0 ? "√3" : "−√3"}, not rational`;
+  return fraction(slope);
+};
+const tschPiece = (from, to, steps = 240) => {
+  const pts = [];
+  for (let i = 0; i <= steps; i += 1) pts.push(tschPoint(from + ((to - from) * i) / steps));
   return pts;
 };
-const tschVariants = (() => {
-  const base = tschirnhausen();
-  const turn = (pts, deg) => {
-    const a = (-deg * Math.PI) / 180, co = Math.cos(a), si = Math.sin(a);
-    return pts.map(([x, y]) => [x * co - y * si, x * si + y * co]);
-  };
-  const [x0, y0] = [Math.min(...base.map((p) => p[0])), Math.min(...base.map((p) => p[1]))];
-  return [
-    { name: "Tschirnhausen", sides: [base], note: "x = t² − 3, y = t(t² − 3) · node at t = ±√3" },
-    { name: "halved", sides: [base.map(([x, y]) => [x / 2, y / 2])], note: "the same curve at half size" },
-    { name: "turned 45°", sides: [turn(base, 45)], note: "sampled: the 45° turn carries √2" },
-    { name: "mirrored", sides: [base.map(([x, y]) => [-x, y])], note: "reflected across x = 0" },
-  ];
-})();
+const tschVariants = [
+  { name: "the whole curve", from: -2.4, to: 2.4, note: "x = t² − 3, y = t(t² − 3)" },
+  { name: "the loop", from: -SQ3, to: SQ3, note: "node at (0, 0); the two ends meet" },
+  { name: "the + arm", from: SQ3, to: 2.4, note: "node → tip" },
+  { name: "the − arm", from: -2.4, to: -SQ3, note: "tip → node" },
+  { name: "+ arm, trimmed at t = 2", from: SQ3, to: 2, note: "a shorter piece" },
+  { name: "+ arm, mirrored", from: SQ3, to: 2.4, mirrored: true, note: "the other hand" },
+];
 const tschPanel = tschVariants.map((variant) => {
-  const all = variant.sides.flat();
-  const [ax, ay, bx, by] = bbox(all);
+  const raw = tschPiece(variant.from, variant.to);
+  const pts = variant.mirrored ? raw.map(([x, y]) => [-x, y]) : raw;
+  const [ax, ay, bx, by] = bbox(pts);
   const w = 260, h = 200, margin = 14;
   const k = Math.min((w - 2 * margin) / (bx - ax || 1), (h - 2 * margin - 18) / (by - ay || 1));
   const ox = (w - (bx - ax) * k) / 2, oy = (h - (by - ay) * k) / 2;
   const put = ([x, y]) => [ox + (x - ax) * k, h - (oy + (y - ay) * k) - 18];
-  const line = '<path d="M ' + variant.sides[0].map((p) => put(p).map((v) => v.toFixed(1)).join(" ")).join(" L ") +
+  const line = '<path d="M ' + pts.map((p) => put(p).map((v) => v.toFixed(1)).join(" ")).join(" L ") +
     '" fill="none" stroke="#2b2b2b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>';
+  const endA = tschPoint(variant.from);
+  const endB = tschPoint(variant.to);
+  const ends = `t ${tLabel(variant.from)} → ${tLabel(variant.to)} · ` +
+    `(${fraction(endA[0])}, ${fraction(endA[1])}) slope ${slopeLabel(variant.from)} · ` +
+    `(${fraction(endB[0])}, ${fraction(endB[1])}) slope ${slopeLabel(variant.to)}`;
   return `<figure class="panel"><svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
     <rect width="${w}" height="${h}" fill="#fff"/>${line}
     <text x="10" y="${h - 5}" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#5a4a36">${variant.name}</text>
-  </svg><figcaption>${variant.note}</figcaption></figure>`;
+  </svg><figcaption>${variant.note}<br>${ends}</figcaption></figure>`;
 }).join("");
-const tschSection = `<section class="curve"><h2>Tschirnhausen and variations</h2><div class="row">${tschPanel}</div></section>`;
+const tschSection = `<section class="curve"><h2>Tschirnhausen and variations</h2>
+<p class="lead">The pieces a glue join can use. At every <b>rational t</b> the point and the slope
+are rational, so the piece can be cut there and the glue desk can join it; the slope is printed
+on the card. The node is at t = ±√3, so its slope is ±√3, not rational — a join there needs the
+quintic (<code>state/SPEC-glue-int.md</code>).</p><div class="row">${tschPanel}</div></section>`;
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>side curve kinds · curve-lab</title>
 <style>
@@ -181,6 +214,7 @@ square); the parallel is the mechanical offset; the scaled copy is the one the o
 the mirror is the other way to get a partner.</p>
 ${sections}
 ${tschSection}
+<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
 </body></html>`;
 writeFileSync(OUT, html);
 console.log(`${UIDS.length} curves × 5 kinds -> ${path.relative(ROOT, OUT)}`);

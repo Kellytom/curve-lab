@@ -133,22 +133,30 @@ def run_js_tests() -> int:
     if node.returncode != 0:
         print("  JS tests skipped: no node")
         return 0
-    files = sorted((ROOT / "tests" / "js").glob("*.test.js"))
-    files += sorted((ROOT / "tests" / "js").glob("*.test.ts"))
-    files += sorted((ROOT / "app" / "tests").glob("*.test.mjs"))
-    files += sorted((ROOT / "app" / "tests").glob("*.test.ts"))
-    if not files:
-        return 0
-    result = subprocess.run([node_binary(), "--test", *[str(f) for f in files]],
-                            cwd=ROOT, capture_output=True, text=True)
-    passed = re.search(r"^(?:#|\u2139) pass (\d+)$", result.stdout, re.M)
-    failed = re.search(r"^(?:#|\u2139) fail (\d+)$", result.stdout, re.M)
-    summary = (f"{passed.group(1) if passed else '?'} pass, "
-               f"{failed.group(1) if failed else '?'} fail")
-    print(f"  JS tests: {summary}")
-    if result.returncode != 0:
-        print(result.stdout[-1600:])
-        return 1
+    # TypeScript tests are ES modules; the older `.js` tests are CommonJS. One `node --test`
+    # invocation mixing both loses the module detection for the `.ts` files, so the groups run
+    # in separate invocations.
+    groups = [
+        sorted((ROOT / "tests" / "js").glob("*.test.js"))
+        + sorted((ROOT / "app" / "tests").glob("*.test.mjs")),
+        sorted((ROOT / "tests" / "js").glob("*.test.ts"))
+        + sorted((ROOT / "app" / "tests").glob("*.test.ts")),
+    ]
+    passed_total = 0
+    failed_total = 0
+    for group in groups:
+        if not group:
+            continue
+        result = subprocess.run([node_binary(), "--test", *[str(f) for f in group]],
+                                cwd=ROOT, capture_output=True, text=True)
+        passed = re.search(r"^(?:#|\u2139) pass (\d+)$", result.stdout, re.M)
+        failed = re.search(r"^(?:#|\u2139) fail (\d+)$", result.stdout, re.M)
+        passed_total += int(passed.group(1)) if passed else 0
+        failed_total += int(failed.group(1)) if failed else (1 if result.returncode else 0)
+        if result.returncode != 0:
+            print(result.stdout[-1600:])
+            return 1
+    print(f"  JS tests: {passed_total} pass, {failed_total} fail")
     return 0
 
 

@@ -40,6 +40,7 @@ FORMATS = {
     "mobile-curves.json": "curve-lab.mobile-curves/1",
     "coupler-curves.json": "curve-lab.coupler-curves/1",
     "bezier-knots.json": "curve-lab.bezier-knots/1",
+    "emblem-stations.json": "curve-lab.emblem-stations/1",
     "nurbs-inventory.json": "curve-lab.nurbs-inventory/1",
     "speed-fit-census.json": "curve-lab.speed-fit-census/1",
     "sibling-map.json": "curve-lab.sibling-map/1",

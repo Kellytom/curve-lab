@@ -161,7 +161,7 @@ def main(argv=None) -> int:
         found.sort(key=lambda item: (-item["crossings"], item["mirror"]))
         print(f"{len(found)} of {args.random} random couplers with {args.min_crossings}+ crossings")
         for item in found[:8]:
-            print(f"  r2 {item['r2']} r3 {item['r3']} r4 {item['r4']} ground {item['ground']} "
+            print(f"  r2 {item['r2']} r3 {item['r3']} r4 {item['r4']} ground {item['d']} "
                   f"a {item['a']} b {item['b']} -> {item['crossings']} crossings · "
                   f"mirror {item['mirror']}")
         return 0
@@ -194,7 +194,7 @@ def main(argv=None) -> int:
     found.sort(key=lambda item: (-item["crossings"], item["mirror"]))
     print(f"{len(found)} coupler curves with {args.min_crossings}+ crossings")
     for item in found[:8]:
-        print(f"  r2 {item['r2']} r3 {item['r3']} r4 {item['r4']} ground {item['ground']} "
+        print(f"  r2 {item['r2']} r3 {item['r3']} r4 {item['r4']} ground {item['d']} "
               f"a {item['a']} b {item['b']} → {item['crossings']} crossings · mirror {item['mirror']}")
 
     if args.write and found:
