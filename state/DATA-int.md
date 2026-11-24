@@ -89,7 +89,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `near-zero.json` | `curve-lab.near-zero/1` | cache | `scripts/near_zero.py` | the near-zero report |
 | `wobble.json` | `curve-lab.wobble/1` | cache | `scripts/wobble_show.py` | the `/sandbox` wobble panels |
 | `mobile-curves.json` | `curve-lab.mobilecurves/1` | cache | `scripts/mobile_search.py` | the `/sandbox` mobile section |
-| `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
+| `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.ts` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
 | `emblem-stations.json` | `curve-lab.emblem-stations/1` | cache | `scripts/emblem_stations.py` | the emblem sheet: the fish, sprig, rosette and band panels, their stations and bounds |
 | `nurbs-inventory.json` | `curve-lab.nurbs-inventory/1` | cache | the session's degree sweep | the NURBS-readiness analysis (`state/SC-NURBS-int.md`) |
@@ -103,7 +103,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `hybrid-candidates.json` | `curve-lab.hybrid-candidates/1` | cache | `scripts/hybrid_candidates.mjs` | `scripts/hybrid_rank.py` |
 | `hybrid-formulas.json` | `curve-lab.hybrid-formulas/1` | cache | `scripts/hybrid_formulas.py` | `scripts/hybrid_rank.py` |
 | `pm-reform.json` | `curve-lab.pm-reform/1` | cache | `scripts/pm_reform_probe.py` | the `/prime-mover` page |
-| `root-candidates.json` | `curve-lab.rootcandidates/1` | cache | `scripts/root_search.py` | the root search report |
+| `root-candidates.json` | `curve-lab.rootcandidates/1` | cache | `scripts/root_search.ts` | the root search report |
 | `operator-list.json` | `curve-lab.operator-list/1` | record | `scripts/operator_list.py` | the lab's seed list, `tests/test_operator_list.py` |
 | `ph-11th-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_11th_sandbox2.py` | part 2 of the sandbox |
 | `ph-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_fit_showcase.py` | `scripts/ph_nth_sandbox2.py` |

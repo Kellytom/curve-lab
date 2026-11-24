@@ -5,8 +5,8 @@ It proposes; nothing here is created until the operator says so.
 
 ## The set
 
-- **405 curves**, 213 as speed rows and 192 as stored paths.
-- **192** are rated 2/10 or more; 405 have a recorded exact measurement.
+- **406 curves**, 213 as speed rows and 193 as stored paths.
+- **193** are rated 2/10 or more; 406 have a recorded exact measurement.
 
 ## Families
 
@@ -82,6 +82,7 @@ It proposes; nothing here is created until the operator says so.
 | heart | 1 | 0 | 0 | 1 | 0 |
 | squircle | 1 | 0 | 0 | 1 | 0 |
 | rounded square | 1 | 0 | 0 | 1 | 0 |
+| coupler | 1 | 1 | 0 | 1 | 0 |
 
 ## The crossings × inflections grid
 
@@ -89,9 +90,9 @@ Measured curves run to **19 crossing pairs** and **8 inflections**. **139 of the
 
 | crossing pairs | inflections | curves |
 |---|---|---|
-| 0 | 0:197 · 1:19 · 2:1 · 3:36 · 4:0 · 5:18 · 6:0 · 7:0 · 8:0 |
+| 0 | 0:198 · 1:19 · 2:1 · 3:37 · 4:0 · 5:18 · 6:0 · 7:0 · 8:0 |
 | 1 | 0:3 · 1:5 · 2:3 · 3:15 · 4:15 · 5:16 · 6:7 · 7:0 · 8:0 |
-| 2 | 0:0 · 1:1 · 2:0 · 3:6 · 4:0 · 5:0 · 6:2 · 7:0 · 8:0 |
+| 2 | 0:0 · 1:1 · 2:0 · 3:5 · 4:0 · 5:0 · 6:2 · 7:0 · 8:0 |
 | 3 | 0:0 · 1:0 · 2:2 · 3:7 · 4:3 · 5:3 · 6:5 · 7:3 · 8:5 |
 | 4 | 0:0 · 1:2 · 2:0 · 3:2 · 4:0 · 5:0 · 6:0 · 7:0 · 8:0 |
 | 5 | 0:0 · 1:1 · 2:2 · 3:6 · 4:2 · 5:1 · 6:1 · 7:0 · 8:0 |
@@ -206,6 +207,7 @@ Empty cells with a plain reading:
 | heart | 1 | 0 | 0 |
 | squircle | 1 | 0 | 0 |
 | rounded square | 0 | 0 | 1 |
+| coupler | 0 | 0 | 1 |
 
 ## Named classical curves not present
 
