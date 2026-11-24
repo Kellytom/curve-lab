@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.curves/1",
  "note": "One object per curve: the Curve row, its Note, its CurveSet, its metric and its formula.",
- "count": 405,
+ "count": 406,
  "rows": [
   {
    "uid": "c-0001",
@@ -29162,6 +29162,52 @@
     "computedAt": "2026-11-23T23:34:22.846Z",
     "updatedAt": "2026-11-24T15:33:48.712Z"
    }
+  },
+  {
+   "uid": "c-0429",
+   "name": "coupler-two-node",
+   "family": "coupler",
+   "lists": "[\"found\"]",
+   "aliases": "[]",
+   "starred": false,
+   "candidate": true,
+   "status": "kept",
+   "pngIgnored": true,
+   "createdAt": "2026-11-24T16:09:31.272Z",
+   "stars": null,
+   "formula": {
+    "plain": "polyline through 721 stations, (1.933392, 2.10576) to (1.933392, 2.10576)",
+    "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+    "parameter": "k = 0 … station count − 1",
+    "search": "polyline 721 stations from (1.933392, 2.10576) to (1.933392, 2.10576); no metric yet",
+    "use": "no metric yet"
+   },
+   "note": {
+    "uid": "c-0429",
+    "name": "coupler-two-node",
+    "importance": 0,
+    "rotation": 0,
+    "pieces": 1,
+    "borderUid": null,
+    "perSide": 9,
+    "borderTurn": 0,
+    "offsets": 0,
+    "widthPct": 0,
+    "plus": 0,
+    "minus": 0,
+    "profile": null,
+    "formula": null,
+    "params": null,
+    "grid": null,
+    "stationRule": null,
+    "algorithm": "polyline",
+    "conversion": null,
+    "transform": "{\"degrees\":0,\"matrix\":[[\"1\",\"0\"],[\"0\",\"1\"]],\"exact\":true}",
+    "note": "four-bar coupler curve · crank 1.364 · coupler 4.102 · rocker 4.007 · ground 1.652 · point (2.322, 0.376) · two double points, mirror gap 1.7% of its size · sampled: the cos and sin of the crank angle, so the path is approximate between stations",
+    "updatedAt": "2026-11-24T16:09:31.272Z"
+   },
+   "set": null,
+   "metric": null
   }
  ]
 }
