@@ -25,7 +25,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 7 | `TODO.md` | 1049 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 8 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
 | 9 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
-| 10 | `state/DESIGN-int.md` | 1165 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 10 | `state/DESIGN-int.md` | 1179 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
 | 11 | `state/REGRESSIONS-int.md` | 138 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
