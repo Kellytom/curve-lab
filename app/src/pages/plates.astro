@@ -40,7 +40,9 @@ const done = rows.filter((row) => row.exported).length;
   </p>
   <p class="plates-count">To see what a value does before saving it, open
     <a href="/tune/">the tuning lab</a>: pick a curve and drag width, plus, minus and profile.
-    To cut a double-wonky at its blue dot, open <a href="/cut/">the cut desk</a>.</p>
+    To cut a double-wonky at its blue dot, open <a href="/cut/">the cut desk</a>.
+    To cut a mirrored curve into a gothic arch, open <a href="/gothic/">the gothic desk</a>.
+    To cut any curve's legs off at a rational t, open <a href="/trim/">the trim desk</a>.</p>
   <p class="plates-count">{done} of {rows.length} plates exported · {rows.length} of
     {registry.curves.length} records chosen (2 stars or more; a new curve joins its parent) ·
     order: {order === "stars"
@@ -50,7 +52,7 @@ const done = rows.filter((row) => row.exported).length;
 
   <div class="plates-grid">
     {rows.map((row) => (
-      <article class="plate-card">
+      <article class="plate-card" id={row.uid}>
         <a href={`/tune/${row.uid}`} title="open the tuning engine for this curve">
           <img src={`/api/print-plate/${row.uid}?format=svg&v=${row.stamp}`}
             alt={row.name} loading="lazy" />
