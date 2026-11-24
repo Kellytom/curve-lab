@@ -250,6 +250,9 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
       record.kind = "path";
       record.source = "cut";
       record.grid = null;
+      // A trim keeps its own metadata (mode, the two fractions, sampled/fromRows), set above;
+      // the line-cut block must not overwrite it just because the trim has several branches.
+      if (cut?.mode === "trim") return { ok: true, uid, name: chosen, root, record, base };
       record.conversion = {
         ...(base.conversion || {}),
         algorithm: "cut across a line",

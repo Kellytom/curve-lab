@@ -76,6 +76,15 @@ test("a trim keeps its rational bounds on the record", () => {
   assert.equal(plan.record.conversion.algorithm, "trimmed at rational fractions of t");
   assert.match(plan.record.note, /t 1\/4 → 3\/4/);
 
+  // a trim with several branches keeps its own metadata, not the line cut's
+  const branched = planVariant({ curves, baseUid: "c-0002", name: "branch trim", values: values(),
+    path: [[0, 0], [1, 0.2], [2, 0]],
+    branches: [[[0, 0], [1, 0.2], [2, 0]], [[0, 1], [1, 1.2], [2, 1]]],
+    cut: { mode: "trim", from: "1/5", to: "4/5" } });
+  assert.equal(branched.record.params.cut.mode, "trim");
+  assert.equal(branched.record.branches.length, 2);
+  assert.equal(branched.record.conversion.algorithm, "trimmed at rational fractions of t");
+
   // a rows record is sampled from its speed rows; the record says so
   const fromRows = planVariant({ curves, baseUid: "c-0002", name: "rows cut", values: values(),
     path: [[0, 0], [1, 0.2], [2, 0]],

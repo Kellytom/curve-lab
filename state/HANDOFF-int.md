@@ -4127,7 +4127,12 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   cuttable records follow by uid; cards say `plates`. A rows record is **sampled** with the
   plate's own sampler (700 stations) and the saved record says `fromRows`.
 - **Proofs:** c-0274 1/4→3/4 kept 95 stations, dropped 94; 1/3→2/3 kept 63, dropped 126; c-0001
-  (rows) 700→351. Each probe was removed; the parent is never touched.
+  (rows) 700→351; c-0416 (four branches) 1/5→4/5 kept 241 per branch; and one save **clicked in a
+  browser** on c-0274 (1/5→4/5, 113 kept, 76 dropped, banner and no page error). Each probe was
+  removed; the parent is never touched.
+- **Fault found by the branch probe:** a trim with branches saved the line-cut metadata
+  (`runs`, "cut across a line") because that block ran after the trim block. It now returns early
+  for a trim; register 74, pinned in `app/tests/desk-tune.test.mjs`.
 - **Faults found on the way:** the **preview button saved** on both the cut desk and the trim desk
   (register 73); the tsconfig covered only six `.ts` files, so new TypeScript was transpiled but
   not checked — now `src/**/*.ts` under `astro/tsconfigs/strict`, and `prebuild` runs `astro
