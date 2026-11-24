@@ -75,6 +75,13 @@ test("a trim keeps its rational bounds on the record", () => {
       from: "1/4", to: "3/4", sampled: true });
   assert.equal(plan.record.conversion.algorithm, "trimmed at rational fractions of t");
   assert.match(plan.record.note, /t 1\/4 → 3\/4/);
+
+  // a rows record is sampled from its speed rows; the record says so
+  const fromRows = planVariant({ curves, baseUid: "c-0002", name: "rows cut", values: values(),
+    path: [[0, 0], [1, 0.2], [2, 0]],
+    cut: { mode: "trim", from: "1/4", to: "3/4", fromRows: true } });
+  assert.equal(fromRows.record.params.cut.fromRows, true);
+  assert.match(fromRows.record.conversion.note, /speed rows \(700 stations\)/);
 });
 
 test("a desk row that never became a record still holds its uid", () => {

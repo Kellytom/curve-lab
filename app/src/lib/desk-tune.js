@@ -200,8 +200,11 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
           `${cut?.sampled ? " (sampled from its speed rows)" : ""}, cut ` +
           `${Math.round((cut?.share || 0) * 100)}% each side of the middle and mirrored`
         : trim
-          ? `sampled: ${base.uid}'s stored points between t ${cut.from} and t ${cut.to}; ` +
-            "the legs outside are dropped"
+          ? cut.fromRows
+            ? `sampled: ${base.uid}'s speed rows (700 stations) between t ${cut.from} and ` +
+              `t ${cut.to}; the legs outside are dropped`
+            : `sampled: ${base.uid}'s stored points between t ${cut.from} and t ${cut.to}; ` +
+              "the legs outside are dropped"
           : `sampled: the kept arc of ${base.uid}'s stored points, cut at a cusp`,
     };
     record.params = {
@@ -209,7 +212,8 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
       cut: cut
         ? (trim
             ? { of: base.uid, ofName: base.name, mode: "trim",
-                from: cut.from, to: cut.to, sampled: true }
+                from: cut.from, to: cut.to, sampled: true,
+                ...(cut.fromRows ? { fromRows: true } : {}) }
             : gothic
             ? { of: base.uid, ofName: base.name, mode: "gothic",
                 share: cut.share, q: cut.q, t: cut.t, tRequested: cut.tRequested,
