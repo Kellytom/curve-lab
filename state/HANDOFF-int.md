@@ -4064,3 +4064,18 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   window than the default.
 - **State:** 403 curves, database 403/403/403, 8 studies; register green for the new test.
 - **Next:** the frames decision (90 vs 231) is still the operator's; the book set otherwise waits.
+
+## 2026-11-24 (one crossing counter; the coupler sweep comes back empty)
+
+- **One crossing counter.** Seven scripts had their own double loop over segment pairs;
+  `curve_lab/crossings.py` buckets the segments in a grid and applies the same strict test.
+  `tests/test_crossing_count.py` compares it with the brute-force loop on 25 random polylines and
+  pins the figure-eight, the circle and a vertex touch. The *original* `tests/test_crossings.py`
+  (the audit of stored numbers) is untouched.
+- **The coupler sweep is fast and empty.** The 729-linkage sweep went from minutes to **6.7 s**;
+  a `--wide` run of **24,000 linkages** also finds **0 curves with 4+ crossing pairs**. So this
+  family, sampled this way, has no knots: the classic three-node couplers need their own ratios,
+  not a grid. Recorded in `TODO.md`.
+- **State:** 403 curves, database 403/403/403, 8 studies. Register green; the new count test is in
+  the fast module list.
+- **Next:** the frames decision (90 vs 231) still waits for the operator.

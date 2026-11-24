@@ -112,9 +112,12 @@ The main families are done; these are loose ends, not new work:
 - **Coupler curves, the careful attempt (2026-11-24):** the generator now tracks the branch
   (`circle_hit(..., previous)`), so a trace follows one intersection instead of zigzagging. A
   sweep of 729 linkages (r2 1–3, r3 3–5, r4 2–4, ground 3–5, a 0.5–1.5, b 0.3–0.9, 720 steps)
-  found **0 curves with 4+ crossing pairs** — so the family as sampled has no knots to offer.
-  The sweep is also slow (~190M pair tests); widening the grid needs a faster crossing count
-  before another attempt, and the classic three-node couplers may sit outside these ranges.
+  found **0 curves with 4+ crossing pairs**. The crossing count was the slow part (~190M pair
+  tests); `curve_lab/crossings.py` (grid-bucketed, identical to the brute-force loop) brought the
+  same sweep to 6.7 s, and a wider sweep (`--wide`: 24,000 linkages, r2 1–4, r3 2–6, r4 1–5,
+  ground 2–6, a 0.25–2.0, b 0.2–1.2) also found **0**. So this linkage family, sampled this way,
+  has no knots at 4+ pairs. The classic three-node couplers need specific ratios; the next
+  attempt should start from a named one rather than a grid.
 
 
 - **Frames set: 90 or 231?** `state/FRAMES-int.md` records 90 chosen curves; the current
