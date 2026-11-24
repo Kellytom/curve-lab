@@ -41,6 +41,8 @@ test("every branch is trimmed by the same fractions", () => {
   assert.ok(record.branches && record.branches.length === 4);
   const trimmed = trimRecord(record, parseFraction("1/5"), parseFraction("4/5"));
   assert.equal(trimmed.branches.length, 4);
+  assert.equal(trimmed.marks.length, 8, "every branch's front and back cuts are marked");
+  assert.deepEqual(trimmed.marks.slice(0, 2).map((mark) => mark.cut), ["from", "to"]);
   for (const branch of trimmed.branches) {
     assert.ok(branch.length > 2);
     assert.notDeepEqual(branch[0], branch.at(-1));

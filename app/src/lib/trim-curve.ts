@@ -32,11 +32,17 @@ export interface TrimRun {
   droppedStations: number;
 }
 
+export interface CutMark {
+  point: Point;
+  cut: "from" | "to";
+}
+
 export interface TrimmedRecord {
   branches: Point[][];
   path: Point[];
   head: Point[];
   tail: Point[];
+  marks: CutMark[];
   keptStations: number;
   droppedStations: number;
 }
@@ -116,11 +122,18 @@ export function trimRecord(record: CurveLike, from: Fraction, to: Fraction): Tri
   const runs = branches.map((branch) => trimRun(branch, from, to)).filter((run): run is TrimRun => Boolean(run));
   if (!runs.length) return null;
   const kept = runs.map((run) => run.kept);
+  // Every branch has its own cut points, so every branch gets both marks: one red dot for the
+  // front cut and one for the back cut, not a single pair for the first branch only.
+  const marks: CutMark[] = runs.flatMap((run) => [
+    { point: run.head[run.head.length - 1], cut: "from" as const },
+    { point: run.tail[0], cut: "to" as const },
+  ]);
   return {
     branches: kept,
     path: kept.flat(),
     head: runs.map((run) => run.head).flat(),
     tail: runs.map((run) => run.tail).flat(),
+    marks,
     keptStations: runs.reduce((sum, run) => sum + run.keptStations, 0),
     droppedStations: runs.reduce((sum, run) => sum + run.droppedStations, 0),
   };

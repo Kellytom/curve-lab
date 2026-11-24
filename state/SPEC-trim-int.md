@@ -26,8 +26,10 @@ two cut points are placed exactly on the fractions by interpolating the one segm
 - **The kept stations are the record's own, and the two new ends lie on a stored segment.** The
   cut points are exact in `t`; the curve between stations is the record's sample, and the saved
   record says `sampled`.
-- **Every branch is cut by the same fractions.** A record with `branches` (the cruciform and its
-  kind) keeps each branch's middle; the branch count is preserved. Check: the same test.
+- **Every branch is cut by the same fractions, and every branch's two cut points are marked.** A
+  record with `branches` (the cruciform and its kind) keeps each branch's middle; the branch
+  count is preserved and the figure carries two red marks per branch. Check: the same test
+  (`marks.length === 2 × branches`).
 - **The record says how it was made.** `params.cut = { of, ofName, mode: "trim", from, to,
   sampled }`, the conversion algorithm is "trimmed at rational fractions of t", and the note names
   the parent and the two fractions. Check: `app/tests/desk-tune.test.mjs`.

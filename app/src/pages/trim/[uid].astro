@@ -96,8 +96,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" wid
   ${trimmed ? `<path d="${d(head)}" fill="none" stroke="#a06a2c" stroke-width="1.6" stroke-dasharray="7 6"/>` : ""}
   ${trimmed ? `<path d="${d(tail)}" fill="none" stroke="#a06a2c" stroke-width="1.6" stroke-dasharray="7 6"/>` : ""}
   ${kept.map((run) => `<path d="${d(run)}" fill="none" stroke="#201d18" stroke-width="2.6" stroke-linejoin="round"/>`).join("")}
-  ${trimmed ? cutMark(head[head.length - 1], `t = ${range.from.text}`) : ""}
-  ${trimmed ? cutMark(tail[0], `t = ${range.to.text}`) : ""}
+  ${trimmed ? trimmed.marks.map((mark) =>
+    cutMark(mark.point, `t = ${mark.cut === "from" ? range.from.text : range.to.text}`)).join("") : ""}
 </svg>`;
 
 // The cut piece with the same side curves the plate draws, before it is saved.
