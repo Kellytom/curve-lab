@@ -27,9 +27,14 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from curve_lab.crossings import crossing_pairs  # noqa: E402
+
 OUT = ROOT / "workbench" / "coupler-curves.json"
 
 
@@ -86,24 +91,13 @@ def trace(r2, r3, r4, ground, a, b, steps=720):
 
 
 def crossings(points):
-    n = len(points)
-    if n < 8:
-        return 0
-    hits = 0
-    for i in range(n - 1):
-        ax, ay = points[i]
-        bx, by = points[i + 1]
-        for j in range(i + 2, n - 1):
-            cx, cy = points[j]
-            dx, dy = points[j + 1]
-            den = (bx - ax) * (dy - cy) - (by - ay) * (dx - cx)
-            if abs(den) < 1e-12:
-                continue
-            s = ((cx - ax) * (dy - cy) - (cy - ay) * (dx - cx)) / den
-            w = ((cx - ax) * (by - ay) - (cy - ay) * (bx - ax)) / den
-            if 0 < s < 1 and 0 < w < 1:
-                hits += 1
-    return hits
+    """Crossing pairs, once per segment pair; the grid counter in curve_lab.crossings.
+
+    The double loop here cost 260k pair tests per 720-station trace, so a 729-linkage
+    sweep was 190M tests. The counter is identical (tests/test_crossings.py compares it with
+    the plain loop) and fast enough to widen the sweep.
+    """
+    return crossing_pairs(points)
 
 
 def symmetry_gap(points):
@@ -127,15 +121,25 @@ def symmetry_gap(points):
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--wide", action="store_true",
+                        help="wider link ratios and coupler fractions (about four minutes)")
     args = parser.parse_args(argv)
 
+    if args.wide:
+        r2s, r3s, r4s, grounds = (1, 2, 3, 4), (2, 3, 4, 5, 6), (1, 2, 3, 4, 5), (2, 3, 4, 5, 6)
+        a_s = (0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0)
+        b_s = (0.2, 0.4, 0.6, 0.8, 1.0, 1.2)
+    else:
+        r2s, r3s, r4s, grounds = (1, 2, 3), (3, 4, 5), (2, 3, 4), (3, 4, 5)
+        a_s, b_s = (0.5, 1.0, 1.5), (0.3, 0.6, 0.9)
+
     found = []
-    for r2 in (1, 2, 3):
-        for r3 in (3, 4, 5):
-            for r4 in (2, 3, 4):
-                for ground in (3, 4, 5):
-                    for a in (0.5, 1.0, 1.5):
-                        for b in (0.3, 0.6, 0.9):
+    for r2 in r2s:
+        for r3 in r3s:
+            for r4 in r4s:
+                for ground in grounds:
+                    for a in a_s:
+                        for b in b_s:
                             pts = trace(r2, r3, r4, ground, a, b)
                             if len(pts) < 8:
                                 continue

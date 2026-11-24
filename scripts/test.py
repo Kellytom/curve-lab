@@ -41,7 +41,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 SLOW = {"test_svg", "test_practical", "test_fit", "test_fleur_sets",
-        "test_ph_nth_sandbox2", "test_ph_11th_sandbox2", "test_crossings"}
+        "test_ph_nth_sandbox2", "test_ph_11th_sandbox2", "test_crossings",
+        "test_crossing_count"}
 
 # The tight-loop gate: the engine's own behaviour, no page built. Everything
 # here runs in about a second per module. Deliberately not a substitute for the

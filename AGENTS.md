@@ -189,6 +189,7 @@ and documentation alike.
 | `web/server.py` | stdlib server, auth, rate limit, `/api/render` |
 | `curve_lab/model.py` | `Design` and `Segment` |
 | `curve_lab/measure.py` | **the one exact core**: grid, bend, arc, inflections, closest in `Fraction` |
+| `curve_lab/crossings.py` | **the one crossing-pair counter**: grid-bucketed, identical to the brute-force loop |
 | `scripts/build-pages.py` | rebuilds the eight pages that load the shared JS, then the hub |
 | `scripts/exact_numbers.py` | audits every record's grid and bend against `curve_lab/measure.py` |
 | `scripts/crossing_audit.py` | audits every record's crossing-pair count |
