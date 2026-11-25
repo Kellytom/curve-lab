@@ -1682,7 +1682,7 @@
     "uid": "c-0022",
     "name": "wave3-balance",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 180,
     "pieces": 1,
     "borderUid": null,
     "perSide": 0,
@@ -1698,9 +1698,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":180,\"matrix\":[[-1,0],[0,-1]],\"exact\":true}",
     "note": "wave3 (c-0022) is an exact parametric curve from the wave3 family. Its speed is u = [1,0,0,0,0,0] and v = [-5,46,-108,72,0,0]; the position is the integral of (u²−v², 2uv). Measured exactly: grid 1/105, bend 2.329 (arc over chord), 2 inflection(s), 5 crossing pair(s). The plate turns it 0° exactly. The outside rail crosses itself 5 time(s); each crossing is a future cut point.",
-    "updatedAt": "2026-11-22T22:32:35.771Z"
+    "updatedAt": "2026-11-25T03:36:53.114Z"
    },
    "set": null,
    "metric": {
