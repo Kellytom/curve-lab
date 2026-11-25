@@ -216,9 +216,9 @@
    "name": "wave3",
    "family": "wave3",
    "perSide": 9,
-   "marginPercent": 25,
-   "failed": false,
-   "reason": null,
+   "marginPercent": 0,
+   "failed": true,
+   "reason": "half[0] is not iterable",
    "tooWide": false
   },
   {
@@ -4023,6 +4023,16 @@
   {
    "uid": "c-0429",
    "name": "coupler-two-node",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0022a",
+   "name": "wave3-balance-trimmed",
+   "family": "wave3",
    "perSide": 9,
    "marginPercent": 25,
    "failed": false,
