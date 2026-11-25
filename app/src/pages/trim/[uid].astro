@@ -157,7 +157,7 @@ const savedUid = q.get("new");
 
 <BaseLayout title="the trim desk" pageTitle="The trim desk">
   <p class="lead"><b>{record.uid}</b> {record.name} · <a href="/trim/">trim another</a> ·
-    <a href="/plates">the plates</a> · <a href="/cut/">the cut desk</a> ·
+    <a href={`/plates#${record.uid}`}>back to the plates</a> · <a href="/cut/">the cut desk</a> ·
     <a href={`/tune/${record.uid}`}>tune it</a>. Cut the legs off at two rational fractions of
     t: t = 0 is the first station, t = 1 the last, and the stations between the cuts are kept.
     The cut points sit exactly on the fractions; the curve between stations is the stored sample,
@@ -165,8 +165,8 @@ const savedUid = q.get("new");
 
   {saved && (
     <p class="trim-saved">saved: {saved}
-      {savedUid && <> · <a href={`/plates#${savedUid}`}>see {savedUid} on the plates</a> ·
-        <a href={`/tune/${savedUid}`}>tune it or rename it</a></>}
+      {savedUid && <> · <a href={`/tune/${savedUid}`}>tune it or rename it</a></>}
+      <a class="trim-back" href={`/plates#${savedUid || record.uid}`}>back to the plates</a>
     </p>
   )}
   {rangeError && <p class="trim-bad">not cut: {rangeError}</p>}
@@ -260,7 +260,10 @@ const savedUid = q.get("new");
   .trim-state { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
   .trim-note { font: 12px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; }
   .trim-saved { background: #f3ead2; border: 1px solid #d8c69a; padding: 8px 12px;
-    font: 13px/1.4 ui-monospace, Menlo, monospace; }
+    font: 13px/1.4 ui-monospace, Menlo, monospace; display: flex; flex-wrap: wrap;
+    gap: 10px; align-items: baseline; }
+  .trim-back { margin-left: auto; font: 12px/1.2 ui-monospace, Menlo, monospace;
+    padding: 5px 10px; background: #c9a441; color: #fff; text-decoration: none; }
   .trim-bad { color: #a4322a; font: 13px/1.4 ui-monospace, Menlo, monospace; }
   .trim-piece-figure { max-width: 560px; }
   .trim-half { margin: 0; background: #fff; border: 1px solid #e6dccb; padding: 8px; }
