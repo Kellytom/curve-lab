@@ -195,8 +195,13 @@ const savedUid = q.get("new");
       </label>
       <label>new name <input name="name" type="text" maxlength="120" value={q.get("name") || suggested} /></label>
       <button type="submit">preview the cut</button>
-      <button type="submit" id="trim-save">cut and save</button>
+      <button type="submit" id="trim-save">cut and save as a new curve</button>
       <p class="trim-state" id="trim-state" role="status" aria-live="polite"></p>
+      <p class="trim-note"><b>Each save is a new curve beside its parent; nothing is overwritten
+        and nothing is saved until you press the button.</b> The <b>new name</b> above is that
+        curve's; if the name is already taken, the next free number is used rather than refusing.
+        After saving, the banner links to its tuning page, where <b>rename this curve</b> changes
+        the name and keeps the old one as an alias.</p>
       <p class="trim-note">A fraction is whole numbers, p/q, in lowest terms, with 0 at the first
         station and 1 at the last; a decimal is refused on purpose. The Pythagorean presets use a
         p-triple hypotenuse as the denominator (3/5, 5/13, 8/17), so the cut keeps a rational
