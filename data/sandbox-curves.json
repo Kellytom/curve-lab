@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 217,
+ "count": 218,
  "rows": [
   {
    "name": "c-0001",
@@ -269,6 +269,21 @@
    "miss": 0.392942,
    "note": "speed-space re-fit at degree 5 · miss 0.392942 curve units on size 41.3245 · position degree 11, rails 9",
    "savedAt": "2026-11-22T13:47:14.487Z"
+  },
+  {
+   "name": "c-0022a",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0022",
+   "curveName": "wave3-balance-trimmed",
+   "tune": true,
+   "variant": "c-0022a",
+   "savedAt": "2026-11-25T03:27:22.474Z"
   },
   {
    "name": "c-0034-ceil",

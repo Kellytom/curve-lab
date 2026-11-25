@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.curves/1",
  "note": "One object per curve: the Curve row, its Note, its CurveSet, its metric and its formula.",
- "count": 406,
+ "count": 407,
  "rows": [
   {
    "uid": "c-0001",
@@ -1730,6 +1730,52 @@
     "computedAt": "2026-11-19T06:18:38.211Z",
     "updatedAt": "2026-11-24T22:12:39.831Z"
    }
+  },
+  {
+   "uid": "c-0022a",
+   "name": "wave3-balance-trimmed",
+   "family": "wave3",
+   "lists": "[\"found\",\"variant\"]",
+   "aliases": "[]",
+   "starred": false,
+   "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
+   "createdAt": "2026-11-25T03:27:22.454Z",
+   "stars": null,
+   "formula": {
+    "plain": "polyline through 675 stations, (-0.3960656505426644, -0.18215291162056974) to (-1.1086180235739536, -0.18215291162056974)",
+    "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+    "parameter": "k = 0 … station count − 1",
+    "search": "polyline 675 stations from (-0.3960656505426644, -0.18215291162056974) to (-1.1086180235739536, -0.18215291162056974); no metric yet",
+    "use": "no metric yet"
+   },
+   "note": {
+    "uid": "c-0022a",
+    "name": "wave3-balance-trimmed",
+    "importance": 0,
+    "rotation": 0,
+    "pieces": 1,
+    "borderUid": null,
+    "perSide": 9,
+    "borderTurn": 0,
+    "offsets": 0,
+    "widthPct": 1,
+    "plus": 2,
+    "minus": 0,
+    "profile": "bow",
+    "formula": null,
+    "params": "{\"parent\":\"c-0022\",\"parentName\":\"wave3\",\"variantOf\":\"c-0022\",\"tuned\":{\"widthPct\":1.5,\"plus\":2.5,\"minus\":0.1,\"profile\":\"bow\",\"transform\":{\"degrees\":0},\"degrees\":0},\"cut\":{\"of\":\"c-0022\",\"ofName\":\"wave3\",\"mode\":\"trim\",\"from\":\"200/10001\",\"to\":\"9801/10001\",\"sampled\":true,\"fromRows\":true}}",
+    "grid": null,
+    "stationRule": null,
+    "algorithm": "trimmed at rational fractions of t",
+    "conversion": "{\"algorithm\":\"trimmed at rational fractions of t\",\"status\":\"pending\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null,\"exact\":false,\"note\":\"sampled: c-0022's speed rows (700 stations) between t 200/10001 and t 9801/10001; the legs outside are dropped\"}",
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "note": "trimmed from c-0022 (wave3) · t 200/10001 → 9801/10001 · 675 stored points, exact there, approximate between them",
+    "updatedAt": "2026-11-25T03:27:22.454Z"
+   },
+   "set": null,
+   "metric": null
   },
   {
    "uid": "c-0023",
