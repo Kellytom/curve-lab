@@ -37,11 +37,19 @@ const number = (name, fallback) => {
   const raw = q.get(name);
   return raw === null || raw === "" ? fallback : Number(raw);
 };
+// The record's own side values are the defaults, not a generic preset: arriving from the tune
+// page (or by a bare link) must carry the band the plate already draws. A zero is the note
+// migration's placeholder, so it falls through.
+const stored = (value, fallback) => {
+  const n = Number(value);
+  return Number.isFinite(n) && n !== 0 ? n : fallback;
+};
 const sideValues = {
-  widthPct: number("widthPct", 1.5),
-  plus: number("plus", 2.5),
-  minus: number("minus", 0.1),
-  profile: ["bow", "s", "taper"].includes(q.get("profile") || "") ? q.get("profile") : "bow",
+  widthPct: number("widthPct", stored(record.widthPct, 1.5)),
+  plus: number("plus", stored(record.plus, 2.5)),
+  minus: number("minus", stored(record.minus, 0.1)),
+  profile: ["bow", "s", "taper"].includes(q.get("profile") || "")
+    ? q.get("profile") : (record.profile || "bow"),
 };
 const suggested = `${record.name}-trimmed`;
 const fromText = q.get("from") ?? "1/4";

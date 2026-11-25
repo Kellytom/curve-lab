@@ -274,6 +274,8 @@ for (const curve of registry.curves) {
         </select>
       </label>
       <label>turn° <input name="degrees" type="number" min="-180" max="180" step="45" value={values.degrees} /></label>
+      <p class="tune-trim-row"><a id="tune-trim" data-uid={record.uid} href={`/trim/${record.uid}`}>
+        cut this curve's legs off at a rational t</a> — the values beside it come with it.</p>
       <button type="submit">preview</button>
       <button type="submit" formmethod="post"
         formaction={`/api/tune?uid=${record.uid}&spine=${record.uid}&mode=overwrite`}>save</button>
@@ -341,6 +343,7 @@ for (const curve of registry.curves) {
 <script is:inline src="/api/plate-math"></script>
 <script>
   import "../../scripts/tune-uid.js";
+  import "../../scripts/tune-trim.ts";
 </script>
 
 <style is:global>

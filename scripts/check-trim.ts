@@ -68,6 +68,19 @@ await Promise.all([
 const bad = await page.locator(".trim-bad").innerText().catch(() => "");
 if (!/whole-number fraction/.test(bad)) throw new Error(`a decimal was not refused: ${bad}`);
 
+// The tune page's door: the link must carry the values on screen, so the cut is made with the
+// band being looked at (operator, 2026-11-24: "connect /tune/ to the trim function").
+await page.goto(`${BASE}/tune/c-0022`, { waitUntil: "networkidle" });
+const door = page.locator("#tune-trim");
+const before = await door.getAttribute("href");
+if (!before || !before.startsWith("/trim/c-0022?")) throw new Error(`the trim door: ${before}`);
+await page.locator('input[name="widthPct"]').first().fill("6.5");
+const after = await door.getAttribute("href");
+if (!after.includes("widthPct=6.5")) throw new Error(`the door did not follow the slider: ${after}`);
+await page.goto(`${BASE}${after}`, { waitUntil: "networkidle" });
+const width = await page.locator('input[name="widthPct"]').inputValue();
+if (width !== "6.5") throw new Error(`the trim page lost the width: ${width}`);
+
 if (errors.length) throw new Error(`page errors: ${errors.join(" · ")}`);
 console.log(`trim: ok — 1/4 → 3/4, then 1/3 → 2/3 drawn; a decimal is refused`);
 await browser.close();

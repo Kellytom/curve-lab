@@ -43,6 +43,12 @@ two cut points are placed exactly on the fractions by interpolating the one segm
 - **The save answers at once.** The record, database rows and exports are written in the request;
   the plate and the figure render in the detached child (`scripts/render_saved_curve.mjs`) under
   the render lock.
+- **The tuning page is a door in and out.** `/tune/<uid>` carries
+  "cut this curve's legs off at a rational t", whose link keeps the width, plus, minus and
+  profile on screen — edited but not yet saved — so the cut is made with the band being looked
+  at. The trim page's defaults are the record's own side values, and it links back to the
+  parent's tune page; a saved cut's banner links to the new curve's tune page. Check:
+  `scripts/check-trim.ts` (the door follows the slider, and the trim page keeps the value).
 - **The preview follows the form.** `preview the cut` is a plain GET carrying the fractions; only
   `cut and save` is posted. Check: `scripts/check-trim.ts` (a decimal is refused on the page, and
   the caption follows 1/3 → 2/3).
