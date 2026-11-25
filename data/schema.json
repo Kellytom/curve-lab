@@ -4,7 +4,7 @@
   "curves.json": {
    "format": "curve-lab.data.curves/1",
    "kind": "array",
-   "count": 407,
+   "count": 410,
    "fields": {
     "uid": "string",
     "name": "string",
@@ -53,7 +53,7 @@
   "sandbox-curves.json": {
    "format": "curve-lab.data.sandbox-curves/1",
    "kind": "array",
-   "count": 219,
+   "count": 222,
    "fields": {
     "name": "string",
     "widthPct": "number",

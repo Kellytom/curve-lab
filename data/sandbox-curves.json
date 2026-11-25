@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 219,
+ "count": 222,
  "rows": [
   {
    "name": "c-0001",
@@ -299,6 +299,21 @@
    "savedAt": "2026-11-25T03:27:22.474Z"
   },
   {
+   "name": "c-0028a",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0028",
+   "curveName": "lace-2-eight-3-trim-25",
+   "tune": true,
+   "variant": "c-0028a",
+   "savedAt": "2026-11-25T03:47:11.348Z"
+  },
+  {
    "name": "c-0034-ceil",
    "curveName": "wave-9of10-1of2-mid",
    "base_uid": "c-0034",
@@ -497,6 +512,36 @@
    "miss": 1.628763,
    "note": "the same construction as c-0056 with a shorter ½ stack · position degree 11 · rails 9 · grid 77 · bend 1.328 · miss 1.628763 units from its parent",
    "savedAt": "2026-11-23T12:57:54.620Z"
+  },
+  {
+   "name": "c-0057a",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0057",
+   "curveName": "lace-heart-drop-1-trim-10k",
+   "tune": true,
+   "variant": "c-0057a",
+   "savedAt": "2026-11-25T03:48:39.677Z"
+  },
+  {
+   "name": "c-0057b",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0057",
+   "curveName": "lace-heart-drop-1-full",
+   "tune": true,
+   "variant": "c-0057b",
+   "savedAt": "2026-11-25T03:49:21.214Z"
   },
   {
    "name": "c-0071-ceil",
