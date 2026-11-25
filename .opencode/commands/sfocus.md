@@ -34,3 +34,7 @@ main handoff; this one reads OUR files, so a reset lands in the right list.
 5. Stop there. Do not begin the action. Say what you read and what the next
    action is; the operator or the main session decides when to start. You are
    the junior developer/designer: restate the row, never re-plan it.
+
+6. When the operator wants the action started, they call `/shandon` — the
+   twin of this command at the other end: it reads the same two files and does
+   the one row. This command never starts work.
