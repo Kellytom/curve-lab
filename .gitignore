@@ -124,17 +124,8 @@ state/SAID-DEEP2-CHECKLIST-int.md
 # the workhorse queue and its logs are local state
 state/jobs/
 
-# derived images: the generator and the record are the source, the picture is local.
-# Regenerate before serving from a fresh clone. Each set's generator:
-#   frames          scripts/frames_build.ts
-#   curves          scripts/curve_plain.mjs
-#   hybrid-figures  scripts/hybrid_figures.mjs
-#   extra-curves    scripts/extra_curve_figs.py
-#   hub             scripts/hub_shots.mjs
-#   workbench/figures  scripts/found_png.mjs
+# Renders rewritten on every save: ignored, because each save would re-upload a blob.
+# The others (curves, hybrid-figures, extra-curves, hub stills, workbench figures) are
+# regenerated only when their source changes, so they stay tracked and cost nothing until then.
+#   frames  scripts/frames_build.ts
 app/public/frames/*.png
-app/public/curves/*.png
-app/public/hybrid-figures/*.svg
-app/public/extra-curves/*.svg
-app/public/hub/*.png
-workbench/figures/*.png
