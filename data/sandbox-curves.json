@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 223,
+ "count": 224,
  "rows": [
   {
    "name": "c-0001",
@@ -557,6 +557,21 @@
    "tune": true,
    "variant": "c-0057c",
    "savedAt": "2026-11-25T03:55:34.566Z"
+  },
+  {
+   "name": "c-0058a",
+   "widthPct": 1.5,
+   "plus": 2.5,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0058",
+   "curveName": "lace-flourish2-1-trim-25",
+   "tune": true,
+   "variant": "c-0058a",
+   "savedAt": "2026-11-25T03:57:12.576Z"
   },
   {
    "name": "c-0071-ceil",
