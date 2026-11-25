@@ -112,5 +112,11 @@ export default defineConfig({
     }),
   ],
   vite: { server: { fs: { allow: [repoRoot] },
-    allowedHosts: [".trycloudflare.com", ...extraHosts] } },
+    allowedHosts: [".trycloudflare.com", ...extraHosts],
+    // The plate, figure and frame renders are written into public/ after a save. Vite treats a
+    // change under public/ as a full page reload, so a save landing while the operator reads
+    // /plates reloaded the page again and again ("all the pages get remade, the circles spin",
+    // 2026-11-24). A new image is picked up by the card's own ?v=<file stamp> URL, not a reload.
+    watch: { ignored: ["**/public/plates-web/**", "**/public/figures/**",
+      "**/public/frames/**", "**/public/ornaments/**"] } } },
 });
