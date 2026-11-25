@@ -140,7 +140,10 @@ function splitBranches(points) {
 
 function plateSvg(record) {
   const row = rowFor(record, extra);
-  const degrees = Number(record.transform?.degrees || 0);
+  // The turn is a desk setting: the tune page saves it to the desk row, and the plate must
+  // honour that save or the slider looks dead. The record's own transform is the fallback.
+  const desk = extra.get(record.uid) || extra.get((record.aliases || [])[0]) || {};
+  const degrees = Number(desk.transform?.degrees ?? record.transform?.degrees ?? 0);
   // The offset curves: one character law, the two sides the same strength (the average of
   // the saved pair), the profile zero at both ends so the start and end gaps are the base.
   // No scaling of the drawn curve (2026-11-21, the operator: "the offset curves should look
