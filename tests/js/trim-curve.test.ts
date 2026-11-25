@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { parseFraction, parseRange, trimRun, trimRecord } from "../../app/src/lib/trim-curve.ts";
+import { mirrorPair, parseFraction, parseRange, trimRun, trimRecord } from "../../app/src/lib/trim-curve.ts";
 
 // The operator, 2026-11-24: "cutting the legs off the curves using rational fractions of t".
 // t = 0 is the first station, t = 1 the last; the cut is p/q, and the stations between the two
@@ -21,6 +21,14 @@ test("a fraction is whole numbers, inside 0 … 1, and a decimal is refused", ()
   assert.equal(parseFraction("5/10").text, "1/2");
   assert.equal(parseFraction("0").text, "0");
   assert.equal(parseFraction("3/5").text, "3/5", "a p-triple fraction is already lowest terms");
+});
+
+test("a preset's other end is (q − p)/q, ordered", () => {
+  assert.deepEqual(mirrorPair("200/10001"), { from: "200/10001", to: "9801/10001" });
+  assert.deepEqual(mirrorPair("1/4"), { from: "1/4", to: "3/4" });
+  assert.deepEqual(mirrorPair("3/5"), { from: "2/5", to: "3/5" }, "the pair is ordered");
+  assert.deepEqual(mirrorPair("1/17"), { from: "1/17", to: "16/17" });
+  assert.deepEqual(mirrorPair("1/2"), { from: "1/2", to: "1/2" }, "half mirrors to itself");
 });
 
 test("the range refuses a front cut at or past the back cut", () => {

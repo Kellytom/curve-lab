@@ -77,6 +77,20 @@ export function parseFraction(text: unknown): Fraction {
   return { p, q, value: p / q, text: q === 1 ? String(p) : `${p}/${q}` };
 }
 
+// The mirror pair of a fraction: p/q and (q − p)/q, ordered so the cut is a range. This is the
+// operator's rule for a preset's other end (2026-11-24): "each time follow that algorithm of
+// (num-denom)/denom for the end". 200/10001 pairs with 9801/10001; 3/5 pairs with 2/5.
+export function mirrorPair(text: unknown): { from: string; to: string } {
+  const fraction = parseFraction(text);
+  const other = fraction.q - fraction.p;
+  const low = Math.min(fraction.p, other);
+  const high = Math.max(fraction.p, other);
+  return {
+    from: low === fraction.q ? "1" : `${low}/${fraction.q}`,
+    to: high === fraction.q ? "1" : `${high}/${fraction.q}`,
+  };
+}
+
 export function parseRange(fromText: unknown, toText: unknown): Range {
   const from = parseFraction(fromText);
   const to = parseFraction(toText);
