@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { mirrorPair, parseFraction, parseRange, trimRun, trimRecord } from "../../app/src/lib/trim-curve.ts";
+import { mirrorPair, parseFraction, parseRange, recommendTrim, trimRun, trimRecord, TRIM_PAIRS } from "../../app/src/lib/trim-curve.ts";
 
 // The operator, 2026-11-24: "cutting the legs off the curves using rational fractions of t".
 // t = 0 is the first station, t = 1 the last; the cut is p/q, and the stations between the two
@@ -29,6 +29,30 @@ test("a preset's other end is (q − p)/q, ordered", () => {
   assert.deepEqual(mirrorPair("3/5"), { from: "2/5", to: "3/5" }, "the pair is ordered");
   assert.deepEqual(mirrorPair("1/17"), { from: "1/17", to: "16/17" });
   assert.deepEqual(mirrorPair("1/2"), { from: "1/2", to: "1/2" }, "half mirrors to itself");
+});
+
+test("a leg is the constant-curvature run at the end, and the suggestion clears it", () => {
+  // a straight tail into a tight loop: the curvature is flat on the tail, then breaks
+  const pts: [number, number][] = [];
+  for (let i = 0; i <= 60; i += 1) pts.push([-1 + i * 0.01, 0]);
+  for (let i = 0; i <= 120; i += 1) {
+    const a = (i / 120) * Math.PI * 2;
+    pts.push([0.2 * Math.cos(a), 0.2 * Math.sin(a)]);
+  }
+  const rec = recommendTrim(pts);
+  assert.ok(rec, "a curve with a leg and a loop has a suggestion");
+  const share = Math.max(rec.broke.front, rec.broke.back);
+  assert.ok(share > 0.2, `the leg is most of the straight tail, got ${share}`);
+  const [p, q] = rec.from.split("/").map(Number);
+  assert.equal(rec.to, `${q - p}/${q}`, "the suggestion's other end is the mirror");
+  assert.ok(p / q >= Math.max(0, share - 0.005), "the cut clears the measured leg");
+  assert.ok(p / q <= share + 0.15, "and is not far past it");
+});
+
+test("every suggestion fraction has a p-triple hypotenuse for its denominator", () => {
+  const hyp = new Set([5, 13, 17, 25, 29, 37, 41, 53, 61, 65, 73, 85, 89, 97, 101, 109, 113,
+    125, 137, 149, 157, 169, 173, 181, 185, 193, 197, 10001]);
+  for (const [, q] of TRIM_PAIRS) assert.ok(hyp.has(q), `${q} is not a hypotenuse`);
 });
 
 test("the range refuses a front cut at or past the back cut", () => {

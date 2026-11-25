@@ -12,7 +12,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { repoRoot } from "../../lib/gallery.js";
 import { loadRegistry } from "../../lib/registry.ts";
-import { mirrorPair, parseRange, pointAtFraction, trimRecord } from "../../lib/trim-curve.ts";
+import { mirrorPair, parseRange, pointAtFraction, recommendTrim, trimRecord } from "../../lib/trim-curve.ts";
 import { pointsOf } from "../../lib/curve-points.ts";
 import { turnPoints } from "../../lib/cut-doubles.js";
 import { bandSvg, frame } from "../../scripts/tune-render.js";
@@ -129,6 +129,11 @@ const preview = previewOf();
 // Where each cut lands, for the readout: the point is on the stored segment (or on the plate's
 // sample, for a rows record), so t is exact and the coordinates are the segment's own.
 const cutPoint = (fraction) => pointAtFraction({ path: basePoints, branches: record.branches }, fraction);
+// The suggestion: where the legs stop being constant-curvature runs, pulled back, snapped to a
+// p-triple pair. It is advice; the operator can type anything or press the button.
+const suggestion = recommendTrim(basePoints);
+const suggestionShare = suggestion
+  ? Math.max(suggestion.broke.front, suggestion.broke.back) * 100 : null;
 const startPoint = range ? cutPoint(range.from) : null;
 const endPoint = range ? cutPoint(range.to) : null;
 const at = (point) => point ? `(${point[0].toFixed(4)}, ${point[1].toFixed(4)})` : "—";
@@ -146,7 +151,8 @@ const qs = (from, to) => {
 // denominator (5, 13, 17, 25): 3/5, 4/5, 5/13, 12/13, 8/17, 15/17 are rational quarter-turn
 // steps. A tiny cut is still a fraction, never 0 — 1/17 and 1/25 are here for that.
 // A preset is one fraction; the other end is its mirror, (q − p)/q, ordered low to high.
-const presetStarts = ["1/4", "3/5", "5/13", "8/17", "1/25", "200/10001"];
+const presetStarts = ["1/61", "1/41", "1/29", "2/37", "1/25", "1/17", "1/13",
+  "1/4", "5/13", "3/5", "8/17", "200/10001"];
 const presets = [["0", "1"], ...presetStarts.map((text) => {
   const pair = mirrorPair(text);
   return [pair.from, pair.to];
@@ -175,6 +181,13 @@ const savedUid = q.get("new");
     <div class="trim-figure" set:html={svg} />
     <form class="trim-form" id="trim-form">
       <input type="hidden" name="uid" value={record.uid} />
+      {suggestion && (
+        <p class="trim-suggest">suggested: <b>t {suggestion.from} → {suggestion.to}</b> — the
+          curvature breaks at {suggestionShare.toFixed(1)} % on the longer leg; pulled back
+          0.5 % and snapped to a p-triple.
+          <button type="button" id="trim-use-suggestion" data-from={suggestion.from}
+            data-to={suggestion.to}>use the suggestion</button></p>
+      )}
       <div class="trim-presets" role="group" aria-label="common cuts">
         {presets.map(([from, to]) => (
           <a href={qs(from, to)} class:list={["trim-preset", { on: fromText === from && toText === to }]}>
@@ -251,6 +264,10 @@ const savedUid = q.get("new");
   .trim-form input, .trim-form select { width: 10rem; padding: 2px 4px; font-size: 13px; }
   .trim-form button { width: 100%; margin: 4px 0 0; }
   .trim-presets { display: flex; flex-wrap: wrap; gap: 5px; }
+  .trim-suggest { font: 12px/1.5 ui-monospace, Menlo, monospace; color: #4a3f30;
+    border-left: 3px solid #c9a441; padding-left: 8px; }
+  .trim-suggest button { font: 11px/1.2 ui-monospace, Menlo, monospace; padding: 3px 7px;
+    margin-left: 6px; background: #c9a441; border: 1px solid #c9a441; color: #fff; }
   .trim-mirror { font: 11px/1.2 ui-monospace, Menlo, monospace; padding: 3px 7px; margin: 0;
     background: #fbf3dc; border: 1px solid #c9a441; color: #8c6a21; }
   .trim-preset { font: 11px/1.2 ui-monospace, Menlo, monospace; padding: 3px 7px; background: #fbf3dc;

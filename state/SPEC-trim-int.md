@@ -47,6 +47,15 @@ two cut points are placed exactly on the fractions by interpolating the one segm
 - **The save answers at once.** The record, database rows and exports are written in the request;
   the plate and the figure render in the detached child (`scripts/render_saved_curve.mjs`) under
   the render lock.
+- **A trim is suggested before saving.** A leg is the run at an end where the curvature stays
+  roughly constant; it ends at the first station where the curvature moves away from that run's
+  value, or where the run crosses another part of the curve. The operator's rule, 2026-11-24:
+  "the curvature doesn't change much for the legs, then there is either a change in curvature or
+  an intersection. from that point move back a little". The suggestion pulls back 0.5 % of t,
+  caps an end run at 45 % (longer is the body), and snaps to the smallest **p-triple** pair that
+  clears it. The page prints the break (`7.0 %`) and a **use the suggestion** button; nothing is
+  saved until the button below is pressed. Check: `tests/js/trim-curve.test.ts`
+  (`recommendTrim` on a tail-and-loop, plus the hypotenuse rule) and `check-trim.ts`.
 - **The tuning page is a door in and out.** `/tune/<uid>` carries
   "cut this curve's legs off at a rational t", whose link keeps the width, plus, minus and
   profile on screen — edited but not yet saved — so the cut is made with the band being looked

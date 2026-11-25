@@ -82,6 +82,17 @@ if (await page.locator('input[name="from"]').inputValue() !== "2/5"
   throw new Error("a pair past the middle was not ordered");
 }
 
+// The suggestion: c-0022's legs break at 7 %, so the pair offered is 3/37 → 34/37, and the
+// button sets the fields before anything is saved.
+await page.goto(`${BASE}/trim/c-0022`, { waitUntil: "networkidle" });
+const suggest = await page.locator(".trim-suggest").innerText();
+if (!suggest.includes("3/37") || !suggest.includes("34/37")) throw new Error(`the suggestion: ${suggest}`);
+await page.locator("#trim-use-suggestion").click();
+if (await page.locator('input[name="from"]').inputValue() !== "3/37"
+  || await page.locator('input[name="to"]').inputValue() !== "34/37") {
+  throw new Error("the suggestion button did not set the fields");
+}
+
 // The tune page's door: the link must carry the values on screen, so the cut is made with the
 // band being looked at (operator, 2026-11-24: "connect /tune/ to the trim function").
 await page.goto(`${BASE}/tune/c-0022`, { waitUntil: "networkidle" });

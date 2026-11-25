@@ -16,6 +16,13 @@ const toInput = form?.querySelector('input[name="to"]') as HTMLInputElement | nu
 // than a live rewrite because a rewrite on blur fights the moment you click into the end field
 // to type your own value.
 const mirrorButton = document.getElementById("trim-mirror") as HTMLButtonElement | null;
+const useSuggestion = document.getElementById("trim-use-suggestion") as HTMLButtonElement | null;
+if (fromInput && toInput && useSuggestion) {
+  useSuggestion.addEventListener("click", () => {
+    fromInput.value = useSuggestion.dataset.from || fromInput.value;
+    toInput.value = useSuggestion.dataset.to || toInput.value;
+  });
+}
 if (fromInput && toInput && mirrorButton) {
   mirrorButton.addEventListener("click", () => {
     try {

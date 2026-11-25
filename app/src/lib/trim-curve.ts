@@ -91,6 +91,79 @@ export function mirrorPair(text: unknown): { from: string; to: string } {
   };
 }
 
+// The fractions a suggestion may pick: the thin p-triple cuts and the familiar sizes, all with a
+// hypotenuse denominator, sorted by share. Kept short on purpose — a suggestion of 11/169 is
+// technically nearest and useless to type or read.
+export const TRIM_PAIRS: [number, number][] = [
+  [1, 61], [1, 53], [1, 41], [1, 37], [2, 65], [2, 101], [1, 29], [1, 25], [2, 37],
+  [1, 17], [3, 37], [1, 13], [3, 29], [8, 53], [5, 13], [2, 5], [3, 5], [200, 10001],
+];
+
+// The curvature at one station, scale-free (1 / length × the local step).
+const curvatureAt = (a: Point, b: Point, c: Point): number => {
+  const A = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const B = Math.hypot(c[0] - b[0], c[1] - b[1]);
+  const C = Math.hypot(c[0] - a[0], c[1] - a[1]);
+  if (!A || !B || !C) return 0;
+  const cross = Math.abs((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]));
+  return (2 * cross) / (A * B * C);
+};
+
+const median = (values: number[]): number => {
+  const sorted = [...values].sort((a, b) => a - b);
+  return sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
+};
+
+// A leg is the run at an end where the curvature stays roughly constant. The leg ends at the
+// first station where the curvature moves away from that run's own value (a corner, a loop, a
+// change of bend) — or where the run crosses another part of the curve. The operator's rule,
+// 2026-11-24: "the curvature doesn't change much for the legs, then there is either a change in
+// curvature or an intersection. from that point move back a little, and suggest a trim".
+// The pull-back is 0.5 % of t, so the suggestion does not land on the noisy boundary.
+const PULL_BACK = 0.005;
+export function measureLegs(points: Point[]): { front: number; back: number; broke: { front: number; back: number } } | null {
+  const n = points.length - 1;
+  if (!Array.isArray(points) || n < 8) return null;
+  const k: number[] = [];
+  for (let i = 1; i < n; i += 1) k.push(curvatureAt(points[i - 1], points[i], points[i + 1]));
+  const med = median(k);
+  const walk = (from: number, step: number, base: number[], tol: number): number => {
+    const startAt = from;
+    for (let i = startAt; i >= 0 && i < k.length; i += step) {
+      if (Math.abs(k[i] - median(base)) > tol) return i; // index into k
+    }
+    return -1;
+  };
+  const head = k.slice(0, Math.min(20, k.length));
+  const tail = k.slice(Math.max(0, k.length - 20));
+  const baseFront = median(head);
+  const baseBack = median(tail);
+  const tolFront = Math.max(0.3 * Math.max(baseFront, med), 0.05 * med);
+  const tolBack = Math.max(0.3 * Math.max(baseBack, med), 0.05 * med);
+  const frontAt = walk(0, 1, head, tolFront);
+  const backAt = walk(k.length - 1, -1, tail, tolBack);
+  // An end run longer than 45 % of the curve is the body itself (a closed loop has constant
+  // curvature all the way round); it is not a leg and must not be cut. The cap keeps a "leg"
+  // a leg: a trim always keeps the middle of the curve.
+  const leg = (value: number): number => (value > 0.45 ? 0 : value);
+  const front = leg(frontAt < 0 ? 0 : Math.max(0, (frontAt + 1) / n));
+  const back = leg(backAt < 0 ? 0 : Math.max(0, (k.length - backAt) / n));
+  return { front: Math.max(0, front - PULL_BACK), back: Math.max(0, back - PULL_BACK),
+           broke: { front, back } };
+}
+
+// The smallest p-triple pair that clears the measured legs, after the pull-back.
+export function recommendTrim(points: Point[]): { from: string; to: string; broke: { front: number; back: number } } | null {
+  const measured = measureLegs(points);
+  if (!measured) return null;
+  const want = Math.max(measured.front, measured.back);
+  if (want <= 0) return null;
+  // the smallest share that clears the legs: the lattice is sorted by share, so the first is it
+  const pair = TRIM_PAIRS.find(([p, q]) => p / q >= want);
+  if (!pair) return null;
+  return { from: `${pair[0]}/${pair[1]}`, to: `${pair[1] - pair[0]}/${pair[1]}`, broke: measured.broke };
+}
+
 export function parseRange(fromText: unknown, toText: unknown): Range {
   const from = parseFraction(fromText);
   const to = parseFraction(toText);
