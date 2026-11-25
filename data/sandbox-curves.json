@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 222,
+ "count": 223,
  "rows": [
   {
    "name": "c-0001",
@@ -542,6 +542,21 @@
    "tune": true,
    "variant": "c-0057b",
    "savedAt": "2026-11-25T03:49:21.214Z"
+  },
+  {
+   "name": "c-0057c",
+   "widthPct": 1,
+   "plus": 2,
+   "minus": 0.1,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0057",
+   "curveName": "lace-heart-drop-1-full-trim-10k",
+   "tune": true,
+   "variant": "c-0057c",
+   "savedAt": "2026-11-25T03:55:34.566Z"
   },
   {
    "name": "c-0071-ceil",

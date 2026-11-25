@@ -3,8 +3,8 @@
  "files": {
   "curves": {
    "file": "curves.json",
-   "count": 410,
-   "hash": "fa711262dbf98589"
+   "count": 411,
+   "hash": "41c9e931e6c13ef1"
   },
   "stars": {
    "file": "stars.json",
@@ -23,8 +23,8 @@
   },
   "sandbox-curves": {
    "file": "sandbox-curves.json",
-   "count": 222,
-   "hash": "4762505de3613147"
+   "count": 223,
+   "hash": "20249ecef6685d73"
   },
   "metrics": {
    "file": "metrics.json",

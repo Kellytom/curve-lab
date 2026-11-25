@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.curves/1",
  "note": "One object per curve: the Curve row, its Note, its CurveSet, its metric and its formula.",
- "count": 410,
+ "count": 411,
  "rows": [
   {
    "uid": "c-0001",
@@ -4431,6 +4431,52 @@
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "trimmed from c-0057 (lace-1of12-1of3-1) · t 0 → 1 · 701 stored points, exact there, approximate between them",
     "updatedAt": "2026-11-25T03:49:21.208Z"
+   },
+   "set": null,
+   "metric": null
+  },
+  {
+   "uid": "c-0057c",
+   "name": "lace-heart-drop-1-full-trim-10k",
+   "family": "lace",
+   "lists": "[\"B\",\"found\",\"variant\"]",
+   "aliases": "[]",
+   "starred": false,
+   "candidate": false,
+   "status": "kept",
+   "pngIgnored": true,
+   "createdAt": "2026-11-25T03:55:34.560Z",
+   "stars": null,
+   "formula": {
+    "plain": "polyline through 675 stations, (-5.668948021956495, -4.875983681459564) to (-7.544336692720085, -4.875983681459562)",
+    "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
+    "parameter": "k = 0 … station count − 1",
+    "search": "polyline 675 stations from (-5.668948021956495, -4.875983681459564) to (-7.544336692720085, -4.875983681459562); no metric yet",
+    "use": "no metric yet"
+   },
+   "note": {
+    "uid": "c-0057c",
+    "name": "lace-heart-drop-1-full-trim-10k",
+    "importance": 0,
+    "rotation": 0,
+    "pieces": 1,
+    "borderUid": null,
+    "perSide": 9,
+    "borderTurn": 0,
+    "offsets": 0,
+    "widthPct": 1,
+    "plus": 2,
+    "minus": 0,
+    "profile": "bow",
+    "formula": null,
+    "params": "{\"parent\":\"c-0057\",\"parentName\":\"lace-heart-drop-1-full\",\"variantOf\":\"c-0057\",\"tuned\":{\"widthPct\":1,\"plus\":2,\"minus\":0.1,\"profile\":\"bow\",\"transform\":{\"degrees\":0},\"degrees\":0},\"cut\":{\"of\":\"c-0057b\",\"ofName\":\"lace-heart-drop-1-full\",\"mode\":\"trim\",\"from\":\"200/10001\",\"to\":\"9801/10001\",\"sampled\":true}}",
+    "grid": null,
+    "stationRule": null,
+    "algorithm": "trimmed at rational fractions of t",
+    "conversion": "{\"algorithm\":\"trimmed at rational fractions of t\",\"status\":\"pending\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null,\"exact\":false,\"note\":\"sampled: c-0057b's stored points between t 200/10001 and t 9801/10001; the legs outside are dropped\"}",
+    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "note": "trimmed from c-0057b (lace-heart-drop-1-full) · t 200/10001 → 9801/10001 · 675 stored points, exact there, approximate between them",
+    "updatedAt": "2026-11-25T03:55:34.560Z"
    },
    "set": null,
    "metric": null
