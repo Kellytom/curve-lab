@@ -28,7 +28,9 @@ two cut points are placed exactly on the fractions by interpolating the one segm
   `200/10001 → 9801/10001`, plus the whole curve `0 → 1`. The operator's rule, 2026-11-24:
   "each time follow that algorithm of (num-denom)/denom for the end". The denominators are
   hypotenuses where the fraction is a p-triple leg over its hypotenuse; the mirror itself is a
-  parameter symmetry, not a second triangle.
+  parameter symmetry, not a second triangle. Typing does not rewrite the other field; a
+  **mirror the end** button beside them applies the rule on demand (a live rewrite fought the
+  moment you click into the end field to type your own value).
 - **The front cut comes before the back cut.** `from < to`; equal or reversed is refused.
 - **The kept stations are the record's own, and the two new ends lie on a stored segment.** The
   cut points are exact in `t`; the curve between stations is the record's sample, and the saved

@@ -12,10 +12,12 @@ const fromInput = form?.querySelector('input[name="from"]') as HTMLInputElement 
 const toInput = form?.querySelector('input[name="to"]') as HTMLInputElement | null;
 
 // The operator's rule (2026-11-24): "each time follow that algorithm of (num-denom)/denom for the
-// end". Typing a start fraction and leaving the field sets the end to its mirror, ordered; typing
-// the end afterwards still overrides it, and a bad fraction leaves both fields alone.
-if (fromInput && toInput) {
-  fromInput.addEventListener("change", () => {
+// end". One button does it: the end becomes the start's mirror, ordered. It is a button rather
+// than a live rewrite because a rewrite on blur fights the moment you click into the end field
+// to type your own value.
+const mirrorButton = document.getElementById("trim-mirror") as HTMLButtonElement | null;
+if (fromInput && toInput && mirrorButton) {
+  mirrorButton.addEventListener("click", () => {
     try {
       const pair = mirrorPair(fromInput.value);
       fromInput.value = pair.from;
