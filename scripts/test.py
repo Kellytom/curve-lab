@@ -67,10 +67,15 @@ SLIM = {
 FAST = {
     "test_engine", "test_piece", "test_fillet", "test_section",
     "test_pyth_triples", "test_pyth_cubic",
-    "test_regressions", "test_data_audit", "test_exact_numbers", "test_operator_list",
+    "test_data_audit", "test_exact_numbers", "test_operator_list",
     "test_memory_freshness", "test_registry_paths", "test_curve_stars", "test_marginalia",
     "test_hub_stills",
 }
+
+# The fixed-fault register is TypeScript: `tests/test_regressions.ts`, ported from the
+# Python twin on 2026-11-24 so it runs on the same runtime as the pages. It runs in
+# run_register() beside the JS tests, not as a unittest module, and skips --slow/--slim.
+REGISTER = "test_regressions"
 
 # Only the two modules that write the same page compete for it:
 # test_curve_census and test_stem_library both rebuild stem-library.html.
@@ -79,7 +84,10 @@ SERIAL = {"test_curve_census", "test_stem_library"}
 
 
 def modules():
-    return sorted(p.stem for p in (ROOT / "tests").glob("test_*.py"))
+    # The register is TypeScript now (tests/test_regressions.ts, ported 2026-11-24);
+    # it runs in run_register(), so the Python twin is not picked up here.
+    return sorted(p.stem for p in (ROOT / "tests").glob("test_*.py")
+                  if p.stem != REGISTER)
 
 
 def one(name):
@@ -160,6 +168,31 @@ def run_js_tests() -> int:
     return 0
 
 
+def run_register() -> int:
+    """The fixed-fault register: `tests/test_regressions.ts`, one row per fault.
+
+    The register was ported to TypeScript on 2026-11-24 so it runs on the same runtime
+    as the pages. The modules a row still calls (`curve_records`, `generators`,
+    `check_asks.py`, `said_checklist.py`, `curve_registry.py`) stay Python until their
+    own ports, and the TS rows run them as subprocesses.
+    """
+    node = subprocess.run([node_binary(), "--version"], capture_output=True, text=True)
+    if node.returncode != 0:
+        print("  register skipped: no node")
+        return 0
+    result = subprocess.run(
+        [node_binary(), "--test", str(ROOT / "tests" / "test_regressions.ts")],
+        cwd=ROOT, capture_output=True, text=True)
+    passed = re.search(r"^(?:#|\u2139) pass (\d+)$", result.stdout, re.M)
+    failed = re.search(r"^(?:#|\u2139) fail (\d+)$", result.stdout, re.M)
+    print(f"  register: {passed.group(1) if passed else '?'} pass, "
+          f"{failed.group(1) if failed else '?'} fail")
+    if result.returncode != 0:
+        print(result.stdout[-1600:])
+        return 1
+    return 0
+
+
 def run_browser_checks() -> int:
     """The page checks that need Chrome: a control exists and draws."""
     node = subprocess.run([node_binary(), "--version"], capture_output=True, text=True)
@@ -209,6 +242,8 @@ def main(argv):
     print(f"  {len(chosen)} modules in {secs:.1f} s · jobs {jobs}" + tail)
     if code == 0 and "--fast" not in argv:
         code = run_js_tests()
+    if code == 0 and "--slow" not in argv and "--slim" not in argv:
+        code = run_register()
     if "--browser" in argv and code == 0:
         code = run_browser_checks()
     return code
