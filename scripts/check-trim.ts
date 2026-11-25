@@ -68,6 +68,20 @@ await Promise.all([
 const bad = await page.locator(".trim-bad").innerText().catch(() => "");
 if (!/whole-number fraction/.test(bad)) throw new Error(`a decimal was not refused: ${bad}`);
 
+// The operator's mirror rule: typing a start fraction sets the end to (q - p)/q, ordered.
+await page.goto(`${BASE}/trim/c-0274`, { waitUntil: "networkidle" });
+await page.fill('input[name="from"]', "200/10001");
+await page.locator('input[name="to"]').click();
+if (await page.locator('input[name="to"]').inputValue() !== "9801/10001") {
+  throw new Error("the end did not follow (q - p)/q");
+}
+await page.fill('input[name="from"]', "3/5");
+await page.locator('input[name="to"]').click();
+if (await page.locator('input[name="from"]').inputValue() !== "2/5"
+  || await page.locator('input[name="to"]').inputValue() !== "3/5") {
+  throw new Error("a pair past the middle was not ordered");
+}
+
 // The tune page's door: the link must carry the values on screen, so the cut is made with the
 // band being looked at (operator, 2026-11-24: "connect /tune/ to the trim function").
 await page.goto(`${BASE}/tune/c-0022`, { waitUntil: "networkidle" });
