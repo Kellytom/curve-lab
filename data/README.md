@@ -21,7 +21,7 @@ the exporter overwrites the file from the database.
 Every file is an object with `format`, `note`, `count` and `rows`. `rows` is an
 array (or, for `jobs.json`, an object with `sessions` and `jobs`).
 
-### `curves.json` — 405 rows — `curve-lab.data.curves/1`
+### `curves.json` — 412 rows — `curve-lab.data.curves/1`
 
 One object per curve: the `Curve` row, its `Note`, its `CurveSet` and its
 `CurveMetric`, with the formula. The speed rows and polyline stations come from
@@ -109,7 +109,7 @@ inside the JSON.
 
 Lost without it: every keep/later/reject decision on the hybrid desk.
 
-### `metrics.json` — 405 rows — `curve-lab.data.metrics/1`
+### `metrics.json` — 406 rows — `curve-lab.data.metrics/1`
 
 The measurements, one row per measured curve, produced by
 `scripts/analyse_curves.py` — a number here is generated, never typed.
