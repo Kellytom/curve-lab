@@ -35,7 +35,48 @@ Neither reserves files; the rule is the operator's latest words and the register
 `docs/SIDE-CURVES.md` before changing a rail or the preset.
 
 
-## Current (2026-11-23, end) — the offset crossings landed; next, the missing classical curves
+## Current (2026-11-24) — consolidated: the gothic desk done, the book rasters next
+
+- **Done 2026-11-24/25 — the trim desk and its suggestion:** rational `t = p/q` cuts with the
+  mirror end `(q−p)/q`, the plates-first list, rows sampling, per-branch cut marks, the tune→trim
+  door, and a `recommendTrim` suggestion (constant-curvature legs, break at the curvature change
+  or crossing, pull back 0.5 %, snap to a p-triple). c-0022 turned 180°; the plates page no
+  longer reloads on background renders; the image-tracking policy settled.
+- **Next 2 — c-0022's shape:** the operator says it looks wrong before any trimming. The plate
+  and figure agree with the stored rows; compare the record with the wave3 definition and the old
+  diamond figure, then correct the record or record the finding.
+
+- **Done 2026-11-23/24 (this session):** the gothic desk (`/gothic/`, `/gothic/<uid>`) over every
+  stored curve, with the measured mirror, the one-arm cut and the `?set=gothic` view; the cut as
+  exact `t = 1/2 ∓ q`; the two-panel figure with the original and its integer hits; the
+  rational-`t` menu; the Tschirnhausen pieces finished as six glue-ready Study rows; the four
+  source pages named on the desk; the live browser check; register rows 70/71; the data repairs
+  (transform slot, conversion slot, emblem generator, figures, draft badge, stills).
+- **Next 1 — the missing book rasters** (`c-0398`–`c-0419`, the sidechat's next action): render
+  the 3000 px plates with `print_plates.mjs --missing`, verify each file, and list them; the
+  operator's book.
+- **Done 2026-11-24 — the glue quintic (G3)** and its TypeScript conversion: `app/src/lib/glue.ts`
+  with the six-condition solver, `glue-sandbox.ts`, `tests/js/glue.test.ts`; the page takes κ and
+  dκ/ds at each end and prints all six numbers; the test pins 1e-9. The quintic's own loop mode is
+  the next glue action.
+- **Done 2026-11-24 — the crossings counter in TypeScript.** `app/src/lib/crossings.ts` is the
+  twin of `curve_lab/crossings.py` (grid buckets, the same strict-orientation test);
+  `tests/js/crossings.test.ts` matches the brute force on 50 random walks, pins a figure-eight
+  and a triple point (three pairs), and the stored path records. The Python file stays for its
+  Python consumers until they move.
+- **Done 2026-11-24 — the analysis in TypeScript.** `app/src/lib/curve-analysis.ts` +
+  `scripts/analyse_curves.ts` (the CLI): the exact metrics from `measure.ts`, the sampled spine,
+  the stable crossing pairs. Six records deep-equal the committed JSON; `workbench/curve-analysis.json`
+  is regenerated from the TS (405 rows: five last-decimal float differences and one semantic
+  change — c-0217's two pairs at a near-stationary point were a sample-parameter artifact and are
+  gone). `scripts/analyse_curves.py` is retired.
+- **Next 2 — the TypeScript ports still to do:** `scripts/root_search.py`,
+  `scripts/coupler_curves.py` (same algorithms, `.ts`), and `tests/test_regressions.py` → a TS
+  register for the Node and browser checks.
+- **Next 3 — a studied curve to a plate** needs the operator's word (Study row vs record).
+- **Blocked:** the start-point shift / the symmetric cut's final reading; the human figure.
+
+
 
 - **Landed 2026-11-23:** the rail crossings (`1f4ce27f`: dots, hidden spans, `rail-holes.json`),
   the tune page's readout and other-kinds strip (`39308c52`), the hub's stills and notes menu

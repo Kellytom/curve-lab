@@ -3946,6 +3946,22 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   `TrimCurveTest` invokes `node` in a way that cannot load `.ts`. The glue/crossings tests and the
   `/glue/` page check are green.
 
+## 2026-11-24 (the analysis in TypeScript) — the port that retires the Python
+
+- **Built:** `app/src/lib/curve-analysis.ts` (the exact metrics from `measure.ts`, the sampled
+  spine at 240, the crossing pairs from `crossings.ts` with the coarse/fine stability) and
+  `scripts/analyse_curves.ts` (the CLI: `--limit`, `--check`, `--out`).
+- **Proved:** six records (rows, path, Tschirnhausen, classical, mobile, heart) deep-equal the
+  committed JSON; the pinned c-0262 = 9 crossing pairs; the full run is 405/405 rows with only
+  last-decimal float differences on five huge figures and one semantic change — c-0217's two
+  pairs at a near-stationary point were a linspace-vs-midpoint artifact and are gone. The TS
+  output is now the record (`workbench/curve-analysis.json`); the Python script is retired.
+- **References:** `state/DATA-int.md` names the `.ts` writer; `similar_curves.py` follows.
+- **Next:** `scripts/root_search.py`, then `coupler_curves.py`, then the register.
+- **The long form for the operator:** `/chat-display/recent-work/` (the two days in one page:
+  the gothic desk, the quintic, the Tschirnhausen pieces, the TypeScript ports, the two reds that
+  are the other agent's, and the next actions).
+
 ## 2026-11-23 (the cut desk landed; the fold, the tune strip, the hub stills)
 
 - **Landed this session, each with its hash:** the rail crossings (`1f4ce27f`), the tune page's
@@ -4149,3 +4165,43 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
   `.ts` test and failed it.
 - **State:** 405 records, database 405/405/405, 8 studies, 810 PNG files all accounted for;
   `npm run check`: 0 errors; register 37 tests OK.
+
+## 2026-11-25 (the suggestion, the turned curve, the quiet plates, the image policy)
+
+- **The trim desk suggests the cut before saving.** A leg is the constant-curvature run at an
+  end; it ends where the curvature leaves that run (or the run crosses the curve); the suggestion
+  pulls back 0.5 % of t, caps an end run at 45 % (longer is the body), and snaps to the smallest
+  **p-triple** pair that clears it. Measured: c-0022 **7.0 % → 3/37 … 34/37**; c-0001 and c-0429
+  **8.3 % → 3/37**; c-0274 (closed) **1.1 % → 1/61**. Thin presets above 1/25: 1/61, 1/41, 1/29,
+  2/37, 1/17, 1/13. **use the suggestion** fills the fields; nothing saves until the button.
+  (`measureLegs` + `recommendTrim` in `app/src/lib/trim-curve.ts`; tests and `check-trim.ts`.)
+- **Back to the plates** after a save is a button to `/plates#<uid>`; the lead has the same for the
+  parent. The anchor lands on the card, not the top of the page.
+- **c-0022 turned 180°** so its legs go up, matching its trim. The plate turns by the record's
+  transform; the desk's saved turn now wins over it (that is why the turn slider looked dead). The
+  plate and figure are re-rendered.
+- **The plates page no longer reloads under the reader.** Vite treated every background
+  plate/figure render written into `app/public` as a full page reload; the watcher now ignores
+  `plates-web`, `figures`, `frames`, `ornaments`. Proved: a plate write with `/plates` open
+  causes no navigation.
+- **Images:** the per-save renders are ignored (`plates-web`, `figures`, `frames`); the stable sets
+  are tracked again (`curves`, `hybrid-figures`, `extra-curves`, `hub` stills, `workbench/figures`
+  — 1,063 files); `book/bordered` stays (one commit, 18 Nov).
+- **Probe repairs:** `book_kept.mjs` regenerated (203 kept, 0 missing); the data README counts set
+  to the files' own (curves **412**, metrics **406**); the four stale hub stills regenerated.
+- **Known red:** `app/tests/formula.test.mjs`, "every printed rows formula reproduces the stored
+  speed rows" — it meets a path record whose formula reads "polyline through 631 stations" (the
+  c-0008a / u-bowl-gothic family). A data-or-test decision, not a renderer fault.
+- **Metrics are 6 behind** (406 of 412): run `node scripts/analyse_curves.ts`, then
+  `node app/scripts/load-analysis.mjs`, then export.
+- **At the probe:** HEAD **4515f906** (before this block); registry **412**, database
+  **412/412/412**; local **4321** and **8003** both **200**; register **36 tests OK**; app tests
+  green except the formula red; the fast suite's only red was the four hub stills, regenerated and
+  re-checked green.
+- **Next:** settle c-0022's shape — the plate and figure agree with the stored rows (`x' = 1`,
+  `y' = −5 + 46t − 108t² + 72t³`, drawn as a PH pair), so if the shape is wrong the record is,
+  not the drawing.
+
+Tried and rejected: writing the mirror into the end field while the start fraction was typed —
+it fired as you clicked into the end field and appended the value (`2/32/3`); replaced by the
+**mirror the end** button and the presets. (2026-11-24)

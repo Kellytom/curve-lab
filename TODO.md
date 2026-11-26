@@ -124,6 +124,10 @@ The main families are done; these are loose ends, not new work:
   points, candidate (not on the plates until it is starred).
 
 
+- **c-0022's shape is suspect.** The operator, 2026-11-24: the parent "looks wrong ... before
+  any trimming". The plate and the figure agree with the stored rows (`x' = 1`,
+  `y' = −5 + 46t − 108t² + 72t³`, drawn as a PH pair), so the record is the suspect, not the
+  renderer. Compare it with the wave3 family definition and the old diamond figure.
 - **Frames set: 90 or 231?** `state/FRAMES-int.md` records 90 chosen curves; the current
   registry makes `frames_build.mjs` select 231, so `--write` would render 924 thumbnails and
   triple the tracked set. The operator decides before the next run.
