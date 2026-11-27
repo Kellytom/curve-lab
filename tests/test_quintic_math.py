@@ -171,6 +171,16 @@ class BlenderConventionTest(unittest.TestCase):
         glue = (ROOT / "inkscape" / "quintic_guide.py").read_text()
         self.assertIn('--pointmode", type=str, default="even"', glue)
 
+    def test_the_defaults_are_the_measured_ones(self):
+        inx = (ROOT / "inkscape" / "quintic-guide.inx").read_text()
+        # even cuts measured better than curvature cuts; a live preview must not
+        # write files, so the export folder starts blank
+        self.assertIn('<option value="even">Equal arc length (measured better)</option>', inx)
+        options = re.findall(r'<option value="([a-z-]+)"', inx)
+        self.assertEqual(options[4], "even")          # the split default
+        self.assertIn('gui-text="Export folder (blank = write nothing)"', inx)
+        self.assertIn('name="segments" type="int" min="0" max="32"', inx)
+
     def test_the_dialog_is_three_pages(self):
         inx = (ROOT / "inkscape" / "quintic-guide.inx").read_text()
         pages = re.findall(r"<page name=\"([a-z]+)\"", inx)

@@ -39,6 +39,7 @@ except ImportError:  # importable outside Inkscape for linting
 
 MARK = "data-quintic-guide"
 MARK_POINTS = "data-quintic-points"
+MARK_LABEL = "data-quintic-label"
 SAMPLES_PER_SPAN = 60     # dense arc-length samples per span; 61 points, 5x12
 POINT_RADIUS = 2.5
 
@@ -67,11 +68,19 @@ def _cubic_segments(path_element):
 
 
 def _guide_in_selection(selection):
+    """The guide: a selected path, or the first path inside a selected group.
+
+    Selecting a group and being told "select the guide" is a dead end the
+    operator cannot see the reason for, so the group is opened instead.
+    """
     for element in list(selection.values()):
         if isinstance(element, inkex.elements.PathElement):
             return element
         if hasattr(element, "to_path_element"):
             return element
+        for candidate in element.iter():
+            if candidate is not element and isinstance(candidate, inkex.elements.PathElement):
+                return candidate
     return None
 
 
@@ -123,6 +132,7 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
         pars.add_argument("--tolerance", type=float, default=0.01)
         pars.add_argument("--clampovershoot", type=inkex.Boolean, default=False)
         pars.add_argument("--showpoints", type=inkex.Boolean, default=True)
+        pars.add_argument("--showlabel", type=inkex.Boolean, default=True)
         pars.add_argument("--strokecolour", type=str, default="#000000")
         pars.add_argument("--keepguide", type=inkex.Boolean, default=True)
         pars.add_argument("--exportdir", type=str, default="")
@@ -259,6 +269,7 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
                 "fit_max": fitted_max,
                 "fit_rms": fitted_rms,
                 "clamped": clamped,
+                "seam": seam_after,
                 "overshoot": runaway,
                 "cusps": cusps,
                 "certified": bound <= self.options.tolerance,
@@ -308,7 +319,8 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
         if not guide_id:
             return
         for selector in ("//*[@%s='%s']" % (MARK, guide_id),
-                         "//*[@%s='%s']" % (MARK_POINTS, guide_id)):
+                         "//*[@%s='%s']" % (MARK_POINTS, guide_id),
+                         "//*[@%s='%s']" % (MARK_LABEL, guide_id)):
             for element in list(self.svg.xpath(selector)):
                 element.delete()
 
@@ -330,6 +342,34 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
         index = list(layer).index(guide)
         layer.remove(leaf)
         layer.insert(index, leaf)
+
+        if self.options.showlabel and results:
+            worst_fit = max(r["fit_max"] for r in results)
+            worst_bound = max(r["bound"] for r in results)
+            cubics = sum(r["segments"] for r in results)
+            seam = max((r.get("seam_after", 0.0) for r in results), default=0.0)
+            text = ("%d span%s, %d cubic%s, miss %.2f px, bound %.4f px%s"
+                    % (len(results), "" if len(results) == 1 else "s",
+                       cubics, "" if cubics == 1 else "s",
+                       worst_fit, worst_bound,
+                       "" if not seam else ", seams %.1f deg" % seam))
+            label = inkex.elements.TextElement()
+            first = results[0]["control"][0]
+            label.set("x", qm.num(first[0] + 4))
+            label.set("y", qm.num(first[1] - 6))
+            label.text = text
+            label.set(MARK_LABEL, guide_id)
+            label.style = {
+                "font-family": "Helvetica, Arial, sans-serif",
+                "font-size": "9px",
+                "fill": stroke,
+                "stroke": "none",
+                "opacity": "0.75",
+            }
+            layer.append(label)
+            index = list(layer).index(guide)
+            layer.remove(label)
+            layer.insert(max(0, index - 1), label)
 
         if self.options.showpoints:
             group = inkex.elements.Group()

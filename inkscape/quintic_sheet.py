@@ -135,6 +135,19 @@ class QuinticSheet(inkex.EffectExtension if inkex else object):
                 marks.append(dot)
         layer.append(marks)
 
+        # name the curve where it starts, so a page of several is readable
+        first = points_all[0][0]
+        label = inkex.elements.TextElement()
+        label.set("x", qm.num(first[0] + 4))
+        label.set("y", qm.num(first[1] - 8))
+        label.text = "%s (%s, %s)" % (uid, curve.get("family", "?"),
+                                      "closed" if curve.get("closed") else "open")
+        label.set(MARK + "-label", uid)
+        label.style = {"font-family": "Helvetica, Arial, sans-serif",
+                       "font-size": "9px", "fill": "#c0392b", "stroke": "none",
+                       "opacity": "0.8"}
+        layer.append(label)
+
         inkex.errormsg("Quintic sheet: %s, %d span%s drawn at scale %g; %s; "
                        "worst chain miss %.4f px. The six points are the record, "
                        "the drawn path is the view."

@@ -14,6 +14,57 @@ then the split — "you as deep2 are working on the inkscape code, and deep1 can
 on the code from the curve lab side… but you have to work together on a shared data
 structure".
 
+## How to use it
+
+**Install, once:**
+
+```sh
+sh scripts/install_inkscape_quintic.sh
+```
+
+Restart Inkscape. Two entries appear under **Extensions → Curve Lab**.
+
+**Draw the guide.** Any path: a freehand stroke with a trackball or a pencil, or a
+path you built by hand. It is the thing the quintic will be fitted to, so make it the
+shape you want, not a rough sketch of it. Style it pale and dotted if you like — the
+inner curve is drawn on top of it, and the guide stays exactly where you put it.
+
+**Select the guide** (a group containing paths works too; the first path inside it is
+used), then **Extensions → Curve Lab → Quintic from Guide**.
+
+**Read the dialog.** Four controls decide the curve; the rest are cosmetics:
+
+| control | what it does | start with |
+|---|---|---|
+| **Six points are** | *On the curve, evenly spaced* puts six points on your stroke and solves the quintic through them (Blender's convention: the point you place is on the curve). *A best fit* lets the points leave the stroke and minimises the miss. The two cage modes treat the six points as control points instead. | On the curve |
+| **Spans** | how many quintics the stroke becomes. One span is a bad fit on a long stroke (26–46 px on the test strokes); four spans bring it under 1 px. Each span gets its own six points. | 3 on a long stroke, 1 on a short one |
+| **Fullness** | tension: 1 keeps your drawn shape, 0 collapses to a straight line, the ends never move. This is the slider to drag with **Live preview** ticked. | 1 |
+| **Cubic segments** | how many cubics draw each quintic. **0 means fit to a tolerance** and is the right answer almost always. | 0 |
+
+**Apply.** You get, on the canvas:
+
+- the inner curve, solid, sitting just under its guide;
+- a small ring at each of the six control points (so you can see what the curve is
+  actually made of);
+- a one-line label at the start of the curve — `3 spans, 34 cubics, miss 0.88 px,
+  bound 0.0074 px` — that is the measured miss and the *proved* bound, so the picture
+  never claims more than it shows.
+
+Nothing is written to disk unless you give an **Export folder** on the Export tab.
+A repeat run with the same settings replaces the curve and the marks instead of
+stacking another copy.
+
+**Change something and go again.** Raise Spans if the label's miss is bigger than
+your job needs; drag Fullness while Live preview is ticked; clamp the overshoot if
+the curve leaves the six points and you do not want it to.
+
+## Placing a curve from the sheet
+
+**Extensions → Curve Lab → Quintic sheet: place a curve**, then give a uid
+(`q6-parabola-01`) and a scale. It draws that curve, its control polygon and its six
+points. This is the way to get one of DeepSeek1's 200 curated curves into Inkscape to
+work on, and the way to check that both desks read the same record.
+
 ## The three layers
 
 | layer | what it is | how good it is |
@@ -42,11 +93,13 @@ Files:
 | `inkscape/quintic_math.py` | the pipeline: Bernstein, exact solve, fits, the C2 chain, the proved bound, the exports |
 | `inkscape/quintic_theory.py` | the analysis: seams, PH, offsets, knots, joins, the contract writer |
 | `tests/test_quintic_math.py` | 46 tests |
+| `scripts/install_inkscape_quintic.sh` | the one-line install |
 | `scripts/quintic_report.py` | every number in this document |
 | `scripts/check_quintic_contract.py` | the shared Python check (the curve-lab side wrote it; `--strict` adds the extra-key and extent rules) |
 | `scripts/check_blender_quintic.py` | Blender's own evaluation of the exported span |
 | `state/QUINTIC-CONTRACT-int.md` | this side of the contract |
 | `state/PROBLEMS-quintic-guide-int.md` | the faults it has had |
+| `workbench/quintic-demo.svg` | a finished example, drawn by the extension itself |
 
 Python, not TypeScript: an Inkscape extension must speak `inkex`, and inkex is
 Python. The maths modules are inkex-free so they run under `.venv/bin/python` with
