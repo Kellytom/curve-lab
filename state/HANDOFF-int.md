@@ -4205,3 +4205,36 @@ The operator: "make sure your handoff and deep2s stuff are not mixed together."
 Tried and rejected: writing the mirror into the end field while the start fraction was typed —
 it fired as you clicked into the end field and appended the value (`2/32/3`); replaced by the
 **mirror the end** button and the presets. (2026-11-24)
+
+## 2026-11-26 (c-0022 settled; the gate tidied before the handoff)
+
+- **c-0022's shape is settled, and the record was right.** The stored rows are `u = 1`,
+  `v = 72(t − 1/6)(t − 1/2)(t − 5/6)`, the exact `wave3` definition. The **figure** was wrong: a
+  rows record has no stored `path`, `branchesOf` returned an empty list, and the catch drew one
+  bare half — that is the shape the operator called wrong. `centralPaths` now falls back to the
+  record's speed rows, so the diamond's mirror half is back. `tests/js/figure-rows.test.ts` (2
+  pass); register row 76; DESIGN entry. The figure index is **412 entries, 0 failed**, c-0022
+  `failed: false`. The plate stays a single spine-plus-rails curve, as designed.
+- **The formula test is green by its own rule.** It filtered on `speedX`, which caught `c-0008a`
+  (a gothic cut keeps its parent's rows but prints "polyline through 631 stations"). It now
+  filters on `kind === "rows"` and says why in a comment; **213 rows records** are checked.
+- **Metrics caught up: 406 → 412.** `analyse_curves.ts` → `load-analysis.mjs` (412 written, 0
+  missing) → `export-data.mjs`; `data/README.md`'s metrics row is 412, so
+  `DataReadmeCountsTest` is green.
+- **The five trim records are whole.** `c-0028a`, `c-0057a`, `c-0057b`, `c-0057c`, `c-0058a`
+  each have a 3000 px print plate and SVG in `book/print/`, a figure, a web plate and a metrics
+  row; `cuts.json` and `rail-holes.json` gained only those five (merged, not replaced).
+- **The span-width fix has a TypeScript guard now.** `piece.ts` no longer refuses a width on a
+  span trace and no longer doubles the layer; `tests/js/piece.test.ts` (3 pass) builds two rails,
+  two caps and one spine from `ink/a` and checks the name stays `ink/a`.
+- **Book path comments repaired.** A find/replace had left `book/old-old-plates.json` in
+  `scripts/old_plates_export.mjs`; the comments now name `book/old-plates.json` and
+  `book/old-plates/`, which is where the files actually are.
+- **Measured at the gate:** the register in TypeScript (`node --test tests/test_regressions.ts`)
+  **36 tests, 36 pass, 4.2 s**; the Python twin 36 pass in 27 s at focus. `npm --prefix app run
+  gate`: **103 app tests, 6 TypeScript tests, 0 fail**, `astro check` clean. `scripts/test.py
+  --fast`: 14 modules, 4.5 s, one red before the metrics fix and green after.
+- **Open question, not changed:** `AGENTS.md` names the Python register command (49 s) while the
+  gate runs the 4 s TypeScript twin. Both pass; pick one before the next port row.
+- **Next:** `/fhandoff` for the next block; the queue resumes at `scripts/root_search.py` →
+  `scripts/coupler_curves.py` (TypeScript), then the register's Python twin.

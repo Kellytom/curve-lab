@@ -35,6 +35,24 @@ Neither reserves files; the rule is the operator's latest words and the register
 `docs/SIDE-CURVES.md` before changing a rail or the preset.
 
 
+## Current (2026-11-26) — land what is already on disk, then clear the gate
+
+Checked at HEAD `2b0aa130` (main, 2 ahead of origin), working tree 30 modified + 2 untracked.
+**The c-0022 action is answered and landed** (this section's first row); the gate was tidied after it.
+
+| # | action | `Proves:` | state |
+|---|---|---|---|
+| 1 | **Land the c-0022 finding** — the rows are the `wave3` family; the figure had lost its mirror half | commit; register row 76; `tests/js/figure-rows.test.ts` 2 pass; figure index 412 entries, 0 failed | **landed 2026-11-26** |
+| 2 | **The formula test** — filter on `kind === "rows"`, so a cut record's "polyline through N stations" is not parsed as a polynomial | the test green; 213 rows records checked | **landed 2026-11-26** |
+| 3 | **Metrics 6 behind** | 412/412; the data README counts are the files' own | **landed 2026-11-26** |
+| 4 | **The five new records** — `c-0028a`, `c-0057a`–`c-0057c`, `c-0058a` | each has a 3000 px plate, SVG, figure, web plate and metrics row; the rail indexes merged | **landed 2026-11-26** |
+| 5 | **Push** — the local commits | `git push origin main`; remote green | done when the push lands |
+| 6 | **Resume the queue** — `scripts/root_search.py`, `scripts/coupler_curves.py`, then the register's Python twin, as `.ts` | each port has its twin test and the Python file is retired or its consumers named | next |
+
+**Decided 2026-11-26:** the frames question (90 recorded vs 231 selected) waits until the curves are
+in hand — do not render the 924 thumbnails yet. The hardware ask (row 13, pen display first) is open
+and independent.
+
 ## Current (2026-11-24) — consolidated: the gothic desk done, the book rasters next
 
 - **Done 2026-11-24/25 — the trim desk and its suggestion:** rational `t = p/q` cuts with the
