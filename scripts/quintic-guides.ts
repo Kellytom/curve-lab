@@ -37,6 +37,7 @@ type Options = { error: number; spans: number };
 const ROOT = path.resolve(import.meta.dirname, "..");
 const OUT_JSON = path.join(ROOT, "workbench", "quintic-guides.json");
 const OUT_SVG = path.join(ROOT, "workbench", "quintic-guides.svg");
+const OUT_PATHS = path.join(ROOT, "workbench", "quintic-guides-paths.svg");
 
 const W = 120;
 const H = 120;
@@ -394,8 +395,52 @@ function sheet(curves: Curve[]): string {
   return parts.join("\n");
 }
 
-/* ---------- run ---------- */
+/**
+ * A clean sheet for the extension: one path per curve, six nodes each, no dots
+ * and no drawn curve. This is the file to open and test against.
+ */
+function guidePaths(curves: Curve[]): string {
+  const cols = 5;
+  const rows = Math.ceil(curves.length / cols);
+  const cell = 260;
+  const width = cols * cell;
+  const height = rows * cell + 60;
+  const parts = [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
+    `<rect width="${width}" height="${height}" fill="#fff"/>`,
+    `<text x="20" y="30" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600">Fig. QG2 — 100 six-node guides, one path each, for the Quintic from Guide extension</text>`,
+  ];
+  curves.forEach((curve, index) => {
+    const cx = (index % cols) * cell;
+    const cy = 60 + Math.floor(index / cols) * cell;
+    const xs = curve.points.map((p) => p[0]);
+    const ys = curve.points.map((p) => p[1]);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    const minY = Math.min(...ys);
+    const maxY = Math.max(...ys);
+    const pad = 18;
+    const top = 22;
+    const s = Math.min(
+      (cell - 2 * pad) / Math.max(1, maxX - minX),
+      (cell - top - 2 * pad) / Math.max(1, maxY - minY),
+    );
+    const ox = cx + pad + ((cell - 2 * pad) - (maxX - minX) * s) / 2;
+    const oy = cy + top + pad + ((cell - top - 2 * pad) - (maxY - minY) * s) / 2;
+    // y is flipped here and only here: model y-up, SVG y-down.
+    const pts = curve.points.map(([x, y]) => `${(ox + (x - minX) * s).toFixed(2)},${(oy + (maxY - y) * s).toFixed(2)}`);
+    parts.push(`<g id="${curve.uid}">`);
+    parts.push(
+      `<text x="${cx + pad}" y="${cy + 14}" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">${curve.uid}</text>`,
+    );
+    parts.push(`<path d="M ${pts.join(" L ")}" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="${curve.uid}" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>`);
+    parts.push(`</g>`);
+  });
+  parts.push(`</svg>`);
+  return parts.join("\n");
+}
 
+/* ---------- run ---------- */
 const curves = build();
 if (curves.length !== 100) throw new Error(`expected 100 curves, built ${curves.length}`);
 for (const c of curves) {
@@ -443,6 +488,7 @@ writeFileSync(
   )}\n`,
 );
 writeFileSync(OUT_SVG, `${sheet(curves)}\n`);
+writeFileSync(OUT_PATHS, `${guidePaths(curves)}\n`);
 console.log(`wrote ${withError.length} curves`);
 console.log(`worst cubic-chain deviation: ${worst.toFixed(4)} grid units (6 spans)`);
 console.log(`families: ${[...new Set(withError.map((c) => c.family))].join(", ")}`);

@@ -1,0 +1,404 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="5260" viewBox="0 0 1300 5260">
+<rect width="1300" height="5260" fill="#fff"/>
+<text x="20" y="30" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600">Fig. QG2 — 100 six-node guides, one path each, for the Quintic from Guide extension</text>
+<g id="q6-parabola-01">
+<text x="18" y="74" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-01</text>
+<path d="M 18.00,251.40 L 62.80,184.20 L 107.60,150.60 L 152.40,150.60 L 197.20,184.20 L 242.00,251.40" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-02">
+<text x="278" y="74" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-02</text>
+<path d="M 278.00,257.00 L 322.80,182.33 L 367.60,145.00 L 412.40,145.00 L 457.20,182.33 L 502.00,257.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-03">
+<text x="538" y="74" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-03</text>
+<path d="M 538.00,262.60 L 582.80,180.47 L 627.60,139.40 L 672.40,139.40 L 717.20,180.47 L 762.00,262.60" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-04">
+<text x="798" y="74" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-04</text>
+<path d="M 798.00,268.20 L 842.80,178.60 L 887.60,133.80 L 932.40,133.80 L 977.20,178.60 L 1022.00,268.20" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-05">
+<text x="1058" y="74" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-05</text>
+<path d="M 1058.00,273.80 L 1102.80,176.73 L 1147.60,128.20 L 1192.40,128.20 L 1237.20,176.73 L 1282.00,273.80" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-06">
+<text x="18" y="334" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-06</text>
+<path d="M 18.00,539.40 L 62.80,434.87 L 107.60,382.60 L 152.40,382.60 L 197.20,434.87 L 242.00,539.40" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-07">
+<text x="278" y="334" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-07</text>
+<path d="M 278.00,545.00 L 322.80,433.00 L 367.60,377.00 L 412.40,377.00 L 457.20,433.00 L 502.00,545.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-08">
+<text x="538" y="334" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-08</text>
+<path d="M 538.00,550.60 L 582.80,431.13 L 627.60,371.40 L 672.40,371.40 L 717.20,431.13 L 762.00,550.60" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-09">
+<text x="798" y="334" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-09</text>
+<path d="M 798.00,556.20 L 842.80,429.27 L 887.60,365.80 L 932.40,365.80 L 977.20,429.27 L 1022.00,556.20" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-parabola-10">
+<text x="1058" y="334" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-parabola-10</text>
+<path d="M 1058.00,561.80 L 1102.80,427.40 L 1147.60,360.20 L 1192.40,360.20 L 1237.20,427.40 L 1282.00,561.80" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-parabola-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-01">
+<text x="18" y="594" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-01</text>
+<path d="M 18.00,670.60 L 62.80,737.80 L 107.60,771.40 L 152.40,771.40 L 197.20,737.80 L 242.00,670.60" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-02">
+<text x="278" y="594" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-02</text>
+<path d="M 278.00,665.00 L 322.80,739.67 L 367.60,777.00 L 412.40,777.00 L 457.20,739.67 L 502.00,665.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-03">
+<text x="538" y="594" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-03</text>
+<path d="M 538.00,659.40 L 582.80,741.53 L 627.60,782.60 L 672.40,782.60 L 717.20,741.53 L 762.00,659.40" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-04">
+<text x="798" y="594" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-04</text>
+<path d="M 798.00,653.80 L 842.80,743.40 L 887.60,788.20 L 932.40,788.20 L 977.20,743.40 L 1022.00,653.80" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-05">
+<text x="1058" y="594" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-05</text>
+<path d="M 1058.00,648.20 L 1102.80,745.27 L 1147.60,793.80 L 1192.40,793.80 L 1237.20,745.27 L 1282.00,648.20" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-06">
+<text x="18" y="854" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-06</text>
+<path d="M 18.00,902.60 L 62.80,1007.13 L 107.60,1059.40 L 152.40,1059.40 L 197.20,1007.13 L 242.00,902.60" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-07">
+<text x="278" y="854" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-07</text>
+<path d="M 278.00,897.00 L 322.80,1009.00 L 367.60,1065.00 L 412.40,1065.00 L 457.20,1009.00 L 502.00,897.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-08">
+<text x="538" y="854" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-08</text>
+<path d="M 538.00,891.40 L 582.80,1010.87 L 627.60,1070.60 L 672.40,1070.60 L 717.20,1010.87 L 762.00,891.40" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-09">
+<text x="798" y="854" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-09</text>
+<path d="M 798.00,885.80 L 842.80,1012.73 L 887.60,1076.20 L 932.40,1076.20 L 977.20,1012.73 L 1022.00,885.80" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-bowl-10">
+<text x="1058" y="854" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-bowl-10</text>
+<path d="M 1058.00,880.20 L 1102.80,1014.60 L 1147.60,1081.80 L 1192.40,1081.80 L 1237.20,1014.60 L 1282.00,880.20" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-bowl-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-01">
+<text x="18" y="1114" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-01</text>
+<path d="M 18.00,1274.60 L 62.80,1233.53 L 107.60,1233.53 L 152.40,1248.47 L 197.20,1248.47 L 242.00,1207.40" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-02">
+<text x="278" y="1114" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-02</text>
+<path d="M 278.00,1282.07 L 322.80,1233.53 L 367.60,1233.53 L 412.40,1248.47 L 457.20,1248.47 L 502.00,1199.93" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-03">
+<text x="538" y="1114" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-03</text>
+<path d="M 538.00,1289.53 L 582.80,1231.67 L 627.60,1231.67 L 672.40,1250.33 L 717.20,1250.33 L 762.00,1192.47" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-04">
+<text x="798" y="1114" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-04</text>
+<path d="M 798.00,1297.00 L 842.80,1229.80 L 887.60,1229.80 L 932.40,1252.20 L 977.20,1252.20 L 1022.00,1185.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-05">
+<text x="1058" y="1114" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-05</text>
+<path d="M 1058.00,1304.47 L 1102.80,1227.93 L 1147.60,1227.93 L 1192.40,1254.07 L 1237.20,1254.07 L 1282.00,1177.53" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-06">
+<text x="18" y="1374" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-06</text>
+<path d="M 18.00,1571.93 L 62.80,1486.07 L 107.60,1486.07 L 152.40,1515.93 L 197.20,1515.93 L 242.00,1430.07" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-07">
+<text x="278" y="1374" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-07</text>
+<path d="M 278.00,1579.40 L 322.80,1486.07 L 367.60,1486.07 L 412.40,1515.93 L 457.20,1515.93 L 502.00,1422.60" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-08">
+<text x="538" y="1374" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-08</text>
+<path d="M 538.00,1586.87 L 582.80,1484.20 L 627.60,1484.20 L 672.40,1517.80 L 717.20,1517.80 L 762.00,1415.13" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-09">
+<text x="798" y="1374" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-09</text>
+<path d="M 798.00,1594.33 L 842.80,1482.33 L 887.60,1482.33 L 932.40,1519.67 L 977.20,1519.67 L 1022.00,1407.67" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-s-curve-10">
+<text x="1058" y="1374" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-s-curve-10</text>
+<path d="M 1058.00,1601.80 L 1102.80,1480.47 L 1147.60,1480.47 L 1192.40,1521.53 L 1237.20,1521.53 L 1282.00,1400.20" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-s-curve-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-01">
+<text x="18" y="1634" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-01</text>
+<path d="M 64.49,1862.00 L 127.27,1862.00 L 195.51,1812.86 L 195.51,1709.14 L 127.27,1660.00 L 64.49,1660.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-02">
+<text x="278" y="1634" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-02</text>
+<path d="M 324.35,1862.00 L 387.48,1862.00 L 455.65,1814.03 L 455.65,1707.97 L 387.48,1660.00 L 324.35,1660.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-03">
+<text x="538" y="1634" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-03</text>
+<path d="M 585.41,1862.00 L 648.83,1862.00 L 714.59,1812.67 L 714.59,1709.33 L 648.83,1660.00 L 585.41,1660.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-04">
+<text x="798" y="1634" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-04</text>
+<path d="M 845.23,1862.00 L 906.71,1862.00 L 974.77,1813.70 L 974.77,1708.30 L 906.71,1660.00 L 845.23,1660.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-05">
+<text x="1058" y="1634" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-05</text>
+<path d="M 1105.07,1862.00 L 1166.91,1862.00 L 1234.93,1812.53 L 1234.93,1709.47 L 1166.91,1660.00 L 1105.07,1660.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-06">
+<text x="18" y="1894" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-06</text>
+<path d="M 64.93,2122.00 L 127.09,2122.00 L 195.07,2073.44 L 195.07,1968.56 L 127.09,1920.00 L 64.93,1920.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-07">
+<text x="278" y="1894" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-07</text>
+<path d="M 324.81,2122.00 L 387.25,2122.00 L 455.19,2072.42 L 455.19,1969.58 L 387.25,1920.00 L 324.81,1920.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-08">
+<text x="538" y="1894" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-08</text>
+<path d="M 584.70,2122.00 L 647.39,2122.00 L 715.30,2073.24 L 715.30,1968.76 L 647.39,1920.00 L 584.70,1920.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-09">
+<text x="798" y="1894" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-09</text>
+<path d="M 844.60,2122.00 L 907.52,2122.00 L 975.40,2072.33 L 975.40,1969.67 L 907.52,1920.00 L 844.60,1920.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-c-curve-10">
+<text x="1058" y="1894" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-c-curve-10</text>
+<path d="M 1104.51,2122.00 L 1167.63,2122.00 L 1235.49,2073.08 L 1235.49,1968.92 L 1167.63,1920.00 L 1104.51,1920.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-c-curve-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-01">
+<text x="18" y="2154" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-01</text>
+<path d="M 18.00,2257.48 L 62.80,2302.28 L 107.60,2284.36 L 152.40,2304.52 L 197.20,2297.80 L 242.00,2302.28" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-02">
+<text x="278" y="2154" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-02</text>
+<path d="M 278.00,2253.00 L 322.80,2306.76 L 367.60,2284.36 L 412.40,2309.00 L 457.20,2300.04 L 502.00,2304.52" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-03">
+<text x="538" y="2154" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-03</text>
+<path d="M 538.00,2249.64 L 582.80,2310.12 L 627.60,2285.48 L 672.40,2312.36 L 717.20,2303.40 L 762.00,2310.12" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-04">
+<text x="798" y="2154" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-04</text>
+<path d="M 798.00,2245.16 L 842.80,2314.60 L 887.60,2285.48 L 932.40,2316.84 L 977.20,2307.88 L 1022.00,2312.36" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-05">
+<text x="1058" y="2154" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-05</text>
+<path d="M 1058.00,2240.68 L 1102.80,2316.84 L 1147.60,2285.48 L 1192.40,2321.32 L 1237.20,2310.12 L 1282.00,2316.84" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-06">
+<text x="18" y="2414" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-06</text>
+<path d="M 18.00,2497.32 L 62.80,2580.20 L 107.60,2546.60 L 152.40,2584.68 L 197.20,2573.48 L 242.00,2580.20" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-07">
+<text x="278" y="2414" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-07</text>
+<path d="M 278.00,2493.96 L 322.80,2583.56 L 367.60,2545.48 L 412.40,2588.04 L 457.20,2574.60 L 502.00,2581.32" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-08">
+<text x="538" y="2414" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-08</text>
+<path d="M 538.00,2490.60 L 582.80,2586.92 L 627.60,2546.60 L 672.40,2591.40 L 717.20,2577.96 L 762.00,2586.92" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-09">
+<text x="798" y="2414" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-09</text>
+<path d="M 798.00,2486.12 L 842.80,2591.40 L 887.60,2546.60 L 932.40,2595.88 L 977.20,2580.20 L 1022.00,2589.16" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-hyperbola-10">
+<text x="1058" y="2414" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-hyperbola-10</text>
+<path d="M 1058.00,2482.76 L 1102.80,2594.76 L 1147.60,2547.72 L 1192.40,2599.24 L 1237.20,2583.56 L 1282.00,2592.52" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-hyperbola-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-01">
+<text x="18" y="2674" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-01</text>
+<path d="M 242.00,2894.33 L 92.67,2782.33 L 18.00,2782.33 L 18.00,2819.67 L 92.67,2819.67 L 242.00,2707.67" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-02">
+<text x="278" y="2674" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-02</text>
+<path d="M 493.89,2902.00 L 355.37,2780.80 L 286.11,2780.80 L 286.11,2821.20 L 355.37,2821.20 L 493.89,2700.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-03">
+<text x="538" y="2674" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-03</text>
+<path d="M 740.90,2902.00 L 619.70,2780.80 L 559.10,2780.80 L 559.10,2821.20 L 619.70,2821.20 L 740.90,2700.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-04">
+<text x="798" y="2674" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-04</text>
+<path d="M 990.80,2902.00 L 883.07,2780.80 L 829.20,2780.80 L 829.20,2821.20 L 883.07,2821.20 L 990.80,2700.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-05">
+<text x="1058" y="2674" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-05</text>
+<path d="M 1242.72,2902.00 L 1145.76,2780.80 L 1097.28,2780.80 L 1097.28,2821.20 L 1145.76,2821.20 L 1242.72,2700.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-06">
+<text x="18" y="2934" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-06</text>
+<path d="M 196.11,3162.00 L 107.96,3040.80 L 63.89,3040.80 L 63.89,3081.20 L 107.96,3081.20 L 196.11,2960.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-07">
+<text x="278" y="2934" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-07</text>
+<path d="M 450.60,3162.00 L 369.80,3040.80 L 329.40,3040.80 L 329.40,3081.20 L 369.80,3081.20 L 450.60,2960.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-08">
+<text x="538" y="2934" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-08</text>
+<path d="M 705.94,3162.00 L 631.35,3040.80 L 594.06,3040.80 L 594.06,3081.20 L 631.35,3081.20 L 705.94,2960.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-09">
+<text x="798" y="2934" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-09</text>
+<path d="M 961.94,3162.00 L 892.69,3040.80 L 858.06,3040.80 L 858.06,3081.20 L 892.69,3081.20 L 961.94,2960.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-cusp-10">
+<text x="1058" y="2934" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-cusp-10</text>
+<path d="M 1218.48,3162.00 L 1153.84,3040.80 L 1121.52,3040.80 L 1121.52,3081.20 L 1153.84,3081.20 L 1218.48,2960.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-cusp-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-01">
+<text x="18" y="3194" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-01</text>
+<path d="M 18.00,3321.00 L 62.80,3349.00 L 107.60,3401.27 L 152.40,3240.73 L 197.20,3293.00 L 242.00,3321.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-02">
+<text x="278" y="3194" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-02</text>
+<path d="M 278.00,3321.00 L 322.80,3354.60 L 367.60,3418.07 L 412.40,3223.93 L 457.20,3287.40 L 502.00,3321.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-03">
+<text x="538" y="3194" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-03</text>
+<path d="M 552.26,3321.00 L 591.35,3355.21 L 630.45,3422.00 L 669.55,3220.00 L 708.65,3286.79 L 747.74,3321.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-04">
+<text x="798" y="3194" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-04</text>
+<path d="M 825.83,3321.00 L 859.50,3356.07 L 893.17,3422.00 L 926.83,3220.00 L 960.50,3285.93 L 994.17,3321.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-05">
+<text x="1058" y="3194" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-05</text>
+<path d="M 1096.10,3321.00 L 1125.66,3355.49 L 1155.22,3422.00 L 1184.78,3220.00 L 1214.34,3286.51 L 1243.90,3321.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-06">
+<text x="18" y="3454" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-06</text>
+<path d="M 64.13,3581.00 L 90.48,3615.03 L 116.83,3682.00 L 143.17,3480.00 L 169.52,3546.97 L 195.87,3581.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-07">
+<text x="278" y="3454" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-07</text>
+<path d="M 330.59,3581.00 L 354.35,3615.66 L 378.12,3682.00 L 401.88,3480.00 L 425.65,3546.34 L 449.41,3581.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-08">
+<text x="538" y="3454" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-08</text>
+<path d="M 595.41,3581.00 L 617.24,3615.58 L 639.08,3682.00 L 660.92,3480.00 L 682.76,3546.42 L 704.59,3581.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-09">
+<text x="798" y="3454" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-09</text>
+<path d="M 859.92,3581.00 L 879.95,3615.22 L 899.98,3682.00 L 920.02,3480.00 L 940.05,3546.78 L 960.08,3581.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-wave-10">
+<text x="1058" y="3454" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-wave-10</text>
+<path d="M 1123.74,3581.00 L 1142.24,3615.69 L 1160.75,3682.00 L 1179.25,3480.00 L 1197.76,3546.31 L 1216.26,3581.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-wave-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-01">
+<text x="18" y="3714" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-01</text>
+<path d="M 18.00,3923.13 L 199.07,3786.87 L 46.00,3740.20 L 36.67,3913.80 L 182.27,3941.80 L 242.00,3923.13" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-02">
+<text x="278" y="3714" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-02</text>
+<path d="M 282.74,3920.55 L 459.72,3784.69 L 309.56,3740.00 L 300.62,3911.61 L 436.48,3942.00 L 497.26,3920.55" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-03">
+<text x="538" y="3714" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-03</text>
+<path d="M 547.29,3918.03 L 720.19,3782.80 L 572.97,3740.00 L 564.41,3909.47 L 691.08,3942.00 L 752.71,3918.03" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-04">
+<text x="798" y="3714" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-04</text>
+<path d="M 811.46,3915.72 L 980.62,3781.06 L 836.10,3740.00 L 827.89,3907.51 L 946.13,3942.00 L 1008.54,3915.72" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-05">
+<text x="1058" y="3714" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-05</text>
+<path d="M 1075.31,3913.59 L 1241.02,3779.45 L 1098.98,3740.00 L 1091.09,3905.70 L 1201.56,3942.00 L 1264.69,3913.59" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-06">
+<text x="18" y="3974" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-06</text>
+<path d="M 38.87,4171.62 L 201.38,4037.97 L 61.65,4000.00 L 54.06,4164.03 L 157.34,4202.00 L 221.13,4171.62" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-07">
+<text x="278" y="3974" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-07</text>
+<path d="M 302.17,4169.80 L 461.72,4036.59 L 324.13,4000.00 L 316.81,4162.48 L 413.42,4202.00 L 477.83,4169.80" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-08">
+<text x="538" y="3974" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-08</text>
+<path d="M 565.24,4168.10 L 722.04,4035.31 L 586.43,4000.00 L 579.37,4161.03 L 669.78,4202.00 L 734.76,4168.10" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-09">
+<text x="798" y="3974" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-09</text>
+<path d="M 828.11,4166.51 L 982.34,4034.12 L 848.58,4000.00 L 841.76,4159.69 L 926.38,4202.00 L 991.89,4166.51" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-loop-10">
+<text x="1058" y="3974" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-loop-10</text>
+<path d="M 1090.78,4165.03 L 1242.61,4033.01 L 1110.59,4000.00 L 1103.99,4158.43 L 1183.20,4202.00 L 1249.22,4165.03" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-loop-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-01">
+<text x="18" y="4234" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-01</text>
+<path d="M 18.00,4411.40 L 62.80,4310.60 L 107.60,4361.00 L 152.40,4361.00 L 197.20,4310.60 L 242.00,4411.40" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-02">
+<text x="278" y="4234" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-02</text>
+<path d="M 278.00,4417.93 L 322.80,4304.07 L 367.60,4361.93 L 412.40,4361.93 L 457.20,4304.07 L 502.00,4417.93" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-03">
+<text x="538" y="4234" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-03</text>
+<path d="M 538.00,4423.53 L 582.80,4298.47 L 627.60,4360.07 L 672.40,4360.07 L 717.20,4298.47 L 762.00,4423.53" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-04">
+<text x="798" y="4234" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-04</text>
+<path d="M 798.00,4430.07 L 842.80,4291.93 L 887.60,4361.00 L 932.40,4361.00 L 977.20,4291.93 L 1022.00,4430.07" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-05">
+<text x="1058" y="4234" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-05</text>
+<path d="M 1058.00,4435.67 L 1102.80,4286.33 L 1147.60,4361.00 L 1192.40,4361.00 L 1237.20,4286.33 L 1282.00,4435.67" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-06">
+<text x="18" y="4494" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-06</text>
+<path d="M 18.00,4701.27 L 62.80,4540.73 L 107.60,4621.00 L 152.40,4621.00 L 197.20,4540.73 L 242.00,4701.27" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-07">
+<text x="278" y="4494" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-07</text>
+<path d="M 278.00,4707.80 L 322.80,4534.20 L 367.60,4621.93 L 412.40,4621.93 L 457.20,4534.20 L 502.00,4707.80" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-08">
+<text x="538" y="4494" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-08</text>
+<path d="M 538.00,4713.40 L 582.80,4528.60 L 627.60,4620.07 L 672.40,4620.07 L 717.20,4528.60 L 762.00,4713.40" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-09">
+<text x="798" y="4494" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-09</text>
+<path d="M 798.00,4719.93 L 842.80,4522.07 L 887.60,4621.00 L 932.40,4621.00 L 977.20,4522.07 L 1022.00,4719.93" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-flattened-arch-10">
+<text x="1058" y="4494" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-flattened-arch-10</text>
+<path d="M 1061.79,4722.00 L 1105.07,4520.00 L 1148.36,4621.00 L 1191.64,4621.00 L 1234.93,4520.00 L 1278.21,4722.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-flattened-arch-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-01">
+<text x="18" y="4754" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-01</text>
+<path d="M 18.00,4923.00 L 62.80,4911.80 L 107.60,4900.60 L 152.40,4887.53 L 197.20,4867.00 L 242.00,4839.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-01" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-02">
+<text x="278" y="4754" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-02</text>
+<path d="M 278.00,4927.67 L 322.80,4914.60 L 367.60,4903.40 L 412.40,4886.60 L 457.20,4866.07 L 502.00,4834.33" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-02" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-03">
+<text x="538" y="4754" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-03</text>
+<path d="M 538.00,4932.33 L 582.80,4919.27 L 627.60,4904.33 L 672.40,4887.53 L 717.20,4863.27 L 762.00,4829.67" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-03" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-04">
+<text x="798" y="4754" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-04</text>
+<path d="M 798.00,4937.00 L 842.80,4922.07 L 887.60,4907.13 L 932.40,4888.47 L 977.20,4862.33 L 1022.00,4825.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-04" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-05">
+<text x="1058" y="4754" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-05</text>
+<path d="M 1058.00,4941.67 L 1102.80,4924.87 L 1147.60,4909.93 L 1192.40,4889.40 L 1237.20,4861.40 L 1282.00,4820.33" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-05" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-06">
+<text x="18" y="5014" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-06</text>
+<path d="M 18.00,5206.33 L 62.80,5189.53 L 107.60,5170.87 L 152.40,5150.33 L 197.20,5118.60 L 242.00,5075.67" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-06" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-07">
+<text x="278" y="5014" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-07</text>
+<path d="M 278.00,5211.00 L 322.80,5192.33 L 367.60,5173.67 L 412.40,5149.40 L 457.20,5117.67 L 502.00,5071.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-07" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-08">
+<text x="538" y="5014" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-08</text>
+<path d="M 538.00,5215.67 L 582.80,5195.13 L 627.60,5176.47 L 672.40,5150.33 L 717.20,5116.73 L 762.00,5066.33" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-08" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-09">
+<text x="798" y="5014" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-09</text>
+<path d="M 798.00,5220.33 L 842.80,5199.80 L 887.60,5177.40 L 932.40,5151.27 L 977.20,5113.93 L 1022.00,5061.67" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-09" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+<g id="q6-rise-10">
+<text x="1058" y="5014" font-family="Helvetica, Arial, sans-serif" font-size="10" fill="#666">q6-rise-10</text>
+<path d="M 1058.00,5225.00 L 1102.80,5202.60 L 1147.60,5180.20 L 1192.40,5152.20 L 1237.20,5113.00 L 1282.00,5057.00" fill="none" stroke="#8a9bb0" stroke-width="1.5" stroke-dasharray="4 4" inkscape:label="q6-rise-10" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"/>
+</g>
+</svg>

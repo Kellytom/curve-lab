@@ -280,3 +280,8 @@ Two numbers that matter when you test:
 Proved by: `node scripts/quintic-guides.ts` prints 100 curves, the worst chain deviation and the
 loop crossings (`1,1,1,1,1,1,1,1,1,1`); the script refuses to write if any curve has other than six
 points, a non-integer coordinate, or a "loop" that does not cross.
+
+**Addendum, same job:** the test file is `workbench/quintic-guides-paths.svg` (`Fig. QG2`) — 100
+separate paths, each with exactly six nodes, no dots and no drawn curve, so selecting one gives
+the extension six nodes and nothing else. The big sheet (`Fig. QG1`) is for looking at; QG2 is for
+feeding the tool.
