@@ -324,3 +324,20 @@ The first session takes step 1 and 2 only: grant Automation for Photos, then inv
 true library size. Nothing is exported until the library size is known, because the spec's space
 argument depends on it. The pilot (step 3) is about twenty assets from one album, checked by the
 operator in Finder, before any full run.
+
+### Photo reduction — measured 2026-11-27, running on a pilot only
+
+The pipeline exists (`scripts/photo-reduce.ts`) and works: AppleScript is the door (272 albums,
+99,162 items), the manifest is `~/Pictures/photo-reduced/manifest.jsonl`, and 29 assets came out at
+**23.3 %** of their bytes. 98 rows so far; 68 files were under 400 KB and copied as they were.
+
+Two facts set the next session's plan, and neither is a guess:
+
+- **Throughput is album-dependent.** About **1 s an asset** when the originals are local (chunked
+  export); **20–35 s** when they are cloud-backed. The library is a mix, so 99,162 assets are 28
+  hours at best and weeks at worst. Identify the cloud albums before starting a long run.
+- **The 3000 px cap, not the quality, produces the quarter.** Quality 90 still gave 11–18 %; raise
+  `--max-long-side` to 4032 if a larger copy is wanted, and measure it.
+
+Next: pick an album the operator wants, run it, and let them compare one reduced file with the same
+photo in Photos before the full run. The 5 GiB floor is theirs and is the only space rule.

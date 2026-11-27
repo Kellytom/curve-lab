@@ -217,3 +217,69 @@ Then, before any export, run a dry inventory that prints album names and counts 
 The library size is now known (182 GB); what is still unknown is **the video share**, **the asset
 count**, and **whether the library is optimised for storage**. Those three set the batch size, and the
 batch size is what keeps the peak under 120 GB.
+
+## 9. Pilot results — 2026-11-27, the first real run
+
+Access, counts and throughput, all measured today with `scripts/photo-reduce.ts`.
+
+### Access works, and the route is AppleScript
+
+`tell application "Photos"` answered without a prompt: **272 albums, 99,162 media items**. The
+library is still unreadable from the shell (`Operation not permitted`), so AppleScript stays the door;
+no Full Disk Access is needed for the run.
+
+### Size and space
+
+| fact | value |
+|---|---|
+| library | **182 GB** (Finder → Get Info) |
+| free at start | 120.25 GB / 112 GiB |
+| floor for a run | **5 GiB**, the operator's number (the earlier 40 GB suggestion is withdrawn) |
+
+### Throughput — it is download-bound, not CPU-bound
+
+| operation | measured |
+|---|---|
+| AppleScript export, local asset | 0.32 s |
+| `sips -Z 3000 -s formatOptions 80` | 0.37 s |
+| one exported + reduced **in a chunk of 5** | **1.1 s / asset** |
+| one asset exported **per Apple event** | 10–11 s / asset |
+| a **cloud-backed** album ("Hotels mexico") | **20–35 s / asset** |
+
+Two conclusions, both arithmetic:
+
+1. **Chunk the export.** Resolving `album "X"` by name on every item cost about 10× more than the
+   work itself. The script now exports in chunks (`--chunk`, default 20); per-item export is not used.
+2. **The library is partly cloud-backed, and that sets the run time.** At ~1 s an asset the 99,162
+   items are about **28 hours**; at ~25 s an asset they are **29 days**. Any plan must first say
+   which albums need download, and treat those separately — no floor on free space protects against
+   a run that is slow rather than full.
+
+### Resulting ratios (29 assets measured)
+
+| | value |
+|---|---|
+| bytes in | 83.6 MB |
+| bytes out | 19.5 MB |
+| **ratio** | **23.3 %** — a quarter, the low end of the 1/4–1/2 target |
+| files under 400 KB, copied un-re-encoded | **68 of 98** rows |
+
+**The 3000 px cap does the work, not the quality.** At quality 90 the ratio was still 11–18 %; at
+quality 80 with the cap it was 10–21 %. The resize, not the JPEG setting, is what reaches a quarter.
+Raising `--max-long-side` to 4032 (no resize on a 12 MP photo) is the lever if a larger copy is
+wanted; it has not been measured yet.
+
+### Faults found by the pilot (each now guarded)
+
+1. **The pipeline could inflate a file.** One 0.49 MB source produced a 9.74 MB output — 1969 %.
+   Fixed: if the reduced file is not smaller, the original bytes are kept and the row says
+   `skipped-larger`.
+2. **Per-item export was 10× slower** than chunked export; fixed as above.
+3. **Duplicate filenames inside an album** now get ` (2)`, ` (3)` rather than failing the second one.
+
+### What is proved, and what is not
+
+- Proved: the export door works, a chunk reduces at ~1 s per local asset, the manifest is written and
+  resumes, and a quarter-size copy is reached.
+- **Not proved:** the long side after reduction, on a photo the operator has looked at. That is the
+  next check — open one reduced file in Finder and compare it with the same photo in Photos.
