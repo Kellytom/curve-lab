@@ -5,7 +5,39 @@ work"). **Identity: the sidechat = `deep2` = DeepSeek2 — one agent.** DeepSeek
 is the other. The `s` files and git for this agent's own work are mine; the `f`
 family is not.
 
-## 1. Where the work stands
+1. **The extension conforms to the shared contract.** `curve-lab.quintic/1` from
+   `workbench/quintic.schema.json`: envelope, `spans[].points` y up, `frame` with
+   forward tangents, `joins[]` with measured residuals, `closed` + `winding` for a
+   loop. My own numbers live in `<guide>-report.json`, not the contract file.
+   Commit `93bbcc5d`, contract consolidated in `6f8ff405`.
+2. **The importer exists**: `quintic_sheet.py`/`.inx` reads the sheet by uid and
+   places a curve with its six points marked (`q6-trefoil-10` at scale 3: 32 cubics,
+   0.0021 px).
+3. **Theorems that are now checked, not asserted:**
+   - a **proved** error bound (de Casteljau + exact elevation + convex hull); the
+     fit accepts only when the bound is inside the tolerance (bound ≈ 1.6–2.1× the
+     measured miss);
+   - **Blender** as an independent evaluator: `scripts/check_blender_quintic.py`,
+     0.000016 px on the parabola arch, 0.000051 px on the wild cage, so "6 points +
+     order_u 6 + endpoint = exact quintic" is measured, not claimed;
+   - **PH** decided in exact polynomial arithmetic: 0 of the sheet's 200 curves are
+     PH, so none has an exact offset; the offset export says `exact: false`.
+4. **Quality knobs that survived measurement:** parameter-corrected least squares
+   (1 span on the wild stroke: 46.1 → 21.8 px), C1 seam smoothing (7–88° → 0.0° with
+   a measured residual), the no-overshoot clamp (provable by the convex hull), the
+   degeneracy test (68 of 200 sheet curves are below degree 5 and draw as one cubic).
+5. **Four knot schemes lost to uniform-in-`t`**, each recorded with numbers in
+   `state/PROBLEMS-quintic-guide-int.md` §7, §8, §11, §12: arc length, curvature
+   cuts, adaptive placement, an inflection station. The reason is the same every
+   time — the clamped C2 solve divides by the interval lengths.
+6. **Tests:** 48 in `tests/test_quintic_math.py`; `tests/js/quintic-data.test.ts`
+   (the shared one) 8/8; `scripts/check_quintic_contract.py` passes `--strict` on my
+   exports and fails the sheet on three extra keys.
+7. **Not done:** no push; the dialog has not been driven in the Inkscape GUI; the
+   Blender/GeoGebra files have not been pasted into either application.
+
+## 1b. Where the work stood before this block
+
 
 1. **The extension is built, installed and tested.** Commit `e588a98d`.
    `inkscape/quintic-guide.inx` (three tabs: Points / Display / Export),
@@ -79,18 +111,22 @@ family is not.
 
 ## 4. The one next action
 
-**Reconcile the two chain-error numbers and finish the sheet pass.**
-Run the installed extension over every curve of DeepSeek1's sheet in `even`
-mode (the sheet's paths are the drawn chains, 7 nodes each — `cage-nodes` refuses
-them, correctly), record the drawn→quintic and quintic→chain misses per curve,
-and find out which segment count produces their `worstApproximationError` of
-0.1182 (my 8-cubic worst on the same 200 cages is 0.1634; 16 and 32 are under
-0.01). Append the answer to `archive/notes/side-to-deep.md` as one line per
-fact, and do not edit their JSON.
+**Close the three envelope keys, with the curve-lab side's agreement.**
+`workbench/quintic-guides.json` carries `note`, `order` (a list of point names where
+the schema wants the integer 6) and `worstApproximationError` at the top level, and
+the schema is `additionalProperties: false`:
 
-`Proves:` a table of 200 rows (or a summary with the worst curve named), and one
-mailbox line that states which count and which metric their 0.1182 came from —
-or says plainly that it cannot be reproduced.
+```sh
+.venv/bin/python scripts/check_quintic_contract.py workbench/quintic-guides.json --strict
+# FAIL ... keys the schema does not allow: note, order, worstApproximationError
+```
+
+The file and its generator belong to the curve-lab side, so the choice — drop the
+keys, or make `order` the integer and move the names to `labels` — is theirs. Ask in
+the mailbox; do not edit the file or the generator.
+
+`Proves:` the strict check passes on the sheet, `tests/js/quintic-data.test.ts`
+still passes, and no reader had to change.
 
 **Question for DeepSeek1, not to be guessed:** is the sheet's
 `worstApproximationError` measured at 2–3 cubics per curve, and by max distance

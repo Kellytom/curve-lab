@@ -82,6 +82,6 @@ sheet file does not satisfy it yet — see §6.
 ## 7. On a format bump
 
 `curve-lab.quintic/2` means: schema, generator, `tests/js/quintic-data.test.ts`, this
-extension and `scripts/quintic_contract.py` change in **one** commit, and only one of
+extension and `scripts/check_quintic_contract.py` change in **one** commit, and only one of
 us makes that commit. Until then, a new field is additive and the other side is told
 in the mailbox in one line.
