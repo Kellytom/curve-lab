@@ -336,26 +336,6 @@ for (const curve of registry.curves) {
 
   <section class="tune-versions">
     <h2>Curves from this spine</h2>
-    {candidateFigures.length > 0 && (
-      <div class="tune-candidates">
-        <h3>Posted from Inkscape — not a curve yet</h3>
-        <p class="tune-note">Each was posted by the Inkscape round trip with this curve as its
-          parent, and is drawn from the speed rows it was posted with at the values above. It
-          is a proposal, not a registry curve: it is found here by its <code>base_uid</code>,
-          not by a uid of its own, and it leaves this list when it is promoted.</p>
-        <div class="tune-kind-grid">
-          {candidateFigures.map((candidate) => (
-            <figure class="tune-kind">
-              <div set:html={candidate.svg} />
-              <figcaption>
-                <code>{candidate.uid}</code>{` ${candidate.name}`}
-                {candidate.savedAt ? ` · posted ${candidate.savedAt.slice(0, 10)}` : ""}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    )}
     <ul>
       {variants.map((variant) => (
         <li class:list={["tune-version", { current: variant.uid === record.uid }]}>

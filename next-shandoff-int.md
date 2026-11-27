@@ -1,21 +1,23 @@
 ```text
-Read state/SC-HANDOFF-int.md, then state/SCToDo-int.md (Immediate queue, row 2), then
-inkscape/ph_variant.py and the app's own save endpoint that the tune desk posts to.
-You are posting the variant payload that `inkscape/ph_variant.py` builds through the app's
-save path — not into the registry directly — and making the tune page show the candidate it
-produced.
-Proves: a posted variant appears in `data/` with `base_uid` set and
-workbench/curve-registry.json untouched, and the tune page shows that candidate.
+Read state/SC-HANDOFF-int.md, then state/SCToDo-int.md (the long-term track, §1), then
+curve_lab/engine.py and state/PORT-int.md.
+You are porting the clothoid engine: curve_lab/engine.py -> app/src/lib/engine.ts — Fresnel
+evaluation, Placed/Chain, with parity fixtures taken from the Python chains — and adding the
+row for it in state/PORT-int.md with the test in the npm list.
+Proves: a parity script prints 0 mismatches against the Python chains on the fixture set, the
+unit test passes, and state/PORT-int.md names the row.
 ```
 
-Source: state/SC-HANDOFF-int.md, 2026-11-25, after the register port — the commit that added
-`tests/test_regressions.ts` is `git log -1 --format=%h -- tests/test_regressions.ts`.
+Source: state/SC-HANDOFF-int.md, 2026-11-26, after row 2 (the variant through the save
+endpoint) landed as `16ae84b7`.
 
-Rows 5 and 7 of `state/SCToDo-int.md`'s 2026-11-24 set are **waiting on DeepSeek1**: row 5
-needs the declared loop shape before any code, and row 7 (retiring the Python twin of the
-register) edits their Tier-0 docs and the `f` commands.
+Rows 3 (`print_plates.mjs` pngquant) and 6 (`gallery.test.mjs`) of
+`state/SCToDo-int.md`'s Immediate queue are **waiting on DeepSeek1**: row 3 needs the hand-over,
+row 6 is their in-flight files. Row 3's snap UI needs a live Inkscape session with the operator
+present, so it is not an unattended row either.
 
-Pushes are on hold until the operator says internet is back; commit locally and report the hash.
+Pushes are on hold until the operator says internet is back; commit locally and report the
+hash.
 
 This file is the sidechat's only next-action pointer. The main session's
 `next-fhandoff-int.md`, `state/HANDOFF-int.md`, `state/PLAN-int.md` and

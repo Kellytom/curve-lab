@@ -29,8 +29,14 @@ the `f` family (`next-fhandoff-int.md`, `state/HANDOFF-int.md`, `state/PLAN-int.
 8. **The identity note** — `AGENTS.md`, `state/SCmemory-int.md` and this file. **Committed.**
 9. **The `f`-file blocks** (`state/HANDOFF-int.md`, `state/PLAN-int.md`,
    `state/REGRESSIONS-int.md`, `TODO.md`) — **uncommitted**, DeepSeek1's to review.
-10. **Nothing is pushed from this session.** Pushes are on hold (see §3); both commits above are
-    local only, and that is the one thing a crash would cost.
+10. **The variant through the save endpoint** (row 2) — `inkscape/ph_variant.py`'s
+    `sandbox_payload` posted to `POST /api/sandbox-curves`; the row lands in the database and
+    `data/sandbox-curves.json` with `base_uid` set and the registry untouched;
+    `app/src/lib/desk-candidates.ts` + `/tune/<spine>`'s "Candidates posted from Inkscape"
+    section show it. Commit `16ae84b7`, which was written by the other agent from the tree it
+    found (see §3, the collision note). Proved twice: `c-0010a` (their post) and `c-0002a`
+    (mine, registry hash `f2adfb90` unchanged).
+11. **Nothing is pushed from this session.** Pushes are on hold (see §3).
 
 ## 2. The operator's open asks, in order
 
@@ -76,6 +82,13 @@ the `f` family (`next-fhandoff-int.md`, `state/HANDOFF-int.md`, `state/PLAN-int.
 - **The chat-display route is mine.** A new appendix is one markdown file in
   `app/src/data/chat-display/`; the renderer has no tables, so use lists.
 - The mailboxes are `archive/notes/deep-to-side.md` and `archive/notes/side-to-deep.md`.
+- **Two agents shared this tree on 2026-11-26.** Commit `16ae84b7` ("tune: candidates posted from
+  Inkscape…") was made by the other agent at 19:25 from a tree that already carried my
+  `desk-candidates.test.ts` rename and tune-page edit, so its message describes its own post
+  (`c-0010a`) and the message names the test as `.mjs`. The page ended up with **two** candidate
+  sections; I removed mine and kept the one the page spec checks ("Candidates posted from
+  Inkscape"). Before a session starts writing, run `git log -3 --oneline` and `git status`; if
+  files you did not touch are moving, say so before committing.
 - No brew installs; no internet; two gate tripwires after a doc edit are refreshers, not faults
   (`scripts/llms_full.py`, `scripts/reading_counts.py`).
 - Cameras on my own page work: Playwright via `node scripts/shot.mjs <url> <out.png>` under
@@ -83,13 +96,14 @@ the `f` family (`next-fhandoff-int.md`, `state/HANDOFF-int.md`, `state/PLAN-int.
 
 ## 4. The one next action
 
-**`state/SCToDo-int.md`, Immediate queue row 2:** post the variant payload that
-`inkscape/ph_variant.py` builds through the app's own save endpoint — not into the registry
-directly — and make the tune page show the candidate.
+**`state/SCToDo-int.md`, the long-term track §1:** port `curve_lab/engine.py` to
+`app/src/lib/engine.ts` — Fresnel evaluation, `Placed`/`Chain`, parity fixtures from the Python
+chains — and add its row to `state/PORT-int.md` with the test in the npm list.
 
-`Proves:` a posted variant appears in `data/` with `base_uid` set and
-`workbench/curve-registry.json` untouched, and the tune page shows that candidate.
+`Proves:` a parity script prints 0 mismatches against the Python chains, the unit test passes,
+and `state/PORT-int.md` names the row.
 
-**Two questions for DeepSeek1, not to be guessed:** (a) row 5 of the 2026-11-24 set needs the
+**Questions for DeepSeek1, not to be guessed:** (a) row 5 of the 2026-11-24 set needs the
 declared loop shape before any code; (b) row 7 — retiring the Python twin of the register — edits
-their Tier-0 docs and the `f` commands: is that mine to sweep, or theirs?
+their Tier-0 docs and the `f` commands: is that mine to sweep, or theirs? (c) row 3 of the
+Immediate queue (`print_plates.mjs` pngquant) waits on their hand-over.

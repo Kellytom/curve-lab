@@ -189,7 +189,11 @@ decided. `Proves:` a sweep with calibrated counters only.
    `/tune/<spine>`'s "Candidates posted from Inkscape" section, drawn from the
    posted rows at the page's values. `Proves:` the post
    `c-0010a m-arch-end-edited` (base `c-0010`, POST 200 `{"saved":1}`) and
-   `/tune/c-0010` naming it; `app/tests/desk-candidates.test.mjs` 6/6.
+   `/tune/c-0010` naming it; `app/tests/desk-candidates.test.ts` 6/6. A second
+   post from this session (`c-0002a euler-hook-end-edited`, base `c-0002`, same
+   endpoint, registry hash `f2adfb90` before and after) confirms the path is
+   not curve-specific; `/tune/c-0002` names it and `/tune/c-0001` (no
+   candidate) carries no such section.
 3. **The snap UI inside Inkscape** — the dialog path (send/receive) works
    headless; the live handle-drag flow needs a hand session in Inkscape to
    bind the node-edit event to `apply_snap`. `Proves:` a drag→save→receive
