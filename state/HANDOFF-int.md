@@ -4313,3 +4313,11 @@ because a zigzag through correct points is a wrong picture. A hand-made quarter 
 16 % off a circle; replaced by a least-squares fit to the true circle, 0.54 %. Calling the ring G1
 because rotation is rigid — the maths says G3, and the note now says G3. Letting each script keep its
 own copy of the Bézier maths — moved to one module, proved by identical output hashes.
+
+Later in the same session: the data contract caught the five new workbench JSON files
+(`test_data_audit`, 68 files vs 63 stamped). Four are datasets and are registered in
+`curve_lab/datafile.py` + `state/DATA-int.md`; the JSON Schema is not a dataset, so it moved to
+`format/quintic.schema.json`. `scripts/check_quintic_contract.py` now reads the contract from
+**Python**, which is the side the extension lives on, and `tests/test_quintic_contract.py` runs it
+in the suite. Final gate: quintic tests 25 JS + 4 Python, register 36, `--fast` 14 modules green,
+`data_format --check` 67/67 stamped, tree clean at `e11ba983`.
