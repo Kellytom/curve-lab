@@ -38,6 +38,8 @@ const ROOT = path.resolve(import.meta.dirname, "..");
 const OUT_JSON = path.join(ROOT, "workbench", "quintic-guides.json");
 const OUT_SVG = path.join(ROOT, "workbench", "quintic-guides.svg");
 const OUT_PATHS = path.join(ROOT, "workbench", "quintic-guides-paths.svg");
+const OUT_ORN_SVG = path.join(ROOT, "workbench", "quintic-guides-ornament.svg");
+const OUT_ORN_PATHS = path.join(ROOT, "workbench", "quintic-guides-ornament-paths.svg");
 
 const W = 120;
 const H = 120;
@@ -226,6 +228,7 @@ type Family = {
   family: string;
   name: string;
   note: string;
+  group?: "math" | "ornament";
   /** either a classic to fit, or six points already chosen */
   target?: (k: number) => Point5;
   given?: (k: number) => Point[];
@@ -304,9 +307,99 @@ const families: Family[] = [
   },
 ];
 
-function build(): Curve[] {
+/* ---------- the ornament canon: Roman, Greek, French ---------- */
+
+/**
+ * Classical design curves. Most are not polynomials — a volute is a spiral and
+ * a moulding is a pair of arcs — so these are sampled and fitted, and each one
+ * carries its measured error. They are shapes to test the workflow on, not
+ * claims of exact construction.
+ */
+const ornamentFamilies: Family[] = [
+  {
+    family: "cyma-recta",
+    group: "ornament",
+    name: "cyma recta (Roman S-moulding)",
+    note: "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+    target: (k) => (t) => [W * t, (40 + 4 * k) * t * t * (3 - 2 * t)],
+  },
+  {
+    family: "cyma-reversa",
+    group: "ornament",
+    name: "cyma reversa",
+    note: "the same profile turned over: concave below, convex above",
+    target: (k) => (t) => [W * t, (40 + 4 * k) * (1 - t * t * (3 - 2 * t))],
+  },
+  {
+    family: "echinus",
+    group: "ornament",
+    name: "echinus (Roman quarter round)",
+    note: "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+    target: (k) => (t) => {
+      const th = (Math.PI / 2) * t;
+      return [W * (1 - Math.cos(th)), (34 + 4 * k) * Math.sin(th)];
+    },
+  },
+  {
+    family: "volute",
+    group: "ornament",
+    name: "volute quarter turn (Ionic)",
+    note: "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+    target: (k) => (t) => {
+      const r0 = 6 + k;
+      const r = r0 * Math.exp((1.1 + 0.05 * k) * (Math.PI / 2) * t);
+      const th = (Math.PI / 2) * t;
+      return [16 + r * Math.cos(th), r * Math.sin(th)];
+    },
+  },
+  {
+    family: "ogee-arch",
+    group: "ornament",
+    name: "ogee arch (pointed)",
+    note: "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+    target: (k) => (t) => [W * t, (34 + 4 * k) * (1 - Math.abs(2 * t - 1) ** 1.6)],
+  },
+  {
+    family: "rocaille",
+    group: "ornament",
+    name: "rocaille C-scroll (French)",
+    note: "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+    target: (k) => (t) => [W * t, (16 + 3 * k) * (t - 0.5 + 0.35 * Math.sin(2 * Math.PI * t))],
+  },
+  {
+    family: "acanthus",
+    group: "ornament",
+    name: "acanthus lobe",
+    note: "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+    target: (k) => (t) => [W * t, (26 + 4 * k) * Math.sin(Math.PI * t) * (1 + 0.06 * Math.sin(3 * Math.PI * t))],
+  },
+  {
+    family: "arabesque",
+    group: "ornament",
+    name: "arabesque vine",
+    note: "a wave whose amplitude grows along the run; fitted",
+    target: (k) => (t) => [W * t, (14 + 3 * k) * t * Math.sin(2 * Math.PI * t)],
+  },
+  {
+    family: "trefoil",
+    group: "ornament",
+    name: "trefoil lobe",
+    note: "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+    target: (k) => (t) => [W * t, (18 + 3 * k) * Math.sin(2 * Math.PI * t) * Math.sin(Math.PI * t)],
+  },
+  {
+    family: "vitruvian-scroll",
+    group: "ornament",
+    name: "Vitruvian scroll",
+    note: "a decaying wave, the running scroll of a frieze; fitted",
+    target: (k) => (t) => [W * t, (22 + 4 * k) * Math.sin(2 * Math.PI * t) * Math.exp(-1.5 * t)],
+  },
+];
+
+function build(group: "math" | "ornament"): Curve[] {
   const curves: Curve[] = [];
-  for (const f of families) {
+  for (const f of [...families, ...ornamentFamilies]) {
+    if ((f.group ?? "math") !== group) continue;
     for (let k = 1; k <= 10; k += 1) {
       const target = f.target ? f.target(k) : undefined;
       const points = target ? fitQuintic(target) : f.given!(k);
@@ -325,7 +418,7 @@ function build(): Curve[] {
 
 /* ---------- the sheet ---------- */
 
-function sheet(curves: Curve[]): string {
+function sheet(curves: Curve[], heading: string, subtitle: string): string {
   const margin = 62;
   const header = 62;
   const footer = 46;
@@ -338,10 +431,8 @@ function sheet(curves: Curve[]): string {
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${PAPER}" height="${PAPER}" viewBox="0 0 ${PAPER} ${PAPER}">`);
   parts.push(`<rect width="${PAPER}" height="${PAPER}" fill="#fff"/>`);
   parts.push(`<g font-family="Helvetica, Arial, sans-serif" fill="#111">`);
-  parts.push(`<text x="${margin}" y="30" font-size="22" font-weight="600">Fig. QG1 — 100 six-point control curves (quintic Bézier), grid ${W} × ${H}</text>`);
-  parts.push(
-    `<text x="${margin}" y="52" font-size="13" fill="#555">x right, y up, grid units. Ten families, ten members each. Six integer control points per curve; the JSON beside this file is the exact record.</text>`,
-  );
+  parts.push(`<text x="${margin}" y="30" font-size="22" font-weight="600">${heading}</text>`);
+  parts.push(`<text x="${margin}" y="52" font-size="13" fill="#555">${subtitle}</text>`);
   parts.push(`<g transform="translate(${margin},${PAPER - 22})" font-size="13" fill="#444">`);
   parts.push(`<circle cx="4" cy="-4" r="4" fill="#c0392b"/><text x="16" y="0">control point</text>`);
   parts.push(`<line x1="130" y1="-4" x2="170" y2="-4" stroke="#b9c6d6" stroke-width="1.5" stroke-dasharray="3 3"/><text x="180" y="0">control polygon</text>`);
@@ -399,7 +490,7 @@ function sheet(curves: Curve[]): string {
  * A clean sheet for the extension: one path per curve, six nodes each, no dots
  * and no drawn curve. This is the file to open and test against.
  */
-function guidePaths(curves: Curve[]): string {
+function guidePaths(curves: Curve[], heading: string): string {
   const cols = 5;
   const rows = Math.ceil(curves.length / cols);
   const cell = 260;
@@ -408,7 +499,7 @@ function guidePaths(curves: Curve[]): string {
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
     `<rect width="${width}" height="${height}" fill="#fff"/>`,
-    `<text x="20" y="30" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600">Fig. QG2 — 100 six-node guides, one path each, for the Quintic from Guide extension</text>`,
+    `<text x="20" y="30" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600">${heading}</text>`,
   ];
   curves.forEach((curve, index) => {
     const cx = (index % cols) * cell;
@@ -441,8 +532,11 @@ function guidePaths(curves: Curve[]): string {
 }
 
 /* ---------- run ---------- */
-const curves = build();
-if (curves.length !== 100) throw new Error(`expected 100 curves, built ${curves.length}`);
+const mathCurves = build("math");
+const ornamentCurves = build("ornament");
+const curves = [...mathCurves, ...ornamentCurves];
+if (mathCurves.length !== 100) throw new Error(`expected 100 math curves, built ${mathCurves.length}`);
+if (ornamentCurves.length !== 100) throw new Error(`expected 100 ornament curves, built ${ornamentCurves.length}`);
 for (const c of curves) {
   if (c.points.length !== 6) throw new Error(`${c.uid} has ${c.points.length} points, not 6`);
   for (const [x, y] of c.points) {
@@ -487,8 +581,22 @@ writeFileSync(
     1,
   )}\n`,
 );
-writeFileSync(OUT_SVG, `${sheet(curves)}\n`);
-writeFileSync(OUT_PATHS, `${guidePaths(curves)}\n`);
+writeFileSync(
+  OUT_SVG,
+  `${sheet(mathCurves, "Fig. QG1 — 100 six-point control curves (quintic Bézier), grid 120 × 120", "x right, y up, grid units. Ten classic families, ten members each. Six integer control points per curve; the JSON beside this file is the exact record.")}\n`,
+);
+writeFileSync(
+  OUT_PATHS,
+  `${guidePaths(mathCurves, "Fig. QG2 — 100 six-node guides, one path each, for the Quintic from Guide extension")}\n`,
+);
+writeFileSync(
+  OUT_ORN_SVG,
+  `${sheet(ornamentCurves, "Fig. QG3 — 100 ornament canon curves (Roman, Greek, French), six points each", "x right, y up, grid units. Ten classical design families, ten members each. These are sampled and fitted, so each carries its measured error; the six points are still the exact object.")}\n`,
+);
+writeFileSync(
+  OUT_ORN_PATHS,
+  `${guidePaths(ornamentCurves, "Fig. QG4 — 100 six-node ornament guides, one path each, for the Quintic from Guide extension")}\n`,
+);
 console.log(`wrote ${withError.length} curves`);
 console.log(`worst cubic-chain deviation: ${worst.toFixed(4)} grid units (6 spans)`);
 console.log(`families: ${[...new Set(withError.map((c) => c.family))].join(", ")}`);

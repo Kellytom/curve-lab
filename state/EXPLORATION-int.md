@@ -280,3 +280,44 @@ reply. Spec: `state/SPEC-chat-display-int.md`. Parked behind the curves and the 
 The Sacred Heart (and the Immaculate Heart) built from the existing heart form plus a flame and
 a cross, drawn at plate size with side curves, before any record. See `TODO.md`,
 "The human figure in the centre". A traced statue is the fallback, labelled sampled.
+
+## The classical canon — the direction for all the curves (2026-11-26)
+
+The operator, 2026-11-26: "interesting curves, classic designs, roman, greek, french … this is the
+direction we are taking with all the curves".
+
+The first evidence is in hand: `workbench/quintic-guides-ornament.svg` (Fig. QG3) is 100 six-point
+curves in ten classical families — cyma recta and reversa, echinus, Ionic volute, ogee arch,
+rocaille, acanthus, arabesque, trefoil, Vitruvian scroll. It also measured the limit: **one
+polynomial quintic holds one lobe comfortably** (fit error ≤ 0.5 grid units on the cyma, echinus,
+volute and rocaille) and **fails on multi-lobe forms** (2.0–2.4 on the trefoil, arabesque and
+acanthus). So the canon splits into two kinds of work.
+
+**Lines, each with its first measurable step**
+
+1. **Mouldings — exact, from arcs.** Cyma recta, cyma reversa, echinus, ovolo, cavetto, torus are
+   pairs of circular arcs. First step: a moulding set built from arcs with their centres and
+   radii, tangency solved, proportions checked against a cited source (Vitruvius III–IV, or
+   Palladio I) rather than invented.
+2. **The volute — exact, from arcs, not one curve.** The Ionic volute is a logarithmic spiral; the
+   classical construction approximates it with a centred series of arcs. First step: one published
+   proportional construction drawn as arcs only, with the arc centres and radii printed and the
+   deviation from the true spiral measured.
+3. **Gothic tracery — arcs meeting at a point.** The ogee arch and the trefoil are arc compositions;
+   today's fit error shows why a single quintic cannot carry them. First step: a two-arc ogee with
+   the tangency at the apex solved, then the trefoil as three arcs.
+4. **The French scroll — the asymmetric lobe.** Rocaille C and S scrolls. First step: one C-scroll
+   and its mirror as a pair, with the inflection and the two radii printed; the fit error today is
+   0.50, so a quintic holds one of these already.
+5. **Arabesque and vine — the bridge to `goals.md`.** A stem whose amplitude grows along the run is
+   the plant-form arc the project already names. First step: one vine with a measured growth law,
+   then check it against the ornament grammar rather than beside it.
+6. **Greek meander — a boundary case, not a curve.** It is a polyline on a lattice, so it belongs to
+   the grid work, not the Bézier work; only its rounded variant is a curve. First step: say which
+   one is meant before drawing either.
+7. **Rational quintics — the enabling decision.** Exact circles, ellipses and hyperbolas need
+   weights; `state/QUINTIC-CONTROLS-int.md` records the gap. First step: add weights to the JSON
+   schema and one family, then prove a circle comes back with radial error 0.
+
+The order I would take: 1, then 3, then 2 — the arcs are exact and cheap, and they set the
+moulding vocabulary the ornament grammar will need anyway.

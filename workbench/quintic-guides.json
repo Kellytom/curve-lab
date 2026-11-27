@@ -16,13 +16,13 @@
   "extent": [
    0,
    120,
-   -131,
-   131
+   -272,
+   272
   ]
  },
  "note": "Six integer control points per curve, y-up. Flower fullness alpha moves P1..P4 toward the chord. The cubic chain is a display approximation; the six points are the exact object.",
- "count": 100,
- "worstApproximationError": 0.0443,
+ "count": 200,
+ "worstApproximationError": 0.1182,
  "curves": [
   {
    "uid": "q6-parabola-01",
@@ -3822,6 +3822,3806 @@
    "approximation": {
     "spans": 6,
     "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-01",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     13
+    ],
+    [
+     72,
+     31
+    ],
+    [
+     96,
+     44
+    ],
+    [
+     120,
+     44
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-02",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     14
+    ],
+    [
+     72,
+     34
+    ],
+    [
+     96,
+     48
+    ],
+    [
+     120,
+     48
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-03",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     16
+    ],
+    [
+     72,
+     36
+    ],
+    [
+     96,
+     52
+    ],
+    [
+     120,
+     52
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-04",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     17
+    ],
+    [
+     72,
+     39
+    ],
+    [
+     96,
+     56
+    ],
+    [
+     120,
+     56
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-05",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     18
+    ],
+    [
+     72,
+     42
+    ],
+    [
+     96,
+     60
+    ],
+    [
+     120,
+     60
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-06",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     19
+    ],
+    [
+     72,
+     45
+    ],
+    [
+     96,
+     64
+    ],
+    [
+     120,
+     64
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-07",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     20
+    ],
+    [
+     72,
+     48
+    ],
+    [
+     96,
+     68
+    ],
+    [
+     120,
+     68
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-08",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     22
+    ],
+    [
+     72,
+     50
+    ],
+    [
+     96,
+     72
+    ],
+    [
+     120,
+     72
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-09",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     23
+    ],
+    [
+     72,
+     53
+    ],
+    [
+     96,
+     76
+    ],
+    [
+     120,
+     76
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-recta-10",
+   "family": "cyma-recta",
+   "name": "cyma recta (Roman S-moulding) 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     24
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     96,
+     80
+    ],
+    [
+     120,
+     80
+    ]
+   ],
+   "note": "smoothstep profile: convex below, concave above; the classic Roman crown moulding",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-01",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 1",
+   "points": [
+    [
+     0,
+     44
+    ],
+    [
+     24,
+     44
+    ],
+    [
+     48,
+     31
+    ],
+    [
+     72,
+     13
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-02",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 2",
+   "points": [
+    [
+     0,
+     48
+    ],
+    [
+     24,
+     48
+    ],
+    [
+     48,
+     34
+    ],
+    [
+     72,
+     14
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-03",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 3",
+   "points": [
+    [
+     0,
+     52
+    ],
+    [
+     24,
+     52
+    ],
+    [
+     48,
+     36
+    ],
+    [
+     72,
+     16
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-04",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 4",
+   "points": [
+    [
+     0,
+     56
+    ],
+    [
+     24,
+     56
+    ],
+    [
+     48,
+     39
+    ],
+    [
+     72,
+     17
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-05",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 5",
+   "points": [
+    [
+     0,
+     60
+    ],
+    [
+     24,
+     60
+    ],
+    [
+     48,
+     42
+    ],
+    [
+     72,
+     18
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-06",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 6",
+   "points": [
+    [
+     0,
+     64
+    ],
+    [
+     24,
+     64
+    ],
+    [
+     48,
+     45
+    ],
+    [
+     72,
+     19
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-07",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 7",
+   "points": [
+    [
+     0,
+     68
+    ],
+    [
+     24,
+     68
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     20
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-08",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 8",
+   "points": [
+    [
+     0,
+     72
+    ],
+    [
+     24,
+     72
+    ],
+    [
+     48,
+     50
+    ],
+    [
+     72,
+     22
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0716,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-09",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 9",
+   "points": [
+    [
+     0,
+     76
+    ],
+    [
+     24,
+     76
+    ],
+    [
+     48,
+     53
+    ],
+    [
+     72,
+     23
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0.0358,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-cyma-reversa-10",
+   "family": "cyma-reversa",
+   "name": "cyma reversa 10",
+   "points": [
+    [
+     0,
+     80
+    ],
+    [
+     24,
+     80
+    ],
+    [
+     48,
+     56
+    ],
+    [
+     72,
+     24
+    ],
+    [
+     96,
+     0
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same profile turned over: concave below, convex above",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-echinus-01",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     12
+    ],
+    [
+     15,
+     24
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     82,
+     38
+    ],
+    [
+     120,
+     38
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.1753,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-02",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     13
+    ],
+    [
+     15,
+     26
+    ],
+    [
+     45,
+     37
+    ],
+    [
+     82,
+     42
+    ],
+    [
+     120,
+     42
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.2212,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-03",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     14
+    ],
+    [
+     15,
+     29
+    ],
+    [
+     45,
+     40
+    ],
+    [
+     82,
+     46
+    ],
+    [
+     120,
+     46
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.2325,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-04",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     16
+    ],
+    [
+     15,
+     31
+    ],
+    [
+     45,
+     44
+    ],
+    [
+     82,
+     50
+    ],
+    [
+     120,
+     50
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.1741,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-05",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     17
+    ],
+    [
+     15,
+     34
+    ],
+    [
+     45,
+     47
+    ],
+    [
+     82,
+     54
+    ],
+    [
+     120,
+     54
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.1882,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-06",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     18
+    ],
+    [
+     15,
+     36
+    ],
+    [
+     45,
+     51
+    ],
+    [
+     82,
+     58
+    ],
+    [
+     120,
+     58
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.2469,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-07",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     19
+    ],
+    [
+     15,
+     39
+    ],
+    [
+     45,
+     54
+    ],
+    [
+     82,
+     62
+    ],
+    [
+     120,
+     62
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.2578,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-08",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     21
+    ],
+    [
+     15,
+     41
+    ],
+    [
+     45,
+     58
+    ],
+    [
+     82,
+     66
+    ],
+    [
+     120,
+     66
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.1856,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-09",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     22
+    ],
+    [
+     15,
+     44
+    ],
+    [
+     45,
+     61
+    ],
+    [
+     82,
+     70
+    ],
+    [
+     120,
+     70
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.2058,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-echinus-10",
+   "family": "echinus",
+   "name": "echinus (Roman quarter round) 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     23
+    ],
+    [
+     15,
+     47
+    ],
+    [
+     45,
+     65
+    ],
+    [
+     82,
+     74
+    ],
+    [
+     120,
+     74
+    ]
+   ],
+   "note": "a quarter ellipse, the ovolo of a capital; sampled, so fitted",
+   "fitError": 0.2199,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-volute-01",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 1",
+   "points": [
+    [
+     23,
+     0
+    ],
+    [
+     26,
+     2
+    ],
+    [
+     28,
+     6
+    ],
+    [
+     31,
+     14
+    ],
+    [
+     29,
+     27
+    ],
+    [
+     16,
+     43
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.3799,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-volute-02",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 2",
+   "points": [
+    [
+     24,
+     0
+    ],
+    [
+     27,
+     2
+    ],
+    [
+     30,
+     8
+    ],
+    [
+     33,
+     16
+    ],
+    [
+     33,
+     33
+    ],
+    [
+     16,
+     53
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.3115,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0007
+   }
+  },
+  {
+   "uid": "q6-volute-03",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 3",
+   "points": [
+    [
+     25,
+     0
+    ],
+    [
+     29,
+     3
+    ],
+    [
+     33,
+     9
+    ],
+    [
+     36,
+     18
+    ],
+    [
+     36,
+     39
+    ],
+    [
+     16,
+     64
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.2749,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.001
+   }
+  },
+  {
+   "uid": "q6-volute-04",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 4",
+   "points": [
+    [
+     26,
+     0
+    ],
+    [
+     30,
+     3
+    ],
+    [
+     35,
+     10
+    ],
+    [
+     40,
+     21
+    ],
+    [
+     40,
+     45
+    ],
+    [
+     16,
+     77
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.2311,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0009
+   }
+  },
+  {
+   "uid": "q6-volute-05",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 5",
+   "points": [
+    [
+     27,
+     0
+    ],
+    [
+     32,
+     3
+    ],
+    [
+     38,
+     11
+    ],
+    [
+     43,
+     24
+    ],
+    [
+     45,
+     53
+    ],
+    [
+     16,
+     92
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.3059,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0014
+   }
+  },
+  {
+   "uid": "q6-volute-06",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 6",
+   "points": [
+    [
+     28,
+     0
+    ],
+    [
+     33,
+     4
+    ],
+    [
+     40,
+     12
+    ],
+    [
+     47,
+     27
+    ],
+    [
+     50,
+     60
+    ],
+    [
+     16,
+     108
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.2632,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0014
+   }
+  },
+  {
+   "uid": "q6-volute-07",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 7",
+   "points": [
+    [
+     29,
+     0
+    ],
+    [
+     35,
+     4
+    ],
+    [
+     43,
+     13
+    ],
+    [
+     50,
+     29
+    ],
+    [
+     56,
+     69
+    ],
+    [
+     16,
+     127
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.2108,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0022
+   }
+  },
+  {
+   "uid": "q6-volute-08",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 8",
+   "points": [
+    [
+     30,
+     0
+    ],
+    [
+     37,
+     4
+    ],
+    [
+     46,
+     15
+    ],
+    [
+     54,
+     32
+    ],
+    [
+     62,
+     78
+    ],
+    [
+     16,
+     148
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.2899,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0027
+   }
+  },
+  {
+   "uid": "q6-volute-09",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 9",
+   "points": [
+    [
+     31,
+     0
+    ],
+    [
+     38,
+     4
+    ],
+    [
+     49,
+     16
+    ],
+    [
+     59,
+     35
+    ],
+    [
+     70,
+     87
+    ],
+    [
+     16,
+     171
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.4843,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0032
+   }
+  },
+  {
+   "uid": "q6-volute-10",
+   "family": "volute",
+   "name": "volute quarter turn (Ionic) 10",
+   "points": [
+    [
+     32,
+     0
+    ],
+    [
+     40,
+     5
+    ],
+    [
+     52,
+     17
+    ],
+    [
+     63,
+     39
+    ],
+    [
+     78,
+     98
+    ],
+    [
+     16,
+     198
+    ]
+   ],
+   "note": "a logarithmic spiral over 90°; a volute is a spiral, so this is fitted, not exact",
+   "fitError": 0.4755,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0039
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-01",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 1",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     21
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     72,
+     49
+    ],
+    [
+     96,
+     21
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0017
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-02",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 2",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     23
+    ],
+    [
+     48,
+     54
+    ],
+    [
+     72,
+     54
+    ],
+    [
+     96,
+     23
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0019
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-03",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 3",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     48,
+     59
+    ],
+    [
+     72,
+     59
+    ],
+    [
+     96,
+     25
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1.25,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0021
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-04",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 4",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     48,
+     65
+    ],
+    [
+     72,
+     65
+    ],
+    [
+     96,
+     27
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0024
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-05",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 5",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     29
+    ],
+    [
+     48,
+     70
+    ],
+    [
+     72,
+     70
+    ],
+    [
+     96,
+     29
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1.125,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0026
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-06",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 6",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     31
+    ],
+    [
+     48,
+     75
+    ],
+    [
+     72,
+     75
+    ],
+    [
+     96,
+     31
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1.375,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0028
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-07",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 7",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     34
+    ],
+    [
+     48,
+     80
+    ],
+    [
+     72,
+     80
+    ],
+    [
+     96,
+     34
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1.3125,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0028
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-08",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 8",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     36
+    ],
+    [
+     48,
+     85
+    ],
+    [
+     72,
+     85
+    ],
+    [
+     96,
+     36
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1.5625,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.003
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-09",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 9",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     38
+    ],
+    [
+     48,
+     90
+    ],
+    [
+     72,
+     90
+    ],
+    [
+     96,
+     38
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 1.8125,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0032
+   }
+  },
+  {
+   "uid": "q6-ogee-arch-10",
+   "family": "ogee-arch",
+   "name": "ogee arch (pointed) 10",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     40
+    ],
+    [
+     48,
+     95
+    ],
+    [
+     72,
+     95
+    ],
+    [
+     96,
+     40
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "two arcs meeting at a point: the apex is a corner, not a smooth top; fitted",
+   "fitError": 2.0625,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0034
+   }
+  },
+  {
+   "uid": "q6-rocaille-01",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 1",
+   "points": [
+    [
+     0,
+     -9
+    ],
+    [
+     24,
+     2
+    ],
+    [
+     48,
+     20
+    ],
+    [
+     72,
+     -20
+    ],
+    [
+     96,
+     -2
+    ],
+    [
+     120,
+     9
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.5,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0074
+   }
+  },
+  {
+   "uid": "q6-rocaille-02",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 2",
+   "points": [
+    [
+     0,
+     -11
+    ],
+    [
+     24,
+     2
+    ],
+    [
+     48,
+     23
+    ],
+    [
+     72,
+     -23
+    ],
+    [
+     96,
+     -2
+    ],
+    [
+     120,
+     11
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.1168,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0085
+   }
+  },
+  {
+   "uid": "q6-rocaille-03",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 3",
+   "points": [
+    [
+     0,
+     -12
+    ],
+    [
+     24,
+     2
+    ],
+    [
+     48,
+     26
+    ],
+    [
+     72,
+     -26
+    ],
+    [
+     96,
+     -2
+    ],
+    [
+     120,
+     12
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.5,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0097
+   }
+  },
+  {
+   "uid": "q6-rocaille-04",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 4",
+   "points": [
+    [
+     0,
+     -14
+    ],
+    [
+     24,
+     3
+    ],
+    [
+     48,
+     29
+    ],
+    [
+     72,
+     -29
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     14
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.1606,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0106
+   }
+  },
+  {
+   "uid": "q6-rocaille-05",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 5",
+   "points": [
+    [
+     0,
+     -15
+    ],
+    [
+     24,
+     3
+    ],
+    [
+     48,
+     32
+    ],
+    [
+     72,
+     -32
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     15
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.5,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0118
+   }
+  },
+  {
+   "uid": "q6-rocaille-06",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 6",
+   "points": [
+    [
+     0,
+     -17
+    ],
+    [
+     24,
+     3
+    ],
+    [
+     48,
+     36
+    ],
+    [
+     72,
+     -36
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     17
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.1898,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0134
+   }
+  },
+  {
+   "uid": "q6-rocaille-07",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 7",
+   "points": [
+    [
+     0,
+     -18
+    ],
+    [
+     24,
+     3
+    ],
+    [
+     48,
+     39
+    ],
+    [
+     72,
+     -39
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     18
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.5,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0146
+   }
+  },
+  {
+   "uid": "q6-rocaille-08",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 8",
+   "points": [
+    [
+     0,
+     -20
+    ],
+    [
+     24,
+     4
+    ],
+    [
+     48,
+     42
+    ],
+    [
+     72,
+     -42
+    ],
+    [
+     96,
+     -4
+    ],
+    [
+     120,
+     20
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.2036,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0155
+   }
+  },
+  {
+   "uid": "q6-rocaille-09",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 9",
+   "points": [
+    [
+     0,
+     -21
+    ],
+    [
+     24,
+     4
+    ],
+    [
+     48,
+     45
+    ],
+    [
+     72,
+     -45
+    ],
+    [
+     96,
+     -4
+    ],
+    [
+     120,
+     21
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.5,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0167
+   }
+  },
+  {
+   "uid": "q6-rocaille-10",
+   "family": "rocaille",
+   "name": "rocaille C-scroll (French) 10",
+   "points": [
+    [
+     0,
+     -23
+    ],
+    [
+     24,
+     4
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     -48
+    ],
+    [
+     96,
+     -4
+    ],
+    [
+     120,
+     23
+    ]
+   ],
+   "note": "the asymmetric scroll of the Rococo: one lobe, one long tail; fitted",
+   "fitError": 0.2863,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0178
+   }
+  },
+  {
+   "uid": "q6-acanthus-01",
+   "family": "acanthus",
+   "name": "acanthus lobe 1",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     24
+    ],
+    [
+     48,
+     34
+    ],
+    [
+     72,
+     34
+    ],
+    [
+     96,
+     24
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-acanthus-02",
+   "family": "acanthus",
+   "name": "acanthus lobe 2",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     48,
+     39
+    ],
+    [
+     72,
+     39
+    ],
+    [
+     96,
+     27
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-acanthus-03",
+   "family": "acanthus",
+   "name": "acanthus lobe 3",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     30
+    ],
+    [
+     48,
+     43
+    ],
+    [
+     72,
+     43
+    ],
+    [
+     96,
+     30
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-acanthus-04",
+   "family": "acanthus",
+   "name": "acanthus lobe 4",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     33
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     48
+    ],
+    [
+     96,
+     33
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-acanthus-05",
+   "family": "acanthus",
+   "name": "acanthus lobe 5",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     37
+    ],
+    [
+     48,
+     52
+    ],
+    [
+     72,
+     52
+    ],
+    [
+     96,
+     37
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-acanthus-06",
+   "family": "acanthus",
+   "name": "acanthus lobe 6",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     40
+    ],
+    [
+     48,
+     57
+    ],
+    [
+     72,
+     57
+    ],
+    [
+     96,
+     40
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1.0625,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0003
+   }
+  },
+  {
+   "uid": "q6-acanthus-07",
+   "family": "acanthus",
+   "name": "acanthus lobe 7",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     43
+    ],
+    [
+     48,
+     61
+    ],
+    [
+     72,
+     61
+    ],
+    [
+     96,
+     43
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1.0861,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0004
+   }
+  },
+  {
+   "uid": "q6-acanthus-08",
+   "family": "acanthus",
+   "name": "acanthus lobe 8",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     46
+    ],
+    [
+     48,
+     66
+    ],
+    [
+     72,
+     66
+    ],
+    [
+     96,
+     46
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1.102,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0003
+   }
+  },
+  {
+   "uid": "q6-acanthus-09",
+   "family": "acanthus",
+   "name": "acanthus lobe 9",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     49
+    ],
+    [
+     48,
+     71
+    ],
+    [
+     72,
+     71
+    ],
+    [
+     96,
+     49
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1.345,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0003
+   }
+  },
+  {
+   "uid": "q6-acanthus-10",
+   "family": "acanthus",
+   "name": "acanthus lobe 10",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     53
+    ],
+    [
+     48,
+     75
+    ],
+    [
+     72,
+     75
+    ],
+    [
+     96,
+     53
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "one leaf lobe with the side notches of the Corinthian leaf; fitted",
+   "fitError": 1.5355,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0005
+   }
+  },
+  {
+   "uid": "q6-arabesque-01",
+   "family": "arabesque",
+   "name": "arabesque vine 1",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -7
+    ],
+    [
+     48,
+     35
+    ],
+    [
+     72,
+     -20
+    ],
+    [
+     96,
+     -26
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0124
+   }
+  },
+  {
+   "uid": "q6-arabesque-02",
+   "family": "arabesque",
+   "name": "arabesque vine 2",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -8
+    ],
+    [
+     48,
+     42
+    ],
+    [
+     72,
+     -24
+    ],
+    [
+     96,
+     -30
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0148
+   }
+  },
+  {
+   "uid": "q6-arabesque-03",
+   "family": "arabesque",
+   "name": "arabesque vine 3",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -9
+    ],
+    [
+     48,
+     48
+    ],
+    [
+     72,
+     -28
+    ],
+    [
+     96,
+     -35
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.017
+   }
+  },
+  {
+   "uid": "q6-arabesque-04",
+   "family": "arabesque",
+   "name": "arabesque vine 4",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -10
+    ],
+    [
+     48,
+     54
+    ],
+    [
+     72,
+     -31
+    ],
+    [
+     96,
+     -39
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.019
+   }
+  },
+  {
+   "uid": "q6-arabesque-05",
+   "family": "arabesque",
+   "name": "arabesque vine 5",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -12
+    ],
+    [
+     48,
+     60
+    ],
+    [
+     72,
+     -35
+    ],
+    [
+     96,
+     -44
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 1.0671,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0213
+   }
+  },
+  {
+   "uid": "q6-arabesque-06",
+   "family": "arabesque",
+   "name": "arabesque vine 6",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -13
+    ],
+    [
+     48,
+     67
+    ],
+    [
+     72,
+     -38
+    ],
+    [
+     96,
+     -49
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 1.1429,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0236
+   }
+  },
+  {
+   "uid": "q6-arabesque-07",
+   "family": "arabesque",
+   "name": "arabesque vine 7",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -14
+    ],
+    [
+     48,
+     73
+    ],
+    [
+     72,
+     -42
+    ],
+    [
+     96,
+     -53
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 1.2675,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0258
+   }
+  },
+  {
+   "uid": "q6-arabesque-08",
+   "family": "arabesque",
+   "name": "arabesque vine 8",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -15
+    ],
+    [
+     48,
+     79
+    ],
+    [
+     72,
+     -45
+    ],
+    [
+     96,
+     -58
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 2,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0278
+   }
+  },
+  {
+   "uid": "q6-arabesque-09",
+   "family": "arabesque",
+   "name": "arabesque vine 9",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -16
+    ],
+    [
+     48,
+     85
+    ],
+    [
+     72,
+     -49
+    ],
+    [
+     96,
+     -62
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 2,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.03
+   }
+  },
+  {
+   "uid": "q6-arabesque-10",
+   "family": "arabesque",
+   "name": "arabesque vine 10",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -18
+    ],
+    [
+     48,
+     92
+    ],
+    [
+     72,
+     -53
+    ],
+    [
+     96,
+     -67
+    ],
+    [
+     120,
+     1
+    ]
+   ],
+   "note": "a wave whose amplitude grows along the run; fitted",
+   "fitError": 2,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0326
+   }
+  },
+  {
+   "uid": "q6-trefoil-01",
+   "family": "trefoil",
+   "name": "trefoil lobe 1",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -15
+    ],
+    [
+     48,
+     119
+    ],
+    [
+     72,
+     -119
+    ],
+    [
+     96,
+     15
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0516
+   }
+  },
+  {
+   "uid": "q6-trefoil-02",
+   "family": "trefoil",
+   "name": "trefoil lobe 2",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -17
+    ],
+    [
+     48,
+     136
+    ],
+    [
+     72,
+     -136
+    ],
+    [
+     96,
+     17
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 1.1019,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.059
+   }
+  },
+  {
+   "uid": "q6-trefoil-03",
+   "family": "trefoil",
+   "name": "trefoil lobe 3",
+   "points": [
+    [
+     0,
+     1
+    ],
+    [
+     24,
+     -20
+    ],
+    [
+     48,
+     153
+    ],
+    [
+     72,
+     -153
+    ],
+    [
+     96,
+     20
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 1.529,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0665
+   }
+  },
+  {
+   "uid": "q6-trefoil-04",
+   "family": "trefoil",
+   "name": "trefoil lobe 4",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -22
+    ],
+    [
+     48,
+     170
+    ],
+    [
+     72,
+     -170
+    ],
+    [
+     96,
+     22
+    ],
+    [
+     120,
+     -2
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 2,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0739
+   }
+  },
+  {
+   "uid": "q6-trefoil-05",
+   "family": "trefoil",
+   "name": "trefoil lobe 5",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -24
+    ],
+    [
+     48,
+     187
+    ],
+    [
+     72,
+     -187
+    ],
+    [
+     96,
+     24
+    ],
+    [
+     120,
+     -2
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 2,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0813
+   }
+  },
+  {
+   "uid": "q6-trefoil-06",
+   "family": "trefoil",
+   "name": "trefoil lobe 6",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -26
+    ],
+    [
+     48,
+     204
+    ],
+    [
+     72,
+     -204
+    ],
+    [
+     96,
+     26
+    ],
+    [
+     120,
+     -2
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 2,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0886
+   }
+  },
+  {
+   "uid": "q6-trefoil-07",
+   "family": "trefoil",
+   "name": "trefoil lobe 7",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -28
+    ],
+    [
+     48,
+     221
+    ],
+    [
+     72,
+     -221
+    ],
+    [
+     96,
+     28
+    ],
+    [
+     120,
+     -2
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 2,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.096
+   }
+  },
+  {
+   "uid": "q6-trefoil-08",
+   "family": "trefoil",
+   "name": "trefoil lobe 8",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -31
+    ],
+    [
+     48,
+     238
+    ],
+    [
+     72,
+     -238
+    ],
+    [
+     96,
+     31
+    ],
+    [
+     120,
+     -2
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 2.0262,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.1035
+   }
+  },
+  {
+   "uid": "q6-trefoil-09",
+   "family": "trefoil",
+   "name": "trefoil lobe 9",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -33
+    ],
+    [
+     48,
+     255
+    ],
+    [
+     72,
+     -255
+    ],
+    [
+     96,
+     33
+    ],
+    [
+     120,
+     -2
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 2.2256,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.1108
+   }
+  },
+  {
+   "uid": "q6-trefoil-10",
+   "family": "trefoil",
+   "name": "trefoil lobe 10",
+   "points": [
+    [
+     0,
+     2
+    ],
+    [
+     24,
+     -35
+    ],
+    [
+     48,
+     272
+    ],
+    [
+     72,
+     -272
+    ],
+    [
+     96,
+     35
+    ],
+    [
+     120,
+     -2
+    ]
+   ],
+   "note": "two lobes inside one span; a true trefoil is three arcs, not one polynomial, so this is fitted",
+   "fitError": 2.425,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.1182
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-01",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 1",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     38
+    ],
+    [
+     48,
+     23
+    ],
+    [
+     72,
+     -41
+    ],
+    [
+     96,
+     -1
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0126
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-02",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 2",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     44
+    ],
+    [
+     48,
+     27
+    ],
+    [
+     72,
+     -47
+    ],
+    [
+     96,
+     -2
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0144
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-03",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 3",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     50
+    ],
+    [
+     48,
+     31
+    ],
+    [
+     72,
+     -53
+    ],
+    [
+     96,
+     -2
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0163
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-04",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 4",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     56
+    ],
+    [
+     48,
+     34
+    ],
+    [
+     72,
+     -59
+    ],
+    [
+     96,
+     -2
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0181
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-05",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 5",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     62
+    ],
+    [
+     48,
+     38
+    ],
+    [
+     72,
+     -66
+    ],
+    [
+     96,
+     -2
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0203
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-06",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 6",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     67
+    ],
+    [
+     48,
+     42
+    ],
+    [
+     72,
+     -72
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0221
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-07",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 7",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     73
+    ],
+    [
+     48,
+     45
+    ],
+    [
+     72,
+     -78
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0239
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-08",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 8",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     79
+    ],
+    [
+     48,
+     49
+    ],
+    [
+     72,
+     -84
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1.0695,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0259
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-09",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 9",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     85
+    ],
+    [
+     48,
+     52
+    ],
+    [
+     72,
+     -91
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1.223,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0279
+   }
+  },
+  {
+   "uid": "q6-vitruvian-scroll-10",
+   "family": "vitruvian-scroll",
+   "name": "Vitruvian scroll 10",
+   "points": [
+    [
+     0,
+     -1
+    ],
+    [
+     24,
+     91
+    ],
+    [
+     48,
+     56
+    ],
+    [
+     72,
+     -97
+    ],
+    [
+     96,
+     -3
+    ],
+    [
+     120,
+     -1
+    ]
+   ],
+   "note": "a decaying wave, the running scroll of a frieze; fitted",
+   "fitError": 1.4247,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0299
    }
   }
  ]

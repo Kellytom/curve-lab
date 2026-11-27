@@ -285,3 +285,18 @@ points, a non-integer coordinate, or a "loop" that does not cross.
 separate paths, each with exactly six nodes, no dots and no drawn curve, so selecting one gives
 the extension six nodes and nothing else. The big sheet (`Fig. QG1`) is for looking at; QG2 is for
 feeding the tool.
+
+**Extends the same job — 200 curves now, and the ornament canon.** `scripts/quintic-guides.ts`
+writes four files: `quintic-guides.svg` (QG1, math classics), `quintic-guides-paths.svg` (QG2, the
+same as clean six-node paths), `quintic-guides-ornament.svg` (QG3, ten Roman/Greek/French families)
+and `quintic-guides-ornament-paths.svg` (QG4, the clean paths). 200 curves, 20 families, six
+integer points each.
+
+The measured limit is the useful part: one polynomial quintic holds one lobe (fit ≤ 0.5 grid units
+on cyma, echinus, volute, rocaille) and does not hold multi-lobe forms (2.0–2.4 on trefoil,
+arabesque, acanthus). The canon therefore splits into arcs (mouldings, volute, tracery) and single
+quintics (scrolls, lobes). Written up with a first step per line in
+`state/EXPLORATION-int.md`, "The classical canon".
+
+Proved by: `node scripts/quintic-guides.ts` prints 200 written and the worst chain deviation; the
+script refuses a non-integer or non-six-point curve, and a "loop" that does not cross.
