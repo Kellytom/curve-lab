@@ -424,6 +424,49 @@ class TheoryTest(unittest.TestCase):
         self.assertLess(corrected_rms, plain_rms + 1e-9)
 
 
+class ClosedLoopTest(unittest.TestCase):
+    """A loop is a loop: closed, signed, and its wrap seam is a seam too."""
+
+    @staticmethod
+    def square_loop():
+        # four spans of six points; each span ends exactly where the next starts
+        ring = [(100, 0), (0, 0), (0, 100), (100, 100)]
+        controls = []
+        for i in range(4):
+            a = ring[i]
+            b = ring[(i + 1) % 4]
+            at = lambda f: (float(a[0] + (b[0] - a[0]) * f),
+                            float(a[1] + (b[1] - a[1]) * f))
+            controls.append([at(0.0), at(0.3), at(0.7), at(0.8), at(0.9), at(1.0)])
+        return controls
+
+    def test_winding_is_signed_and_only_for_a_loop(self):
+        ring = [(0.0, 0.0), (100.0, 0.0), (100.0, 100.0), (0.0, 100.0), (0.0, 0.0)]
+        forward = qm.spline_through if False else None  # keep the import honest
+        chain = [((ring[i]), ring[i], ring[i], ring[i + 1]) for i in range(4)]
+        self.assertEqual(qt.winding_of(chain), "ccw")
+        backward = [(a[3], a[3], a[3], a[0]) for a in reversed(chain)]
+        self.assertEqual(qt.winding_of(backward), "cw")
+        open_chain = chain[:3]
+        self.assertIsNone(qt.winding_of(open_chain))
+
+    def test_a_closed_chain_smooths_its_wrap_seam_and_stays_closed(self):
+        controls = self.square_loop()
+        before = qt.seam_angle(controls[-1], controls[0])
+        self.assertGreater(before, 1.0)
+        smoothed, report_before, report_after = qt.smooth_seams(controls, closed=True)
+        self.assertEqual(len(report_after), 4)          # three joins and the wrap
+        for angle, _ in report_after:
+            self.assertLess(angle, 1e-4)
+        self.assertAlmostEqual(smoothed[-1][-1][0], smoothed[0][0][0], places=9)
+        self.assertAlmostEqual(smoothed[-1][-1][1], smoothed[0][0][1], places=9)
+
+    def test_an_open_chain_keeps_its_two_ends(self):
+        smoothed, _, _ = qt.smooth_seams([list(NODES), [NODES[-1]] + list(GENTLE[1:])])
+        self.assertEqual(smoothed[0][0], NODES[0])
+        self.assertEqual(smoothed[1][-1], GENTLE[-1])
+
+
 class PathDataTest(unittest.TestCase):
     def test_the_d_string_has_one_c_per_segment_and_reads_back(self):
         chain = qm.cubic_chain(NODES, 3)

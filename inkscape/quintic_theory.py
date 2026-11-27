@@ -116,7 +116,34 @@ def seam_curvature_gap(control_a, control_b):
     return abs(_curvature_at_end(control_a) - _curvature_at_start(control_b))
 
 
-def smooth_seams(controls):
+def signed_area(chain):
+    """Signed area enclosed by a closed chain, in square units (positive is ccw).
+
+    Computed on the flattened chain by the shoelace rule; call it on y-up
+    coordinates, because the sign is exactly what `winding` in the shared record
+    reports.
+    """
+    polyline = _flatten(chain, steps=24)
+    total = 0.0
+    for a, b in zip(polyline, polyline[1:]):
+        total += a[0] * b[1] - b[0] * a[1]
+    return 0.5 * total
+
+
+def winding_of(chain):
+    """'ccw', 'cw' or None for a chain that does not close."""
+    first = chain[0][0]
+    last = chain[-1][3]
+    gap = ((first[0] - last[0]) ** 2 + (first[1] - last[1]) ** 2) ** 0.5
+    if gap > 1e-6:
+        return None
+    area = signed_area(chain)
+    if abs(area) < 1e-12:
+        return None
+    return "ccw" if area > 0 else "cw"
+
+
+def smooth_seams(controls, closed=False):
     """Make neighbouring quintics meet C1, and report what that cost.
 
     Each span's end tangent is moved onto the bisector of the two tangents, with
@@ -129,7 +156,10 @@ def smooth_seams(controls):
     """
     out = [list(c) for c in controls]
     before, after = [], []
-    for a, b in zip(out, out[1:]):
+    pairs = list(zip(out, out[1:]))
+    if closed and len(out) > 1:
+        pairs.append((out[-1], out[0]))
+    for a, b in pairs:
         before.append((seam_angle(a, b), seam_curvature_gap(a, b)))
     for index in range(len(out) - 1):
         a = out[index]
@@ -146,7 +176,24 @@ def smooth_seams(controls):
         lb = (length_b[0] ** 2 + length_b[1] ** 2) ** 0.5
         a[-2] = qm.sub(seam, qm.scale(direction, la))
         b[1] = qm.add(seam, qm.scale(direction, lb))
-    for a, b in zip(out, out[1:]):
+    if closed and len(out) > 1:
+        # the wrap: the last span's end must leave on the first span's tangent
+        last, first = out[-1], out[0]
+        seal = first[0]
+        last[-1] = seal
+        d1 = _unit(qm.sub(last[-1], last[-2]))
+        d2 = _unit(qm.sub(first[1], first[0]))
+        direction = _unit((d1[0] + d2[0], d1[1] + d2[1]))
+        if direction == (0.0, 0.0):
+            direction = d1
+        la = ((last[-1][0] - last[-2][0]) ** 2 + (last[-1][1] - last[-2][1]) ** 2) ** 0.5
+        lb = ((first[1][0] - first[0][0]) ** 2 + (first[1][1] - first[0][1]) ** 2) ** 0.5
+        last[-2] = qm.sub(seal, qm.scale(direction, la))
+        first[1] = qm.add(seal, qm.scale(direction, lb))
+        pairs = list(zip(out, out[1:])) + [(out[-1], out[0])]
+    else:
+        pairs = list(zip(out, out[1:]))
+    for a, b in pairs:
         after.append((seam_angle(a, b), seam_curvature_gap(a, b)))
     return out, before, after
 

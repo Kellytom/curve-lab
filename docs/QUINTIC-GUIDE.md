@@ -41,9 +41,10 @@ Files:
 | `inkscape/quintic-sheet.inx`, `quintic_sheet.py` | place a curve from the sheet |
 | `inkscape/quintic_math.py` | the pipeline: Bernstein, exact solve, fits, the C2 chain, the proved bound, the exports |
 | `inkscape/quintic_theory.py` | the analysis: seams, PH, offsets, knots, joins, the contract writer |
-| `tests/test_quintic_math.py` | 43 tests |
+| `tests/test_quintic_math.py` | 46 tests |
 | `scripts/quintic_report.py` | every number in this document |
 | `scripts/quintic_contract.py` | the reader-side check of the format |
+| `scripts/check_blender_quintic.py` | Blender's own evaluation of the exported span |
 | `state/QUINTIC-CONTRACT-int.md` | this side of the contract |
 | `state/PROBLEMS-quintic-guide-int.md` | the faults it has had |
 
@@ -139,6 +140,11 @@ Each span ends on its own stretch's tangent, so an unsmoothed cut is a corner:
 control points next to each seam onto their shared bisector, keeping their lengths,
 which makes the join **G1** and leaves every point the curve passes through alone.
 
+A stroke that starts where it ends is a **loop**: the record says `closed: true`,
+adds the signed `winding`, and the wrap from the last span back to the first is
+smoothed and written as a join too. A two-span loop therefore carries two joins —
+`0 -> 1` and `1 -> 0` — both measured at 0.000000°.
+
 A smoothed join is written into the record with its measured residual — position gap,
 tangent angle, curvature step, curvature-rate step. An unsmoothed seam writes **no
 join at all**, because the schema has no word for C0 and a false `G1` is worse than
@@ -197,12 +203,27 @@ way in, each called once.
 4. To work on a sheet curve instead: **Quintic sheet: place a curve**, give the uid
    (`q6-parabola-01`), a scale and an origin.
 
+## Checked by an independent evaluator
+
+Blender is the independent one: `scripts/check_blender_quintic.py` hands the six
+points to Blender 4.2.23 LTS, reads back the vertices of the order-6 clamped
+NURBS, and compares them with the Bernstein sum computed here.
+
+| control points | Blender vertices | largest deviation |
+|---|---|---|
+| the parabola arch (0,0 … 120,0) | 300 | **0.000016 px** |
+| the wild cage | 300 | **0.000051 px** |
+
+So "six points + `order_u = 6` + `use_endpoint_u` is one exact quintic span" is
+measured against Blender's own evaluation, not only against our algebra.
+
 ## Checks
 
 ```sh
-.venv/bin/python -m unittest tests.test_quintic_math            # 43 tests
+.venv/bin/python -m unittest tests.test_quintic_math            # 46 tests
 .venv/bin/python scripts/quintic_report.py                      # every table here
 .venv/bin/python scripts/quintic_contract.py <file> --extent-must-follow
+.venv/bin/python scripts/check_blender_quintic.py               # Blender vs our algebra
 node --test tests/js/quintic-data.test.ts                       # the shared test
 ```
 

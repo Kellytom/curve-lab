@@ -187,3 +187,25 @@ curves and spans, not the envelope.
 or accepting those keys is a meaning change (a format bump), not an edit I make.
 Reported in the mailbox with the exact command that shows it.
 
+---
+
+## 11. Adaptive stations wrecked the C2 solve — a third negative for the same reason
+
+**Tried:** 2026-11-27, `adaptive_chain`: greedy station placement, each stretch as
+long as one cubic allows inside the tolerance, then split the worst segment. The aim
+was the fewest nodes for a proved bound, which is what a glyph wants.
+
+**Result:** proved bounds of 29–142 px where uniform doubling met the same tolerance
+with 4–32 cubics. The greedy knots put very short and very long intervals side by
+side, and the clamped C2 solve — which divides by the interval lengths — produced
+enormous tangents from them. The failures are real (the bound is exact), not a
+measurement artefact.
+
+**Not shipped.** Deleted, recorded here. Three knot schemes have now been measured
+against uniform-in-`t` (arc length, curvature cuts, adaptive) and uniform wins every
+time at document scale; the pattern is worth remembering: this construction wants
+intervals of similar length, because its conditioning does.
+
+**What stays:** uniform stations with doubling, and `cubic_chain(knots=...)` for a
+caller that has a better reason than I found.
+

@@ -25,6 +25,10 @@ spans[], joins[]`. A span has `uid, kind: "quintic", points[6], weights: null, f
 **`fitError` means the drawn→quintic miss** for a curve taken off a stroke, and `0`
 when the six points came from the sheet and are therefore exact.
 
+A stroke whose last point is its first sets `closed: true` and a signed
+`winding` (`ccw`/`cw`), and the wrap seam from the last span back to the first is
+smoothed and written as a join like any other.
+
 `joins` is populated only when the seams were smoothed: continuity `G1` with a
 measured `residual {position, tangentDegrees, kappa, rate}`. An unsmoothed seam is
 C0 and the schema has no word for it, so it emits **no join** rather than a false

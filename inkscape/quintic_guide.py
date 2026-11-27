@@ -165,6 +165,12 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
         if not segments:
             inkex.errormsg("Quintic from Guide: the guide path has no segments.")
             return
+        # a stroke whose last point is its first is a loop; the record says so
+        first_point = segments[0][0]
+        last_point = segments[-1][3]
+        is_closed = (len(segments) > 2 and
+                     abs(first_point[0] - last_point[0]) < 1e-6 and
+                     abs(first_point[1] - last_point[1]) < 1e-6)
 
         if mode == "cage-nodes":
             nodes = qm.nodes_from_segments(segments)
@@ -205,7 +211,8 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
         # phase two: the seams, then the drawings
         seam_before = seam_after = 0.0
         if self.options.smoothseams and len(plans) > 1:
-            controls, before, after = qt.smooth_seams([p["control"] for p in plans])
+            controls, before, after = qt.smooth_seams([p["control"] for p in plans],
+                                                      closed=is_closed)
             for plan, control in zip(plans, controls):
                 plan["control"] = control
             seam_before = max(a for a, _ in before) if before else 0.0
@@ -262,7 +269,7 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
 
         self._remove_previous(guide_id)
         self._draw(guide, guide_id, results)
-        self._exports(guide_id, alpha, mode, results)
+        self._exports(guide_id, alpha, mode, results, is_closed)
 
         if not self.options.keepguide:
             guide.delete()
@@ -342,7 +349,7 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
             layer.insert(max(0, index - 1), group)
         return leaf
 
-    def _exports(self, guide_id, alpha, mode, results):
+    def _exports(self, guide_id, alpha, mode, results, is_closed=False):
         report = []
         folder = (self.options.exportdir or "").strip()
         stem = guide_id or "quintic"
@@ -352,7 +359,13 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
                 out.mkdir(parents=True, exist_ok=True)
                 # the contract file: curve-lab.quintic/1, schema-checked
                 spans = [qm.to_y_up(r["control"]) for r in results]
-                closed = False
+                closed = bool(is_closed)
+                winding = None
+                if closed:
+                    loop = []
+                    for r, control in zip(results, spans):
+                        loop.extend(qm.cubic_chain(control, max(1, r["segments"])))
+                    winding = qt.winding_of(loop)
                 curve = {
                     "uid": (guide_id or "quintic") + ":curve",
                     "group": "ornament",
@@ -361,7 +374,7 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
                     "note": ("six points taken off a drawn stroke; the drawn "
                              "chain is an approximation, the points are the object"),
                     "closed": closed,
-                    "winding": None,
+                    "winding": winding,
                     "fitError": round(max(r["fit_max"] for r in results), 9),
                     "selfCrossings": int(qt.count_self_crossings(
                         qm.cubic_chain(spans[0], 12)) if len(spans) == 1 else 0),
@@ -369,22 +382,25 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
                               for i, control in enumerate(spans)],
                     "joins": [],
                 }
-                if len(spans) > 1:
-                    for i in range(len(spans) - 1):
-                        residual = qt.join_residual(spans[i], spans[i + 1])
-                        if residual["tangentDegrees"] < 1e-6:
-                            curve["joins"].append({
-                                "uid": "%s:join%d" % (guide_id or "q", i),
-                                "a": {"span": curve["spans"][i]["uid"], "end": "end"},
-                                "b": {"span": curve["spans"][i + 1]["uid"], "end": "start"},
-                                "continuity": "G1",
-                                "residual": {
-                                    "position": round(residual["position"], 9),
-                                    "tangentDegrees": round(residual["tangentDegrees"], 9),
-                                    "kappa": round(residual["kappa"], 9),
-                                    "rate": round(residual["rate"], 12),
-                                },
-                            })
+                seams = len(spans) - 1 + (1 if closed and len(spans) > 1 else 0)
+                for i in range(seams):
+                    pair = (i, (i + 1) % len(spans))
+                    residual = qt.join_residual(spans[pair[0]], spans[pair[1]])
+                    # 0.01 deg is a hundredth of a degree: exact for a drawing
+                    # and loose enough for float noise in the solve
+                    if residual["tangentDegrees"] < 0.01:
+                        curve["joins"].append({
+                            "uid": "%s:join%d" % (guide_id or "q", i),
+                            "a": {"span": curve["spans"][pair[0]]["uid"], "end": "end"},
+                            "b": {"span": curve["spans"][pair[1]]["uid"], "end": "start"},
+                            "continuity": "G1",
+                            "residual": {
+                                "position": round(residual["position"], 9),
+                                "tangentDegrees": round(residual["tangentDegrees"], 9),
+                                "kappa": round(residual["kappa"], 9),
+                                "rate": round(residual["rate"], 12),
+                            },
+                        })
                 document = qt.contract_document([curve])
                 (out / ("%s-quintic.json" % stem)).write_text(
                     json.dumps(document, indent=2) + "\n", encoding="utf-8")
