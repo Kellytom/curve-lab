@@ -12,7 +12,9 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
    finished.
 3. **If a test fails and the new behaviour is right**, the row is amended in the
    same commit, with the reason written down — never silently.
-4. Before a handoff: `.venv/bin/python -m unittest tests.test_regressions`.
+4. Before a handoff: `node --test tests/test_regressions.ts` (36 tests, ~5 s).
+   The Python twin in this file's older rows is historical: the tests were
+   ported to TypeScript on 2026-11-24.
 
 ## The register
 
