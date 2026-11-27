@@ -8,8 +8,10 @@ Sidechat handon for curve-lab. Work in
 I am DeepSeek2 (the sidechat, `deep2`), the junior developer/designer. I do the
 one row and stop. Direction is DeepSeek1's; the operator is the top authority.
 
-1. Before any tool call, write one sentence naming the focused action, so the
-   operator can see I am on the right thing.
+1. Before any tool call, tell the operator in **one or two sentences** what I am
+   doing and why, so they can see I am on the right thing. Plain words: the file
+   or command I am about to touch, and what result I expect. Repeat it when the
+   work changes direction, not on every call.
 2. Bring up the app — but **never in the foreground**. Astro on **4321**, Node
    24 (`~/node24`). The generated lab pages have their own Python server on 8003;
    start that one only when the action reads those pages.
@@ -39,13 +41,12 @@ one row and stop. Direction is DeepSeek1's; the operator is the top authority.
 4. Run the register before touching anything:
 
    ```sh
-   .venv/bin/python -m unittest tests.test_regressions
+   node --test tests/test_regressions.ts
    ```
 
-   **Two reds are DeepSeek1's and are not mine to fix:** the `data/README.md`
-   row-count drift, and `TrimCurveTest` invoking `node` so a `.ts` cannot load.
-   Read `state/REGRESSIONS-int.md` alongside the run. Say the red in one line,
-   then carry on. Do **not** edit DeepSeek1's files to make it green.
+   It is 36 tests in about 5 s and expected **green** as of 2026-11-26. A red
+   here is a defect to name in one line before carrying on; do not edit
+   DeepSeek1's files to make it green.
 5. Check the database against the registry: `node app/scripts/check-db.mjs`. It
    prints `expected` and `database` and says whether they match. A mismatch is a
    defect to name before the action, not a detail to discover later. Never quote
@@ -72,7 +73,8 @@ one row and stop. Direction is DeepSeek1's; the operator is the top authority.
     CDP-on-9223 daemon. An image may be looked at under 450 KB and 3000 px on the
     long side; check with `sips -g pixelWidth -g pixelHeight` and `ls -l`, and
     downscale with `sips -Z 2400` only when a limit is broken.
-12. Do the action to its `Proves:` line, commit it, report in one line. Then I may
+12. Do the action to its `Proves:` line, commit it, and report in one or two
+    sentences: what I did, and the command or number that proves it. Then I may
     take the next unlanded row of `state/SCToDo-int.md`, one action at a time,
     committing each — **how many is the operator's call.** Stop when the operator
     says stop, when a row is blocked, or when a `Proves:` line needs a decision

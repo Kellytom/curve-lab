@@ -597,6 +597,9 @@ each answer fixed something on the server without clicking the button on the pag
   `scripts/said_checklist.py --who deep2 --write`, tick each statement with the commit that
   proves it, and run the check with no `--write` before a handoff. The sidechat does this for
   its own work; DeepSeek1 does not tick sidechat's rows.
+- **The sidechat is `deep2` is DeepSeek2 — one agent, three names** (operator, 2026-11-24).
+  DeepSeek1 is the other one. The `s` files, the sidechat's said roll and git for its own work
+  belong to DeepSeek2.
 
 ## Language — TypeScript for new work (2026-11-24)
 
@@ -624,14 +627,15 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
   work, with the test that guards it. It is Tier 0: read it before changing a
   control, not after breaking one.
 - **A fix and its register row land in the same commit.** A fix without a test is
-  not finished. The test goes in `tests/test_regressions.py`, named after the
-  fault, with the operator's own words in the docstring.
+  not finished. The test goes in `tests/test_regressions.ts`, named after the
+  fault, with the operator's own words in the docstring. (The Python twin
+  `tests/test_regressions.py` was ported on 2026-11-24 and no longer exists.)
 - **Nothing is deleted from the register** because a change made it awkward. If a
   test fails and the new behaviour is right, amend the row in that same commit
   and write why.
-- **Run it at every boundary:** `.venv/bin/python -m unittest tests.test_regressions`
-  (a tenth of a second). `/fhandon` runs it before the action, `/fhandoff`
-  before writing the block.
+- **Run it at the work gate:** `node --test tests/test_regressions.ts`
+  (36 tests, 36 pass, 4.8 s measured 2026-11-26). `/fhandoff` runs it before writing the
+  block. `/fhandon` reads the register file but does not run the tests in focus.
 - **Settled decisions go in `state/DESIGN-int.md`**, with the reason, so the same
   argument is not had twice. Published numbers go in `state/ACHIEVEMENTS-int.md`
   via `scripts/recheck.py`.
@@ -818,7 +822,7 @@ Start the one server if it is not already up (this is idempotent — it says
 
 ```sh
 .venv/bin/python -m unittest discover tests
-.venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
+node --test tests/test_regressions.ts               # the fixed-bug register, ~5 s
 .venv/bin/python scripts/check_asks.py               # the operator's asks are recorded and closed
 .venv/bin/python scripts/said_checklist.py --write   # fold new /said/ messages into the roll
 .venv/bin/python scripts/said_checklist.py           # the roll: every message a row, every done proved
@@ -4420,6 +4424,29 @@ The registry's `features.crossing_pairs` is the pair count, kept honest by
 `scripts/crossing_audit.py`. A page that says "crosses itself 5" is quoting pairs; the count of
 places is smaller whenever a triple point exists. Do not replace one with the other in a refactor.
 
+## c-0022 wave3: the rows are the family; the figure had lost its mirror — 2026-11-26
+
+The operator, 2026-11-24: the parent "looks wrong ... before any trimming".
+
+The stored speed rows are `u = [1, 0, 0, 0, 0, 0]` and `v = [-5, 46, -108, 72, 0, 0]`.
+`v = 72(t − 1/6)(t − 1/2)(t − 5/6)`, which is the exact `wave3` definition pinned in
+`tests/test_ph_root_search.py`; the position is the integral of `(u² − v², 2uv)`. **The record
+is right: the rows are the wave3 curve.**
+
+The figure was wrong. `centralPaths` asked `plate_math.branchesOf`, which reads only a stored
+`path` or `branches`; a rows record has neither, so it returned an empty list, `half[0]` threw,
+and the catch drew `pointsOf(record)` alone — one half-curve with no mirror. That bare half is
+what looked wrong. The old diamond figure is the curve **and its mirror across the chord** (the
+leaf rule in §Central designs are at least two curves); the rows now fall back to
+`pointsOf(record)`, the leaf is restored, and c-0022 reports `failed: false`, margin 25 %,
+centralCount 2. `app/public/figures/index.json` now has 0 failed entries.
+
+The **plate** stays a single curve — spine plus character rails — per §Central designs above, so
+it is not expected to be the diamond. The diamond is the figure's central design.
+
+Guard: `tests/js/figure-rows.test.ts` — a rows record with no stored path still gets two central
+paths, not the error fallback, and the figure index carries no failed record.
+
 
 <!-- source: state/REGRESSIONS-int.md -->
 
@@ -4561,8 +4588,10 @@ spine, the fit is under tolerance, and the cap name is not double-prefixed.
 | 72 | 2026-11-23 | found while making the save answer at once: the plate and figure renders now run in a detached child, so two quick saves can overlap, and both `--only` runs merge their indexes from the same read — the second would drop the first's curve (the fault of register 29, in a new place) | `tests/test_regressions.py` (`RenderLockTest`, running `tests/js/render-lock.test.mjs`: three jobs never share the lock, a held lock is waited for and released, the next job takes it) | one render at a time: `scripts/lib/render-lock.mjs` is a lock directory around both renders; the save itself never waits |
 | 73 | 2026-11-24 | found while building the trim desk: on both the cut desk and the trim desk the **preview** button saved the curve. The handler skipped only a button whose id was not the save id, and the preview button has no id, so the test `submitter.id && …` fell through and the GET became a POST | `scripts/check-trim.mjs` (the preview carries the fractions in the URL and no banner appears) and the same element comparison in both desks; the cut desk was proved by clicking its preview and reading a GET URL with no save | compare the submitter element with the save button, never its id; a button without an id is not the save |
 | 74 | 2026-11-24 | found by probing, not by the operator: a trim of a **branch** record saved `params.cut = {of, ofName, runs}` and the conversion "cut across a line" — `planVariant`'s line-cut block ran after the trim block because the trim passed `branches`, and overwrote the mode, the two fractions and the note | `app/tests/desk-tune.test.mjs` (a trim with two branches keeps `mode: trim`, both branches, and the rational algorithm), and the probe on c-0416: four branches of 241 stations, cut `{mode: trim, from: 1/5, to: 4/5}` | a trim stores its branches but keeps its own metadata; the line-cut block returns early for a trim |
+| 75 | 2026-11-24 | found while searching: the coupler script kept only curves with **4+ crossing pairs**, but a four-bar coupler curve has at most three double points — so two sweeps (729 grid + 24,000 wide) reported "0 knots" for an arithmetic reason, not the shape's, and nine 2-node curves were discarded unseen | `scripts/coupler_curves.py --min-crossings` (default 2) with a Grashof filter; the documented cap in the help text; the run now reports 9 of 8000 with 2 pairs | a search threshold must be inside the mathematics: state the maximum a family can reach before filtering on it |
 | 68 | 2026-11-23 | found while finishing the book set: 22 curves had no 3000 px plate (c-0398..c-0419, the Tschirnhausen family and the other additions) — every `print_plates --only` run writes the plate for the curves it names, and nothing checked the whole set | `tests/test_regressions.py` (`BookPlateTest`, running `scripts/check_book_plates.mjs`: every registry curve has a plate, long side 3000 px, pHYs 300 dpi, read from the PNG header) | the book set is checked as a whole, not per render; 403/403 pass |
 | 69 | 2026-11-23 | found in the build: `maxCurvature` read **0.0 on all 403 curves** — a documented placeholder ("0 when not yet computed") that looked like a measurement; `curvature_max` existed but was never called, and the field was in the analysis summary where a reader would trust it | `tests/test_regressions.py` (`MaxCurvatureTest`: most curves carry a reading and the values are not one constant — 400 numeric, 3 null at cusps, 389 distinct) | a field in the analysis is computed or it is null and said so; the sharpest bend is curvature × size, null past 1e6 where a cusp's polyline number would be the sampling |
+| 76 | 2026-11-26 | "looks wrong ... before any trimming" — c-0022's figure drew one half-curve, not the old diamond, because a rows record has no stored path and the figure's `branchesOf` returned an empty list | `tests/js/figure-rows.test.ts` (c-0022 is not the error fallback; two central paths; the figure index has no failed record) | a rows record's central design falls back to its own speed rows, so the curve keeps its mirror half |
 
 
 <!-- source: state/DATA-int.md -->
@@ -4639,7 +4668,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `flowers.json` | `curve-lab.flowers/1` | cache | `scripts/stems_print.py` | `scripts/stems_print.py` |
 | `curve-registry.json` | `curve-lab.curve-registry/1` | record | `scripts/curve_registry.py` | the registry and the naming pass |
 | `curve-notes.json` | `curve-lab.curve-notes/1` | record | `/api/curve-notes` | the registry build |
-| `curve-analysis.json` | `curve-lab.curve-analysis/1` | record | `scripts/analyse_curves.py` | `app/scripts/load-analysis.mjs`, `scripts/similar_curves.py` |
+| `curve-analysis.json` | `curve-lab.curve-analysis/1` | record | `scripts/analyse_curves.ts` | `app/scripts/load-analysis.mjs`, `scripts/similar_curves.py` |
 | `curve-notes.backup.json` | `curve-lab.curve-notes/1` | backup | `/api/curve-notes`, on every write | the naming pass after a damaged read |
 | `naming-todo.json` | `curve-lab.naming-todo/1` | working | `scripts/curve_registry.py` | the naming page |
 | `finder.json` | `curve-lab.finder/1` | cache | `scripts/curve_finder.py` | the Astro `/finder` page |
@@ -4647,7 +4676,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `finder-stars.json` | `curve-lab.finder-stars/1` | record | `app/src/lib/finder-stars.js` | the star list on the `/finder` page |
 | `finder-stars.backup.json` | `curve-lab.finder-stars/1` | backup | the `/finder` page, on save | `readSaved()` repair, then the page |
 | `found-curves.json` | `curve-lab.curves/2` | record | `scripts/real_curves.mjs` | the galleries, `ph_nth_panels.js` |
-| `frames.json` | `curve-lab.frames/1` | record | `scripts/frames_build.mjs` | the `/frames` page |
+| `frames.json` | `curve-lab.frames/1` | record | `scripts/frames_build.ts` | the `/frames` page |
 | `found-for-exp.json` | `curve-lab.curves/2` | orphan | — | — (no reader; archive when the public tree is cut) |
 | `g3-catalogue-cache.json` | `curve-lab.g3-catalogue-cache/1` | cache | `scripts/g3_catalogue.py` | `scripts/g3_catalogue.py` |
 | `g3-catalogue.json` | `curve-lab.g3-catalogue/1` | record | `scripts/g3_catalogue.py` | `scripts/g3_gate.py`, `g3_cubic_native.py` |
@@ -4658,7 +4687,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `near-zero.json` | `curve-lab.near-zero/1` | cache | `scripts/near_zero.py` | the near-zero report |
 | `wobble.json` | `curve-lab.wobble/1` | cache | `scripts/wobble_show.py` | the `/sandbox` wobble panels |
 | `mobile-curves.json` | `curve-lab.mobilecurves/1` | cache | `scripts/mobile_search.py` | the `/sandbox` mobile section |
-| `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
+| `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.ts` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
 | `emblem-stations.json` | `curve-lab.emblem-stations/1` | cache | `scripts/emblem_stations.py` | the emblem sheet: the fish, sprig, rosette and band panels, their stations and bounds |
 | `nurbs-inventory.json` | `curve-lab.nurbs-inventory/1` | cache | the session's degree sweep | the NURBS-readiness analysis (`state/SC-NURBS-int.md`) |
@@ -4672,7 +4701,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `hybrid-candidates.json` | `curve-lab.hybrid-candidates/1` | cache | `scripts/hybrid_candidates.mjs` | `scripts/hybrid_rank.py` |
 | `hybrid-formulas.json` | `curve-lab.hybrid-formulas/1` | cache | `scripts/hybrid_formulas.py` | `scripts/hybrid_rank.py` |
 | `pm-reform.json` | `curve-lab.pm-reform/1` | cache | `scripts/pm_reform_probe.py` | the `/prime-mover` page |
-| `root-candidates.json` | `curve-lab.rootcandidates/1` | cache | `scripts/root_search.py` | the root search report |
+| `root-candidates.json` | `curve-lab.rootcandidates/1` | cache | `scripts/root_search.ts` | the root search report |
 | `operator-list.json` | `curve-lab.operator-list/1` | record | `scripts/operator_list.py` | the lab's seed list, `tests/test_operator_list.py` |
 | `ph-11th-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_11th_sandbox2.py` | part 2 of the sandbox |
 | `ph-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_fit_showcase.py` | `scripts/ph_nth_sandbox2.py` |

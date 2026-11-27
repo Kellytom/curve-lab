@@ -47,7 +47,7 @@ Checked at HEAD `2b0aa130` (main, 2 ahead of origin), working tree 30 modified +
 | 3 | **Metrics 6 behind** | 412/412; the data README counts are the files' own | **landed 2026-11-26** |
 | 4 | **The five new records** — `c-0028a`, `c-0057a`–`c-0057c`, `c-0058a` | each has a 3000 px plate, SVG, figure, web plate and metrics row; the rail indexes merged | **landed 2026-11-26** |
 | 5 | **Push** — the local commits | `git push origin main`; remote green | done when the push lands |
-| 6 | **Resume the queue** — `scripts/root_search.py`, `scripts/coupler_curves.py`, then the register's Python twin, as `.ts` | each port has its twin test and the Python file is retired or its consumers named | next |
+| 6 | **Close the two ports** — both `.ts` twins landed 2026-11-24 (`scripts/root_search.ts`, `scripts/coupler_curves.ts`); what is left is retiring or registering the Python. The register's Python twin is already gone (`tests/test_regressions.ts`). | each port has a `state/PORT-int.md` row saying "retired" or naming its last consumer; `tests/js/*.test.ts` green | next — corrected 2026-11-26 |
 
 **Decided 2026-11-26:** the frames question (90 recorded vs 231 selected) waits until the curves are
 in hand — do not render the 924 thumbnails yet. The hardware ask (row 13, pen display first) is open

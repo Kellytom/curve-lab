@@ -27,7 +27,7 @@ the date it was last checked.
      push is coming, `--full` in the background. Run `npm --prefix app test`
      (about 2 s) and `node app/scripts/check-db.mjs` if the database or a page
      changed. Otherwise carry the recorded count and label it carried.
-   - **Register:** run `.venv/bin/python -m unittest tests.test_regressions`. If
+   - **Register:** run `node --test tests/test_regressions.ts` (36 tests, ~5 s). If
      this session fixed a fault, the row and its test are already in the commit;
      if it deliberately changed a listed behaviour, the row is amended in the
      same commit with the reason. A red register is a defect to fix before the

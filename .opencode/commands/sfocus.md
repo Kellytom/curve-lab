@@ -9,11 +9,11 @@ main handoff; this one reads OUR files, so a reset lands in the right list.
 1. Move this session's working directory to
    `/Users/thomaskelly/developer/curve-lab` with the session-move tool. Do not
    `cd` in a shell; a shell `cd` does not move the session.
-2. Run the register — a tenth of a second, and it says what is fixed and
+2. Run the register — about five seconds, and it says what is fixed and
    guarded:
 
    ```sh
-   .venv/bin/python -m unittest tests.test_regressions
+   node --test tests/test_regressions.ts
    ```
 
 3. Read, in this order (the sidechat's tier 0):
