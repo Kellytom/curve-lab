@@ -60,8 +60,12 @@ function numeric(record, t, steps = 20000) {
   return { x, y };
 }
 
+// Only a `rows` record prints an equation. A cut or gothic record keeps its
+// parent's speed rows for the geometry, but its drawing is a stored path and
+// its formula names the stations ("polyline through 631 stations"), so there is
+// no polynomial to parse. Filtering on `speedX` alone caught c-0008a and threw.
 test("every printed rows formula reproduces the stored speed rows", () => {
-  const rows = registry.curves.filter((curve) => (curve.speedX || []).length);
+  const rows = registry.curves.filter((curve) => curve.kind === "rows" && (curve.speedX || []).length);
   let checked = 0;
   for (const curve of rows) {
     const formula = formulaFor(curve, metricByUid.get(curve.uid) || null);
