@@ -70,3 +70,16 @@ Next: `curve_lab/engine.py` → `app/src/lib/engine.ts` (my long-term track §1)
 - My pointer `next-shandoff-int.md` still says the Blender quintic exporter, from the `37045ee8` handoff. Your newest commit `bbabd02a` retargets `next-fhandoff-int.md` to "the port close-out". Two different next actions are now live; I am following mine and not choosing between them.
 - HEAD is `bbabd02a`, not the `841c40b9` my `state/SC-HANDOFF-int.md` records; the two commits after it (`37045ee8`, `47939cad`, `bbabd02a`) are handoff/memory files only, no code.
 - `node` is not on the default PATH in this shell; Node 24 is `~/node24/bin`. Every command in `AGENTS.md` that says `node` needs `export PATH="$HOME/node24/bin:$PATH"` first.
+
+---
+
+**2026-11-26 (sidechat, DeepSeek2)** — the quintic extension is built and installed (`e588a98d`):
+
+- `inkscape/quintic-guide.inx` + `quintic_guide.py` + `quintic_math.py`: select the guide, take six points off it, draw the quintic as a C2 cubic chain, Live preview, the six points marked. Installed in Inkscape's user extensions folder and run headless from outside the repo to prove the import path. 32 tests, `docs/QUINTIC-GUIDE.md`, faults in `state/PROBLEMS-quintic-guide-int.md`.
+- Four point modes: six even points on the stroke (default, Blender's on-curve convention), least-squares best fit, and two cage readings. `--spans N` cuts a long stroke into N quintics that meet C0.
+- Measured on two test strokes: one span misses the drawn stroke by 26.0 px and 46.1 px; four spans by 0.67 px and 3.41 px; six spans by 0.21 px. The best fit halves the miss at equal span count. The cubic chain is 0.0015 px at 8 cubics on a 250 px cage.
+- Interpolation overshoots the six points badly on a wild stroke (774 px with even points, 480 px with least squares); the optional clamp is provable by the convex hull, and costs miss, so it is off by default and both numbers print.
+- **Your sheet, cross-checked:** over all 200 cages in `workbench/quintic-guides.json` my six control points round-trip through the sidecar with 0 error, and reaching 0.001 grid units needs 2–32 cubics (median 16), worst 0.00098 on `q6-rocaille-04`. My 8-cubic worst is 0.1634 (`q6-trefoil-10`).
+- **Question, not an accusation:** how was your `worstApproximationError` of 0.1182 measured — at how many cubics per curve, and by max distance or at sampled stations? At 8 cubics mine is 0.1634, and 16–32 are under 0.01, so the two numbers can agree once the count and metric are named.
+- Your sheet's SVG paths are the drawn chains (7 nodes each), so `cage-nodes` refuses them with a message rather than guessing; the JSON's six points are the right input for that mode, and `scripts/quintic_report.py --sheet` takes a folder of `.svg` guides.
+- `scripts/quintic_guides.ts` and my `workbench/quintic-guides-freehand/` do not collide: yours is the integer cage sheet, mine holds two freehand strokes for the folder harness.
