@@ -359,3 +359,56 @@ older than the bottles expect, so brew builds from source — installing oxipng 
 minute LLVM + rust build and delivered nothing. Use a vendor's prebuilt binary (GitHub
 releases), a pip wheel that ships the binary, or report the tool as missing and stop. Brew
 *reads* are fine. The PNG-compression job stands otherwise.
+
+---
+
+## 2026-11-26 — the Inkscape quintic extension (the operator's workflow, reassigned to DeepSeek2)
+
+Job: build the Inkscape extension the operator specified, as an installable `.inx` + `.py` pair,
+then make 100 six-point guide curves to test it on. The operator's own definition of the
+problem, 2026-11-26:
+
+> "We will take a curve in inkscape that has been drawn then we will find six points on it.
+> From those six points we will calculate where the quintic bezier should fall. From there
+> we'll have to create something that inkscape can work with to display."
+
+What it must do:
+- Take the selected outer guide curve. If it has **6 nodes**, read their positions; otherwise
+  sample 6 points at s = 0, 0.2, 0.4, 0.6, 0.8, 1.0 along the path by arc length.
+- One scalar, **Fullness α**: endpoints fixed (`P0 = G0`, `P5 = G5`), chord points
+  `Li = (1 − i/5)P0 + (i/5)P5`, then `Pi = (1 − α)Li + αGi` for i = 1..4.
+- Evaluate the quintic Bernstein form, then render it as a **cubic** chain, because SVG has no
+  degree-5 primitive. Report the measured deviation in the SVG (a `data-` attribute), do not
+  claim sub-pixel without the number.
+- A **Live Preview** checkbox (`<effect needs-live-preview="true">`), so dragging the slider
+  updates the inner curve; Apply commits it as a normal path and leaves the guide intact.
+- Export the raw `P0..P5` at the same time, three ways: a sidecar `.json`, a Blender snippet
+  (clamped NURBS, `order_u = 6`, `use_endpoint_u = True`), and GeoGebra Input-Bar commands.
+- Then 100 guide curves with exactly six nodes, as one SVG sheet, with a fixed seed so the set
+  is reproducible, so the operator can test by opening one file.
+
+Constraints here: no Homebrew installs; Inkscape is **1.4.4** and its bundled Python is the one
+that must import `inkex` (the system Python does not). Extensions live in
+`~/Library/Application Support/org.inkscape.Inkscape/config/extensions/` on this machine — the
+folder does not exist yet. Repository rule: new code is TypeScript, but an Inkscape extension is
+Python by the host's own API, so Python is correct here and `state/PORT-int.md` should say so.
+
+DeepSeek1 has not started this work: no `.inx`, no `.py`, no guide sheet exists.
+
+Proved by: pending — `inkscape --version` 1.4.4, and `inkex` import checked against the bundled
+Python (it failed on the system Python, which is the trap this job must avoid).
+
+**Correction, same minute — this is not a new assignment.** `inkscape/quintic_math.py`,
+`inkscape/quintic_guide.py` and `inkscape/quintic-guide.inx` appeared at 23:30–23:31 while this
+note was being written, so DeepSeek2 is already building it. The entry above is kept for the
+operator's words and the constraints; it is not work to hand out twice.
+
+Two things worth having:
+- **`inkscape/` already holds a round-trip set from 2026-11-22** — `ph_extension.py`,
+  `ph_handles.py`, `ph_svg.py`, `ph_actions.py`, `ph_variant.py`, `curve-lab-send.inx`,
+  `curve-lab-receive.inx`. Extend those conventions (they already talk to this repo) instead of
+  starting a second dialect beside them.
+- **The two next actions do not collide.** `next-fhandoff-int.md` (the port close-out on
+  `root_search` / `coupler_curves`) is DeepSeek1's and touches `scripts/` + `state/PORT-int.md`.
+  Your Blender quintic exporter and the Inkscape extension touch `inkscape/` and the app's
+  reduction code. Neither is blocked by the other; both can be live. Do not wait on a choice.

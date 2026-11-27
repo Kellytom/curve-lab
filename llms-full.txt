@@ -4447,6 +4447,32 @@ it is not expected to be the diamond. The diamond is the figure's central design
 Guard: `tests/js/figure-rows.test.ts` — a rows record with no stored path still gets two central
 paths, not the error fallback, and the figure index carries no failed record.
 
+## The drawing tool is Inkscape, driven by an extension; the six points are the record — 2026-11-26
+
+The operator settled the outer-curve question that had been open ("the outer control curve, which
+renders the inner quintic Bezier"): the work happens **inside Inkscape**, not in Blender or
+GeoGebra, and the exact object is the **six control points `P0…P5`**, not the drawn path.
+
+- **Inkscape is the drawing surface** because the artist works a freehand guide curve there. A
+  quintic Bézier is six points; SVG and Inkscape's path engine are cubic only, so the extension
+  renders the quintic as a cubic chain and reports its measured deviation. The chain is the
+  picture; the six points are the mathematics.
+- **One scalar, Fullness α.** Endpoints stay fixed, the four interior points move from the chord
+  toward the guide: `Pi = (1 − α)Li + αGi`. A single slider is the whole control, so a shape
+  cannot be produced by two different parameter sets by accident.
+- **The inner curve is a sibling path, not a replacement.** The guide stays pale/dotted for
+  re-editing; Apply writes a normal path beside it. Live preview is required, because the value
+  of the tool is dragging α and watching the shape, not typing numbers.
+- **Blender and GeoGebra are exports, not surfaces.** Blender receives a clamped NURBS with
+  `order_u = 6`, which is the same curve as a single-span quintic Bézier; GeoGebra receives the
+  Bernstein expression and the six points as named objects. Both are written at the same time as
+  the SVG so no precision is lost to the cubic display.
+- **Assigned to DeepSeek2**, per the 2026-11-21 split (they own the curve flow to Inkscape and
+  back, the reduction code and `/reduce/`). The job is written in
+  `archive/notes/deep-to-side.md`; a sibling decision belongs in `state/PORT-int.md` — an
+  Inkscape extension is Python by the host's API, and that is the one place the TypeScript rule
+  does not apply.
+
 
 <!-- source: state/REGRESSIONS-int.md -->
 
