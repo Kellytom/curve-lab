@@ -5,7 +5,7 @@
  *
  *   - DeepSeek1 writes `workbench/quintic-guides.json` (scripts/quintic-guides.ts)
  *   - DeepSeek2's Inkscape extension reads spans and frames from the same shape
- *   - `workbench/quintic.schema.json` is the written form; this file is the runnable form
+ *   - `format/quintic.schema.json` is the written form; this file is the runnable form
  *
  * Both sides run this. If it goes red, the data has drifted from the contract and
  * the fix belongs in the generator, not in a reader that "copes".
@@ -20,13 +20,13 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const DATA = path.join(ROOT, "workbench", "quintic-guides.json");
-const SCHEMA = path.join(ROOT, "workbench", "quintic.schema.json");
+const SCHEMA = path.join(ROOT, "format", "quintic.schema.json");
 
 const load = () => JSON.parse(readFileSync(DATA, "utf8"));
 
 describe("quintic data contract", () => {
   test("the schema file exists and declares the same format id", () => {
-    assert.ok(existsSync(SCHEMA), "workbench/quintic.schema.json is missing");
+    assert.ok(existsSync(SCHEMA), "format/quintic.schema.json is missing");
     const schema = JSON.parse(readFileSync(SCHEMA, "utf8"));
     assert.equal(schema.$id, "https://curve-lab/format/quintic/1");
   });

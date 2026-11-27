@@ -301,7 +301,7 @@ structure. Everything below is landed and pushed.
 | # | action | `Proves:` | state |
 |---|---|---|---|
 | 1 | **200 six-point guide curves**, ten mathematical families and ten of the canon | 100 + 100 curves, six integer points each; `Fig. QG1`–`QG4` | **landed** |
-| 2 | **The shared contract** `curve-lab.quintic/1` | `workbench/quintic.schema.json`; `tests/js/quintic-data.test.ts` 8 pass | **landed** |
+| 2 | **The shared contract** `curve-lab.quintic/1` | `format/quintic.schema.json`; `tests/js/quintic-data.test.ts` 8 pass | **landed** |
 | 3 | **Spans chained and measured** | `Fig. QC1`; cyma reversa → recta is G3, the other joins G1 with their Δκ printed | **landed** |
 | 4 | **A closed shape** | `Fig. QX1`; four-span ring, G3 at every join, winding ccw, radial error 0.325 | **landed** |
 | 5 | **The fullness fixture** | `Fig. QF1`; five α values × five guides; `tests/js/quintic-fullness.test.ts` 5 pass | **landed** |

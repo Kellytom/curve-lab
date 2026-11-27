@@ -109,6 +109,10 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `ph-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_fit_showcase.py` | `scripts/ph_nth_sandbox2.py` |
 | `ph-quintic-presets.json` | `curve-lab.ph-quintic-presets/1` | cache | `scripts/ph_quintic_gallery.py` | the quintic gallery |
 | `ph-quintic-yours.json` | `curve-lab.ph-quintic-yours/1` | cache | `scripts/ph_quintic_yours.py` | the quintic gallery |
+| `quintic-guides.json` | `curve-lab.quintic/1` | record | `scripts/quintic-guides.ts` | the 200 six-point guide curves; the contract for the Inkscape work |
+| `quintic-closed.json` | `curve-lab.quintic/1` | record | `scripts/quintic-closed.ts` | the closed four-span ring; `closed: true` and a winding |
+| `quintic-chain.json` | `curve-lab.chain/1` | record | `scripts/quintic-chain.ts` | four spans placed end to end, with the measured join residuals |
+| `quintic-fullness.json` | `curve-lab.fullness/1` | record | `scripts/quintic-fullness.ts` | the α fixture: five guides at five fullness values |
 | `real-curves.json` | `real-curves/1` | record | `scripts/real_curves.mjs` | the lab, the book, `plate_math.js` |
 | `root-family.json` | `curve-lab.root-family/1` | cache | `scripts/ph_root_search.py` | `scripts/ph_root_search.py` |
 The desk's decisions left this folder for `data/sandbox-curves.json` (see the

@@ -4277,7 +4277,7 @@ because its `.ts` twin exists — a Python test still imports it, so it is regis
 
 - **The split is written and working.** DeepSeek2 owns the Inkscape extension (`inkscape/quintic_*`),
   this side owns the generator, chains and shapes; the middle is a versioned contract,
-  `workbench/quintic.schema.json`, format **`curve-lab.quintic/1`**, with
+  `format/quintic.schema.json`, format **`curve-lab.quintic/1`**, with
   `tests/js/quintic-data.test.ts` as its runnable form (8 tests). Ownership and the four facts both
   sides may rely on are in `state/RESPONSIBILITIES-int.md` §7.
 - **200 six-point curves, ten mathematical families and ten of the canon** (parabola, bowl, S, C,

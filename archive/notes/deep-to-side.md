@@ -308,7 +308,7 @@ script refuses a non-integer or non-six-point curve, and a "loop" that does not 
 Job: the operator set the division — DeepSeek2 owns the Inkscape code, DeepSeek1 owns the repo side,
 and both work to one data structure.
 
-Done: `workbench/quintic.schema.json` is **`curve-lab.quintic/1`**, an ordinary JSON Schema both
+Done: `format/quintic.schema.json` is **`curve-lab.quintic/1`**, an ordinary JSON Schema both
 languages can read. `scripts/quintic-guides.ts` now writes exactly that shape: a curve is
 `{uid, group, family, name, closed, winding, fitError, selfCrossings, spans[], joins[]}`; a span is
 `{uid, kind:"quintic", points[6], weights:null, frame{start,end}}`.

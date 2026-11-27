@@ -86,7 +86,7 @@ but you have to work together on a shared data structure."
 | `scripts/quintic-guides.ts` | **DeepSeek1** | writes the data and the sheets; the only writer of `workbench/quintic-guides.json` |
 | `workbench/quintic-guides*.json/.svg` | **DeepSeek1** (generated) | never hand-edited; regenerate |
 | `inkscape/quintic_*.py`, `*.inx` | **DeepSeek2** | reads the contract; **never writes the data file** |
-| `workbench/quintic.schema.json` | **shared** | the written contract; a meaning change = bump `format` + update both readers in one commit |
+| `format/quintic.schema.json` | **shared** | the written contract; a meaning change = bump `format` + update both readers in one commit |
 | `tests/js/quintic-data.test.ts` | **shared** | both sides run it; red means the data drifted, fix the generator not the reader |
 | `scripts/quintic-chain.ts` (next) | **DeepSeek1** | chains and joins; closed shapes |
 
