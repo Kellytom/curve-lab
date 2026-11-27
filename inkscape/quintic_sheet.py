@@ -1,6 +1,6 @@
 """Quintic sheet: draw a curve from the shared record into Inkscape.
 
-The other half of the contract (`workbench/quintic.schema.json`,
+The other half of the contract (`format/quintic.schema.json`,
 `curve-lab.quintic/1`): the extension WRITES that format, this one READS it and
 puts a curve on the canvas so it can be worked on with a trackball or a pencil.
 

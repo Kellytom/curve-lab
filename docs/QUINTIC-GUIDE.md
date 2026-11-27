@@ -24,7 +24,7 @@ structure".
 
 ## The shared record
 
-The contract is `workbench/quintic.schema.json`, format `curve-lab.quintic/1`,
+The contract is `format/quintic.schema.json`, format `curve-lab.quintic/1`,
 written and owned by the curve-lab side. The extension **reads** it and **writes**
 the same shape; it never writes the data file. The meanings, the one flip, the
 known differences and the check command are in `state/QUINTIC-CONTRACT-int.md`.

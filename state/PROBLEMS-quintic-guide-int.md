@@ -157,7 +157,7 @@ number is now taken through the extension and not through a scratch script.
 ## 9. My own record format was thrown away for the shared schema
 
 **Found:** 2026-11-27, when the curve-lab side published
-`workbench/quintic.schema.json` (`curve-lab.quintic/1`) and
+`format/quintic.schema.json` (`curve-lab.quintic/1`) and
 `state/RESPONSIBILITIES-int.md` §7.
 
 **What was wrong:** I had invented `curve-lab.quintic/1`-ish shapes twice — a

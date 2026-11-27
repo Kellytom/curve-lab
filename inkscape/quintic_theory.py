@@ -538,7 +538,7 @@ low_degree = qm.low_degree
 
 # ---------------------------------------------------------------------------
 # the frame and the joins the shared contract asks for
-# (workbench/quintic.schema.json, curve-lab.quintic/1)
+# (format/quintic.schema.json, curve-lab.quintic/1)
 # ---------------------------------------------------------------------------
 
 
@@ -643,7 +643,7 @@ def _segments_cross(a, b, c, d):
 
 
 # ---------------------------------------------------------------------------
-# the written contract: workbench/quintic.schema.json, curve-lab.quintic/1
+# the written contract: format/quintic.schema.json, curve-lab.quintic/1
 # ---------------------------------------------------------------------------
 
 

@@ -6,7 +6,7 @@ is the other. The `s` files and git for this agent's own work are mine; the `f`
 family is not.
 
 1. **The extension conforms to the shared contract.** `curve-lab.quintic/1` from
-   `workbench/quintic.schema.json`: envelope, `spans[].points` y up, `frame` with
+   `format/quintic.schema.json`: envelope, `spans[].points` y up, `frame` with
    forward tangents, `joins[]` with measured residuals, `closed` + `winding` for a
    loop. My own numbers live in `<guide>-report.json`, not the contract file.
    Commit `93bbcc5d`, contract consolidated in `6f8ff405`.

@@ -1,6 +1,6 @@
 # QUINTIC-CONTRACT-int — the extension's side of the shared record
 
-The authority is **`workbench/quintic.schema.json`** (`curve-lab.quintic/1`), written
+The authority is **`format/quintic.schema.json`** (`curve-lab.quintic/1`), written
 and owned by the curve-lab side, and `state/RESPONSIBILITIES-int.md` §7 says who owns
 what. This file is only what the **extension** does with it, so neither side has to
 read the other's code to find out.
@@ -10,7 +10,7 @@ read the other's code to find out.
 | area | owner |
 |---|---|
 | `scripts/quintic-guides.ts`, `workbench/quintic-guides*.json/.svg` | DeepSeek1 — the only writer of the data file |
-| `workbench/quintic.schema.json`, `tests/js/quintic-data.test.ts` | shared — a meaning change is a format bump |
+| `format/quintic.schema.json`, `tests/js/quintic-data.test.ts` | shared — a meaning change is a format bump |
 | `inkscape/quintic_*.py`, `inkscape/*.inx` | DeepSeek2 (me) — reads the record, never writes the data file |
 | `scripts/check_quintic_contract.py` | shared — the curve-lab side wrote it; I added `--strict` (extra keys, extent) |
 
