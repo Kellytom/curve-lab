@@ -424,6 +424,7 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
                         "ph": bool(r["ph"]),
                         "cusps": int(r["cusps"]),
                         "true_degree": int(r["exact_degree"]),
+                        "inflections": len(qm.inflection_parameters(r["control"])),
                         "overshoot_px": round(r["overshoot"], 9),
                         "clamped": bool(r["clamped"]),
                     } for i, r in enumerate(results)],

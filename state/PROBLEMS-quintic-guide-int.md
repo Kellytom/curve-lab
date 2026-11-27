@@ -209,3 +209,23 @@ intervals of similar length, because its conditioning does.
 **What stays:** uniform stations with doubling, and `cubic_chain(knots=...)` for a
 caller that has a better reason than I found.
 
+---
+
+## 12. A station on each inflection: no gain, and a new way to make a tiny interval
+
+**Tried:** 2026-11-27, insert a chain station at every inflection of the quintic —
+the one place a single cubic cannot follow a quintic for free.
+
+**Result:** no gain where the inflection already falls on a uniform knot (the
+symmetric S: identical to 8 decimal places at 2, 4 and 8 cubics), and a loss where
+it does not (off-centre S, 3 cubics: 0.5297 px uniform against 1.1651 px with the
+inflection added), because the added knot sat 0.0 and 0.5 next to the existing
+knots and created a very short first interval — the same conditioning failure as
+§7 and §11.
+
+**What stayed:** `inflection_parameters` (a correct finder, tested on an S, a
+straight line and an arch) and its count in `<guide>-report.json`. The knot
+insertion was deleted. Four knot schemes have now lost to uniform-in-`t`; the
+reason is the same every time, and it is worth saying once: this clamped C2 solve
+divides by the interval lengths, so it wants intervals of similar size.
+

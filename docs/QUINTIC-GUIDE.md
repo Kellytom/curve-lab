@@ -166,6 +166,14 @@ is exactly a quadratic. The chain tests the true degree from the forward differe
 and starts at one cubic for those: the parabola draws as **one cubic at 0.0001 px**,
 where the old code spent two.
 
+## Inflections: counted, not used as knots
+
+The report carries the number of inflections per span (a sign change of B′ × B″).
+Putting a chain station on each was tried and **did not help**: where the inflection
+lands on a uniform knot the result is identical, and where it does not the added knot
+creates a very short interval and the solve collapses (3 cubics: 0.530 px uniform
+against 1.165 px with the station). `state/PROBLEMS-quintic-guide-int.md` §12.
+
 ## PH, and the offset that cannot be exact
 
 A general quintic is **not** a Pythagorean-hodograph curve, so it has no exact

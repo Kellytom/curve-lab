@@ -953,3 +953,50 @@ def geogebra_commands(control, flip_y=True):
 def ggb_from_commands(control):
     """GeoGebra's own .ggb is a zip; the command list is the portable form."""
     return geogebra_commands(control)
+
+
+def inflection_parameters(control, samples=400, tolerance=1e-9):
+    """Parameters where the curvature changes sign, found by sign changes.
+
+    The cross product B' x B'' is a polynomial in t; a sign change is an
+    inflection. A curve that is straight (the cross product identically zero) has
+    none, and a zero *run* is not a crossing — an early version reported 400
+    "inflections" on a straight line, which is how the guard below got written.
+    """
+    def cross(t):
+        d = derivative(control, t)
+        dd = second_derivative(control, t)
+        return d[0] * dd[1] - d[1] * dd[0]
+
+    values = [cross(k / samples) for k in range(samples + 1)]
+    speeds = []
+    for k in range(0, samples + 1, max(1, samples // 40)):
+        d = derivative(control, k / samples)
+        speeds.append((d[0] * d[0] + d[1] * d[1]) ** 0.5)
+    scale = max(speeds) ** 3 if speeds else 1.0
+    if scale <= 0.0 or max(abs(v) for v in values) <= 1e-9 * scale:
+        return []
+
+    # sign changes are read between the nearest NON-ZERO samples, so a root that
+    # lands exactly on a sample (the symmetric S) is found, and a zero run
+    # (a straight line) yields no crossings at all
+    nonzero = [(k / samples, values[k]) for k in range(samples + 1) if values[k] != 0.0]
+    found = []
+    for (t0, v0), (t1, v1) in zip(nonzero, nonzero[1:]):
+        if (v0 < 0.0) == (v1 < 0.0):
+            continue
+        low, high = t0, t1
+        for _ in range(60):
+            middle = 0.5 * (low + high)
+            if (cross(low) < 0.0) == (cross(middle) < 0.0):
+                low = middle
+            else:
+                high = middle
+        root = 0.5 * (low + high)
+        if tolerance < root < 1.0 - tolerance:
+            found.append(root)
+    unique = []
+    for value in found:
+        if not unique or abs(value - unique[-1]) > 1e-4:
+            unique.append(value)
+    return unique

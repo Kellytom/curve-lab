@@ -467,6 +467,22 @@ class ClosedLoopTest(unittest.TestCase):
         self.assertEqual(smoothed[1][-1], GENTLE[-1])
 
 
+class InflectionTest(unittest.TestCase):
+    def test_an_s_curve_has_one_inflection_at_its_middle(self):
+        raised = qt.elevate(qt.elevate(qt._as_fractions(
+            [(0, 0), (50, 0), (50, 100), (100, 100)])))
+        points = [(float(a), float(b)) for a, b in raised]
+        found = qm.inflection_parameters(points)
+        self.assertEqual(len(found), 1)
+        self.assertAlmostEqual(found[0], 0.5, places=3)
+
+    def test_a_curve_that_never_turns_back_has_none(self):
+        straight = [(0.0, 0.0), (10.0, 0.0), (20.0, 0.0), (30.0, 0.0), (40.0, 0.0), (50.0, 0.0)]
+        self.assertEqual(qm.inflection_parameters(straight), [])
+        arch = [(0, 100), (50, 60), (100, 50), (150, 50), (200, 60), (250, 100)]
+        self.assertEqual(qm.inflection_parameters([(float(a), float(b)) for a, b in arch]), [])
+
+
 class PathDataTest(unittest.TestCase):
     def test_the_d_string_has_one_c_per_segment_and_reads_back(self):
         chain = qm.cubic_chain(NODES, 3)
