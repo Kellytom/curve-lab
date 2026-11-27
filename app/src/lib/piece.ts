@@ -147,14 +147,13 @@ export function buildPiece(piece: Piece, tol = 0.02, maxSpans = 64): { groups: G
   const groups: Group[] = [];
   const report: any[] = [];
   for (const trace of piece.traces) {
-    const base = `${trace.layer}/${trace.name}`;
+    const base = trace.name.startsWith(`${trace.layer}/`)
+      ? trace.name : `${trace.layer}/${trace.name}`;
     if (trace.design !== null) {
       throw new Error(`${base}: the design path needs the clothoid backend, not yet ported`);
     }
-    if (trace.width !== null) {
-      throw new Error(`${base}: a cubic span trace is a hairline; width is not supported`);
-    }
-    // A span trace is a hairline: the spine is the ink, no rails, no caps.
+    // A span trace may carry a width (the desk records do): the ribbon
+    // builder below builds the rails and reports the fit error.
     report.push({
       name: trace.name, layer: trace.layer, fit_error: 0.0, rails: 0, mirrored: false,
       terminals: [
@@ -180,7 +179,9 @@ export function buildRibbonPiece(piece: Piece, tol = 0.02, maxSpans = 64): { gro
   const groups: Group[] = [];
   const report: any[] = [];
   for (const trace of piece.traces) {
-    const base = `${trace.layer}/${trace.name}`;
+    // the desk records name their traces with the layer baked in; don't double it
+    const base = trace.name.startsWith(`${trace.layer}/`)
+      ? trace.name : `${trace.layer}/${trace.name}`;
     if (trace.design !== null || trace.spans === null) {
       throw new Error(`${base}: the design path needs the clothoid backend, not yet ported`);
     }
