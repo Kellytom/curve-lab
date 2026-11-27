@@ -1,193 +1,216 @@
 # Quintic from Guide — a free-form quintic inside Inkscape
 
-You draw a free-hand guide with a trackball or an Apple Pencil. The extension
-takes six points off that stroke, draws the quintic Bézier through them, and
-exports the six exact control points to Blender and GeoGebra. SVG itself draws
-only cubics, so the on-screen curve is a C2 chain of cubics — the record is the
-quintic.
+Two extensions that meet a shared record at the middle:
 
-Operator's ask, 2026-11-26: "in order to display a free form quintic curves use
-inkscape … build this exact workflow right inside Inkscape", then "use industry
-best practice and follow what blender does with its control points", then "do all
-the work".
+- **Quintic from Guide** — select a drawn stroke, take six points off it, draw the
+  quintic through them as cubic Béziers, and write the six exact control points in
+  the shared format for Blender, GeoGebra and the curve-lab side.
+- **Quintic sheet: place a curve** — read a curve from the shared sheet and put it
+  on the canvas, with its six control points marked, so it can be worked on.
+
+Operator's ask, 2026-11-26/27: "build this exact workflow right inside Inkscape",
+"use industry best practice and follow what blender does with its control points",
+then the split — "you as deep2 are working on the inkscape code, and deep1 can work
+on the code from the curve lab side… but you have to work together on a shared data
+structure".
 
 ## The three layers
 
 | layer | what it is | how good it is |
 |---|---|---|
 | 1 the drawn curve | the freehand stroke, read from the selection | the reference |
-| 2 the six-point curve | six points taken off the stroke, and the quintic through them | the **drawn→quintic** miss, printed |
-| 3 the quintic display | that curve as a C2 cubic chain, because SVG has no quintic | the **quintic→chain** miss, printed |
+| 2 the six-point curve | six points taken off it, and the quintic through them | the **drawn→quintic** miss, printed |
+| 3 the quintic display | that curve as a C2 cubic chain, because SVG has no quintic | the **quintic→chain** miss **and its proved bound**, printed |
 
-Both misses are printed after every run, in pixels. Neither is assumed.
+## The shared record
+
+The contract is `workbench/quintic.schema.json`, format `curve-lab.quintic/1`,
+written and owned by the curve-lab side. The extension **reads** it and **writes**
+the same shape; it never writes the data file. The meanings, the one flip, the
+known differences and the check command are in `state/QUINTIC-CONTRACT-int.md`.
+
+What matters when reading a record: `points` is six control points, **y up**,
+`frame.start.tangent = P1 − P0` and `frame.end.tangent = P5 − P4` (both forward),
+and a join carries a measured residual or it is not a join.
 
 Files:
 
 | path | what it is |
 |---|---|
-| `inkscape/quintic-guide.inx` | the dialog: three tabs, Points / Display / Export |
-| `inkscape/quintic_guide.py` | the glue — reads the selection, writes the path |
-| `inkscape/quintic_math.py` | all the maths; plain stdlib, no inkex |
-| `tests/test_quintic_math.py` | 32 tests guarding the maths and the exports |
-| `scripts/quintic_report.py` | prints every table in this document |
-| `state/PROBLEMS-quintic-guide-int.md` | the faults this extension has had |
+| `inkscape/quintic-guide.inx`, `quintic_guide.py` | the drawing dialog (three tabs) |
+| `inkscape/quintic-sheet.inx`, `quintic_sheet.py` | place a curve from the sheet |
+| `inkscape/quintic_math.py` | the pipeline: Bernstein, exact solve, fits, the C2 chain, the proved bound, the exports |
+| `inkscape/quintic_theory.py` | the analysis: seams, PH, offsets, knots, joins, the contract writer |
+| `tests/test_quintic_math.py` | 43 tests |
+| `scripts/quintic_report.py` | every number in this document |
+| `scripts/quintic_contract.py` | the reader-side check of the format |
+| `state/QUINTIC-CONTRACT-int.md` | this side of the contract |
+| `state/PROBLEMS-quintic-guide-int.md` | the faults it has had |
 
-Python, not TypeScript: an extension that runs inside Inkscape must speak
-`inkex`, and inkex is Python. The maths file is inkex-free so it can be tested by
-`.venv/bin/python` with Inkscape closed.
+Python, not TypeScript: an Inkscape extension must speak `inkex`, and inkex is
+Python. The maths modules are inkex-free so they run under `.venv/bin/python` with
+Inkscape closed.
 
 ## Install
 
 ```sh
 cp inkscape/quintic-guide.inx inkscape/quintic_guide.py \
+   inkscape/quintic-sheet.inx inkscape/quintic_sheet.py \
    ~/Library/"Application Support"/org.inkscape.Inkscape/config/inkscape/extensions/
 ```
 
-Then **Extensions → Curve Lab → Quintic from Guide**. The maths is read from this
-repository (`~/developer/curve-lab`, or `$CURVE_LAB_ROOT`), so editing
-`quintic_math.py` needs no reinstall; editing the `.py` glue or the `.inx` does.
+- **Extensions → Curve Lab → Quintic from Guide**
+- **Extensions → Curve Lab → Quintic sheet: place a curve**
+
+The maths is read from this repository (`~/developer/curve-lab`, or
+`$CURVE_LAB_ROOT`), so editing `quintic_math.py` needs no reinstall.
 
 ## Layer 2: the four ways to take six points
 
-Blender's Bézier control points sit **on** the curve and the handles are
-computed, so the point you place is a point the curve goes through. That is the
-first mode and the default.
+Blender's Bézier control points sit **on** the curve and the handles are computed,
+so the point you place is a point the curve goes through. That is the default.
 
 | mode | the six points | the curve |
 |---|---|---|
 | **On the curve, evenly spaced** (default) | on the stroke, at 0, .2, .4, .6, .8, 1 of its arc length | solved exactly through all six |
-| **A best fit** | *not* on the stroke; the control points with the smallest total miss | least squares, ends pinned to the stroke's ends |
-| **A cage: the guide's own 6 nodes** | the six nodes of the guide path | the quintic's control points — the curve sits inside them |
+| **A best fit** | *not* on the stroke; least squares, then three parameter-correction passes | smallest total miss, ends pinned |
+| **A cage: the guide's 6 nodes** | the six nodes of the guide path | the quintic's control points |
 | **A cage from 6 samples** | the same six even points, used as control points | as above |
 
-The solve for "on the curve" is exact, not iterative: the six Bernstein weights
-at t = k/5 are rational, so the 6×6 system is solved in `Fraction` and only the
-answer becomes decimals. The best fit is the textbook single-span least squares
-(Piegl & Tiller ch. 9): arc-length parameter, ends pinned, 4×4 normal equations.
+The solve through six points is exact: the Bernstein weights at t = k/5 are
+rational, so the 6×6 system is solved in `Fraction` and only the answer becomes
+decimals. The best fit is Piegl & Tiller ch. 9 with §9.4.2's parameter correction —
+each sample moves onto its nearest point, then the fit repeats.
 
-## Spans: one quintic is not always enough
+## Spans, and where to cut
 
-A long stroke is not one quintic. Split it with **Spans** and each stretch gets
-its own six points, its own quintic and its own chain; the spans meet C0, exactly
-where the stroke was cut, so there is no gap. Measured on 2026-11-26 with
-`.venv/bin/python scripts/quintic_report.py` — miss from the drawn stroke to the
-six-point curve, in px:
+A long stroke is not one quintic. **Spans** cuts it, and each stretch gets its own
+six points, quintic and chain; spans meet C0 exactly at the cut. Measured on
+2026-11-27 with `scripts/quintic_report.py` — miss from the drawn stroke to the
+six-point curve, in px (max / rms):
 
 | stroke | mode | 1 span | 2 | 3 | 4 | 6 |
 |---|---|---|---|---|---|---|
 | wild 400 px | on the curve | 46.087 / 20.519 | 16.776 / 4.397 | 6.435 / 0.975 | 3.414 / 0.505 | 0.522 / 0.098 |
-| wild 400 px | best fit | 46.130 / 21.582 | 9.940 / 2.849 | 2.311 / 0.483 | 1.448 / 0.333 | 0.325 / 0.072 |
+| wild 400 px | best fit | 21.801 / 11.149 | 5.671 / 1.643 | 0.890 / 0.223 | 0.651 / 0.145 | 0.200 / 0.033 |
 | freehand-like | on the curve | 26.004 / 10.664 | 2.848 / 0.790 | 1.225 / 0.264 | 0.666 / 0.169 | 0.210 / 0.044 |
-| freehand-like | best fit | 13.058 / 7.265 | 1.876 / 0.786 | 0.413 / 0.157 | 0.256 / 0.098 | 0.080 / 0.025 |
+| freehand-like | best fit | 11.623 / 6.359 | 1.567 / 0.579 | 0.419 / 0.107 | 0.228 / 0.075 | 0.070 / 0.021 |
 
-(max / rms; both columns in each cell.)
+- One span on a long stroke is a bad fit — 26 px to 46 px. Only a split fixes that.
+- The best fit roughly halves the miss at equal span count.
+- **Cutting at the sharpest bends was measured and is worse**: 3 spans, best fit,
+  through the installed extension: even cuts 0.419 px (freehand) and 0.890 px
+  (wild), curvature cuts 0.632 px and 1.365 px. Cutting at a bend makes one stretch
+  longer in arc length, and a longer stretch is harder for six points. The option
+  stays for loops, where arc length is a poor guide, and is **not** the default.
 
-Read it this way:
+## The display chain, and its proved bound
 
-- **One span on a long stroke is a bad fit** — 26 px to 46 px. No six points can
-  fix that; only a split can.
-- **Two spans** bring a freehand stroke to about 2 px; **four** to under 1 px.
-- **The best fit roughly halves the miss** at the same span count, and is barely
-  better than even points at one span on a wild stroke — the freedom is not
-  there to use.
+The chain passes exactly through the quintic's stations, leaves and arrives on the
+quintic's own end tangents, and is **C2** at every interior joint.
 
-## Layer 3: the cubic chain
+Its miss is measured **and** bounded. The bound is a proof, not a sample: split the
+quintic at each station (de Casteljau, exact), raise each cubic to degree 5 (exact),
+subtract — the difference is a Bézier, and a Bézier lies inside the convex hull of
+its control points, so the largest difference coefficient is an upper bound. The
+fit accepts a chain only when that bound is inside the tolerance.
 
-The chain passes exactly through the quintic's stations (t = i/n), leaves and
-arrives on the quintic's own end tangents, and is **C2** at every interior joint
-(a clamped cubic spline, solved by `h[j-1]d[j-1] + 2(h[j-1]+h[j])d[j] +
-h[j]d[j+1] = 3(Δ[j-1] + Δ[j])`). Between stations it is an approximation, and
-its size is measured by distance to the cubic itself.
-
-Set **Cubic segments = 0** and the extension picks the smallest count that meets
-the tolerance (2, 4, 8, 16, 32). Measured:
-
-| cubics | wild cage (400 px) | gentle cage (250 px) |
+| cubics | wild cage: bound / measured | gentle cage: bound / measured |
 |---|---|---|
-| 2 | 16.1187922 px | 0.3720579 px |
-| 3 | 3.0009945 px | 0.0771605 px |
-| 4 | 0.9495546 px | 0.0241327 px |
-| 8 | 0.0548640 px | 0.0015216 px |
-| 16 | 0.0032101 px | 0.0000954 px |
-| 32 | 0.0001993 px | 0.0000064 px |
+| 4 | 1.623 / 0.950 px | 0.039 / 0.024 px |
+| 8 | 0.107 / 0.055 px | 0.00244 / 0.00152 px |
+| 16 | 0.00683 / 0.00321 px | 0.000153 / 0.000095 px |
 
-The brief's "two or three cubics at under 0.001 px" does not hold at document
-scale: 0.001 px needs 16 cubics on the gentle cage and 32 on the wild one. Few
-nodes and sub-pixel accuracy are a trade, and the extension reports the miss it
-achieved rather than the one it hoped for. A fit costs 20–116 ms, which keeps
-live preview usable.
+The bound runs 1.6–2.1× the measurement, which is the price of a proof the sampling
+cannot produce. Tolerance 0.001 px needs 32 cubics on the wild cage, 16 on the
+gentle one; a fit costs 22–186 ms.
 
 ## Fullness is tension
 
-`P_i = (1 − α) · L_i + α · G_i`, where `L_i` is the straight chord at i/5 and
-`G_i` is the drawn point. α = 1 keeps the drawn curve, α = 0 is the straight
-line, and the two end points never move. Because `P_1 − P_0` scales with α this
-is the tangent length — the same thing a Bézier handle length does in Blender.
+`P_i = (1 − α) · L_i + α · G_i`, where `L_i` is the straight chord at i/5 and `G_i`
+is the drawn point. α = 1 keeps the drawn curve, α = 0 is the straight line, and the
+ends never move. Because `P_1 − P_0` scales with α, this is the tangent length — the
+same thing a Bézier handle length does in Blender.
+
+## Seams, and what a join costs
+
+Each span ends on its own stretch's tangent, so an unsmoothed cut is a corner:
+10.6° on the test guide, 79.5° on a hard one. **Smooth the seams** moves only the two
+control points next to each seam onto their shared bisector, keeping their lengths,
+which makes the join **G1** and leaves every point the curve passes through alone.
+
+A smoothed join is written into the record with its measured residual — position gap,
+tangent angle, curvature step, curvature-rate step. An unsmoothed seam writes **no
+join at all**, because the schema has no word for C0 and a false `G1` is worse than
+silence.
 
 ## No overshoot, or an honest number
 
-A quintic through six points can balloon outside them: on the 400 px test guide
-the **best fit** sticks out by **480 px** and **even points** by **774 px**; on a
-gentle 250 px cage, 16.67 px. Blender has "Auto Clamped" handles for this reason.
+A quintic through six points can balloon outside them: **1575 px** (even points) and
+**480 px** (best fit) on a 400 px cage. **Clamp inside the six points** pulls the
+control points into the six points' box, and the convex-hull property then keeps the
+whole curve inside it — `OvershootTest` checks 1001 points. It costs miss (3 spans:
+27.8 px clamped against 6.4 px not), so it is off by default and the run says which
+happened.
 
-**Clamp inside the six points** pulls each control point into the box holding the
-six points. That is provable, not cosmetic: a Bézier stays inside the convex hull
-of its control points, so the clamped curve cannot leave the box.
-`OvershootTest` checks 1001 points of the curve against the box. It is off by
-default, and clamping costs miss (3 spans clamped: 27.762 px against 6.435 px
-unclamped) — so the run says which happened.
+## A cubic dressed as a quintic gets one cubic
 
-## The six points are visible
+68 of the 200 curves on DeepSeek1's sheet are degree 3 or lower — the parabola family
+is exactly a quadratic. The chain tests the true degree from the forward differences
+and starts at one cubic for those: the parabola draws as **one cubic at 0.0001 px**,
+where the old code spent two.
 
-**Mark the six points** draws a small ring at each control point, in a group
-tagged `data-quintic-points`, so the three layers can be seen rather than
-inferred. The curve itself is tagged `data-quintic-guide="<guide id>"` and is
-replaced, not stacked, when the extension runs again.
+## PH, and the offset that cannot be exact
+
+A general quintic is **not** a Pythagorean-hodograph curve, so it has no exact
+offset: `|B'(t)|` is the square root of a quartic. The extension decides this with
+polynomial arithmetic in `Fraction` — x′² + y′² must be a perfect square, i.e.
+`deg(gcd(p, p′)) = deg(p)/2` — and prints the answer: **0 of the 200 sheet curves
+are PH**. That matters because this project's rails assume exact offsets.
+
+For a non-PH curve the **Offset** export writes `<guide>-offset.json`: the offset
+sampled along the exact normals and fitted with a C2 chain, with its measured miss
+and its `exact: false`. It is a drawing of the offset, never a claim that it is
+exact.
 
 ## What leaves Inkscape
 
-With **Export folder** set, three files per guide (`<guide id>-*`):
+| file | what it is |
+|---|---|
+| `<guide>-quintic.json` | **the contract**: `curve-lab.quintic/1`, six points per span, y up, frames, measured joins |
+| `<guide>-report.json` | my numbers: proved bound, PH, cusps, true degree, overshoot — not part of the contract |
+| `<guide>-blender.py` | one exact order-6 NURBS spline per span, `use_endpoint_u` |
+| `<guide>-geogebra.txt` | `P0…P5` and `Q(t)`, or `S1_P0…`/`C1(t)` per span |
+| `<guide>-offset.json` | the offset, with `exact: false` unless the curve is PH |
 
-- `quintic.json` — the record: per span, six control points in SVG coordinates
-  (y **down**), the drawn→quintic max and RMS, the cubic count and the
-  quintic→chain miss.
-- `blender.py` — paste into Blender's Text Editor and run: one exact order-6
-  NURBS spline per span, `use_endpoint_u = True`. Blender clamps the order to the
-  point count silently, so 6 points and order 6 together are the only
-  combination that means what it says.
-- `geogebra.txt` — `P0 … P5` and `Q(t)` as the Bernstein sum for one span;
-  `S1_P0 … S1_P5`, `C1(t)`, `S2_P0 …` for several.
-
-**The y flip happens here and only here**: SVG is y down, Blender and GeoGebra
-are y up, so the exports negate y and say so in a comment. The drawn path keeps
-the document's coordinates.
+**One y flip, and it is named**: the document is y down, the record and both
+external tools are y up. `qm.to_y_up` on the way out, `quintic_sheet.to_svg` on the
+way in, each called once.
 
 ## Use
 
-1. Draw the guide with a pen or trackball; leave it pale and dotted.
-2. Select it. **Extensions → Curve Lab → Quintic from Guide.**
-3. Points tab: choose the mode, raise **Spans** until the printed miss is small
-   enough for the job.
-4. Display tab: keep Live preview ticked and drag **Fullness**. Each change
-   re-runs the extension; a fit takes 20–116 ms here.
-5. Apply. Run again with the same numbers and nothing is rewritten: inkex
-   compares documents and skips an identical save.
+1. Draw the guide; leave it pale and dotted. Select it.
+2. **Quintic from Guide** → Points tab: mode and spans; Display tab: keep Live
+   preview ticked and drag **Fullness**; Export tab: a folder.
+3. Apply. Run again with the same numbers and nothing is rewritten (inkex compares
+   documents and skips an identical save).
+4. To work on a sheet curve instead: **Quintic sheet: place a curve**, give the uid
+   (`q6-parabola-01`), a scale and an origin.
 
-## Testing a whole sheet of guides
+## Checks
 
 ```sh
-.venv/bin/python scripts/quintic_report.py --sheet workbench/quintic-guides --spans 3
+.venv/bin/python -m unittest tests.test_quintic_math            # 43 tests
+.venv/bin/python scripts/quintic_report.py                      # every table here
+.venv/bin/python scripts/quintic_contract.py <file> --extent-must-follow
+node --test tests/js/quintic-data.test.ts                       # the shared test
 ```
-
-Runs the **installed** extension over every `.svg` in the folder and prints one
-row per curve, read back from the sidecar the extension wrote — so the numbers
-come from Inkscape's own Python, through the files the operator installs.
-`--mode` picks even / lsq / cage-nodes / cage-samples.
 
 ## Limits, stated
 
 - Inkscape draws cubics; the quintic is only ever the record plus a chain.
-- Spans join C0. A visible corner at a cut is possible on a sharp stroke; raise
-  the span count or accept it.
+- Spans join C0 unless the seams are smoothed; smoothing moves the two interior
+  control points at each seam and therefore changes the shape slightly.
+- A non-PH curve has no exact offset, and no amount of arithmetic will make one.
 - One guide per run: the first path in the selection is used.
-- Live preview re-runs the whole extension on every slider move.
+- The sheet importer draws one curve at a time, by uid.

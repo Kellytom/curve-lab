@@ -109,13 +109,17 @@ def spans_table(dense_per_span=60):
 
 
 def sheet(folder, mode="even", spans=1):
-    """Run the installed extension over a folder and print one row per guide."""
+    """Run the installed extension over a folder and print one row per guide.
+
+    Reads the CONTRACT file the extension writes (`curve-lab.quintic/1`), so the
+    numbers come from the same artifact the other desk reads.
+    """
     folder = Path(folder).expanduser()
     svgs = sorted(folder.glob("*.svg"))
     if not svgs:
         print("no .svg in %s" % folder)
         return 1
-    print("| file | spans | cubics | drawn->quintic max | rms | quintic->chain | box |")
+    print("| file | spans | cubics | drawn->quintic max | rms | proved bound | box |")
     print("|---|---|---|---|---|---|---|")
     worst = 0.0
     for svg in svgs:
@@ -133,27 +137,30 @@ def sheet(folder, mode="even", spans=1):
             cmd = [INSKAPE_PY, str(USER_EXT / "quintic_guide.py"),
                    "--pointmode=" + mode, "--fullness=1", "--segments=0",
                    "--tolerance=0.01", "--spans=%d" % spans, "--id=" + guide_id,
-                   "--keepguide=true",
-                   "--showpoints=false", "--exportdir=" + tmp, "--clipboard=false",
-                   str(svg)]
+                   "--keepguide=true", "--showpoints=false",
+                   "--exportdir=" + tmp, "--clipboard=false", str(svg)]
             done = subprocess.run(cmd, env=env, capture_output=True, text=True)
-            record = next(Path(tmp).glob("*-quintic.json"), None)
-            if record is None:
-                first = (done.stderr.strip().splitlines() or ["no message"])[-1]
+            contract = next(Path(tmp).glob("*-quintic.json"), None)
+            numbers = next(Path(tmp).glob("*-report.json"), None)
+            if contract is None or numbers is None:
+                lines = [l for l in done.stderr.strip().splitlines()
+                         if "Quintic from Guide" in l and "wrote" not in l]
+                first = (lines or ["no contract file written"])[-1]
                 print("| %s | FAILED | | | | | %s |" % (svg.name, first))
                 continue
-            r = json.loads(record.read_text())
-        spans_in = r["spans"]
+            doc = json.loads(contract.read_text())
+            rep = json.loads(numbers.read_text())
+        spans_in = rep["spans"]
         cubics = sum(s["cubic_segments"] for s in spans_in)
         fit_max = max(s["drawn_to_quintic_max_px"] for s in spans_in)
         fit_rms = max(s["drawn_to_quintic_rms_px"] for s in spans_in)
-        chain = max(s["quintic_to_chain_px"] for s in spans_in)
-        box = "clamped" if "clamped to the six points" in done.stderr else "inside"
-        if "out of the six points" in done.stderr:
-            box = "overshoot"
+        bound = max(s["quintic_to_chain_proved_bound_px"] for s in spans_in)
+        box = "clamped" if any(s["clamped"] for s in spans_in) else (
+            "overshoot" if any(s["overshoot_px"] > 0 for s in spans_in) else "inside")
         worst = max(worst, fit_max)
         print("| %s | %d | %d | %.3f px | %.3f px | %.5f px | %s |"
-              % (svg.name, len(spans_in), cubics, fit_max, fit_rms, chain, box))
+              % (svg.name, len(doc["curves"][0]["spans"]), cubics, fit_max, fit_rms,
+                 bound, box))
     print()
     print("worst drawn->quintic miss over the sheet: %.3f px" % worst)
     return 0

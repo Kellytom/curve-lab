@@ -18,6 +18,7 @@ Units: the numbers are pixels of the SVG user space. Every error figure printed
 by this module is in those same units.
 """
 
+import bisect
 from fractions import Fraction
 from math import comb
 
@@ -176,7 +177,7 @@ def _solve_linear(matrix, rhs):
     return [m[i][n] for i in range(n)]
 
 
-def fit_least_squares(points):
+def fit_least_squares(points, passes=3):
     """The six control points with the smallest squared miss to `points`.
 
     Textbook single-span Bezier least squares (Piegl & Tiller, ch. 9): each
@@ -214,7 +215,84 @@ def fit_least_squares(points):
                 control.append([0.0, 0.0])
             control[i + 1][axis] = solved[i]
     control = [p0] + [(control[i][0], control[i][1]) for i in range(1, DEGREE)] + [p5]
+    if passes:
+        control = _correct_parameters(control, points, passes)
     return control
+
+
+def _correct_parameters(control, points, passes):
+    """Piegl & Tiller 9.4.2: move each sample onto its nearest point, refit.
+
+    One Newton step per sample per pass, the ends pinned, then the same linear
+    fit at the new parameters. This is what halves the miss on a stroke that one
+    span cannot follow; it is not a search over the shape, and it never runs the
+    fit against a sampled objective (the mistake in PROBLEMS §5).
+    """
+    m = len(points)
+    ts = [i / (m - 1) for i in range(m)]
+    for _ in range(passes):
+        for k in range(1, m - 1):
+            c = evaluate(control, ts[k])
+            d = derivative(control, ts[k])
+            dd = second_derivative(control, ts[k])
+            delta = sub(points[k], c)
+            denominator = d[0] * d[0] + d[1] * d[1] + delta[0] * dd[0] + delta[1] * dd[1]
+            if abs(denominator) < 1e-12:
+                continue
+            step = (delta[0] * d[0] + delta[1] * d[1]) / denominator
+            ts[k] = min(ts[k + 1] - 1e-9, max(ts[k - 1] + 1e-9, ts[k] + step))
+        control = _fit_at(control, points, ts)
+    return control
+
+
+def _fit_at(current, points, ts):
+    """The linear fit at given sample parameters."""
+    m = len(points)
+    basis = [[bernstein_weight(i, DEGREE, t) for i in range(1, DEGREE)] for t in ts]
+    p0 = points[0]
+    p5 = points[-1]
+    normal = [[sum(basis[k][i] * basis[k][j] for k in range(m))
+               for j in range(DEGREE - 1)] for i in range(DEGREE - 1)]
+    control = [p0]
+    for axis in (0, 1):
+        rhs = []
+        for i in range(DEGREE - 1):
+            total = 0.0
+            for k in range(m):
+                t = ts[k]
+                known = (bernstein_weight(0, DEGREE, t) * p0[axis]
+                         + bernstein_weight(DEGREE, DEGREE, t) * p5[axis])
+                total += basis[k][i] * (points[k][axis] - known)
+            rhs.append(total)
+        solved = _solve_linear(normal, rhs)
+        for i in range(DEGREE - 1):
+            if len(control) <= i + 1:
+                control.append([0.0, 0.0])
+            control[i + 1][axis] = solved[i]
+    return [p0] + [(control[i][0], control[i][1]) for i in range(1, DEGREE)] + [p5]
+
+
+def low_degree(control, tolerance=1e-9):
+    """The true degree of the curve, from its forward differences.
+
+    A degree-5 Bezier whose 5th difference is zero is a quartic; with the 4th
+    zero too it is a cubic, and one cubic reproduces it exactly. 68 of the 200
+    curves on DeepSeek1's sheet are in this case, so the chain must not spend
+    two cubics on them.
+    """
+    diffs = [list(control)]
+    for _ in range(DEGREE):
+        previous = diffs[-1]
+        diffs.append([sub(previous[i + 1], previous[i]) for i in range(len(previous) - 1)])
+    scale = max(1.0, max((p[0] ** 2 + p[1] ** 2) ** 0.5 for p in control))
+
+    def is_zero(d):
+        return (abs(d[0]) + abs(d[1])) <= tolerance * scale
+
+    for degree in range(0, DEGREE):
+        if all(is_zero(d) for d in diffs[degree + 1]):
+            return degree
+    return DEGREE
 
 
 def distance_to_quintic(p, control, coarse=64, refine=24):
@@ -486,16 +564,23 @@ def _knot_tangents(points, h, d0, dm):
     return [(tang_x[k], tang_y[k]) for k in range(n)]
 
 
-def cubic_chain(control, segments):
+def cubic_chain(control, segments, knots=None):
     """A C2 cubic Bezier chain through (segments + 1) stations of the quintic.
 
     The stations are exact, the two end tangents are exact, and the chain is
     C2 at every interior joint. Between the stations it is an approximation,
     and its size is measured rather than assumed.
+
+    `knots` overrides the station parameters (equal arc length, say, instead of
+    equal t); the segment count is then taken from the knot list.
     """
+    if knots is not None:
+        ts = list(knots)
+        segments = len(ts) - 1
     if segments < 1:
         raise ValueError("a chain needs at least one cubic segment")
-    ts = [i / segments for i in range(segments + 1)]
+    if knots is None:
+        ts = [i / segments for i in range(segments + 1)]
     points = [evaluate(control, t) for t in ts]
     h = [ts[i + 1] - ts[i] for i in range(segments)]
     tangents = _knot_tangents(points, h, derivative(control, 0.0), derivative(control, 1.0))
@@ -544,41 +629,146 @@ def _distance_to_cubic(p, seg, coarse=16, refine=24):
     return ((q[0] - p[0]) ** 2 + (q[1] - p[1]) ** 2) ** 0.5
 
 
-def measure_max_error(control, chain, samples=None):
+def _as_fractions(points, rationalise=False):
+    """Points as Fractions.
+
+    `rationalise=True` snaps a float to the nearest simple fraction first
+    (0.3333333333333333 becomes 1/3). The PH decision is about exact algebra, so
+    a float that is only *nearly* a third turns a perfect square into a mess of
+    noise; snapping recovers the number the operator actually typed.
+    """
+    def one(v):
+        if isinstance(v, Fraction):
+            return v
+        f = Fraction(v)
+        return f.limit_denominator(10 ** 9) if rationalise else f
+
+    return [(one(p[0]), one(p[1])) for p in points]
+
+
+def split_bezier(points, t):
+    """de Casteljau split at t. Returns (left, right), both the same degree."""
+    t = Fraction(t) if not isinstance(t, Fraction) else t
+    def flerp(a, b):
+        return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+
+    rows = [list(points)]
+    while len(rows[-1]) > 1:
+        rows.append([flerp(a, b) for a, b in zip(rows[-1], rows[-1][1:])])
+    left = [row[0] for row in rows]
+    right = [row[-1] for row in reversed(rows)]
+    return left, right
+
+
+def elevate(points):
+    """Raise a Bezier by one degree, exactly. c_i = (i/(n+1)) b_(i-1) + (1-i/(n+1)) b_i."""
+    n = len(points) - 1
+    out = [points[0]]
+    for i in range(1, n + 1):
+        a = Fraction(i, n + 1)
+        out.append((a * points[i - 1][0] + (1 - a) * points[i][0],
+                    a * points[i - 1][1] + (1 - a) * points[i][1]))
+    out.append(points[-1])
+    return out
+
+
+def cubic_to_quintic(segment):
+    """A cubic Bezier raised twice, so it can be compared with a quintic."""
+    p0, c1, c2, p3 = _as_fractions(segment)
+    return elevate(elevate([p0, c1, c2, p3]))
+
+
+def _sub_poly(a, b):
+    return (a[0] - b[0], a[1] - b[1])
+
+
+def _norm(p):
+    return (p[0] * p[0] + p[1] * p[1]) ** 0.5
+
+
+def chain_error_bound(control, chain):
+    """A proved upper bound on |quintic(t) - chain(t)|, in px, per segment.
+
+    The quintic is split at each station by de Casteljau, the cubic is raised to
+    degree 5, and the six differences are the control points of the difference
+    curve. A Bezier lies inside the convex hull of its control points, so the
+    largest difference coefficient is an upper bound — no sampling, and no way
+    for the bound to sit below the truth.
+
+    Returns (worst_bound, per_segment_bounds).
+    """
+    stations = len(chain)
+    bounds = []
+    if stations < 1:
+        raise ValueError("the chain is empty")
+    # the quintic's sub-curves, split at every station, in exact rationals
+    pieces = []
+    remaining = _as_fractions(control)
+    # split off each station from the left in turn
+    for index in range(stations):
+        left, remaining = split_bezier(remaining, Fraction(1, stations - index))
+        pieces.append(left)
+    worst = 0.0
+    for piece, seg in zip(pieces, chain):
+        raised = cubic_to_quintic(seg)
+        differences = [_sub_poly(a, b) for a, b in zip(piece, raised)]
+        bound = max(_norm(d) for d in differences)
+        bounds.append(bound)
+        if bound > worst:
+            worst = bound
+    return worst, bounds
+
+
+
+def measure_max_error(control, chain, samples=None, knots=None):
     """Largest distance from the quintic to the cubic chain, in pixels.
 
-    Each quintic sample is measured against the chain segment it belongs to
-    (t in [i/n, (i+1)/n] goes to segment i), so the cost does not grow with the
-    segment count. That is a slight over-estimate — a neighbour can be closer —
-    and an over-estimate is the safe direction for a stated error.
+    Each quintic sample is measured against the chain segment it belongs to, so
+    the cost does not grow with the segment count. That is a slight
+    over-estimate — a neighbour can be closer — and an over-estimate is the safe
+    direction for a stated error.
+
+    `knots` must be passed when the stations are not at equal t: with
+    arc-length knots, `int(t * n)` picks the wrong segment and reports a miss
+    that belongs to a different stretch of the curve.
     """
     n = len(chain)
     if samples is None:
         samples = max(120, 24 * n)
+    if knots is None:
+        knots = [i / n for i in range(n + 1)]
     worst = 0.0
     for k in range(samples + 1):
         t = k / samples
-        i = min(n - 1, int(t * n))
+        i = bisect.bisect_right(knots, t) - 1
+        i = 0 if i < 0 else (n - 1 if i > n - 1 else i)
         d = _distance_to_cubic(evaluate(control, t), chain[i])
         if d > worst:
             worst = d
     return worst
 
 
-def fit_to_tolerance(control, tolerance, start=2, max_segments=32):
+def fit_to_tolerance(control, tolerance, start=None, max_segments=32, knots=None):
     """Smallest chain (from `start`) whose measured error is within tolerance.
 
     Returns (chain, measured_error, segment_count). If even `max_segments`
     is not enough, the last chain is returned with its true error, so the
     caller can print the miss instead of claiming a fit it does not have.
     """
+    if start is None:
+        start = 1 if low_degree(control) <= 3 else 2
     segments = max(1, start)
     chain = cubic_chain(control, segments)
     err = measure_max_error(control, chain)
-    while err > tolerance and segments < max_segments:
+    # accept only when the PROVED bound is inside the tolerance: the measured
+    # number runs about 1.6-2.1x below the bound, so fitting to the measurement
+    # alone quietly overshoots the promise
+    bound, _ = chain_error_bound(control, chain)
+    while bound > tolerance and segments < max_segments:
         segments = min(max_segments, segments * 2)
         chain = cubic_chain(control, segments)
         err = measure_max_error(control, chain)
+        bound, _ = chain_error_bound(control, chain)
     return chain, err, segments
 
 
@@ -609,9 +799,18 @@ def chain_to_d(chain, precision=6):
     return " ".join(parts)
 
 
-def _flip(control):
-    """SVG is y down; Blender and GeoGebra are y up. This is the flip."""
+def to_y_up(control):
+    """SVG is y down; the shared record, Blender and GeoGebra are y up.
+
+    This is the ONE flip. The document keeps the path it drew; everything that
+    leaves Inkscape goes through here, so a y never gets flipped twice.
+    """
     return [(p[0], -p[1]) for p in control]
+
+
+def _flip(control):
+    """Deprecated name kept for the old callers: now just `to_y_up`."""
+    return to_y_up(control)
 
 
 def sidecar(control, alpha, pointmode, segments, error, guide_id=""):
@@ -631,34 +830,55 @@ def sidecar(control, alpha, pointmode, segments, error, guide_id=""):
     }
 
 
-def sidecar_many(spans, mode, alpha, guide_id="", note=None):
-    """The record: every span's six control points, plus what was measured.
+def sidecar_many(spans, mode, alpha, guide_id="", note=None, options=None):
+    """The shared record, format `curve-lab.quintic/1`.
 
-    `spans` is a list of dicts with control, segments, chain_miss, fit_max and
-    fit_rms, exactly what the extension computed for that span.
+    This is the contract with the curve-lab side (state/QUINTIC-CONTRACT-int.md):
+    **y up**, six control points per curve, numbers not strings, and the two
+    measured misses. The SVG document keeps its own y-down path; this is the
+    only flip.
     """
-    rows = []
-    for span in spans:
-        rows.append({
-            "control_svg_y_down": [[round(p[0], 9), round(p[1], 9)]
-                                   for p in span["control"]],
-            "drawn_to_quintic_max_px": round(span["fit_max"], 9),
-            "drawn_to_quintic_rms_px": round(span["fit_rms"], 9),
-            "cubic_segments": span["segments"],
-            "quintic_to_chain_px": round(span["chain_miss"], 9),
-        })
-    return {
-        "kind": "quintic-bezier",
+    curves = []
+    for index, span in enumerate(spans):
+        row = {
+            "index": index,
+            "control": [[round(p[0], 9), round(p[1], 9)]
+                        for p in to_y_up(span["control"])],
+            "exact_degree": span.get("exact_degree", DEGREE),
+            "weighted": False,
+            "ph": bool(span.get("ph", False)),
+            "cusps": int(span.get("cusps", 0)),
+            "quintic_to_chain": {
+                "max_px": round(span["chain_miss"], 9),
+                "proved_bound_px": round(span.get("bound", 0.0), 9),
+                "cubic_segments": span["segments"],
+            },
+        }
+        if "fit_max" in span:
+            row["drawn_to_quintic"] = {
+                "max_px": round(span["fit_max"], 9),
+                "rms_px": round(span["fit_rms"], 9),
+            }
+        curves.append(row)
+    record = {
+        "format": "curve-lab.quintic/1",
         "degree": DEGREE,
-        "endpoint": True,
-        "guide_id": guide_id,
-        "pointmode": mode,
-        "fullness_alpha": round(alpha, 6),
-        "spans": rows,
-        "note": note or ("control_svg_y_down is the exact quintic in SVG "
-                         "coordinates (y down). The cubic chain is only the "
-                         "drawing. Spans join C0, not C1."),
+        "order": DEGREE + 1,
+        "axes": {"x": "right", "y": "up", "units": "px"},
+        "source": "extension",
+        "guide": {
+            "id": guide_id,
+            "pointmode": mode,
+            "fullness": round(alpha, 6),
+            "spans": len(spans),
+            "options": options or {},
+        },
+        "curves": curves,
+        "note": note or ("y is up. Each control list is the exact quintic; the "
+                         "cubic chain in the document is only the drawing. "
+                         "Spans join C0 unless seams were smoothed."),
     }
+    return record
 
 
 def blender_script_many(controls, name="Quintic", flip_y=True):

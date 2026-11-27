@@ -115,3 +115,75 @@ default.
 
 **Guard:** there is no test for a shell quoting slip; the guard is the refusal,
 which shows up as an error line instead of a plausible picture.
+
+---
+
+## 7. Arc-length stations made the chain worse, and exposed a knot bug
+
+**Tried:** 2026-11-27, `arclength_knots` in `quintic_theory.py`: put the chain's
+stations at equal arc length instead of equal *t*, since a quintic moves at uneven
+speed.
+
+**Result:** worse, by 4–15×. Wild cage, 4 cubics: 0.950 px uniform against 3.759 px
+arc-length; 8 cubics: 0.055 against 2.114. Equal arc length lengthens the *largest*
+interval in `t`, and a cubic spline's error is set by the largest interval, not the
+average one.
+
+**Second fault, found by the first:** `measure_max_error` picked the segment with
+`int(t * n)`, which is only correct for uniform knots. With arc-length knots it
+measured each sample against the wrong stretch and reported 47 px for a chain that
+was fine. It now takes the knot list and locates the segment by bisection.
+
+**Kept:** uniform stations are the default; `cubic_chain(knots=...)` remains for
+callers that know better. Recorded so the idea is not re-litigated from memory.
+
+---
+
+## 8. Cutting at the sharpest bends also lost
+
+**Tried:** `curvature_cuts`: slide each span cut to the highest curvature within a
+window, since that is where a cubic chain needs freedom.
+
+**Result:** through the installed extension, 3 spans, best fit — even cuts 0.419 px
+(freehand) and 0.890 px (wild); curvature cuts 0.632 px and 1.365 px. The cut makes
+one stretch longer in arc length, and a longer stretch is harder for six points.
+
+**Kept:** the option, but **even cuts are the default**; the guide says so with the
+numbers. The first in-process measurement had suggested a 46 % win, which is why the
+number is now taken through the extension and not through a scratch script.
+
+---
+
+## 9. My own record format was thrown away for the shared schema
+
+**Found:** 2026-11-27, when the curve-lab side published
+`workbench/quintic.schema.json` (`curve-lab.quintic/1`) and
+`state/RESPONSIBILITIES-int.md` §7.
+
+**What was wrong:** I had invented `curve-lab.quintic/1`-ish shapes twice — a
+`control_svg_y_down` sidecar, then a `control`/`curves` variant with a Python
+validator of my own. Two readers, two formats, one of them mine. That is exactly the
+fault the operator's instruction ("you have to work together on a shared data
+structure") was pointing at.
+
+**Fix:** the writer emits the schema's shape (envelope, `spans[].points`, `frame`,
+`joins` with residuals); the numbers I need moved to a separate `-report.json` that
+is not the contract; the validator now checks the schema's required keys and
+`additionalProperties` rather than inventing them. `state/QUINTIC-CONTRACT-int.md`
+records my side of it.
+
+---
+
+## 10. The sheet file breaks its own envelope
+
+**Found:** 2026-11-27, by the reader-side check.
+
+`workbench/quintic-guides.json` carries three top-level keys the schema forbids:
+`note`, `order` (a list of point names where the schema wants the integer 6) and
+`worstApproximationError`. `tests/js/quintic-data.test.ts` passes because it checks
+curves and spans, not the envelope.
+
+**Not fixed here**, deliberately: the schema belongs to the other side, and dropping
+or accepting those keys is a meaning change (a format bump), not an edit I make.
+Reported in the mailbox with the exact command that shows it.
+

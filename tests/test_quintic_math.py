@@ -14,12 +14,14 @@
 import math
 import re
 import sys
+from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from inkscape import quintic_math as qm
+from inkscape import quintic_theory as qt
 
 import unittest
 
@@ -165,7 +167,7 @@ class BlenderConventionTest(unittest.TestCase):
         inx = (ROOT / "inkscape" / "quintic-guide.inx").read_text()
         options = re.findall(r'<option value="([a-z-]+)"', inx)
         self.assertEqual(options[0], "even")  # first option = the default
-        self.assertEqual(len(options), 4)
+        self.assertEqual(options[:4], ["even", "lsq", "cage-nodes", "cage-samples"])
         glue = (ROOT / "inkscape" / "quintic_guide.py").read_text()
         self.assertIn('--pointmode", type=str, default="even"', glue)
 
@@ -290,16 +292,16 @@ class SpanTest(unittest.TestCase):
             qm.split_samples([(0.0, 0.0)] * 5, 4)
 
     def test_each_span_gets_its_own_six_points_in_the_record(self):
-        spans = [
-            {"control": NODES, "segments": 4, "chain_miss": 0.01,
-             "fit_max": 2.0, "fit_rms": 1.0},
-            {"control": GENTLE, "segments": 8, "chain_miss": 0.02,
-             "fit_max": 1.0, "fit_rms": 0.5},
-        ]
-        record = qm.sidecar_many(spans, "even", 1.0, guide_id="g1")
-        self.assertEqual(len(record["spans"]), 2)
-        self.assertEqual(record["spans"][0]["control_svg_y_down"][5], [320.0, 240.0])
-        self.assertEqual(record["spans"][1]["cubic_segments"], 8)
+        curve = {"uid": "g1:curve", "group": "ornament", "family": "freehand",
+                 "name": "two spans", "closed": False, "winding": None,
+                 "fitError": 2.0, "selfCrossings": 0,
+                 "spans": [qt.span_record(NODES, "g1:0"),
+                           qt.span_record(GENTLE, "g1:1")],
+                 "joins": []}
+        doc = qt.contract_document([curve])
+        self.assertEqual(doc["count"], 1)
+        self.assertEqual(len(doc["curves"][0]["spans"]), 2)
+        self.assertEqual(doc["curves"][0]["spans"][1]["points"][0], list(GENTLE[0]))
 
     def test_two_spans_become_two_blender_splines_and_two_geogebra_curves(self):
         script = qm.blender_script_many([NODES, GENTLE], name="two")
@@ -310,6 +312,318 @@ class SpanTest(unittest.TestCase):
         self.assertIn("S2_P5 = ", commands)
         self.assertIn("C1(t) = ", commands)
         self.assertIn("C2(t) = ", commands)
+
+
+class TheoryTest(unittest.TestCase):
+    """The advanced pieces: a proved bound, seams, PH, offsets, knot choice."""
+
+    @staticmethod
+    def ph_cubic_as_quintic():
+        # hodograph (1 - t^2, 2t): x'^2 + y'^2 = (1 + t^2)^2, a perfect square
+        c0 = (0.0, 0.0)
+        c1 = (1.0 / 3.0, 0.0)
+        c2 = (2.0 / 3.0, 1.0 / 3.0)
+        c3 = (2.0 / 3.0, 1.0)
+        return qt.elevate(qt.elevate(qt._as_fractions([c0, c1, c2, c3])))
+
+    def test_the_bound_is_never_below_the_measured_error(self):
+        for segments in (1, 2, 4, 8):
+            chain = qm.cubic_chain(NODES, segments)
+            bound, per = qt.chain_error_bound(NODES, chain)
+            measured = qm.measure_max_error(NODES, chain)
+            self.assertGreaterEqual(bound, measured - 1e-9)
+            self.assertEqual(len(per), segments)
+            self.assertAlmostEqual(bound, max(per), places=12)
+
+    def test_the_bound_is_tighter_than_the_naive_hull_of_the_control_polygon(self):
+        chain = qm.cubic_chain(NODES, 8)
+        bound, _ = qt.chain_error_bound(NODES, chain)
+        self.assertLess(bound, 0.2)      # measured is ~0.055
+
+    def test_split_bezier_reproduces_the_curve_on_both_halves(self):
+        left, right = qt.split_bezier(qt._as_fractions(NODES), Fraction(1, 2))
+        for u in (0.0, 0.25, 0.5, 0.75, 1.0):
+            want = qm.evaluate(NODES, 0.5 * u)
+            got = qm.evaluate([(float(p[0]), float(p[1])) for p in left], u)
+            self.assertAlmostEqual(got[0], want[0], places=9)
+            self.assertAlmostEqual(got[1], want[1], places=9)
+            want2 = qm.evaluate(NODES, 0.5 + 0.5 * u)
+            got2 = qm.evaluate([(float(p[0]), float(p[1])) for p in right], u)
+            self.assertAlmostEqual(got2[0], want2[0], places=9)
+            self.assertAlmostEqual(got2[1], want2[1], places=9)
+
+    def test_elevation_does_not_move_the_curve(self):
+        cubic = [NODES[0], NODES[1], NODES[2], NODES[3]]
+        raised = qt.elevate(qt.elevate(qt._as_fractions(cubic)))
+        for u in (0.0, 0.3, 0.6, 1.0):
+            a = qm.evaluate_cubic(tuple(cubic), u)
+            b = qm.evaluate([(float(p[0]), float(p[1])) for p in raised], u)
+            self.assertAlmostEqual(a[0], b[0], places=9)
+            self.assertAlmostEqual(a[1], b[1], places=9)
+
+    def test_a_cubic_dressed_as_a_quintic_is_detected(self):
+        raised = self.ph_cubic_as_quintic()
+        points = [(float(p[0]), float(p[1])) for p in raised]
+        self.assertEqual(qt.low_degree(points), 3)
+        self.assertEqual(qt.low_degree(NODES), 5)
+        chain = qm.cubic_chain(points, 3)   # a chain that starts at 1 reproduces it
+        one = qm.cubic_chain(points, 1)
+        # one cubic reproduces a cubic exactly; the measure resolves ~6e-5 px
+        self.assertLess(qm.measure_max_error(points, one), 1e-3)
+        self.assertLess(qm.measure_max_error(points, chain), 1e-3)
+
+    def test_the_ph_test_says_yes_to_a_ph_curve_and_no_to_a_general_one(self):
+        points = [(float(p[0]), float(p[1])) for p in self.ph_cubic_as_quintic()]
+        self.assertTrue(qt.is_pythagorean(points))
+        self.assertFalse(qt.is_pythagorean(NODES))
+
+    def test_smoothing_a_seam_removes_the_corner_and_keeps_the_ends(self):
+        second = [NODES[-1]] + [p for p in GENTLE[1:]]
+        controls = [list(NODES), second]
+        before_angle = qt.seam_angle(controls[0], controls[1])
+        self.assertGreater(before_angle, 0.0)
+        smoothed, before, after = qt.smooth_seams(controls)
+        self.assertLess(after[0][0], 1e-4)   # floating noise, in degrees
+        self.assertEqual(smoothed[0][0], NODES[0])
+        self.assertEqual(smoothed[1][-1], second[-1])
+        self.assertEqual(smoothed[0][-1], smoothed[1][0])   # the seam is shared
+
+    def test_arclength_knots_rise_from_zero_to_one(self):
+        knots = qt.arclength_knots(NODES, 4)
+        self.assertEqual(len(knots), 5)
+        self.assertAlmostEqual(knots[0], 0.0, places=12)
+        self.assertAlmostEqual(knots[-1], 1.0, places=12)
+        for a, b in zip(knots, knots[1:]):
+            self.assertLess(a, b)
+
+    def test_curvature_cuts_stay_ordered_and_inside(self):
+        pts = [(float(i), 0.0) for i in range(61)]
+        curv = [0.0] * 61
+        curv[22] = 5.0
+        cuts = qt.curvature_cuts(pts, curv, 3)
+        self.assertEqual(cuts[0], 0)
+        self.assertEqual(cuts[-1], 60)
+        self.assertEqual(cuts[1], 22)
+        for a, b in zip(cuts, cuts[1:]):
+            self.assertLess(a, b)
+
+    def test_the_offset_of_a_straight_line_is_a_parallel_line(self):
+        line = [(0.0, 0.0), (10.0, 0.0), (20.0, 0.0), (30.0, 0.0), (40.0, 0.0), (50.0, 0.0)]
+        chain, miss = qt.offset_chain(line, 5.0, segments=4)
+        self.assertLess(miss, 0.05)
+        for seg in chain:
+            for point in seg:
+                self.assertAlmostEqual(abs(point[1]), 5.0, places=6)
+
+    def test_parameter_correction_does_not_make_the_fit_worse(self):
+        pts = ReducerTest.wavy()
+        plain = qm.fit_least_squares(pts)
+        corrected = qt.fit_least_squares_reparametrised(pts, passes=3)
+        plain_rms = qm.fit_report(plain, pts)[1]
+        corrected_rms = qm.fit_report(corrected, pts)[1]
+        self.assertLess(corrected_rms, plain_rms + 1e-9)
+
+
+class PathDataTest(unittest.TestCase):
+    def test_the_d_string_has_one_c_per_segment_and_reads_back(self):
+        chain = qm.cubic_chain(NODES, 3)
+        d = qm.chain_to_d(chain)
+        self.assertEqual(d.count("C "), 3)
+        self.assertTrue(d.startswith("M "))
+        numbers = [float(v) for v in re.findall(r"-?\d+(?:\.\d+)?", d)]
+        expected = [chain[0][0][0], chain[0][0][1]]
+        for seg in chain:
+            expected.extend([seg[1][0], seg[1][1], seg[2][0], seg[2][1],
+                             seg[3][0], seg[3][1]])
+        self.assertEqual(len(numbers), len(expected))
+        for got, want in zip(numbers, expected):
+            self.assertAlmostEqual(got, want, places=6)
+
+    def test_numbers_are_plain_decimals(self):
+        self.assertEqual(qm.num(1e-9), "0")
+        self.assertEqual(qm.num(-0.0), "0")
+        self.assertEqual(qm.num(1234.5), "1234.5")
+        self.assertNotIn("e", qm.num(1e-7))
+        self.assertNotIn("E", qm.num(1e20))
+
+
+class ExportTest(unittest.TestCase):
+    """The shared record: y up, forward tangents, a measured join."""
+
+    def test_the_record_is_y_up_and_the_points_are_the_exact_object(self):
+        record = qt.span_record(NODES, "s1")
+        self.assertEqual(record["kind"], "quintic")
+        self.assertIsNone(record["weights"])
+        self.assertEqual(len(record["points"]), 6)
+        # NODES is in SVG space (y down); the record is y up
+        self.assertEqual(record["points"][5], [320.0, -240.0])
+
+    def test_the_frame_tangents_point_forward(self):
+        record = qt.span_record(NODES, "s1")
+        start = record["frame"]["start"]
+        end = record["frame"]["end"]
+        self.assertEqual(start["tangent"],
+                         [NODES[1][0] - NODES[0][0], NODES[1][1] - NODES[0][1]])
+        self.assertEqual(end["tangent"],
+                         [NODES[5][0] - NODES[4][0], NODES[5][1] - NODES[4][1]])
+        self.assertEqual(start["p"], list(NODES[0]))
+
+    def test_a_document_has_the_envelope_the_schema_asks_for(self):
+        curve = {"uid": "g1:curve", "group": "ornament", "family": "freehand",
+                 "name": "one", "closed": False, "winding": None, "fitError": 0.5,
+                 "selfCrossings": 0,
+                 "spans": [qt.span_record(NODES, "g1:0")], "joins": []}
+        doc = qt.contract_document([curve])
+        self.assertEqual(doc["format"], "curve-lab.quintic/1")
+        self.assertEqual(doc["degree"], 5)
+        self.assertEqual(doc["count"], 1)
+        self.assertEqual(doc["axes"]["y"], "up")
+        self.assertEqual(doc["axes"]["extent"], [20.0, 390.0, -240.0, -40.0])
+
+    def test_a_join_measures_what_it_claims(self):
+        second = [NODES[-1]] + [p for p in GENTLE[1:]]
+        residual = qt.join_residual(NODES, second)
+        self.assertAlmostEqual(residual["position"], 0.0, places=9)
+        self.assertGreater(residual["tangentDegrees"], 1.0)
+        smoothed, _, after = qt.smooth_seams([list(NODES), second])
+        residual = qt.join_residual(smoothed[0], smoothed[1])
+        self.assertLess(residual["tangentDegrees"], 1e-4)
+
+    def test_the_blender_script_is_one_exact_quintic_span_y_up(self):
+        text = qm.blender_script(qm.to_y_up(NODES), flip_y=False)
+        self.assertIn("sp.order_u = 6", text)
+        self.assertIn("sp.use_endpoint_u = True", text)
+        rows = re.findall(r"\(\s*(-?[\d.]+),\s*(-?[\d.]+),\s*0\.0\)", text)
+        self.assertEqual(len(rows), 6)
+        for (x, y), want in zip(rows, NODES):
+            self.assertAlmostEqual(float(x), want[0], places=6)
+            self.assertAlmostEqual(float(y), -want[1], places=6)
+
+    def test_the_geogebra_commands_are_six_points_and_one_curve(self):
+        text = qm.geogebra_commands(qm.to_y_up(NODES), flip_y=False)
+        points = re.findall(r"^P(\d) = \((-?[\d.]+), (-?[\d.]+)\)$", text, re.M)
+        self.assertEqual([p[0] for p in points], ["0", "1", "2", "3", "4", "5"])
+        for (_, x, y), want in zip(points, NODES):
+            self.assertAlmostEqual(float(x), want[0], places=6)
+            self.assertAlmostEqual(float(y), -want[1], places=6)
+        curve = [line for line in text.splitlines() if line.startswith("Q(t)")]
+        self.assertEqual(len(curve), 1)
+        self.assertIn("5*(1-t)^4*t*P1", curve[0])
+
+    def test_the_bernstein_weights_are_a_partition_of_unity(self):
+        for t in (0.0, 0.17, 0.5, 0.83, 1.0):
+            total = sum(qm.bernstein_weight(i, 5, t) for i in range(6))
+            self.assertAlmostEqual(total, 1.0, places=12)
+
+
+class TheoryTest(unittest.TestCase):
+    """The advanced pieces: a proved bound, seams, PH, offsets, knot choice."""
+
+    @staticmethod
+    def ph_cubic_as_quintic():
+        # hodograph (1 - t^2, 2t): x'^2 + y'^2 = (1 + t^2)^2, a perfect square
+        c0 = (0.0, 0.0)
+        c1 = (1.0 / 3.0, 0.0)
+        c2 = (2.0 / 3.0, 1.0 / 3.0)
+        c3 = (2.0 / 3.0, 1.0)
+        return qt.elevate(qt.elevate(qt._as_fractions([c0, c1, c2, c3])))
+
+    def test_the_bound_is_never_below_the_measured_error(self):
+        for segments in (1, 2, 4, 8):
+            chain = qm.cubic_chain(NODES, segments)
+            bound, per = qt.chain_error_bound(NODES, chain)
+            measured = qm.measure_max_error(NODES, chain)
+            self.assertGreaterEqual(bound, measured - 1e-9)
+            self.assertEqual(len(per), segments)
+            self.assertAlmostEqual(bound, max(per), places=12)
+
+    def test_the_bound_is_tighter_than_the_naive_hull_of_the_control_polygon(self):
+        chain = qm.cubic_chain(NODES, 8)
+        bound, _ = qt.chain_error_bound(NODES, chain)
+        self.assertLess(bound, 0.2)      # measured is ~0.055
+
+    def test_split_bezier_reproduces_the_curve_on_both_halves(self):
+        left, right = qt.split_bezier(qt._as_fractions(NODES), Fraction(1, 2))
+        for u in (0.0, 0.25, 0.5, 0.75, 1.0):
+            want = qm.evaluate(NODES, 0.5 * u)
+            got = qm.evaluate([(float(p[0]), float(p[1])) for p in left], u)
+            self.assertAlmostEqual(got[0], want[0], places=9)
+            self.assertAlmostEqual(got[1], want[1], places=9)
+            want2 = qm.evaluate(NODES, 0.5 + 0.5 * u)
+            got2 = qm.evaluate([(float(p[0]), float(p[1])) for p in right], u)
+            self.assertAlmostEqual(got2[0], want2[0], places=9)
+            self.assertAlmostEqual(got2[1], want2[1], places=9)
+
+    def test_elevation_does_not_move_the_curve(self):
+        cubic = [NODES[0], NODES[1], NODES[2], NODES[3]]
+        raised = qt.elevate(qt.elevate(qt._as_fractions(cubic)))
+        for u in (0.0, 0.3, 0.6, 1.0):
+            a = qm.evaluate_cubic(tuple(cubic), u)
+            b = qm.evaluate([(float(p[0]), float(p[1])) for p in raised], u)
+            self.assertAlmostEqual(a[0], b[0], places=9)
+            self.assertAlmostEqual(a[1], b[1], places=9)
+
+    def test_a_cubic_dressed_as_a_quintic_is_detected(self):
+        raised = self.ph_cubic_as_quintic()
+        points = [(float(p[0]), float(p[1])) for p in raised]
+        self.assertEqual(qt.low_degree(points), 3)
+        self.assertEqual(qt.low_degree(NODES), 5)
+        chain = qm.cubic_chain(points, 3)   # a chain that starts at 1 reproduces it
+        one = qm.cubic_chain(points, 1)
+        # one cubic reproduces a cubic exactly; the measure resolves ~6e-5 px
+        self.assertLess(qm.measure_max_error(points, one), 1e-3)
+        self.assertLess(qm.measure_max_error(points, chain), 1e-3)
+
+    def test_the_ph_test_says_yes_to_a_ph_curve_and_no_to_a_general_one(self):
+        points = [(float(p[0]), float(p[1])) for p in self.ph_cubic_as_quintic()]
+        self.assertTrue(qt.is_pythagorean(points))
+        self.assertFalse(qt.is_pythagorean(NODES))
+
+    def test_smoothing_a_seam_removes_the_corner_and_keeps_the_ends(self):
+        second = [NODES[-1]] + [p for p in GENTLE[1:]]
+        controls = [list(NODES), second]
+        before_angle = qt.seam_angle(controls[0], controls[1])
+        self.assertGreater(before_angle, 0.0)
+        smoothed, before, after = qt.smooth_seams(controls)
+        self.assertLess(after[0][0], 1e-4)   # floating noise, in degrees
+        self.assertEqual(smoothed[0][0], NODES[0])
+        self.assertEqual(smoothed[1][-1], second[-1])
+        self.assertEqual(smoothed[0][-1], smoothed[1][0])   # the seam is shared
+
+    def test_arclength_knots_rise_from_zero_to_one(self):
+        knots = qt.arclength_knots(NODES, 4)
+        self.assertEqual(len(knots), 5)
+        self.assertAlmostEqual(knots[0], 0.0, places=12)
+        self.assertAlmostEqual(knots[-1], 1.0, places=12)
+        for a, b in zip(knots, knots[1:]):
+            self.assertLess(a, b)
+
+    def test_curvature_cuts_stay_ordered_and_inside(self):
+        pts = [(float(i), 0.0) for i in range(61)]
+        curv = [0.0] * 61
+        curv[22] = 5.0
+        cuts = qt.curvature_cuts(pts, curv, 3)
+        self.assertEqual(cuts[0], 0)
+        self.assertEqual(cuts[-1], 60)
+        self.assertEqual(cuts[1], 22)
+        for a, b in zip(cuts, cuts[1:]):
+            self.assertLess(a, b)
+
+    def test_the_offset_of_a_straight_line_is_a_parallel_line(self):
+        line = [(0.0, 0.0), (10.0, 0.0), (20.0, 0.0), (30.0, 0.0), (40.0, 0.0), (50.0, 0.0)]
+        chain, miss = qt.offset_chain(line, 5.0, segments=4)
+        self.assertLess(miss, 0.05)
+        for seg in chain:
+            for point in seg:
+                self.assertAlmostEqual(abs(point[1]), 5.0, places=6)
+
+    def test_parameter_correction_does_not_make_the_fit_worse(self):
+        pts = ReducerTest.wavy()
+        plain = qm.fit_least_squares(pts)
+        corrected = qt.fit_least_squares_reparametrised(pts, passes=3)
+        plain_rms = qm.fit_report(plain, pts)[1]
+        corrected_rms = qm.fit_report(corrected, pts)[1]
+        self.assertLess(corrected_rms, plain_rms + 1e-9)
 
 
 class PathDataTest(unittest.TestCase):

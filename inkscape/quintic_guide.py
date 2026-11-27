@@ -30,6 +30,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from inkscape import quintic_math as qm  # noqa: E402
+from inkscape import quintic_theory as qt  # noqa: E402
 
 try:
     import inkex
@@ -115,6 +116,8 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
     def add_arguments(self, pars):
         pars.add_argument("--pointmode", type=str, default="even")
         pars.add_argument("--spans", type=int, default=1)
+        pars.add_argument("--splitmode", type=str, default="curvature")
+        pars.add_argument("--smoothseams", type=inkex.Boolean, default=False)
         pars.add_argument("--fullness", type=float, default=1.0)
         pars.add_argument("--segments", type=int, default=0)
         pars.add_argument("--tolerance", type=float, default=0.01)
@@ -124,6 +127,8 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
         pars.add_argument("--keepguide", type=inkex.Boolean, default=True)
         pars.add_argument("--exportdir", type=str, default="")
         pars.add_argument("--clipboard", type=inkex.Boolean, default=False)
+        pars.add_argument("--writeoffset", type=inkex.Boolean, default=False)
+        pars.add_argument("--offsetdistance", type=float, default=10.0)
 
     # -- the run ---------------------------------------------------------
 
@@ -135,6 +140,7 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
         guide_id = guide.get("id") or ""
         mode = (self.options.pointmode or "").strip()
         spans = max(1, int(self.options.spans))
+        splitmode = (self.options.splitmode or "curvature").strip()
         if mode not in ("even", "lsq", "cage-nodes", "cage-samples"):
             # a mode the dialog never offers is a caller's mistake, never a
             # silent fall back to the default: this is how a shell quoting slip
@@ -142,7 +148,10 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
             inkex.errormsg("Quintic from Guide: unknown point mode %r "
                            "(even, lsq, cage-nodes, cage-samples)" % mode)
             return
-
+        if splitmode not in ("even", "curvature"):
+            inkex.errormsg("Quintic from Guide: unknown split mode %r "
+                           "(even, curvature)" % splitmode)
+            return
         if mode == "cage-nodes" and spans > 1:
             inkex.errormsg("Quintic from Guide: a control cage from the guide's "
                            "own nodes is one span; set spans to 1.")
@@ -167,25 +176,45 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
             chunks = [nodes]
             how = "cage from the guide's 6 nodes"
         else:
-            dense = qm.samples_along(
-                segments, [i / (SAMPLES_PER_SPAN * spans)
-                           for i in range(SAMPLES_PER_SPAN * spans + 1)])
+            count = SAMPLES_PER_SPAN * spans
+            dense = qm.samples_along(segments, [i / count for i in range(count + 1)])
             try:
-                chunks = qm.split_samples(dense, spans)
+                if splitmode == "curvature" and spans > 1:
+                    curvature = qt.curvature_at_samples(segments, dense)
+                    cuts = qt.curvature_cuts(dense, curvature, spans)
+                    chunks = [dense[cuts[i]:cuts[i + 1] + 1] for i in range(spans)]
+                else:
+                    chunks = qm.split_samples(dense, spans)
             except ValueError as exc:
                 inkex.errormsg("Quintic from Guide: %s" % exc)
                 return
             how = None
 
         alpha = max(0.0, min(1.0, self.options.fullness))
-        results = []
+
+        # phase one: the six control points of every span
+        plans = []
         for chunk in chunks:
             if how is None:
                 control, point_how = _six_points(chunk, mode)
             else:
                 control, point_how = list(chunk), how
             control = qm.blend_fullness(control, alpha)
+            plans.append({"chunk": chunk, "control": control, "point_how": point_how})
 
+        # phase two: the seams, then the drawings
+        seam_before = seam_after = 0.0
+        if self.options.smoothseams and len(plans) > 1:
+            controls, before, after = qt.smooth_seams([p["control"] for p in plans])
+            for plan, control in zip(plans, controls):
+                plan["control"] = control
+            seam_before = max(a for a, _ in before) if before else 0.0
+            seam_after = max(a for a, _ in after) if after else 0.0
+
+        results = []
+        for plan in plans:
+            control = plan["control"]
+            chunk = plan["chunk"]
             runaway = qm.overshoot(control, chunk)
             clamped = False
             if runaway > 0.0 and self.options.clampovershoot:
@@ -205,17 +234,30 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
                     "(tolerance %.4f). Raise the segments count to fit tighter."
                     % (used, chain_miss, self.options.tolerance))
 
+            bound, _ = qt.chain_error_bound(control, chain)
+            if bound > self.options.tolerance:
+                inkex.errormsg(
+                    "Quintic from Guide: the PROVED bound is %.4f px, above the "
+                    "tolerance %.4f; the measured %.4f px is optimistic."
+                    % (bound, self.options.tolerance, chain_miss))
+
             fitted_max, fitted_rms = qm.fit_report(control, chunk)
+            speed_min, _, cusps = qt.speed_report(control)
             results.append({
                 "control": control,
                 "chain": chain,
                 "segments": used,
                 "chain_miss": chain_miss,
+                "bound": bound,
                 "fit_max": fitted_max,
                 "fit_rms": fitted_rms,
                 "clamped": clamped,
                 "overshoot": runaway,
-                "point_how": point_how,
+                "cusps": cusps,
+                "certified": bound <= self.options.tolerance,
+                "point_how": plan["point_how"],
+                "exact_degree": qm.low_degree(control),
+                "ph": qt.is_pythagorean(control),
             })
 
         self._remove_previous(guide_id)
@@ -227,21 +269,31 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
 
         worst_fit = max(r["fit_max"] for r in results)
         worst_chain = max(r["chain_miss"] for r in results)
+        worst_bound = max(r["bound"] for r in results)
         worst_box = max(r["overshoot"] for r in results)
+        worst_degree = max(r["exact_degree"] for r in results)
+        cusps = sum(r["cusps"] for r in results)
         if worst_box <= 0.0:
             box = "inside the six points"
         elif all(r["clamped"] for r in results):
-            box = "clamped to the six points (was %.1f px out)" % worst_box
+            box = "clamped (was %.1f px out)" % worst_box
         else:
             box = "out of the six points by up to %.1f px" % worst_box
+        seams = ""
+        if seam_before:
+            seams = " seams %.1f deg -> %.1f deg;" % (seam_before, seam_after)
         inkex.errormsg(
             "Quintic from Guide: %d span%s, %s, alpha %.2f, %d cubic%s; "
-            "drawn->quintic max %.3f rms %.3f px; quintic->chain %.4f px; %s."
+            "drawn->quintic max %.3f rms %.3f px; quintic->chain %.4f px "
+            "(proved bound %.4f px);%s PH %s, %d cusp%s, true degree %d; %s."
             % (len(results), "" if len(results) == 1 else "s",
                results[0]["point_how"], alpha,
                sum(r["segments"] for r in results),
                "" if sum(r["segments"] for r in results) == 1 else "s",
-               worst_fit, max(r["fit_rms"] for r in results), worst_chain, box))
+               worst_fit, max(r["fit_rms"] for r in results), worst_chain,
+               worst_bound, seams,
+               "no" if not all(qt.is_pythagorean(r["control"]) for r in results)
+               else "yes", cusps, "" if cusps == 1 else "s", worst_degree, box))
 
     # -- the pieces ------------------------------------------------------
 
@@ -298,23 +350,108 @@ class QuinticFromGuide(inkex.EffectExtension if inkex else object):
             out = Path(folder).expanduser()
             try:
                 out.mkdir(parents=True, exist_ok=True)
-                record = qm.sidecar_many(results, mode, alpha, guide_id=guide_id)
+                # the contract file: curve-lab.quintic/1, schema-checked
+                spans = [qm.to_y_up(r["control"]) for r in results]
+                closed = False
+                curve = {
+                    "uid": (guide_id or "quintic") + ":curve",
+                    "group": "ornament",
+                    "family": "freehand",
+                    "name": (guide_id or "quintic") + " from a drawn guide",
+                    "note": ("six points taken off a drawn stroke; the drawn "
+                             "chain is an approximation, the points are the object"),
+                    "closed": closed,
+                    "winding": None,
+                    "fitError": round(max(r["fit_max"] for r in results), 9),
+                    "selfCrossings": int(qt.count_self_crossings(
+                        qm.cubic_chain(spans[0], 12)) if len(spans) == 1 else 0),
+                    "spans": [qt.span_record(control, "%s:%d" % (guide_id or "q", i))
+                              for i, control in enumerate(spans)],
+                    "joins": [],
+                }
+                if len(spans) > 1:
+                    for i in range(len(spans) - 1):
+                        residual = qt.join_residual(spans[i], spans[i + 1])
+                        if residual["tangentDegrees"] < 1e-6:
+                            curve["joins"].append({
+                                "uid": "%s:join%d" % (guide_id or "q", i),
+                                "a": {"span": curve["spans"][i]["uid"], "end": "end"},
+                                "b": {"span": curve["spans"][i + 1]["uid"], "end": "start"},
+                                "continuity": "G1",
+                                "residual": {
+                                    "position": round(residual["position"], 9),
+                                    "tangentDegrees": round(residual["tangentDegrees"], 9),
+                                    "kappa": round(residual["kappa"], 9),
+                                    "rate": round(residual["rate"], 12),
+                                },
+                            })
+                document = qt.contract_document([curve])
                 (out / ("%s-quintic.json" % stem)).write_text(
-                    json.dumps(record, indent=2) + "\n", encoding="utf-8")
+                    json.dumps(document, indent=2) + "\n", encoding="utf-8")
+                # my own numbers, deliberately NOT in the contract file
+                numbers = {
+                    "note": "not the contract: measured numbers for the extension only",
+                    "guide_id": guide_id,
+                    "pointmode": mode,
+                    "fullness": round(alpha, 6),
+                    "options": {"splitmode": self.options.splitmode,
+                                "smooth_seams": bool(self.options.smoothseams),
+                                "clamp": bool(self.options.clampovershoot),
+                                "tolerance_px": self.options.tolerance},
+                    "spans": [{
+                        "index": i,
+                        "drawn_to_quintic_max_px": round(r["fit_max"], 9),
+                        "drawn_to_quintic_rms_px": round(r["fit_rms"], 9),
+                        "quintic_to_chain_max_px": round(r["chain_miss"], 9),
+                        "quintic_to_chain_proved_bound_px": round(r["bound"], 9),
+                        "cubic_segments": r["segments"],
+                        "ph": bool(r["ph"]),
+                        "cusps": int(r["cusps"]),
+                        "true_degree": int(r["exact_degree"]),
+                        "overshoot_px": round(r["overshoot"], 9),
+                        "clamped": bool(r["clamped"]),
+                    } for i, r in enumerate(results)],
+                }
+                (out / ("%s-report.json" % stem)).write_text(
+                    json.dumps(numbers, indent=2) + "\n", encoding="utf-8")
                 (out / ("%s-blender.py" % stem)).write_text(
                     "# Paste into Blender's Text Editor and press Run Script.\n"
-                    + qm.blender_script_many([r["control"] for r in results],
-                                              name=stem, flip_y=True),
+                    + qm.blender_script_many(spans, name=stem, flip_y=False),
                     encoding="utf-8")
                 (out / ("%s-geogebra.txt" % stem)).write_text(
                     "# Paste into GeoGebra's Input Bar, one line at a time.\n"
-                    + qm.geogebra_commands_many([r["control"] for r in results],
-                                                flip_y=True),
+                    + qm.geogebra_commands_many(spans, flip_y=False),
                     encoding="utf-8")
-                report.append("wrote %s-quintic.json, %s-blender.py, %s-geogebra.txt"
-                              % (stem, stem, stem))
+                report.append("wrote %s-quintic.json (contract), %s-report.json, "
+                              "%s-blender.py, %s-geogebra.txt" % (stem, stem, stem, stem))
             except OSError as exc:
                 inkex.errormsg("Quintic from Guide: export folder failed: %s" % exc)
+        if self.options.writeoffset:
+            distance = float(self.options.offsetdistance)
+            spans = []
+            for r in results:
+                chain, miss = qt.offset_chain(r["control"], distance, segments=8)
+                spans.append({
+                    "distance_px": round(distance, 9),
+                    "exact": bool(qt.is_pythagorean(r["control"])),
+                    "note": ("the curve is PH, so this offset is exact"
+                             if qt.is_pythagorean(r["control"]) else
+                             "the curve is not PH, so this offset is an "
+                             "approximation measured against sampled normals"),
+                    "miss_px": round(miss, 9),
+                    "cubic_chain": [[[round(v, 9) for v in point] for point in seg]
+                                    for seg in chain],
+                })
+            try:
+                out = Path(folder or ".").expanduser()
+                out.mkdir(parents=True, exist_ok=True)
+                (out / ("%s-offset.json" % stem)).write_text(
+                    json.dumps({"guide_id": guide_id, "spans": spans}, indent=2) + "\n",
+                    encoding="utf-8")
+                report.append("wrote %s-offset.json (approx %.4f px)"
+                              % (stem, max(s["miss_px"] for s in spans)))
+            except OSError as exc:
+                inkex.errormsg("Quintic from Guide: offset export failed: %s" % exc)
         if self.options.clipboard:
             payload = (json.dumps([{ "control_svg_y_down":
                                      [[round(p[0], 9), round(p[1], 9)]

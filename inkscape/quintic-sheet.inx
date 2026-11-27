@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <name>Quintic sheet: place a curve</name>
+  <id>curve-lab.quintic-sheet</id>
+
+  <param name="help" type="description" gui-text="Reads workbench/quintic-guides.json (the shared curve-lab.quintic/1 record) and draws one curve: its cubic chain, and the six exact control points as marks. The record is y up; the drawing flips y once, here.">What this does</param>
+
+  <param name="sheet" type="string" gui-text="Sheet file">~/developer/curve-lab/workbench/quintic-guides.json</param>
+  <param name="uid" type="string" gui-text="Curve uid (e.g. q6-parabola-01)"></param>
+
+  <param name="scale" type="float" min="0.01" max="100" precision="3" gui-text="Scale (document px per grid unit)">2.000</param>
+  <param name="originx" type="float" precision="3" gui-text="Origin x, px">60.000</param>
+  <param name="originy" type="float" precision="3" gui-text="Origin y, px">60.000</param>
+
+  <param name="segments" type="int" min="0" max="64" gui-text="Cubic segments (0 = fit to tolerance)">0</param>
+  <param name="tolerance" type="float" min="0.0001" max="10" precision="4" gui-text="Max quintic-to-chain miss, px">0.0100</param>
+  <param name="showcage" type="bool" gui-text="Draw the control polygon">true</param>
+  <param name="strokecolour" type="color" gui-text="Curve colour">#000000</param>
+
+  <effect needs-document="true">
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu name="Curve Lab"/>
+    </effects-menu>
+  </effect>
+
+  <script>
+    <command location="inx" interpreter="python">quintic_sheet.py</command>
+  </script>
+</inkscape-extension>

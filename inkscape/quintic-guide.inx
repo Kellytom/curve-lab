@@ -15,6 +15,11 @@
         <option value="cage-samples">A cage from 6 samples</option>
       </param>
       <param name="spans" type="int" min="1" max="16" gui-text="Spans (one quintic each)">1</param>
+      <param name="splitmode" type="optiongroup" appearance="combo" gui-text="Cut the stroke at">
+        <option value="curvature">Its sharpest bends</option>
+        <option value="even">Equal arc length</option>
+      </param>
+      <param name="smoothseams" type="bool" gui-text="Smooth the seams (C1 across spans)">false</param>
       <param name="clampovershoot" type="bool" gui-text="Clamp inside the six points (no overshoot)">false</param>
       <param name="help_points" type="description" gui-text="The miss from the drawn stroke to the quintic is printed after each run, as a max and an RMS in px. A long stroke may need more than one span.">Reading the miss</param>
     </page>
@@ -31,6 +36,8 @@
     <page name="export" gui-text="Export">
       <param name="exportdir" type="string" gui-text="Export folder (blank = none)">~/Downloads</param>
       <param name="clipboard" type="bool" gui-text="Copy the six points to the clipboard">false</param>
+      <param name="writeoffset" type="bool" gui-text="Also write the offset (approximate unless PH)">false</param>
+      <param name="offsetdistance" type="float" precision="3" gui-text="Offset distance, px">10.000</param>
       <param name="help_export" type="description" gui-text="Writes &lt;guide&gt;-quintic.json, &lt;guide&gt;-blender.py and &lt;guide&gt;-geogebra.txt. Blender gets one exact order-6 NURBS spline per span; the y axis is flipped because Blender and GeoGebra are y up and the SVG document is y down.">What leaves</param>
     </page>
 
