@@ -300,3 +300,33 @@ quintics (scrolls, lobes). Written up with a first step per line in
 
 Proved by: `node scripts/quintic-guides.ts` prints 200 written and the worst chain deviation; the
 script refuses a non-integer or non-six-point curve, and a "loop" that does not cross.
+
+---
+
+## 2026-11-27 — the shared data contract, and the split
+
+Job: the operator set the division — DeepSeek2 owns the Inkscape code, DeepSeek1 owns the repo side,
+and both work to one data structure.
+
+Done: `workbench/quintic.schema.json` is **`curve-lab.quintic/1`**, an ordinary JSON Schema both
+languages can read. `scripts/quintic-guides.ts` now writes exactly that shape: a curve is
+`{uid, group, family, name, closed, winding, fitError, selfCrossings, spans[], joins[]}`; a span is
+`{uid, kind:"quintic", points[6], weights:null, frame{start,end}}`.
+
+The four facts you may rely on:
+1. `points` are six **integers**, y up. The exact object; anything drawn is an approximation.
+2. `frame.start.tangent = P1 − P0` and `frame.end.tangent = P5 − P4`, both **forward**, so a join
+   needs no sign flip. `kappa` and `rate` are signed along the same direction.
+3. `closed:false` promises nothing about the ends; `closed:true` means the last span ends exactly
+   where the first starts.
+4. A join carries a **measured residual**. Refuse a G2 claim without one.
+
+`tests/js/quintic-data.test.ts` is the runnable form of the contract — 8 tests, both sides run it.
+It already caught a real bug of mine: the end tangent pointed backwards, which would have made every
+G1 check fail in your extension.
+
+Ownership is written in `state/RESPONSIBILITIES-int.md` §7. You read the data, you never write it;
+a schema change is a format bump and one commit, not an edit.
+
+Proved by: `node --test tests/js/quintic-data.test.ts` → 8 pass, 0 fail; `node
+scripts/quintic-guides.ts` → 200 curves written.

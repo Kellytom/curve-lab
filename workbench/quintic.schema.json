@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://curve-lab/format/quintic/1",
+  "title": "curve-lab.quintic/1 — six-point spans, chains and joins",
+  "description": "The shared contract between the generator on the repo side (scripts/quintic-guides.ts) and the Inkscape extension (inkscape/quintic_guide.py). Neither side may change a meaning here without bumping `format` and updating both readers in one commit. Coordinates are integers on the grid stated by `axes`, y up. A curve is a list of spans; a span is one six-point quintic Bézier. `frame` is measured from `points`, never stored independently of them.",
+  "type": "object",
+  "required": ["format", "degree", "axes", "count", "curves"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "curve-lab.quintic/1" },
+    "degree": { "const": 5 },
+    "createdBy": { "type": "string" },
+    "axes": {
+      "type": "object",
+      "required": ["x", "y", "units", "extent"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "const": "right" },
+        "y": { "const": "up" },
+        "units": { "type": "string", "description": "grid cells; one unit is one cell" },
+        "extent": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "[xMin, xMax, yMin, yMax] over every control point in the file"
+        }
+      }
+    },
+    "count": { "type": "integer", "minimum": 1 },
+    "curves": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/curve" } }
+  },
+  "$defs": {
+    "point": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "curve": {
+      "type": "object",
+      "required": ["uid", "group", "family", "name", "closed", "spans", "joins"],
+      "additionalProperties": false,
+      "properties": {
+        "uid": { "type": "string", "minLength": 3 },
+        "group": { "enum": ["math", "ornament"] },
+        "family": { "type": "string" },
+        "name": { "type": "string" },
+        "note": { "type": "string" },
+        "closed": { "type": "boolean", "description": "true means the last span's end meets the first span's start, with the wrap conditions of the join list" },
+        "winding": { "enum": ["ccw", "cw", null], "description": "orientation of a closed curve; null when open" },
+        "fitError": { "type": "number", "minimum": 0, "description": "worst distance from the family's ideal target, in grid units; 0 means exact" },
+        "selfCrossings": { "type": "integer", "minimum": 0 },
+        "spans": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/span" } },
+        "joins": { "type": "array", "items": { "$ref": "#/$defs/join" } }
+      }
+    },
+    "span": {
+      "type": "object",
+      "required": ["uid", "kind", "points", "weights", "frame"],
+      "additionalProperties": false,
+      "properties": {
+        "uid": { "type": "string" },
+        "kind": { "const": "quintic" },
+        "points": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/point" },
+          "minItems": 6,
+          "maxItems": 6,
+          "description": "P0..P5, the exact object"
+        },
+        "weights": {
+          "type": ["array", "null"],
+          "items": { "type": "number" },
+          "minItems": 6,
+          "maxItems": 6,
+          "description": "reserved for rational spans; null means a plain polynomial curve"
+        },
+        "frame": {
+          "type": "object",
+          "required": ["start", "end"],
+          "additionalProperties": false,
+          "properties": {
+            "start": { "$ref": "#/$defs/end" },
+            "end": { "$ref": "#/$defs/end" }
+          }
+        }
+      }
+    },
+    "end": {
+      "type": "object",
+      "required": ["p", "tangent", "kappa", "rate"],
+      "additionalProperties": false,
+      "properties": {
+        "p": { "$ref": "#/$defs/point" },
+        "tangent": {
+          "$ref": "#/$defs/point",
+          "description": "un-normalised derivative direction at this end: P1 - P0 at the start, P5 - P4 at the end; integers stay exact"
+        },
+        "kappa": {
+          "type": ["number", "null"],
+          "description": "signed curvature, 1/grid units; positive means turning left along the parameter direction"
+        },
+        "rate": {
+          "type": ["number", "null"],
+          "description": "d(kappa)/ds, 1/grid^2 units"
+        }
+      }
+    },
+    "join": {
+      "type": "object",
+      "required": ["uid", "a", "b", "continuity", "residual"],
+      "additionalProperties": false,
+      "properties": {
+        "uid": { "type": "string" },
+        "a": {
+          "type": "object",
+          "required": ["span", "end"],
+          "additionalProperties": false,
+          "properties": {
+            "span": { "type": "string" },
+            "end": { "enum": ["start", "end"] }
+          }
+        },
+        "b": {
+          "type": "object",
+          "required": ["span", "end"],
+          "additionalProperties": false,
+          "properties": {
+            "span": { "type": "string" },
+            "end": { "enum": ["start", "end"] }
+          }
+        },
+        "continuity": { "enum": ["G1", "G2", "G3"] },
+        "residual": {
+          "type": "object",
+          "required": ["position", "tangentDegrees", "kappa", "rate"],
+          "additionalProperties": false,
+          "properties": {
+            "position": { "type": "number", "minimum": 0 },
+            "tangentDegrees": { "type": "number", "minimum": 0 },
+            "kappa": { "type": "number", "minimum": 0 },
+            "rate": { "type": "number", "minimum": 0 }
+          },
+          "description": "measured after the fact, so a claimed continuity is checkable and not a label"
+        }
+      }
+    }
+  }
+}

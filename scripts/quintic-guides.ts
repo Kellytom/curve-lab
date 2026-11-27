@@ -26,6 +26,7 @@ import path from "node:path";
 type Point = [number, number];
 type Curve = {
   uid: string;
+  group: "math" | "ornament";
   family: string;
   name: string;
   points: Point[];
@@ -405,6 +406,7 @@ function build(group: "math" | "ornament"): Curve[] {
       const points = target ? fitQuintic(target) : f.given!(k);
       curves.push({
         uid: `q6-${f.family}-${String(k).padStart(2, "0")}`,
+        group: f.group ?? "math",
         family: f.family,
         name: `${f.name} ${k}`,
         points,
@@ -531,6 +533,66 @@ function guidePaths(curves: Curve[], heading: string): string {
   return parts.join("\n");
 }
 
+/* ---------- the shared record: spans, frame, joins ---------- */
+
+const cross2 = (a: Point, b: Point) => a[0] * b[1] - a[1] * b[0];
+const dot2 = (a: Point, b: Point) => a[0] * b[0] + a[1] * b[1];
+
+/**
+ * The end frame of a span, measured from its six points.
+ * Reversing the control points gives the other end the same formula.
+ * kappa = (r' x r'') / |r'|^3 and dkappa/ds = (r' x r''')/|r'|^4
+ *          - 3 (r' x r'')(r' . r'')/|r'|^6.
+ */
+function endFrame(pointsIn: Point[], atEnd: boolean) {
+  const p = atEnd ? [...pointsIn].reverse() : pointsIn;
+  const d1: Point = [5 * (p[1][0] - p[0][0]), 5 * (p[1][1] - p[0][1])];
+  const d2: Point = [20 * (p[2][0] - 2 * p[1][0] + p[0][0]), 20 * (p[2][1] - 2 * p[1][1] + p[0][1])];
+  const d3: Point = [60 * (p[3][0] - 3 * p[2][0] + 3 * p[1][0] - p[0][0]), 60 * (p[3][1] - 3 * p[2][1] + 3 * p[1][1] - p[0][1])];
+  const n = Math.hypot(d1[0], d1[1]);
+  // The reversed list walks the curve backwards, so its signed curvature and
+  // its curvature rate are the negative of the forward ones. Both ends are
+  // reported along the forward parameter, so a join compares like with like.
+  const sign = atEnd ? -1 : 1;
+  const kappa = sign * (cross2(d1, d2) / n ** 3);
+  const rate = sign * (cross2(d1, d3) / n ** 4 - (3 * cross2(d1, d2) * dot2(d1, d2)) / n ** 6);
+  const forward: Point = atEnd
+    ? [pointsIn[5][0] - pointsIn[4][0], pointsIn[5][1] - pointsIn[4][1]]
+    : [pointsIn[1][0] - pointsIn[0][0], pointsIn[1][1] - pointsIn[0][1]];
+  return {
+    p: p[0],
+    tangent: forward,
+    kappa: +kappa.toFixed(6),
+    rate: +rate.toFixed(6),
+  };
+}
+
+/** One curve as the shared format says it must be written. */
+function toRecord(c: Curve, selfCrossingsCount: number, chainError: number) {
+  return {
+    uid: c.uid,
+    group: c.group,
+    family: c.family,
+    name: c.name,
+    note: c.note,
+    closed: false,
+    winding: null,
+    fitError: c.fitError,
+    selfCrossings: selfCrossingsCount,
+    cubicChain: { spans: 6, worstError: +chainError.toFixed(4) },
+    spans: [
+      {
+        uid: `${c.uid}:0`,
+        kind: "quintic" as const,
+        points: c.points,
+        weights: null,
+        frame: { start: endFrame(c.points, false), end: endFrame(c.points, true) },
+      },
+    ],
+    joins: [],
+  };
+}
+
 /* ---------- run ---------- */
 const mathCurves = build("math");
 const ornamentCurves = build("ornament");
@@ -558,7 +620,7 @@ writeFileSync(
   OUT_JSON,
   `${JSON.stringify(
     {
-      format: "curve-lab.quintic-guides/1",
+      format: "curve-lab.quintic/1",
       degree: 5,
       order: ["P0", "P1", "P2", "P3", "P4", "P5"],
       axes: {
@@ -572,10 +634,10 @@ writeFileSync(
           Math.max(...withError.flatMap((c) => c.points.map((p) => p[1]))),
         ],
       },
-      note: "Six integer control points per curve, y-up. Flower fullness alpha moves P1..P4 toward the chord. The cubic chain is a display approximation; the six points are the exact object.",
+      note: "Six integer control points per span, y-up. Fullness alpha moves P1..P4 toward the chord. The cubic chain is a display approximation; the six points are the exact object, and frame is measured from them.",
       count: withError.length,
       worstApproximationError: +worst.toFixed(4),
-      curves: withError,
+      curves: withError.map((c) => toRecord(c, c.selfCrossings, c.approximation.worstError)),
     },
     null,
     1,

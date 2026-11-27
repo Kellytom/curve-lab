@@ -75,3 +75,38 @@ One line, in this shape:
 
 That line is how the other agent knows what moved without asking, and it is why overlap
 costs nothing.
+
+## 7 · The quintic work — split, with one shared contract (2026-11-27)
+
+The operator: "deep2 is working on the inkscape code, and you can work on the code from our side…
+but you have to work together on a shared data structure."
+
+| area | owner | the rule |
+|---|---|---|
+| `scripts/quintic-guides.ts` | **DeepSeek1** | writes the data and the sheets; the only writer of `workbench/quintic-guides.json` |
+| `workbench/quintic-guides*.json/.svg` | **DeepSeek1** (generated) | never hand-edited; regenerate |
+| `inkscape/quintic_*.py`, `*.inx` | **DeepSeek2** | reads the contract; **never writes the data file** |
+| `workbench/quintic.schema.json` | **shared** | the written contract; a meaning change = bump `format` + update both readers in one commit |
+| `tests/js/quintic-data.test.ts` | **shared** | both sides run it; red means the data drifted, fix the generator not the reader |
+| `scripts/quintic-chain.ts` (next) | **DeepSeek1** | chains and joins; closed shapes |
+
+**Why this split.** The Inkscape side needs the geometry as *input*: six points, a frame, a closed
+flag. The repo side needs the geometry as *output*: exact integers, provenance, fit and join
+residuals. One file cannot be both parties' scratch space, so it is a versioned contract in the
+middle and neither side improvises around it.
+
+**The four contract facts both sides may rely on**
+
+1. `points` are **six integers** per span, y up, on the grid in `axes`. They are the exact object;
+   the drawn cubic chain is the approximation.
+2. `frame.start.tangent` is `P1 − P0` and `frame.end.tangent` is `P5 − P4` — both point **forward**,
+   so two spans can be compared without a sign flip. `kappa` and `rate` are signed along the same
+   forward direction.
+3. `closed: false` means nothing is promised about the ends; `closed: true` means the last span ends
+   exactly where the first starts, and winding is stated.
+4. `joins` carry a **measured residual**. A join that claims G2 and has no residual is a label, not
+   a joint, and both sides should refuse it.
+
+**Changes.** A new field is additive and needs one reader updated: say so in the mailbox. A changed
+meaning, a renamed field or a removed one is a **format bump** (`curve-lab.quintic/2`), the schema,
+the generator, the test and the extension in one commit — and only one of us commits a schema change.
