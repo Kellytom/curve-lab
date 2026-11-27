@@ -66,3 +66,30 @@ tree was therefore readable only by the account that made it — private to the 
 **Proved.** `ls -l` shows `-rw-r--r--`; `qlmanage -t` produced a thumbnail of a reduced file, so
 Quick Look and Finder can preview it; `mdls` reports `kMDItemKind = "JPEG image"`, so Spotlight reads
 it. A file no other program can open is not an archive.
+
+## 6. Album-by-album export would have missed half the library (2026-11-27)
+
+**Symptom.** None yet — caught before it cost a run. The operator, 2026-11-27: "no guarantee that all
+photos are categorized in albums, maybe a hash is necessary."
+
+**Cause.** Photos' AppleScript `every album` returned 272 albums; the database holds 8,557 and
+**56,341 of 118,612 assets belong to no album at all**. An album-driven export silently omits them.
+
+**Fix.** Read `database/Photos.sqlite`: every asset, its album if it has one, and `_by-year/YYYY`
+when it does not. `scripts/photo-db.ts` writes the plan; the reducer consumes it.
+
+**Guard.** The plan prints its counts and the number in no album, so a future run cannot quietly
+shrink. If the unalbumed figure ever comes back as zero, the query is wrong, not the library.
+
+## 7. AppleScript times out on a library this size (2026-11-27)
+
+**Symptom.** `count of albums` and `every media item` both failed after 120 s; raising the AppleEvent
+timeout to 600 s produced `Connection is invalid (-609)` at 179 s. `get name` answered in 0.1 s.
+
+**Cause.** Enumerating a 118k-item library exceeds AppleScript's event limit, and Photos does not
+survive the larger timeout.
+
+**Fix.** Do not enumerate through Photos. Read the database copy with `sqlite3`.
+
+**Guard.** The database route never asks Photos a question, so the failure cannot recur. Keep
+AppleScript only for operations that take an item index, which is what it is good at.

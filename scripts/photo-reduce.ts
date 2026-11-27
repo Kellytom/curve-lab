@@ -21,6 +21,7 @@
 import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { processOne, slug as slugOf } from "./lib/photo-process.ts";
 import { homedir } from "node:os";
 import { chmodSync } from "node:fs";
 import path from "node:path";
@@ -43,7 +44,15 @@ const QUALITY = Number(flag("--quality", "80"));
 const ONLY_ALBUM = flag("--album");
 const LIMIT = Number(flag("--limit", "0"));
 const CHUNK = Math.max(1, Number(flag("--chunk", "20")));
-const MODE = has("--run") ? "run" : has("--report") ? "report" : "inventory";
+const TRANSCODE_VIDEO = has("--video");
+const ALL_LIBRARY = has("--all");
+const HASH_INDEX = path.join(OUT_ROOT, "hashes.jsonl");
+const ALBUM_CACHE = path.join(OUT_ROOT, "albums.json");
+const REFRESH_ALBUMS = has("--refresh-albums");
+const MODE = has("--from-plan") ? "plan" : has("--from-dir") ? "dir" : has("--run") || has("--all") ? "run" : has("--report") ? "report" : "inventory";
+const FROM_DIR = flag("--from-dir");
+const SHARD = flag("--shard");
+const ROOT_STAGING = path.join(homedir(), "Pictures", "photo-inbox", "_unzipped");
 
 type Album = { name: string; count: number };
 
@@ -85,7 +94,26 @@ function checkAccess(): void {
   }
 }
 
+/** The album list, cached: asking a 99k-item library costs minutes and times out. */
 function listAlbums(): Album[] {
+  if (!REFRESH_ALBUMS && existsSync(ALBUM_CACHE)) {
+    try {
+      const cached = JSON.parse(readFileSync(ALBUM_CACHE, "utf8")) as { albums: Album[] };
+      if (Array.isArray(cached.albums) && cached.albums.length) {
+        console.log(`${cached.albums.length} albums (cached; --refresh-albums to re-read)`);
+        return cached.albums;
+      }
+    } catch {
+      /* fall through to the live query */
+    }
+  }
+  const albums = readAlbums();
+  mkdirSync(OUT_ROOT, { recursive: true });
+  writeFileSync(ALBUM_CACHE, `${JSON.stringify({ read_at: new Date().toISOString(), albums }, null, 1)}\n`);
+  return albums;
+}
+
+function readAlbums(): Album[] {
   const script = `
     set out to ""
     tell application "Photos"
@@ -104,21 +132,31 @@ function listAlbums(): Album[] {
     });
 }
 
-type Item = { id: string; filename: string; date: string };
+type Item = { id: string; filename: string; date: string; index: number };
 
 /**
  * Export a range of one album in a single Apple event.
  * Resolving the album by name costs seconds, so one call per asset was 10×
  * slower than one call per chunk. Returns the ids and names in Photos' order.
  */
-function exportChunk(album: string, from: number, to: number, target: string): Item[] {
+function libraryCount(): number {
+  return Number(osa('tell application "Photos" to count (every media item)', 120_000).trim()) || 0;
+}
+
+function exportChunk(album: string | null, from: number, to: number, target: string): Item[] {
   const script = `
     set out to ""
     tell application "Photos"
-      set theAlbum to album ${JSON.stringify(album)}
-      set theItems to media items ${from} thru ${to} of theAlbum
+      ${album === null ? "" : `set theAlbum to album ${JSON.stringify(album)}`}
+      set theItems to media items ${from} thru ${to} ${album === null ? "" : "of theAlbum"}
       repeat with m in theItems
-        set out to out & (id of m as string) & tab & (filename of m as string) & tab & ((date of m) as string) & linefeed
+        set d to date of m
+        set mo to (month of d as integer) as string
+        if (count of mo) is 1 then set mo to "0" & mo
+        set dy to (day of d as integer) as string
+        if (count of dy) is 1 then set dy to "0" & dy
+        set iso to ((year of d as integer) as string) & "-" & mo & "-" & dy
+        set out to out & (id of m as string) & tab & (filename of m as string) & tab & iso & linefeed
       end repeat
       export theItems to POSIX file ${JSON.stringify(target)} with using originals
     end tell
@@ -129,8 +167,19 @@ function exportChunk(album: string, from: number, to: number, target: string): I
     .filter(Boolean)
     .map((line) => {
       const [id, filename, date] = line.split("\t");
-      return { id, filename, date };
+      return { id, filename, date, index: 0 };
     });
+}
+
+/** A folder-safe slug: "Hotels mexico" -> "hotels-mexico". */
+function slug(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40) || "album";
 }
 
 /* ---------- manifest ---------- */
@@ -145,6 +194,7 @@ type Row = {
   ratio: number;
   out_path: string;
   sha256: string | null;
+  original_sha256?: string | null;
   width: number | null;
   height: number | null;
   taken_at: string;
@@ -158,17 +208,24 @@ type Row = {
 function loadDone(): Set<string> {
   const done = new Set<string>();
   if (!existsSync(MANIFEST)) return done;
+  const KEPT = new Set(["reduced", "over-target", "skipped-small", "skipped-larger", "duplicate"]);
   for (const line of readFileSync(MANIFEST, "utf8").split("\n")) {
     if (!line.trim()) continue;
     try {
       const row = JSON.parse(line) as Row;
-      if (row.status && row.status !== "failed") done.add(row.asset_id);
+      if (!KEPT.has(row.status)) continue;
+      // A row is only done if the file it names is really there. A row from a
+      // failed attempt must not block its own retry.
+      if (row.out_path && !existsSync(path.join(OUT_ROOT, row.out_path))) continue;
+      done.add(row.asset_id);
     } catch {
       /* a torn last line from a crash is ignored, not a reason to stop */
     }
   }
   return done;
 }
+
+const isVideoName = (file: string) => [".mov", ".mp4", ".m4v"].includes(path.extname(file).toLowerCase());
 
 function record(row: Row): void {
   mkdirSync(path.dirname(MANIFEST), { recursive: true });
@@ -304,10 +361,45 @@ function run(): void {
   mkdirSync(STAGING, { recursive: true });
   mkdirSync(OUT_ROOT, { recursive: true });
   const done = loadDone();
-  const albums = listAlbums().filter((a) => !ONLY_ALBUM || a.name === ONLY_ALBUM);
+  let albums = ALL_LIBRARY
+    ? [{ name: "__library__", count: libraryCount() }]
+    : listAlbums().filter((a) => !ONLY_ALBUM || a.name === ONLY_ALBUM);
+  if (SHARD) {
+    const [mine, of] = SHARD.split("/").map(Number);
+    albums = albums.filter((_, i) => i % of === mine - 1);
+    console.log(`shard ${mine}/${of}: ${albums.length} albums`);
+  }
   if (albums.length === 0) {
     console.error(ONLY_ALBUM ? `no album named ${JSON.stringify(ONLY_ALBUM)}` : "no albums");
     process.exit(2);
+  }
+
+  // Content hash -> the kept copy, so the same photo in two albums is stored once.
+  const seenHashes = new Map<string, string>();
+  for (const line of existsSync(MANIFEST) ? readFileSync(MANIFEST, "utf8").split("\n") : []) {
+    if (!line.trim()) continue;
+    try {
+      const row = JSON.parse(line) as { sha256?: string; original_sha256?: string; out_path?: string; status?: string };
+      const key = row.original_sha256 ?? row.sha256;
+      if (key && row.out_path && row.status && row.status !== "duplicate"
+          && row.status !== "failed" && existsSync(path.join(OUT_ROOT, row.out_path))) {
+        seenHashes.set(key, row.out_path);
+      }
+    } catch {
+      /* torn line */
+    }
+  }
+
+  if (existsSync(HASH_INDEX)) {
+    for (const line of readFileSync(HASH_INDEX, "utf8").split("\n")) {
+      if (!line.trim()) continue;
+      try {
+        const rec = JSON.parse(line) as { h: string; p: string };
+        if (rec.h && rec.p && existsSync(path.join(OUT_ROOT, rec.p))) seenHashes.set(rec.h, rec.p);
+      } catch {
+        /* torn line */
+      }
+    }
   }
 
   let processed = 0;
@@ -320,107 +412,61 @@ function run(): void {
   const VIDEO = [".mov", ".mp4", ".m4v"];
 
   /** Reduce one exported file, or record why not. Returns false on failure. */
-  const handle = (album: string, item: Item, src: string, cleanUp: () => void): boolean => {
-    const srcExt = path.extname(src).toLowerCase();
-    const originalBytes = statSync(src).size;
+  const handle = (albumIn: string, item: Item, src: string, cleanUp: () => void): boolean => {
+    const album = albumIn === "__library__" ? `_by-year/${item.date.slice(0, 4)}` : albumIn;
     const albumDir = path.join(OUT_ROOT, album.replace(/[/:]/g, "-"));
-    let outPath = path.join(albumDir, path.basename(src, path.extname(src)) + srcExt);
-    let suffix = 2;
-    while (existsSync(outPath)) {
-      const stem = path.basename(outPath, path.extname(outPath));
-      outPath = path.join(path.dirname(outPath), `${stem} (${suffix})${path.extname(outPath)}`);
-      suffix += 1;
+    const stem = `${slugOf(album)}-${String(item.index).padStart(4, "0")}-${item.date}`;
+    const result = processOne({
+      src,
+      outDir: albumDir,
+      stem,
+      maxLongSide: MAX_LONG_SIDE,
+      quality: QUALITY,
+      videoPreset: TRANSCODE_VIDEO ? "PresetHEVC1920x1080" : null,
+      seen: seenHashes,
+    });
+
+    record({
+      asset_id: item.id,
+      album,
+      filename: item.filename,
+      kind: isVideoName(src) ? "video" : "photo",
+      original_bytes: result.originalBytes,
+      reduced_bytes: result.reducedBytes,
+      ratio: result.ratio,
+      out_path: result.outPath ? path.relative(OUT_ROOT, result.outPath) : "",
+      sha256: result.sha256,
+      original_sha256: result.originalSha256,
+      width: result.width,
+      height: result.height,
+      taken_at: item.date,
+      quality: result.quality,
+      engine: result.engine,
+      status: result.status,
+      error: result.error,
+      done_at: new Date().toISOString(),
+    });
+
+    if (result.status !== "failed" && result.status !== "duplicate" && result.outPath) {
+      appendFileSync(HASH_INDEX, `${JSON.stringify({ h: result.originalSha256, p: path.relative(OUT_ROOT, result.outPath) })}\n`);
     }
 
-    if (VIDEO.includes(srcExt)) {
-      record({
-        asset_id: item.id, album, filename: item.filename, kind: "video",
-        original_bytes: originalBytes, reduced_bytes: originalBytes, ratio: 1, out_path: "",
-        sha256: null, width: null, height: null, taken_at: item.date, quality: null,
-        engine: null, status: "skipped-video", error: null, done_at: new Date().toISOString(),
-      });
-      skipped += 1;
-      cleanUp();
-      return true;
-    }
-
-    if (originalBytes < 400 * 1024) {
-      mkdirSync(path.dirname(outPath), { recursive: true });
-      execFileSync("cp", [src, outPath]);
-      chmodSync(outPath, 0o644);
-      record({
-        asset_id: item.id, album, filename: item.filename, kind: "photo",
-        original_bytes: originalBytes, reduced_bytes: originalBytes, ratio: 1,
-        out_path: path.relative(OUT_ROOT, outPath), sha256: sha256(outPath), width: null, height: null,
-        taken_at: item.date, quality: null, engine: "copy", status: "skipped-small",
-        error: null, done_at: new Date().toISOString(),
-      });
-      skipped += 1;
-      cleanUp();
-      return true;
-    }
-
-    try {
-      let result = reduce(src, outPath);
-      if (result.engine === "sips" && result.bytes > originalBytes / 2 && (result.quality ?? 100) > 70) {
-        rmSync(outPath, { force: true });
-        const again = path.join(path.dirname(src), "again" + srcExt);
-        execFileSync("cp", [src, again]);
-        const args = ["-s", "formatOptions", "70"];
-        const dim = imageSize(again);
-        if (dim && Math.max(dim.width, dim.height) > MAX_LONG_SIDE) args.push("-Z", String(MAX_LONG_SIDE));
-        execFileSync("sips", [...args, again, "--out", outPath], { stdio: "ignore" });
-        rmSync(again, { force: true });
-        result = { engine: "sips", quality: 70, bytes: statSync(outPath).size };
-      }
-
-      // A reduction that inflates is not a reduction: keep the original bytes.
-      if (result.bytes >= originalBytes) {
-        rmSync(outPath, { force: true });
-        mkdirSync(path.dirname(outPath), { recursive: true });
-        execFileSync("cp", [src, outPath]);
-        chmodSync(outPath, 0o644);
-        result = { engine: "copy", quality: null, bytes: statSync(outPath).size };
-      }
-
-      // Photos exports 0600; the archive must be readable by Finder, Quick Look and anything else.
-      chmodSync(outPath, 0o644);
-      chmodSync(path.dirname(outPath), 0o755);
-      const dim = imageSize(outPath);
-      const status =
-        result.engine === "copy" ? "skipped-larger" : result.bytes <= originalBytes / 2 ? "reduced" : "over-target";
-      record({
-        asset_id: item.id, album, filename: item.filename, kind: "photo",
-        original_bytes: originalBytes, reduced_bytes: result.bytes,
-        ratio: +(result.bytes / originalBytes).toFixed(3),
-        out_path: path.relative(OUT_ROOT, outPath), sha256: sha256(outPath),
-        width: dim?.width ?? null, height: dim?.height ?? null, taken_at: item.date,
-        quality: result.quality, engine: result.engine, status, error: null,
-        done_at: new Date().toISOString(),
-      });
-      processed += 1;
-      before += originalBytes;
-      after += result.bytes;
-      console.log(
-        `  ${album} ${item.filename} ${(originalBytes / 1e6).toFixed(2)} -> ${(result.bytes / 1e6).toFixed(2)} MB ` +
-          `(${(100 * result.bytes / originalBytes).toFixed(0)} %) ${status}`,
-      );
-      cleanUp();
-      return true;
-    } catch (error) {
-      record({
-        asset_id: item.id, album, filename: item.filename, kind: "photo",
-        original_bytes: originalBytes, reduced_bytes: 0, ratio: 0,
-        out_path: path.relative(OUT_ROOT, outPath), sha256: null, width: null, height: null,
-        taken_at: item.date, quality: null, engine: null, status: "failed",
-        error: (error as Error).message, done_at: new Date().toISOString(),
-      });
-      console.log(`  FAILED ${album} ${item.filename}: ${(error as Error).message}`);
+    if (result.status === "failed") {
       failed += 1;
-      rmSync(outPath, { force: true });
-      cleanUp();
-      return false;
+      console.log(`  FAILED ${album} ${item.filename}: ${result.error}`);
+    } else if (result.status === "reduced" || result.status === "over-target") {
+      processed += 1;
+      before += result.originalBytes;
+      after += result.reducedBytes;
+      console.log(
+        `  ${album} ${item.filename} ${(result.originalBytes / 1e6).toFixed(2)} -> ${(result.reducedBytes / 1e6).toFixed(2)} MB ` +
+          `(${Math.round(100 * result.reducedBytes / result.originalBytes)} %) ${result.status}`,
+      );
+    } else {
+      skipped += 1;
     }
+    cleanUp();
+    return result.status !== "failed";
   };
 
   outer: for (const album of albums) {
@@ -438,7 +484,7 @@ function run(): void {
 
       let items: Item[];
       try {
-        items = exportChunk(album.name, from, to, stage);
+        items = exportChunk(album.name === "__library__" ? null : album.name, from, to, stage);
       } catch (error) {
         console.log(`  chunk failed ${album.name} ${from}-${to}: ${(error as Error).message}`);
         rmSync(stage, { recursive: true, force: true });
@@ -465,6 +511,7 @@ function run(): void {
           failed += 1;
           continue;
         }
+        item.index = from + items.indexOf(item);
         handle(album.name, item, src, () => {});
       }
       rmSync(stage, { recursive: true, force: true });
@@ -479,6 +526,237 @@ function run(): void {
   console.log(`manifest: ${MANIFEST}`);
 }
 
-if (MODE === "run") run();
+
+/* ---------- a folder tree, e.g. a phone copied off a cable ---------- */
+
+/** A Takeout or album download is a zip: unpack it beside itself, then reduce. */
+function unpackIfZip(target: string): string {
+  if (!target.toLowerCase().endsWith(".zip")) return target;
+  const into = path.join(ROOT_STAGING, path.basename(target, path.extname(target)));
+  mkdirSync(into, { recursive: true });
+  // ditto refuses paths that escape the destination, unlike a hand-rolled unzip
+  execFileSync("ditto", ["-x", "-k", target, into], { stdio: "ignore" });
+  console.log(`unpacked ${path.basename(target)} -> ${into}`);
+  return into;
+}
+
+function runFromDir(rootIn: string): void {
+  const root = unpackIfZip(rootIn);
+  const seen = new Map<string, string>();
+  const done = loadDone();
+  for (const line of existsSync(MANIFEST) ? readFileSync(MANIFEST, "utf8").split("\n") : []) {
+    if (!line.trim()) continue;
+    try {
+      const row = JSON.parse(line) as Row;
+      const key = row.original_sha256 ?? null;
+      if (key && row.out_path && existsSync(path.join(OUT_ROOT, row.out_path)) && row.status !== "duplicate") {
+        seen.set(key, row.out_path);
+      }
+    } catch {
+      /* torn line */
+    }
+  }
+
+  const files: { abs: string; rel: string }[] = [];
+  const walk = (dir: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name.startsWith(".")) continue;
+      const abs = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(abs);
+      else files.push({ abs, rel: path.relative(root, abs) });
+    }
+  };
+  walk(root);
+  files.sort((a, b) => a.rel.localeCompare(b.rel));
+  console.log(`${files.length} files under ${root}`);
+
+  if (existsSync(HASH_INDEX)) {
+    for (const line of readFileSync(HASH_INDEX, "utf8").split("\n")) {
+      if (!line.trim()) continue;
+      try {
+        const rec = JSON.parse(line) as { h: string; p: string };
+        if (rec.h && rec.p && existsSync(path.join(OUT_ROOT, rec.p))) seenHashes.set(rec.h, rec.p);
+      } catch {
+        /* torn line */
+      }
+    }
+  }
+
+  let processed = 0;
+  let skipped = 0;
+  let failed = 0;
+  let before = 0;
+  let after = 0;
+  const indexByAlbum = new Map<string, number>();
+
+  for (const file of files) {
+    if (LIMIT && processed + skipped + failed >= LIMIT) break;
+    const free = freeGb();
+    if (free <= MIN_FREE_GB) {
+      console.log(`STOP: free space ${free.toFixed(1)} GiB is at the ${MIN_FREE_GB} GiB floor`);
+      break;
+    }
+    const parts = file.rel.split(path.sep);
+    const album = parts.length > 1 ? parts[0] : path.basename(root);
+    const n = (indexByAlbum.get(album) ?? 0) + 1;
+    indexByAlbum.set(album, n);
+    const mtime = statSync(file.abs).mtime;
+    const date = `${mtime.getFullYear()}-${String(mtime.getMonth() + 1).padStart(2, "0")}-${String(mtime.getDate()).padStart(2, "0")}`;
+    const assetId = `dir:${createHash("sha1").update(file.rel).digest("hex").slice(0, 16)}`;
+    if (done.has(assetId)) continue;
+
+    const stem = `${slugOf(album)}-${String(n).padStart(4, "0")}-${date}`;
+    const result = processOne({
+      src: file.abs,
+      outDir: path.join(OUT_ROOT, album.replace(/[/:]/g, "-")),
+      stem,
+      maxLongSide: MAX_LONG_SIDE,
+      quality: QUALITY,
+      videoPreset: TRANSCODE_VIDEO ? "PresetHEVC1920x1080" : null,
+      seen,
+    });
+
+    record({
+      asset_id: assetId,
+      album,
+      filename: path.basename(file.abs),
+      kind: isVideoName(file.abs) ? "video" : "photo",
+      original_bytes: result.originalBytes,
+      reduced_bytes: result.reducedBytes,
+      ratio: result.ratio,
+      out_path: result.outPath ? path.relative(OUT_ROOT, result.outPath) : "",
+      sha256: result.sha256,
+      original_sha256: result.originalSha256,
+      width: result.width,
+      height: result.height,
+      taken_at: date,
+      quality: result.quality,
+      engine: result.engine,
+      status: result.status,
+      error: result.error,
+      done_at: new Date().toISOString(),
+    });
+    if (result.status === "reduced" || result.status === "over-target") {
+      processed += 1;
+      before += result.originalBytes;
+      after += result.reducedBytes;
+      console.log(`  ${album} ${path.basename(file.abs)} -> ${path.basename(result.outPath)} ${Math.round(100 * result.reducedBytes / result.originalBytes)} %`);
+    } else if (result.status === "failed") failed += 1;
+    else skipped += 1;
+  }
+
+  console.log(`\n${processed} reduced, ${skipped} skipped, ${failed} failed; ${(before / 1e9).toFixed(2)} GB in, ${(after / 1e9).toFixed(2)} GB out`);
+}
+
+
+/* ---------- the database plan: every asset, albums and years ---------- */
+
+function runFromPlan(): void {
+  const PLAN = path.join(OUT_ROOT, "plan.jsonl");
+  if (!existsSync(PLAN)) {
+    console.error(`no plan at ${PLAN} — run scripts/photo-db.ts first`);
+    process.exit(2);
+  }
+  const seen = new Map<string, string>();
+  const done = loadDone();
+  if (existsSync(HASH_INDEX)) {
+    for (const line of readFileSync(HASH_INDEX, "utf8").split("\n")) {
+      if (!line.trim()) continue;
+      try {
+        const rec = JSON.parse(line) as { h: string; p: string };
+        if (rec.h && rec.p && existsSync(path.join(OUT_ROOT, rec.p))) seen.set(rec.h, rec.p);
+      } catch {
+        /* torn line */
+      }
+    }
+  }
+
+  const rows = readFileSync(PLAN, "utf8")
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line) as { asset: number; src: string; album: string; date: string; kind: string; bytes: number });
+
+  let processed = 0;
+  let skipped = 0;
+  let failed = 0;
+  let before = 0;
+  let after = 0;
+  const counters = new Map<string, number>();
+
+  for (const row of rows) {
+    if (LIMIT && processed + skipped + failed >= LIMIT) break;
+    const free = freeGb();
+    if (free <= MIN_FREE_GB) {
+      console.log(`STOP: free space ${free.toFixed(1)} GiB is at the ${MIN_FREE_GB} GiB floor`);
+      break;
+    }
+    const assetId = `db:${row.asset}`;
+    if (done.has(assetId)) continue;
+
+    const n = (counters.get(row.album) ?? 0) + 1;
+    counters.set(row.album, n);
+    const src = path.join(homedir(), "Pictures", row.src);
+    if (!existsSync(src)) {
+      skipped += 1;
+      continue;
+    }
+    const result = processOne({
+      src,
+      outDir: path.join(OUT_ROOT, row.album.replace(/[/:]/g, "-")),
+      stem: `${slugOf(row.album.split("/").pop() ?? row.album)}-${String(n).padStart(4, "0")}-${row.date}`,
+      maxLongSide: MAX_LONG_SIDE,
+      quality: QUALITY,
+      videoPreset: TRANSCODE_VIDEO ? "PresetHEVC1920x1080" : null,
+      seen,
+    });
+
+    record({
+      asset_id: assetId,
+      album: row.album,
+      filename: path.basename(row.src),
+      kind: result.engine === "avconvert" ? "video" : "photo",
+      original_bytes: result.originalBytes,
+      reduced_bytes: result.reducedBytes,
+      ratio: result.ratio,
+      out_path: result.outPath ? path.relative(OUT_ROOT, result.outPath) : "",
+      sha256: result.sha256,
+      original_sha256: result.originalSha256,
+      width: result.width,
+      height: result.height,
+      taken_at: row.date,
+      quality: result.quality,
+      engine: result.engine,
+      status: result.status,
+      error: result.error,
+      done_at: new Date().toISOString(),
+    });
+
+    if (result.status !== "failed" && result.status !== "duplicate" && result.outPath) {
+      appendFileSync(HASH_INDEX, `${JSON.stringify({ h: result.originalSha256, p: path.relative(OUT_ROOT, result.outPath) })}\n`);
+    }
+
+    if (result.status === "reduced" || result.status === "over-target") {
+      processed += 1;
+      before += result.originalBytes;
+      after += result.reducedBytes;
+      if (processed % 25 === 0) {
+        console.log(
+          `  ${processed} done · ${(before / 1e9).toFixed(1)} GB in -> ${(after / 1e9).toFixed(1)} GB out ` +
+            `(${Math.round(100 * after / (before || 1))} %) · free ${freeGb().toFixed(1)} GiB`,
+        );
+      }
+    } else if (result.status === "failed") failed += 1;
+    else skipped += 1;
+  }
+
+  console.log(
+    `\n${processed} reduced, ${skipped} skipped, ${failed} failed; ` +
+      `${(before / 1e9).toFixed(2)} GB in, ${(after / 1e9).toFixed(2)} GB out`,
+  );
+}
+
+if (MODE === "plan") runFromPlan();
+else if (MODE === "dir") runFromDir(FROM_DIR!);
+else if (MODE === "run") run();
 else if (MODE === "report") report();
 else inventory();

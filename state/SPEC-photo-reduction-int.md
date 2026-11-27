@@ -283,3 +283,49 @@ wanted; it has not been measured yet.
   resumes, and a quarter-size copy is reached.
 - **Not proved:** the long side after reduction, on a photo the operator has looked at. That is the
   next check — open one reduced file in Finder and compare it with the same photo in Photos.
+
+## 10. The database is the source of truth — 2026-11-27
+
+Full Disk Access landed, and the library became readable. That changed the design, because the
+database and AppleScript disagree sharply:
+
+| | AppleScript | `database/Photos.sqlite` |
+|---|---|---|
+| albums | **272** | **8,557** |
+| assets | 99,162 | **118,612** |
+| assets in no album | not enumerable | **56,341** |
+| album membership rows | — | 104,391 (copies across albums) |
+| videos | — | 46 (2.0 GB) |
+| `count of albums` | **times out at 120 s**, twice measured | instant |
+| `every media item` | times out at 120 s | instant |
+
+So an album-by-album export would have **missed half the library**, and AppleScript could not even
+enumerate the albums reliably on this size.
+
+**The new path.** `scripts/photo-db.ts` copies the database to the temp folder, joins assets to the
+album that holds them (largest album wins, so a photo in several albums is filed once), and writes
+`plan.jsonl`:
+
+```
+{ asset, src, album, date, kind, bytes }
+```
+
+`scripts/photo-reduce.ts --from-plan` then reduces straight out of `originals/` — no export, no
+Photos app, no iCloud round trip.
+
+**Measured at the plan (2026-11-27):**
+
+| | value |
+|---|---|
+| readable assets | **112,095** |
+| bytes by the size column | **125.0 GB** |
+| missing from `originals/` (cloud-only, evicted) | **6,215** |
+| destinations | 256 |
+| largest | `_by-year/2023` 14,597 · `Twitter` 13,031 · `_by-year/2024` 10,233 |
+
+**Duplicates are handled by content, not by name.** `hashes.jsonl` holds `{hash, kept path}` and is
+appended whenever a copy is kept; the reducer loads it at start, so the same bytes in three albums
+cost one file. 661 hashes recorded in the first minutes of the plan run.
+
+**Speed:** about **0.8 s per asset** from disk — 112,095 assets is roughly **25 hours**, resumable,
+stopping at the 5 GiB floor.
