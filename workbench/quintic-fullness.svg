@@ -1,0 +1,243 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000">
+<rect width="1400" height="1000" fill="#fff"/>
+<g font-family="Helvetica, Arial, sans-serif">
+<text x="24" y="30" font-size="20" font-weight="600">Fig. QF1 — fullness α: six guide points blended from the chord (α 0) to the curve (α 1)</text>
+<text x="24" y="52" font-size="13" fill="#555">P_i = (1 − α)·L_i + α·G_i for i = 1…4; P0 and P5 fixed. Pale dots are the six control points; the dark line is the quintic drawn as a six-span cubic chain.</text>
+<text x="24" y="72" font-size="13" fill="#555">This is the fixture in workbench/quintic-fullness.json: the extension's output at each α should match these points.</text>
+<text x="245.6" y="88" font-size="14" font-weight="600" text-anchor="middle">α = 0</text>
+<text x="496.79999999999995" y="88" font-size="14" font-weight="600" text-anchor="middle">α = 0.25</text>
+<text x="748" y="88" font-size="14" font-weight="600" text-anchor="middle">α = 0.5</text>
+<text x="999.1999999999999" y="88" font-size="14" font-weight="600" text-anchor="middle">α = 0.75</text>
+<text x="1250.3999999999999" y="88" font-size="14" font-weight="600" text-anchor="middle">α = 1</text>
+<text x="24" y="182" font-size="13" fill="#333">parabola</text>
+<rect x="122" y="98" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 137.91,252.00 C 149.87,252.00 161.84,252.00 173.81,252.00 C 185.77,252.00 197.74,252.00 209.70,252.00 C 221.67,252.00 233.63,252.00 245.60,252.00 C 257.57,252.00 269.53,252.00 281.50,252.00 C 293.46,252.00 305.43,252.00 317.39,252.00 C 329.36,252.00 341.33,252.00 353.29,252.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="137.91" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="180.98" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="224.06" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="267.14" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="310.22" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="353.29" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="128" y="261" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.00</text>
+<rect x="373.2" y="98" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 389.11,252.00 C 401.07,245.52 413.04,240.12 425.01,235.80 C 436.97,231.48 448.94,228.23 460.90,226.07 C 472.87,223.91 484.83,222.83 496.80,222.83 C 508.77,222.83 520.73,223.91 532.70,226.07 C 544.66,228.23 556.63,231.48 568.59,235.80 C 580.56,240.12 592.53,245.52 604.49,252.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="389.11" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="432.18" cy="228.67" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="475.26" cy="217.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="518.34" cy="217.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="561.42" cy="228.67" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="604.49" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="379.2" y="261" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.01</text>
+<rect x="624.4" y="98" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 640.31,252.00 C 652.27,239.04 664.24,228.23 676.21,219.59 C 688.17,210.95 700.14,204.47 712.10,200.15 C 724.07,195.83 736.03,193.67 748.00,193.67 C 759.97,193.67 771.93,195.83 783.90,200.15 C 795.86,204.47 807.83,210.95 819.79,219.59 C 831.76,228.23 843.73,239.04 855.69,252.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="640.31" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="683.38" cy="205.33" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="726.46" cy="182.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="769.54" cy="182.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="812.62" cy="205.33" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="855.69" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="630.4" y="261" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.01</text>
+<rect x="875.5999999999999" y="98" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 891.51,252.00 C 903.47,232.56 915.44,216.35 927.41,203.39 C 939.37,190.43 951.34,180.70 963.30,174.22 C 975.27,167.74 987.23,164.50 999.20,164.50 C 1011.17,164.50 1023.13,167.74 1035.10,174.22 C 1047.06,180.70 1059.03,190.43 1070.99,203.39 C 1082.96,216.35 1094.93,232.56 1106.89,252.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="891.51" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="934.58" cy="182.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="977.66" cy="147.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1020.74" cy="147.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1063.82" cy="182.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1106.89" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="881.5999999999999" y="261" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.00</text>
+<rect x="1126.8" y="98" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 1142.71,252.00 C 1154.67,226.07 1166.64,204.47 1178.61,187.19 C 1190.57,169.90 1202.54,156.94 1214.50,148.30 C 1226.47,139.65 1238.43,135.33 1250.40,135.33 C 1262.37,135.33 1274.33,139.65 1286.30,148.30 C 1298.26,156.94 1310.23,169.90 1322.19,187.19 C 1334.16,204.47 1346.13,226.07 1358.09,252.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="1142.71" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1185.78" cy="158.67" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1228.86" cy="112.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1271.94" cy="112.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1315.02" cy="158.67" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1358.09" cy="252.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="1132.8" y="261" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.00</text>
+<text x="24" y="354" font-size="13" fill="#333">s-curve</text>
+<rect x="122" y="270" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 136.00,416.11 C 148.18,409.21 160.36,402.31 172.53,395.40 C 184.71,388.50 196.89,381.60 209.07,374.70 C 221.24,367.80 233.42,360.90 245.60,354.00 C 257.78,347.10 269.96,340.20 282.13,333.30 C 294.31,326.40 306.49,319.50 318.67,312.60 C 330.84,305.69 343.02,298.79 355.20,291.89" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="136.00" cy="416.11" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="179.84" cy="391.26" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="223.68" cy="366.42" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="267.52" cy="341.58" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="311.36" cy="316.74" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="355.20" cy="291.89" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="128" y="433" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.00</text>
+<rect x="373.2" y="270" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 387.20,416.11 C 399.38,405.73 411.56,397.09 423.73,389.61 C 435.91,382.12 448.09,375.80 460.27,370.06 C 472.44,364.32 484.62,359.16 496.80,354.00 C 508.98,348.84 521.16,343.68 533.33,337.94 C 545.51,332.20 557.69,325.88 569.87,318.39 C 582.04,310.91 594.22,302.27 606.40,291.89" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="387.20" cy="416.11" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="431.04" cy="378.75" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="474.88" cy="360.12" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="518.72" cy="347.88" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="562.56" cy="329.25" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="606.40" cy="291.89" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="379.2" y="433" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.01</text>
+<rect x="624.4" y="270" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 638.40,416.11 C 650.58,402.25 662.76,391.87 674.93,383.81 C 687.11,375.74 699.29,370.00 711.47,365.42 C 723.64,360.84 735.82,357.42 748.00,354.00 C 760.18,350.58 772.36,347.16 784.53,342.58 C 796.71,338.00 808.89,332.26 821.07,324.19 C 833.24,316.13 845.42,305.75 857.60,291.89" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="638.40" cy="416.11" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="682.24" cy="366.24" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="726.08" cy="353.82" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="769.92" cy="354.18" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="813.76" cy="341.76" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="857.60" cy="291.89" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="630.4" y="433" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.01</text>
+<rect x="875.5999999999999" y="270" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 889.60,416.11 C 901.78,398.78 913.96,386.65 926.13,378.01 C 938.31,369.36 950.49,364.20 962.67,360.78 C 974.84,357.36 987.02,355.68 999.20,354.00 C 1011.38,352.32 1023.56,350.64 1035.73,347.22 C 1047.91,343.80 1060.09,338.64 1072.27,329.99 C 1084.44,321.35 1096.62,309.22 1108.80,291.89" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="889.60" cy="416.11" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="933.44" cy="353.73" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="977.28" cy="347.52" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1021.12" cy="360.48" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1064.96" cy="354.27" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1108.80" cy="291.89" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="881.5999999999999" y="433" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.01</text>
+<rect x="1126.8" y="270" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 1140.80,416.11 C 1152.98,395.30 1165.16,381.44 1177.33,372.21 C 1189.51,362.98 1201.69,358.40 1213.87,356.13 C 1226.04,353.87 1238.22,353.94 1250.40,354.00 C 1262.58,354.06 1274.76,354.13 1286.93,351.87 C 1299.11,349.60 1311.29,345.02 1323.47,335.79 C 1335.64,326.56 1347.82,312.70 1360.00,291.89" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="1140.80" cy="416.11" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1184.64" cy="341.21" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1228.48" cy="341.21" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1272.32" cy="366.79" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1316.16" cy="366.79" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1360.00" cy="291.89" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="1132.8" y="433" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.01</text>
+<text x="24" y="526" font-size="13" fill="#333">cyma-recta</text>
+<rect x="122" y="442" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 136.00,580.80 C 148.18,574.71 160.36,568.62 172.53,562.53 C 184.71,556.44 196.89,550.36 209.07,544.27 C 221.24,538.18 233.42,532.09 245.60,526.00 C 257.78,519.91 269.96,513.82 282.13,507.73 C 294.31,501.64 306.49,495.56 318.67,489.47 C 330.84,483.38 343.02,477.29 355.20,471.20" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="136.00" cy="580.80" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="179.84" cy="558.88" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="223.68" cy="536.96" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="267.52" cy="515.04" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="311.36" cy="493.12" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="355.20" cy="471.20" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="128" y="605" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.00</text>
+<rect x="373.2" y="442" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 387.20,580.80 C 399.38,576.23 411.56,570.91 423.73,565.07 C 435.91,559.24 448.09,552.89 460.27,546.30 C 472.44,539.70 484.62,532.85 496.80,526.00 C 508.98,519.15 521.16,512.30 533.33,505.70 C 545.51,499.11 557.69,492.76 569.87,486.93 C 582.04,481.09 594.22,475.77 606.40,471.20" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="387.20" cy="580.80" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="431.04" cy="564.36" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="474.88" cy="539.70" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="518.72" cy="512.30" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="562.56" cy="487.64" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="606.40" cy="471.20" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="379.2" y="605" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.01</text>
+<rect x="624.4" y="442" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 638.40,580.80 C 650.58,577.76 662.76,573.19 674.93,567.61 C 687.11,562.03 699.29,555.43 711.47,548.33 C 723.64,541.22 735.82,533.61 748.00,526.00 C 760.18,518.39 772.36,510.78 784.53,503.67 C 796.71,496.57 808.89,489.97 821.07,484.39 C 833.24,478.81 845.42,474.24 857.60,471.20" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="638.40" cy="580.80" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="682.24" cy="569.84" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="726.08" cy="542.44" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="769.92" cy="509.56" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="813.76" cy="482.16" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="857.60" cy="471.20" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="630.4" y="605" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.01</text>
+<rect x="875.5999999999999" y="442" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 889.60,580.80 C 901.78,579.28 913.96,575.47 926.13,570.14 C 938.31,564.82 950.49,557.97 962.67,550.36 C 974.84,542.74 987.02,534.37 999.20,526.00 C 1011.38,517.63 1023.56,509.26 1035.73,501.64 C 1047.91,494.03 1060.09,487.18 1072.27,481.86 C 1084.44,476.53 1096.62,472.72 1108.80,471.20" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="889.60" cy="580.80" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="933.44" cy="575.32" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="977.28" cy="545.18" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1021.12" cy="506.82" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1064.96" cy="476.68" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1108.80" cy="471.20" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="881.5999999999999" y="605" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.02</text>
+<rect x="1126.8" y="442" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 1140.80,580.80 C 1152.98,580.80 1165.16,577.76 1177.33,572.68 C 1189.51,567.61 1201.69,560.50 1213.87,552.39 C 1226.04,544.27 1238.22,535.13 1250.40,526.00 C 1262.58,516.87 1274.76,507.73 1286.93,499.61 C 1299.11,491.50 1311.29,484.39 1323.47,479.32 C 1335.64,474.24 1347.82,471.20 1360.00,471.20" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="1140.80" cy="580.80" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1184.64" cy="580.80" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1228.48" cy="547.92" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1272.32" cy="504.08" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1316.16" cy="471.20" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1360.00" cy="471.20" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="1132.8" y="605" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.03</text>
+<text x="24" y="698" font-size="13" fill="#333">volute</text>
+<rect x="122" y="614" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 240.27,768.00 C 239.34,760.22 238.41,752.44 237.48,744.67 C 236.55,736.89 235.62,729.11 234.69,721.33 C 233.76,713.56 232.83,705.78 231.90,698.00 C 230.97,690.22 230.04,682.44 229.11,674.67 C 228.18,666.89 227.25,659.11 226.32,651.33 C 225.39,643.56 224.46,635.78 223.53,628.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="240.27" cy="768.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="236.93" cy="740.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="233.58" cy="712.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="230.23" cy="684.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="226.88" cy="656.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="223.53" cy="628.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="128" y="777" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.00</text>
+<rect x="373.2" y="614" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 491.47,768.00 C 491.30,761.85 491.17,755.53 491.04,749.01 C 490.90,742.48 490.76,735.76 490.56,728.77 C 490.36,721.78 490.09,714.52 489.64,706.92 C 489.19,699.31 488.57,691.36 487.58,683.01 C 486.58,674.66 485.22,665.90 483.20,656.73 C 481.18,647.55 478.49,637.96 474.73,628.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="491.47" cy="768.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="490.87" cy="745.86" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="490.64" cy="721.82" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="490.03" cy="695.87" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="488.28" cy="663.84" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="474.73" cy="628.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="379.2" y="777" font-size="10" fill="#8a8a8a">Δ 0.000 · κ -0.00</text>
+<rect x="624.4" y="614" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 742.67,768.00 C 743.27,763.48 743.93,758.61 744.59,753.34 C 745.24,748.08 745.90,742.41 746.43,736.21 C 746.95,730.00 747.34,723.26 747.38,715.83 C 747.42,708.40 747.10,700.28 746.04,691.36 C 744.98,682.43 743.19,672.69 740.08,662.12 C 736.96,651.55 732.52,640.13 725.93,628.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="742.67" cy="768.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="744.80" cy="751.72" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="747.70" cy="731.63" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="749.83" cy="707.74" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="749.67" cy="671.67" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="725.93" cy="628.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="630.4" y="777" font-size="10" fill="#8a8a8a">Δ 0.001 · κ -0.00</text>
+<rect x="875.5999999999999" y="614" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 993.87,768.00 C 995.23,765.10 996.69,761.69 998.14,757.68 C 999.59,753.67 1001.04,749.06 1002.29,743.64 C 1003.54,738.23 1004.60,732.00 1005.12,724.75 C 1005.64,717.50 1005.62,709.20 1004.51,699.70 C 1003.38,690.20 1001.16,679.48 996.95,667.51 C 992.74,655.54 986.55,642.31 977.13,628.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="993.87" cy="768.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="998.74" cy="757.58" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1004.75" cy="741.45" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1009.62" cy="719.61" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1011.07" cy="679.51" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="977.13" cy="628.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="881.5999999999999" y="777" font-size="10" fill="#8a8a8a">Δ 0.001 · κ 0.01</text>
+<rect x="1126.8" y="614" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 1245.07,768.00 C 1247.19,766.73 1249.44,764.77 1251.69,762.02 C 1253.93,759.27 1256.18,755.71 1258.16,751.08 C 1260.13,746.45 1261.85,740.75 1262.86,733.67 C 1263.86,726.59 1264.15,718.12 1262.97,708.04 C 1261.78,697.97 1259.12,686.27 1253.83,672.90 C 1248.52,659.54 1240.58,644.49 1228.33,628.00" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="1245.07" cy="768.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1252.68" cy="763.43" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1261.81" cy="751.26" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1269.42" cy="731.48" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1272.47" cy="687.35" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1228.33" cy="628.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="1132.8" y="777" font-size="10" fill="#8a8a8a">Δ 0.001 · κ 0.09</text>
+<text x="24" y="870" font-size="13" fill="#333">loop</text>
+<rect x="122" y="786" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 179.97,920.31 C 187.27,920.31 194.56,920.31 201.85,920.31 C 209.14,920.31 216.43,920.31 223.72,920.31 C 231.02,920.31 238.31,920.31 245.60,920.31 C 252.89,920.31 260.18,920.31 267.48,920.31 C 274.77,920.31 282.06,920.31 289.35,920.31 C 296.64,920.31 303.93,920.31 311.23,920.31" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="179.97" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="206.22" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="232.47" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="258.73" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="284.98" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="311.23" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="128" y="949" font-size="10" fill="#8a8a8a">Δ 0.000 · κ 0.00</text>
+<rect x="373.2" y="786" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 431.17,920.31 C 444.60,913.84 453.20,908.99 459.94,906.11 C 466.64,903.20 471.46,902.23 476.28,902.74 C 481.05,903.22 485.81,905.16 491.46,907.62 C 497.08,910.09 503.59,913.06 511.08,915.58 C 518.55,918.10 526.99,920.14 535.85,921.03 C 544.68,921.95 553.91,921.70 562.42,920.31" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="431.17" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="479.57" cy="897.07" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="474.65" cy="890.23" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="492.97" cy="918.95" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="531.80" cy="925.23" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="562.42" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="379.2" y="949" font-size="10" fill="#8a8a8a">Δ 0.004 · κ 0.00</text>
+<rect x="624.4" y="786" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 682.38,920.31 C 701.93,907.36 711.85,897.66 718.03,891.91 C 724.14,886.09 726.49,884.15 728.83,885.16 C 731.09,886.14 733.31,890.00 737.32,894.93 C 741.27,899.86 746.99,905.81 754.68,910.84 C 762.33,915.89 771.93,919.96 782.35,921.75 C 792.72,923.58 803.89,923.08 813.63,920.31" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="682.38" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="752.92" cy="873.83" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="716.83" cy="860.16" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="727.22" cy="917.58" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="778.63" cy="930.16" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="813.63" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="630.4" y="949" font-size="10" fill="#8a8a8a">Δ 0.009 · κ 0.00</text>
+<rect x="875.5999999999999" y="786" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 933.57,920.31 C 959.26,900.89 970.49,886.34 976.12,877.70 C 981.64,868.97 981.52,866.07 981.38,867.58 C 981.12,869.05 980.81,874.84 983.18,882.24 C 985.46,889.64 990.39,898.56 998.29,906.10 C 1006.11,913.67 1016.87,919.78 1028.84,922.46 C 1040.76,925.22 1053.86,924.47 1064.82,920.31" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="933.57" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1026.27" cy="850.59" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="959.00" cy="830.08" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="961.47" cy="916.21" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1025.45" cy="935.08" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1064.82" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="881.5999999999999" y="949" font-size="10" fill="#8a8a8a">Δ 0.013 · κ 0.00</text>
+<rect x="1126.8" y="786" width="247.2" height="168" fill="none" stroke="#e6e6e6"/>
+<path d="M 1184.77,920.31 C 1216.59,894.41 1229.13,875.01 1234.22,863.50 C 1239.14,851.86 1236.55,847.99 1233.93,850.01 C 1231.16,851.96 1228.31,859.68 1229.04,869.56 C 1229.65,879.42 1233.79,891.31 1241.89,901.36 C 1249.89,911.46 1261.80,919.60 1275.34,923.18 C 1288.80,926.85 1303.84,925.85 1316.02,920.31" fill="none" stroke="#123a63" stroke-width="1.6"/>
+<circle cx="1184.77" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1299.62" cy="827.34" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1201.18" cy="800.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1195.71" cy="914.84" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1272.27" cy="940.00" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<circle cx="1316.02" cy="920.31" r="1.8" fill="#c0392b" fill-opacity="0.55"/>
+<text x="1132.8" y="949" font-size="10" fill="#8a8a8a">Δ 0.018 · κ 0.00</text>
+<text x="24" y="984" font-size="12" fill="#666">x right, y up, grid units. One scale per row across the five α values, so the shapes can be compared. κ at the span's two ends, in 1/grid units.</text>
+</g></svg>
