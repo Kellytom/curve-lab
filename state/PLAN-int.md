@@ -312,3 +312,15 @@ structure. Everything below is landed and pushed.
 handle lengths each) and `2(n−1)` G3 constraints, so **two degrees of freedom survive** — the end
 handles. A **closed** chain has `2n` constraints, so **none** survive: a closed G3 chain is fully
 determined, and shape control there needs G2 or declared datums.
+
+
+## Queued (2026-11-27) — photo reduction, a new project behind the curves
+
+The operator: "photos take up too much room… reducing them by half or more… set up a file system to
+mirror the photos app folders". Spec: **`state/SPEC-photo-reduction-int.md`**. Scaffold created at
+`~/Pictures/photo-reduced/` (README, empty `manifest.jsonl`, `_staging/`).
+
+The first session takes step 1 and 2 only: grant Automation for Photos, then inventory albums and the
+true library size. Nothing is exported until the library size is known, because the spec's space
+argument depends on it. The pilot (step 3) is about twenty assets from one album, checked by the
+operator in Finder, before any full run.

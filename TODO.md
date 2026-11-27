@@ -250,6 +250,11 @@ The operator's plan: publish the code, the ideas and the images. Each line below
 is a thing that blocks a public repo or a public URL; none of them changes the
 curves. Do these in order and do not guess the one decision.
 
+- [ ] **Photo reduction — the library is the next new project.** Spec is written:
+  `state/SPEC-photo-reduction-int.md`. It mirrors the Photos album folders under
+  `~/Pictures/photo-reduced/`, reduces each copy to at most half its bytes, and records every asset in
+  an append-only manifest. Not started: the library is TCC-protected, so the first step is the
+  Automation permission and an inventory, then a 20-asset pilot the operator checks in Finder.
 - [ ] **Source one real moulding profile and measure the families against it.**
   The ornament curves are fitted to targets I wrote (a smoothstep is not a cyma). Take one
   cyma or echinus from a published plate, trace it, and print the fit error against *it*.
