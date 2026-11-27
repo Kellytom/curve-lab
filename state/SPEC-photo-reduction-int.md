@@ -4,7 +4,8 @@ Status: **spec, not built.** Written 2026-11-26 for the session after `/fhandoff
 Owner of the first build: whoever picks up `next-fhandoff-int.md` first. Read this whole file
 before running anything against the library.
 
-The operator's words, 2026-11-26:
+The operator's words, 2026-11-26 (and a correction the next day: the tree mirrors the folder
+**structure**, while the files are **a quarter to a half** the size — not a same-size mirror):
 
 > "photos take up too much room. taking the photos and pngs on this macbook pro and reducing them
 > by half or more… set up a file system to mirror the photos app folders, and begin to transfer
@@ -15,8 +16,9 @@ The operator's words, 2026-11-26:
 ## 1. What this does, in one paragraph
 
 Read the album and folder names out of Photos, recreate that tree on disk under
-`~/Pictures/photo-reduced/`, export each photo there one at a time, recompress it to at most half
-its bytes, record every asset in an append-only manifest, and leave the Photos library untouched.
+`~/Pictures/photo-reduced/`, export each photo there one at a time, recompress it to **a quarter to a
+half** of its bytes, record every asset in an append-only manifest, and leave the Photos library
+untouched. The folder names are mirrored; the bytes are not.
 The operator checks the copies in Finder. Only then are the Photos originals deleted, by the
 operator, not by a script.
 
@@ -25,8 +27,11 @@ operator, not by a script.
 | fact | value | where |
 |---|---|---|
 | library | `~/Pictures/Photos Library.photoslibrary` exists | `ls` |
-| library contents | **not readable: `Operation not permitted`** | TCC protects it |
-| free space | about **112 GiB** available | `df -h /` |
+| library contents | **not readable from the shell: `Operation not permitted`** | TCC protects it |
+| **library size** | **182 GB** — measured 2026-11-27 in Finder → Get Info | the operator read it out |
+| free space | **120.25 GB** (112 GiB) on the Data volume | `df`, `system_profiler` |
+| disk in use | 499.96 GB capacity, about 380 GB used | `system_profiler SPStorageDataType` |
+| video tool | `/usr/bin/avconvert` exists; **no ffmpeg, no HandBrake** | `command -v` |
 | `sips` | `/usr/bin/sips`; reads and writes `heic`, `jpeg`, `png`, `tiff` | `sips --formats` |
 | mozjpeg | `cjpeg`, `djpeg`, `jpegtran` in `/usr/local/bin` | `command -v` |
 | pngquant / oxipng / optipng / zopflipng | all in `/usr/local/bin` | `command -v` |
@@ -69,6 +74,37 @@ A PNG in the photo set is a screenshot or an exported graphic: it will usually b
 pass, and it must never be converted to JPEG (line art shows ringing). Same manifest, same rules,
 `engine: "pngquant"`.
 
+### What 182 GB against 120 GB free means
+
+**The mirror is of the folder structure, not of the bytes.** The operator's correction, 2026-11-27:
+"it is not a mirror, it is 1/4 to 1/2 the size." The album and folder names are reproduced; the files
+are **a quarter to a half** of their originals, so the reduced set is **45–91 GB**, not 182 GB.
+
+That still does not fit as one staging job, so two rules hold:
+
+1. **Stream, never stage.** Export one asset, reduce it, write it, delete the exported original. Peak
+   extra space is one file plus the reduced set — never a second copy of the library.
+2. **Batch by album, and let the operator delete between batches.** At the top of the range
+   (91 GB) the peak is `380 GB used + 91 GB` ≈ 471 GB of 500 GB — under 30 GB spare, which is too
+   thin for macOS and for iCloud downloads. At **a third** (≈ 61 GB) the peak is ≈ 441 GB, leaving
+   ≈ 59 GB. So the default targets the **lower half of the range**: aim at a third, accept up to a
+   half, and stop a batch that would push free space under 40 GB.
+3. **The cloud is a space trap.** If this library is set to "Optimize Mac Storage", exporting a
+   cloud-only original **downloads it into the library** and grows 182 GB while the run is going. The
+   first session must read that setting before exporting anything, and a batch must be small enough
+   that a download surge cannot fill the disk. If the library turns out to be optimised, say so and
+   stop: the plan changes from "reduce the library" to "reduce it in cloud-sized batches".
+
+### Videos are the unknown half of "half"
+
+182 GB of photos and videos is not 182 GB of photos. A phone library commonly spends a fifth to a
+third of its bytes on video, and those are the bytes hardest to halve. `avconvert` is present, so
+video can be transcoded (HEVC preset), but that is a separate quality decision and a slower run.
+
+**Measure the video share in the inventory**, before promising "half or more": if video is 40 % of
+the bytes, the photo path alone cannot reach the target and the spec must say so with the number
+rather than quietly missing it.
+
 ## 3. Decisions to take before the first export
 
 Each has a recommendation; the operator may overrule.
@@ -78,10 +114,10 @@ Each has a recommendation; the operator may overrule.
 | D1 | what "mirror the folders" means | **albums and folders as directories**, top-level folder as parent; anything in no album goes to `_by-year/YYYY/` | Photos' albums are the folders the operator sees; the library's own `originals/` is a hash tree with no names |
 | D2 | export the **original** or the **edited** version | edited (the version they see) | `using originals true` exports the pre-edit file, which will not match the album on screen |
 | D3 | output format | keep the source format: HEIC stays HEIC, JPEG stays JPEG; PNG stays PNG | converting HEIC→JPEG loses the format's size advantage; keeping it is smaller |
-| D4 | the size target | **≤ 50 % of the original bytes**, long side ≤ 3000 px | the operator's "reduced by half or more"; 3000 px matches the project's image limit |
-| D5 | quality floor | JPEG/HEIC quality 80 first; if that misses 50 %, try 70 once; if it still misses, keep the 80 copy and record `over-target` | never chase a number into visible mush |
+| D4 | the size target | **a quarter to a half of the original bytes — aim at a third**, long side ≤ 3000 px | the operator, 2026-11-27: "it is 1/4 to 1/2 the size"; a third fits the disk with 59 GB spare, a half does not |
+| D5 | quality floor | JPEG/HEIC quality 80 with a 3000 px long side first; if that lands above a half, try 70 once; if it still does, keep the 80 copy and record `over-target` — never chase a number into visible mush | the quality is judged in Finder by the operator, not by the ratio |
 | D6 | small files | anything already under 400 KB is **copied without re-encoding** and marked `skipped-small` | re-encoding a small file costs quality and saves nothing |
-| D7 | Live Photos, videos | copy the still; record the `.MOV` companion as `skipped-video` and say so | the motion is not recoverable from the still, and the operator decides separately |
+| D7 | Live Photos, videos | **measure first, then decide**: keep the still, record the `.MOV` as `skipped-video` until the inventory says what videos cost; then one decision for all of them (transcode with `avconvert` or keep) | the motion is not recoverable from the still, and video is the part that decides whether "half" is reachable |
 | D8 | duplicates and bursts | one manifest row per Photos asset id; never merge | deleting a duplicate is the operator's call |
 
 ## 4. The pipeline
@@ -169,7 +205,8 @@ setting costs twenty photos, not a library.
 
 ## 8. The first action of the next session
 
-Grant the permission and measure the library — nothing else:
+Grant the permission, then measure the three numbers that decide everything — album counts, the video
+share, and whether the library is optimised:
 
 ```sh
 osascript -e 'tell application "Photos" to get name'
@@ -177,5 +214,6 @@ osascript -e 'tell application "Photos" to count (every media item)'
 ```
 
 Then, before any export, run a dry inventory that prints album names and counts and writes nothing.
-The number that decides the plan is **total library bytes and assets needing download**; without it
-the space argument in §6 is a guess.
+The library size is now known (182 GB); what is still unknown is **the video share**, **the asset
+count**, and **whether the library is optimised for storage**. Those three set the batch size, and the
+batch size is what keeps the peak under 120 GB.
