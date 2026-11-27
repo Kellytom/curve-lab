@@ -569,3 +569,29 @@ describe("SideCurveOffsetTest", () => {
     nodeTest("tests/js/plate-offset.test.mjs");
   });
 });
+
+describe("SidechatWindowTest", () => {
+  test("test_the_sidechat_window_opens_the_sidechat_agent", (t) => {
+    // The operator, 2026-11-27: "when i clickk the sidechat icon, it comes up as 'side
+    // chat' in the top name but 'build - deepseek' in this box". The shared OpenCode
+    // service gives every new session its own default agent (`build`, from
+    // ~/.config/opencode/opencode.jsonc), so `--session` alone opened Build in the Side
+    // Chat window and the default_agent in sidechat.json never applied. The launcher must
+    // create the session with the sidechat agent, and switch a resumed id, before the TUI
+    // opens it.
+    const launcher = path.join(
+      homedir(), "Applications", "Side Chat.app", "Contents", "MacOS", "run",
+    );
+    if (!existsSync(launcher)) return t.skip("the side-chat launcher is not installed here");
+    const run = readFileSync(launcher, "utf8");
+    assert.ok(run.includes("/api/session --data"), "the launcher creates the session itself");
+    assert.ok(
+      run.includes('\\"agent\\":\\"sidechat\\"'),
+      "the new session is created with the sidechat agent",
+    );
+    assert.ok(
+      run.includes('{"agent":"sidechat"}'),
+      "a resumed session is switched to the sidechat agent",
+    );
+  });
+});

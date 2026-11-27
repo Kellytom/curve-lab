@@ -4321,3 +4321,22 @@ Later in the same session: the data contract caught the five new workbench JSON 
 **Python**, which is the side the extension lives on, and `tests/test_quintic_contract.py` runs it
 in the suite. Final gate: quintic tests 25 JS + 4 Python, register 36, `--fast` 14 modules green,
 `data_format --check` 67/67 stamped, tree clean at `e11ba983`.
+
+## 2026-11-27 (the Side Chat window opened Build)
+
+- **The fault, as the operator saw it:** "when i clickk the sidechat icon, it comes up as 'side chat'
+  in the top name but 'build - deepseek' in this box" — the window title was right and the agent line
+  was wrong.
+- **Why:** `default_agent` in `~/.config/opencode/sidechat.json` is not the lever. The shared service
+  applies **its own** config (`opencode.jsonc` → `default_agent: "build"`) to every new session, so
+  `opencode --session <new id>` came back `"agent":"build"`. Proved with a throwaway TUI session on
+  the shared service, created with `--session` alone.
+- **The fix, in the launcher** (`~/Applications/Side Chat.app/Contents/MacOS/run`): it creates the
+  session before the TUI opens it — `POST /api/session` with `agent: sidechat` — and switches the
+  agent on a resumed id (`POST /api/session/<id>/agent`). Proved the other way: a session created
+  that way ran as `"agent":"sidechat"` and its reply began with the sidechat prompt's `---` rule.
+  Guard: `SidechatWindowTest` in `tests/test_regressions.ts` (row 77); a fake launcher without the
+  two calls fails it.
+- **Removed:** the dead `SIDE_CHAT_MODEL` variable — the launcher never read it, and the comment
+  claimed it did.
+- **Next:** unchanged (`state/PLAN-int.md`).
