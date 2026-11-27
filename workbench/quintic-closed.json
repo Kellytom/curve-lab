@@ -1,0 +1,334 @@
+{
+ "format": "curve-lab.quintic/1",
+ "degree": 5,
+ "createdBy": "scripts/quintic-closed.ts",
+ "axes": {
+  "x": "right",
+  "y": "up",
+  "units": "grid",
+  "extent": [
+   -60,
+   60,
+   -60,
+   60
+  ]
+ },
+ "count": 1,
+ "curves": [
+  {
+   "uid": "ring-four-quarter",
+   "group": "ornament",
+   "family": "ring",
+   "name": "four-span closed ring",
+   "note": "one quarter rotated four times; G1 exact at every join because rotation is rigid",
+   "closed": true,
+   "winding": "ccw",
+   "fitError": 0.325,
+   "selfCrossings": 0,
+   "spans": [
+    {
+     "uid": "ring:0",
+     "kind": "quintic",
+     "points": [
+      [
+       60,
+       0
+      ],
+      [
+       60,
+       19
+      ],
+      [
+       53,
+       38
+      ],
+      [
+       38,
+       53
+      ],
+      [
+       19,
+       60
+      ],
+      [
+       0,
+       60
+      ]
+     ],
+     "weights": null,
+     "frame": {
+      "start": {
+       "p": [
+        60,
+        0
+       ],
+       "tangent": [
+        0,
+        19
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      },
+      "end": {
+       "p": [
+        0,
+        60
+       ],
+       "tangent": [
+        -19,
+        0
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      }
+     }
+    },
+    {
+     "uid": "ring:1",
+     "kind": "quintic",
+     "points": [
+      [
+       0,
+       60
+      ],
+      [
+       -19,
+       60
+      ],
+      [
+       -38,
+       53
+      ],
+      [
+       -53,
+       38
+      ],
+      [
+       -60,
+       19
+      ],
+      [
+       -60,
+       0
+      ]
+     ],
+     "weights": null,
+     "frame": {
+      "start": {
+       "p": [
+        0,
+        60
+       ],
+       "tangent": [
+        -19,
+        0
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      },
+      "end": {
+       "p": [
+        -60,
+        0
+       ],
+       "tangent": [
+        0,
+        -19
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      }
+     }
+    },
+    {
+     "uid": "ring:2",
+     "kind": "quintic",
+     "points": [
+      [
+       -60,
+       0
+      ],
+      [
+       -60,
+       -19
+      ],
+      [
+       -53,
+       -38
+      ],
+      [
+       -38,
+       -53
+      ],
+      [
+       -19,
+       -60
+      ],
+      [
+       0,
+       -60
+      ]
+     ],
+     "weights": null,
+     "frame": {
+      "start": {
+       "p": [
+        -60,
+        0
+       ],
+       "tangent": [
+        0,
+        -19
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      },
+      "end": {
+       "p": [
+        0,
+        -60
+       ],
+       "tangent": [
+        19,
+        0
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      }
+     }
+    },
+    {
+     "uid": "ring:3",
+     "kind": "quintic",
+     "points": [
+      [
+       0,
+       -60
+      ],
+      [
+       19,
+       -60
+      ],
+      [
+       38,
+       -53
+      ],
+      [
+       53,
+       -38
+      ],
+      [
+       60,
+       -19
+      ],
+      [
+       60,
+       0
+      ]
+     ],
+     "weights": null,
+     "frame": {
+      "start": {
+       "p": [
+        0,
+        -60
+       ],
+       "tangent": [
+        19,
+        0
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      },
+      "end": {
+       "p": [
+        60,
+        0
+       ],
+       "tangent": [
+        0,
+        19
+       ],
+       "kappa": 0.015512,
+       "rate": 0.00007
+      }
+     }
+    }
+   ],
+   "joins": [
+    {
+     "uid": "join:ring:0",
+     "a": {
+      "span": "ring:0",
+      "end": "end"
+     },
+     "b": {
+      "span": "ring:1",
+      "end": "start"
+     },
+     "continuity": "G3",
+     "residual": {
+      "position": 0,
+      "tangentDegrees": 0,
+      "kappa": 0,
+      "rate": 0
+     }
+    },
+    {
+     "uid": "join:ring:1",
+     "a": {
+      "span": "ring:1",
+      "end": "end"
+     },
+     "b": {
+      "span": "ring:2",
+      "end": "start"
+     },
+     "continuity": "G3",
+     "residual": {
+      "position": 0,
+      "tangentDegrees": 0,
+      "kappa": 0,
+      "rate": 0
+     }
+    },
+    {
+     "uid": "join:ring:2",
+     "a": {
+      "span": "ring:2",
+      "end": "end"
+     },
+     "b": {
+      "span": "ring:3",
+      "end": "start"
+     },
+     "continuity": "G3",
+     "residual": {
+      "position": 0,
+      "tangentDegrees": 0,
+      "kappa": 0,
+      "rate": 0
+     }
+    },
+    {
+     "uid": "join:ring:3",
+     "a": {
+      "span": "ring:3",
+      "end": "end"
+     },
+     "b": {
+      "span": "ring:0",
+      "end": "start"
+     },
+     "continuity": "G3",
+     "residual": {
+      "position": 0,
+      "tangentDegrees": 0,
+      "kappa": 0,
+      "rate": 0
+     }
+    }
+   ]
+  }
+ ]
+}
