@@ -5,61 +5,11 @@ The house rules are in `AGENTS.md` and `senior-dev.md`; the map in `LTMemory-int
 
 ### Which side of a turn folds — the plate's inside/outside rule
 
-`workbench/plate_math.js:140-162`
-
-```js
-  function curvatureWorstSide(u, v, side, strength, profileName, samples = 400) {
-    const u2 = multiply(u, u), v2 = multiply(v, v), uv = multiply(u, v);
-    const x1 = add(u2, scalePoly(v2, -1));
-    const y1 = scalePoly(uv, 2);
-    const x2 = scalePoly(add(multiply(u, derivative(u)), scalePoly(multiply(v, derivative(v)), -1)), 2);
-    const y2 = scalePoly(add(multiply(derivative(u), v), multiply(u, derivative(v))), 2);
-    const clamped = Math.max(-0.95, Math.min(4, Number(strength) || 0));
-    let worst = 0;
-    for (let i = 0; i <= samples; i += 1) {
-      const t = i / samples;
-      const a = value(x1, t), b = value(y1, t);
-      const speed = Math.hypot(a, b);
-      if (speed < 1e-12) return Infinity;
-      const cross = a * value(y2, t) - b * value(x2, t);
-      if (Math.sign(cross) !== side) continue;
-      const curvature = Math.abs(cross) / speed ** 3;
-      const factor = Math.abs(1 + clamped * profileAt(profileName, t));
-      worst = Math.max(worst, curvature * factor);
-    }
-    return worst;
-  }
-
-  function integrate(start, u, v, steps, eps = 0, bump = null) {
-```
+(file moved: `workbench/plate_math.js`)
 
 ### Rounding a rail's cusp spike
 
-`workbench/plate_math.js:337-357`
-
-```js
-  function roundSpikes(rail, limit = 100) {
-    const out = rail.map((p) => [p[0], p[1]]);
-    const turnAt = (pts, i) => {
-      const a = pts[i - 1], b = pts[i], c = pts[i + 1];
-      const v1x = b[0] - a[0], v1y = b[1] - a[1];
-      const v2x = c[0] - b[0], v2y = c[1] - b[1];
-      const l1 = Math.hypot(v1x, v1y) || 1, l2 = Math.hypot(v2x, v2y) || 1;
-      const dot = (v1x * v2x + v1y * v2y) / (l1 * l2);
-      return (Math.acos(Math.max(-1, Math.min(1, dot))) * 180) / Math.PI;
-    };
-    for (let pass = 0; pass < 4; pass += 1) {
-      for (let i = 1; i < out.length - 1; i += 1) {
-        if (turnAt(out, i) > limit) {
-          out[i] = [(out[i - 1][0] + out[i + 1][0]) / 2, (out[i - 1][1] + out[i + 1][1]) / 2];
-        }
-      }
-    }
-    return out;
-  }
-
-  const rotate = (points, deg) => {
-```
+(file moved: `workbench/plate_math.js`)
 
 ### The glue connector: a cubic whose ends lie on typed slopes
 
@@ -90,7 +40,7 @@ export function controls(p0, p3, slope0, slope1, h0, h1) {
 
 ### Class V: the arch as one stroke
 
-`app/src/lib/class-v.js:59-65`
+`app/src/lib/class-v.js:119-125`
 
 ```js
 export function archPath(built) {
@@ -133,7 +83,7 @@ export function rowFor(record, context = {}) {
 
 ### The workhorse queue: one runner, a lock, one log per job
 
-`scripts/jobq.py:80-119`
+`scripts/jobq.py:80-125`
 
 ```js
 def run(once=False, quiet=False):
@@ -171,6 +121,12 @@ def run(once=False, quiet=False):
             if not quiet:
                 print(f"{job['status']}  {job['id']}  {job['seconds']:.1f}s  "
                       f"log {job['log']}")
+            # the operator is often away: a job that lands must be heard, not just written
+            try:
+                subprocess.Popen([str(Path.home() / "bin" / "ding"), f"{job['name']}: {job['status']}"],
+                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except OSError:
+                pass
             if once:
                 return 0 if code == 0 else 1
 

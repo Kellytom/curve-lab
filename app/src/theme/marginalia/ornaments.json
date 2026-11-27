@@ -2,7 +2,7 @@
  "format": "curve-lab.marginalia/1",
  "note": "One soft-stroke ornament per curve (overlapping dots, no Béziers). Displayed at a quarter of the text width; the SVGs are generated and gitignored, the manifest is the record.",
  "scale": 0.25,
- "count": 371,
+ "count": 412,
  "curves": [
   {
    "uid": "c-0001",
@@ -1889,7 +1889,7 @@
    "uid": "c-0210",
    "name": "lace-3of8-3",
    "family": "lace",
-   "stars": 10,
+   "stars": 0,
    "file": "/ornaments/c-0210.svg",
    "width": 652,
    "height": 396.39
@@ -3342,6 +3342,375 @@
    "file": "/ornaments/c-0001a.svg",
    "width": 652,
    "height": 598.087
+  },
+  {
+   "uid": "c-0398",
+   "name": "tschirnhausen",
+   "family": "tschirnhausen",
+   "stars": 0,
+   "file": "/ornaments/c-0398.svg",
+   "width": 290.2609,
+   "height": 652
+  },
+  {
+   "uid": "c-0399",
+   "name": "tschirnhausen-half",
+   "family": "tschirnhausen",
+   "stars": 0,
+   "file": "/ornaments/c-0399.svg",
+   "width": 290.2609,
+   "height": 652
+  },
+  {
+   "uid": "c-0400",
+   "name": "tschirnhausen-rot45",
+   "family": "tschirnhausen",
+   "stars": 0,
+   "file": "/ornaments/c-0400.svg",
+   "width": 652,
+   "height": 652
+  },
+  {
+   "uid": "c-0401",
+   "name": "tschirnhausen-mirror",
+   "family": "tschirnhausen",
+   "stars": 0,
+   "file": "/ornaments/c-0401.svg",
+   "width": 290.2609,
+   "height": 652
+  },
+  {
+   "uid": "c-0402",
+   "name": "astroid",
+   "family": "astroid",
+   "stars": 0,
+   "file": "/ornaments/c-0402.svg",
+   "width": 652,
+   "height": 652
+  },
+  {
+   "uid": "c-0403",
+   "name": "cardioid",
+   "family": "cardioid",
+   "stars": 0,
+   "file": "/ornaments/c-0403.svg",
+   "width": 652,
+   "height": 381.5041
+  },
+  {
+   "uid": "c-0404",
+   "name": "deltoid",
+   "family": "deltoid",
+   "stars": 0,
+   "file": "/ornaments/c-0404.svg",
+   "width": 566.2617,
+   "height": 652
+  },
+  {
+   "uid": "c-0405",
+   "name": "nephroid",
+   "family": "nephroid",
+   "stars": 0,
+   "file": "/ornaments/c-0405.svg",
+   "width": 464.547,
+   "height": 652
+  },
+  {
+   "uid": "c-0406",
+   "name": "trifolium",
+   "family": "trifolium",
+   "stars": 0,
+   "file": "/ornaments/c-0406.svg",
+   "width": 580.1285,
+   "height": 652
+  },
+  {
+   "uid": "c-0407",
+   "name": "quadrifolium",
+   "family": "quadrifolium",
+   "stars": 0,
+   "file": "/ornaments/c-0407.svg",
+   "width": 652,
+   "height": 652
+  },
+  {
+   "uid": "c-0408",
+   "name": "epicycloid-k3",
+   "family": "epicycloid k=3",
+   "stars": 0,
+   "file": "/ornaments/c-0408.svg",
+   "width": 620.9847,
+   "height": 652
+  },
+  {
+   "uid": "c-0409",
+   "name": "epicycloid-k5",
+   "family": "epicycloid k=5",
+   "stars": 0,
+   "file": "/ornaments/c-0409.svg",
+   "width": 636.2742,
+   "height": 652
+  },
+  {
+   "uid": "c-0410",
+   "name": "hypocycloid-k5",
+   "family": "hypocycloid k=5",
+   "stars": 0,
+   "file": "/ornaments/c-0410.svg",
+   "width": 620.6879,
+   "height": 652
+  },
+  {
+   "uid": "c-0411",
+   "name": "bow",
+   "family": "bow",
+   "stars": 0,
+   "file": "/ornaments/c-0411.svg",
+   "width": 652,
+   "height": 219.8456
+  },
+  {
+   "uid": "c-0412",
+   "name": "bicorn",
+   "family": "bicorn",
+   "stars": 0,
+   "file": "/ornaments/c-0412.svg",
+   "width": 652,
+   "height": 332.18
+  },
+  {
+   "uid": "c-0413",
+   "name": "gerono",
+   "family": "gerono",
+   "stars": 0,
+   "file": "/ornaments/c-0413.svg",
+   "width": 652,
+   "height": 331.9987
+  },
+  {
+   "uid": "c-0414",
+   "name": "nodal",
+   "family": "nodal",
+   "stars": 0,
+   "file": "/ornaments/c-0414.svg",
+   "width": 652,
+   "height": 504.6716
+  },
+  {
+   "uid": "c-0415",
+   "name": "bernoulli",
+   "family": "bernoulli",
+   "stars": 0,
+   "file": "/ornaments/c-0415.svg",
+   "width": 652,
+   "height": 238.2738
+  },
+  {
+   "uid": "c-0416",
+   "name": "cruciform",
+   "family": "cruciform",
+   "stars": 0,
+   "file": "/ornaments/c-0416.svg",
+   "width": 652,
+   "height": 377.6059
+  },
+  {
+   "uid": "c-0417",
+   "name": "piriform",
+   "family": "piriform",
+   "stars": 0,
+   "file": "/ornaments/c-0417.svg",
+   "width": 504.9596,
+   "height": 652
+  },
+  {
+   "uid": "c-0418",
+   "name": "absx-gerono",
+   "family": "abs(x) gerono",
+   "stars": 0,
+   "file": "/ornaments/c-0418.svg",
+   "width": 652,
+   "height": 651.9974
+  },
+  {
+   "uid": "c-0419",
+   "name": "cissoid",
+   "family": "cissoid",
+   "stars": 0,
+   "file": "/ornaments/c-0419.svg",
+   "width": 332,
+   "height": 652
+  },
+  {
+   "uid": "c-0008a",
+   "name": "u-bowl-gothic",
+   "family": "u",
+   "stars": 0,
+   "file": "/ornaments/c-0008a.svg",
+   "width": 652,
+   "height": 491.9964
+  },
+  {
+   "uid": "c-0420",
+   "name": "semicubical",
+   "family": "semicubical",
+   "stars": 0,
+   "file": "/ornaments/c-0420.svg",
+   "width": 332,
+   "height": 652
+  },
+  {
+   "uid": "c-0421",
+   "name": "kappa",
+   "family": "kappa",
+   "stars": 0,
+   "file": "/ornaments/c-0421.svg",
+   "width": 611.7879,
+   "height": 652
+  },
+  {
+   "uid": "c-0422",
+   "name": "strophoid",
+   "family": "strophoid",
+   "stars": 0,
+   "file": "/ornaments/c-0422.svg",
+   "width": 652,
+   "height": 396.3612
+  },
+  {
+   "uid": "c-0423",
+   "name": "pear",
+   "family": "pear",
+   "stars": 0,
+   "file": "/ornaments/c-0423.svg",
+   "width": 427.6913,
+   "height": 652
+  },
+  {
+   "uid": "c-0424",
+   "name": "piriform 2x",
+   "family": "piriform 2x",
+   "stars": 0,
+   "file": "/ornaments/c-0424.svg",
+   "width": 652,
+   "height": 427.5689
+  },
+  {
+   "uid": "c-0425",
+   "name": "bean",
+   "family": "bean",
+   "stars": 0,
+   "file": "/ornaments/c-0425.svg",
+   "width": 491.9998,
+   "height": 652
+  },
+  {
+   "uid": "c-0426",
+   "name": "heart",
+   "family": "heart",
+   "stars": 0,
+   "file": "/ornaments/c-0426.svg",
+   "width": 652,
+   "height": 630.204
+  },
+  {
+   "uid": "c-0427",
+   "name": "squircle",
+   "family": "squircle",
+   "stars": 0,
+   "file": "/ornaments/c-0427.svg",
+   "width": 651.9999,
+   "height": 652
+  },
+  {
+   "uid": "c-0428",
+   "name": "rounded square",
+   "family": "rounded square",
+   "stars": 0,
+   "file": "/ornaments/c-0428.svg",
+   "width": 652,
+   "height": 652
+  },
+  {
+   "uid": "c-0274a",
+   "name": "double-1-se-1-trimmed",
+   "family": "hybrid",
+   "stars": 0,
+   "file": "/ornaments/c-0274a.svg",
+   "width": 652,
+   "height": 652
+  },
+  {
+   "uid": "c-0274b",
+   "name": "double-1-se-1-trimmed-2",
+   "family": "hybrid",
+   "stars": 0,
+   "file": "/ornaments/c-0274b.svg",
+   "width": 652,
+   "height": 652
+  },
+  {
+   "uid": "c-0429",
+   "name": "coupler-two-node",
+   "family": "coupler",
+   "stars": 2,
+   "file": "/ornaments/c-0429.svg",
+   "width": 652,
+   "height": 193.2323
+  },
+  {
+   "uid": "c-0022a",
+   "name": "wave3-balance-trimmed",
+   "family": "wave3",
+   "stars": 0,
+   "file": "/ornaments/c-0022a.svg",
+   "width": 652,
+   "height": 307.4431
+  },
+  {
+   "uid": "c-0028a",
+   "name": "lace-2-eight-3-trim-25",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0028a.svg",
+   "width": 652,
+   "height": 176.3786
+  },
+  {
+   "uid": "c-0057a",
+   "name": "lace-heart-drop-1-trim-10k",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0057a.svg",
+   "width": 652,
+   "height": 474.0613
+  },
+  {
+   "uid": "c-0057b",
+   "name": "lace-heart-drop-1-full",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0057b.svg",
+   "width": 652,
+   "height": 474.0613
+  },
+  {
+   "uid": "c-0057c",
+   "name": "lace-heart-drop-1-full-trim-10k",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0057c.svg",
+   "width": 652,
+   "height": 474.0613
+  },
+  {
+   "uid": "c-0058a",
+   "name": "lace-flourish2-1-trim-25",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0058a.svg",
+   "width": 652,
+   "height": 241.9061
   }
  ]
 }
