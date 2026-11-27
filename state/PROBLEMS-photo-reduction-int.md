@@ -51,3 +51,18 @@ changed little.
 
 **Guard.** `--max-long-side` is a flag; raising it to 4032 is the measured lever, and it is named in
 the spec rather than buried in the code.
+
+## 5. The copies were owner-only, so other programs could not read them (2026-11-27)
+
+**Symptom.** The operator, 2026-11-27: "obviously the photos should be available to the finder, and
+any other program." Files existed but opened as `-rw-------`.
+
+**Cause.** Photos' AppleScript export writes each file `0600`, and `cp` and `sips` do not widen it. The
+tree was therefore readable only by the account that made it — private to the point of looking broken.
+
+**Fix.** `chmod 0644` on every file written and `0755` on every album directory, in `handle()` in
+`scripts/photo-reduce.ts`; the existing tree was widened in one pass.
+
+**Proved.** `ls -l` shows `-rw-r--r--`; `qlmanage -t` produced a thumbnail of a reduced file, so
+Quick Look and Finder can preview it; `mdls` reports `kMDItemKind = "JPEG image"`, so Spotlight reads
+it. A file no other program can open is not an archive.

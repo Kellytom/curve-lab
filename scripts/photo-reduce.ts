@@ -22,6 +22,7 @@ import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { homedir } from "node:os";
+import { chmodSync } from "node:fs";
 import path from "node:path";
 
 /* ---------- options ---------- */
@@ -346,6 +347,7 @@ function run(): void {
     if (originalBytes < 400 * 1024) {
       mkdirSync(path.dirname(outPath), { recursive: true });
       execFileSync("cp", [src, outPath]);
+      chmodSync(outPath, 0o644);
       record({
         asset_id: item.id, album, filename: item.filename, kind: "photo",
         original_bytes: originalBytes, reduced_bytes: originalBytes, ratio: 1,
@@ -377,9 +379,13 @@ function run(): void {
         rmSync(outPath, { force: true });
         mkdirSync(path.dirname(outPath), { recursive: true });
         execFileSync("cp", [src, outPath]);
+        chmodSync(outPath, 0o644);
         result = { engine: "copy", quality: null, bytes: statSync(outPath).size };
       }
 
+      // Photos exports 0600; the archive must be readable by Finder, Quick Look and anything else.
+      chmodSync(outPath, 0o644);
+      chmodSync(path.dirname(outPath), 0o755);
       const dim = imageSize(outPath);
       const status =
         result.engine === "copy" ? "skipped-larger" : result.bytes <= originalBytes / 2 ? "reduced" : "over-target";
