@@ -1,28 +1,24 @@
 ```text
-Read state/SC-HANDOFF-int.md, then state/SCToDo-int.md (the long-term track, §1), then
-curve_lab/engine.py and state/PORT-int.md.
-You are porting the clothoid engine: curve_lab/engine.py -> app/src/lib/engine.ts — Fresnel
-evaluation, Placed/Chain, with parity fixtures taken from the Python chains — and adding the
-row for it in state/PORT-int.md with the test in the npm list.
-Proves: a parity script prints 0 mismatches against the Python chains on the fixture set, the
-unit test passes, and state/PORT-int.md names the row.
+Read state/SC-HANDOFF-int.md, then ~/developer/quintics/tools/curve_to_svg.py, then the
+notes in §3 on Blender's order clamp and the missing knot vector.
+You are finishing the quintic exporter and using it once by hand: write each spline's six
+(x, y) control points into its SVG path as data-control="..." (plus data-degree="5"
+data-endpoint="true"), then drag the six points of S_curve in
+~/developer/quintics/quintic-kit.blend, re-export, and check the file round-trips.
+Proves: a fresh curve.svg parses back to the same six control points that
+spline.points[i].co reports, and the export log still prints control=6.
 ```
 
-Source: state/SC-HANDOFF-int.md, 2026-11-26, after row 2 (the variant through the save
-endpoint) landed as `16ae84b7`.
+Source: state/SC-HANDOFF-int.md, 2026-11-26. The previous session was machine cleanup and
+Blender tooling; no repository code changed, the tree is `841c40b9` plus this handoff.
 
-Rows 3 (`print_plates.mjs` pngquant) and 6 (`gallery.test.mjs`) of
-`state/SCToDo-int.md`'s Immediate queue are **waiting on DeepSeek1**: row 3 needs the hand-over,
-row 6 is their in-flight files. Row 3's snap UI needs a live Inkscape session with the operator
-present, so it is not an unattended row either.
-
-Pushes are on hold until the operator says internet is back; commit locally and report the
-hash.
-
-This file is the sidechat's only next-action pointer. The main session's
-`next-fhandoff-int.md`, `state/HANDOFF-int.md`, `state/PLAN-int.md` and
-`state/SPRINT-int.md` belong to DeepSeek1 and are not read here.
+Open in the background: the `coreaudiod` spin (~30%) waits on a reboot the operator has refused
+for now; the Adobe paperwork (112 receipts, 12 MB shared folder, `com.adobe.*` plists) is offered
+and not done.
 
 Role: I am DeepSeek2 (the sidechat, `deep2`), the junior developer/designer. DeepSeek1, the
 senior, sets direction; the operator is the top authority. I do exactly this row and stop; if it
 turns out to need a design decision, I record the question in `state/SC-HANDOFF-int.md` and stop.
+
+This file is the sidechat's only next-action pointer. `next-fhandoff-int.md`,
+`state/HANDOFF-int.md`, `state/PLAN-int.md` and `state/SPRINT-int.md` belong to DeepSeek1.

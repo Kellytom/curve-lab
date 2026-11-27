@@ -1,109 +1,92 @@
 # SC-HANDOFF-int — the sidechat's handoff (DeepSeek2)
 
-Written 2026-11-25 at the operator's handoff request, before a context reset.
+Written 2026-11-26 at the operator's handoff request, before a context reset.
 **Identity (operator, 2026-11-24): the sidechat = `deep2` = DeepSeek2 — one agent.** DeepSeek1
-is the other. The `s` files, `data/said-deep2.json` and git for this agent's own work are mine;
-the `f` family (`next-fhandoff-int.md`, `state/HANDOFF-int.md`, `state/PLAN-int.md`,
-`state/SPRINT-int.md`) is not.
+is the other. The `s` files and git for this agent's own work are mine; the `f` family
+(`next-fhandoff-int.md`, `state/HANDOFF-int.md`, `state/PLAN-int.md`, `state/SPRINT-int.md`) is not.
+
+This session did **no repository work**. It was machine cleanup plus Blender/quintic tooling. The
+tree was clean at `841c40b9` throughout; the only repo change is this handoff and its pointer.
 
 ## 1. Where the work stands
 
-1. **The register in TypeScript** — `tests/test_regressions.ts`, 36 rows, names identical to
-   `tests/test_regressions.py` (diffed against every `def test_`, 36/36), 35 pass and the one
-   known red (`DataReadmeCountsTest`). `scripts/test.py` runs it in `run_register()`. Commit
-   `4515f906`.
-2. **`/shandon`** — the sidechat's opening command, which did not exist; `/sfocus` names its
-   twin. Commit `98e16b71`.
-3. **The gothic desk** — `/gothic/` and `/gothic/<uid>` cut every stored curve at `t = 1/2 ∓ q`
-   and save the arch. Proof: 18 tests in `tests/js/gothic.test.ts`; `c-0008a u-bowl-gothic` saved.
-   **Committed and pushed in an earlier session.**
-4. **The glue quintic (G3)** — `/glue/` kind "quintic (G3)"; six end conditions printed; the
-   stated case at 1e-9. Proof: `tests/js/glue.test.ts` (5). **Committed and pushed earlier.**
-5. **The TS ports** — `crossings.ts` (parity on 50 walks), `curve-analysis.ts` (405/405 rows),
-   `root-search.ts` (pinned row: grid 105, bend 1.1696, inflections 2, crossings 3, places 3,
-   grace 0.0445), `coupler-curves.ts` (49 curves, Python agrees exactly). Proof: their
-   `tests/js/*.test.ts`. **Committed and pushed earlier.**
-6. **The Tschirnhausen pieces** — six glue-ready pieces on `workbench/side-tests.html`, registered
-   as Study rows. Proof: `/gothic/` names the four source pages. **Committed and pushed earlier.**
-7. **The recent-work appendix** — `/chat-display/recent-work/`. **Committed and pushed earlier.**
-8. **The identity note** — `AGENTS.md`, `state/SCmemory-int.md` and this file. **Committed.**
-9. **The `f`-file blocks** (`state/HANDOFF-int.md`, `state/PLAN-int.md`,
-   `state/REGRESSIONS-int.md`, `TODO.md`) — **uncommitted**, DeepSeek1's to review.
-10. **The variant through the save endpoint** (row 2) — `inkscape/ph_variant.py`'s
-    `sandbox_payload` posted to `POST /api/sandbox-curves`; the row lands in the database and
-    `data/sandbox-curves.json` with `base_uid` set and the registry untouched;
-    `app/src/lib/desk-candidates.ts` + `/tune/<spine>`'s "Candidates posted from Inkscape"
-    section show it. Commit `16ae84b7`, which was written by the other agent from the tree it
-    found (see §3, the collision note). Proved twice: `c-0010a` (their post) and `c-0002a`
-    (mine, registry hash `f2adfb90` unchanged).
-11. **Nothing is pushed from this session.** Pushes are on hold (see §3).
+1. **No code change this session.** `git status --short` is empty at `841c40b9` on `main`.
+2. **The 2026-11-25 workstreams still stand** — TypeScript register (`tests/test_regressions.ts`),
+   `/shandon`, the gothic desk, the glue quintic, the TS ports, the Tschirnhausen pieces, the
+   recent-work appendix. Proof: `git log --oneline -20` and the rows in the previous handoff.
+   None of them was touched or verified again today.
+3. **Disk: 27.1 GB → 113 GB free.** Proof: `df -h /System/Volumes/Data`. Ten cache rows, Chrome
+   caches, the Mylio library (21 GB), `~/Local Sites LOM` (8 GB) and two Wine stacks removed.
+4. **Audio driver fault fixed, then it partially came back.** The orphaned
+   `MSTeamsAudioDevice.driver` was moved to `/Library/Audio/Plug-Ins/HAL-Disabled/`; `coreaudiod`
+   fell 55.7% → 0.4%, then climbed to ~30% after the audio settings were reloaded at 22:12.
+   Proof: `ls /Library/Audio/Plug-Ins/HAL/` (empty), `ps -o pcpu= -p $(pgrep -x coreaudiod)`.
+5. **Adobe removed by hand, not with Adobe's uninstaller** (that is a GUI app). 0 Adobe processes;
+   the apps, `/Library/Application Support/Adobe` and all launch agents/daemons are gone.
+   Proof: `pgrep -f -i adobe` is empty. Left behind: 112 receipts in `/var/db/receipts`,
+   `/Users/Shared/Adobe` (12 MB), ~15 `com.adobe.*` plists. **Uncommitted, and offered, not done.**
+6. **Blender 4.2.23 LTS (Intel) installed** at `/Applications/Blender.app`. Proof: headless launch
+   exits 0 and prints `4.2.23 LTS`; a Workbench render writes a PNG. EEVEE headless hangs.
+7. **The quintic kit** at `~/developer/quintics/` — `quintic-kit.blend` (four six-point quintics
+   with cages), `tools/curve_to_svg.py` (sampled SVG + dashed control polygon),
+   `tools/quintic_kit.py` (regenerates the blend), `tools/refit.py` (the invertibility test),
+   `curve.svg`. **Outside the repo by design, so not committed.**
+8. **PDF default changed** to PDF Expert (`com.readdle.PDFExpert-Mac`), was Acrobat.
+   Proof: `LSSetDefaultRoleHandlerForContentType` returned 0 and reads back the new bundle id.
 
 ## 2. The operator's open asks, in order
 
-1. **The TypeScript ports** — "add to your todo: transfer to typescript … and make sure you are
-   writing directly in typescript not js". Done: crossings, analysis, root_search, coupler, the
-   gothic family, the glue family, **the register**. Open: retiring the Python twin (row 7).
-   First file: `state/SCToDo-int.md`.
-2. **The gothic/glue work** — "we will use rational fraction values of the parametric" (done: the
-   `t` pair); "Tschirnhausen and variations that would allow me to glue curves together" (pieces
-   done; the join at the node needs the quintic's own loop mode — row 5, waiting on a shape).
-   First file: `state/SPEC-glue-int.md`.
-3. **"the curves we need are not stored per se …"** — extra-curves, glue, class V, side-tests
-   (done as pages, links and Studies). First file: `state/SCToDo-int.md`.
-4. **"keep working and dont stop to ask … i wont be here and that will block"** — the standing
-   instruction; the living queue is `state/SCToDo-int.md` (the set of 2026-11-24).
-5. **"make a note … sidechat = deep2 = deepseek2"** — done; named in the header and in
-   `state/SCmemory-int.md` §Who I am.
+1. **"lets get back to the choice of blender, geogebra or inkscape to draw the outer control
+   curve, which renders the inner quintic bezier"** — open. First file:
+   `~/developer/quintics/quintic-kit.blend`, then §3 below.
+2. **"how do i draw a few quick curves in blender to get a feel for the quintics?"** — answered;
+   the kit exists, the keystrokes were given: `Tab`, `Alt+A`, click one end point, `E`, click.
+   Not yet exercised by the operator.
+3. **"get rid of adobe but not the data"** — done except the paperwork listed in §1.5; first file:
+   nothing to read, one admin command.
+4. **"no reboot for now"** — the `coreaudiod` regression is open and waits on a reboot or a
+   device check. First file: this handoff, §1.4.
+5. **"keep caffinate"** — no action, `com.local.caffeinate` left running.
 
 ## 3. Environment facts a fresh session must not rediscover
 
-- **Identity:** sidechat = `deep2` = DeepSeek2; git is mine for my own work, one committer at a
-  time. If a `/fhandon` arrives here by mistake, say so and ask — do not commit as DeepSeek1.
-- **Pushes are on hold.** `state/SCmemory-int.md` (2026-11-21): "No more internet … commit
-  locally when the gate is green and hold the push until the operator says internet is back."
-  The operator's latest word in this session was still "commit and push"; the push was held, so
-  say the command and let them decide.
-- **The register is TypeScript now** (`tests/test_regressions.ts`). The Python twin stays in
-  place until row 7 retires it, so `grep test_regressions` still finds 60+ references — do not
-  read that as drift; read row 7.
-- **`scripts/test.py`**: the register runs in `run_register()` after the JS tests, and `--slim` /
-  `--slow` skip it. `--fast` is ~75 s and is a background job.
-- **`.ts` and `.js` tests need separate `node --test` invocations**; one invocation mixing them
-  loses ESM detection for the `.ts`. `scripts/test.py` splits the groups.
-- **The fast gate's reds are not mine.** `data/README.md` says `curves.json` holds 405 rows and
-  it holds 406 (DeepSeek1's). `test_hub_stills` also fails: four hub stills are older than the
-  pages DeepSeek1 has modified in the tree — `node scripts/hub_shots.mjs` re-renders them, which
-  would bake their in-flight pages into images, so **do not run it** until they say the pages are
-  settled. `TrimCurveTest` passes now.
-- The analysis CLI is a slow batch (about five minutes); its test checks six rows and the pinned
-  count, not the full run. `root_search`'s full search is about 60 s; its test is 0.5 s.
-- **Node 24 at `~/node24`**; the app is Astro on **4321** (health must say `node v24`, `astro 7`);
-  the generated lab pages are a Python server on **8003**.
-- **The chat-display route is mine.** A new appendix is one markdown file in
-  `app/src/data/chat-display/`; the renderer has no tables, so use lists.
-- The mailboxes are `archive/notes/deep-to-side.md` and `archive/notes/side-to-deep.md`.
-- **Two agents shared this tree on 2026-11-26.** Commit `16ae84b7` ("tune: candidates posted from
-  Inkscape…") was made by the other agent at 19:25 from a tree that already carried my
-  `desk-candidates.test.ts` rename and tune-page edit, so its message describes its own post
-  (`c-0010a`) and the message names the test as `.mjs`. The page ended up with **two** candidate
-  sections; I removed mine and kept the one the page spec checks ("Candidates posted from
-  Inkscape"). Before a session starts writing, run `git log -3 --oneline` and `git status`; if
-  files you did not touch are moving, say so before committing.
-- No brew installs; no internet; two gate tripwires after a doc edit are refreshers, not faults
-  (`scripts/llms_full.py`, `scripts/reading_counts.py`).
-- Cameras on my own page work: Playwright via `node scripts/shot.mjs <url> <out.png>` under
-  `~/node24`, never the Review pane.
+- **Blender's order is clamped silently to the point count.** `Add → Curve → Path` gives 5 points;
+  `order_u = 6` then means degree 4. Six points plus `order_u = 6` plus `use_endpoint_u` is an
+  exact degree-5 Bézier — proved to 0.0001 against de Casteljau in `tools/refit.py`.
+- **Blender cannot export SVG.** The bundled `io_curve_svg` is import-only ("Import SVG as
+  curves"). The extension "Export Curve as SVG" needs `blender_version_min = 5.0.0`, and Blender
+  5.0 ships **no Intel macOS build** — unusable here.
+- **SVG has no quintic primitive** (`M L H V C S Q T A` only). Any export samples or refits.
+  Sampling **is** invertible with uniform `t` (0.0001 control-point error); with chord-length `t`
+  it is wrong by 1.82. Degree is lost forever in a cubic refit.
+- **`.blend` stores control points as float32** (`0.1` → `0.10000000149011612`) and does not
+  expose a knot vector (`spline.knots_u` raises `AttributeError`); clamped ends are a flag.
+- **The Metal warning is benign.** Iris 550 reports Metal API 1.2; Workbench works, EEVEE is the
+  fragile path. Use `Z → Solid`.
+- **Inkscape 1.4.4** is cubic-only; **GeoGebra is not installed**; **FreeCAD is not installed**
+  (the only realistic STEP/3DM hub).
+- **TCC:** the shell is spawned by `~/.opencode/bin/opencode` whose parent is `launchd`, so Full
+  Disk Access granted to kitty does nothing. `~/Downloads`, `~/Desktop`, `~/Documents`,
+  `~/.Trash` and the Photos library stay unreadable; `mdfind`/`mdls` still return sizes from the
+  Spotlight index.
+- **The gate command changed today:** `node --test tests/test_regressions.ts` (36 tests, ~5 s).
+  The Python twin is gone.
+- **`coreaudiod` is at ~30% again** — do not read that as the driver returning; the HAL folder is
+  empty and no Teams device is listed.
+- **Pushes:** this handoff is committed and pushed at the operator's explicit word. Do not assume
+  internet is open for anything else.
 
 ## 4. The one next action
 
-**`state/SCToDo-int.md`, the long-term track §1:** port `curve_lab/engine.py` to
-`app/src/lib/engine.ts` — Fresnel evaluation, `Placed`/`Chain`, parity fixtures from the Python
-chains — and add its row to `state/PORT-int.md` with the test in the npm list.
+**Add the exact control points to the exporter, then use it once by hand.**
+In `~/developer/quintics/tools/curve_to_svg.py`, write each spline's six `(x, y)` control points
+into its `<path>` as `data-control="0,0 1,3 3,4 6,3 8,0 9,-2"` alongside the sampled `d`, and
+write the degree and knot mode as `data-degree="5" data-endpoint="true"`. Then drag the six points
+of `S_curve` in `quintic-kit.blend`, re-export, and confirm the file is both picture and record.
 
-`Proves:` a parity script prints 0 mismatches against the Python chains, the unit test passes,
-and `state/PORT-int.md` names the row.
+`Proves:` a fresh `curve.svg` parses back to the same six control points that
+`spline.points[i].co` reports, and the export log still prints `control=6`.
 
-**Questions for DeepSeek1, not to be guessed:** (a) row 5 of the 2026-11-24 set needs the
-declared loop shape before any code; (b) row 7 — retiring the Python twin of the register — edits
-their Tier-0 docs and the `f` commands: is that mine to sweep, or theirs? (c) row 3 of the
-Immediate queue (`print_plates.mjs` pngquant) waits on their hand-over.
+**Question for DeepSeek1, not to be guessed:** is a Blender-side exporter project work, or is it
+the operator's own tooling outside the repo? It lives in `~/developer/quintics/` until they say
+otherwise.
