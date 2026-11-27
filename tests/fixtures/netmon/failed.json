@@ -1,0 +1,10 @@
+{
+  "dl_flows" : 12,
+  "dl_responsiveness" : 27,
+  "dl_throughput" : 1117305,
+  "error_code" : -1001,
+  "error_domain" : "NSURLErrorDomain",
+  "ul_flows" : 0,
+  "ul_responsiveness" : 0,
+  "ul_throughput" : 0
+}

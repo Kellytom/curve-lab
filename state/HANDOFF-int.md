@@ -4340,3 +4340,34 @@ in the suite. Final gate: quintic tests 25 JS + 4 Python, register 36, `--fast` 
 - **Removed:** the dead `SIDE_CHAT_MODEL` variable — the launcher never read it, and the comment
   claimed it did.
 - **Next:** unchanged (`state/PLAN-int.md`).
+
+## 2026-11-27 (the internet monitor is running)
+
+- **The ask:** "i need a program that is always on to monitor the internet"; "it should be not
+  handrolled, able to measure when speeds go down from 40 mb to 6"; "can you run networkquality
+  all the time and log it and keep an eye for when opencode drops?"
+- **What runs:** the `local.netmon` LaunchAgent runs `scripts/netmon/daemon.ts`. Every 10 s it
+  resolves `opencode.ai` and opens TCP 443 — the layer the operator's
+  `getaddrinfo ENOTFOUND` failure sits in — and records SSID, channel, RSSI, noise and rate
+  beside every probe. Apple's `/usr/bin/networkQuality -s -c` runs at start-up, every 6 h, and
+  15 s into a drop (at most once per 10 min). `report.ts` prints the story; `sample.ts` takes a
+  reading by hand.
+- **The cost was measured before the timer was chosen:** one run moved **580 MB** (151 down,
+  430 up) at 36/155 Mbit/s. Apple's test is built for occasional use, so a 10-minute timer was
+  rejected: it would be ~28 GB a day. `NETMON_SPEED_MS` is the knob, and a start-up sample is
+  skipped when one is already newer than the interval (a crash loop cannot re-test).
+- **A unit trap, measured and fixed:** the first read of `netstat -ib` summed three `en0` rows
+  (link, IPv6, IPv4) that carry identical counters, tripling the bytes, and `dl_throughput`
+  briefly looked like bytes/s. The corrected run — 42.15 MB in 17.5 s = 2.41 MB/s — matches a
+  24.85 Mbit/s peak, so the field is bits/s; `tests/js/netmon.test.ts` pins it ("1,000,000 bits
+  per second is 1 Mbit/s").
+- **Live data:** the Mac was on `FoxwoodsPublicWiFi` when the monitor started (the home NETGEAR
+  network was seen earlier in the session), and it moved from channel 36 to channel 1 within
+  that network at 17:13 — the access-point-change event the report now counts. One healthy
+  sample: 114.4 Mbit/s down, 138.3 up, −58 dBm. Two runs during the outage ended
+  `NSURLErrorDomain/-1001` at 1.1 Mbit/s or less.
+- **Proved at the gate:** 9 netmon tests pass; the register 37 pass; launchd brings the daemon
+  back after `kill` (pid 21670 → 21783 in ~6 s, inside its 10 s respawn throttle).
+- **Next:** read `report.ts` after a few hours. The per-network table separates the home NETGEAR
+  link from the public one, and every drop row carries the speed at that minute — that is the
+  evidence for or against the repeater.
