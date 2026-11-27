@@ -250,6 +250,13 @@ The operator's plan: publish the code, the ideas and the images. Each line below
 is a thing that blocks a public repo or a public URL; none of them changes the
 curves. Do these in order and do not guess the one decision.
 
+- [ ] **Four Dependabot vulnerabilities on `main`** — 3 high, 1 low, reported by
+  GitHub after the 2026-11-26 push (`841c40b9`). Not investigated beyond the
+  count: the next step is `npm --prefix app audit` to name the packages and the
+  fixed versions, then decide update versus pin. A dependency bump can move the
+  build, so it is its own commit and it runs `npm --prefix app run gate` after.
+  Do not take a fix that changes the exact-number behaviour of a page silently.
+
 - [x] **The licence, stated once (2026-11-17).** `LICENSE` is MIT; the vendored
   Clothoids is BSD-2 with `ATTRIBUTION.md`. Checked, not changed. The package is MIT (`PROJECT.md`, the README)
   and the vendored Clothoids is BSD-2 with `ATTRIBUTION.md`; confirm every

@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:68.2%}
+.fill{height:100%;background:#8c6a21;width:67.9%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -35,7 +35,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">133 / 195 done · 68% · read-only twin of
+<div class="count">133 / 196 done · 68% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -72,17 +72,23 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>The main families are done; these are loose ends, not new work:</p>
 <li>the tiny cheap knots, for a close look: <code>m-arch</code>/<code>w-arch</code> grid 15, <code>lace-1of8-1of3-0</code> grid 42, <code>loop-7-mid-2</code> grid 90 (8 pairs), <code>wave3</code> grid 105;</li>
 <li><strong>Done 2026-11-21:</strong> <code>/figures</code> is 50 a page, 8 pages (the last 21), with the arithmetic in <code>app/src/lib/figure-pages.js</code> and its own test; <code>/curves/&lt;uid&gt;</code> stays the close look;</li>
-<li>the root lab (<code>/roots</code>) reproduces the <code>lace-*</code> family; it needs a second pair and a variable x row before it can find anything;</li>
+<li><strong>Done 2026-11-23: the root lab has a second pair and a variable x row.</strong> <code>/roots</code> now exposes</li>
+<p>p₂/q₂ (0 = off) and the x row A + B(t² − t); <code>scripts/root_search.py</code> takes <code>--second p/q</code> and <code>--x A,B</code>. The maths test pins the mirror; <code>check-roots.mjs</code> proves the sliders reach the curve.</p>
 <li>the parity sweep (u even, v odd over t ∈ [−1,1]) gives symmetry but almost no crossings — recorded, not pursued;</li>
-<li>coupler curves: my first generator zigzagged between circle-intersection branches; the family still looks worth one careful attempt.</li>
-<li><strong>The seven curated finds need plates.</strong> <code>c-0263</code>..<code>c-0269</code> are in the registry,</li>
-<p>the database and <code>/figures</code>, but not in the 90-frame set; <code>frames_build.mjs</code> will pick them up on its next run (269 chosen now, so 97 plates).</p>
-<li><strong><code>curve_pngs.mjs --only</code> overwrote <code>figures/index.json</code> with a partial list.</strong> The</li>
-<p>guard was never added; the full rebuild restored it. Add the guard or drop the flag.</p>
-<li><strong><code>migrate.mjs</code> only seeds an empty database.</strong> The additive path is</li>
-<p><code>app/scripts/add-registry-curves.mjs</code>; both should be named in the README.</p>
-<li><strong><code>scripts/curve_registry.py</code> would rebuild the registry and lose the seven finds.</strong></li>
-<p>It must learn to keep curated rows before it is run again.</p>
+<li><strong>Coupler curves, the careful attempt (2026-11-24):</strong> the generator now tracks the branch</li>
+<p>(<code>circle_hit(..., previous)</code>), so a trace follows one intersection instead of zigzagging. A sweep of 729 linkages (r2 1–3, r3 3–5, r4 2–4, ground 3–5, a 0.5–1.5, b 0.3–0.9, 720 steps) found <strong>0 curves with 4+ crossing pairs</strong> — and that was the bug: a four-bar coupler curve has <strong>at most three double points</strong>, so 4+ pairs is impossible and the filter threw away every multi-node curve it met. With the threshold at 2 and a Grashof filter (the crank shortest, so it turns a full circle), <code>--random 8000</code> finds <strong>9 curves with 2 crossing pairs and none with 3</strong>; the most symmetric is r2 1.364 · r3 4.102 · r4 4.007 · ground 1.652 · a 2.322 · b 0.376, mirror gap 1.7 %. So the family has nodes, at two of them, and the sandbox page&#x27;s &quot;none more than twice&quot; is the shape of the family, not a sampling accident. The crossing counter was a separate win: <code>curve_lab/crossings.py</code> took a 729-linkage sweep from minutes to 6.7 s. <strong>The most symmetric one is a record:</strong> <code>c-0429 coupler-two-node</code>, 721 sampled stations, two double points, candidate (not on the plates until it is starred).</p>
+<li><strong>c-0022&#x27;s shape is suspect.</strong> The operator, 2026-11-24: the parent &quot;looks wrong ... before</li>
+<p>any trimming&quot;. The plate and the figure agree with the stored rows (<code>x&#x27; = 1</code>, <code>y&#x27; = −5 + 46t − 108t² + 72t³</code>, drawn as a PH pair), so the record is the suspect, not the renderer. Compare it with the wave3 family definition and the old diamond figure.</p>
+<li><strong>Frames set: 90 or 231?</strong> <code>state/FRAMES-int.md</code> records 90 chosen curves; the current</li>
+<p>registry makes <code>frames_build.mjs</code> select 231, so <code>--write</code> would render 924 thumbnails and triple the tracked set. The operator decides before the next run.</p>
+<li><strong>Done 2026-11-23: the seven curated finds have their plates.</strong> <code>c-0263</code>..<code>c-0269</code> each</li>
+<p>have a 3000 px plate and its SVG in <code>book/print/</code> (checked file by file).</p>
+<li><strong>Done 2026-11-23: <code>curve_pngs.mjs --only</code> merges the index.</strong> A partial run writes its</li>
+<p>curves into the existing <code>figures/index.json</code>; <code>tests/test_regressions.py</code> reads the registry and the index and fails when a registry curve has no figure.</p>
+<li><strong>Done 2026-11-23: the two database paths are named in <code>app/README.md</code></strong> — <code>migrate.mjs</code></li>
+<p>seeds only an empty database, <code>add-registry-curves.mjs</code> is the additive path.</p>
+<li><strong>Done 2026-11-23: <code>scripts/curve_registry.py</code> refuses to lose curated rows.</strong> <code>--write</code></li>
+<p>compares the uids it would make with the uids already present and exits 2 naming them; <code>--force</code> is the only way past. Register row 67, <code>RegistryRebuildTest</code>.</p>
 <h2>Senior-dev pass — the measures and the claims (2026-11-19)</h2>
 <p>Not urgent enough to stop the curve work, but these are the foundation the claims rest on. In priority order:</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Calibrate the crossing counters.</strong> Done 2026-11-20 as</span></label>
@@ -129,6 +135,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>leg to a steep leg — with the join angle printed.</p>
 <h2>Going public — 2026-11-17</h2>
 <p>The operator&#x27;s plan: publish the code, the ideas and the images. Each line below is a thing that blocks a public repo or a public URL; none of them changes the curves. Do these in order and do not guess the one decision.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Four Dependabot vulnerabilities on <code>main</code></strong> — 3 high, 1 low, reported by</span></label>
+<p>GitHub after the 2026-11-26 push (<code>841c40b9</code>). Not investigated beyond the count: the next step is <code>npm --prefix app audit</code> to name the packages and the fixed versions, then decide update versus pin. A dependency bump can move the build, so it is its own commit and it runs <code>npm --prefix app run gate</code> after. Do not take a fix that changes the exact-number behaviour of a page silently.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>The licence, stated once (2026-11-17).</strong> <code>LICENSE</code> is MIT; the vendored</span></label>
 <p>Clothoids is BSD-2 with <code>ATTRIBUTION.md</code>. Checked, not changed. The package is MIT (<code>PROJECT.md</code>, the README) and the vendored Clothoids is BSD-2 with <code>ATTRIBUTION.md</code>; confirm every third-party file in <code>vendor/</code> and <code>reference/external/</code> is accounted for, and put the MIT text at <code>LICENSE</code> (check it is there) before the repo is public.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Images: rights and credit (2026-11-17).</strong> All 16 tracked reference</span></label>
