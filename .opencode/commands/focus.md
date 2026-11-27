@@ -7,15 +7,10 @@ Focus this session on curve-lab, without starting any work.
 1. Move this session's working directory to
    `/Users/thomaskelly/developer/curve-lab`. Use the session-move tool; do
    not `cd` in a shell, because a shell `cd` does not move the session.
-2. Run the register, so this session starts by knowing what is already fixed.
-   It costs a tenth of a second:
-
-   ```sh
-   .venv/bin/python -m unittest tests.test_regressions
-   ```
-
-   Then read `state/REGRESSIONS-int.md` (the faults and their guards) and
-   `state/DESIGN-int.md` (settled decisions and why). The wall clock is retired;
+2. Read `state/REGRESSIONS-int.md` (the faults and their guards) and
+   `state/DESIGN-int.md` (settled decisions and why), so this session starts by
+   knowing what is already fixed. Do not run the unit tests in focus; the test
+   run belongs to the work gate, not the opening. The wall clock is retired;
    `scripts/ctx.py` is the only measurement now.
 
 3. Read `state/RESPONSIBILITIES-int.md`. Overlap is allowed: another agent working in

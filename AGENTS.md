@@ -85,9 +85,9 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
 - **Nothing is deleted from the register** because a change made it awkward. If a
   test fails and the new behaviour is right, amend the row in that same commit
   and write why.
-- **Run it at every boundary:** `.venv/bin/python -m unittest tests.test_regressions`
-  (a tenth of a second). `/fhandon` runs it before the action, `/fhandoff`
-  before writing the block.
+- **Run it at the work gate:** `.venv/bin/python -m unittest tests.test_regressions`
+  (36 tests, measured 49 s on 2026-11-26). `/fhandoff` runs it before writing the
+  block. `/fhandon` reads the register file but does not run the tests in focus.
 - **Settled decisions go in `state/DESIGN-int.md`**, with the reason, so the same
   argument is not had twice. Published numbers go in `state/ACHIEVEMENTS-int.md`
   via `scripts/recheck.py`.

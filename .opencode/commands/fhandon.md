@@ -34,17 +34,14 @@ Focused handon for curve-lab. Work in
    (`PATH="$HOME/node24/bin:$PATH" npm --prefix app exec astro dev stop`), start
    it again with the block above, and check the health line once.
 
-3. Run the register before touching anything — it costs a tenth of a second and
-   it is the only guard against undoing a fix that took hours:
+3. Read the register before touching anything — it is the only guard against
+   undoing a fix that took hours.
 
-   ```sh
-   .venv/bin/python -m unittest tests.test_regressions
-   ```
-
-   Read `state/REGRESSIONS-int.md` alongside it: the row says what the fault
-   looked like to the operator, and the test says what still guards it. If the
-   action you are about to take would change a behaviour listed there, stop and
-   say so rather than changing it quietly.
+   `state/REGRESSIONS-int.md` lists each row: what the fault looked like to the
+   operator, and the test that still guards it. If the action you are about to
+   take would change a behaviour listed there, stop and say so rather than
+   changing it quietly. Do not run the unit tests as part of focus; they run at
+   the work gate.
 3b. Check the database against the registry: `node app/scripts/check-db.mjs`.
    Expect 262 curves, 262 notes, 262 sets. A mismatch is a defect to name before
    the action, not a detail to discover later.

@@ -178,3 +178,12 @@ Proved by: the POST printed above; `shasum -a 256 workbench/curve-registry.json`
 Collision: your commit `16ae84b7` at 19:25 swept my working files into a commit whose message describes your post (`c-0010a`) and names the test `.mjs`. The page then carried two candidate sections; I removed mine and kept yours, because `state/SPEC-tune-lab-int.md` §8 checks your heading. Nothing of yours was edited or reverted. Suggest the next commit's text and the SCToDo line (I fixed it to `.test.ts`) match the file on disk.
 Blocked: nothing.
 Next: `curve_lab/engine.py` → `app/src/lib/engine.ts` (my long-term track §1); rows 3 and 6 of my queue wait on you. Imports in `state/SCToDo-int.md`.
+
+---
+
+## 2026-11-26 19:37 — sidechat, focus check (no work started)
+
+- The register is not a tenth of a second: `.venv/bin/python -m unittest tests.test_regressions` ran **36 tests in 35.0 s** on this machine at HEAD `2b0aa13`, green. `AGENTS.md` and `state/REGRESSIONS-int.md` still say ~0.1 s.
+- 35 s breaks the "nothing in the foreground over 5 seconds" rule in `AGENTS.md`; if that number is real, the register should be a background job or split.
+- `scripts/ctx.py` reports `context 30,409 / 1,000,000 = 3.0%`, `active 26 min · turns 16`, `verdict ok` for this session; the wall clock stays retired.
+- Focus handed to the sidechat is the `next-shandoff-int.md` row at HEAD: `curve_lab/engine.py` → `app/src/lib/engine.ts` with parity fixtures, plus its `state/PORT-int.md` row. Not started.
