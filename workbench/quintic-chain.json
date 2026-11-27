@@ -1,0 +1,196 @@
+{
+ "format": "curve-lab.chain/1",
+ "tolerances": {
+  "g2RelativeKappa": 0.01,
+  "g3RelativeRate": 0.05
+ },
+ "chain": [
+  {
+   "uid": "q6-cyma-reversa-05:0",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     0
+    ],
+    [
+     48,
+     -18
+    ],
+    [
+     72,
+     -42
+    ],
+    [
+     96,
+     -60
+    ],
+    [
+     120,
+     -60
+    ]
+   ]
+  },
+  {
+   "uid": "q6-cyma-recta-05:0",
+   "points": [
+    [
+     120,
+     -60
+    ],
+    [
+     144,
+     -60
+    ],
+    [
+     168,
+     -42
+    ],
+    [
+     192,
+     -18
+    ],
+    [
+     216,
+     0
+    ],
+    [
+     240,
+     0
+    ]
+   ]
+  },
+  {
+   "uid": "q6-echinus-05:0",
+   "points": [
+    [
+     240,
+     0
+    ],
+    [
+     257,
+     0
+    ],
+    [
+     274,
+     -15
+    ],
+    [
+     287,
+     -45
+    ],
+    [
+     294,
+     -82
+    ],
+    [
+     294,
+     -120
+    ]
+   ]
+  },
+  {
+   "uid": "q6-s-curve-05:0",
+   "points": [
+    [
+     294,
+     -120
+    ],
+    [
+     294,
+     -167.507894
+    ],
+    [
+     273.287653,
+     -179.632195
+    ],
+    [
+     245.502797,
+     -179.674293
+    ],
+    [
+     224.790449,
+     -191.798594
+    ],
+    [
+     224.790449,
+     -239.306488
+    ]
+   ]
+  }
+ ],
+ "joins": [
+  {
+   "uid": "join:q6-cyma-reversa-05:0->q6-cyma-recta-05:0",
+   "between": [
+    "q6-cyma-reversa-05:0",
+    "q6-cyma-recta-05:0"
+   ],
+   "continuity": "G3",
+   "residual": {
+    "position": 0,
+    "tangentDegrees": 0,
+    "kappa": 0,
+    "rate": 0
+   },
+   "relative": {
+    "kappa": 0,
+    "rate": 0
+   },
+   "passes": {
+    "G1": true,
+    "G2": true,
+    "G3": true
+   }
+  },
+  {
+   "uid": "join:q6-cyma-recta-05:0->q6-echinus-05:0",
+   "between": [
+    "q6-cyma-recta-05:0",
+    "q6-echinus-05:0"
+   ],
+   "continuity": "G1",
+   "residual": {
+    "position": 0,
+    "tangentDegrees": 3.5083546492674384e-15,
+    "kappa": 0.016522000000000002,
+    "rate": 0.000417
+   },
+   "relative": {
+    "kappa": 0.3979095419295795,
+    "rate": 1
+   },
+   "passes": {
+    "G1": true,
+    "G2": false,
+    "G3": false
+   }
+  },
+  {
+   "uid": "join:q6-echinus-05:0->q6-s-curve-05:0",
+   "between": [
+    "q6-echinus-05:0",
+    "q6-s-curve-05:0"
+   ],
+   "continuity": "G1",
+   "residual": {
+    "position": 0,
+    "tangentDegrees": 2.5444437451708134e-14,
+    "kappa": 0.0034639999999999996,
+    "rate": 0.000217
+   },
+   "relative": {
+    "kappa": 0.471806047398529,
+    "rate": 1.0093023255813953
+   },
+   "passes": {
+    "G1": true,
+    "G2": false,
+    "G3": false
+   }
+  }
+ ]
+}
