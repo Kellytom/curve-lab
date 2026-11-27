@@ -1,7 +1,7 @@
 ---
 import { buildGallery } from "../lib/gallery.js";
 
-// Reads book/plates.json and workbench/starred.json on every request, so a new
+// Reads book/old-plates.json and workbench/starred.json on every request, so a new
 // star or a fresh export shows up without a rebuild. The page is the gallery;
 // book/index.html is no longer generated.
 import { buildIlluminations } from "../lib/bordered.js";
@@ -58,7 +58,7 @@ const plateWord = (n) => (n === 1 ? "plate" : "plates");
       <figure>
         {plate.image
           ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
-          : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code></p>}
+          : <p class="missing">PNG not exported yet — run <code>node scripts/old_plates_export.mjs</code></p>}
         <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
       </figure>
     )) : (
@@ -77,7 +77,7 @@ const plateWord = (n) => (n === 1 ? "plate" : "plates");
       <figure>
         {plate.image
           ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
-          : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code></p>}
+          : <p class="missing">PNG not exported yet — run <code>node scripts/old_plates_export.mjs</code></p>}
         <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
       </figure>
     ))}
@@ -90,8 +90,8 @@ const plateWord = (n) => (n === 1 ? "plate" : "plates");
       <figure>
         {plate.image
           ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
-          : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code> — or
-            this <code>book/plates.json</code> row has never been drawn.</p>}
+          : <p class="missing">PNG not exported yet — run <code>node scripts/old_plates_export.mjs</code> — or
+            this <code>book/old-plates.json</code> row has never been drawn.</p>}
         <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
       </figure>
     ))}

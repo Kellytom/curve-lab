@@ -23,7 +23,7 @@ what comes next. Every claim names the command that checks it.
 | stored curves agree with the exact core | 75 curves, every grid and bend | `scripts/exact_numbers.py` |
 | stored crossing counts agree with the router | every record | `scripts/crossing_audit.py` |
 | every dataset declares its format and reads through one loader | 24 files | `scripts/data_audit.py` |
-| the book plates exist and match their manifest | 29 plates | `node scripts/plates_export.mjs --check` |
+| the book plates exist and match their manifest | 29 plates | `node scripts/old_plates_export.mjs --check` |
 | the square and frame rule holds at a 45° leg | arch 0° kink, S 90° | `scripts/square_try.py` |
 | a fixed fault stays fixed | the register, row by row | `scripts/test_regressions.py` |
 

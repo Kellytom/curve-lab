@@ -1,15 +1,15 @@
 // GET /api/plate/<id> — one exported book plate, as PNG bytes.
 //
-// The plates live in book/plates/ at the repo root, outside the app, so they are
+// The plates live in book/old-plates/ at the repo root, outside the app, so they are
 // read from disk rather than copied into public/. The id is checked against the
 // plate-name pattern before it reaches the filesystem, and the resolved path
-// must stay inside book/plates/.
+// must stay inside book/old-plates/.
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { repoRoot, PLATE_ID } from "../../../lib/gallery.js";
 
-const PLATE_DIR = "book/plates";
+const PLATE_DIR = "book/old-plates";
 
 export const GET = async ({ params }) => {
   const id = params.id;

@@ -2,7 +2,7 @@
 //
 //   node scripts/plates_export.mjs
 //
-// Reads book/plates.json and workbench/real-curves.json, composes each plate
+// Reads book/old-plates.json and workbench/real-curves.json, composes each plate
 // with workbench/plate_math.js, writes book/svg/<id>.svg and book/render.html,
 // screenshots every plate with Playwright and stamps 300 dpi. No Python in
 // the path. The gallery is the Astro page at /book; this script no longer
@@ -24,7 +24,7 @@ const PNG_DIR = resolve(BOOK, "plates");
 const DPI = 300;
 const MARGIN_SHARE = 0.012;
 
-const manifest = JSON.parse(readFileSync(resolve(BOOK, "plates.json"), "utf8"));
+const manifest = JSON.parse(readFileSync(resolve(BOOK, "old-plates.json"), "utf8"));
 const curveData = JSON.parse(readFileSync(resolve(ROOT, "workbench", "real-curves.json"), "utf8"));
 if (curveData.count !== curveData.curves.length) {
   throw new Error("real-curves.json: count does not match the curve list");
