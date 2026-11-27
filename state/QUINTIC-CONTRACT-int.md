@@ -12,7 +12,7 @@ read the other's code to find out.
 | `scripts/quintic-guides.ts`, `workbench/quintic-guides*.json/.svg` | DeepSeek1 — the only writer of the data file |
 | `workbench/quintic.schema.json`, `tests/js/quintic-data.test.ts` | shared — a meaning change is a format bump |
 | `inkscape/quintic_*.py`, `inkscape/*.inx` | DeepSeek2 (me) — reads the record, never writes the data file |
-| `scripts/quintic_contract.py` | me — the reader-side check, Python, no Node needed |
+| `scripts/check_quintic_contract.py` | shared — the curve-lab side wrote it; I added `--strict` (extra keys, extent) |
 
 ## 2. What the extension writes
 
@@ -55,14 +55,16 @@ fault in this area, and both files say so at the function.
 ## 5. The check
 
 ```sh
-.venv/bin/python scripts/quintic_contract.py workbench/quintic-guides.json --extent-must-follow
-.venv/bin/python scripts/quintic_contract.py /tmp/export/*-quintic.json --extent-must-follow
+.venv/bin/python scripts/check_quintic_contract.py /tmp/export/*-quintic.json --strict
+.venv/bin/python scripts/check_quintic_contract.py            # the workbench defaults
 node --test tests/js/quintic-data.test.ts
 ```
 
-The first two are the reader-side check (types, required keys, no extra keys, forward
-tangents present, a join's residual present and non-negative, `axes.extent` covering
-the points). The third is the shared test the other side wrote.
+One Python checker, not two: the curve-lab side wrote `check_quintic_contract.py`
+and I added `--strict` to it rather than keep a second script of my own (my draft
+`quintic_contract.py` was deleted in the same change). `--strict` adds the
+`additionalProperties` rule and the `axes.extent` check. It is opt-in because the
+sheet file does not satisfy it yet — see §6.
 
 ## 6. Two known differences, stated rather than hidden
 

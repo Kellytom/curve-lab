@@ -43,7 +43,7 @@ Files:
 | `inkscape/quintic_theory.py` | the analysis: seams, PH, offsets, knots, joins, the contract writer |
 | `tests/test_quintic_math.py` | 46 tests |
 | `scripts/quintic_report.py` | every number in this document |
-| `scripts/quintic_contract.py` | the reader-side check of the format |
+| `scripts/check_quintic_contract.py` | the shared Python check (the curve-lab side wrote it; `--strict` adds the extra-key and extent rules) |
 | `scripts/check_blender_quintic.py` | Blender's own evaluation of the exported span |
 | `state/QUINTIC-CONTRACT-int.md` | this side of the contract |
 | `state/PROBLEMS-quintic-guide-int.md` | the faults it has had |
@@ -230,7 +230,7 @@ measured against Blender's own evaluation, not only against our algebra.
 ```sh
 .venv/bin/python -m unittest tests.test_quintic_math            # 46 tests
 .venv/bin/python scripts/quintic_report.py                      # every table here
-.venv/bin/python scripts/quintic_contract.py <file> --extent-must-follow
+.venv/bin/python scripts/check_quintic_contract.py <file> --strict
 .venv/bin/python scripts/check_blender_quintic.py               # Blender vs our algebra
 node --test tests/js/quintic-data.test.ts                       # the shared test
 ```

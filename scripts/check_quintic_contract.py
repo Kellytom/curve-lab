@@ -14,6 +14,11 @@ the same files and asserts the same four facts:
   4. every join carries a measured residual.
 
 Exit 1 on the first violation, with the path and the reason. Nothing is written.
+
+`--strict` also refuses keys the schema does not list (`additionalProperties:
+false`) and requires `axes.extent` to cover the points. It is off by default
+because the sheet file currently carries three extra top-level keys; run it on
+anything the extension writes before trusting that a reader can read it.
 """
 
 from __future__ import annotations
@@ -30,11 +35,25 @@ DEFAULT = [
 ]
 
 
+STRICT = False
+
+
 def fail(where: str, why: str) -> None:
     raise SystemExit(f"FAIL {where}: {why}")
 
 
+def only(record: dict, allowed: tuple, where: str) -> None:
+    """Refuse keys the schema does not list, when --strict is on."""
+    if not STRICT or not isinstance(record, dict):
+        return
+    extra = sorted(set(record) - set(allowed))
+    if extra:
+        fail(where, "keys the schema does not allow: " + ", ".join(extra))
+
+
 def check_shape(where: str, curve: dict) -> None:
+    only(curve, ("uid", "group", "family", "name", "note", "closed", "winding",
+                 "fitError", "selfCrossings", "spans", "joins"), where)
     if not curve.get("uid"):
         fail(where, "curve has no uid")
     if curve.get("closed") not in (True, False):
@@ -47,6 +66,8 @@ def check_shape(where: str, curve: dict) -> None:
         fail(where, "curve has no joins list")
 
     for span in spans:
+        only(span, ("uid", "kind", "points", "weights", "frame"),
+             f"{where}:span {span.get('uid')}")
         if span.get("kind") != "quintic":
             fail(where, f"span {span.get('uid')} is not a quintic")
         points = span.get("points")
@@ -82,6 +103,8 @@ def check_shape(where: str, curve: dict) -> None:
             fail(where, f"closed curve {curve['uid']} has no winding")
 
     for join in joins:
+        only(join, ("uid", "a", "b", "continuity", "residual"),
+             f"{where}:join {join.get('uid')}")
         residual = join.get("residual") or {}
         for key in ("position", "tangentDegrees", "kappa", "rate"):
             if key not in residual:
@@ -118,6 +141,7 @@ def check_file(path: Path) -> tuple[int, int]:
         return check_chain(path, data)
     if data.get("format") != "curve-lab.quintic/1":
         fail(str(path), f"format is {data.get('format')!r}, not curve-lab.quintic/1")
+    only(data, ("format", "degree", "createdBy", "axes", "count", "curves"), str(path))
     if data.get("degree") != 5:
         fail(str(path), "degree is not 5")
     axes = data.get("axes") or {}
@@ -129,6 +153,16 @@ def check_file(path: Path) -> tuple[int, int]:
         fail(str(path), "no curves")
     if data.get("count") != len(curves):
         fail(str(path), f"count {data.get('count')} does not match {len(curves)} curves")
+
+    if STRICT:
+        xs = [x for c in curves for sp in c["spans"] for x, y in sp["points"]]
+        ys = [y for c in curves for sp in c["spans"] for x, y in sp["points"]]
+        extent = axes.get("extent")
+        if not isinstance(extent, list) or len(extent) != 4:
+            fail(str(path), "axes.extent is not [xMin, xMax, yMin, yMax]")
+        want = [min(xs), max(xs), min(ys), max(ys)]
+        if any(abs(a - b) > 1e-6 for a, b in zip(want, extent)):
+            fail(str(path), f"axes.extent {extent} does not cover the points {want}")
 
     seen: set[str] = set()
     spans = 0
@@ -143,7 +177,10 @@ def check_file(path: Path) -> tuple[int, int]:
 
 
 def main(argv: list[str]) -> int:
-    paths = [Path(a) for a in argv[1:]] or DEFAULT
+    global STRICT
+    arguments = [a for a in argv[1:] if a != "--strict"]
+    STRICT = "--strict" in argv[1:]
+    paths = [Path(a) for a in arguments] or DEFAULT
     for path in paths:
         data = json.loads(path.read_text())
         count, spans = check_file(path)
