@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 224,
+ "count": 225,
  "rows": [
   {
    "name": "c-0001",
@@ -83,7 +83,7 @@
    },
    "candidate": true,
    "origin": "inkscape-roundtrip",
-   "savedAt": "2026-11-22T07:27:59.859Z"
+   "savedAt": "2026-11-27T00:23:09.478Z"
   },
   {
    "name": "c-0003",
@@ -124,6 +124,47 @@
    "tune": true,
    "variant": "c-0008a",
    "savedAt": "2026-11-23T22:13:53.439Z"
+  },
+  {
+   "name": "c-0010a",
+   "curveName": "m-arch-end-edited",
+   "base_uid": "c-0010",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1
+   ],
+   "speedY": [
+    3,
+    -16,
+    16,
+    0,
+    0,
+    0.25
+   ],
+   "kind": "rows",
+   "variant": "inkscape",
+   "source": "inkscape-roundtrip",
+   "transform": {
+    "degrees": 0,
+    "matrix": [
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "exact": true
+   },
+   "candidate": true,
+   "origin": "inkscape-roundtrip",
+   "savedAt": "2026-11-27T00:23:17.554Z"
   },
   {
    "name": "c-0011-s5",
