@@ -180,10 +180,16 @@ decided. `Proves:` a sweep with calibrated counters only.
    `tests/fixtures/through-inkscape-c-0002.svg`) + test_ph_variant.py (5),
    and the send/receive extensions registered and run under Inkscape's own
    inkex.
-2. **The variant proposal meets the save endpoint** — POST the payload from
-   `inkscape/ph_variant.py` through the app's save path (not the registry
-   directly), and the tune page shows the candidate. `Proves:` a posted
-   variant appears in `data/` with `base_uid` set and the registry untouched.
+2. **DONE 2026-11-26 · The variant proposal meets the save endpoint** —
+   `inkscape/ph_variant.py`'s `sandbox_payload` posted through
+   `POST /api/sandbox-curves`; the row lands in the database and in
+   `data/sandbox-curves.json` with `base_uid` set (224 → 225 rows), and
+   `workbench/curve-registry.json` keeps its hash `883a8ad9` before and after.
+   The tune page now shows it: `app/src/lib/desk-candidates.ts` +
+   `/tune/<spine>`'s "Candidates posted from Inkscape" section, drawn from the
+   posted rows at the page's values. `Proves:` the post
+   `c-0010a m-arch-end-edited` (base `c-0010`, POST 200 `{"saved":1}`) and
+   `/tune/c-0010` naming it; `app/tests/desk-candidates.test.mjs` 6/6.
 3. **The snap UI inside Inkscape** — the dialog path (send/receive) works
    headless; the live handle-drag flow needs a hand session in Inkscape to
    bind the node-edit event to `apply_snap`. `Proves:` a drag→save→receive

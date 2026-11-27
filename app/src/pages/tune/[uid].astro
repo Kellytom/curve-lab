@@ -11,6 +11,7 @@ import { prisma } from "../../lib/db.js";
 import { loadRegistry } from "../../lib/registry.ts";
 import { starsLabel } from "../../lib/provenance.js";
 import { bandSvg, frame, widerGuide } from "../../scripts/tune-render.js";
+import { candidatesFor } from "../../lib/desk-candidates.ts";
 
 // plate_math.js is CommonJS and lives outside app/, so Vite's import interop hands back no
 // default. require() reads it from disk as Node sees it, which is the same module the plate
@@ -165,6 +166,27 @@ if (guide) {
     "how far it could go, not a saved value";
 }
 
+// Candidates posted from Inkscape are desk rows whose `base_uid` is this spine and which are
+// not registry records yet. They are drawn from the speed rows they were posted with, at the
+// values above, so the page shows what was posted rather than a promise of it.
+const candidateFigures = candidatesFor(
+  deskRows, baseUid, registry.curves.map((curve) => curve.uid),
+).flatMap((candidate) => {
+  try {
+    const group = PLATE.group({
+      name: candidate.name, speedX: candidate.rows.speedX, speedY: candidate.rows.speedY,
+      width: { percent: values.widthPct },
+      character: { plus: values.plus, minus: values.minus, profile: values.profile },
+    });
+    const turned = [group.paths.slice(0, 3)].map((item) => rotatePaths(item, values.degrees));
+    const candidateBox = frame(turned.flat());
+    if (!candidateBox) return [];
+    return [{ ...candidate, svg: bandSvg(turned[0], candidateBox) }];
+  } catch {
+    return [];
+  }
+});
+
 // The same four values on other kinds, so one setting is checked across the collection rather
 // than on one curve. The kinds come from the records (row curve, stored path, a path with
 // branches, a wonk double, a polyline), never from a typed list of uids; the first curve of
@@ -314,6 +336,26 @@ for (const curve of registry.curves) {
 
   <section class="tune-versions">
     <h2>Curves from this spine</h2>
+    {candidateFigures.length > 0 && (
+      <div class="tune-candidates">
+        <h3>Posted from Inkscape — not a curve yet</h3>
+        <p class="tune-note">Each was posted by the Inkscape round trip with this curve as its
+          parent, and is drawn from the speed rows it was posted with at the values above. It
+          is a proposal, not a registry curve: it is found here by its <code>base_uid</code>,
+          not by a uid of its own, and it leaves this list when it is promoted.</p>
+        <div class="tune-kind-grid">
+          {candidateFigures.map((candidate) => (
+            <figure class="tune-kind">
+              <div set:html={candidate.svg} />
+              <figcaption>
+                <code>{candidate.uid}</code>{` ${candidate.name}`}
+                {candidate.savedAt ? ` · posted ${candidate.savedAt.slice(0, 10)}` : ""}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    )}
     <ul>
       {variants.map((variant) => (
         <li class:list={["tune-version", { current: variant.uid === record.uid }]}>
@@ -330,6 +372,28 @@ for (const curve of registry.curves) {
       <code>c-0002b</code>) and is drawn beside its parent on the plates page. The order is by
       uid for now; the ten stars will take over the order later.</p>
   </section>
+
+  {candidateFigures.length > 0 && (
+    <section class="tune-versions tune-candidates">
+      <h2>Candidates posted from Inkscape</h2>
+      <ul>
+        {candidateFigures.map((candidate) => (
+          <li class="tune-version">
+            <figure class="tune-candidate-figure" set:html={candidate.svg} />
+            <span><code>{candidate.uid}</code> {candidate.name} <b>candidate</b></span>
+            <span class="mono">
+              posted from {candidate.baseUid} · {candidate.origin}
+              {candidate.transform?.exact ? " · exact transform" : ""}
+              {candidate.savedAt ? ` · ${candidate.savedAt.slice(0, 10)}` : ""}
+            </span>
+            <p class="tune-note">Not a registry curve yet: it is a desk row whose
+              <code>base_uid</code> is this spine, drawn at the four values above from the speed
+              rows it was posted with.</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 </BaseLayout>
 
 <script type="application/json" id="tune-uid" set:html={JSON.stringify(record.uid)}></script>
@@ -383,6 +447,9 @@ for (const curve of registry.curves) {
   .tune-version { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; padding: 4px 0; border-top: 1px solid #eee3d3; }
   .tune-version .mono { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #6b5b46; }
   .tune-version.current { background: #fbf6ec; }
+  .tune-candidate-figure { flex: 0 0 120px; margin: 0; }
+  .tune-candidate-figure svg { width: 120px; height: auto; display: block; }
+  .tune-candidates .tune-note { flex-basis: 100%; }
   @media (max-width: 860px) {
     .tune-grid { grid-template-columns: 1fr; gap: 10px; }
     .tune-preview { flex: none; }

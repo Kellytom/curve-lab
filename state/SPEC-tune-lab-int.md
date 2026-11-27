@@ -134,3 +134,25 @@ confirm it works for all kinds."
       every caption gives a crossing count).
 - [ ] A per-kind choice by the operator (which row curve, which double) is not built; the
       rule is first-in-registry for now.
+
+## 8 · Candidates posted from Inkscape
+
+A curve edited inside Inkscape is posted through the app's own save endpoint
+(`POST /api/sandbox-curves`) as a desk row with `base_uid` set. It is not a registry curve
+until it is promoted, so `/tune/<spine>` shows it below the spine's own versions.
+
+- [x] The section appears only when the spine has a candidate; the page header and the
+      version list are unchanged when it has none. Check:
+      `curl -s localhost:4321/tune/c-0010 | grep -c "Candidates posted"` → 1 and the same
+      for `c-0001` → 0.
+- [x] The row is found by `base_uid` alone: a desk row for another spine, or with no parent,
+      is not shown. Check: `app/tests/desk-candidates.test.mjs`.
+- [x] A candidate that has been promoted to a registry record is listed once, in the version
+      list, never twice. Check: the same file.
+- [x] Each candidate is drawn from the speed rows it was posted with, at the page's four
+      values, with the same `plate_math.js` and band renderer as the preview. It is not a
+      link to its own `/tune/` page: a desk row has no registry record to tune.
+- [x] The row names its parent, its origin and, when the post says so, that its transform is
+      exact. Check: `/tune/c-0010` shows `c-0010a m-arch-end-edited · posted from c-0010`.
+- [x] The registry is never written by a post: `workbench/curve-registry.json` has the same
+      hash before and after. `Proves:` the post in the row-2 proof of `state/SCToDo-int.md`.
