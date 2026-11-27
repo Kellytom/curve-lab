@@ -19,7 +19,7 @@
  */
 
 import { execFileSync } from "node:child_process";
-import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { homedir } from "node:os";
 import path from "node:path";
@@ -42,7 +42,7 @@ const QUALITY = Number(flag("--quality", "80"));
 const ONLY_ALBUM = flag("--album");
 const LIMIT = Number(flag("--limit", "0"));
 const CHUNK = Math.max(1, Number(flag("--chunk", "20")));
-const MODE = has("--run") ? "run" : "inventory";
+const MODE = has("--run") ? "run" : has("--report") ? "report" : "inventory";
 
 type Album = { name: string; count: number };
 
@@ -231,6 +231,71 @@ function inventory(): void {
   console.log("\nThe video share is not in this listing; it comes from the first exported batch.");
 }
 
+
+/* ---------- report ---------- */
+
+/** Per-album summary of what is on disk, and the same table as index.html. */
+function report(): void {
+  const rows: Row[] = !existsSync(MANIFEST)
+    ? []
+    : readFileSync(MANIFEST, "utf8")
+        .split("\n")
+        .filter(Boolean)
+        .flatMap((line) => {
+          try {
+            return [JSON.parse(line) as Row];
+          } catch {
+            return [];
+          }
+        });
+
+  const byAlbum = new Map<string, { rows: number; in: number; out: number; small: number; video: number }>();
+  for (const r of rows) {
+    const a = byAlbum.get(r.album) ?? { rows: 0, in: 0, out: 0, small: 0, video: 0 };
+    a.rows += 1;
+    a.in += r.original_bytes;
+    a.out += r.reduced_bytes || r.original_bytes;
+    if (r.status === "skipped-small" || r.status === "skipped-larger") a.small += 1;
+    if (r.status === "skipped-video") a.video += 1;
+    byAlbum.set(r.album, a);
+  }
+
+  const mb = (n: number) => (n / 1e6).toFixed(1);
+  const lines: string[] = [];
+  lines.push(`album                         files      in MB    out MB   saved   small  video`);
+  for (const [album, a] of [...byAlbum.entries()].sort((x, y) => y[1].in - x[1].in)) {
+    const pct = a.in ? (100 * (1 - a.out / a.in)).toFixed(0) : "0";
+    lines.push(
+      `${album.slice(0, 26).padEnd(26)} ${String(a.rows).padStart(7)} ${mb(a.in).padStart(10)} ${mb(a.out).padStart(9)} ` +
+        `${(pct + "%").padStart(6)} ${String(a.small).padStart(6)} ${String(a.video).padStart(6)}`,
+    );
+  }
+  const tin = [...byAlbum.values()].reduce((n, a) => n + a.in, 0);
+  const tout = [...byAlbum.values()].reduce((n, a) => n + a.out, 0);
+  lines.push(`${"total".padEnd(26)} ${String(rows.length).padStart(7)} ${mb(tin).padStart(10)} ${mb(tout).padStart(9)} ${((tin ? 100 * (1 - tout / tin) : 0).toFixed(0) + "%").padStart(6)}`);
+  lines.push(`free space now: ${freeGb().toFixed(1)} GiB`);
+  console.log(lines.join("\n"));
+
+  // the same table, for double-clicking in Finder
+  const html = [
+    "<!doctype html><meta charset=utf-8><title>photo-reduced</title>",
+    "<style>body{font:14px -apple-system,system-ui,sans-serif;margin:2rem;color:#111}",
+    "table{border-collapse:collapse}td,th{padding:.3rem .8rem;border-bottom:1px solid #ddd;text-align:right}",
+    "td:first-child,th:first-child{text-align:left}code{background:#f3f3f3;padding:.1rem .3rem}</style>",
+    `<h1>photo-reduced</h1><p>${rows.length} rows, ${mb(tin)} MB in, ${mb(tout)} MB out` +
+      ` — ${tin ? (100 * (1 - tout / tin)).toFixed(0) : 0} % smaller. Free: ${freeGb().toFixed(1)} GiB.</p>`,
+    "<p>Open the album folders in this directory. The record is <code>manifest.jsonl</code>.</p>",
+    "<table><tr><th>album</th><th>files</th><th>in MB</th><th>out MB</th><th>saved</th><th>small</th><th>video</th></tr>",
+    ...[...byAlbum.entries()].map(([album, a]) => {
+      const pct = a.in ? (100 * (1 - a.out / a.in)).toFixed(0) : "0";
+      return `<tr><td>${album}</td><td>${a.rows}</td><td>${mb(a.in)}</td><td>${mb(a.out)}</td><td>${pct} %</td><td>${a.small}</td><td>${a.video}</td></tr>`;
+    }),
+    "</table>",
+  ].join("\n");
+  writeFileSync(path.join(OUT_ROOT, "index.html"), html);
+  console.log(`\nwrote ${path.join(OUT_ROOT, "index.html")}`);
+}
+
 /* ---------- run ---------- */
 
 function run(): void {
@@ -409,4 +474,5 @@ function run(): void {
 }
 
 if (MODE === "run") run();
+else if (MODE === "report") report();
 else inventory();
