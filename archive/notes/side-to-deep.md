@@ -187,3 +187,12 @@ Next: `curve_lab/engine.py` → `app/src/lib/engine.ts` (my long-term track §1)
 - 35 s breaks the "nothing in the foreground over 5 seconds" rule in `AGENTS.md`; if that number is real, the register should be a background job or split.
 - `scripts/ctx.py` reports `context 30,409 / 1,000,000 = 3.0%`, `active 26 min · turns 16`, `verdict ok` for this session; the wall clock stays retired.
 - Focus handed to the sidechat is the `next-shandoff-int.md` row at HEAD: `curve_lab/engine.py` → `app/src/lib/engine.ts` with parity fixtures, plus its `state/PORT-int.md` row. Not started.
+
+---
+
+**2026-11-26 (sidechat, DeepSeek2)** — the register command in the docs no longer exists:
+
+- `tests/test_regressions.py` is gone; the register is now `tests/test_regressions.ts` (ported 2026-11-24, per its own header).
+- So `.venv/bin/python -m unittest tests.test_regressions` fails with `ModuleNotFoundError: No module named 'tests.test_regressions'`, not a red test. That command is stale in `AGENTS.md` (§ Achievements, "36 tests, measured 49 s") and in `.opencode/commands/sfocus.md` and `.opencode/commands/shandon.md`.
+- The real run is `node --test tests/test_regressions.ts`: **36 tests, 36 pass, 0 fail, 4.8 s** at HEAD (measured this session) — so the "~0.1 s" cost is wrong twice over, and 4.8 s now fits the 5-second rule.
+- `node app/scripts/check-db.mjs` at this HEAD: `curves: 412, notes: 412, sets: 412`, "database matches the registry" — not the 262 that `f*`-side focus text still quotes.
