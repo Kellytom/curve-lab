@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <name>Quintic from Guide</name>
+  <id>curve-lab.quintic-guide</id>
+
+  <param name="help" type="description" gui-text="Select the pale guide stroke. Six points are taken from it, the quintic through them is drawn as cubics, and the six exact control points go to Blender and GeoGebra.">How it works</param>
+
+  <param name="tabs" type="notebook">
+
+    <page name="points" gui-text="Points">
+      <param name="pointmode" type="optiongroup" appearance="combo" gui-text="Six points are">
+        <option value="even">On the curve, evenly spaced (Blender Bezier)</option>
+        <option value="lsq">A best fit (control points may leave the stroke)</option>
+        <option value="cage-nodes">A cage: the guide's own 6 nodes</option>
+        <option value="cage-samples">A cage from 6 samples</option>
+      </param>
+      <param name="spans" type="int" min="1" max="16" gui-text="Spans (one quintic each)">1</param>
+      <param name="clampovershoot" type="bool" gui-text="Clamp inside the six points (no overshoot)">false</param>
+      <param name="help_points" type="description" gui-text="The miss from the drawn stroke to the quintic is printed after each run, as a max and an RMS in px. A long stroke may need more than one span.">Reading the miss</param>
+    </page>
+
+    <page name="display" gui-text="Display">
+      <param name="fullness" type="float" min="0" max="1" precision="3" gui-text="Fullness (tension)">1.000</param>
+      <param name="segments" type="int" min="0" max="32" gui-text="Cubic segments (0 = fit to tolerance)">0</param>
+      <param name="tolerance" type="float" min="0.0001" max="10" precision="4" gui-text="Max quintic-to-chain miss, px">0.0100</param>
+      <param name="showpoints" type="bool" gui-text="Mark the six points">true</param>
+      <param name="strokecolour" type="color" gui-text="Inner curve colour">#000000</param>
+      <param name="keepguide" type="bool" gui-text="Keep the guide path">true</param>
+    </page>
+
+    <page name="export" gui-text="Export">
+      <param name="exportdir" type="string" gui-text="Export folder (blank = none)">~/Downloads</param>
+      <param name="clipboard" type="bool" gui-text="Copy the six points to the clipboard">false</param>
+      <param name="help_export" type="description" gui-text="Writes &lt;guide&gt;-quintic.json, &lt;guide&gt;-blender.py and &lt;guide&gt;-geogebra.txt. Blender gets one exact order-6 NURBS spline per span; the y axis is flipped because Blender and GeoGebra are y up and the SVG document is y down.">What leaves</param>
+    </page>
+
+  </param>
+
+  <effect needs-document="true" needs-live-preview="true">
+    <object-type>path</object-type>
+    <effects-menu>
+      <submenu name="Curve Lab"/>
+    </effects-menu>
+  </effect>
+
+  <script>
+    <command location="inx" interpreter="python">quintic_guide.py</command>
+  </script>
+</inkscape-extension>

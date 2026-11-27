@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <path id="guide1" d="M 20,180 C 60,80 110,20 160,60 C 200,90 220,180 260,170 C 300,160 330,90 360,40 C 380,10 395,60 390,110 C 385,160 350,200 320,240" style="fill:none;stroke:#cccccc;stroke-width:1"/>
+</svg>

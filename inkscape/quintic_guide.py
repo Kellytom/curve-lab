@@ -1,0 +1,331 @@
+"""Quintic from Guide: the Inkscape glue.
+
+Runs INSIDE Inkscape (imports inkex). All the maths is in `quintic_math.py`,
+which is plain stdlib and is tested by `tests/test_quintic_math.py`; this file
+only reads the selection, asks for the six points, and writes the answer back.
+
+Three layers (the operator's model, 2026-11-26):
+
+  1. the drawn curve — the freehand stroke, read from the selection;
+  2. the six-point curve — six points taken off that stroke, and the quintic
+     through them; it comes close to the drawn curve but is not it;
+  3. the quintic display — the same curve drawn as a C2 chain of cubics,
+     because SVG renders nothing else.
+
+The miss at each join is measured and printed: drawn → quintic (how good the
+reduction is) and quintic → cubic chain (how good the display is).
+"""
+
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+ROOT = Path(os.environ.get("CURVE_LAB_ROOT", HERE.parent)).resolve()
+if not (ROOT / "curve_lab").is_dir():
+    ROOT = Path.home() / "developer" / "curve-lab"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from inkscape import quintic_math as qm  # noqa: E402
+
+try:
+    import inkex
+except ImportError:  # importable outside Inkscape for linting
+    inkex = None
+
+MARK = "data-quintic-guide"
+MARK_POINTS = "data-quintic-points"
+SAMPLES_PER_SPAN = 60     # dense arc-length samples per span; 61 points, 5x12
+POINT_RADIUS = 2.5
+
+
+def _cubic_segments(path_element):
+    """Every span of the path as one cubic, in document coordinates.
+
+    Inkex gives the path as a 'superpath': nodes of [in, point, out]. A cubic
+    from node A to node B is (A.point, A.out, B.in, B.point). Arc, line and
+    quad commands are already converted to cubics by to_superpath().
+    """
+    element = path_element
+    if not isinstance(element, inkex.elements.PathElement):
+        element = element.to_path_element()
+    path = element.path.to_absolute().transform(element.composed_transform())
+    segments = []
+    for subpath in path.to_superpath():
+        for a, b in zip(subpath, subpath[1:]):
+            segments.append((
+                (a[1][0], a[1][1]),
+                (a[2][0], a[2][1]),
+                (b[0][0], b[0][1]),
+                (b[1][0], b[1][1]),
+            ))
+    return segments
+
+
+def _guide_in_selection(selection):
+    for element in list(selection.values()):
+        if isinstance(element, inkex.elements.PathElement):
+            return element
+        if hasattr(element, "to_path_element"):
+            return element
+    return None
+
+
+def _six_points(chunk, mode):
+    """Six points from one stretch of the drawn curve.
+
+    'even'          six points ON the stretch, evenly spaced by arc length,
+                    with the quintic solved to pass through all six. This is
+                    the operator's middle layer: six points on the curve.
+    'lsq'           the six control points with the smallest total miss;
+                    they are not on the stretch, and the miss is smaller.
+    'cage-samples'  the same six even points, used as a cage instead.
+    """
+    if mode == "lsq":
+        return qm.fit_least_squares(chunk), "least squares"
+    six = qm.six_points_even(chunk)
+    if mode == "cage-samples":
+        return six, "cage from six samples"
+    return qm.solve_through_samples(six), "six points on the curve"
+
+
+def _copy_to_clipboard(text):
+    """Best effort; macOS first because that is this machine."""
+    try:
+        if sys.platform == "darwin":
+            subprocess.run(["pbcopy"], input=text.encode("utf-8"), check=True)
+            return "pbcopy"
+        for cmd in (["xclip", "-selection", "clipboard"], ["wl-copy"]):
+            try:
+                subprocess.run(cmd, input=text.encode("utf-8"), check=True)
+                return " ".join(cmd)
+            except (OSError, subprocess.CalledProcessError):
+                continue
+    except (OSError, subprocess.CalledProcessError):
+        return ""
+    return ""
+
+
+class QuinticFromGuide(inkex.EffectExtension if inkex else object):
+    """Read six points, draw the quintic as cubics, keep the six as the truth."""
+
+    def add_arguments(self, pars):
+        pars.add_argument("--pointmode", type=str, default="even")
+        pars.add_argument("--spans", type=int, default=1)
+        pars.add_argument("--fullness", type=float, default=1.0)
+        pars.add_argument("--segments", type=int, default=0)
+        pars.add_argument("--tolerance", type=float, default=0.01)
+        pars.add_argument("--clampovershoot", type=inkex.Boolean, default=False)
+        pars.add_argument("--showpoints", type=inkex.Boolean, default=True)
+        pars.add_argument("--strokecolour", type=str, default="#000000")
+        pars.add_argument("--keepguide", type=inkex.Boolean, default=True)
+        pars.add_argument("--exportdir", type=str, default="")
+        pars.add_argument("--clipboard", type=inkex.Boolean, default=False)
+
+    # -- the run ---------------------------------------------------------
+
+    def effect(self):
+        guide = _guide_in_selection(self.svg.selection)
+        if guide is None:
+            inkex.errormsg("Quintic from Guide: select the outer guide path first.")
+            return
+        guide_id = guide.get("id") or ""
+        mode = (self.options.pointmode or "").strip()
+        spans = max(1, int(self.options.spans))
+        if mode not in ("even", "lsq", "cage-nodes", "cage-samples"):
+            # a mode the dialog never offers is a caller's mistake, never a
+            # silent fall back to the default: this is how a shell quoting slip
+            # once made five different runs print the same answer
+            inkex.errormsg("Quintic from Guide: unknown point mode %r "
+                           "(even, lsq, cage-nodes, cage-samples)" % mode)
+            return
+
+        if mode == "cage-nodes" and spans > 1:
+            inkex.errormsg("Quintic from Guide: a control cage from the guide's "
+                           "own nodes is one span; set spans to 1.")
+            return
+
+        try:
+            segments = _cubic_segments(guide)
+        except Exception as exc:  # a shape that will not convert
+            inkex.errormsg("Quintic from Guide: cannot read that path: %s" % exc)
+            return
+        if not segments:
+            inkex.errormsg("Quintic from Guide: the guide path has no segments.")
+            return
+
+        if mode == "cage-nodes":
+            nodes = qm.nodes_from_segments(segments)
+            if len(nodes) != qm.COUNT:
+                inkex.errormsg(
+                    "Quintic from Guide: the guide path has %d nodes; that mode "
+                    "needs exactly 6. Use the six-points mode instead." % len(nodes))
+                return
+            chunks = [nodes]
+            how = "cage from the guide's 6 nodes"
+        else:
+            dense = qm.samples_along(
+                segments, [i / (SAMPLES_PER_SPAN * spans)
+                           for i in range(SAMPLES_PER_SPAN * spans + 1)])
+            try:
+                chunks = qm.split_samples(dense, spans)
+            except ValueError as exc:
+                inkex.errormsg("Quintic from Guide: %s" % exc)
+                return
+            how = None
+
+        alpha = max(0.0, min(1.0, self.options.fullness))
+        results = []
+        for chunk in chunks:
+            if how is None:
+                control, point_how = _six_points(chunk, mode)
+            else:
+                control, point_how = list(chunk), how
+            control = qm.blend_fullness(control, alpha)
+
+            runaway = qm.overshoot(control, chunk)
+            clamped = False
+            if runaway > 0.0 and self.options.clampovershoot:
+                control = qm.clamp_inside(control, chunk)
+                clamped = True
+
+            if self.options.segments <= 0:
+                chain, chain_miss, used = qm.fit_to_tolerance(
+                    control, self.options.tolerance)
+            else:
+                used = int(self.options.segments)
+                chain = qm.cubic_chain(control, used)
+                chain_miss = qm.measure_max_error(control, chain)
+            if chain_miss > self.options.tolerance:
+                inkex.errormsg(
+                    "Quintic from Guide: %d cubics miss the quintic by %.4f px "
+                    "(tolerance %.4f). Raise the segments count to fit tighter."
+                    % (used, chain_miss, self.options.tolerance))
+
+            fitted_max, fitted_rms = qm.fit_report(control, chunk)
+            results.append({
+                "control": control,
+                "chain": chain,
+                "segments": used,
+                "chain_miss": chain_miss,
+                "fit_max": fitted_max,
+                "fit_rms": fitted_rms,
+                "clamped": clamped,
+                "overshoot": runaway,
+                "point_how": point_how,
+            })
+
+        self._remove_previous(guide_id)
+        self._draw(guide, guide_id, results)
+        self._exports(guide_id, alpha, mode, results)
+
+        if not self.options.keepguide:
+            guide.delete()
+
+        worst_fit = max(r["fit_max"] for r in results)
+        worst_chain = max(r["chain_miss"] for r in results)
+        worst_box = max(r["overshoot"] for r in results)
+        if worst_box <= 0.0:
+            box = "inside the six points"
+        elif all(r["clamped"] for r in results):
+            box = "clamped to the six points (was %.1f px out)" % worst_box
+        else:
+            box = "out of the six points by up to %.1f px" % worst_box
+        inkex.errormsg(
+            "Quintic from Guide: %d span%s, %s, alpha %.2f, %d cubic%s; "
+            "drawn->quintic max %.3f rms %.3f px; quintic->chain %.4f px; %s."
+            % (len(results), "" if len(results) == 1 else "s",
+               results[0]["point_how"], alpha,
+               sum(r["segments"] for r in results),
+               "" if sum(r["segments"] for r in results) == 1 else "s",
+               worst_fit, max(r["fit_rms"] for r in results), worst_chain, box))
+
+    # -- the pieces ------------------------------------------------------
+
+    def _remove_previous(self, guide_id):
+        if not guide_id:
+            return
+        for selector in ("//*[@%s='%s']" % (MARK, guide_id),
+                         "//*[@%s='%s']" % (MARK_POINTS, guide_id)):
+            for element in list(self.svg.xpath(selector)):
+                element.delete()
+
+    def _draw(self, guide, guide_id, results):
+        leaf = inkex.elements.PathElement()
+        leaf.set("d", " ".join(qm.chain_to_d(r["chain"]) for r in results))
+        leaf.set(MARK, guide_id)
+        stroke = self.options.strokecolour or "#000000"
+        width = guide.style.get("stroke-width", "1") or "1"
+        leaf.style = {
+            "fill": "none",
+            "stroke": stroke,
+            "stroke-width": width,
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round",
+        }
+        layer = guide.getparent()
+        layer.append(leaf)
+        index = list(layer).index(guide)
+        layer.remove(leaf)
+        layer.insert(index, leaf)
+
+        if self.options.showpoints:
+            group = inkex.elements.Group()
+            group.set(MARK_POINTS, guide_id)
+            for r in results:
+                for x, y in r["control"]:
+                    dot = inkex.elements.Circle()
+                    dot.set("cx", qm.num(x))
+                    dot.set("cy", qm.num(y))
+                    dot.set("r", qm.num(POINT_RADIUS))
+                    dot.style = {"fill": "none", "stroke": stroke,
+                                 "stroke-width": "0.75", "opacity": "0.8"}
+                    group.append(dot)
+            layer.append(group)
+            index = list(layer).index(guide)
+            layer.remove(group)
+            layer.insert(max(0, index - 1), group)
+        return leaf
+
+    def _exports(self, guide_id, alpha, mode, results):
+        report = []
+        folder = (self.options.exportdir or "").strip()
+        stem = guide_id or "quintic"
+        if folder:
+            out = Path(folder).expanduser()
+            try:
+                out.mkdir(parents=True, exist_ok=True)
+                record = qm.sidecar_many(results, mode, alpha, guide_id=guide_id)
+                (out / ("%s-quintic.json" % stem)).write_text(
+                    json.dumps(record, indent=2) + "\n", encoding="utf-8")
+                (out / ("%s-blender.py" % stem)).write_text(
+                    "# Paste into Blender's Text Editor and press Run Script.\n"
+                    + qm.blender_script_many([r["control"] for r in results],
+                                              name=stem, flip_y=True),
+                    encoding="utf-8")
+                (out / ("%s-geogebra.txt" % stem)).write_text(
+                    "# Paste into GeoGebra's Input Bar, one line at a time.\n"
+                    + qm.geogebra_commands_many([r["control"] for r in results],
+                                                flip_y=True),
+                    encoding="utf-8")
+                report.append("wrote %s-quintic.json, %s-blender.py, %s-geogebra.txt"
+                              % (stem, stem, stem))
+            except OSError as exc:
+                inkex.errormsg("Quintic from Guide: export folder failed: %s" % exc)
+        if self.options.clipboard:
+            payload = (json.dumps([{ "control_svg_y_down":
+                                     [[round(p[0], 9), round(p[1], 9)]
+                                      for p in r["control"]]}
+                                    for r in results], indent=2))
+            used_tool = _copy_to_clipboard(payload)
+            report.append("clipboard via %s" % used_tool if used_tool
+                          else "clipboard unavailable (no pbcopy/xclip/wl-copy)")
+        for line in report:
+            inkex.errormsg("Quintic from Guide: " + line)
+
+
+if __name__ == "__main__":
+    QuinticFromGuide().run()
