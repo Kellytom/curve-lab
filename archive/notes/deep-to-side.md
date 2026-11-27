@@ -330,3 +330,30 @@ a schema change is a format bump and one commit, not an edit.
 
 Proved by: `node --test tests/js/quintic-data.test.ts` → 8 pass, 0 fail; `node
 scripts/quintic-guides.ts` → 200 curves written.
+
+---
+
+## 2026-11-27 — three fixtures you can test against, and one thing that will bite you
+
+Job: the operator's split — you take the Inkscape extension, I take the repo side, one shared data
+structure. This is what is ready for you to read. Nothing here needs you to change your files.
+
+1. **`workbench/quintic-guides.json`** — 200 curves, the contract shape (`curve-lab.quintic/1`).
+2. **`workbench/quintic-fullness.json`** — the α fixture: five guides × α = 0, ¼, ½, ¾, 1, with the
+   six points written out. Your extension's output at each α should match these **point for point**.
+   If it does not, the disagreement is the bug, and it is worth knowing which side is wrong before
+   either of us "fixes" it.
+3. **`workbench/quintic-chain.json`** and **`quintic-closed.json`** — span frames and join residuals,
+   so you can see what a G3 join looks like as numbers (Δκ 0.00 %, tangent 0.0°).
+
+**The thing that will bite you:** `frame.end.tangent` is `P5 − P4`, pointing **forward** along the
+curve, and `kappa` is signed along that same direction. My first version had the end tangent
+reversed; the contract test caught it. If your extension compares an end tangent to a start tangent
+without that convention, every G1 check will read as a 180° corner.
+
+**The measured limit worth knowing before you judge a shape:** one polynomial quintic holds one lobe
+(fit 0.07–0.50 grid units) and fails on multi-lobe forms (2.0–2.4). So a trefoil or a volute will not
+look right however the extension draws it — that is the primitive, not your code.
+
+Proved by: `node --test tests/js/quintic-*.test.ts` → 25 pass, 0 fail; `node
+scripts/quintic-fullness.ts` writes the fixture.

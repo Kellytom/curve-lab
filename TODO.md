@@ -250,6 +250,15 @@ The operator's plan: publish the code, the ideas and the images. Each line below
 is a thing that blocks a public repo or a public URL; none of them changes the
 curves. Do these in order and do not guess the one decision.
 
+- [ ] **Source one real moulding profile and measure the families against it.**
+  The ornament curves are fitted to targets I wrote (a smoothstep is not a cyma). Take one
+  cyma or echinus from a published plate, trace it, and print the fit error against *it*.
+  Until that number exists, the ornament fit errors describe my own curve, not the canon.
+  Files: `scripts/quintic-guides.ts`, `state/QUINTIC-CONTROLS-int.md`.
+- [ ] **The canon's arc-based half.** Mouldings, the Ionic volute and Gothic tracery are
+  pairs of arcs, not single quintics — `state/EXPLORATION-int.md` "The classical canon" has
+  the first step per line. The measured limit: one quintic holds one lobe (0.07–0.50 grid
+  units) and fails on multi-lobe forms (2.0–2.4).
 - [ ] **Four Dependabot vulnerabilities on `main`** — 3 high, 1 low, reported by
   GitHub after the 2026-11-26 push (`841c40b9`). Not investigated beyond the
   count: the next step is `npm --prefix app audit` to name the packages and the

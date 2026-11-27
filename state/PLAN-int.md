@@ -291,3 +291,24 @@ wiring step after B3/B4 if the operator keeps the book first.
    tried and rejected.
 4. `next-fhandoff-int.md` names the next row of this table, or `/fstart` parks it
    if the operator changes direction.
+
+## Current (2026-11-27) — the quintic programme: contract, chain, closed, fullness
+
+The operator's direction: classic designs (Roman, Greek, French) for all the curves, and a split
+with DeepSeek2 — they own the Inkscape code, this side owns the repo code, both work to one data
+structure. Everything below is landed and pushed.
+
+| # | action | `Proves:` | state |
+|---|---|---|---|
+| 1 | **200 six-point guide curves**, ten mathematical families and ten of the canon | 100 + 100 curves, six integer points each; `Fig. QG1`–`QG4` | **landed** |
+| 2 | **The shared contract** `curve-lab.quintic/1` | `workbench/quintic.schema.json`; `tests/js/quintic-data.test.ts` 8 pass | **landed** |
+| 3 | **Spans chained and measured** | `Fig. QC1`; cyma reversa → recta is G3, the other joins G1 with their Δκ printed | **landed** |
+| 4 | **A closed shape** | `Fig. QX1`; four-span ring, G3 at every join, winding ccw, radial error 0.325 | **landed** |
+| 5 | **The fullness fixture** | `Fig. QF1`; five α values × five guides; `tests/js/quintic-fullness.test.ts` 5 pass | **landed** |
+| 6 | **Source one real moulding profile** | the ornament fit error measured against a published profile, not against my own target | **next** |
+| 7 | **Close the two ports** (`root_search`, `coupler_curves`) | `state/PORT-int.md` row per port, "retired" or its consumer named | parked behind 6 |
+
+**The arithmetic that decides the chain work:** an open chain of n spans has `2n` unknowns (two
+handle lengths each) and `2(n−1)` G3 constraints, so **two degrees of freedom survive** — the end
+handles. A **closed** chain has `2n` constraints, so **none** survive: a closed G3 chain is fully
+determined, and shape control there needs G2 or declared datums.

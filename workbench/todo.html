@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:67.9%}
+.fill{height:100%;background:#8c6a21;width:67.2%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -35,7 +35,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">133 / 196 done · 68% · read-only twin of
+<div class="count">133 / 198 done · 67% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -135,6 +135,10 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>leg to a steep leg — with the join angle printed.</p>
 <h2>Going public — 2026-11-17</h2>
 <p>The operator&#x27;s plan: publish the code, the ideas and the images. Each line below is a thing that blocks a public repo or a public URL; none of them changes the curves. Do these in order and do not guess the one decision.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Source one real moulding profile and measure the families against it.</strong></span></label>
+<p>The ornament curves are fitted to targets I wrote (a smoothstep is not a cyma). Take one cyma or echinus from a published plate, trace it, and print the fit error against *it*. Until that number exists, the ornament fit errors describe my own curve, not the canon. Files: <code>scripts/quintic-guides.ts</code>, <code>state/QUINTIC-CONTROLS-int.md</code>.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>The canon&#x27;s arc-based half.</strong> Mouldings, the Ionic volute and Gothic tracery are</span></label>
+<p>pairs of arcs, not single quintics — <code>state/EXPLORATION-int.md</code> &quot;The classical canon&quot; has the first step per line. The measured limit: one quintic holds one lobe (0.07–0.50 grid units) and fails on multi-lobe forms (2.0–2.4).</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Four Dependabot vulnerabilities on <code>main</code></strong> — 3 high, 1 low, reported by</span></label>
 <p>GitHub after the 2026-11-26 push (<code>841c40b9</code>). Not investigated beyond the count: the next step is <code>npm --prefix app audit</code> to name the packages and the fixed versions, then decide update versus pin. A dependency bump can move the build, so it is its own commit and it runs <code>npm --prefix app run gate</code> after. Do not take a fix that changes the exact-number behaviour of a page silently.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>The licence, stated once (2026-11-17).</strong> <code>LICENSE</code> is MIT; the vendored</span></label>

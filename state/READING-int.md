@@ -16,13 +16,13 @@ A session that reads only the files named in the message has skipped Tier 0.
 | # | file | lines | why |
 |---|---|---|---|
 | 0 | `state/SPRINT-int.md` | 170 | the sprint plan: found curves → integers → offsets → plates, one session per sprint |
-| 1 | `state/ASKS-int.md` | 36 | the operator's asks in their own words, with status and proof; a repeated ask means the first answer failed |
+| 1 | `state/ASKS-int.md` | 39 | the operator's asks in their own words, with status and proof; a repeated ask means the first answer failed |
 | 2 | `senior-dev.md` | 53 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
 | 3 | `LTMemory-int.md` | 335 | the map, the invariants, what is settled and what is open |
 | 4 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
-| 5 | `state/PLAN-int.md` | 293 | the next few sessions, one action each, with what is parked and why |
-| 6 | `state/HANDOFF-int.md` | 4,274 | current truth — **read the tail (~80 lines), not the whole file** |
-| 7 | `TODO.md` | 1064 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 5 | `state/PLAN-int.md` | 314 | the next few sessions, one action each, with what is parked and why |
+| 6 | `state/HANDOFF-int.md` | 4,315 | current truth — **read the tail (~80 lines), not the whole file** |
+| 7 | `TODO.md` | 1073 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 8 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
 | 9 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
 | 10 | `state/DESIGN-int.md` | 1228 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
@@ -73,6 +73,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the Pell / √2 hyperbola (d as a dial) | `scripts/pell.py`, `tests/test_pell.py` |
 | constant width / Reuleaux | `scripts/reuleaux.py`, `tests/test_reuleaux.py` |
 | PH quintics | `scripts/ph_quintic.py`, `tests/test_ph_quintic.py` |
+| the quintic guide set, chain and fullness | `scripts/quintic-guides.ts`, `scripts/quintic-chain.ts`, `scripts/quintic-closed.ts`, `scripts/quintic-fullness.ts`, `scripts/lib/quintic-geometry.ts`, `workbench/quintic.schema.json`, `tests/js/quintic-*.test.ts` |
 | the septic sandbox / degrees 6 and 7 | `scripts/ph_septic_sandbox.py`, `scripts/ph_septic_panels.js`, `scripts/septic_curves.py`, `scripts/septic_samples.py`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_septic_sandbox.py`, `scripts/check-ph-page.mjs`, `workbench/septic-samples.json`, `workbench/septic-curves.json` |
 | PH families (all rungs) | `workbench/ph-families.html`, `scripts/ph_families.py`, `app/src/content/docs/docs/ph-integer.md` |
 | the eleventh-power sandbox / the degree ladder | `scripts/ph_nth_sandbox.py`, `scripts/ph_nth_panels.js`, `scripts/ph_math.js`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_nth_sandbox.py`, `scripts/check-nth-page.mjs`, `workbench/ph-nth-sandbox.html` |

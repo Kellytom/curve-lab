@@ -4272,3 +4272,44 @@ Tried and rejected: committing the four stray artefacts as one "housekeeping" co
 sandbox stamps and the seed slot are generated output, the doc fixes are not, so they went in
 separate commits with separate messages. Also rejected: deleting `scripts/coupler_curves.py`
 because its `.ts` twin exists — a Python test still imports it, so it is registered, not removed.
+
+## 2026-11-27 (the quintic programme: one contract, two workstreams)
+
+- **The split is written and working.** DeepSeek2 owns the Inkscape extension (`inkscape/quintic_*`),
+  this side owns the generator, chains and shapes; the middle is a versioned contract,
+  `workbench/quintic.schema.json`, format **`curve-lab.quintic/1`**, with
+  `tests/js/quintic-data.test.ts` as its runnable form (8 tests). Ownership and the four facts both
+  sides may rely on are in `state/RESPONSIBILITIES-int.md` §7.
+- **200 six-point curves, ten mathematical families and ten of the canon** (parabola, bowl, S, C,
+  hyperbola, cusp, wave, loop, flattened arch, tangent rise; cyma recta and reversa, echinus, volute
+  quarter, ogee arch, rocaille, acanthus, arabesque, trefoil, Vitruvian scroll). Sheets: `Fig. QG1`
+  and `QG3`; clean six-node paths for the extension: `QG2` and `QG4`.
+- **The limit is measured, not guessed:** one polynomial quintic holds one lobe (fit 0.07–0.50 grid
+  units on cyma, echinus, volute, rocaille) and **fails on multi-lobe forms** (2.0–2.4 on trefoil,
+  arabesque, acanthus). The canon therefore splits into arcs (mouldings, volute, tracery) and single
+  quintics (scrolls, lobes). `state/EXPLORATION-int.md` "The classical canon" has a first step per
+  line; `state/QUINTIC-CONTROLS-int.md` records which standard setups are exact (degree elevation)
+  and which need weights (conics).
+- **Chains, measured before solved:** `Fig. QC1` places four spans by rigid motion, so G1 is exact;
+  the join residual is the difference of the two frames. **Cyma reversa → cyma recta is G3** to the
+  six decimals stored — the classical compound moulding — and the other two joins are G1 with Δκ
+  39.8 % and 47.2 %. **The arithmetic:** an open chain keeps 2 degrees of freedom (the end handles);
+  a closed chain keeps none.
+- **A closed shape exists:** `Fig. QX1`, a four-span ring fitted to a circle (radial error 0.325 grid
+  units on radius 60), G3 at every join, `closed: true`, winding ccw — the first record in the tree
+  that uses that branch of the contract.
+- **The fullness fixture:** `Fig. QF1` and `workbench/quintic-fullness.json`, five guides × α = 0, ¼,
+  ½, ¾, 1, so the extension can be checked point for point. Its guard pins α 0 = the chord, α 1 = the
+  guide, α ½ = the midpoint, endpoints fixed.
+- **One copy of the maths:** `scripts/lib/quintic-geometry.ts`. Proved by byte-identical outputs
+  (shasum) before and after the refactor.
+- **At the gate:** `tests/js/quintic-*.test.ts` 25 pass; register 36 pass; `scripts/test.py --fast`
+  14 modules, 3.5 s, green; tree clean; `origin/main` = `c6ad581b` before this block.
+- **Next:** source one real moulding profile (a cyma or echinus from a published plate) and print the
+  fit error against *it* — until then the ornament fit errors measure my own target, not the canon.
+
+Tried and rejected: drawing the chain as a 21-point polyline — replaced by a six-span cubic chain,
+because a zigzag through correct points is a wrong picture. A hand-made quarter "arc" for the ring —
+16 % off a circle; replaced by a least-squares fit to the true circle, 0.54 %. Calling the ring G1
+because rotation is rigid — the maths says G3, and the note now says G3. Letting each script keep its
+own copy of the Bézier maths — moved to one module, proved by identical output hashes.
