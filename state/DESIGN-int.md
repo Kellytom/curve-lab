@@ -1177,3 +1177,26 @@ Two numbers, two meanings, and both are used on purpose:
 The registry's `features.crossing_pairs` is the pair count, kept honest by
 `scripts/crossing_audit.py`. A page that says "crosses itself 5" is quoting pairs; the count of
 places is smaller whenever a triple point exists. Do not replace one with the other in a refactor.
+
+## c-0022 wave3: the rows are the family; the figure had lost its mirror — 2026-11-26
+
+The operator, 2026-11-24: the parent "looks wrong ... before any trimming".
+
+The stored speed rows are `u = [1, 0, 0, 0, 0, 0]` and `v = [-5, 46, -108, 72, 0, 0]`.
+`v = 72(t − 1/6)(t − 1/2)(t − 5/6)`, which is the exact `wave3` definition pinned in
+`tests/test_ph_root_search.py`; the position is the integral of `(u² − v², 2uv)`. **The record
+is right: the rows are the wave3 curve.**
+
+The figure was wrong. `centralPaths` asked `plate_math.branchesOf`, which reads only a stored
+`path` or `branches`; a rows record has neither, so it returned an empty list, `half[0]` threw,
+and the catch drew `pointsOf(record)` alone — one half-curve with no mirror. That bare half is
+what looked wrong. The old diamond figure is the curve **and its mirror across the chord** (the
+leaf rule in §Central designs are at least two curves); the rows now fall back to
+`pointsOf(record)`, the leaf is restored, and c-0022 reports `failed: false`, margin 25 %,
+centralCount 2. `app/public/figures/index.json` now has 0 failed entries.
+
+The **plate** stays a single curve — spine plus character rails — per §Central designs above, so
+it is not expected to be the diamond. The diamond is the figure's central design.
+
+Guard: `tests/js/figure-rows.test.ts` — a rows record with no stored path still gets two central
+paths, not the error fallback, and the figure index carries no failed record.

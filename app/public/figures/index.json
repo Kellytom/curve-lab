@@ -216,9 +216,9 @@
    "name": "wave3",
    "family": "wave3",
    "perSide": 9,
-   "marginPercent": 0,
-   "failed": true,
-   "reason": "half[0] is not iterable",
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
    "tooWide": false
   },
   {
@@ -4033,6 +4033,56 @@
    "uid": "c-0022a",
    "name": "wave3-balance-trimmed",
    "family": "wave3",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0028a",
+   "name": "lace-2-eight-3-trim-25",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0057a",
+   "name": "lace-heart-drop-1-trim-10k",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0057b",
+   "name": "lace-heart-drop-1-full",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0057c",
+   "name": "lace-heart-drop-1-full-trim-10k",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0058a",
+   "name": "lace-flourish2-1-trim-25",
+   "family": "lace",
    "perSide": 9,
    "marginPercent": 25,
    "failed": false,

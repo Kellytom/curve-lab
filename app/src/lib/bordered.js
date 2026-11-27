@@ -170,7 +170,13 @@ function centralPaths(record, rotation) {
   }
   // A multi-branch record is already whole (c-0416's four arms). Drawn as one path its jumps
   // become chords and fill as a blob, so every branch is its own path here.
-  const branches = P.branchesOf ? P.branchesOf(record) : [pointsOf(record)];
+  //
+  // A rows record has no stored path, and branchesOf reads only paths: it returns []. Fall back
+  // to the record's own speed rows. Without this the central design is empty and the figure
+  // catches the error, drawing a bare half-curve — c-0022's "diamond" lost its mirror half
+  // (2026-11-26).
+  const stored = P.branchesOf ? P.branchesOf(record) : [];
+  const branches = stored.length ? stored : [pointsOf(record)];
   return {
     paths: branches.map((path) => rotatePoints(path, rotation)),
     offset: false,
