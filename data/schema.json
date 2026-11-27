@@ -69,7 +69,7 @@
   "metrics.json": {
    "format": "curve-lab.data.metrics/1",
    "kind": "array",
-   "count": 406,
+   "count": 412,
    "fields": {
     "uid": "string",
     "family": "string",
