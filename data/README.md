@@ -109,7 +109,7 @@ inside the JSON.
 
 Lost without it: every keep/later/reject decision on the hybrid desk.
 
-### `metrics.json` — 406 rows — `curve-lab.data.metrics/1`
+### `metrics.json` — 412 rows — `curve-lab.data.metrics/1`
 
 The measurements, one row per measured curve, produced by
 `scripts/analyse_curves.py` — a number here is generated, never typed.
