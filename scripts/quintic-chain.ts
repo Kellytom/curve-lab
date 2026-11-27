@@ -20,6 +20,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { chainPathData } from "./lib/quintic-geometry.ts";
 
 type Point = [number, number];
 type End = { p: Point; tangent: Point; kappa: number | null; rate: number | null };
@@ -146,7 +147,7 @@ parts.push(
   `<text x="${padX}" y="56" font-size="13" fill="#555">Rigid placement: G1 is exact by construction. The number at each join is the curvature jump, as a share of the larger |κ|. G2 passes at 1 %.</text>`,
 );
 placed.forEach((sp, i) => {
-  const d = `M ${plot(sp.points[0])} ` + cubicChainD(sp.points);
+  const d = chainPathData(sp.points, 6, plot);
   parts.push(`<path d="${d}" fill="none" stroke="${colours[i % colours.length]}" stroke-width="2.2"/>`);
   const [x, y] = plot(sp.points[0]).split(",");
   parts.push(`<circle cx="${x}" cy="${y}" r="3.2" fill="${colours[i % colours.length]}"/>`);
@@ -171,69 +172,6 @@ parts.push(`</g>`);
 parts.push(`<text x="${padX}" y="${H - 24}" font-size="12" fill="#666">x right, y up, grid units. Red circles are joins. The drawn path is a six-span cubic chain; the six control points of each span are the exact record.</text>`);
 parts.push(`</g></svg>`);
 writeFileSync(OUT_SVG, `${parts.join("\n")}\n`);
-
-function cubicChainD(points: Point[]): string {
-  // Six cubic segments, each through four stations of the quintic: a smooth
-  // drawing, not a polyline. The stations are exact; the joins are not visible.
-  const bin = [1, 5, 10, 10, 5, 1];
-  const at = (pts: Point[], t: number): Point => {
-    const u = 1 - t;
-    let x = 0;
-    let y = 0;
-    for (let i = 0; i < 6; i += 1) {
-      const w = bin[i] * u ** (5 - i) * t ** i;
-      x += w * pts[i][0];
-      y += w * pts[i][1];
-    }
-    return [x, y];
-  };
-  const split = (pts: Point[], t: number): [Point[], Point[]] => {
-    const left: Point[] = [];
-    const right: Point[] = [];
-    let row = pts;
-    for (let depth = 0; depth < 6; depth += 1) {
-      left.push(row[0]);
-      right.unshift(row[row.length - 1]);
-      const next: Point[] = [];
-      for (let i = 0; i < row.length - 1; i += 1) {
-        next.push([row[i][0] + (row[i + 1][0] - row[i][0]) * t, row[i][1] + (row[i + 1][1] - row[i][1]) * t]);
-      }
-      row = next;
-    }
-    return [left, right];
-  };
-  const sub = (pts: Point[], t0: number, t1: number): Point[] => {
-    const [, afterStart] = split(pts, t0);
-    const [middle] = split(afterStart, (t1 - t0) / (1 - t0));
-    return middle;
-  };
-  const cubicThrough = (f: (t: number) => Point): Point[] => {
-    const values = [0, 1 / 3, 2 / 3, 1].map(f);
-    const m = [
-      [1, 0, 0, 0],
-      [-5 / 6, 3, -3 / 2, 1 / 3],
-      [1 / 3, -3 / 2, 3, -5 / 6],
-      [0, 0, 0, 1],
-    ];
-    return m.map((row) => {
-      let x = 0;
-      let y = 0;
-      row.forEach((w, j) => {
-        x += w * values[j][0];
-        y += w * values[j][1];
-      });
-      return [x, y] as Point;
-    });
-  };
-  const spans = 6;
-  const parts: string[] = [];
-  for (let s = 0; s < spans; s += 1) {
-    const piece = sub(points, s / spans, (s + 1) / spans);
-    const c = cubicThrough((u) => at(piece, u));
-    parts.push(`C ${plot(c[1])} ${plot(c[2])} ${plot(c[3])}`);
-  }
-  return parts.join(" ");
-}
 
 writeFileSync(
   OUT_JSON,

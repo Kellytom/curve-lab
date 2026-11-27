@@ -20,7 +20,7 @@
    "group": "ornament",
    "family": "ring",
    "name": "four-span closed ring",
-   "note": "one quarter rotated four times; G1 exact at every join because rotation is rigid",
+   "note": "one quarter fitted to a circle, rotated four times; rigid rotation makes every join exact",
    "closed": true,
    "winding": "ccw",
    "fitError": 0.325,
