@@ -1,0 +1,3828 @@
+{
+ "format": "curve-lab.quintic-guides/1",
+ "degree": 5,
+ "order": [
+  "P0",
+  "P1",
+  "P2",
+  "P3",
+  "P4",
+  "P5"
+ ],
+ "axes": {
+  "x": "right",
+  "y": "up",
+  "units": "grid",
+  "extent": [
+   0,
+   120,
+   -131,
+   131
+  ]
+ },
+ "note": "Six integer control points per curve, y-up. Flower fullness alpha moves P1..P4 toward the chord. The cubic chain is a display approximation; the six points are the exact object.",
+ "count": 100,
+ "worstApproximationError": 0.0443,
+ "curves": [
+  {
+   "uid": "q6-parabola-01",
+   "family": "parabola",
+   "name": "parabola 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     36
+    ],
+    [
+     48,
+     54
+    ],
+    [
+     72,
+     54
+    ],
+    [
+     96,
+     36
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-02",
+   "family": "parabola",
+   "name": "parabola 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     40
+    ],
+    [
+     48,
+     60
+    ],
+    [
+     72,
+     60
+    ],
+    [
+     96,
+     40
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-03",
+   "family": "parabola",
+   "name": "parabola 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     44
+    ],
+    [
+     48,
+     66
+    ],
+    [
+     72,
+     66
+    ],
+    [
+     96,
+     44
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-04",
+   "family": "parabola",
+   "name": "parabola 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     48
+    ],
+    [
+     48,
+     72
+    ],
+    [
+     72,
+     72
+    ],
+    [
+     96,
+     48
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-05",
+   "family": "parabola",
+   "name": "parabola 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     52
+    ],
+    [
+     48,
+     78
+    ],
+    [
+     72,
+     78
+    ],
+    [
+     96,
+     52
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-06",
+   "family": "parabola",
+   "name": "parabola 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     56
+    ],
+    [
+     48,
+     84
+    ],
+    [
+     72,
+     84
+    ],
+    [
+     96,
+     56
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-07",
+   "family": "parabola",
+   "name": "parabola 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     60
+    ],
+    [
+     48,
+     90
+    ],
+    [
+     72,
+     90
+    ],
+    [
+     96,
+     60
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-08",
+   "family": "parabola",
+   "name": "parabola 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     64
+    ],
+    [
+     48,
+     96
+    ],
+    [
+     72,
+     96
+    ],
+    [
+     96,
+     64
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-09",
+   "family": "parabola",
+   "name": "parabola 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     68
+    ],
+    [
+     48,
+     102
+    ],
+    [
+     72,
+     102
+    ],
+    [
+     96,
+     68
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-parabola-10",
+   "family": "parabola",
+   "name": "parabola 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     72
+    ],
+    [
+     48,
+     108
+    ],
+    [
+     72,
+     108
+    ],
+    [
+     96,
+     72
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 4t(1 − t): the classic arch; a quintic holds a quadratic exactly",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-01",
+   "family": "bowl",
+   "name": "parabola, mirrored 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -36
+    ],
+    [
+     48,
+     -54
+    ],
+    [
+     72,
+     -54
+    ],
+    [
+     96,
+     -36
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-02",
+   "family": "bowl",
+   "name": "parabola, mirrored 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -40
+    ],
+    [
+     48,
+     -60
+    ],
+    [
+     72,
+     -60
+    ],
+    [
+     96,
+     -40
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-03",
+   "family": "bowl",
+   "name": "parabola, mirrored 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -44
+    ],
+    [
+     48,
+     -66
+    ],
+    [
+     72,
+     -66
+    ],
+    [
+     96,
+     -44
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-04",
+   "family": "bowl",
+   "name": "parabola, mirrored 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -48
+    ],
+    [
+     48,
+     -72
+    ],
+    [
+     72,
+     -72
+    ],
+    [
+     96,
+     -48
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-05",
+   "family": "bowl",
+   "name": "parabola, mirrored 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -52
+    ],
+    [
+     48,
+     -78
+    ],
+    [
+     72,
+     -78
+    ],
+    [
+     96,
+     -52
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-06",
+   "family": "bowl",
+   "name": "parabola, mirrored 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -56
+    ],
+    [
+     48,
+     -84
+    ],
+    [
+     72,
+     -84
+    ],
+    [
+     96,
+     -56
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-07",
+   "family": "bowl",
+   "name": "parabola, mirrored 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -60
+    ],
+    [
+     48,
+     -90
+    ],
+    [
+     72,
+     -90
+    ],
+    [
+     96,
+     -60
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-08",
+   "family": "bowl",
+   "name": "parabola, mirrored 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -64
+    ],
+    [
+     48,
+     -96
+    ],
+    [
+     72,
+     -96
+    ],
+    [
+     96,
+     -64
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-09",
+   "family": "bowl",
+   "name": "parabola, mirrored 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -68
+    ],
+    [
+     48,
+     -102
+    ],
+    [
+     72,
+     -102
+    ],
+    [
+     96,
+     -68
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-bowl-10",
+   "family": "bowl",
+   "name": "parabola, mirrored 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -72
+    ],
+    [
+     48,
+     -108
+    ],
+    [
+     72,
+     -108
+    ],
+    [
+     96,
+     -72
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "the same parabola turned over",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-s-curve-01",
+   "family": "s-curve",
+   "name": "cubic S 1",
+   "points": [
+    [
+     0,
+     -18
+    ],
+    [
+     24,
+     4
+    ],
+    [
+     48,
+     4
+    ],
+    [
+     72,
+     -4
+    ],
+    [
+     96,
+     -4
+    ],
+    [
+     120,
+     18
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.2253,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-s-curve-02",
+   "family": "s-curve",
+   "name": "cubic S 2",
+   "points": [
+    [
+     0,
+     -22
+    ],
+    [
+     24,
+     4
+    ],
+    [
+     48,
+     4
+    ],
+    [
+     72,
+     -4
+    ],
+    [
+     96,
+     -4
+    ],
+    [
+     120,
+     22
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.2253,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-s-curve-03",
+   "family": "s-curve",
+   "name": "cubic S 3",
+   "points": [
+    [
+     0,
+     -26
+    ],
+    [
+     24,
+     5
+    ],
+    [
+     48,
+     5
+    ],
+    [
+     72,
+     -5
+    ],
+    [
+     96,
+     -5
+    ],
+    [
+     120,
+     26
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.1126,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-s-curve-04",
+   "family": "s-curve",
+   "name": "cubic S 4",
+   "points": [
+    [
+     0,
+     -30
+    ],
+    [
+     24,
+     6
+    ],
+    [
+     48,
+     6
+    ],
+    [
+     72,
+     -6
+    ],
+    [
+     96,
+     -6
+    ],
+    [
+     120,
+     30
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-s-curve-05",
+   "family": "s-curve",
+   "name": "cubic S 5",
+   "points": [
+    [
+     0,
+     -34
+    ],
+    [
+     24,
+     7
+    ],
+    [
+     48,
+     7
+    ],
+    [
+     72,
+     -7
+    ],
+    [
+     96,
+     -7
+    ],
+    [
+     120,
+     34
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.1126,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-s-curve-06",
+   "family": "s-curve",
+   "name": "cubic S 6",
+   "points": [
+    [
+     0,
+     -38
+    ],
+    [
+     24,
+     8
+    ],
+    [
+     48,
+     8
+    ],
+    [
+     72,
+     -8
+    ],
+    [
+     96,
+     -8
+    ],
+    [
+     120,
+     38
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.2253,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-s-curve-07",
+   "family": "s-curve",
+   "name": "cubic S 7",
+   "points": [
+    [
+     0,
+     -42
+    ],
+    [
+     24,
+     8
+    ],
+    [
+     48,
+     8
+    ],
+    [
+     72,
+     -8
+    ],
+    [
+     96,
+     -8
+    ],
+    [
+     120,
+     42
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.2253,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-s-curve-08",
+   "family": "s-curve",
+   "name": "cubic S 8",
+   "points": [
+    [
+     0,
+     -46
+    ],
+    [
+     24,
+     9
+    ],
+    [
+     48,
+     9
+    ],
+    [
+     72,
+     -9
+    ],
+    [
+     96,
+     -9
+    ],
+    [
+     120,
+     46
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.1126,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-s-curve-09",
+   "family": "s-curve",
+   "name": "cubic S 9",
+   "points": [
+    [
+     0,
+     -50
+    ],
+    [
+     24,
+     10
+    ],
+    [
+     48,
+     10
+    ],
+    [
+     72,
+     -10
+    ],
+    [
+     96,
+     -10
+    ],
+    [
+     120,
+     50
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-s-curve-10",
+   "family": "s-curve",
+   "name": "cubic S 10",
+   "points": [
+    [
+     0,
+     -54
+    ],
+    [
+     24,
+     11
+    ],
+    [
+     48,
+     11
+    ],
+    [
+     72,
+     -11
+    ],
+    [
+     96,
+     -11
+    ],
+    [
+     120,
+     54
+    ]
+   ],
+   "note": "y = (2t − 1)³: one inflection, at the middle",
+   "fitError": 0.1126,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-c-curve-01",
+   "family": "c-curve",
+   "name": "C: half a circle 1",
+   "points": [
+    [
+     34,
+     -37
+    ],
+    [
+     57,
+     -37
+    ],
+    [
+     82,
+     -19
+    ],
+    [
+     82,
+     19
+    ],
+    [
+     57,
+     37
+    ],
+    [
+     34,
+     37
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.1876,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0021
+   }
+  },
+  {
+   "uid": "q6-c-curve-02",
+   "family": "c-curve",
+   "name": "C: half a circle 2",
+   "points": [
+    [
+     34,
+     -40
+    ],
+    [
+     59,
+     -40
+    ],
+    [
+     86,
+     -21
+    ],
+    [
+     86,
+     21
+    ],
+    [
+     59,
+     40
+    ],
+    [
+     34,
+     40
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.3146,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0025
+   }
+  },
+  {
+   "uid": "q6-c-curve-03",
+   "family": "c-curve",
+   "name": "C: half a circle 3",
+   "points": [
+    [
+     34,
+     -43
+    ],
+    [
+     61,
+     -43
+    ],
+    [
+     89,
+     -22
+    ],
+    [
+     89,
+     22
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     34,
+     43
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.1875,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0024
+   }
+  },
+  {
+   "uid": "q6-c-curve-04",
+   "family": "c-curve",
+   "name": "C: half a circle 4",
+   "points": [
+    [
+     34,
+     -46
+    ],
+    [
+     62,
+     -46
+    ],
+    [
+     93,
+     -24
+    ],
+    [
+     93,
+     24
+    ],
+    [
+     62,
+     46
+    ],
+    [
+     34,
+     46
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.375,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0028
+   }
+  },
+  {
+   "uid": "q6-c-curve-05",
+   "family": "c-curve",
+   "name": "C: half a circle 5",
+   "points": [
+    [
+     34,
+     -49
+    ],
+    [
+     64,
+     -49
+    ],
+    [
+     97,
+     -25
+    ],
+    [
+     97,
+     25
+    ],
+    [
+     64,
+     49
+    ],
+    [
+     34,
+     49
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.25,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0028
+   }
+  },
+  {
+   "uid": "q6-c-curve-06",
+   "family": "c-curve",
+   "name": "C: half a circle 6",
+   "points": [
+    [
+     34,
+     -52
+    ],
+    [
+     66,
+     -52
+    ],
+    [
+     101,
+     -27
+    ],
+    [
+     101,
+     27
+    ],
+    [
+     66,
+     52
+    ],
+    [
+     34,
+     52
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.1352,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0031
+   }
+  },
+  {
+   "uid": "q6-c-curve-07",
+   "family": "c-curve",
+   "name": "C: half a circle 7",
+   "points": [
+    [
+     34,
+     -55
+    ],
+    [
+     68,
+     -55
+    ],
+    [
+     105,
+     -28
+    ],
+    [
+     105,
+     28
+    ],
+    [
+     68,
+     55
+    ],
+    [
+     34,
+     55
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.0833,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0031
+   }
+  },
+  {
+   "uid": "q6-c-curve-08",
+   "family": "c-curve",
+   "name": "C: half a circle 8",
+   "points": [
+    [
+     34,
+     -58
+    ],
+    [
+     70,
+     -58
+    ],
+    [
+     109,
+     -30
+    ],
+    [
+     109,
+     30
+    ],
+    [
+     70,
+     58
+    ],
+    [
+     34,
+     58
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.1485,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0034
+   }
+  },
+  {
+   "uid": "q6-c-curve-09",
+   "family": "c-curve",
+   "name": "C: half a circle 9",
+   "points": [
+    [
+     34,
+     -61
+    ],
+    [
+     72,
+     -61
+    ],
+    [
+     113,
+     -31
+    ],
+    [
+     113,
+     31
+    ],
+    [
+     72,
+     61
+    ],
+    [
+     34,
+     61
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.2634,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0034
+   }
+  },
+  {
+   "uid": "q6-c-curve-10",
+   "family": "c-curve",
+   "name": "C: half a circle 10",
+   "points": [
+    [
+     34,
+     -64
+    ],
+    [
+     74,
+     -64
+    ],
+    [
+     117,
+     -33
+    ],
+    [
+     117,
+     33
+    ],
+    [
+     74,
+     64
+    ],
+    [
+     34,
+     64
+    ]
+   ],
+   "note": "a 180° circular arc opening right; sampled, so fitted and not exact",
+   "fitError": 0.3818,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0037
+   }
+  },
+  {
+   "uid": "q6-hyperbola-01",
+   "family": "hyperbola",
+   "name": "hyperbola 1",
+   "points": [
+    [
+     20,
+     24
+    ],
+    [
+     40,
+     4
+    ],
+    [
+     60,
+     12
+    ],
+    [
+     80,
+     3
+    ],
+    [
+     100,
+     6
+    ],
+    [
+     120,
+     4
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 0.454,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0031
+   }
+  },
+  {
+   "uid": "q6-hyperbola-02",
+   "family": "hyperbola",
+   "name": "hyperbola 2",
+   "points": [
+    [
+     20,
+     28
+    ],
+    [
+     40,
+     4
+    ],
+    [
+     60,
+     14
+    ],
+    [
+     80,
+     3
+    ],
+    [
+     100,
+     7
+    ],
+    [
+     120,
+     5
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 0.5157,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0038
+   }
+  },
+  {
+   "uid": "q6-hyperbola-03",
+   "family": "hyperbola",
+   "name": "hyperbola 3",
+   "points": [
+    [
+     20,
+     32
+    ],
+    [
+     40,
+     5
+    ],
+    [
+     60,
+     16
+    ],
+    [
+     80,
+     4
+    ],
+    [
+     100,
+     8
+    ],
+    [
+     120,
+     5
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 0.5295,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0042
+   }
+  },
+  {
+   "uid": "q6-hyperbola-04",
+   "family": "hyperbola",
+   "name": "hyperbola 4",
+   "points": [
+    [
+     20,
+     36
+    ],
+    [
+     40,
+     5
+    ],
+    [
+     60,
+     18
+    ],
+    [
+     80,
+     4
+    ],
+    [
+     100,
+     8
+    ],
+    [
+     120,
+     6
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 0.4659,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0049
+   }
+  },
+  {
+   "uid": "q6-hyperbola-05",
+   "family": "hyperbola",
+   "name": "hyperbola 5",
+   "points": [
+    [
+     20,
+     40
+    ],
+    [
+     40,
+     6
+    ],
+    [
+     60,
+     20
+    ],
+    [
+     80,
+     4
+    ],
+    [
+     100,
+     9
+    ],
+    [
+     120,
+     6
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 0.6667,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0054
+   }
+  },
+  {
+   "uid": "q6-hyperbola-06",
+   "family": "hyperbola",
+   "name": "hyperbola 6",
+   "points": [
+    [
+     20,
+     44
+    ],
+    [
+     40,
+     7
+    ],
+    [
+     60,
+     22
+    ],
+    [
+     80,
+     5
+    ],
+    [
+     100,
+     10
+    ],
+    [
+     120,
+     7
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 0.7546,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0058
+   }
+  },
+  {
+   "uid": "q6-hyperbola-07",
+   "family": "hyperbola",
+   "name": "hyperbola 7",
+   "points": [
+    [
+     20,
+     47
+    ],
+    [
+     40,
+     7
+    ],
+    [
+     60,
+     24
+    ],
+    [
+     80,
+     5
+    ],
+    [
+     100,
+     11
+    ],
+    [
+     120,
+     8
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0065
+   }
+  },
+  {
+   "uid": "q6-hyperbola-08",
+   "family": "hyperbola",
+   "name": "hyperbola 8",
+   "points": [
+    [
+     20,
+     51
+    ],
+    [
+     40,
+     8
+    ],
+    [
+     60,
+     26
+    ],
+    [
+     80,
+     6
+    ],
+    [
+     100,
+     12
+    ],
+    [
+     120,
+     8
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0069
+   }
+  },
+  {
+   "uid": "q6-hyperbola-09",
+   "family": "hyperbola",
+   "name": "hyperbola 9",
+   "points": [
+    [
+     20,
+     55
+    ],
+    [
+     40,
+     8
+    ],
+    [
+     60,
+     28
+    ],
+    [
+     80,
+     6
+    ],
+    [
+     100,
+     13
+    ],
+    [
+     120,
+     9
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0076
+   }
+  },
+  {
+   "uid": "q6-hyperbola-10",
+   "family": "hyperbola",
+   "name": "hyperbola 10",
+   "points": [
+    [
+     20,
+     59
+    ],
+    [
+     40,
+     9
+    ],
+    [
+     60,
+     30
+    ],
+    [
+     80,
+     7
+    ],
+    [
+     100,
+     14
+    ],
+    [
+     120,
+     10
+    ]
+   ],
+   "note": "y = a / x on one branch; sampled, so fitted and not exact",
+   "fitError": 1,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.008
+   }
+  },
+  {
+   "uid": "q6-cusp-01",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 1",
+   "points": [
+    [
+     120,
+     -30
+    ],
+    [
+     72,
+     6
+    ],
+    [
+     48,
+     6
+    ],
+    [
+     48,
+     -6
+    ],
+    [
+     72,
+     -6
+    ],
+    [
+     120,
+     30
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-02",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 2",
+   "points": [
+    [
+     120,
+     -35
+    ],
+    [
+     72,
+     7
+    ],
+    [
+     48,
+     7
+    ],
+    [
+     48,
+     -7
+    ],
+    [
+     72,
+     -7
+    ],
+    [
+     120,
+     35
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-03",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 3",
+   "points": [
+    [
+     120,
+     -40
+    ],
+    [
+     72,
+     8
+    ],
+    [
+     48,
+     8
+    ],
+    [
+     48,
+     -8
+    ],
+    [
+     72,
+     -8
+    ],
+    [
+     120,
+     40
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-04",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 4",
+   "points": [
+    [
+     120,
+     -45
+    ],
+    [
+     72,
+     9
+    ],
+    [
+     48,
+     9
+    ],
+    [
+     48,
+     -9
+    ],
+    [
+     72,
+     -9
+    ],
+    [
+     120,
+     45
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-05",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 5",
+   "points": [
+    [
+     120,
+     -50
+    ],
+    [
+     72,
+     10
+    ],
+    [
+     48,
+     10
+    ],
+    [
+     48,
+     -10
+    ],
+    [
+     72,
+     -10
+    ],
+    [
+     120,
+     50
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-06",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 6",
+   "points": [
+    [
+     120,
+     -55
+    ],
+    [
+     72,
+     11
+    ],
+    [
+     48,
+     11
+    ],
+    [
+     48,
+     -11
+    ],
+    [
+     72,
+     -11
+    ],
+    [
+     120,
+     55
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-07",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 7",
+   "points": [
+    [
+     120,
+     -60
+    ],
+    [
+     72,
+     12
+    ],
+    [
+     48,
+     12
+    ],
+    [
+     48,
+     -12
+    ],
+    [
+     72,
+     -12
+    ],
+    [
+     120,
+     60
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-08",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 8",
+   "points": [
+    [
+     120,
+     -65
+    ],
+    [
+     72,
+     13
+    ],
+    [
+     48,
+     13
+    ],
+    [
+     48,
+     -13
+    ],
+    [
+     72,
+     -13
+    ],
+    [
+     120,
+     65
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-09",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 9",
+   "points": [
+    [
+     120,
+     -70
+    ],
+    [
+     72,
+     14
+    ],
+    [
+     48,
+     14
+    ],
+    [
+     48,
+     -14
+    ],
+    [
+     72,
+     -14
+    ],
+    [
+     120,
+     70
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-cusp-10",
+   "family": "cusp",
+   "name": "cusp (semicubical parabola) 10",
+   "points": [
+    [
+     120,
+     -75
+    ],
+    [
+     72,
+     15
+    ],
+    [
+     48,
+     15
+    ],
+    [
+     48,
+     -15
+    ],
+    [
+     72,
+     -15
+    ],
+    [
+     120,
+     75
+    ]
+   ],
+   "note": "(u², u³) about the midpoint: a sharp cusp in the middle of the cell",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-wave-01",
+   "family": "wave",
+   "name": "sine wave 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -15
+    ],
+    [
+     48,
+     -43
+    ],
+    [
+     72,
+     43
+    ],
+    [
+     96,
+     15
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.2922,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0145
+   }
+  },
+  {
+   "uid": "q6-wave-02",
+   "family": "wave",
+   "name": "sine wave 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -18
+    ],
+    [
+     48,
+     -52
+    ],
+    [
+     72,
+     52
+    ],
+    [
+     96,
+     18
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.2236,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0175
+   }
+  },
+  {
+   "uid": "q6-wave-03",
+   "family": "wave",
+   "name": "sine wave 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -21
+    ],
+    [
+     48,
+     -62
+    ],
+    [
+     72,
+     62
+    ],
+    [
+     96,
+     21
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.3414,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.021
+   }
+  },
+  {
+   "uid": "q6-wave-04",
+   "family": "wave",
+   "name": "sine wave 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -25
+    ],
+    [
+     48,
+     -72
+    ],
+    [
+     72,
+     72
+    ],
+    [
+     96,
+     25
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.2494,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0243
+   }
+  },
+  {
+   "uid": "q6-wave-05",
+   "family": "wave",
+   "name": "sine wave 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -28
+    ],
+    [
+     48,
+     -82
+    ],
+    [
+     72,
+     82
+    ],
+    [
+     96,
+     28
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.3596,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0277
+   }
+  },
+  {
+   "uid": "q6-wave-06",
+   "family": "wave",
+   "name": "sine wave 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -31
+    ],
+    [
+     48,
+     -92
+    ],
+    [
+     72,
+     92
+    ],
+    [
+     96,
+     31
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.4755,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0312
+   }
+  },
+  {
+   "uid": "q6-wave-07",
+   "family": "wave",
+   "name": "sine wave 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -35
+    ],
+    [
+     48,
+     -102
+    ],
+    [
+     72,
+     102
+    ],
+    [
+     96,
+     35
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.3848,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0345
+   }
+  },
+  {
+   "uid": "q6-wave-08",
+   "family": "wave",
+   "name": "sine wave 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -38
+    ],
+    [
+     48,
+     -111
+    ],
+    [
+     72,
+     111
+    ],
+    [
+     96,
+     38
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.5162,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0375
+   }
+  },
+  {
+   "uid": "q6-wave-09",
+   "family": "wave",
+   "name": "sine wave 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -41
+    ],
+    [
+     48,
+     -121
+    ],
+    [
+     72,
+     121
+    ],
+    [
+     96,
+     41
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.6342,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.041
+   }
+  },
+  {
+   "uid": "q6-wave-10",
+   "family": "wave",
+   "name": "sine wave 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     -45
+    ],
+    [
+     48,
+     -131
+    ],
+    [
+     72,
+     131
+    ],
+    [
+     96,
+     45
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "one full period; sampled, so fitted and not exact",
+   "fitError": 0.5387,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0443
+   }
+  },
+  {
+   "uid": "q6-loop-01",
+   "family": "loop",
+   "name": "loop 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     97,
+     73
+    ],
+    [
+     15,
+     98
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     88,
+     -10
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0158
+   }
+  },
+  {
+   "uid": "q6-loop-02",
+   "family": "loop",
+   "name": "loop 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     99,
+     76
+    ],
+    [
+     15,
+     101
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     86,
+     -12
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0163
+   }
+  },
+  {
+   "uid": "q6-loop-03",
+   "family": "loop",
+   "name": "loop 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     101,
+     79
+    ],
+    [
+     15,
+     104
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     84,
+     -14
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0167
+   }
+  },
+  {
+   "uid": "q6-loop-04",
+   "family": "loop",
+   "name": "loop 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     103,
+     82
+    ],
+    [
+     15,
+     107
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     82,
+     -16
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0171
+   }
+  },
+  {
+   "uid": "q6-loop-05",
+   "family": "loop",
+   "name": "loop 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     105,
+     85
+    ],
+    [
+     15,
+     110
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     80,
+     -18
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0175
+   }
+  },
+  {
+   "uid": "q6-loop-06",
+   "family": "loop",
+   "name": "loop 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     107,
+     88
+    ],
+    [
+     15,
+     113
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     78,
+     -20
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0179
+   }
+  },
+  {
+   "uid": "q6-loop-07",
+   "family": "loop",
+   "name": "loop 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     109,
+     91
+    ],
+    [
+     15,
+     116
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     76,
+     -22
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0184
+   }
+  },
+  {
+   "uid": "q6-loop-08",
+   "family": "loop",
+   "name": "loop 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     111,
+     94
+    ],
+    [
+     15,
+     119
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     74,
+     -24
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0188
+   }
+  },
+  {
+   "uid": "q6-loop-09",
+   "family": "loop",
+   "name": "loop 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     113,
+     97
+    ],
+    [
+     15,
+     122
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     72,
+     -26
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0192
+   }
+  },
+  {
+   "uid": "q6-loop-10",
+   "family": "loop",
+   "name": "loop 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     115,
+     100
+    ],
+    [
+     15,
+     125
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     70,
+     -28
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "six points chosen so the curve crosses itself once, at about 39°",
+   "fitError": 0,
+   "selfCrossings": 1,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0196
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-01",
+   "family": "flattened-arch",
+   "name": "flattened arch 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     54
+    ],
+    [
+     48,
+     27
+    ],
+    [
+     72,
+     27
+    ],
+    [
+     96,
+     54
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.25,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0051
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-02",
+   "family": "flattened-arch",
+   "name": "flattened arch 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     61
+    ],
+    [
+     48,
+     30
+    ],
+    [
+     72,
+     30
+    ],
+    [
+     96,
+     61
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.1875,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0059
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-03",
+   "family": "flattened-arch",
+   "name": "flattened arch 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     67
+    ],
+    [
+     48,
+     34
+    ],
+    [
+     72,
+     34
+    ],
+    [
+     96,
+     67
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.1875,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0063
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-04",
+   "family": "flattened-arch",
+   "name": "flattened arch 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     74
+    ],
+    [
+     48,
+     37
+    ],
+    [
+     72,
+     37
+    ],
+    [
+     96,
+     74
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.25,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.007
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-05",
+   "family": "flattened-arch",
+   "name": "flattened arch 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     80
+    ],
+    [
+     48,
+     40
+    ],
+    [
+     72,
+     40
+    ],
+    [
+     96,
+     80
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0076
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-06",
+   "family": "flattened-arch",
+   "name": "flattened arch 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     86
+    ],
+    [
+     48,
+     43
+    ],
+    [
+     72,
+     43
+    ],
+    [
+     96,
+     86
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.25,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0082
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-07",
+   "family": "flattened-arch",
+   "name": "flattened arch 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     93
+    ],
+    [
+     48,
+     46
+    ],
+    [
+     72,
+     46
+    ],
+    [
+     96,
+     93
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.1875,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0089
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-08",
+   "family": "flattened-arch",
+   "name": "flattened arch 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     99
+    ],
+    [
+     48,
+     50
+    ],
+    [
+     72,
+     50
+    ],
+    [
+     96,
+     99
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.1875,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0094
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-09",
+   "family": "flattened-arch",
+   "name": "flattened arch 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     106
+    ],
+    [
+     48,
+     53
+    ],
+    [
+     72,
+     53
+    ],
+    [
+     96,
+     106
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0.25,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0101
+   }
+  },
+  {
+   "uid": "q6-flattened-arch-10",
+   "family": "flattened-arch",
+   "name": "flattened arch 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     112
+    ],
+    [
+     48,
+     56
+    ],
+    [
+     72,
+     56
+    ],
+    [
+     96,
+     112
+    ],
+    [
+     120,
+     0
+    ]
+   ],
+   "note": "y = 1 − (2t − 1)⁴: a quartic arch, flat on top",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0107
+   }
+  },
+  {
+   "uid": "q6-rise-01",
+   "family": "rise",
+   "name": "tangent rise 1",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     6
+    ],
+    [
+     48,
+     12
+    ],
+    [
+     72,
+     19
+    ],
+    [
+     96,
+     30
+    ],
+    [
+     120,
+     45
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.1728,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-rise-02",
+   "family": "rise",
+   "name": "tangent rise 2",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     7
+    ],
+    [
+     48,
+     13
+    ],
+    [
+     72,
+     22
+    ],
+    [
+     96,
+     33
+    ],
+    [
+     120,
+     50
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.0923,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-rise-03",
+   "family": "rise",
+   "name": "tangent rise 3",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     7
+    ],
+    [
+     48,
+     15
+    ],
+    [
+     72,
+     24
+    ],
+    [
+     96,
+     37
+    ],
+    [
+     120,
+     55
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.2064,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-rise-04",
+   "family": "rise",
+   "name": "tangent rise 4",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     8
+    ],
+    [
+     48,
+     16
+    ],
+    [
+     72,
+     26
+    ],
+    [
+     96,
+     40
+    ],
+    [
+     120,
+     60
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  },
+  {
+   "uid": "q6-rise-05",
+   "family": "rise",
+   "name": "tangent rise 5",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     9
+    ],
+    [
+     48,
+     17
+    ],
+    [
+     72,
+     28
+    ],
+    [
+     96,
+     43
+    ],
+    [
+     120,
+     65
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.2064,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-rise-06",
+   "family": "rise",
+   "name": "tangent rise 6",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     9
+    ],
+    [
+     48,
+     19
+    ],
+    [
+     72,
+     30
+    ],
+    [
+     96,
+     47
+    ],
+    [
+     120,
+     70
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.0923,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-rise-07",
+   "family": "rise",
+   "name": "tangent rise 7",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     10
+    ],
+    [
+     48,
+     20
+    ],
+    [
+     72,
+     33
+    ],
+    [
+     96,
+     50
+    ],
+    [
+     120,
+     75
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.1728,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-rise-08",
+   "family": "rise",
+   "name": "tangent rise 8",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     11
+    ],
+    [
+     48,
+     21
+    ],
+    [
+     72,
+     35
+    ],
+    [
+     96,
+     53
+    ],
+    [
+     120,
+     80
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.0923,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0002
+   }
+  },
+  {
+   "uid": "q6-rise-09",
+   "family": "rise",
+   "name": "tangent rise 9",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     11
+    ],
+    [
+     48,
+     23
+    ],
+    [
+     72,
+     37
+    ],
+    [
+     96,
+     57
+    ],
+    [
+     120,
+     85
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0.2064,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0.0001
+   }
+  },
+  {
+   "uid": "q6-rise-10",
+   "family": "rise",
+   "name": "tangent rise 10",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     24,
+     12
+    ],
+    [
+     48,
+     24
+    ],
+    [
+     72,
+     39
+    ],
+    [
+     96,
+     60
+    ],
+    [
+     120,
+     90
+    ]
+   ],
+   "note": "y = t + t³: starts along the chord, then lifts; a cubic, exact",
+   "fitError": 0,
+   "selfCrossings": 0,
+   "approximation": {
+    "spans": 6,
+    "worstError": 0
+   }
+  }
+ ]
+}

@@ -257,3 +257,26 @@ Two things worth having:
   `root_search` / `coupler_curves`) is DeepSeek1's and touches `scripts/` + `state/PORT-int.md`.
   Your Blender quintic exporter and the Inkscape extension touch `inkscape/` and the app's
   reduction code. Neither is blocked by the other; both can be live. Do not wait on a choice.
+
+---
+
+## 2026-11-26 — Done: the 100 six-point guide curves, for testing the Inkscape extension
+
+Job: the operator asked DeepSeek1 for 100 control curves with six points, to test the Inkscape
+quintic workflow on.
+
+Done: `scripts/quintic-guides.ts` writes `workbench/quintic-guides.json` (the exact record) and
+`workbench/quintic-guides.svg` (a sheet, `Fig. QG1`, openable in Inkscape). Ten classic families,
+ten members each — parabola, bowl, S, C (half a circle), hyperbola, cusp (semicubical parabola),
+sine wave, loop, flattened arch, tangent rise. Every coordinate is an integer on a 120 × 120 grid,
+y up; the SVG flips y once, when it writes.
+
+Two numbers that matter when you test:
+- **Fit error** (a fitted quintic against its classic): worst **0.634** grid units, on the wave.
+  Parabola, bowl and the cubic S fit exactly; the C, hyperbola and wave are sampled, so they are
+  approximations and say so in their note.
+- **Cubic-chain error** at six spans: worst **0.0443** grid units across all 100.
+
+Proved by: `node scripts/quintic-guides.ts` prints 100 curves, the worst chain deviation and the
+loop crossings (`1,1,1,1,1,1,1,1,1,1`); the script refuses to write if any curve has other than six
+points, a non-integer coordinate, or a "loop" that does not cross.
