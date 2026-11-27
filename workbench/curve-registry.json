@@ -328290,6 +328290,12 @@
       "uid": "c-0429",
       "name": "coupler-two-node",
       "aliases": [],
+      "conversion": {
+        "algorithm": "sampled path",
+        "status": "pending",
+        "target": null,
+        "formulaNext": null
+      },
       "path": [
         [
           1.933392,
