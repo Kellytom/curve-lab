@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en-GB">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The quintic in Inkscape — Curve Lab</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0 auto; padding: 2.5rem 1.25rem 5rem; max-width: 46rem;
+    font: 17px/1.6 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    color: #17150f; background: #fffdf7;
+  }
+  h1, h2, h3, h4 { font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.25; margin: 2.2rem 0 0.6rem; }
+  h1 { font-size: 2rem; margin-top: 0; }
+  h2 { font-size: 1.35rem; border-top: 1px solid #e3ddcc; padding-top: 1.4rem; }
+  h3 { font-size: 1.05rem; }
+  p, li { max-width: 65ch; }
+  code, pre { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 0.86em; }
+  code { background: #f2eddf; padding: 0.1em 0.3em; border-radius: 3px; }
+  pre { background: #f7f2e6; border: 1px solid #e3ddcc; padding: 0.9rem 1rem;
+    overflow-x: auto; border-radius: 4px; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; margin: 1rem 0; font-size: 0.92em;
+    font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    display: block; overflow-x: auto; }
+  th, td { border-bottom: 1px solid #e3ddcc; padding: 0.4rem 0.7rem; text-align: left;
+    white-space: nowrap; }
+  th { background: #f7f2e6; font-weight: 600; }
+  blockquote { margin: 1rem 0; padding: 0.2rem 1rem; border-left: 3px solid #c9b98a;
+    color: #4a4335; }
+  a { color: #7a3b00; }
+  hr { border: 0; border-top: 1px solid #e3ddcc; margin: 2.5rem 0; }
+  .foot { margin-top: 3rem; font-size: 0.85em; color: #6b6455; }
+</style>
+<h1 id="the-quintic-in-inkscape-explained">The quintic in Inkscape, explained</h1>
+<p>A quintic is one smooth curve through six points. This page takes it from "what am I
+looking at" to the parts an expert will ask about: the shared record, the measured
+miss, and the claim that two joined cubics can hide a quintic — which is false, and
+this page shows why with numbers.</p>
+<p>Everything here is built and running. The extension is
+<code>inkscape/quintic-guide.inx</code> + <code>quintic_guide.py</code>, the maths is
+<code>inkscape/quintic_math.py</code>, and the user reference is
+<a href="QUINTIC-GUIDE.md"><code>docs/QUINTIC-GUIDE.md</code></a>.</p>
+<h2 id="part-1-the-beginners-walkthrough">Part 1 — the beginner's walkthrough</h2>
+<h3 id="what-you-are-making">What you are making</h3>
+<p>You draw a stroke. The extension puts <strong>six points</strong> on it, then draws the one
+quintic curve that those six points describe. The six points stay exact: they are the
+curve, in the same way that four points are a cubic. The line you see on the canvas
+is a chain of <strong>cubics</strong> that follows the quintic; it is a drawing of the curve, not
+the curve itself.</p>
+<p>Three layers, top to bottom:</p>
+<ol>
+<li><strong>the drawn stroke</strong> — your hand, the trackball, the shape you want;</li>
+<li><strong>the six-point quintic</strong> — the exact curve fitted to the stroke;</li>
+<li><strong>the cubic chain</strong> — what SVG can store and Inkscape can draw.</li>
+</ol>
+<p>Both gaps are measured and printed: stroke → quintic, and quintic → chain. Nothing
+on the page claims more than the measurement.</p>
+<h3 id="the-one-dial-fullness">The one dial: fullness</h3>
+<p>The six points are <code>G0 … G5</code>. Fullness, <code>α</code>, decides how far the inner four points
+are pulled from the straight chord towards your drawn points:</p>
+<blockquote>
+<p><code>Pi = (1 − α)·Li + α·Gi</code>, where <code>Li</code> is the same point on the straight line from
+the first point to the last.</p>
+</blockquote>
+<p>In words: <strong>α = 1 keeps your drawn shape, α = 0 collapses the curve to a straight
+line, and the two ends never move.</strong> That is the slider to drag with Live preview
+ticked.</p>
+<h3 id="step-by-step">Step by step</h3>
+<ol>
+<li><strong>Install once.</strong> In the repo:</li>
+</ol>
+<p><code>sh
+   sh scripts/install_inkscape_quintic.sh</code></p>
+<p>Restart Inkscape. Two entries appear under <strong>Extensions → Curve Lab</strong>.</p>
+<ol start="2">
+<li>
+<p><strong>Draw a pale guide.</strong> Any path: a freehand stroke, or a path built node by node.
+   Make it the shape you want, not a sketch of it. Pale and dotted helps, because the
+   inner curve is drawn on top.</p>
+</li>
+<li>
+<p><strong>Select the guide</strong>, then <strong>Extensions → Curve Lab → Quintic from Guide</strong>.</p>
+</li>
+<li>
+<p><strong>Points tab.</strong> Choose where the six points come from:
+   <em>On the curve, evenly spaced</em> (start here), <em>A best fit</em>, or one of the two cage
+   modes. Leave <strong>Spans</strong> at 1 for a short stroke; a long stroke needs 2–4. Leave the
+   cut at <strong>Equal arc length</strong>.</p>
+</li>
+<li>
+<p><strong>Display tab.</strong> <strong>Fullness</strong> 1, <strong>Cubic segments</strong> 0 (fit to tolerance),
+   <strong>Mark the six points</strong> on. Tick <strong>Live preview</strong> in the dialog if it is not
+   already ticked, then drag fullness and watch the curve change.</p>
+</li>
+<li>
+<p><strong>Read the label.</strong> Under the curve you get one line:
+   <code>N spans, M cubics, miss X px, bound Y px</code>. <em>Miss</em> is the measured distance from
+   your stroke to the quintic. <em>Bound</em> is the proved limit on how far the cubic chain
+   can be from the quintic — a bound, so it is always at or above the true error.
+   If the miss is too big for the job, raise Spans and apply again.</p>
+</li>
+<li>
+<p><strong>Apply.</strong> You get the inner curve, a small ring on each of the six points, and
+   the label. The guide stays where you put it. Running again with the same settings
+   replaces the curve instead of stacking a copy.</p>
+</li>
+<li>
+<p><strong>Export tab.</strong> Give an <strong>Export folder</strong> and you get three files next to it:
+   <code>&lt;guide&gt;-quintic.json</code> (the shared record), <code>&lt;guide&gt;-blender.py</code>,
+   <code>&lt;guide&gt;-geogebra.txt</code>. Only the six exact points leave — never the cubic drawing.</p>
+</li>
+<li>
+<p><strong>Bring a curve back.</strong> <strong>Extensions → Curve Lab → Quintic sheet: place a curve</strong>
+   asks for a uid (for example <code>q6-trefoil-10</code>) and places that curve from the shared
+   sheet, with its six points marked.</p>
+</li>
+</ol>
+<h3 id="what-each-control-does">What each control does</h3>
+<table>
+<thead>
+<tr>
+<th>control</th>
+<th>in one line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Six points are</td>
+<td>where the six points come from: on the stroke, a best fit, or the guide's own nodes</td>
+</tr>
+<tr>
+<td>Spans</td>
+<td>how many quintics the stroke becomes; one quintic per span</td>
+</tr>
+<tr>
+<td>Fullness</td>
+<td>tension from 1 (your shape) to 0 (straight chord); ends fixed</td>
+</tr>
+<tr>
+<td>Cubic segments</td>
+<td>how many cubics draw each quintic; 0 fits to the tolerance</td>
+</tr>
+<tr>
+<td>Tolerance</td>
+<td>the largest allowed quintic-to-chain miss, in px</td>
+</tr>
+<tr>
+<td>Smooth the seams</td>
+<td>forces C1 across spans</td>
+</tr>
+<tr>
+<td>Clamp inside the six points</td>
+<td>forbids the curve leaving the control polygon</td>
+</tr>
+<tr>
+<td>Mark / label / keep guide</td>
+<td>the marks, the measured line, the pale guide</td>
+</tr>
+<tr>
+<td>Export folder</td>
+<td>where the three files are written; blank writes nothing</td>
+</tr>
+<tr>
+<td>Copy the six points</td>
+<td>puts them on the clipboard instead</td>
+</tr>
+<tr>
+<td>Also write the offset</td>
+<td>writes an offset curve, marked approximate unless the curve is PH</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-inkscape-shows-cubics">Why Inkscape shows cubics</h3>
+<p>SVG has no quintic element. A path holds lines, cubics (three control points per
+span) and arcs. So the extension keeps the six points in the sidecar file and fits a
+<strong>C2 cubic chain</strong> — two cubics share a node and a tangent, with the second
+derivative matched as well — through stations on the quintic. The chain is the
+display; the six points are the curve.</p>
+<p>Could this be a live path effect instead? An Inkscape live effect is a compiled
+effect, and a Python <code>inkex</code> extension cannot register one. The built route is the
+dialog with <strong>Live preview</strong>: every control change re-runs the extension and redraws.
+For this job it feels the same, and it needs no compiled component.</p>
+<h3 id="what-leaves-the-file">What leaves the file</h3>
+<ul>
+<li><strong><code>&lt;guide&gt;-quintic.json</code></strong> — the shared record <code>curve-lab.quintic/1</code>,
+  <code>format/quintic.schema.json</code>. The six points go in with <strong>y up</strong> (SVG's y is down;
+  the writer flips once and says so), each span carries its start and end frames
+  (point, tangent, curvature, rate), and the joins carry their measured residual.</li>
+<li><strong><code>&lt;guide&gt;-blender.py</code></strong> — paste into Blender's Text Editor and run. One exact
+  order-6 NURBS spline per span, <code>use_endpoint_u = True</code>, six points. Blender's
+  <code>order_u</code> is clamped to the point count quietly, so six points with order 6 is the
+  only exact quintic span.</li>
+<li><strong><code>&lt;guide&gt;-geogebra.txt</code></strong> — one command per line for GeoGebra's Input Bar: the
+  six points as <code>P0 … P5</code>, then the Bernstein form of the curve,
+  <code>Q(t) = (1−t)⁵P0 + 5t(1−t)⁴P1 + 10t²(1−t)³P2 + 10t³(1−t)²P3 + 5t⁴(1−t)P4 + t⁵P5</code>.</li>
+</ul>
+<p>Both export files are y up, so the flip happens once in the writer and neither
+application needs a second one.</p>
+<h3 id="how-to-tell-it-worked">How to tell it worked</h3>
+<ul>
+<li>The label is present and its miss is small for your job.</li>
+<li>Six rings sit on the curve, and the curve passes through them in the on-the-curve
+  mode.</li>
+<li>A repeat run with the same settings replaces, not duplicates.</li>
+<li>The export folder holds the three files, and the JSON passes the strict check
+  (next part).</li>
+</ul>
+<h2 id="part-2-the-expert-part">Part 2 — the expert part</h2>
+<h3 id="the-record-and-the-one-open-contract-question">The record, and the one open contract question</h3>
+<p>The record is <code>curve-lab.quintic/1</code>; <code>scripts/check_quintic_contract.py</code> is the
+check. On this side it passes <code>--strict</code> on my exports. On the shared sheet it fails
+on three envelope keys:</p>
+<pre><code class="language-sh">.venv/bin/python scripts/check_quintic_contract.py workbench/quintic-guides.json --strict
+# FAIL ... keys the schema does not allow: note, order, worstApproximationError
+</code></pre>
+<p><code>workbench/quintic-guides.json</code> belongs to the curve-lab side, so the choice is
+theirs: drop the keys, or make <code>order</code> the integer 6 and move the point names to
+<code>labels</code>. The open question that goes with it: the sheet's <code>worstApproximationError</code>
+(0.1182) is recorded without the span count it was measured at, so it cannot be
+compared with my numbers until the count and the measure (max distance or station
+sample) are named.</p>
+<h3 id="what-is-measured">What is measured</h3>
+<p>The block below is computed by <code>scripts/quintic_explained.py</code> from the sheet with
+the extension's own maths. It is regenerated, not typed: <code>--check</code> fails when the
+page and the numbers disagree.</p>
+<!-- numbers:start -->
+
+<table>
+<thead>
+<tr>
+<th>curve on the sheet</th>
+<th>1 span</th>
+<th>2 spans</th>
+<th>3 spans</th>
+<th>4 spans</th>
+<th>6 spans</th>
+<th>C3 jump at the seam, 2 spans (px)</th>
+<th>worst recovered point (px)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q6-flattened-arch-10</code></td>
+<td>40.4</td>
+<td>4.0</td>
+<td>0.864</td>
+<td>0.273</td>
+<td>0.054</td>
+<td>280.0</td>
+<td>12.1</td>
+</tr>
+<tr>
+<td><code>q6-parabola-01</code></td>
+<td>0.000065</td>
+<td>0.000033</td>
+<td>0.000022</td>
+<td>0.000016</td>
+<td>0.000011</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Measured in the sheet's own units (the cages are in px) by <code>scripts/quintic_explained.py</code>, which calls the extension's <code>quintic_math.py</code>. The last two columns test the "hidden quintic" claim: the seam jump is the difference between the two cubics' third derivatives at the shared node, and the recovered point is the worst of the six points a naive recovery gets back from the two-cubic chain.</p>
+<!-- numbers:end -->
+
+<p>Read the rows as follows. One span is a bad fit on a wild curve and a long one needs
+more; the chain is measured against the quintic, not against the stroke. The parabola
+row is the exact case: a quadratic is a cubic, so its numbers are floating-point
+zeros (below 0.0001 px). The two right-hand columns test the "two cubics hide a
+quintic" claim, next.</p>
+<h3 id="two-cubics-do-not-hide-a-general-quintic">Two cubics do not hide a general quintic</h3>
+<p>The claim is that two joined cubics with <strong>C3 continuity</strong> at the shared node are a
+single quintic Bézier in disguise. It is false, and the reason is one line:</p>
+<blockquote>
+<p>A cubic's third derivative is <strong>constant</strong>. If two cubics share their third
+derivative at a node, they share it everywhere, so the joined curve has a constant
+third derivative — and a curve whose third derivative is constant is <strong>one cubic</strong>,
+not a quintic.</p>
+</blockquote>
+<p>So the C3 test finds a degree-elevated cubic. That is still a useful thing to detect
+(a curve that <em>is</em> a cubic but is stored with more control points), but it is not a
+hidden quintic: the quintic's third derivative changes along the curve, and no pair
+of cubics can reproduce that.</p>
+<p>The table makes the size of the gap concrete: on the flattened arch, the
+third-derivative jump at the seam of the 2-span chain is 280 px per unit <code>t³</code>, while
+that same chain is still 4.0 px away from the quintic it is meant to follow. The two
+cubics are not a hidden quintic; they are a visible approximation of one.</p>
+<p>What that means for a reverse-engineering script:</p>
+<ul>
+<li><strong>A least-squares recovery always returns a quintic.</strong> Twelve numbers in, six
+  control points out; the fit is well defined.</li>
+<li><strong>The recovery is exact only when the cubics came from a quintic's halves</strong> — which
+  happens when the quintic is a degree-elevated cubic (the parabola row is the clean
+  case). Otherwise it returns the closest quintic, and the residual says how far it
+  is.</li>
+<li><strong>The chain is not the curve.</strong> Recovering a quintic from an SVG chain recovers the
+  chain's best quintic, not the one that was drawn. That is why the extension writes
+  the six points to the sidecar at the moment it draws: the exact values never have
+  to be reconstructed from the drawing.</li>
+</ul>
+<h3 id="fullness-is-not-recoverable-from-the-curve-alone">Fullness is not recoverable from the curve alone</h3>
+<p><code>α</code> is defined against the guide: <code>Pi = (1−α)Li + αGi</code>. Without <code>Gi</code> it is not
+identifiable — halve the guide's height and double <code>α</code> and the six inner points do
+not move. Keep the guide in the file, or the guide convention, if <code>α</code> has to survive
+a round trip. Given both, <code>α</code> follows per point:
+<code>α = |Pi − Li| / |Gi − Li|</code>.</p>
+<h3 id="offsets-and-ph">Offsets and PH</h3>
+<p>The offset export is marked <code>exact: false</code> because it is approximate: none of the
+sheet's 200 curves is a Pythagorean-hodograph curve. PH is the property that would
+give an exact offset, and it is decided here in exact polynomial arithmetic, not by
+sampling.</p>
+<h3 id="what-is-not-done">What is not done</h3>
+<ul>
+<li>The dialog has been run headless; <strong>the GUI has not been driven</strong> in Inkscape yet.</li>
+<li>The Blender and GeoGebra files have not been pasted into either application.</li>
+<li>Nothing is pushed this session.</li>
+</ul>
+<p>Those three are the next honest steps, not hidden caveats.</p>
+<hr>
+<p><em>Files: <code>docs/QUINTIC-EXPLAINED.md</code> (this page), <code>docs/quintic-explained.html</code> (its
+twin), <code>scripts/quintic_explained.py</code> (numbers and twin), <code>inkscape/quintic_math.py</code>
+(the maths), <code>docs/QUINTIC-GUIDE.md</code> (the user reference).</em></p>
