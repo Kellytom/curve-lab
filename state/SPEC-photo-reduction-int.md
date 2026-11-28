@@ -399,3 +399,27 @@ free tier), the archive tree on disk and deposited to the Internet Archive. No s
 
 **Progress:** the run is resumable, skips files already written, and stops at the 5 GiB floor. At about
 0.2 s a file, 54,011 files is roughly three hours.
+
+## 13. The site — static, relative links, no server — 2026-11-28
+
+`scripts/photo-site.ts` builds the browsable archive **inside** `photo-public/_site/`, so every link
+is relative: the same folder opens from a disk, from a bucket, or from a USB stick with no server and
+no database.
+
+```
+photo-public/
+  _site/index.html        the album list, one card each
+  _site/<album>.html      one album, a grid
+  _site/index.json        what search and filtering read
+  _thumbs/<hash>.png      240 px, 16 colours, ~9 KB each
+  <album>/<file>.png      the public copy
+```
+
+**Page weight is the design goal**, measured on the first build: a 240 px palette thumbnail averages
+**9 KB**, so a 60-photo album is about **540 KB** of grid, and the 90 KB full copy is fetched only
+when a picture is clicked. Without thumbnails the same page would be 5.4 MB.
+
+**Measured on 290 files / 4 albums** (the first slice of the public tier): site HTML 84 KB total,
+thumbnails 2.6 MB, heaviest album page 1.38 MB of thumbnails for 217 files.
+
+Rebuild after the derivative run finishes; both are read-only over `photo-public` and safe to re-run.
