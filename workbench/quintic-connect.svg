@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+<rect width="1200" height="640" fill="#fff"/>
+<g font-family="Helvetica, Arial, sans-serif">
+<text x="80" y="34" font-size="20" font-weight="600">Fig. QN1 — three spans solved to G3 at every join</text>
+<text x="80" y="56" font-size="13" fill="#555">Handles 0.42 × chord, curvature and its rate met at both ends of each span. Worst curvature residual 1.7e-17; measured from the control points, not from the solver.</text>
+<path d="M 80.00,560.00 C 122.85,527.87 148.79,508.36 165.68,495.94 C 182.56,483.56 190.47,478.23 197.01,475.13 C 203.50,472.08 208.70,471.21 218.71,468.80 C 228.62,466.45 243.44,462.52 266.56,454.87 C 289.54,447.30 320.93,435.96 360.23,420.72 C 399.34,405.58 446.45,386.52 496.00,365.87" fill="none" stroke="#123a63" stroke-width="2.2"/>
+<path d="M 496.00,365.87 C 532.86,350.51 601.40,321.66 664.61,292.94 C 728.57,263.92 787.46,234.85 824.84,211.44 C 862.84,187.83 879.61,169.69 875.52,157.37 C 871.92,144.95 847.74,138.17 816.47,134.60 C 785.55,131.02 747.81,130.45 726.06,130.25 C 704.52,130.14 699.26,130.21 738.67,130.13" fill="none" stroke="#1f7a4d" stroke-width="2.2"/>
+<path d="M 738.67,130.13 C 786.57,130.15 819.62,130.46 844.03,130.97 C 868.41,131.51 884.16,132.28 896.59,134.03 C 908.99,135.81 918.08,138.59 928.17,143.60 C 938.22,148.62 949.26,155.90 964.49,166.76 C 979.68,177.60 999.06,192.04 1024.57,211.12 C 1050.03,230.18 1081.64,253.90 1120.00,282.67" fill="none" stroke="#9c2f2f" stroke-width="2.2"/>
+<circle cx="80.00" cy="560.00" r="6" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="90" y="550" font-size="12" fill="#c0392b">S0 κ 0</text>
+<text x="218.71" y="468.80" font-size="11" fill="#123a63" text-anchor="middle">span 0 · G3</text>
+<circle cx="496.00" cy="365.87" r="6" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="506" y="355.87" font-size="12" fill="#c0392b">S1 κ 0.0008</text>
+<text x="875.52" y="157.37" font-size="11" fill="#1f7a4d" text-anchor="middle">span 1 · G3</text>
+<circle cx="738.67" cy="130.13" r="6" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="748.67" y="120.13" font-size="12" fill="#c0392b">S2 κ -0.0008</text>
+<text x="928.17" y="143.60" font-size="11" fill="#9c2f2f" text-anchor="middle">span 2 · </text>
+<circle cx="1120.00" cy="282.67" r="6" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="1130" y="272.67" font-size="12" fill="#c0392b">S3 κ 0</text>
+<text x="80" y="618" font-size="12" fill="#666">x right, y up, arbitrary units. Red circles are the stations (position, slope, κ, dκ/ds). Each coloured run is one quintic span, drawn as a six-span cubic chain.</text>
+</g></svg>

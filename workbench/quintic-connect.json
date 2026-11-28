@@ -1,0 +1,285 @@
+{
+ "format": "curve-lab.connect/1",
+ "method": "quinticControls from app/src/lib/glue.ts; handles 0.42 chord; measured with scripts/lib/quintic-geometry.endFrame",
+ "stations": [
+  {
+   "x": 0,
+   "y": 0,
+   "slope": {
+    "n": 3,
+    "d": 4
+   },
+   "kappa": 0,
+   "rate": 0
+  },
+  {
+   "x": 60,
+   "y": 28,
+   "slope": {
+    "n": 5,
+    "d": 12
+   },
+   "kappa": 0.0008,
+   "rate": 0.00002
+  },
+  {
+   "x": 95,
+   "y": 62,
+   "slope": {
+    "n": 0,
+    "d": 1
+   },
+   "kappa": -0.0008,
+   "rate": -0.00001
+  },
+  {
+   "x": 150,
+   "y": 40,
+   "slope": {
+    "n": -3,
+    "d": 4
+   },
+   "kappa": 0,
+   "rate": 0
+  }
+ ],
+ "spans": [
+  {
+   "uid": "span:0",
+   "kind": "quintic",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     22.247159,
+     16.685369
+    ],
+    [
+     18.218449,
+     13.663837
+    ],
+    [
+     11.513347,
+     8.63501
+    ],
+    [
+     34.330202,
+     17.304251
+    ],
+    [
+     60,
+     28
+    ]
+   ],
+   "frame": {
+    "start": {
+     "p": [
+      0,
+      0
+     ],
+     "tangent": [
+      22.247158560139766,
+      16.68536892010482
+     ],
+     "kappa": 0,
+     "rate": 0
+    },
+    "end": {
+     "p": [
+      60,
+      28
+     ],
+     "tangent": [
+      25.669798338622805,
+      10.695749307759502
+     ],
+     "kappa": 0.0008,
+     "rate": 0.00002
+    }
+   }
+  },
+  {
+   "uid": "span:1",
+   "kind": "quintic",
+   "points": [
+    [
+     60,
+     28
+    ],
+    [
+     78.917637,
+     35.882349
+    ],
+    [
+     150.844176,
+     66.306749
+    ],
+    [
+     124.106344,
+     61.579992
+    ],
+    [
+     74.505894,
+     62
+    ],
+    [
+     95,
+     62
+    ]
+   ],
+   "frame": {
+    "start": {
+     "p": [
+      60,
+      28
+     ],
+     "tangent": [
+      18.917636741455226,
+      7.882348642273016
+     ],
+     "kappa": 0.0008,
+     "rate": 0.00002
+    },
+    "end": {
+     "p": [
+      95,
+      62
+     ],
+     "tangent": [
+      20.494106469909838,
+      0
+     ],
+     "kappa": -0.0008,
+     "rate": -0.00001
+    }
+   }
+  },
+  {
+   "uid": "span:2",
+   "kind": "quintic",
+   "points": [
+    [
+     95,
+     62
+    ],
+    [
+     119.879461,
+     62
+    ],
+    [
+     121.491983,
+     61.381012
+    ],
+    [
+     120.483096,
+     62.137678
+    ],
+    [
+     130.096431,
+     54.927677
+    ],
+    [
+     150,
+     40
+    ]
+   ],
+   "frame": {
+    "start": {
+     "p": [
+      95,
+      62
+     ],
+     "tangent": [
+      24.87946140896142,
+      0
+     ],
+     "kappa": -0.0008,
+     "rate": -0.00001
+    },
+    "end": {
+     "p": [
+      150,
+      40
+     ],
+     "tangent": [
+      19.903569127169135,
+      -14.927676845376844
+     ],
+     "kappa": 0,
+     "rate": 0
+    }
+   }
+  }
+ ],
+ "joins": [
+  {
+   "uid": "join:0",
+   "a": {
+    "span": "span:0",
+    "end": "end"
+   },
+   "b": {
+    "span": "span:1",
+    "end": "start"
+   },
+   "continuity": "G3",
+   "residual": {
+    "position": 0,
+    "tangentDegrees": 9.542e-15,
+    "kappa": 1.724e-17,
+    "rate": 9.887e-18
+   }
+  },
+  {
+   "uid": "join:1",
+   "a": {
+    "span": "span:1",
+    "end": "end"
+   },
+   "b": {
+    "span": "span:2",
+    "end": "start"
+   },
+   "continuity": "G3",
+   "residual": {
+    "position": 0,
+    "tangentDegrees": 0,
+    "kappa": 4.77e-18,
+    "rate": 7.047e-19
+   }
+  }
+ ],
+ "stationErrors": [
+  {
+   "station": 0,
+   "position": 0,
+   "slope": 1.11e-16,
+   "kappa": 1.083e-17,
+   "rate": 2.86e-19
+  },
+  {
+   "station": 1,
+   "position": 0,
+   "slope": 0,
+   "kappa": 6.505e-19,
+   "rate": 3.049e-20
+  },
+  {
+   "station": 2,
+   "position": 0,
+   "slope": 0,
+   "kappa": 2.168e-19,
+   "rate": 4.049e-19
+  },
+  {
+   "station": 3,
+   "position": 0,
+   "slope": 3.331e-16,
+   "kappa": 1.134e-17,
+   "rate": 9.178e-19
+  }
+ ],
+ "selfCrossings": 0
+}

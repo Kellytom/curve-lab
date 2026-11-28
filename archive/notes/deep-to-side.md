@@ -391,3 +391,39 @@ trefoil, arabesque, acanthus). A trefoil that looks wrong is the primitive, not 
 
 Proved by: `node --test tests/js/quintic-*.test.ts` 25 pass; `node --test tests/test_regressions.ts`
 38 pass; `python -m unittest tests.test_quintic_contract` 4 pass.
+
+---
+
+## 2026-11-27 — two bugs in `quinticControls`, measured, with a workaround on this side
+
+Job: chain spans with the solver in `app/src/lib/glue.ts` instead of placing whole shapes, and prove
+the joins. It works — three spans, G3 at both joins, station residuals 3e-16 — but only after two
+faults in the solver, both measured, neither guessed.
+
+**1. `unitDirection` is not unit for a slope that is not a Pythagorean triple.**
+
+```ts
+return { x: x / l2, y: y / l2, exact: false };   // l2 = x*x + y*y
+```
+
+Dividing by the **squared** length leaves a vector of length `1/√l2`. Slope `1/1` gives
+`(0.5, 0.5)`, length 0.707. The solver's `E0`/`E1` rows use `cross(u, …)`, so the curvature it aims
+for arrives scaled: asking for κ = 0.01 produced **0.028284** on both ends (2√2 × too large). With
+p-triple slopes — 3/4, 5/12, 20/21 — the exact branch runs and κ lands to 1e-17. The fix is
+`x / Math.sqrt(l2)`.
+
+**2. `dkappa1` is taken along the reversed direction, while `kappa1` is forward.**
+
+One span, `dkappa0 = 0.0002`, `dkappa1 = -0.0001`: the measured start rate was **+0.0002** and the
+measured end rate **+0.0001** — the end sign inverted. Passing `dkappa1 = -rate` fixes it; the joins
+then read Δ(dκ/ds) ~1e-13 instead of 2× the rate.
+
+**Workaround on this side, not a change to your file:** `scripts/quintic-connect.ts` uses p-triple
+slopes only and negates `dkappa1`, and says why in its header. `tests/js/quintic-connect.test.ts`
+asserts the chain, not the workaround, so both tests keep passing if you fix either.
+
+**What it produces:** `workbench/quintic-connect.json` (stations, spans, joins with residuals) and
+`Fig. QN1`. Three spans, each a quintic, G3 at both joins, no self-crossing, drawn as cubic chains.
+
+Proved by: `node scripts/quintic-connect.ts` → both joins G3, worst station residual 3.3e-16;
+`node --test tests/js/quintic-connect.test.ts` → 6 pass.
