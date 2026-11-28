@@ -341,3 +341,12 @@ Two facts set the next session's plan, and neither is a guess:
 
 Next: pick an album the operator wants, run it, and let them compare one reduced file with the same
 photo in Photos before the full run. The 5 GiB floor is theirs and is the only space rule.
+
+### Photos — measured 2026-11-27 (running, not parked)
+
+The pipeline is live: `plan.jsonl` from the database, `--from-dir` for the Google zips, one manifest,
+one hash index, one alias table. Numbers at this block: **43,788 manifest rows, 33.1 GB in → 15.1 GB
+out (54 %), 4,410 duplicates, 56 GiB free**.
+
+Next, in order: let the batch finish (it resumes the Mac plan itself), review `duplicates.csv` and
+`naming-plan.csv`, then decide whether to apply the names. Nothing in the photo tree is in git.

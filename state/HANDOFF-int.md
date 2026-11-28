@@ -4371,3 +4371,32 @@ in the suite. Final gate: quintic tests 25 JS + 4 Python, register 36, `--fast` 
 - **Next:** read `report.ts` after a few hours. The per-network table separates the home NETGEAR
   link from the public one, and every drop row carries the speed at that minute — that is the
   evidence for or against the repeater.
+
+## 2026-11-27 (photos: two collections, one record, and the photos kept out of git)
+
+- **The photo reduction is a working pipeline, not a plan.** `scripts/photo-reduce.ts` reduces a file
+  through one set of rules (`scripts/lib/photo-process.ts`), from three doors: `--from-plan` (the Mac
+  library), `--from-dir` (a folder or a zip), and `--run` (albums through AppleScript).
+- **The Mac library is read from `database/Photos.sqlite`, not AppleScript.** Measured: AppleScript
+  reports 272 albums and 99,162 items and **times out** counting albums; the database holds **8,557
+  albums, 118,612 assets, 125 GB**, and **56,341 assets are in no album**. An album-driven export
+  would have missed half the library. `scripts/photo-db.ts` writes `plan.jsonl` (112,095 readable,
+  6,215 missing at the time).
+- **The Android set arrives as Google Photos album downloads** — 131 zips, processed one at a time;
+  `Copy of` is stripped, a junk album name falls back to `_by-year/YYYY`, and the zip's staging copy
+  is deleted after the batch.
+- **Duplicates are content, not names.** `hashes.jsonl` (sha256 → kept file) is loaded at every start;
+  **4,410 duplicate rows** so far, and `aliases.jsonl` keeps **every name** a kept file answers to
+  (39,378 files, 1,990 with more than one name). One file, all names.
+- **`naming-plan.csv` exists and renames nothing** — 39,378 proposals of
+  `<album-slug>-<original stem>`, with the rules written in `state/SPEC-photo-reduction-int.md` §11.
+- **At the gate:** register **38 pass**; `check_asks` ok; tree clean apart from DeepSeek2's in-flight
+  quintic-lab files. Photos are **git-ignored** (`photo-reduced/`, `photo-inbox/`, `_unzipped/`,
+  `*.zip`, `IMG_*`, `*.heic`) — nothing personal is tracked until the operator chooses it.
+- **Running:** the zip batch, which then resumes the Mac plan run; both stop at 5 GiB free and both
+  are resumable. **Next:** review `duplicates.csv` and `naming-plan.csv`, then say whether the names
+  are applied.
+
+Tried and rejected: building a perceptual hash for near-duplicates — the operator's case is the same
+bytes in two folders, which the content hash already catches. Driving the library through AppleScript
+— measured to time out at 118k assets. Staging a full copy of the phone — 113 GB free cannot hold it.

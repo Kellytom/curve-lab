@@ -129,3 +129,16 @@ state/jobs/
 # regenerated only when their source changes, so they stay tracked and cost nothing until then.
 #   frames  scripts/frames_build.ts
 app/public/frames/*.png
+
+# the photo reduction: personal photographs and the downloads they come from.
+# Nothing here is tracked until the operator chooses the ones to keep and their
+# names are written down. See state/SPEC-photo-reduction-int.md.
+photo-reduced/
+photo-inbox/
+_unzipped/
+*.zip
+IMG_*
+PANO_*
+VID_*
+*.HEIC
+*.heic

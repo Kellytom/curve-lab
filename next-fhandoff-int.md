@@ -1,7 +1,7 @@
 ```text
-Read state/HANDOFF-int.md. Read app/src/content/docs/docs/handover.md only for durable detail.
-You are closing the two ports the queue lists: run `tests/js/root-search.test.ts` and `tests/js/coupler-curves.test.ts` against the same fixtures the Python uses, then delete `scripts/root_search.py` (it has no Python consumer) and add a `state/PORT-int.md` row for each port — naming `tests/test_crossing_calibration.py` as `scripts/coupler_curves.py`'s last consumer instead of deleting a file that test imports.
-Proves: both node tests green with their parity count printed; `scripts/root_search.py` gone; `state/PORT-int.md` has one row per port, each saying "retired" or naming the consumer that keeps it.
+Read state/HANDOFF-int.md (tail) and state/SPEC-photo-reduction-int.md §10–11.
+You are reviewing the photo reduction: read duplicates.csv and naming-plan.csv, check a few reduced files against their originals, and report whether the names should be applied and whether any duplicate group should keep a different copy.
+Proves: a short written verdict in state/SPEC-photo-reduction-int.md (apply or not, and why), with the counts from the two files and at least three reduced files opened and compared.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-26 (the sidechat/buid block), commit 47939cad.
+Source: state/HANDOFF-int.md, 2026-11-27, after the photo pipeline block.
