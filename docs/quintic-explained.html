@@ -313,13 +313,24 @@ a round trip. Given both, <code>α</code> follows per point:
 sheet's 200 curves is a Pythagorean-hodograph curve. PH is the property that would
 give an exact offset, and it is decided here in exact polynomial arithmetic, not by
 sampling.</p>
-<h3 id="what-is-not-done">What is not done</h3>
+<h3 id="what-is-proved-and-what-is-still-the-operators-step">What is proved, and what is still the operator's step</h3>
 <ul>
-<li>The dialog has been run headless; <strong>the GUI has not been driven</strong> in Inkscape yet.</li>
-<li>The Blender and GeoGebra files have not been pasted into either application.</li>
+<li><strong>Installed and run from the installed path.</strong> <code>sh scripts/install_inkscape_quintic.sh</code>
+  copies both <code>.inx</code> files and both scripts; run headless from that folder, the
+  extension wrote the record, the report, the Blender file and the GeoGebra file, and
+  <code>scripts/check_quintic_contract.py --strict</code> passed on the record.</li>
+<li><strong>Blender (4.2.23 LTS) has read the export.</strong> Running the generated script in
+  <code>blender -b</code> created one spline with <code>order_u = 6</code>, 6 points and
+  <code>use_endpoint_u = True</code>: an exact order-6 NURBS quintic. That is Blender's own
+  report, not a claim from a file reader.</li>
+<li><strong>GeoGebra has not seen the commands.</strong> No GeoGebra app is installed on this
+  machine, so the <code>-geogebra.txt</code> lines are checked as text only. Paste them into the
+  Input Bar once to close that gap.</li>
+<li><strong>The GUI has not been driven.</strong> The dialog has only been run headless. Open a
+  drawn stroke, run <strong>Extensions → Curve Lab → Quintic from Guide</strong>, tick Live
+  preview and drag Fullness once. One minute of clicking is the remaining proof.</li>
 <li>Nothing is pushed this session.</li>
 </ul>
-<p>Those three are the next honest steps, not hidden caveats.</p>
 <hr>
 <p><em>Files: <code>docs/QUINTIC-EXPLAINED.md</code> (this page), <code>docs/quintic-explained.html</code> (its
 twin), <code>scripts/quintic_explained.py</code> (numbers and twin), <code>inkscape/quintic_math.py</code>

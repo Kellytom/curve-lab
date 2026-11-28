@@ -27,3 +27,18 @@ The parabola is exactly representable by cubics, but the fit prints values aroun
 `1e-5` px. The page says so in words ("floating-point zeros") instead of claiming
 "exact". Rule: a measured zero in this page is described as a floating-point zero
 when its source is arithmetic, not measurement.
+
+## 3. Selecting the sheet's cage in the wrong mode looks broken (2026-11-27)
+
+Driving the installed extension headless on `workbench/quintic-guides.svg` with the
+default six-points mode gives `out of the six points by up to 872.6 px` and a
+34.7 px stroke miss. Nothing is broken: the six points are taken at equal arc
+length, so the quintic through them is not the sheet's quintic, and the sheet's
+path is not a freehand stroke to fit.
+
+**Fix for a user.** Use the six-points mode on a drawn stroke; use
+*A cage: the guide's own 6 nodes* only when the selected path has exactly six
+nodes — otherwise the extension says so and refuses. **Guard:** the cage mode's
+node-count refusal is the message the user sees; this note explains the 872 px
+number so it is not read as a fault.
+

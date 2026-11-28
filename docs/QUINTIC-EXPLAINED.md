@@ -230,13 +230,23 @@ sheet's 200 curves is a Pythagorean-hodograph curve. PH is the property that wou
 give an exact offset, and it is decided here in exact polynomial arithmetic, not by
 sampling.
 
-### What is not done
+### What is proved, and what is still the operator's step
 
-- The dialog has been run headless; **the GUI has not been driven** in Inkscape yet.
-- The Blender and GeoGebra files have not been pasted into either application.
+- **Installed and run from the installed path.** `sh scripts/install_inkscape_quintic.sh`
+  copies both `.inx` files and both scripts; run headless from that folder, the
+  extension wrote the record, the report, the Blender file and the GeoGebra file, and
+  `scripts/check_quintic_contract.py --strict` passed on the record.
+- **Blender (4.2.23 LTS) has read the export.** Running the generated script in
+  `blender -b` created one spline with `order_u = 6`, 6 points and
+  `use_endpoint_u = True`: an exact order-6 NURBS quintic. That is Blender's own
+  report, not a claim from a file reader.
+- **GeoGebra has not seen the commands.** No GeoGebra app is installed on this
+  machine, so the `-geogebra.txt` lines are checked as text only. Paste them into the
+  Input Bar once to close that gap.
+- **The GUI has not been driven.** The dialog has only been run headless. Open a
+  drawn stroke, run **Extensions → Curve Lab → Quintic from Guide**, tick Live
+  preview and drag Fullness once. One minute of clicking is the remaining proof.
 - Nothing is pushed this session.
-
-Those three are the next honest steps, not hidden caveats.
 
 ---
 
