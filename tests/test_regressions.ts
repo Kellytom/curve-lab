@@ -17,8 +17,10 @@
 import { describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
-import { homedir } from "node:os";
+import {
+  chmodSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync,
+} from "node:fs";
+import { homedir, tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -593,5 +595,39 @@ describe("SidechatWindowTest", () => {
       run.includes('{"agent":"sidechat"}'),
       "a resumed session is switched to the sidechat agent",
     );
+  });
+
+  test("test_the_typed_sidechat_command_creates_the_session_with_the_agent", (t) => {
+    // The operator, 2026-11-27, after the launcher fix: "i enter this way:
+    // OPENCODE_CONFIG=... opencode --session ses-sidechat-$(date +%s)". The typed
+    // command sets no agent, so the service default (`build`) won again and the window
+    // still read "build - deepseek": the first fix guarded the icon, not the path the
+    // operator uses. `~/bin/sidechat` posts the session with the agent, then opens it.
+    // This runs that script against a stub opencode and reads every argument it was
+    // handed, so the guard fails if either half goes missing.
+    const script = path.join(homedir(), "bin", "sidechat");
+    if (!existsSync(script)) return t.skip("~/bin/sidechat is not installed here");
+    const tmp = mkdtempSync(path.join(tmpdir(), "sidechat-"));
+    const log = path.join(tmp, "calls.log");
+    const stub = path.join(tmp, "opencode");
+    writeFileSync(stub, `#!/bin/sh\nprintf '%s\\n' "$*" >> "${log}"\n`);
+    chmodSync(stub, 0o755);
+    try {
+      const run = spawnSync(script, [], {
+        env: { ...process.env, SIDECHAT_OC: stub, SIDECHAT_DIR: tmp },
+        encoding: "utf8",
+      });
+      assert.equal(run.status, 0, run.stderr);
+      const calls = readFileSync(log, "utf8").trim().split("\n");
+      const create = calls.find((line) => line.startsWith("api post /api/session --data"));
+      assert.ok(create, "the script creates the session itself");
+      assert.match(create, /"agent":"sidechat"/, "with the sidechat agent");
+      const opened = calls.at(-1)!;
+      const match = /^--session (ses-\S+)$/.exec(opened);
+      assert.ok(match, "the script opens a session id");
+      assert.ok(create.includes(`"id":"${match[1]}"`), "the opened session is the one created");
+    } finally {
+      rmSync(tmp, { recursive: true, force: true });
+    }
   });
 });
