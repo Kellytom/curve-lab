@@ -201,3 +201,22 @@ DeepSeek2's page). What is known:
 - **The conversion track** landed `model.ts` (6 tests) and the `svg.ts` TEXT layer (8 tests):
   `document()` stays in Python until the site emits documents. `state/PORT-int.md` carries
   the row table.
+
+## 2026-11-28 · GeoGebra and the repo tidy
+
+- **GeoGebra Classic 6.0.937 is installed** at `/Applications/GeoGebra Classic 6.app`
+  (verified: it launches and quits). The working download is the **portable zip** from
+  <https://download.geogebra.org/installers/6.0/>:
+  `GeoGebra-Classic-6-MacOS-Portable-6-0-937-0.zip` (204 MB, **universal** x86_64 +
+  arm64). Do not use `https://download.geogebra.org/package/mac`: that is a 92 MB
+  **arm64-only** app and will not run on this Intel Mac. Install with
+  `ditto "<unzipped>/GeoGebra Classic 6.app" /Applications/`.
+- `spctl` prints **rejected** for that app: it is signed with an Apple Distribution
+  (App Store) certificate, not Developer ID, and is not notarized. curl writes no
+  quarantine bit, so it still opens normally; a browser-downloaded copy would need
+  right-click → Open.
+- **GeoGebra has no command-line input.** The `-geogebra.txt` export is text-checked
+  only; the first paste into the Input Bar is the operator's. Blender does have
+  `-b --python`, so the Blender export is proven there (4.2.23 LTS, order_u 6).
+- Scratch notes moved out of `docs/`: `deep2/notes/blender.md`, `box-linux.md`,
+  `mint-linux.md`. `inkscape/quintic-guide-py` is an older `.inx` copy, left in place.

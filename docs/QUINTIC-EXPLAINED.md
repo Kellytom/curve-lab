@@ -79,6 +79,8 @@ ticked.
 8. **Export tab.** Give an **Export folder** and you get three files next to it:
    `<guide>-quintic.json` (the shared record), `<guide>-blender.py`,
    `<guide>-geogebra.txt`. Only the six exact points leave — never the cubic drawing.
+   In Blender, paste the `.py` into the Text Editor and run it. In GeoGebra Classic 6,
+   paste the `.txt` one line at a time into the Input Bar.
 
 9. **Bring a curve back.** **Extensions → Curve Lab → Quintic sheet: place a curve**
    asks for a uid (for example `q6-trefoil-10`) and places that curve from the shared
@@ -240,9 +242,9 @@ sampling.
   `blender -b` created one spline with `order_u = 6`, 6 points and
   `use_endpoint_u = True`: an exact order-6 NURBS quintic. That is Blender's own
   report, not a claim from a file reader.
-- **GeoGebra has not seen the commands.** No GeoGebra app is installed on this
-  machine, so the `-geogebra.txt` lines are checked as text only. Paste them into the
-  Input Bar once to close that gap.
+- **GeoGebra 6.0.937 is installed** (the universal build; it opens on this Intel
+  Mac). Its commands are still checked as text only, because GeoGebra has no
+  command-line input: the first paste into the Input Bar is the operator's step.
 - **The GUI has not been driven.** The dialog has only been run headless. Open a
   drawn stroke, run **Extensions → Curve Lab → Quintic from Guide**, tick Live
   preview and drag Fullness once. One minute of clicking is the remaining proof.
