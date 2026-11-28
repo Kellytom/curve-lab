@@ -383,8 +383,19 @@ re-run, and only the affected files change.
 carries nothing. It is *not* safe for stained glass, paintings and illumination — that is what the
 exception file is for.
 
-**Site shape:** HTML on Cloudflare Pages (free), images in one bucket (R2 or B2, 6 GB inside the free
-tier), the archive tree on disk and deposited to the Internet Archive. No sharding, no monthly bill.
+**The public tier is 16-colour palette PNG, not grey JPEG** (operator, 2026-11-28: banding is acceptable).
+Measured on the same 12 files: grey JPEG q65 111 KB, pngquant 16 colours 66 KB. Per class the gain is
+uneven — on PNG sources it is −41 %, on JPEG sources +6 % — because palette PNG suits line art and
+screenshots and bands on photographs. The operator accepted the banding for the size and for the
+uniform format, so `--palette 16` is the default and the escape hatches are:
+`keep-colour.txt` (colour q75) and `keep-full.txt` (a 2000 px q80 copy the page links to).
+
+**Speed, measured:** `pngquant --speed 1` costs 1.9 s a file; `--speed 11` costs 0.41 s and produced a
+*slightly smaller* file. `oxipng -o2` saved 2 KB for 0.4 s, so it is not used. The run is therefore
+about 0.3 s a file, roughly five hours for 62,607 files.
+
+**Site shape:** HTML on Cloudflare Pages (free), the palette images in one bucket (R2 or B2, inside the
+free tier), the archive tree on disk and deposited to the Internet Archive. No sharding, no monthly bill.
 
 **Progress:** the run is resumable, skips files already written, and stops at the 5 GiB floor. At about
 0.2 s a file, 54,011 files is roughly three hours.

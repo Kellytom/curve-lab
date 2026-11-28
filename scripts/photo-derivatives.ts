@@ -24,7 +24,7 @@
  */
 
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, statSync, appendFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, appendFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
 
@@ -33,6 +33,7 @@ const MANIFEST = path.join(ROOT, "manifest.jsonl");
 const OUT = path.join(homedir(), "Pictures", "photo-public");
 const OUT_MANIFEST = path.join(OUT, "manifest.jsonl");
 const KEEP_COLOUR = path.join(ROOT, "keep-colour.txt");
+const KEEP_FULL = path.join(ROOT, "keep-full.txt");
 const INDEX = path.join(OUT, "index.html");
 const GREY_PROFILE =
   "/System/Library/ColorSync/Profiles/Generic Gray Gamma 2.2 Profile.icc";
@@ -45,6 +46,7 @@ const flag = (name: string, fallback?: string): string | undefined => {
 const has = (name: string) => argv.includes(name);
 
 const LONG_SIDE = Number(flag("--long-side", "1200"));
+const PALETTE = Number(flag("--palette", "16"));
 const GREY_QUALITY = Number(flag("--grey-quality", "65"));
 const COLOUR_QUALITY = Number(flag("--colour-quality", "75"));
 const LIMIT = Number(flag("--limit", "0"));
@@ -55,6 +57,15 @@ const MIN_FREE_GB = Number(flag("--min-free-gb", "5"));
 /* ---------- the colour exceptions ---------- */
 
 /** Glob lines; `*` matches anything, case-insensitive, tested against album and source path. */
+function loadGlobs(file: string): RegExp[] {
+  if (!existsSync(file)) return [];
+  return readFileSync(file, "utf8")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith("#"))
+    .map((glob) => new RegExp(`^${glob.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*")}$`, "i"));
+}
+
 function loadKeepColour(): RegExp[] {
   if (!existsSync(KEEP_COLOUR)) return [];
   return readFileSync(KEEP_COLOUR, "utf8")
@@ -70,6 +81,7 @@ type Row = { album: string; out_path: string; filename: string; status: string; 
 type Done = { src: string; out: string; bytes: number; colour: boolean };
 
 const keepColour = loadKeepColour();
+const keepFull = loadGlobs(KEEP_FULL);
 const rows: Row[] = readFileSync(MANIFEST, "utf8")
   .split("\n")
   .filter(Boolean)
@@ -126,17 +138,31 @@ for (const row of rows) {
     continue;
   }
 
-  const colour = keepColour.some((re) => re.test(row.out_path) || re.test(row.album));
+  const full = keepFull.some((re) => re.test(row.out_path) || re.test(row.album));
+  const colour = !full && keepColour.some((re) => re.test(row.out_path) || re.test(row.album));
+  const ext = path.extname(row.out_path).toLowerCase();
+  const albumDir = path.join(OUT, row.album.replace(/[/:]/g, "-"));
   const stem = path.basename(row.out_path, path.extname(row.out_path));
-  const outPath = path.join(OUT, row.album.replace(/[/:]/g, "-"), `${stem}.jpg`);
-  mkdirSync(path.dirname(outPath), { recursive: true });
-
-  const args = ["-Z", String(LONG_SIDE), "-s", "format", "jpeg", "-s", "formatOptions", String(colour ? COLOUR_QUALITY : GREY_QUALITY)];
-  if (!colour) args.push("--matchTo", GREY_PROFILE);
-  args.push(src, "--out", outPath);
+  const outPath = path.join(albumDir, `${stem}${full || colour ? ".jpg" : ".png"}`);
+  mkdirSync(albumDir, { recursive: true });
 
   try {
-    execFileSync("sips", args, { stdio: "ignore" });
+    if (full) {
+      // the linked high-quality copy: 2000 px, q80, colour
+      execFileSync("sips", ["-Z", "2000", "-s", "format", "jpeg", "-s", "formatOptions", "80", src, "--out", outPath], { stdio: "ignore" });
+    } else if (colour) {
+      execFileSync("sips", ["-Z", String(LONG_SIDE), "-s", "format", "jpeg", "-s", "formatOptions", String(COLOUR_QUALITY), src, "--out", outPath], { stdio: "ignore" });
+    } else {
+      // the public tier: a 16-colour palette, which bands on photographs and suits
+      // line art and screenshots extremely well. The operator accepted the banding.
+      const tmp = path.join(OUT, "_tmp.png");
+      execFileSync("sips", ["-Z", String(LONG_SIDE), "-s", "format", "png", src, "--out", tmp], { stdio: "ignore" });
+      // measured on one 780 KB source: speed 1 -> 1868 ms / 110 KB, speed 11 -> 409 ms / 106 KB,
+      // so the fast setting is both smaller and four times quicker.
+      execFileSync("pngquant", ["--colors", String(PALETTE), "--speed", "11", "--force", "--output", outPath, tmp], { stdio: "ignore" });
+      // oxipng -o2 saved about 2 KB per file for 0.4 s each: not worth seven hours.
+      rmSync(tmp, { force: true });
+    }
     const size = statSync(outPath).size;
     const inSize = statSync(src).size;
     bytesIn += inSize;
