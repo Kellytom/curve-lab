@@ -47,6 +47,10 @@ const CHUNK = Math.max(1, Number(flag("--chunk", "20")));
 const TRANSCODE_VIDEO = has("--video");
 const ALL_LIBRARY = has("--all");
 const HASH_INDEX = path.join(OUT_ROOT, "hashes.jsonl");
+const LOCK = path.join(OUT_ROOT, ".lock");
+const ALIASES = path.join(OUT_ROOT, "aliases.jsonl");
+const noteName = (keptRel: string, name: string, album: string) =>
+  appendFileSync(ALIASES, `${JSON.stringify({ p: keptRel, n: name, a: album })}\n`);
 const ALBUM_CACHE = path.join(OUT_ROOT, "albums.json");
 const REFRESH_ALBUMS = has("--refresh-albums");
 const MODE = has("--from-plan") ? "plan" : has("--from-dir") ? "dir" : has("--run") || has("--all") ? "run" : has("--report") ? "report" : "inventory";
@@ -170,6 +174,11 @@ function exportChunk(album: string | null, from: number, to: number, target: str
       return { id, filename, date, index: 0 };
     });
 }
+
+/** "Copy of Mass" -> "Mass": Google Photos prefixes downloads and the prefix is not a name. */
+const cleanLabel = (text: string) => text.replace(/^copy of\s+/i, "").trim();
+/** A name made only of punctuation ("." from a bad download) is no name at all. */
+const usefulLabel = (text: string) => (/[a-z0-9]/i.test(cleanLabel(text)) ? cleanLabel(text) : "");
 
 /** A folder-safe slug: "Hotels mexico" -> "hotels-mexico". */
 function slug(text: string): string {
@@ -447,6 +456,7 @@ function run(): void {
       done_at: new Date().toISOString(),
     });
 
+    if (result.outPath) noteName(path.relative(OUT_ROOT, result.outPath), path.basename(row.src), row.album);
     if (result.status !== "failed" && result.status !== "duplicate" && result.outPath) {
       appendFileSync(HASH_INDEX, `${JSON.stringify({ h: result.originalSha256, p: path.relative(OUT_ROOT, result.outPath) })}\n`);
     }
@@ -541,6 +551,7 @@ function unpackIfZip(target: string): string {
 }
 
 function runFromDir(rootIn: string): void {
+  const wasZip = rootIn.toLowerCase().endsWith(".zip");
   const root = unpackIfZip(rootIn);
   const seen = new Map<string, string>();
   const done = loadDone();
@@ -597,7 +608,10 @@ function runFromDir(rootIn: string): void {
       break;
     }
     const parts = file.rel.split(path.sep);
-    const album = parts.length > 1 ? parts[0] : path.basename(root);
+    const rawLabel = parts.length > 1 ? parts[0] : path.basename(root);
+    const mtimeForYear = statSync(file.abs).mtime;
+    const album =
+      usefulLabel(rawLabel) || `_by-year/${mtimeForYear.getFullYear()}`;
     const n = (indexByAlbum.get(album) ?? 0) + 1;
     indexByAlbum.set(album, n);
     const mtime = statSync(file.abs).mtime;
@@ -636,6 +650,7 @@ function runFromDir(rootIn: string): void {
       error: result.error,
       done_at: new Date().toISOString(),
     });
+    if (result.outPath) noteName(path.relative(OUT_ROOT, result.outPath), path.basename(file.abs), album);
     if (result.status === "reduced" || result.status === "over-target") {
       processed += 1;
       before += result.originalBytes;
@@ -646,6 +661,8 @@ function runFromDir(rootIn: string): void {
   }
 
   console.log(`\n${processed} reduced, ${skipped} skipped, ${failed} failed; ${(before / 1e9).toFixed(2)} GB in, ${(after / 1e9).toFixed(2)} GB out`);
+  // the zip is the archive of record; the unpacked copy is only a staging area
+  if (wasZip) rmSync(root, { recursive: true, force: true });
 }
 
 
@@ -731,6 +748,7 @@ function runFromPlan(): void {
       done_at: new Date().toISOString(),
     });
 
+    if (result.outPath) noteName(path.relative(OUT_ROOT, result.outPath), path.basename(row.src), row.album);
     if (result.status !== "failed" && result.status !== "duplicate" && result.outPath) {
       appendFileSync(HASH_INDEX, `${JSON.stringify({ h: result.originalSha256, p: path.relative(OUT_ROOT, result.outPath) })}\n`);
     }
@@ -755,8 +773,37 @@ function runFromPlan(): void {
   );
 }
 
-if (MODE === "plan") runFromPlan();
-else if (MODE === "dir") runFromDir(FROM_DIR!);
-else if (MODE === "run") run();
+function takeLock(): void {
+  if (existsSync(LOCK)) {
+    const pid = Number(readFileSync(LOCK, "utf8").trim());
+    let alive = false;
+    try {
+      process.kill(pid, 0);
+      alive = true;
+    } catch {
+      alive = false;
+    }
+    if (alive) {
+      console.error(`another reducer is running (pid ${pid}). One writer at a time: ${LOCK}`);
+      process.exit(3);
+    }
+  }
+  mkdirSync(OUT_ROOT, { recursive: true });
+  writeFileSync(LOCK, String(process.pid));
+  const release = () => {
+    try {
+      if (existsSync(LOCK) && readFileSync(LOCK, "utf8").trim() === String(process.pid)) rmSync(LOCK);
+    } catch {
+      /* nothing to do */
+    }
+  };
+  process.on("exit", release);
+  process.on("SIGINT", () => process.exit(130));
+  process.on("SIGTERM", () => process.exit(143));
+}
+
+if (MODE === "plan") { takeLock(); runFromPlan(); }
+else if (MODE === "dir") { takeLock(); runFromDir(FROM_DIR!); }
+else if (MODE === "run") { takeLock(); run(); }
 else if (MODE === "report") report();
 else inventory();
