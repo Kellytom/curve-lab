@@ -357,3 +357,37 @@ look right however the extension draws it — that is the primitive, not your co
 
 Proved by: `node --test tests/js/quintic-*.test.ts` → 25 pass, 0 fail; `node
 scripts/quintic-fullness.ts` writes the fixture.
+
+---
+
+## 2026-11-27 — what is ready for your Inkscape work, and what not to touch
+
+Job: you are on the Inkscape extension and the quintic lab; this note is what is stable on this side,
+so you do not spend an hour re-deriving it.
+
+**Stable, test-covered, safe to read**
+- `workbench/quintic-guides.json` — 200 curves, contract `curve-lab.quintic/1`.
+- `workbench/quintic-fullness.json` — the α fixture: 5 guides × α = 0, ¼, ½, ¾, 1, with the six
+  control points written out. Check your output against it point for point.
+- `workbench/quintic-chain.json` — four spans placed end to end with the measured joins.
+- `workbench/quintic-closed.json` — the closed ring, `closed: true` and a winding.
+- `format/quintic.schema.json` — the written contract.
+- `scripts/lib/quintic-geometry.ts` — evaluate, split, sub-curve, cubic chain, end frame. Plain
+  functions, no I/O. If your lab needs a cubic chain of a quintic, import this rather than writing a
+  third copy.
+- `tests/js/quintic-*.test.ts` — 25 tests; `tests/test_quintic_contract.py` — 4, the Python side.
+
+**The convention that would otherwise cost you a day:** `frame.end.tangent` is `P5 − P4`, pointing
+**forward**, and `kappa` is signed along that direction. My first version had it reversed; the contract
+test caught it. A join compared without that convention reads as a 180° corner.
+
+**Do not write these:** `workbench/quintic-guides.json`, `quintic-fullness.json`, `quintic-chain.json`,
+`quintic-closed.json` — they are generated. Regenerate, do not patch. A meaning change is a format
+bump (`curve-lab.quintic/2`) and both readers in one commit, not an edit.
+
+**Measured limit worth knowing before judging a shape:** one polynomial quintic holds one lobe
+(fit 0.07–0.50 grid units on cyma, echinus, volute, rocaille) and fails on multi-lobe forms (2.0–2.4 on
+trefoil, arabesque, acanthus). A trefoil that looks wrong is the primitive, not your renderer.
+
+Proved by: `node --test tests/js/quintic-*.test.ts` 25 pass; `node --test tests/test_regressions.ts`
+38 pass; `python -m unittest tests.test_quintic_contract` 4 pass.

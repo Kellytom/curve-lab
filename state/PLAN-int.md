@@ -305,8 +305,8 @@ structure. Everything below is landed and pushed.
 | 3 | **Spans chained and measured** | `Fig. QC1`; cyma reversa → recta is G3, the other joins G1 with their Δκ printed | **landed** |
 | 4 | **A closed shape** | `Fig. QX1`; four-span ring, G3 at every join, winding ccw, radial error 0.325 | **landed** |
 | 5 | **The fullness fixture** | `Fig. QF1`; five α values × five guides; `tests/js/quintic-fullness.test.ts` 5 pass | **landed** |
-| 6 | **Source one real moulding profile** | the ornament fit error measured against a published profile, not against my own target | **next** |
-| 7 | **Close the two ports** (`root_search`, `coupler_curves`) | `state/PORT-int.md` row per port, "retired" or its consumer named | parked behind 6 |
+| 6 | **Source one real moulding profile** | the ornament fit error measured against a published profile, not against my own target | next for the curve work; the photo reduction is the live job |
+| 7 | **Close the two ports** (`root_search`, `coupler_curves`) | `state/PORT-int.md` row per port, "retired" or its consumer named | **parked 2026-11-27** — the operator's direction is photos and the canon; this is not blocked, just outranked |
 
 **The arithmetic that decides the chain work:** an open chain of n spans has `2n` unknowns (two
 handle lengths each) and `2(n−1)` G3 constraints, so **two degrees of freedom survive** — the end
