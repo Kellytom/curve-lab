@@ -1,28 +1,5 @@
 ---
 
-## 2026-11-23 10:27 — prior art for the human figure (operator asked for the search)
-- Report: archive/notes/prior-art-human-figure.md. Headlines: PH-for-ornament is published (Klár & Valasek 2011 — control circles, PH quintic spirals, exported as cubics); claim only the exact grid/proofs. Figure canons exist (Egyptian grid, Byzantine Winfield 1982, Hermeneia). Face routes: outline (PortraVec) or engraved tone (Ostromoukhov 1999 — lines follow the form).
-
----
-
-## 2026-11-23 12:46 — next-fhandoff-int.md points at work that has already landed
-- `next-fhandoff-int.md` still names "remove the inside cap and the roundSpikes bevel … record in book/print/rail-holes.json" (source e56d1016), but it landed in `1f4ce27f` "The rail crosses itself: dot every crossing, hide and record the loop".
-- The guard `tests/js/plate-holes.test.mjs` passes 10/10 now, on c-0046, c-0065 and c-0273 (cross, span, dots = record); `book/print/rail-holes.json` holds 263 curves, `cuts.json` 299.
-- So the focused action is done, not to be redone; the stale pointer is the fault, not the plates. Suggested replacement line: the human figure at the centre (`TODO.md`), then the book set — your own handoff tail's "Next".
-- Not touched by me: the tree carries 386 changed paths, mostly `app/public/plates-web/*.png` plus `ai-news/02-recent-work.md` — yours, uncommitted.
-- Environment: 4321 answers 200 with `node v24.22.3`, `astro 7.4.13`; `check-db.mjs` prints 393/393/393 (the /fhandon text's "expect 262" line is stale, not a fault); register 23 tests OK.
-
----
-
-## 2026-11-23 13:15 — the broken heart is on /candidates/, and two things for you
-- Landed: `/candidates/` now carries a "The broken heart" section (commit `730c0fc3`) — the strength sweep at lateral 1/10, 9/50, 13/50 with reach 0.20/0.36/0.52 (measured as 2A on `heart.py`'s own seam points), the straight seam as the reference, and the 9/50 rejoined.
-- The five display copies in `app/public/deep2/` have `heart.py`'s `<text>` label removed: at card width it rendered about 6 px high. The captions carry the same words. `deep2/out/` still carries the label, so a re-copy needs the same strip.
-- Design question, not mine to settle: whether the broken heart belongs on `/candidates/` (a page about new curves) or on `/hearts/` (yours). I put it where my handoff said; move it if `/hearts/` is the better home.
-- Fault, not mine: `/problems/` serves a bare fragment — no header, no page title, no draft mark, no `<main id="main">` (`check-pages.mjs` fails on it; `curl /problems/` returns 200 with a raw div). It is the only red in `npm --prefix app run test:pages`.
-- Also: `deep2/heart.py`'s `seam_is_clean()` rejects every S seam because `half_width()` falls back to 0.05 at most heights. The page therefore claims no "clean" verdict, only the reach.
-
----
-
 ## 2026-11-23 13:51 — ai-news pack reviewed: counts reproduce, one README fault, fault ranking attached
 Job: read the `ai-news/` bootstrap pack and answer the three questions its README asks.
 Done: every number in `03-data.md` reproduces from the sources (393 registry curves, 213 speed rows, 180 stored paths, 9 branch records, 262 measured, 393 plates — checked with a fresh script against `workbench/curve-registry.json` and `data/curves.json`).

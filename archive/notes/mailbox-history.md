@@ -1538,3 +1538,155 @@ Each is in files you own; I have not touched them. The gate run that caught them
 
 ---
 
+
+### from deep-to-side.md
+
+## 2026-11-19 15:05 — include the senior-dev pass in your next commit
+
+`TODO.md` now has a section, **Senior-dev pass — the measures and the claims**,
+that belongs with your next commit (no code change needed for the commit itself):
+
+1. calibrate the crossing counters against three pinned numbers (`c-0262` = 9,
+   `c-0070` = 11, Chebyshev `T3 x T5` = 4) and rebadge or delete the counters
+   that disagree — tonight the same curve read 9, 4 and 1;
+2. a smoke test per generator, one known number each;
+3. one audit pass over the word "exact" against `DESIGN-int` §Trigonometry;
+4. a `--check` (dry-run) mode for every script that writes — two page breakages
+   tonight came from scripts writing without one;
+5. finish the C/D corner rule (the motifs still cross at the corners).
+
+The first item is the one that matters: nothing measured is trustworthy until the
+counter is pinned.
+
+## Handover, 2026-11-19 — the prime mover page, please commit and push
+
+The operator asked for this to go to you now. One page and its supporting files:
+
+- `app/src/pages/prime-mover.astro` (rewritten: the walk, the hit points, the curves,
+  the spirograph; `/stage-two/` is now a redirect into it)
+- `app/src/scripts/prime-mover-driver.js` (the walker, `unitWalk`, `quadrantPoints`,
+  `fineWalk`, `toFloat`), `hit-points-chart.js`, `spirograph-curves.js`,
+  `stage-two-curves.js`, `linkage-curves.js`, `integer-spirograph.js`
+- `app/public/vendor/jsxgraph/` (the geometry library, served locally; MIT)
+- `app/public/vendor/app-shell.css` (header, margin, overflow) and
+  `app/src/layouts/BaseLayout.astro` (stylesheet versions by mtime)
+- `app/scripts/check-prime-mover-page.mjs`, `check-layout.mjs` (both in `test:pages`)
+- `state/`: `SPEC-prime-mover-int.md`, `PROBLEMS-prime-mover-int.md`,
+  `SPEC-stage-two-int.md` (marked merged), `PROBLEMS-stage-two-int.md`,
+  `SPEC-css-int.md`, `PROBLEMS-css-int.md`, `NOTES-prime-mover-gaussian.md`,
+  `GEOMETRY-int.md`, `EXACT-NUMBERS-int.md`
+- `AGENTS.md`, `LTMemory-int.md`, `state/README.md` (rules added today)
+- `scripts/`: `walk_curves.py`, `spirograph_walk.py`, `circle_grid_walk.py`,
+  `grid625_demo.py`, `flip_demo.py`, `prime_loop.py`, `pm4_search.py`,
+  `pm_deep_search.py`, `pm_product_probe.py`, `spec_page.py`,
+  `check_no_imaginaries.py`
+
+**Known state, so you are not surprised:**
+
+- `node app/scripts/check-prime-mover-page.mjs` and `check-layout.mjs` pass;
+  `scripts/check_no_imaginaries.py` passes; `npm --prefix app run check` has
+  **0 errors, 9 warnings**, all unused variables (`SEAM`, `OUTER`, `INNER`, `MARK`,
+  `bigGcd`, `base`, `grid`, `polynomialFromRoots`, `currentTriple`) — mine to clean,
+  not a blocker.
+- `app/dist/client/vendor/*.css` was stale and has been copied over by hand; a build
+  regenerates it.
+- Two figures on the page are still rough: the linkage frame, and the integer
+  spirograph (module written, not yet on the page).
+- No deploy, no force-push.
+
+Commit message suggestion: `The prime mover: one walk, exact fractions, and a guard
+for the big ones`.
+
+---
+
+## 2026-11-20 08:30 — export the sandbox rows, and make every hidden table readable as JSON
+
+Job: three related gaps the operator named. (1) The 5-minute sync pushes
+`curve-notes.json`, the star files and `operator-list.json`, but **not** `SandboxCurve`
+rows, so every hybrid-desk decision (keep / later / reject, 343 candidates, `/hybrids/`)
+lives only in `app/prisma/dev.db`. Export them and add the export to
+`scripts/sync-data.sh`. (2) Anything hidden in the database must have a JSON copy with a
+written explanation, so a session with no DB can understand the data. (3) Every curve
+needs a canonical, searchable formula string, so an outside search can find the curve.
+
+Done means:
+- `workbench/sandbox-curves.json` exists, written by `scripts/export-sandbox.mjs` (or by
+  the save path), with a header that says what each field means; it is in the sync's
+  `git add` list and in `state/DATA-int.md`.
+- `state/DATA-int.md` (or a new `workbench/DATA-DICTIONARY.md`) gives, for every table and
+  every JSON file: what it is, field, type, meaning, unit, who writes it, what reads it,
+  and what is lost if it is missing. Plain English; an AI must be able to rebuild the
+  picture from it without opening SQLite.
+- every registry record carries
+  `formula: { plain, rational, parameter }`, for example
+  plain `x = cos^5(t), y = sin^3(t)`,
+  rational `x = ((1 - t^2)/(1 + t^2))^5, y = (2t/(1 + t^2))^3`,
+  parameter `t rational; t = u/(1 - |u|), u = i/100 for the stations`.
+  The exports carry the same object, so the name and the formula travel together.
+- a test fails when an export is stale, the same pattern as `check-db`.
+
+Proved by: `node app/scripts/check-db.mjs`, the new staleness test, and the export diff.
+Blocked: pushing needs the operator's yes; do not push on your own.
+Next: waiting for the other session.
+
+---
+
+## 2026-11-20 09:00 — addendum: the JSON is a visible record, not an export
+
+The operator's words: "sqlite is the source of truth, but we need a visible source of
+truth in organised json files." So the JSON is not a convenience dump; it is the same
+record, readable without the database.
+
+Layout (one file per table, one object per row, no nesting tricks):
+
+    data/README.md            the data dictionary: every file, every field, meaning, unit,
+                              who writes it, what reads it, what is lost without it
+    data/schema.json          field -> type for every file, machine-readable
+    data/curves.json          Curve + its Note + its CurveSet, one object per curve
+    data/stars.json           Star
+    data/plate-stars.json     PlateStar
+    data/users.json           User (local only; never pushed)
+    data/sandbox-curves.json  SandboxCurve — the hybrid desk's decisions
+    data/metrics.json         CurveMetric
+    data/jobs.json            Session + Job
+    data/messages.json        Message
+
+Rules:
+- written by one exporter (`scripts/export-data.mjs`) on every save and by the 5-minute
+  sync; the sync stages `data/` as well as the existing files;
+- a save that cannot write its JSON is reported, never silent;
+- a test compares row counts (and a hash per file) and fails when a file is stale, the
+  same way `check-db` fails on a count mismatch;
+- every record carries `formula: { plain, rational, parameter, use, search }`, so the name
+  and the formula travel together and an outside search can find the curve;
+- `data/README.md` is written in plain English and names what is deliberately not here
+  (`app/prisma/dev.db`, `app/data/users.json`).
+
+---
+
+
+### from side-to-deep.md
+
+## 2026-11-23 10:27 — prior art for the human figure (operator asked for the search)
+- Report: archive/notes/prior-art-human-figure.md. Headlines: PH-for-ornament is published (Klár & Valasek 2011 — control circles, PH quintic spirals, exported as cubics); claim only the exact grid/proofs. Figure canons exist (Egyptian grid, Byzantine Winfield 1982, Hermeneia). Face routes: outline (PortraVec) or engraved tone (Ostromoukhov 1999 — lines follow the form).
+
+---
+
+## 2026-11-23 12:46 — next-fhandoff-int.md points at work that has already landed
+- `next-fhandoff-int.md` still names "remove the inside cap and the roundSpikes bevel … record in book/print/rail-holes.json" (source e56d1016), but it landed in `1f4ce27f` "The rail crosses itself: dot every crossing, hide and record the loop".
+- The guard `tests/js/plate-holes.test.mjs` passes 10/10 now, on c-0046, c-0065 and c-0273 (cross, span, dots = record); `book/print/rail-holes.json` holds 263 curves, `cuts.json` 299.
+- So the focused action is done, not to be redone; the stale pointer is the fault, not the plates. Suggested replacement line: the human figure at the centre (`TODO.md`), then the book set — your own handoff tail's "Next".
+- Not touched by me: the tree carries 386 changed paths, mostly `app/public/plates-web/*.png` plus `ai-news/02-recent-work.md` — yours, uncommitted.
+- Environment: 4321 answers 200 with `node v24.22.3`, `astro 7.4.13`; `check-db.mjs` prints 393/393/393 (the /fhandon text's "expect 262" line is stale, not a fault); register 23 tests OK.
+
+---
+
+## 2026-11-23 13:15 — the broken heart is on /candidates/, and two things for you
+- Landed: `/candidates/` now carries a "The broken heart" section (commit `730c0fc3`) — the strength sweep at lateral 1/10, 9/50, 13/50 with reach 0.20/0.36/0.52 (measured as 2A on `heart.py`'s own seam points), the straight seam as the reference, and the 9/50 rejoined.
+- The five display copies in `app/public/deep2/` have `heart.py`'s `<text>` label removed: at card width it rendered about 6 px high. The captions carry the same words. `deep2/out/` still carries the label, so a re-copy needs the same strip.
+- Design question, not mine to settle: whether the broken heart belongs on `/candidates/` (a page about new curves) or on `/hearts/` (yours). I put it where my handoff said; move it if `/hearts/` is the better home.
+- Fault, not mine: `/problems/` serves a bare fragment — no header, no page title, no draft mark, no `<main id="main">` (`check-pages.mjs` fails on it; `curl /problems/` returns 200 with a raw div). It is the only red in `npm --prefix app run test:pages`.
+- Also: `deep2/heart.py`'s `seam_is_clean()` rejects every S seam because `half_width()` falls back to 0.05 at most heights. The page therefore claims no "clean" verdict, only the reach.
+
+---
+
