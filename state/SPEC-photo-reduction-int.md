@@ -329,3 +329,32 @@ cost one file. 661 hashes recorded in the first minutes of the plan run.
 
 **Speed:** about **0.8 s per asset** from disk — 112,095 assets is roughly **25 hours**, resumable,
 stopping at the 5 GiB floor.
+
+## 11. Two collections, one record — 2026-11-27
+
+**Source A: the Mac's Photos library** (118,612 assets, 125 GB) — read from the database, plan-driven.
+**Source B: the Android set, via Google Photos album downloads** (131 zips so far, names like
+`Copy of Core`) — read with `--from-dir`, one zip at a time.
+
+Both write the same `manifest.jsonl`, so a file's origin is a column, not a second system.
+
+**Names from Google.** Every album download arrives as `Copy of <album>`; that prefix is Google's
+habit, not a name, and is stripped before a file stem is built. A download labelled `.` has no name at
+all, so its files fall back to `_by-year/YYYY`.
+
+**The same picture in two albums** is stored once. `aliases.jsonl` holds, for every kept file, every
+album and filename it answers to. Measured at 4,410 duplicate rows: 1,990 kept files carry more than
+one name. This is the input a deliberate naming pass needs.
+
+**The naming plan.** `scripts/photo-naming.ts` is read-only and writes `naming-plan.csv`:
+
+| proposed rule | why |
+|---|---|
+| a real album beats `_by-year/YYYY` | an album is a name a person chose |
+| shortest album wins | the least screen-derived, the most deliberate |
+| keep the original filename when it says something (`IMG_1234`) | camera names are meaningful; UUIDs and bare numbers are not |
+| proposal: `<album-slug>-<original stem>` | the album is readable without opening the folder |
+
+Of **39,378** kept files, the plan proposes a new name for all of them, because the current names are
+`album-0001-date` and the proposal adds the album slug in words. **Nothing is renamed** — this is a
+decision for the operator, made at a moment of their choosing.
