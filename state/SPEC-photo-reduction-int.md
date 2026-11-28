@@ -358,3 +358,33 @@ one name. This is the input a deliberate naming pass needs.
 Of **39,378** kept files, the plan proposes a new name for all of them, because the current names are
 `album-0001-date` and the proposal adds the album slug in words. **Nothing is renamed** — this is a
 decision for the operator, made at a moment of their choosing.
+
+## 12. The public tier — grey 1200 px, 6 GB, one free bucket — 2026-11-28
+
+The operator asked for a drastic reduction so the site can live on free storage. Measured on twelve
+real files from the tree (average 222 KB each), not estimated:
+
+| setting | avg | × 54,011 | fits |
+|---|---|---|---|
+| colour, the archive | 332 KB | 18.3 GB | needs paid storage |
+| grey 1600 q75 | 190 KB | 10.5 GB | one 10 GB tier, barely |
+| **grey 1200 q65 (the public tier)** | **111 KB** | **6.1 GB** | **one 10 GB free tier, with room** |
+| grey 1000 HEIC q55 | 45 KB | 2.5 GB | even 5 GB tiers, worst compatibility |
+
+`scripts/photo-derivatives.ts` writes `~/Pictures/photo-public/` — a **separate tree**, so a change of
+mind about size or colour never rewrites the archive.
+
+**Colour is kept where it is the reference, not the decoration.** `~/Pictures/photo-reduced/keep-colour.txt`
+holds one glob per line, matched against the album and the path (`Grid art/*`, `*glass*`, `Core sel/*`);
+a match is written colour at q75, everything else grey at q65 with the system grey profile. Add a line,
+re-run, and only the affected files change.
+
+**Why greyscale is safe here:** most of the collection is engraving, line art and woodcut, where colour
+carries nothing. It is *not* safe for stained glass, paintings and illumination — that is what the
+exception file is for.
+
+**Site shape:** HTML on Cloudflare Pages (free), images in one bucket (R2 or B2, 6 GB inside the free
+tier), the archive tree on disk and deposited to the Internet Archive. No sharding, no monthly bill.
+
+**Progress:** the run is resumable, skips files already written, and stops at the 5 GiB floor. At about
+0.2 s a file, 54,011 files is roughly three hours.

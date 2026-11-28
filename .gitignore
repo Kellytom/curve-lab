@@ -134,6 +134,7 @@ app/public/frames/*.png
 # Nothing here is tracked until the operator chooses the ones to keep and their
 # names are written down. See state/SPEC-photo-reduction-int.md.
 photo-reduced/
+photo-public/
 photo-inbox/
 _unzipped/
 *.zip
